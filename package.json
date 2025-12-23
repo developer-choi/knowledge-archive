@@ -1,0 +1,10 @@
+{
+  "name": "fact-acrchive",
+  "version": "1.0.0",
+  "description": "지식 (사실)을 보관하고 AI에게 전달하여 질문-답변 방식으로 복습하기 위한 저장소",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/developer-choi/fact-acrchive.git"
+  },
+  "private": true
+}
