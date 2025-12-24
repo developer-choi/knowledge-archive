@@ -11,3 +11,16 @@
 
 ## 문서 양식
 [template.md](template.md)
+
+## 명령어
+### convert
+1. README.md
+2. template.md
+3. 전달할 구글문서를 변환한 자료 (pdf, md)
+
+3개를 입력받아서 적절한 폴더에 md로 변환하기
+
+### split
+1. 변환된 md 파일이 너무 커지거나, 향후 내용이 방대해질 것으로 **예측**되는 경우
+2. 비슷한 주제끼리 묶어서 더 작은 단위의 md 파일로 선제적으로 분리하기 (예: basics.md, performance.md 등)
+3. 주제의 확장이 예상되면 적절한 하위 폴더(예: network/foundation/)를 미리 생성하여 계층적으로 분류하기 
