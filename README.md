@@ -26,4 +26,4 @@ AI에게 다음과 같은 작업을 요청할 수 있습니다.
 2. 영어 헤딩 사용: 마크다운의 모든 헤딩 텍스트는 가급적 영어만 사용합니다.
 
 ## 문서 양식
-[template.md](template.md) 
+[template.md](meta/template.md) 
