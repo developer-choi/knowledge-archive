@@ -5,8 +5,12 @@ tags: [network, concept, protocol]
 # Questions
 - [What’s the Network?](#whats-the-network)
   - [What's the Host?](#whats-the-host)
+  - [[TODO] What is the technical difference between a simple device and a Host?](#todo-what-is-the-technical-difference-between-a-simple-device-and-a-host)
   - [What's the Router?](#whats-the-router)
+  - [[TODO] What is the difference between Routing and Forwarding?](#todo-what-is-the-difference-between-routing-and-forwarding)
+  - [[TODO] How does a router define the boundary of 'different networks?](#todo-how-does-a-router-define-the-boundary-of-different-networks)
   - [What's the Network Switch?](#whats-the-network-switch)
+  - [[TODO] Compare the Routing Table of a router and the MAC Address Table of a switch.](#todo-compare-the-routing-table-of-a-router-and-the-mac-address-table-of-a-switch)
   - [What's the MAC address?](#whats-the-mac-address)
   - [What's the difference between Physical Address and Network Address?](#whats-the-difference-between-physical-address-and-network-address)
   - Why do we need a Physical Address(MAC) if we already have a Logical Address(IP) for communication?
@@ -53,23 +57,27 @@ Hosts are assigned at least one network address.
 
 ---
 
-## What's the Router?
-### Official Answer
-A router is a networking device that forwards data packets **between computer networks**, including internetworks such as the global Internet.
+## [TODO] What is the technical difference between a simple device and a Host?
 
-### Reference
-- [Router (computing) - Wikipedia](https://en.wikipedia.org/wiki/Router_(computing))
+
+---
+
+## What's the Router?
+...
+## [TODO] What is the difference between Routing and Forwarding?
+
+
+---
+
+## [TODO] How does a router define the boundary of 'different networks'?
+
 
 ---
 
 ## What's the Network Switch?
-### Official Answer
-A network switch is networking hardware that connects devices **on a computer network** to receive and forward data to the destination device.
+...
+## [TODO] Compare the Routing Table of a router and the MAC Address Table of a switch.
 
-A network switch is a multiport network bridge that uses **MAC addresses** to forward data at the data link layer (layer 2) of the OSI model.
-
-### Reference
-- [Network switch - Wikipedia](https://en.wikipedia.org/wiki/Network_switch)
 
 ---
 
