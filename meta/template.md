@@ -2,6 +2,7 @@
 tags: [keyword1, keyword2]
 ---
 # Questions
+## (Optional) Category 1
 - [Main Question 1](#link-to-answer)
   - [Follow-up Question 1](#link-to-follow-up)
 - [Main Question 2](#link-to-answer)
