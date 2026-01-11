@@ -8,7 +8,6 @@ tags: [fsd, concept, slice, cohesion, coupling]
   - [What is cohesion, and what are some best practices to increase it?](#what-is-cohesion-and-what-are-some-best-practices-to-increase-it)
   - [What is coupling, and how can we effectively decrease it in our architecture?](#what-is-coupling-and-how-can-we-effectively-decrease-it-in-our-architecture)
 - [Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?](#why-do-the-app-and-shared-layers-skip-the-slice-level-while-other-layers-are-required-to-have-them)
-- [[TODO] What’s the domain?](#todo-whats-the-domain)
 
 ---
 
