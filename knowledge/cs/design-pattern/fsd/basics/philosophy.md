@@ -25,7 +25,7 @@ Slice, Domain
 Partition the code by business domain.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -38,7 +38,7 @@ Navigation, Modules
 Slices make your codebase easier to navigate by keeping logically related modules close together.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -53,7 +53,7 @@ Slice, Global, Domain
 > 나머지 레이어는 비즈니스 로직을 담고있기 때문에, 도메인 기준으로 한번 나눠야합니다.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -69,7 +69,7 @@ Shared Logic, Composition
 > 3. **상위 레이어(Widgets/Pages)에서 조합**: 두 슬라이스를 직접 연결하지 말고, 상위 계층인 Widgets나 Pages에서 두 슬라이스를 각각 가져와서 로직을 조립(Composition)합니다.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -88,7 +88,7 @@ Cohesion, SRP
 > - **단일 책임 원칙 (SRP)**: 이 모듈이 "하나의 일"만 하는가? (목적이 하나라면 응집도가 높은 것)
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -110,7 +110,7 @@ Coupling, Dependency
 > - **영향 범위**: 특정 함수의 파라미터를 바꿨을 때, 몇 개의 파일을 수정해야 하는지 확인합니다. (많을수록 결합도가 높은 것)
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -130,7 +130,7 @@ The problem manifests itself at least in violation of the principle of High Cohe
 > 3. 또한 의존성 규칙이 일정하여 수정 시 영향 범위를 쉽게 파악할 수 있음. (예: `entities/auth/ui` 수정 시 그 아래 레이어에는 영향이 없음)
 
 ### Reference
-- [Feature-Sliced Design Official Documentation: Desegmentation](https://feature-sliced.design/docs/guides/issues/desegmented)
+- https://feature-sliced.design/docs/guides/issues/desegmented
 
 ---
 

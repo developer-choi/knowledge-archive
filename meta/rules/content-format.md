@@ -98,8 +98,8 @@ A network is a group of communicating computers...
 예시:
 ```markdown
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
-- [MDN Web Docs: JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- https://feature-sliced.design/docs/get-started/overview
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript
 ```
 
 ### URL 불명확 시

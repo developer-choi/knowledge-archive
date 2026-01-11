@@ -52,7 +52,7 @@ Because of that, the business logic of these interactions is preferably kept in 
 > - **낮은 결합도 (Low Coupling)**: 각 슬라이스를 독립된 조각으로 유지하여, 하나를 수정하거나 삭제할 때 다른 슬라이스가 깨지지 않도록 보호합니다.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 

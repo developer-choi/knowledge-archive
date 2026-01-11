@@ -45,7 +45,7 @@ Business entities that the project works with, like user or product.
 Reusable functionality, especially when it's detached from the specifics of the project/business, though not necessarily.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -70,7 +70,7 @@ If a block of UI makes up most of the interesting content on a page, and is neve
 >   - Remix나 Next.js의 중첩 라우팅을 쓸 때는 Widget을 마치 '미니 페이지'처럼 활용할 수 있습니다. 데이터 로딩(fetch), 로딩 상태, 에러 처리까지 포함된 완전한 블록으로 만들어 라우터에 끼워 넣는 방식입니다.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -86,7 +86,7 @@ Specifically for entities/ui, it is primarily meant to reuse the same appearance
 > - 피처는 동사, 액션, 기능에 해당합니다. 따라서 실제 기능이 포함된 컴포넌트나 Hooks, 그리고 GET 이외의 API 호출 함수 등이 피처 레이어에 위치합니다.
 
 ### Reference
-- [Feature-Sliced Design Official Documentation](https://feature-sliced.design/docs/get-started/overview)
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 

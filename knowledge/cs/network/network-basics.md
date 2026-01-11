@@ -39,8 +39,8 @@ A network is a group of communicating [computers](https://en.wikipedia.org/wiki/
 > 개발자로서 'Host'는 단순히 컴퓨터가 아니라, IP 주소를 가지고 양방향 통신이 가능한 네트워크 인터페이스를 가진 모든 장치를 의미합니다.
 
 ### Reference
-- [Host (network) - Wikipedia](https://en.wikipedia.org/wiki/Host_(network))
-- [Communication protocol - Wikipedia](https://en.wikipedia.org/wiki/Communication_protocol)
+- https://en.wikipedia.org/wiki/Host_(network)
+- https://en.wikipedia.org/wiki/Communication_protocol
 
 ---
 
@@ -53,7 +53,7 @@ Hosts are assigned at least one network address.
 > 식별해야 보낼 수 있으니까, Network Address는 반드시 하나이상.
 
 ### Reference
-- [Host (network) - Wikipedia](https://en.wikipedia.org/wiki/Host_(network))
+- https://en.wikipedia.org/wiki/Host_(network)
 
 ---
 
@@ -91,7 +91,7 @@ A MAC address is a **unique identifier** assigned to a network interface control
 MAC addresses are primarily assigned by device manufacturers, and are therefore often referred to as a physical address.
 
 ### Reference
-- [MAC address - Wikipedia](https://en.wikipedia.org/wiki/MAC_address)
+- https://en.wikipedia.org/wiki/MAC_address
 
 ---
 
@@ -104,8 +104,8 @@ MAC Address가 넓은 의미에서는 Network Address가 맞긴하지만,
 IP Address를 Network Address라고 부른다.
 
 ### Reference
-- [MAC address - Wikipedia](https://en.wikipedia.org/wiki/MAC_address)
-- [IP address - Wikipedia](https://en.wikipedia.org/wiki/IP_address)
+- https://en.wikipedia.org/wiki/MAC_address
+- https://en.wikipedia.org/wiki/IP_address
 
 ---
 
@@ -121,7 +121,7 @@ Within a computer network, hosts are identified by [network addresses](https://e
 > User Annotation: IP, MAC 말고도 포트 번호나 서비스 ID 등 식별 수단은 상황에 따라 더 다양할 수 있음.
 
 ### Reference
-- [Network address - Wikipedia](https://en.wikipedia.org/wiki/Network_address)
+- https://en.wikipedia.org/wiki/Network_address
 
 ---
 
@@ -137,8 +137,8 @@ Hosts may also have [hostnames](https://en.wikipedia.org/wiki/Hostname), memorab
 > 2. **DNS Server**: 로컬에 정보가 없다면 외부의 네임 서버(DNS)에 물어봅니다.
 
 ### Reference
-- [Hostname - Wikipedia](https://en.wikipedia.org/wiki/Hostname)
-- [Domain Name Service - Wikipedia](https://en.wikipedia.org/wiki/Domain_Name_Service)
+- https://en.wikipedia.org/wiki/Hostname
+- https://en.wikipedia.org/wiki/Domain_Name_Service
 
 ---
 
@@ -159,8 +159,8 @@ The data that these messages contain may be delivered over physical or logical l
 > User Annotation: 처리량이라는 단어가 와닿지 않으면 '데이터 이동량'이나 '작업 완료 속도'로 이해해도 무방할 듯.
 
 ### Reference
-- [Network throughput - Wikipedia](https://en.wikipedia.org/wiki/Network_throughput)
-- [Bits per second - Wikipedia](https://en.wikipedia.org/wiki/Bits_per_second)
+- https://en.wikipedia.org/wiki/Network_throughput
+- https://en.wikipedia.org/wiki/Bits_per_second
 
 ---
 
@@ -177,7 +177,7 @@ Throughput represents [digital bandwidth](https://en.wikipedia.org/wiki/Bandwidt
 > 즉, Throughput은 단순히 지나간 양이 아니라, 시스템이 감당해낸(처리해낸) 결과물이라는 뉘앙스가 강합니다.
 
 ### Reference
-- [Bandwidth (computing) - Wikipedia](https://en.wikipedia.org/wiki/Bandwidth_(computing))
+- https://en.wikipedia.org/wiki/Bandwidth_(computing)
 
 ---
 
@@ -197,8 +197,8 @@ When taking various [protocol overheads](https://en.wikipedia.org/wiki/Protocol_
 > - **Goodput**: 데이터 전송 시 헤더(Header) 등 부가 정보를 제외하고, 실제 사용자가 받는 '순수 데이터'의 속도를 의미합니다. (택배 상자 무게를 뺀 내용물만의 무게와 같음)
 
 ### Reference
-- [Goodput - Wikipedia](https://en.wikipedia.org/wiki/Goodput)
-- [(Legacy) Network Overview](https://docs.google.com/document/d/1iGVkhRpG4RBhbpmI-AkHjRnOE8r7JyfyIxfjZH4UHCI/edit?tab=t.0#heading=h.oulolko7jpu0)
+- https://en.wikipedia.org/wiki/Goodput
+- https://docs.google.com/document/d/1iGVkhRpG4RBhbpmI-AkHjRnOE8r7JyfyIxfjZH4UHCI/edit?tab=t.0#heading=h.oulolko7jpu0
 
 ---
 
