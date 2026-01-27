@@ -45,7 +45,7 @@ tags: [react, performance, concept]
 ## 3. Official Answer
 
 ### 작성 원칙
-- **영어 우선**: 공식 문서 원문 또는 객관적 사실을 영어로 작성
+- **원본 언어 유지**: 사용자가 작성한 필기나 요약이 한글이라면 **한글 그대로 작성**합니다.
 - **출처 명확성**: 반드시 Reference에 출처를 명시
 - **객관성**: 개인적 해석이 아닌 검증 가능한 사실만 포함
 
@@ -66,6 +66,7 @@ A network is a group of communicating computers...
 
 #### User Annotation
 사용자의 개인적인 해석 및 보충 설명을 포함합니다.
+만약 사용자의 원본 필기가 핵심 답변에 해당한다면 `Official Answer`에 직접 작성하고, 부가적인 메모만 여기에 남깁니다.
 
 예시:
 ```markdown

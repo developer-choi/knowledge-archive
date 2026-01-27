@@ -48,6 +48,7 @@
 ### [CRITICAL] 지켜야 할 원칙
 
 - **규칙 준수**: [문서 구조 규칙](../rules/document-structure.md), [파일 위치 선정 규칙](../rules/file-placement.md), [내용 작성 규칙](../rules/content-format.md)을 반드시 따릅니다.
+- **원본 언어 존중**: 사용자의 원본 필기(한글 등)가 핵심 내용인 경우, 이를 억지로 영문 번역하지 말고 그대로 `Official Answer`에 포함합니다.
 - **Step 1 검증 실패 시 작업 거부**: 사실(Fact)이 아니거나, 출처 불명확하거나, 회사 특정 정보는 변환 거부
 - **Step 6에서 사용자 대기**: 링크 URL 보완은 사용자 역할이므로 여기서 멈추고 승인 대기
 - **저작권 주의**: Getty Images 등 외부 이미지는 텍스트로 대체
@@ -68,9 +69,9 @@
 #### 체크리스트
 - [ ] Questions 추출/생성
 - [ ] Keywords 추출
-- [ ] 영어 → Official Answer 본문
+- [ ] 핵심 내용(영어 원문 or 사용자 정리) → Official Answer 본문
 - [ ] Gemini 캡처 → `> AI Annotation`
-- [ ] 한글 보충 설명 → `> User Annotation`
+- [ ] 부가 설명 → `> User Annotation`
 - [ ] 공식 문서 다이어그램 → 텍스트 설명으로 변환
 
 #### 핵심 매핑 방법
@@ -81,9 +82,9 @@
 - 답변 없는 질문은 `[TODO]` 처리
 
 **텍스트 → 섹션**:
-- 영어 텍스트 → `Official Answer`
-- Gemini 캡처 → `> AI Annotation`
-- 한글 보충 설명 → `> User Annotation`
+- **핵심 답변(Core Fact)**: 영어 원문이든 사용자 정리(한글)든 `Official Answer`에 배치.
+- **Gemini 캡처**: `> AI Annotation`으로 이동.
+- **부가 설명(Side Note)**: `> User Annotation`으로 이동.
 
 자세한 규칙은 [내용 작성 규칙](../rules/content-format.md)을 참고하세요.
 
