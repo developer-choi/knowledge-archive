@@ -79,7 +79,7 @@ A network is a group of communicating computers...
 
 ### 작성 규칙
 - 공식 문서 URL 또는 위키피디아 링크 제공
-- 링크 형식: `[문서 제목](URL)`
+- 링크 형식: 순수 URL만 기재 (Markdown 링크 문법 사용 X)
 
 예시:
 ```markdown
@@ -94,7 +94,7 @@ A network is a group of communicating computers...
 
 예시:
 ```markdown
-- [Domain Name Service](URL_UNKNOWN)
+- URL_UNKNOWN
 ```
 
 ---
