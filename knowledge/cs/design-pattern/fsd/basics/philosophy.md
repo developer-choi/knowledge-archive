@@ -97,3 +97,4 @@ The problem manifests itself at least in violation of the principle of High Cohe
 ### Official Answer
 
 ### Reference
+- https://en.wikipedia.org/wiki/Domain_(software_engineering)
