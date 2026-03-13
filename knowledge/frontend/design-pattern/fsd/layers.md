@@ -6,9 +6,8 @@ tags: [fsd, architecture, layers, responsibility]
 - [What is the purpose of layers in FSD, and what is the responsibility of each layer?](#what-is-the-purpose-of-layers-in-fsd-and-what-is-the-responsibility-of-each-layer)
   - [When should we use the 'Widgets' layer, and when should we avoid it?](#when-should-we-use-the-widgets-layer-and-when-should-we-avoid-it)
   - [What is the key difference between 'Entities' and 'Features' in FSD?](#what-is-the-key-difference-between-entities-and-features-in-fsd)
-- [What are segments in FSD, and what is the role of each one?](#what-are-segments-in-fsd-and-what-is-the-role-of-each-one)
-- [What is the role of the Public API in an FSD slice, and how does it support refactoring?](#what-is-the-role-of-the-public-api-in-an-fsd-slice-and-how-does-it-support-refactoring)
-- [Why should I avoid using wildcard re-exports in a public API within FSD?](#why-should-i-avoid-using-wildcard-re-exports-in-a-public-api-within-fsd)
+- [Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?](#why-do-the-app-and-shared-layers-skip-the-slice-level-while-other-layers-are-required-to-have-them)
+- [TODO] What is the key difference between 'App' and 'Pages' in FSD?
 
 ---
 
@@ -83,7 +82,7 @@ If a block of UI makes up most of the interesting content on a page, and is neve
 
 ## What is the key difference between 'Entities' and 'Features' in FSD?
 ### Official Answer
-An entity is a real-life concept that your app is working with. A feature is an interaction that provides real-life value to your app’s users, the thing people want to do with your entities.
+An entity is a real-life concept that your app is working with. A feature is an interaction that provides real-life value to your app's users, the thing people want to do with your entities.
 
 Specifically for entities/ui, it is primarily meant to reuse the same appearance across several pages in the app, and different business logic may be attached to it through props or slots.
 
@@ -98,71 +97,19 @@ Specifically for entities/ui, it is primarily meant to reuse the same appearance
 
 ---
 
+## Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?
+
+### Official Answer
+> AI Annotation: 앱 전체에 걸쳐 쓰이거나, 비즈니스 색깔이 전혀 없는 전역적인(Global) 성격을 가집니다. 여기에 슬라이스를 만들면 오히려 구조가 너무 파편화되어 찾기가 더 힘들어집니다. (예: `shared/button/ui` 보다 `shared/ui/button`이 관리하기 훨씬 편함)
+>
+> 나머지 레이어는 비즈니스 로직을 담고있기 때문에, 도메인 기준으로 한번 나눠야합니다.
+
+### Reference
+- https://feature-sliced.design/docs/get-started/overview
+
+---
+
 ## [TODO] What is the key difference between 'App' and 'Pages' in FSD?
 ### Official Answer
 
 ### Reference
-
----
-
-## What are segments in FSD, and what is the role of each one?
-### Official Answer
-Their purpose is to group code by its technical nature.
-> AI Anotation
-> - 개발에서 Technical Nature라는 표현은 코드를 바라보는 관점을 설명할 때 자주 사용됩니다. 
->   - 도메인 성격 (**Domain Nature**): 이 코드가 사용자에게 어떤 기능을 제공하는가? (예: 주문하기, 장바구니 담기) -> 이는 FSD에서 **Slice**가 담당합니다. 
->   - 기술적 성격 (**Technical Nature**): 이 코드가 소프트웨어 아키텍처 상에서 어떤 도구로 쓰이는가? (예: React 컴포넌트인가, Axios 함수인가, Redux 스토어인가) -> 이것이 바로 **Segment**가 담당하는 영역입니다.
-
-Make sure that the name of these segments describes the purpose of the content, not its essence.
-
-For example, components, hooks, and types are bad segment names because they aren't that helpful when you're looking for code.
-
-- **ui**: everything related to UI display: UI components, date formatters, styles, etc.
-> AI Annotation
-> - 특정 UI를 표현하기 위해 보조적으로 사용되는 스타일 파일이나 포맷팅 함수도 여기에 포함됩니다.
-
-- **api**: backend interactions: request functions, data types, mappers, etc. / for code that handles rendering and appearance
-- **model**: the data model: schemas, interfaces, stores, and business logic. / for storage and business logic
-- **lib**: library code that other modules on this slice need.
-> AI Annotation
-> - Slice 내부에서 공통적으로 사용되는 유틸리티 함수나 설정 코드 등을 모아두는 곳입니다.
-
-- **config**: configuration files and feature flags. / for feature flags, environment variables and other forms of configuration
-
----
-
-## What is the role of the Public API in an FSD slice, and how does it support refactoring?
-### Official Answer
-A public API is a contract between a group of modules, like a slice, and the code that uses it.
-It also acts as a gate, only allowing access to certain objects, and only through that public API.
-In practice, it's usually implemented as an index file with re-exports:
-
-In the context of Feature-Sliced Design, the term public API refers to a slice or segment declaring what can be imported from it by other modules in the project.
-
-For example, in JavaScript that can be an index.js file re-exporting objects from other files in the slice.
-
-This enables freedom in refactoring code inside a slice as long as the contract with the outside world (i.e. the public API) stays the same.
-
-The rest of the application must be protected from structural changes to the slice, like a refactoring.
-Only the necessary parts of the slice should be exposed.
-
-> 내 해석
-> 슬라이스나 세그먼트에서, 외부에 공개할 모듈만 따로 선택하기 위한 방법입니다.
-
-### Reference
-- https://feature-sliced.design/docs/get-started/tutorial
-- https://feature-sliced.design/docs/reference/public-api
-
----
-
-## Why should I avoid using wildcard re-exports in a public API within FSD?
-
-### Official Answer
-It may be tempting to create wildcard re-exports of everything, especially in early development of the slice, because any new objects you export from your files are also automatically exported from the slice:
-
-This hurts the discoverability of a slice because you can't easily tell what the interface of this slice is.
-Not knowing the interface means that you have to dig deep into the code of a slice to understand how to integrate it.
-Another problem is that you might accidentally expose the module internals, which will make refactoring difficult if someone starts depending on them.
-
-### Reference
-- https://feature-sliced.design/docs/reference/public-api
