@@ -1,50 +1,18 @@
 ---
-tags: [fsd, concept, slice, cohesion, coupling]
+tags: [fsd, concept, cohesion, coupling, dependency, public-api]
 ---
 
 # Questions
-- [What are slices in FSD, and what is their purpose?](#what-are-slices-in-fsd-and-what-is-their-purpose)
-  - [Why should we avoid names like 'components' or 'hooks' in FSD?](#why-should-we-avoid-names-like-components-or-hooks-in-fsd)
-  - [What is cohesion, and what are some best practices to increase it?](#what-is-cohesion-and-what-are-some-best-practices-to-increase-it)
-  - [What is coupling, and how can we effectively decrease it in our architecture?](#what-is-coupling-and-how-can-we-effectively-decrease-it-in-our-architecture)
-- [Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?](#why-do-the-app-and-shared-layers-skip-the-slice-level-while-other-layers-are-required-to-have-them)
+- [What is cohesion, and what are some best practices to increase it?](#what-is-cohesion-and-what-are-some-best-practices-to-increase-it)
+- [What is coupling, and how can we effectively decrease it in our architecture?](#what-is-coupling-and-how-can-we-effectively-decrease-it-in-our-architecture)
+- [Why is the unidirectional dependency rule important, and what happens if we violate it?](#why-is-the-unidirectional-dependency-rule-important-and-what-happens-if-we-violate-it)
+- [What is the role of the Public API in an FSD slice, and how does it support refactoring?](#what-is-the-role-of-the-public-api-in-an-fsd-slice-and-how-does-it-support-refactoring)
+  - [Why should I avoid using wildcard re-exports in a public API within FSD?](#why-should-i-avoid-using-wildcard-re-exports-in-a-public-api-within-fsd)
+- [TODO] What's the domain?
 
 ---
 
 # Answers
-
-## What are slices in FSD, and what is their purpose?
-
-### Official Answer
-Their main purpose is to group code by its meaning for the product, business, or just the application.
-Slices are meant to be independent and highly cohesive groups of code files.
-Slices make your codebase easier to navigate by keeping logically related modules close together.
-
-### Reference
-- https://feature-sliced.design/docs/get-started/overview
-
----
-
-## Why should we avoid names like 'components' or 'hooks' in FSD?
-### Official Answer
-The only important thing to remember when creating new segments is that segment names should describe purpose (the why), not essence (the what).
-
-Names like “components”, “hooks”, “modals” should not be used because they describe what these files are, but don’t help to navigate the code inside.
-
-The problem manifests itself at least in violation of the principle of High Cohesion and excessive stretching of the axis of changes.
-
-> AI Annotation:
-> 
-> **기존 방식 대비 차이점:**
-> 1. **기존 방식**: auth 하나 바꾸려면 `components/auth`, `hooks/auth` 등등 여러 폴더를 왔다갔다 해야 함. 이는 응집도(Cohesion)가 낮은 상태임. 또한 영향 범위 파악이 어려움.
-> 2. **FSD 방식**: `auth/` 하위에 `ui`, `hooks`, `api` 등이 모여 있어 응집도가 높음.
-> 3. 또한 의존성 규칙이 일정하여 수정 시 영향 범위를 쉽게 파악할 수 있음. (예: `entities/auth/ui` 수정 시 그 아래 레이어에는 영향이 없음)
-
-### Reference
-- https://feature-sliced.design/docs/guides/issues/desegmented
-- https://feature-sliced.design/docs/get-started/tutorial
-
----
 
 ## What is cohesion, and what are some best practices to increase it?
 
@@ -81,19 +49,63 @@ The problem manifests itself at least in violation of the principle of High Cohe
 
 ---
 
-## Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?
+## Why is the unidirectional dependency rule important, and what happens if we violate it?
 
 ### Official Answer
-> AI Annotation: 앱 전체에 걸쳐 쓰이거나, 비즈니스 색깔이 전혀 없는 전역적인(Global) 성격을 가집니다. 여기에 슬라이스를 만들면 오히려 구조가 너무 파편화되어 찾기가 더 힘들어집니다. (예: `shared/button/ui` 보다 `shared/ui/button`이 관리하기 훨씬 편함)
->
-> 나머지 레이어는 비즈니스 로직을 담고있기 때문에, 도메인 기준으로 한번 나눠야합니다.
+A module on one layer cannot use other modules on the same layer, or the layers above.
+
+The key difference of Feature-Sliced Design from an unregulated code structure is that pages cannot reference each other.
+
+This allows you to make isolated modifications without unforeseen consequences to the rest of the app.
+
+> AI Annotation:
+> - ❌ **Bad (Layer Violation)**: `entities/user` 슬라이스에서 상위 계층인 `features/auth`의 함수를 가져다 쓰는 경우. (하위 계층이 상위 계층을 알게 되면 순환 참조와 의존성 지옥이 시작됨)
+> - ✅ **Good (Layer Flow)**: `pages/profile` -> `features/update-password` -> `entities/user` 순서로 호출. 의존성이 위에서 아래로만 흐르므로 각 계층을 독립적으로 테스트하고 교체하기 쉬움.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
 
 ---
 
-## [TODO] What’s the domain?
+## What is the role of the Public API in an FSD slice, and how does it support refactoring?
+### Official Answer
+A public API is a contract between a group of modules, like a slice, and the code that uses it.
+It also acts as a gate, only allowing access to certain objects, and only through that public API.
+In practice, it's usually implemented as an index file with re-exports:
+
+In the context of Feature-Sliced Design, the term public API refers to a slice or segment declaring what can be imported from it by other modules in the project.
+
+For example, in JavaScript that can be an index.js file re-exporting objects from other files in the slice.
+
+This enables freedom in refactoring code inside a slice as long as the contract with the outside world (i.e. the public API) stays the same.
+
+The rest of the application must be protected from structural changes to the slice, like a refactoring.
+Only the necessary parts of the slice should be exposed.
+
+> 내 해석
+> 슬라이스나 세그먼트에서, 외부에 공개할 모듈만 따로 선택하기 위한 방법입니다.
+
+### Reference
+- https://feature-sliced.design/docs/get-started/tutorial
+- https://feature-sliced.design/docs/reference/public-api
+
+---
+
+## Why should I avoid using wildcard re-exports in a public API within FSD?
+
+### Official Answer
+It may be tempting to create wildcard re-exports of everything, especially in early development of the slice, because any new objects you export from your files are also automatically exported from the slice:
+
+This hurts the discoverability of a slice because you can't easily tell what the interface of this slice is.
+Not knowing the interface means that you have to dig deep into the code of a slice to understand how to integrate it.
+Another problem is that you might accidentally expose the module internals, which will make refactoring difficult if someone starts depending on them.
+
+### Reference
+- https://feature-sliced.design/docs/reference/public-api
+
+---
+
+## [TODO] What's the domain?
 ### Official Answer
 
 ### Reference

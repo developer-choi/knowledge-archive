@@ -1,30 +1,25 @@
 ---
-tags: [fsd, dependency, rules, unidirectional]
+tags: [fsd, slice, dependency, sharing]
 ---
 
 # Questions
-- [Why is the unidirectional dependency rule important, and what happens if we violate it?](#why-is-the-unidirectional-dependency-rule-important-and-what-happens-if-we-violate-it)
+- [What are slices in FSD, and what is their purpose?](#what-are-slices-in-fsd-and-what-is-their-purpose)
   - [Why is it forbidden for a slice to reference another slice within the same layer?](#why-is-it-forbidden-for-a-slice-to-reference-another-slice-within-the-same-layer)
+  - [How should we handle it when two slices need to share the same logic?](#how-should-we-handle-it-when-two-slices-need-to-share-the-same-logic)
 
 ---
 
 # Answers
 
-## Why is the unidirectional dependency rule important, and what happens if we violate it?
+## What are slices in FSD, and what is their purpose?
 
 ### Official Answer
-A module on one layer cannot use other modules on the same layer, or the layers above.
-
-The key difference of Feature-Sliced Design from an unregulated code structure is that pages cannot reference each other.
-
-This allows you to make isolated modifications without unforeseen consequences to the rest of the app.
-
-> AI Annotation:
-> - ❌ **Bad (Layer Violation)**: `entities/user` 슬라이스에서 상위 계층인 `features/auth`의 함수를 가져다 쓰는 경우. (하위 계층이 상위 계층을 알게 되면 순환 참조와 의존성 지옥이 시작됨)
-> - ✅ **Good (Layer Flow)**: `pages/profile` -> `features/update-password` -> `entities/user` 순서로 호출. 의존성이 위에서 아래로만 흐르므로 각 계층을 독립적으로 테스트하고 교체하기 쉬움.
+Their main purpose is to group code by its meaning for the product, business, or just the application.
+Slices are meant to be independent and highly cohesive groups of code files.
+Slices make your codebase easier to navigate by keeping logically related modules close together.
 
 ### Reference
-https://feature-sliced.design/docs/get-started/overview
+- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
@@ -48,3 +43,15 @@ Because of that, the business logic of these interactions is preferably kept in 
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
 - https://feature-sliced.design/docs/reference/layers
+
+---
+
+## How should we handle it when two slices need to share the same logic?
+
+### AI Annotation
+1. **Shared 레이어로 내리기**: 만약 공유하려는 로직이 특정 비즈니스와 무관한 순수 유틸리티라면 Shared 레이어로 이동시킵니다.
+2. **하위 레이어(Entities)로 내리기**: 두 Features가 동일한 데이터 모델을 공유한다면, 그 로직을 Entities 레이어의 관련 슬라이스로 옮깁니다.
+3. **상위 레이어(Widgets/Pages)에서 조합**: 두 슬라이스를 직접 연결하지 말고, 상위 계층인 Widgets나 Pages에서 두 슬라이스를 각각 가져와서 로직을 조립(Composition)합니다.
+
+### Reference
+- https://feature-sliced.design/docs/get-started/overview
