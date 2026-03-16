@@ -1,5 +1,5 @@
 .idea/
 .claude/*
-!.claude/skills/
-!.claude/contexts/
+\!.claude/skills/
+\!.claude/contexts/
 node_modules
