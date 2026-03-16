@@ -26,13 +26,12 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 작업 순서
 
-### Step 1. 시작 전 준비
+### Step 1. Before
+
+[production-guide.md](../../contexts/production-guide.md)의 **Before** 읽기.
 
 사용자에게 구글 문서를 **PDF와 MD 두 가지 형식으로 export**하도록 요청한다.
-- PDF: 이미지 + 링크 보존
-- MD: 텍스트 추출 용이
-
-이미 파일이 제공된 경우 이 단계를 건너뛴다.
+이미 파일이 제공된 경우 건너뛴다.
 
 ### Step 2. PDF 읽기 & 분류
 
@@ -44,12 +43,7 @@ PDF를 읽고 내용을 분류한다.
 
 ### Step 3. 템플릿 매핑
 
-[content-format.md](../../contexts/content-format.md)와 [document-structure.md](../../contexts/document-structure.md)를 읽고 매핑한다.
-
-**Questions**:
-- 원본에서 질문 형태로 정리된 내용을 추출. 없으면 면접 질문 형태로 생성.
-- 오개념 타파(Trick Question) 포함 권장.
-- 답변 없는 질문은 `[TODO]` 처리.
+[content-format.md](../../contexts/content-format.md)를 읽고 매핑한다.
 
 **텍스트 → 섹션 매핑**:
 - 핵심 답변 (영어 원문 or 한글 정리) → `Official Answer`
@@ -57,13 +51,7 @@ PDF를 읽고 내용을 분류한다.
 - 부가 설명 → `> User Annotation`
 - 공식 문서 다이어그램 → 텍스트 설명
 
-**태그**: [tags.md](../../contexts/tags.md)에서 선택.
-
-### Step 4. 파일 위치 결정
-
-[file-placement.md](../../contexts/file-placement.md)와 [folder-blueprint.md](../../contexts/folder-blueprint.md)를 읽고 폴더와 파일명을 결정한다.
-
-### Step 5. 링크 보완 (사용자 대기)
+### Step 4. 링크 보완 (사용자 대기)
 
 PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우:
 
@@ -74,13 +62,10 @@ PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우:
 이런 항목을 목록으로 정리하여 사용자에게 제시하고, 실제 URL 확인을 요청한 뒤 **대기한다**.
 URL이 텍스트로 보이는 경우는 그대로 사용.
 
-### Step 6. 파일 생성 & 검증
+### Step 5. After
 
-[template.md](../../contexts/template.md) 양식으로 파일을 생성한다.
+[production-guide.md](../../contexts/production-guide.md)의 **After** 실행.
 
-검증 항목:
+추가 검증:
 - 원본 질문 개수와 변환된 질문 개수가 일치하는가?
 - 원본의 핵심 답변 내용이 빠짐없이 포함되었는가?
-- Questions 목록과 Answers 본문의 순서가 1:1로 일치하는가?
-
-문제가 있으면 직접 수정한다.
