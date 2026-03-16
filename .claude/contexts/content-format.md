@@ -59,28 +59,27 @@ tags: [react, performance, concept]
 - **출처 명확성**: 반드시 Reference에 출처를 명시
 - **객관성**: 개인적 해석이 아닌 검증 가능한 사실만 포함
 
-### 인용 블록 (Annotation)
+### Annotation
 
-Official Answer 내부에 다음 두 가지 인용 블록을 사용할 수 있습니다:
+AI Annotation과 User Annotation 두 가지가 있다. 내용 길이에 따라 형식을 선택한다.
 
-#### AI Annotation
-AI(예: Gemini)가 설명한 내용을 포함합니다.
-
-예시:
+**짧은 경우** — `>` 블록쿼트로 Official Answer 내부에 작성:
 ```markdown
 ### Official Answer
 A network is a group of communicating computers...
 
 > AI Annotation: 네트워크의 3요소는 Node, Link, Protocol입니다.
+> User Annotation: Protocol이 HTTPS 같은거 말하는거임
 ```
 
-#### User Annotation
-사용자의 개인적인 해석 및 보충 설명을 포함합니다.
-만약 사용자의 원본 필기가 핵심 답변에 해당한다면 `Official Answer`에 직접 작성하고, 부가적인 메모만 여기에 남깁니다.
-
-예시:
+**긴 경우** — `###` 섹션으로 분리:
 ```markdown
-> User Annotation: 여기서 말하는 Protocol이 그 HTTPS 같은거 말하는거임
+### Official Answer
+A network is a group of communicating computers...
+
+### User Annotation
+여기에 긴 내용을 여러 줄로 작성한다.
+블록쿼트로 쓰면 가독성이 떨어지는 분량일 때 사용.
 ```
 
 ---
