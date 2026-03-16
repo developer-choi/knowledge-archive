@@ -4,9 +4,9 @@
 
 ---
 
-## 2. Knowledge Structure (Tech Only)
+## 1. Knowledge Structure (Tech Only)
 
-### 2.1. Frontend & Web
+### 1.1. Frontend & Web
 
 #### **Languages**
 - **`frontend/javascript/`**: `data-type-ds/`, `grammar/`, `internal/`, `async/`
@@ -39,7 +39,7 @@
 
 ---
 
-### 2.2. Computer Science (CS)
+### 1.2. Computer Science (CS)
 
 #### **Network**
 - **`cs/network/`**:
@@ -58,7 +58,7 @@
 
 ---
 
-### 2.3. Infrastructure & DevOps
+### 1.3. Infrastructure & DevOps
 
 - **`infra/aws/`**: `ec2/`, `s3/`, `cloudfront/`, `lambda/`
 - **`infra/devops/`**: `git/`, `ci-cd/`, `docker/`
@@ -66,7 +66,7 @@
 
 ---
 
-### 2.4. Domain Knowledge (General)
+### 1.4. Domain Knowledge (General)
 
 특정 회사에 종속되지 않는 **일반화된 도메인 기술 지식**입니다.
 - **`domains/e-commerce/`**: `cart/`, `payment-flow/`, `order-processing/`
@@ -75,6 +75,6 @@
 
 ---
 
-### 2.5. AI Technology
+### 1.5. AI Technology
 - **`ai/llm/`**: `models/`, `prompt-engineering/`
 - **`ai/applications/`**: `workflows/`, `agents/`
