@@ -1,7 +1,7 @@
 # Official Tags Registry
 
-`knowledge-archive`에서 사용하는 **공식 태그 목록**입니다.
-글을 쓸 때 **항상 이 목록을 먼저 확인**해서, 비슷한 뜻을 가진 새로운 태그가 생기지 않도록 해주세요. (예: `error-handling` 대신 `troubleshooting` 사용)
+knowledge-archive에서 사용하는 태그 목록.
+새 태그를 만들기 전에 이 목록에서 기존 태그를 확인한다. (예: `error-handling` 대신 `troubleshooting` 사용)
 
 ---
 
