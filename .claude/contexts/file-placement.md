@@ -10,8 +10,8 @@
 - [폴더 구조도](folder-blueprint.md)
 
 ### 선정 기준
--[폴더 구조도](folder-blueprint.md)를 참고하여 적절한 폴더 선택
--계층 구조를 준수하여 정확한 위치 결정
+- [폴더 구조도](folder-blueprint.md)를 참고하여 적절한 폴더 선택
+- 계층 구조를 준수하여 정확한 위치 결정
   - 예: React Hooks → `knowledge/frontend/react/core/`
   - 예: HTTP Protocol → `knowledge/cs/network/protocols/`
 
@@ -22,12 +22,12 @@
 파일명은 **검색 용이성**과 **내용 명확성**을 고려하여 작성합니다.
 
 ### 명명 규칙
--소문자 사용 (예: `react-hooks.md`)
--단어 구분은 하이픈(`-`) 사용
--핵심 키워드를 파일명에 포함 (Filename Search 최적화)
+- 소문자 사용 (예: `react-hooks.md`)
+- 단어 구분은 하이픈(`-`) 사용
+- 핵심 키워드를 파일명에 포함 (Filename Search 최적화)
   - 예: `react-rendering-process.md` (✅)
   - 예: `process.md` (❌ - 키워드 누락)
--너무 길지 않게 (2-4 단어 권장)
+- 너무 길지 않게 (2-4 단어 권장)
 
 ### 파일명 예시
 ```
@@ -48,10 +48,10 @@ knowledge/cs/network/protocols/
 저장하기 전에 다음을 확인합니다:
 
 ### 체크리스트
--**Tag Search**: 선정한 태그가 frontmatter에 올바르게 작성되었는가?
--**Filename Search**: 파일명에 핵심 키워드가 포함되었는가?
+- **Tag Search**: 선정한 태그가 frontmatter에 올바르게 작성되었는가?
+- **Filename Search**: 파일명에 핵심 키워드가 포함되었는가?
   - 사용자가 "React 관련 문서 찾아줘"라고 했을 때 이 파일이 검색되는가?
--**Directory Search**: 폴더 구조가 주제별로 올바르게 분류되었는가?
+- **Directory Search**: 폴더 구조가 주제별로 올바르게 분류되었는가?
   - `knowledge/frontend/react/` 폴더에서 검색 시 이 파일이 포함되는가?
 
 ---
