@@ -25,13 +25,11 @@ knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시
 
 ### 구조 검증
 
-[document-structure.md](document-structure.md)를 읽고 검증한다.
+[document-structure.md](document-structure.md)와 [template.md](template.md)를 읽고 검증한다. 문제가 있으면 사용자에게 알리지 않고 직접 수정한다.
 
-- Questions 목록과 Answers 본문의 순서가 1:1로 일치하는가?
-- 앵커 링크가 올바르게 연결되는가?
-- [template.md](template.md) 양식을 준수하는가?
+### 태그 검증
 
-문제가 있으면 사용자에게 알리지 않고 직접 수정한다.
+[tags.md](tags.md)에서 적절한 태그가 선택되었는지 확인한다.
 
 ### 분할 경고
 

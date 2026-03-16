@@ -15,12 +15,12 @@
 ## 1. Frontmatter (tags)
 
 ### 참고 자료
-- [공식 태그 목록](../tags.md)
+- [공식 태그 목록](tags.md)
 
 ### 작성 규칙
-- [ ] [공식 태그 목록](../tags.md)에서 선택
-- [ ] 최소 1개, 최대 4개 선택
-- [ ] 우선순위: 기술명 > 카테고리 > 특성
+-[공식 태그 목록](tags.md)에서 선택
+-최소 1개, 최대 4개 선택
+-우선순위: 기술명 > 카테고리 > 특성
 
 예시:
 ```markdown
@@ -38,8 +38,8 @@ tags: [react, performance, concept]
 ## 2. Questions 섹션
 
 ### 질문 형식
-- **원본 텍스트 절대 보존**: 원본 질문은 문법적으로 어색하거나 구어체(예: "Then, how...")라도 **수정 없이 그대로 사용**합니다.
-- **AI의 임의 수정 금지**: Paraphrasing, 번역, 요약, 객관식 변환 등 일체 금지
+- 원본 질문은 문법적으로 어색하거나 구어체(예: "Then, how...")라도 수정 없이 그대로 사용한다.
+- Paraphrasing, 번역, 요약, 객관식 변환 등 일체 금지.
 
 ### 질문 생성
 질문이 명시되지 않았다면, **면접 질문 형태**로 생성합니다. 이때 다음 규칙을 권장합니다:
@@ -85,7 +85,7 @@ A network is a group of communicating computers...
 
 ---
 
-## 5. Reference
+## 4. Reference
 
 ### 작성 규칙
 - 공식 문서 URL 또는 위키피디아 링크 제공
@@ -109,11 +109,11 @@ A network is a group of communicating computers...
 
 ---
 
-## 6. 문장 단위 줄바꿈 (Semantic Line Breaks)
+## 5. 문장 단위 줄바꿈 (Semantic Line Breaks)
 
 ### 원칙
-- **한 문장이 끝날 때마다 반드시 줄바꿈(Enter)**을 합니다.
-- 문장이 길어지더라도 온점(`.`)이나 물음표(`?`) 등으로 문장이 종료되면 줄을 바꿉니다.
+- 한 문장이 끝날 때마다 줄바꿈한다.
+- 문장이 길어지더라도 온점(`.`)이나 물음표(`?`)로 문장이 종료되면 줄을 바꾼다.
 
 ### 이유
 Git 등 버전 관리 시스템에서 Diff(변경 내역)를 문장 단위로 깔끔하게 확인하기 위함입니다.
@@ -134,7 +134,7 @@ Networks can be classified by their size and scope.
 
 ---
 
-## 7. 이미지 처리
+## 6. 이미지 처리
 
 ### Case 1: AI 답변 캡처
 Official Answer 섹션 내부에 인용 블록으로 추가:
