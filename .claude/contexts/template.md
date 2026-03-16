@@ -18,7 +18,7 @@ Official document text or objective fact (English preferred).
 > User Annotation
 
 ### Reference
-- [Official Doc Title](URL)
+- https://example.com
 
 ---
 
