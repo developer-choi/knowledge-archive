@@ -52,11 +52,15 @@ tags: [react, performance, concept]
 - 질문은 반드시 **Official Answer의 내용으로 답할 수 있어야** 한다.
 - Official Answer에 없는 내용을 전제로 한 질문은 만들지 않는다.
 
+#### 답변 분할
+- 하나의 Official Answer가 여러 독립된 내용을 포함하면, 내용 덩어리별로 질문을 분리한다.
+- 하나의 어색한 질문보다 여러 개의 자연스러운 질문이 낫다.
+
 #### 질문 유형 (우선순위)
 1. **오개념 타파(Trick Questions)**: Official Answer가 흔한 오해를 반박하는 내용을 포함할 때만 가능. 답변이 뒷받침하지 않는 오개념 질문을 억지로 만들지 않는다.
-   - 예: "useDeferredValue는 네트워크 요청을 줄여주는가?" (Official Answer에 "No"에 해당하는 근거가 있을 때)
+   - 예: "Does `useEffect` always run after paint?" (Official Answer에 "No"에 해당하는 근거가 있을 때)
 2. **일반 질문**: Official Answer가 서술형 설명인 경우 그에 맞는 질문을 생성한다.
-   - 예: "React의 렌더링은 어떤 단계로 이루어지는가?"
+   - 예: "Why is `useLayoutEffect` needed for measuring DOM elements like tooltips?"
 
 ### 계층 구조
 자세한 내용은 [문서 구조 규칙](document-structure.md)을 참고하세요.
