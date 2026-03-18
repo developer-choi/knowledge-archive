@@ -13,12 +13,15 @@ tags: [keyword1, keyword2]
 
 ## Main Question 1
 ### Official Answer
-Official document text or objective fact (English preferred).
-> AI Annotation: (짧은 경우)
-> User Annotation: (짧은 경우)
+Official document text or objective fact.
+> AI Annotation: (짧은 보충)
+> User Annotation: (짧은 보충)
 
-### User Annotation (긴 경우)
-(긴 내용은 섹션으로 분리)
+### AI Answer
+(공식 출처를 아직 찾지 못한 경우, AI 생성 답변)
+
+### User Answer
+(사용자의 해석, 경험 기반 답변)
 
 ### Reference
 - https://example.com

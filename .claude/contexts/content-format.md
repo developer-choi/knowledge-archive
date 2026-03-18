@@ -49,8 +49,8 @@ tags: [react, performance, concept]
 질문이 명시되지 않았다면, **면접 질문 형태**로 생성합니다.
 
 #### 절대 원칙
-- 질문은 반드시 **Official Answer의 내용으로 답할 수 있어야** 한다.
-- Official Answer에 없는 내용을 전제로 한 질문은 만들지 않는다.
+- 질문은 반드시 **답변 섹션(Official Answer, AI Answer, User Answer)의 내용으로 답할 수 있어야** 한다.
+- Official Answer가 확보 가능하면 반드시 포함한다. 아직 공식 출처를 찾지 못한 경우 AI/User Answer만으로 구성할 수 있다.
 
 #### 답변 분할
 - 하나의 Official Answer가 여러 독립된 내용을 포함하면, 내용 덩어리별로 질문을 분리한다.
@@ -67,34 +67,31 @@ tags: [react, performance, concept]
 
 ---
 
-## 3. Official Answer
+## 3. Answer 섹션
+
+세 가지 Answer 유형이 있다. 모든 유형이 필수는 아니며, 해당하는 것만 작성한다.
+
+| 섹션 | 출처 | 용도 |
+|---|---|---|
+| `### Official Answer` | 공식 문서 | 검증된 사실. 확보 가능하면 반드시 포함 |
+| `### AI Answer` | AI 생성 | 공식 출처를 아직 찾지 못한 경우의 답변 |
+| `### User Answer` | 사용자 작성 | 사용자의 해석, 경험 기반 답변 |
 
 ### 작성 원칙
+- **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
 - **원본 언어 유지**: 사용자가 작성한 필기나 요약이 한글이라면 **한글 그대로 작성**합니다.
-- **출처 명확성**: 반드시 Reference에 출처를 명시
-- **객관성**: 개인적 해석이 아닌 검증 가능한 사실만 포함
+- **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
 
 ### Annotation
 
-AI Annotation과 User Annotation 두 가지가 있다. 내용 길이에 따라 형식을 선택한다.
+Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트를 사용한다.
 
-**짧은 경우** — `>` 블록쿼트로 Official Answer 내부에 작성:
 ```markdown
 ### Official Answer
 A network is a group of communicating computers...
 
 > AI Annotation: 네트워크의 3요소는 Node, Link, Protocol입니다.
 > User Annotation: Protocol이 HTTPS 같은거 말하는거임
-```
-
-**긴 경우** — `###` 섹션으로 분리:
-```markdown
-### Official Answer
-A network is a group of communicating computers...
-
-### User Annotation
-여기에 긴 내용을 여러 줄로 작성한다.
-블록쿼트로 쓰면 가독성이 떨어지는 분량일 때 사용.
 ```
 
 ---
