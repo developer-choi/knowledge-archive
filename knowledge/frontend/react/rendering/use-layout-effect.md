@@ -5,13 +5,13 @@ tags: [react, browser, concept]
 # useLayoutEffect
 
 # Questions
-- [`useLayoutEffect` runs "before commit," so how can `getBoundingClientRect()` measure DOM elements that haven't been committed yet?](#uselayouteffect-runs-before-commit-so-how-can-getboundingclientrect-measure-dom-elements-that-havent-been-committed-yet)
+- [What does `useLayoutEffect` guarantee about its execution timing relative to browser paint?](#what-does-uselayouteffect-guarantee-about-its-execution-timing-relative-to-browser-paint)
 
 ---
 
 # Answers
 
-## `useLayoutEffect` runs "before commit," so how can `getBoundingClientRect()` measure DOM elements that haven't been committed yet?
+## What does `useLayoutEffect` guarantee about its execution timing relative to browser paint?
 
 ### Official Answer
 The code inside `useLayoutEffect` and all state updates scheduled from it **block the browser from repainting the screen.**
