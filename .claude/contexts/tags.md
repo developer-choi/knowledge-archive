@@ -39,7 +39,10 @@ knowledge-archive에서 사용하는 태그 목록.
 - `design-pattern`: 디자인 패턴
 - `architecture`: 아키텍처, 설계 원칙
 
-## 5. Infra & DevOps
+## 5. AI
+- `ai`: AI/LLM 기술, 프롬프트 엔지니어링, 에이전트 스킬
+
+## 6. Infra & DevOps
 - `aws`: AWS Cloud
 - `docker`: Container
 - `ci-cd`: GitHub Actions, Jenkins
