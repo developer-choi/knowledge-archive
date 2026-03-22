@@ -1,5 +1,5 @@
 ---
-description: knowledge 문서 기반으로 기술 면접 모드 복습을 진행한다. 복습, review, 면접, 테스트 시 사용.
+description: knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사용자의 기술 지식을 검증한다. 사용자가 "복습하자", "면접 연습", "테스트해줘", "review", "질문 던져봐", "내가 아는지 확인해줘" 등 knowledge 문서 기반 학습 검증을 요청하면 이 스킬을 사용한다. 사용자가 특정 knowledge 파일이나 주제를 언급하며 자신의 이해도를 시험받고 싶어한다면 거의 확실히 이 스킬이 필요하다. 단, 새 내용을 필기하거나 저장하는 것은 add-note/digest 스킬이, 문서 변환은 convert 스킬이 담당한다.
 argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 ---
 

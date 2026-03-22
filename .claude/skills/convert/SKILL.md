@@ -1,5 +1,5 @@
 ---
-description: 구글 문서(PDF/MD)를 knowledge 문서로 변환한다. 변환, convert, 구글 문서, PDF 시 사용.
+description: 구글 문서나 외부 문서(PDF/MD)를 knowledge/ Q&A 형식으로 변환한다. 사용자가 PDF 파일을 주거나, 구글 문서를 export 했다고 말하거나, "변환해줘", "convert", "이 문서 knowledge로 옮겨줘" 등을 요청하면 이 스킬을 사용한다. 파일 경로(.pdf, .md)가 포함된 변환 요청이라면 거의 확실히 이 스킬이 필요하다. 단, 사용자가 직접 학습 내용을 텍스트로 타이핑하는 경우는 add-note 스킬이, 공식문서를 단락별로 읽으며 학습하는 경우는 digest 스킬이 담당한다.
 argument-hint: [PDF/MD 파일 경로]
 ---
 
@@ -32,6 +32,9 @@ argument-hint: [PDF/MD 파일 경로]
 
 사용자에게 구글 문서를 **PDF와 MD 두 가지 형식으로 export**하도록 요청한다.
 이미 파일이 제공된 경우 건너뛴다.
+
+- **PDF**: 이미지(Gemini 캡처, 다이어그램), 레이아웃, 서식을 확인하는 데 사용
+- **MD**: 텍스트 추출과 하이퍼링크 URL 확보에 사용 (PDF에서는 하이퍼링크 URL이 보이지 않는 경우가 많음)
 
 ### Step 2. PDF 읽기 & 분류
 
