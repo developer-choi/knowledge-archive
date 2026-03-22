@@ -49,7 +49,7 @@ PDF를 읽고 내용을 분류한다.
 [content-format.md](../../contexts/content-format.md)를 읽고 매핑한다.
 
 **텍스트 → 섹션 매핑**:
-- 핵심 답변 (영어 원문 or 한글 정리) → `Official Answer`
+- 핵심 답변 (영어 원문) → `Official Answer`. 원본 문서에 영어 원문이 없는 내용은 AI가 영어를 생성하지 않고, User Answer로 분류한다
 - Gemini 캡처 내용 → `> AI Annotation`
 - 부가 설명 → `> User Annotation`
 - 공식 문서 다이어그램 → 텍스트 설명
