@@ -7,7 +7,7 @@ tags: [network, concept, protocol]
   - [What's the Host?](#whats-the-host)
   - [[TODO] What is the technical difference between a simple device and a Host?](#todo-what-is-the-technical-difference-between-a-simple-device-and-a-host)
   - [What's the Router?](#whats-the-router)
-  - [[TODO] What is the difference between Routing and Forwarding?](#todo-what-is-the-difference-between-routing-and-forwarding)
+  - [What is the difference between Routing and Forwarding?](#what-is-the-difference-between-routing-and-forwarding)
   - [[TODO] How does a router define the boundary of 'different networks?](#todo-how-does-a-router-define-the-boundary-of-different-networks)
   - [What's the Network Switch?](#whats-the-network-switch)
   - [[TODO] Compare the Routing Table of a router and the MAC Address Table of a switch.](#todo-compare-the-routing-table-of-a-router-and-the-mac-address-table-of-a-switch)
@@ -61,7 +61,16 @@ Hosts are assigned at least one network address.
 
 ## What's the Router?
 ...
-## [TODO] What is the difference between Routing and Forwarding?
+## What is the difference between Routing and Forwarding?
+
+### Official Answer
+Routing is the process of selecting a path for traffic in a network.
+Forwarding is the relaying of packets from one network segment to another by nodes in a computer network.
+
+> User Annotation: Routing은 패킷이 목적지까지 가는 최적 경로를 결정하는 과정이고, Forwarding은 라우터가 입력 포트에서 받은 패킷을 적절한 출력 포트로 실제로 이동시키는 동작.
+
+### Reference
+- https://en.wikipedia.org/wiki/Routing
 
 ---
 
