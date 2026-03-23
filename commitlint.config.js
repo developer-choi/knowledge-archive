@@ -20,5 +20,6 @@ module.exports = {
       ],
     ],
     'scope-empty': [2, 'never'],
+    'subject-case': [0],
   },
 };
