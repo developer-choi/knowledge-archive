@@ -63,6 +63,9 @@ The problem manifests itself at least in violation of the principle of High Cohe
 > **측정 방법**:
 > - **단일 책임 원칙 (SRP)**: 이 모듈이 "하나의 일"만 하는가? (목적이 하나라면 응집도가 높은 것)
 
+### Frequent Mistakes
+- cohesion(응집도)을 colocation(물리적 위치)과 혼동. 같은 폴더에 있어도 관련 없는 코드면 응집도는 낮다.
+
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
 
