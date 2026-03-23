@@ -23,6 +23,9 @@ Official document text or objective fact.
 ### User Answer
 (사용자의 해석, 경험 기반 답변)
 
+### Frequent Mistakes
+- (복습 시 자주 혼동한 키워드나 오개념 기록)
+
 ### Reference
 - https://example.com
 
@@ -31,6 +34,9 @@ Official document text or objective fact.
 ## Follow-up Question 1
 ### Official Answer
 Same as above
+
+### Frequent Mistakes
+- (복습 시 자주 혼동한 키워드나 오개념 기록)
 
 ### Reference
 Same as above
