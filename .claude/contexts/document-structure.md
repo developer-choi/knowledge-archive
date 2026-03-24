@@ -58,12 +58,12 @@
 
 1. **Questions 목록**: 질문 왼쪽에 `[TODO]` 접두사를 붙입니다.
    ```markdown
-   - [[TODO] What is the domain?](#todo-whats-the-domain)
+   - [[TODO] 도메인이란 무엇인가?](#todo-도메인이란-무엇인가)
    ```
 
 2. **Answers 섹션**: 제목과 하위 구조(Keywords, Official Answer 등)를 미리 만들어두되 내용은 비워둡니다.
    ```markdown
-   ## [TODO] What is the domain?
+   ## [TODO] 도메인이란 무엇인가?
    
    ### Official Answer
 

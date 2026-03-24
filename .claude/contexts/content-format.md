@@ -8,6 +8,7 @@
 
 - **Fact-First**: 객관적 사실만 Official Answer에 기록. 개인 해석은 `> User Annotation`으로 구분.
 - **원문 보존**: 공식 문서 원문의 핵심 내용을 그대로 보존. 문장 간 연결이 어색하더라도 AI가 임의로 가공하지 않는다.
+- **영어 사용 범위**: 문서 내 영어는 공식 문서 원문(Official Answer, Official Annotation)에만 사용한다. 그 외 편집·주석 성격의 내용(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
 - **출처 없으면 작업 중단**: 출처가 제공되지 않으면, 내용 작성 전에 출처 링크를 요청하고 대기한다.
 
 ---
@@ -37,14 +38,6 @@ tags: [react, performance, concept]
 
 ## 2. Questions 섹션
 
-### 질문 형식
-- 원본 질문은 문법적으로 어색하거나 구어체(예: "Then, how...")라도 수정 없이 그대로 사용한다.
-- Paraphrasing, 번역, 요약, 객관식 변환 등 일체 금지.
-
-### 질문 언어
-- 질문은 반드시 **영어**로 작성한다.
-- 원본이 한글 질문/메모인 경우에도 영어 면접 질문으로 변환한다.
-
 ### 질문 생성
 질문이 명시되지 않았다면, **면접 질문 형태**로 생성합니다.
 
@@ -58,9 +51,9 @@ tags: [react, performance, concept]
 
 #### 질문 유형 (우선순위)
 1. **오개념 타파(Trick Questions)**: Official Answer가 흔한 오해를 반박하는 내용을 포함할 때만 가능. 답변이 뒷받침하지 않는 오개념 질문을 억지로 만들지 않는다.
-   - 예: "Does `useEffect` always run after paint?" (Official Answer에 "No"에 해당하는 근거가 있을 때)
+   - 예: "useEffect는 항상 paint 이후에 실행되는가?" (Official Answer에 "No"에 해당하는 근거가 있을 때)
 2. **일반 질문**: Official Answer가 서술형 설명인 경우 그에 맞는 질문을 생성한다.
-   - 예: "Why is `useLayoutEffect` needed for measuring DOM elements like tooltips?"
+   - 예: "tooltip 같은 DOM 요소를 측정할 때 useLayoutEffect가 필요한 이유는?"
 
 ### 계층 구조
 자세한 내용은 [문서 구조 규칙](document-structure.md)을 참고하세요.
