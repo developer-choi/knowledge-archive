@@ -3,6 +3,9 @@ tags: [browser, performance, concept]
 ---
 
 # Questions
+## Overview
+- [What is the Critical Rendering Path (CRP), and what steps does it consist of?](#what-is-the-critical-rendering-path-crp-and-what-steps-does-it-consist-of)
+  - [Thousands of list items need to be rendered, causing performance issues. Why does this happen?](#thousands-of-list-items-need-to-be-rendered-causing-performance-issues-why-does-this-happen)
 ## Parsing
 - [During HTML parsing, what happens when the browser encounters a `<script>` tag without `async` or `defer`? How does this differ from other resources like images?](#during-html-parsing-what-happens-when-the-browser-encounters-a-script-tag-without-async-or-defer-how-does-this-differ-from-other-resources-like-images)
 - [While the browser is building the DOM tree, resource downloads could be delayed. How does the browser mitigate this problem?](#while-the-browser-is-building-the-dom-tree-resource-downloads-could-be-delayed-how-does-the-browser-mitigate-this-problem)
@@ -11,6 +14,8 @@ tags: [browser, performance, concept]
 - [What is CSSOM (CSS Object Model), and what is its relationship with the DOM?](#what-is-cssom-css-object-model-and-what-is-its-relationship-with-the-dom)
 - [How does the browser build the CSSOM tree from the CSS it receives?](#how-does-the-browser-build-the-cssom-tree-from-the-css-it-receives)
   - [Is CSSOM construction a performance bottleneck? How do you observe it in DevTools?](#is-cssom-construction-a-performance-bottleneck-how-do-you-observe-it-in-devtools)
+  - [[TODO] How is the CSSOM built, and how does it differ from DOM construction?](#todo-how-is-the-cssom-built-and-how-does-it-differ-from-dom-construction)
+- [[TODO] How does CSS affect web performance, and what are the best practices for optimizing it?](#todo-how-does-css-affect-web-performance-and-what-are-the-best-practices-for-optimizing-it)
 ## Render
 - [How is the Render Tree constructed after parsing is complete?](#how-is-the-render-tree-constructed-after-parsing-is-complete)
   - [How are `display: none` and `visibility: hidden` treated differently in the Render Tree?](#how-are-display-none-and-visibility-hidden-treated-differently-in-the-render-tree)
@@ -24,6 +29,36 @@ tags: [browser, performance, concept]
 ---
 
 # Answers
+
+## What is the Critical Rendering Path (CRP), and what steps does it consist of?
+
+### Official Answer
+The Critical Rendering Path is the sequence of steps the browser goes through to convert the HTML, CSS, and JavaScript into pixels on the screen.
+Optimizing the critical render path improves render performance.
+The critical rendering path includes the Document Object Model (DOM), CSS Object Model (CSSOM), render tree and layout.
+
+> AI Annotation: CRP는 브라우저가 HTML, CSS, JS를 화면 픽셀로 변환하는 일련의 단계다.
+> DOM, CSSOM, Render Tree, Layout으로 구성된다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
+
+---
+
+## Thousands of list items need to be rendered, causing performance issues. Why does this happen?
+
+### Official Answer
+The greater the number of nodes, the longer the following events in the critical rendering path will take.
+Measure!
+A few extra nodes won't make a big difference, but keep in mind that adding many extra nodes will impact performance.
+
+> AI Annotation: DOM 노드가 많을수록 CRP의 이후 단계(Style, Layout, Paint)가 느려진다.
+> 몇 개 차이는 무의미하지만 대량으로 많아지면 성능에 영향을 준다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
+
+---
 
 ## During HTML parsing, what happens when the browser encounters a `<script>` tag without `async` or `defer`? How does this differ from other resources like images?
 
@@ -200,3 +235,21 @@ Layers do improve performance but are expensive when it comes to memory manageme
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
+
+---
+
+## [TODO] How is the CSSOM built, and how does it differ from DOM construction?
+
+### Official Answer
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path#css_object_model
+
+---
+
+## [TODO] How does CSS affect web performance, and what are the best practices for optimizing it?
+
+### Official Answer
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/CSS
