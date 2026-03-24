@@ -6,7 +6,7 @@ tags: [fsd, concept, slice, cohesion, coupling]
 - [What are slices in FSD, and what is their purpose?](#what-are-slices-in-fsd-and-what-is-their-purpose)
   - [Why should we avoid names like 'components' or 'hooks' in FSD?](#why-should-we-avoid-names-like-components-or-hooks-in-fsd)
   - [What is cohesion, and what are some best practices to increase it?](#what-is-cohesion-and-what-are-some-best-practices-to-increase-it)
-  - [What is coupling, and how can we effectively decrease it in our architecture?](#what-is-coupling-and-how-can-we-effectively-decrease-it-in-our-architecture)
+  - [What is coupling, and how can we measure it in our codebase?](#what-is-coupling-and-how-can-we-measure-it-in-our-codebase)
 - [Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?](#why-do-the-app-and-shared-layers-skip-the-slice-level-while-other-layers-are-required-to-have-them)
 
 ---
@@ -71,7 +71,7 @@ The problem manifests itself at least in violation of the principle of High Cohe
 
 ---
 
-## What is coupling, and how can we effectively decrease it in our architecture?
+## What is coupling, and how can we measure it in our codebase?
 
 ### Official Answer
 > AI Annotation:
