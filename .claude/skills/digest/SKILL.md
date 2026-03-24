@@ -13,6 +13,7 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 
 ### 내용 분류
 - 영어 원문이 있으면 그대로 보존하여 Official Answer로 사용
+- **단일 출처 원칙**: Official Answer는 단일 출처의 원문만 사용한다. 여러 페이지의 문장을 하나의 Official Answer로 합성하지 않는다. 출처가 다른 내용을 보충하려면 질문을 분리하거나 Annotation으로 처리한다.
 - 한글 메모는 Annotation으로 분류
 - **영어 원문 없이 한글만 제공된 경우**: User Answer로 작성. AI가 영어 Official Answer를 생성하지 않는다
 
