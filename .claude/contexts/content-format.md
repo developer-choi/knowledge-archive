@@ -86,10 +86,17 @@ tags: [react, performance, concept]
 
 Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트를 사용한다.
 
+| Annotation 유형 | 출처 | 용도 |
+|---|---|---|
+| `Official Annotation` | 공식 문서 | Official Answer를 보충하는 공식 문서 원문. 같은 출처 또는 다른 공식 출처에서 가져온 부연 설명 |
+| `AI Annotation` | AI 생성 | AI가 추가한 해설, 비유, 코드 예시 등 |
+| `User Annotation` | 사용자 작성 | 사용자의 메모, 경험 기반 보충 |
+
 ```markdown
 ### Official Answer
 A network is a group of communicating computers...
 
+> Official Annotation: The CSSStyleDeclaration interface is the base class for...
 > AI Annotation: 네트워크의 3요소는 Node, Link, Protocol입니다.
 > User Annotation: Protocol이 HTTPS 같은거 말하는거임
 ```
