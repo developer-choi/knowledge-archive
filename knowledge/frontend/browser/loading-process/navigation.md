@@ -20,5 +20,9 @@ After the eight round trips to the server, the browser is finally able to make t
 > AI Annotation: DNS lookup(1 왕복) → TCP 3-way handshake(3 왕복) → TLS negotiation(5 왕복) = 총 8 왕복.
 > 실제 데이터 전송 전에 연결 설정만으로 이만큼의 latency가 발생한다.
 
+### Review Note
+- 각 단계별 정확한 round-trip 횟수는 중요하지 않음
+- 각 단계(DNS, TCP, TLS)에서 어떤 작업이 수행되는지 설명할 수 있는가가 핵심
+
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work

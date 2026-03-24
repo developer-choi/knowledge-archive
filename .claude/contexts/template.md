@@ -23,6 +23,9 @@ Official document text or objective fact.
 ### User Answer
 (사용자의 해석, 경험 기반 답변)
 
+### Review Note
+- (평가 시 참고사항: 중요하지 않은 부분, 대신 집중할 부분 등)
+
 ### Frequent Mistakes
 - (복습 시 자주 혼동한 키워드나 오개념 기록)
 
@@ -34,6 +37,9 @@ Official document text or objective fact.
 ## Follow-up Question 1
 ### Official Answer
 Same as above
+
+### Review Note
+- (평가 시 참고사항)
 
 ### Frequent Mistakes
 - (복습 시 자주 혼동한 키워드나 오개념 기록)
