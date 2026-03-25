@@ -35,10 +35,8 @@ tags: [browser, performance, concept]
 ### Official Answer
 The Critical Rendering Path is the sequence of steps the browser goes through to convert the HTML, CSS, and JavaScript into pixels on the screen.
 Optimizing the critical render path improves render performance.
-The critical rendering path includes the Document Object Model (DOM), CSS Object Model (CSSOM), render tree and layout.
 
 > AI Annotation: CRP는 브라우저가 HTML, CSS, JS를 화면 픽셀로 변환하는 일련의 단계다.
-> DOM, CSSOM, Render Tree, Layout으로 구성된다.
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
