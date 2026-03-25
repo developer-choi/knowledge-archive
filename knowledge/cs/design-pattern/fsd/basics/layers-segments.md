@@ -5,9 +5,12 @@ tags: [fsd, architecture, layers, responsibility]
 # Questions
 - [What is the purpose of layers in FSD, and what is the responsibility of each layer?](#what-is-the-purpose-of-layers-in-fsd-and-what-is-the-responsibility-of-each-layer)
   - [When should we use the 'Widgets' layer, and when should we avoid it?](#when-should-we-use-the-widgets-layer-and-when-should-we-avoid-it)
+    - [여러 페이지에서 재사용되는 큰 UI 블록을 Shared와 Widgets 중 어디에 놓아야 하는가?](#여러-페이지에서-재사용되는-큰-ui-블록을-shared와-widgets-중-어디에-놓아야-하는가)
   - [What is the key difference between 'Entities' and 'Features' in FSD?](#what-is-the-key-difference-between-entities-and-features-in-fsd)
+  - [FSD에서 Entities 레이어를 만들지 않아도 되는가? 만든다면 언제 만들어야 하는가?](#fsd에서-entities-레이어를-만들지-않아도-되는가-만든다면-언제-만들어야-하는가)
 - [What are segments in FSD, and what is the role of each one?](#what-are-segments-in-fsd-and-what-is-the-role-of-each-one)
 - [What is the role of the Public API in an FSD slice, and how does it support refactoring?](#what-is-the-role-of-the-public-api-in-an-fsd-slice-and-how-does-it-support-refactoring)
+  - [FSD에서 Shared 레이어와 도메인 레이어의 Public API 전략은 어떻게 다른가?](#fsd에서-shared-레이어와-도메인-레이어의-public-api-전략은-어떻게-다른가)
 - [Why should I avoid using wildcard re-exports in a public API within FSD?](#why-should-i-avoid-using-wildcard-re-exports-in-a-public-api-within-fsd)
 
 ---
@@ -81,11 +84,32 @@ If a block of UI makes up most of the interesting content on a page, and is neve
 
 ---
 
+## 여러 페이지에서 재사용되는 큰 UI 블록을 Shared와 Widgets 중 어디에 놓아야 하는가?
+
+### Official Answer
+There's a caveat to putting large blocks of UI in Shared — the Shared layer is not supposed to know about any of the layers above.
+Between Shared and Pages there are three other layers: Entities, Features, and Widgets.
+Some projects may have something in those layers that they need in a large reusable block, and that means we can't put that reusable block in Shared, or else it would be importing from upper layers, which is prohibited.
+That's where the Widgets layer comes in.
+It is located above Shared, Entities, and Features, so it can use them all.
+
+> AI Annotation: 판단 기준은 "이 UI 블록이 Entities나 Features의 코드를 필요로 하는가?"이다.
+> 필요하면 Widgets, 필요 없으면 Shared.
+> 예: 단순 로고+네비게이션 헤더 → Shared, 유저 아바타(`entities/user`)를 포함하는 헤더 → Widgets.
+
+### Reference
+- https://feature-sliced.design/docs/get-started/tutorial
+
+---
+
 ## What is the key difference between 'Entities' and 'Features' in FSD?
 ### Official Answer
-An entity is a real-life concept that your app is working with. A feature is an interaction that provides real-life value to your app’s users, the thing people want to do with your entities.
+An entity is a real-life concept that your app is working with. A feature is an interaction that provides real-life value to your app's users, the thing people want to do with your entities.
 
 Specifically for entities/ui, it is primarily meant to reuse the same appearance across several pages in the app, and different business logic may be attached to it through props or slots.
+
+> Official Annotation: A crucial principle for using the Features layer effectively is: not everything needs to be a feature.
+> A good indicator that something needs to be a feature is the fact that it is reused on several pages.
 
 > User Annotation
 > - 엔티티는 명사, 개념, 데이터에 해당합니다. 따라서 데이터 타입, 타입을 가공하는 유틸리티, 데이터를 가져오는 GET API 호출 함수, 그리고 데이터를 단순히 보여주는 컴포넌트와 같은 코드들이 엔티티 레이어에 위치합니다.
@@ -95,6 +119,24 @@ Specifically for entities/ui, it is primarily meant to reuse the same appearance
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
 - https://feature-sliced.design/docs/reference/layers
+
+---
+
+## FSD에서 Entities 레이어를 만들지 않아도 되는가? 만든다면 언제 만들어야 하는가?
+
+### Official Answer
+It is completely fine for the application to have no entities layer.
+It doesn't break FSD in any way, on the contrary, it simplifies the architecture and keeps the entities layer available for future scaling.
+
+FSD 2.1 encourages deferred decomposition of slices instead of preemptive, and this approach also extends to entities layer.
+
+Remember: the later you move code to the entities layer, the less dangerous your potential refactors will be — code in Entities may affect functionality of any slice on higher layers.
+
+> AI Annotation: 일단 페이지나 Feature의 model 세그먼트에 코드를 놓고, 여러 슬라이스에서 실제로 공유될 때 Entities로 추출한다.
+> thin client(백엔드에 대부분 위임하는 앱)라면 Entities가 불필요할 가능성이 높다.
+
+### Reference
+- https://feature-sliced.design/docs/guides/issues/excessive-entities
 
 ---
 
@@ -109,8 +151,8 @@ Specifically for entities/ui, it is primarily meant to reuse the same appearance
 ### Official Answer
 Their purpose is to group code by its technical nature.
 > AI Anotation
-> - 개발에서 Technical Nature라는 표현은 코드를 바라보는 관점을 설명할 때 자주 사용됩니다. 
->   - 도메인 성격 (**Domain Nature**): 이 코드가 사용자에게 어떤 기능을 제공하는가? (예: 주문하기, 장바구니 담기) -> 이는 FSD에서 **Slice**가 담당합니다. 
+> - 개발에서 Technical Nature라는 표현은 코드를 바라보는 관점을 설명할 때 자주 사용됩니다.
+>   - 도메인 성격 (**Domain Nature**): 이 코드가 사용자에게 어떤 기능을 제공하는가? (예: 주문하기, 장바구니 담기) -> 이는 FSD에서 **Slice**가 담당합니다.
 >   - 기술적 성격 (**Technical Nature**): 이 코드가 소프트웨어 아키텍처 상에서 어떤 도구로 쓰이는가? (예: React 컴포넌트인가, Axios 함수인가, Redux 스토어인가) -> 이것이 바로 **Segment**가 담당하는 영역입니다.
 
 Make sure that the name of these segments describes the purpose of the content, not its essence.
@@ -124,8 +166,13 @@ For example, components, hooks, and types are bad segment names because they are
 - **api**: backend interactions: request functions, data types, mappers, etc. / for code that handles rendering and appearance
 - **model**: the data model: schemas, interfaces, stores, and business logic. / for storage and business logic
 - **lib**: library code that other modules on this slice need.
+> Official Annotation: This folder should not be treated as helpers or utilities.
+> Instead, every library in this folder should have one area of focus, for example, dates, colors, text manipulation, etc.
+> That area of focus should be documented in a README file.
+
 > AI Annotation
-> - Slice 내부에서 공통적으로 사용되는 유틸리티 함수나 설정 코드 등을 모아두는 곳입니다.
+> - `lib`를 잡동사니 유틸 폴더로 쓰면 `utils/`와 다를 바 없어진다.
+> - 팀 내에서 "이 라이브러리에 뭘 넣어도 되고 뭘 넣으면 안 되는지"를 명확히 해야 한다.
 
 - **config**: configuration files and feature flags. / for feature flags, environment variables and other forms of configuration
 
@@ -146,12 +193,35 @@ This enables freedom in refactoring code inside a slice as long as the contract 
 The rest of the application must be protected from structural changes to the slice, like a refactoring.
 Only the necessary parts of the slice should be exposed.
 
+> Official Annotation: When they are in the same slice, always use relative imports and write the full import path.
+> When they are in different slices, always use absolute imports, for example, with an alias.
+
+> AI Annotation: 같은 슬라이스 내부에서 index 파일을 통해 import하면 순환 참조가 발생한다.
+> 예: `HomePage`가 `../`(index.js)에서 `loadUserStatistics`를 가져오면, index.js → HomePage → index.js 순환이 생긴다.
+> 내부에서는 상대 경로로 직접 import하고, 외부에서만 Public API를 사용하면 순환 참조를 원천 차단할 수 있다.
+
 > 내 해석
 > 슬라이스나 세그먼트에서, 외부에 공개할 모듈만 따로 선택하기 위한 방법입니다.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/tutorial
 - https://feature-sliced.design/docs/reference/public-api
+
+---
+
+## FSD에서 Shared 레이어와 도메인 레이어의 Public API 전략은 어떻게 다른가?
+
+### Official Answer
+For the Shared layer that has no slices, it's usually more convenient to define a separate public API for each segment as opposed to defining one single index of everything in Shared.
+This keeps imports from Shared naturally organized by intent.
+For other layers that have slices, the opposite is true — it's usually more practical to define one index per slice and let the slice decide its own set of segments that is unknown to the outside world because other layers usually have a lot less exports.
+
+> AI Annotation: Shared는 export가 많으므로 `shared/ui/index`, `shared/api/index`처럼 세그먼트별로 Public API를 분리한다.
+> 도메인 레이어는 슬라이스 단위로 하나의 index를 두어 내부 세그먼트 구조를 캡슐화한다.
+> 번들 크기가 문제되면 `shared/ui/button/index`, `shared/ui/text-field/index`처럼 컴포넌트별로 더 세분화할 수도 있다.
+
+### Reference
+- https://feature-sliced.design/docs/get-started/tutorial
 
 ---
 

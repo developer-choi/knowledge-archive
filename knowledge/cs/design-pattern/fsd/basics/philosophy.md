@@ -20,11 +20,18 @@ Their main purpose is to group code by its meaning for the product, business, or
 Slices are meant to be independent and highly cohesive groups of code files.
 Slices make your codebase easier to navigate by keeping logically related modules close together.
 
+> Official Annotation: Closely related slices can be structurally grouped in a folder, but they should exercise the same isolation rules as other slices — there should be no code sharing in that folder.
+
+> AI Annotation: `features/post/` 폴더 안에 `compose`, `like`, `delete` 슬라이스를 묶을 수 있지만, 그 폴더에 `some-shared-code.ts` 같은 공유 코드를 넣으면 안 된다.
+> 공유 코드가 필요하면 하위 레이어(Entities, Shared)로 내려야 한다.
+> 폴더는 순수한 구조적 그룹핑이지, 코드 공유의 경로가 되면 안 된다.
+
 ### Frequent Mistakes
 - 기존 components, hooks 분류 방식은 한국어로 "기술적 유형" 단위에 해당한다.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
+- https://feature-sliced.design/docs/reference/slices-segments
 
 ---
 
@@ -43,12 +50,21 @@ The problem manifests itself at least in violation of the principle of High Cohe
 > 2. **FSD 방식**: `auth/` 하위에 `ui`, `hooks`, `api` 등이 모여 있어 응집도가 높음.
 > 3. 또한 의존성 규칙이 일정하여 수정 시 영향 범위를 쉽게 파악할 수 있음. (예: `entities/auth/ui` 수정 시 그 아래 레이어에는 영향이 없음)
 
+> Official Annotation: Resist the temptation to create a shared/types folder, or to add a types segment to your slices.
+> The category "types" is similar to the category "components" or "hooks" in that it describes what the contents are, not what they are for.
+
+> Official Annotation: Files can also be a source of desegmentation.
+> Files like types.ts can aggregate multiple domains, complicating navigation and future refactoring.
+> Avoid generic file names like types.ts, utils.ts, or helpers.ts.
+> Instead, use names that directly reflect the domain they represent.
+
 ### Frequent Mistakes
 - 세그먼트 이름도 "기술적 유형"으로 짓는다고 답변했으나, 정확한 기준은 purpose (why) vs essence (what). `ui`는 목적(purpose), `components`는 본질(essence).
 
 ### Reference
 - https://feature-sliced.design/docs/guides/issues/desegmented
 - https://feature-sliced.design/docs/get-started/tutorial
+- https://feature-sliced.design/docs/guides/tech/types
 
 ---
 
