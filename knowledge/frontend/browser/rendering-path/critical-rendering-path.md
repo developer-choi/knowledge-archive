@@ -9,13 +9,19 @@ tags: [browser, performance, concept]
 ## Parsing
 - [During HTML parsing, what happens when the browser encounters a `<script>` tag without `async` or `defer`? How does this differ from other resources like images?](#during-html-parsing-what-happens-when-the-browser-encounters-a-script-tag-without-async-or-defer-how-does-this-differ-from-other-resources-like-images)
 - [While the browser is building the DOM tree, resource downloads could be delayed. How does the browser mitigate this problem?](#while-the-browser-is-building-the-dom-tree-resource-downloads-could-be-delayed-how-does-the-browser-mitigate-this-problem)
+  - [[TODO] 외부 CSS 파일(`<link>`)을 만나면 브라우저는 어떻게 처리하나?](#todo-외부-css-파일link을-만나면-브라우저는-어떻게-처리하나)
 - [Is it okay to place `<link rel="stylesheet">` in `<head>` without blocking HTML parsing? Then why does CSS block JavaScript execution?](#is-it-okay-to-place-link-relstylesheet-in-head-without-blocking-html-parsing-then-why-does-css-block-javascript-execution)
+  - [[TODO] CSS가 렌더 블로킹이라면서 왜 `<link>`를 `<head>`에 넣으라고 하나? `<body>` 끝에 넣으면 더 빠르지 않나?](#todo-css가-렌더-블로킹이라면서-왜-link를-head에-넣으라고-하나-body-끝에-넣으면-더-빠르지-않나)
 ## CSSOM
 - [What is CSSOM (CSS Object Model), and what is its relationship with the DOM?](#what-is-cssom-css-object-model-and-what-is-its-relationship-with-the-dom)
+  - [[TODO] CSS 파일 다운로드를 기다리는 동안 DOM은 어떤 상태인가?](#todo-css-파일-다운로드를-기다리는-동안-dom은-어떤-상태인가)
 - [How does the browser build the CSSOM tree from the CSS it receives?](#how-does-the-browser-build-the-cssom-tree-from-the-css-it-receives)
   - [Is CSSOM construction a performance bottleneck? How do you observe it in DevTools?](#is-cssom-construction-a-performance-bottleneck-how-do-you-observe-it-in-devtools)
   - [[TODO] How is the CSSOM built, and how does it differ from DOM construction?](#todo-how-is-the-cssom-built-and-how-does-it-differ-from-dom-construction)
-- [[TODO] How does CSS affect web performance, and what are the best practices for optimizing it?](#todo-how-does-css-affect-web-performance-and-what-are-the-best-practices-for-optimizing-it)
+## Optimization
+- [[TODO] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?](#todo-critical-rendering-path-전체에서-성능을-개선하려면-어디를-건드려야-하나)
+  - [[TODO] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?](#todo-crp-최적화-전략-중-roi가-가장-높은-한-가지는)
+  - [[TODO] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?](#todo-코드-스플리팅은-렌더링-파이프라인의-어느-단계에-영향을-주나)
 ## Render
 - [How is the Render Tree constructed after parsing is complete?](#how-is-the-render-tree-constructed-after-parsing-is-complete)
   - [How are `display: none` and `visibility: hidden` treated differently in the Render Tree?](#how-are-display-none-and-visibility-hidden-treated-differently-in-the-render-tree)
@@ -87,6 +93,18 @@ It will retrieve resources in the background so that by the time the main HTML p
 
 ---
 
+## [TODO] 외부 CSS 파일(`<link>`)을 만나면 브라우저는 어떻게 처리하나?
+
+### AI Answer
+preload scanner가 `<link>` 태그를 미리 발견하고 CSS 파일 다운로드를 시작한다.
+CSS 파일을 만나도 HTML 파싱은 중단되지 않고 계속 진행된다.
+다운로드된 CSS는 별도로 CSSOM을 구축하는 데 사용된다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
+
+---
+
 ## Is it okay to place `<link rel="stylesheet">` in `<head>` without blocking HTML parsing? Then why does CSS block JavaScript execution?
 
 ### Official Answer
@@ -96,6 +114,18 @@ Waiting to obtain CSS doesn't block HTML parsing or downloading, but it does blo
 > AI Annotation: CSS 파일을 만나도 파싱은 계속된다.
 > CSS를 기다리는 것은 HTML 파싱이나 다운로드를 막지 않지만, JavaScript는 막는다.
 > JavaScript가 CSS 속성이 요소에 미치는 영향을 조회하는 데 자주 사용되기 때문이다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
+
+---
+
+## [TODO] CSS가 렌더 블로킹이라면서 왜 `<link>`를 `<head>`에 넣으라고 하나? `<body>` 끝에 넣으면 더 빠르지 않나?
+
+### AI Answer
+CSS는 렌더 블로킹이지만, `<head>`에 넣으면 다운로드가 일찍 시작되어 CSSOM 구축이 빨라진다.
+`<body>` 끝에 넣으면 파싱은 빨라지는 것처럼 보이지만, CSS가 늦게 도착하면 FOUC(Flash of Unstyled Content)가 발생하고 렌더트리 합성이 지연된다.
+결국 사용자가 보는 첫 화면이 더 느려지는 트레이드오프가 있다.
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
@@ -115,6 +145,18 @@ It allows users to read and modify CSS style dynamically.
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model
 - https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration
+
+---
+
+## [TODO] CSS 파일 다운로드를 기다리는 동안 DOM은 어떤 상태인가?
+
+### AI Answer
+CSS 파일을 기다리는 동안에도 HTML 파싱과 DOM 구축은 계속 진행된다.
+하지만 DOM + CSSOM이 합쳐져야 렌더트리가 만들어지므로, CSSOM이 완성될 때까지 렌더링(화면 표시)은 블로킹된다.
+즉, DOM은 "만들어지고 있지만 아직 화면에 그려지지 않는" 상태다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
 
 ---
 
@@ -245,9 +287,36 @@ Layers do improve performance but are expensive when it comes to memory manageme
 
 ---
 
-## [TODO] How does CSS affect web performance, and what are the best practices for optimizing it?
+## [TODO] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?
 
-### Official Answer
+### AI Answer
+크리티컬 렌더링 패스를 줄이는 것이 핵심이다.
+CSS 인라인/최소화, JS defer, 리소스 프리로드, 레이아웃 스래싱 방지 등의 기법이 있다.
+네트워크(리소스 수·크기), 파싱(블로킹 리소스), 렌더링(리플로우/리페인트) 각 단계별 최적화 포인트가 다르다.
 
 ### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
 - https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/CSS
+
+---
+
+## [TODO] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?
+
+### AI Answer
+상황에 따라 다르지만, 일반적으로 크리티컬 렌더링 패스에서 블로킹 리소스를 제거하거나 줄이는 것이 가장 높은 ROI를 가진다.
+CSS 인라인화 + JS defer만으로도 초기 렌더링 속도가 크게 개선되는 경우가 많다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
+
+---
+
+## [TODO] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?
+
+### AI Answer
+코드 스플리팅은 주로 파싱 단계에 영향을 준다.
+초기 로드 시 필요한 JS 번들 크기를 줄여서, 스크립트 다운로드·파싱·실행으로 인한 메인 스레드 블로킹 시간을 단축한다.
+결과적으로 DOM 파싱 완료와 렌더트리 합성이 빨라진다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
