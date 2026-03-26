@@ -73,8 +73,8 @@ By making explicit connections between entities, we stay on top of inter-depende
 > `@x` 폴더가 비대해지면 "이 엔티티가 너무 많은 곳에 연결되어 있다"는 경고 신호이므로, 먼저 엔티티를 합칠 수 있는지 검토해야 한다.
 
 ### Reference
-- https://feature-sliced.design/docs/guides/tech/types
-- https://feature-sliced.design/docs/guides/issues/cross-import
+- https://feature-sliced.design/docs/guides/examples/types
+- https://feature-sliced.design/docs/guides/issues/cross-imports
 
 ---
 
