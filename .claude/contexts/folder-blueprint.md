@@ -31,7 +31,10 @@
     - **Markup & Styling**: `layout/`, `animation/`, `css/`, `font/`, `image/`
     - **Design System**: `figma-collab/`, `components/`, `modal/`
     - **Interaction**: `scroll/`, `url-query/`, `gestures/`
-    - **Testing**: `jest/`, `rtl/`, `storybook/`
+    - **Visual Testing**: `storybook/`
+
+#### **Testing**
+- **`frontend/testing/`**: Test Adoption, Testing Library, Jest, RTL, Storybook
 
 #### **Browser & Web Standard**
 - **`frontend/browser/`**: `loading-process/`, `rendering-path/`, `devtools/`
