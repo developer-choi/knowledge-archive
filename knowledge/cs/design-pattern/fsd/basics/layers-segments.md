@@ -7,7 +7,9 @@ tags: [fsd, architecture, layers, responsibility]
   - [When should we use the 'Widgets' layer, and when should we avoid it?](#when-should-we-use-the-widgets-layer-and-when-should-we-avoid-it)
     - [여러 페이지에서 재사용되는 큰 UI 블록을 Shared와 Widgets 중 어디에 놓아야 하는가?](#여러-페이지에서-재사용되는-큰-ui-블록을-shared와-widgets-중-어디에-놓아야-하는가)
   - [What is the key difference between 'Entities' and 'Features' in FSD?](#what-is-the-key-difference-between-entities-and-features-in-fsd)
+    - [FSD에서 feature 슬라이스의 경계를 어떻게 판단하는가? 하나의 feature에 여러 기능이 들어가면 어떤 문제가 생기는가?](#fsd에서-feature-슬라이스의-경계를-어떻게-판단하는가-하나의-feature에-여러-기능이-들어가면-어떤-문제가-생기는가)
   - [FSD에서 Entities 레이어를 만들지 않아도 되는가? 만든다면 언제 만들어야 하는가?](#fsd에서-entities-레이어를-만들지-않아도-되는가-만든다면-언제-만들어야-하는가)
+  - [[TODO] What is the key difference between 'App' and 'Pages' in FSD?](#todo-what-is-the-key-difference-between-app-and-pages-in-fsd)
 - [What are segments in FSD, and what is the role of each one?](#what-are-segments-in-fsd-and-what-is-the-role-of-each-one)
 - [What is the role of the Public API in an FSD slice, and how does it support refactoring?](#what-is-the-role-of-the-public-api-in-an-fsd-slice-and-how-does-it-support-refactoring)
   - [FSD에서 Shared 레이어와 도메인 레이어의 Public API 전략은 어떻게 다른가?](#fsd에서-shared-레이어와-도메인-레이어의-public-api-전략은-어떻게-다른가)
@@ -119,6 +121,26 @@ Specifically for entities/ui, it is primarily meant to reuse the same appearance
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
 - https://feature-sliced.design/docs/reference/layers
+
+---
+
+## FSD에서 feature 슬라이스의 경계를 어떻게 판단하는가? 하나의 feature에 여러 기능이 들어가면 어떤 문제가 생기는가?
+
+### Official Answer
+One feature is one useful functionality for the user.
+When several features are implemented in one feature, this is a violation of borders.
+The feature can be indivisible and growing - and this is not bad.
+Bad - when the feature does not answer the question "What is the business value for the user?"
+There can be no "map-office" feature.
+But booking-meeting-on-the-map, search-for-an-employee, change-of-workplace - yes.
+
+> AI Annotation: feature의 크기가 아니라 목적이 판단 기준이다.
+> "이 feature는 사용자에게 어떤 비즈니스 가치를 주는가?"에 답할 수 없으면 경계가 잘못된 것이다.
+> "map-office"는 영역/도메인이지 기능이 아니다.
+> 반면 "booking-meeting-on-the-map"은 사용자가 달성하려는 구체적 목표이므로 feature가 될 수 있다.
+
+### Reference
+- https://feature-sliced.design/docs/about/understanding/needs-driven
 
 ---
 

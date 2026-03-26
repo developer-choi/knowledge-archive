@@ -8,6 +8,8 @@ tags: [fsd, concept, slice, cohesion, coupling]
   - [What is cohesion, and what are some best practices to increase it?](#what-is-cohesion-and-what-are-some-best-practices-to-increase-it)
   - [What is coupling, and how can we measure it in our codebase?](#what-is-coupling-and-how-can-we-measure-it-in-our-codebase)
 - [Why do the 'App' and 'Shared' layers skip the slice level, while other layers are required to have them?](#why-do-the-app-and-shared-layers-skip-the-slice-level-while-other-layers-are-required-to-have-them)
+- [[TODO] What's the domain?](#todo-whats-the-domain)
+- [FSD 공식 문서가 "변경에 최적화하지 말고, 삭제에 최적화하라"고 말하는 이유는 무엇인가?](#fsd-공식-문서가-변경에-최적화하지-말고-삭제에-최적화하라고-말하는-이유는-무엇인가)
 
 ---
 
@@ -122,3 +124,19 @@ The problem manifests itself at least in violation of the principle of High Cohe
 ### Official Answer
 
 ### Reference
+
+---
+
+## FSD 공식 문서가 "변경에 최적화하지 말고, 삭제에 최적화하라"고 말하는 이유는 무엇인가?
+
+### Official Answer
+No need to optimize for changes - we can’t predict the future.
+Better-optimize for deletion - based on the context that already exists.
+
+> AI Annotation: "변경에 유연하게 설계하라"는 흔한 아키텍처 조언과 정반대 방향이다.
+> 미래를 예측할 수 없으니 변경을 대비한 추상화는 과잉 설계가 되기 쉽다.
+> 대신, 현재 맥락에서 코드를 쉽게 들어낼 수 있게 만들면 된다.
+> FSD에서 슬라이스가 격리되어 있으면 해당 슬라이스 폴더를 통째로 삭제해도 다른 곳이 깨지지 않는다.
+
+### Reference
+- https://feature-sliced.design/docs/about/understanding/architecture
