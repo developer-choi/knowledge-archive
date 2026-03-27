@@ -211,6 +211,7 @@ But we do it because we solve real problems we had with that approach.
 And that's what we're doing at every level of the testing trophy.
 
 > AI Annotation: Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다. Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
+> User Annotation: 촘촘하게 테스트 해야하니까. 비즈니스 로직 사이 사이를.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests

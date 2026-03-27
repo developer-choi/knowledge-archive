@@ -10,7 +10,6 @@ tags: [testing, test-adoption]
   - [What E2E test ratio did you set, and why?](#what-e2e-test-ratio-did-you-set-and-why)
   - [What unit test ratio did you set, and why?](#what-unit-test-ratio-did-you-set-and-why)
   - [What integration test ratio did you set, and why?](#what-integration-test-ratio-did-you-set-and-why)
-  - [Why did you choose the testing trophy over the traditional test pyramid?](#why-did-you-choose-the-testing-trophy-over-the-traditional-test-pyramid)
 
 ---
 
@@ -110,18 +109,3 @@ Unit / E2E 테스트의 장단점을 적당히 타협할 수 있기 때문.
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
 
----
-
-## Why did you choose the testing trophy over the traditional test pyramid?
-### Official Answer
-The cost and speed trade-offs are typically referenced when people talk about the testing pyramid.
-If those were the only trade-offs though, then I would focus 100% of my efforts on unit tests and totally ignore any other form of testing when regarding the testing pyramid.
-Of course we shouldn't do that and this is because of one super important principle that you've probably heard me say before:
-
-The more your tests resemble the way your software is used, the more confidence they can give you.
-
-### User Annotation
-촘촘하게 테스트 해야하니까. 비즈니스 로직 사이 사이를.
-
-### Reference
-- https://web.dev/articles/ta-strategies
