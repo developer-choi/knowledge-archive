@@ -6,10 +6,6 @@ tags: [testing, test-adoption]
 - [What problems were you trying to solve by adopting testing?](#what-problems-were-you-trying-to-solve-by-adopting-testing)
   - [Why did bugs occur in production?](#why-did-bugs-occur-in-production)
   - [What alternatives did you consider, and why did you choose testing?](#what-alternatives-did-you-consider-and-why-did-you-choose-testing)
-- [How did you decide the balance between E2E, integration, and unit tests?](#how-did-you-decide-the-balance-between-e2e-integration-and-unit-tests)
-  - [What E2E test ratio did you set, and why?](#what-e2e-test-ratio-did-you-set-and-why)
-  - [What unit test ratio did you set, and why?](#what-unit-test-ratio-did-you-set-and-why)
-  - [What integration test ratio did you set, and why?](#what-integration-test-ratio-did-you-set-and-why)
 
 ---
 
@@ -70,42 +66,4 @@ TODO
 
 ### Reference
 TODO
-
----
-
-## What E2E test ratio did you set, and why?
-### Official Answer
-TODO
-
-### User Annotation
-비중을 적게잡음.
-
-왜냐하면, 테스트 실행속도가 제일 느림. 실행되는 코드가 제일 많으니까. (외부환경도 다 기다려야함)
-
-### Reference
-- https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
-
----
-
-## What unit test ratio did you set, and why?
-### Official Answer
-TODO
-
-### User Annotation
-- 사용자가 사용하는 방식과 동떨어져있기 때문
-
-### Reference
-- https://testing-library.com/docs/guiding-principles
-
----
-
-## What integration test ratio did you set, and why?
-### Official Answer
-TODO
-
-### User Annotation
-Unit / E2E 테스트의 장단점을 적당히 타협할 수 있기 때문.
-
-### Reference
-- https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
 
