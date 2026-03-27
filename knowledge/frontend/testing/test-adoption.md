@@ -3,32 +3,12 @@ tags: [testing, test-adoption]
 ---
 # Questions
 
-- [What problems were you trying to solve by adopting testing?](#what-problems-were-you-trying-to-solve-by-adopting-testing)
-  - [Why did bugs occur in production?](#why-did-bugs-occur-in-production)
-  - [What alternatives did you consider, and why did you choose testing?](#what-alternatives-did-you-consider-and-why-did-you-choose-testing)
+- [Why did bugs occur in production?](#why-did-bugs-occur-in-production)
+- [What alternatives did you consider, and why did you choose testing?](#what-alternatives-did-you-consider-and-why-did-you-choose-testing)
 
 ---
 
 # Answers
-
-## What problems were you trying to solve by adopting testing?
-### Official Answer
-The biggest and most important reason that I write tests is CONFIDENCE.
-I want to be confident that the code I'm writing for the future won't break the app that I have running in production today.
-
-### User Annotation
-배포하기 전에, 코드가 문제없는지를 확인하어서.
-리팩토링 했을 떄
-기능을 추가 & 수정했을 때
-
-하지만, 비즈니스보다 테스트가 더 중요한것은 아니기 때문에,
-가성비를 챙기고싶다.
-
-
-### Reference
-- https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
-
----
 
 ## Why did bugs occur in production?
 ### User Annotation
