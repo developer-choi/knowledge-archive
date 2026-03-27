@@ -114,7 +114,11 @@ Unit / E2E 테스트의 장단점을 적당히 타협할 수 있기 때문.
 
 ## Why did you choose the testing trophy over the traditional test pyramid?
 ### Official Answer
-TODO
+The cost and speed trade-offs are typically referenced when people talk about the testing pyramid.
+If those were the only trade-offs though, then I would focus 100% of my efforts on unit tests and totally ignore any other form of testing when regarding the testing pyramid.
+Of course we shouldn't do that and this is because of one super important principle that you've probably heard me say before:
+
+The more your tests resemble the way your software is used, the more confidence they can give you.
 
 ### User Annotation
 촘촘하게 테스트 해야하니까. 비즈니스 로직 사이 사이를.
