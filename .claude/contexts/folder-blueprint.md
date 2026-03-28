@@ -57,6 +57,7 @@
 - **`cs/system/`**: `os/`, `process-thread/`, `memory/`
 
 #### **Software Engineering**
+- **`cs/software-engineering/`**: `principles/` (Cohesion, Coupling, Readability)
 - **`cs/design-pattern/`**: `singleton/`, `observer/`, `factory/`, `fsd/` (Architecture)
 
 ---
