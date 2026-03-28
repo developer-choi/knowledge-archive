@@ -6,7 +6,7 @@
 
 ## 0. 기본 원칙
 
-- **Fact-First**: 객관적 사실만 Official Answer에 기록. 개인 해석은 `> User Annotation`으로 구분.
+- **Fact-First**: 객관적 사실만 Official Answer에 기록. 해석·보충은 `> OO Annotation:`으로 구분. (Official / AI / User)
 - **원문 보존**: 공식 문서 원문의 핵심 내용을 그대로 보존. 문장 간 연결이 어색하더라도 AI가 임의로 가공하지 않는다.
 - **영어 사용 범위**: 문서 내 영어는 공식 문서 원문(Official Answer, Official Annotation)에만 사용한다. 그 외 편집·주석 성격의 내용(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
 - **출처 없으면 작업 중단**: 출처가 제공되지 않으면, 내용 작성 전에 출처 링크를 요청하고 대기한다.
@@ -120,7 +120,21 @@ A network is a group of communicating computers...
 
 ---
 
-## 5. 문장 단위 줄바꿈 (Semantic Line Breaks)
+## 5. Review Note / Frequent Mistakes
+
+Answer 하위에 추가할 수 있는 선택적 섹션이다.
+
+| 섹션 | 용도 |
+|---|---|
+| `### Review Note` | 복습·평가 시 참고사항 (중요하지 않은 부분, 집중할 부분 등) |
+| `### Frequent Mistakes` | 복습 시 자주 혼동한 키워드나 오개념 기록 |
+
+- 두 섹션 모두 선택 사항이며, 해당하는 경우에만 작성한다.
+- Answer 내 위치: Reference 바로 위에 배치한다.
+
+---
+
+## 6. 문장 단위 줄바꿈 (Semantic Line Breaks)
 
 ### 원칙
 - 한 문장이 끝날 때마다 줄바꿈한다.
@@ -145,7 +159,7 @@ Networks can be classified by their size and scope.
 
 ---
 
-## 6. 이미지 처리
+## 7. 이미지 처리
 
 ### Case 1: AI 답변 캡처
 Official Answer 섹션 내부에 인용 블록으로 추가:
