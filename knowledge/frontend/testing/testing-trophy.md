@@ -27,7 +27,7 @@ tags: [software-engineering, comparison]
 ### Official Answer
 Static: Catch typos and type errors as you write the code.
 
-> AI Annotation: Testing Trophy의 가장 아래에 위치한다. ESLint, TypeScript 같은 도구가 코드를 실행하지 않고도 문법 오류, 타입 불일치, 무한루프 등을 잡아준다. 테스트를 작성할 필요조차 없다.
+> #### AI Annotation: Testing Trophy의 가장 아래에 위치한다. ESLint, TypeScript 같은 도구가 코드를 실행하지 않고도 문법 오류, 타입 불일치, 무한루프 등을 잡아준다. 테스트를 작성할 필요조차 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -39,7 +39,7 @@ Static: Catch typos and type errors as you write the code.
 ### Official Answer
 Unit: Verify that individual, isolated parts work as expected.
 
-> AI Annotation: Testing Trophy에서 Static 바로 위에 위치한다. 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
+> #### AI Annotation: Testing Trophy에서 Static 바로 위에 위치한다. 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -55,8 +55,8 @@ The lower down the trophy you are, the less code your tests are testing.
 If you're operating at a low level you need more tests to cover the same number of lines of code in your application as a single test could higher up the trophy.
 In fact, as you go lower down the testing trophy, there are some things that are impossible to test.
 
-> AI Annotation: 장점 — 빠르고(실행 코드가 적음), 비용이 낮고(작성·유지 간단), 실패 시 원인이 명확하다.
-> AI Annotation: 단점 — confidence coefficient가 낮고, 같은 커버리지를 위해 더 많은 테스트가 필요하며, 의존성 연동 문제는 구조적으로 잡을 수 없다.
+> #### AI Annotation: 장점 — 빠르고(실행 코드가 적음), 비용이 낮고(작성·유지 간단), 실패 시 원인이 명확하다.
+> #### AI Annotation: 단점 — confidence coefficient가 낮고, 같은 커버리지를 위해 더 많은 테스트가 필요하며, 의존성 연동 문제는 구조적으로 잡을 수 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -68,7 +68,7 @@ In fact, as you go lower down the testing trophy, there are some things that are
 ### Official Answer
 Unit tests are incapable of ensuring that when you call into a dependency that you're calling it appropriately (though you can make assertions on how it's being called, you can't ensure that it's being called properly with a unit test).
 
-> AI Annotation: 아니오. mock은 가짜 구현이므로, 실제 의존성이 해당 인자를 받아서 올바르게 동작하는지는 보장할 수 없다. 예를 들어 `api.createUser({name: 'Kim'})`을 호출했다고 assertion하더라도, 실제 API가 `username` 필드를 기대한다면 unit test는 이를 잡지 못한다.
+> #### AI Annotation: 아니오. mock은 가짜 구현이므로, 실제 의존성이 해당 인자를 받아서 올바르게 동작하는지는 보장할 수 없다. 예를 들어 `api.createUser({name: 'Kim'})`을 호출했다고 assertion하더라도, 실제 API가 `username` 필드를 기대한다면 unit test는 이를 잡지 못한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -82,7 +82,7 @@ Integration: Verify that several units work together in harmony.
 
 The idea behind integration tests is to mock as little as possible.
 
-> AI Annotation: Testing Trophy에서 가장 큰 비중을 차지한다. 여러 단위가 함께 동작하는지를 검증하며, 앱의 모든 Provider를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
+> #### AI Annotation: Testing Trophy에서 가장 큰 비중을 차지한다. 여러 단위가 함께 동작하는지를 검증하며, 앱의 모든 Provider를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -99,8 +99,8 @@ I pretty much only mock:
 1. Network requests (using MSW)
 2. Components responsible for animation (because who wants to wait for that in your tests?)
 
-> AI Annotation: 장점 — 비용·속도와 자신감 사이의 최적 균형점. unit보다 높은 confidence coefficient를 가지면서, E2E보다 빠르고 저렴하다. mock을 최소화하므로 실제 동작에 가깝다.
-> AI Annotation: 단점 — unit보다는 느리고, 실패 시 원인 추적이 unit보다 어렵다. 실제 백엔드 연동 문제는 잡을 수 없다.
+> #### AI Annotation: 장점 — 비용·속도와 자신감 사이의 최적 균형점. unit보다 높은 confidence coefficient를 가지면서, E2E보다 빠르고 저렴하다. mock을 최소화하므로 실제 동작에 가깝다.
+> #### AI Annotation: 단점 — unit보다는 느리고, 실패 시 원인 추적이 unit보다 어렵다. 실제 백엔드 연동 문제는 잡을 수 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -114,7 +114,7 @@ I pretty much only mock:
 1. Network requests (using MSW)
 2. Components responsible for animation (because who wants to wait for that in your tests?)
 
-> AI Annotation: 그 외에는 전부 실제 코드를 사용한다. 커스텀 render가 앱의 모든 Provider(Router, Theme, Auth 등)를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
+> #### AI Annotation: 그 외에는 전부 실제 코드를 사용한다. 커스텀 render가 앱의 모든 Provider(Router, Theme, Auth 등)를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -126,7 +126,7 @@ I pretty much only mock:
 ### Official Answer
 UI Integration tests are incapable of ensuring that you're passing the right data to your backend and that you respond to and parse errors correctly.
 
-> AI Annotation: MSW로 네트워크를 mock하기 때문에, 실제 백엔드에 올바른 데이터를 보내는지, 백엔드가 보내는 실제 에러 형식을 제대로 파싱하는지는 보장할 수 없다.
+> #### AI Annotation: MSW로 네트워크를 mock하기 때문에, 실제 백엔드에 올바른 데이터를 보내는지, 백엔드가 보내는 실제 에러 형식을 제대로 파싱하는지는 보장할 수 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -142,7 +142,7 @@ Sometimes called "functional testing" or e2e.
 Typically these will run the entire application (both frontend and backend) and your test will interact with the app just like a typical user would.
 These tests are written with cypress.
 
-> AI Annotation: Testing Trophy에서 가장 꼭대기에 위치한다.
+> #### AI Annotation: Testing Trophy에서 가장 꼭대기에 위치한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -160,8 +160,8 @@ The higher up the trophy you go, the more points of failure there are and theref
 
 End to End tests are pretty darn capable, but typically you'll run these in a non-production environment (production-like, but not production) to trade-off that confidence for practicality.
 
-> AI Annotation: 장점 — confidence coefficient가 가장 높다. 프론트+백엔드 전체를 실제 사용자처럼 테스트하므로 가장 높은 자신감을 준다.
-> AI Annotation: 단점 — 가장 비싸고(CI 비용 + 유지보수), 가장 느리고(전체 앱 실행), 실패 시 원인 추적이 가장 어렵다. 비프로덕션 환경에서 돌리므로 프로덕션 100% 보장은 아니다.
+> #### AI Annotation: 장점 — confidence coefficient가 가장 높다. 프론트+백엔드 전체를 실제 사용자처럼 테스트하므로 가장 높은 자신감을 준다.
+> #### AI Annotation: 단점 — 가장 비싸고(CI 비용 + 유지보수), 가장 느리고(전체 앱 실행), 실패 시 원인 추적이 가장 어렵다. 비프로덕션 환경에서 돌리므로 프로덕션 100% 보장은 아니다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -176,7 +176,7 @@ That might be more suitable for an integration test.
 If you try to use an integration test to hit an edge case for the coupon code calculator, you're likely doing a fair amount of work in your setup function to make sure you can render the components that use the coupon code calculator and you could cover that edge case better in a unit test.
 If you try to use a unit test to verify what happens when you call your add function with a string instead of a number you could be much better served using a static type checking tool like TypeScript.
 
-> AI Annotation: 아니오. 각 edge case를 가장 효율적으로 잡을 수 있는 레벨이 따로 있다. E2E로 모든 것을 잡으려 하면 셋업 비용이 과도하고, 테스트가 느려지고, 실패 원인 추적이 어려워진다.
+> #### AI Annotation: 아니오. 각 edge case를 가장 효율적으로 잡을 수 있는 레벨이 따로 있다. E2E로 모든 것을 잡으려 하면 셋업 비용이 과도하고, 테스트가 느려지고, 실패 원인 추적이 어려워진다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -204,14 +204,16 @@ But we don't want to wait on Aunt Marie to find our bugs for us right?
 It would take too long and she'd probably miss some features that we should probably be testing.
 Compound that with the fact that we're regularly releasing updates to our software there's no way any amount of humans would be able to keep up.
 
-So what do we do? We make trade-offs.
-And how do we do that? We write software that tests our software.
+So what do we do?
+We make trade-offs.
+And how do we do that?
+We write software that tests our software.
 And the trade-off we're always making when we do that is now our tests don't resemble the way our software is used as reliably as when we had Aunt Marie testing our software.
 But we do it because we solve real problems we had with that approach.
 And that's what we're doing at every level of the testing trophy.
 
-> AI Annotation: Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다. Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
-> User Annotation: 촘촘하게 테스트 해야하니까. 비즈니스 로직 사이 사이를.
+> #### AI Annotation: Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다. Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
+> #### User Annotation: 촘촘하게 테스트 해야하니까. 비즈니스 로직 사이 사이를.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -226,7 +228,7 @@ This is the relative confidence that each test can get you at that level.
 You can imagine that above the trophy is manual testing.
 That would get you really great confidence from those tests, but the tests would be really expensive and slow.
 
-> AI Annotation: Trophy 위로 갈수록 테스트 1개당 자신감이 커진다. Trophy 꼭대기 위에는 manual testing(Aunt Marie)이 있고, 자신감은 최고지만 비용·속도가 최악이다.
+> #### AI Annotation: Trophy 위로 갈수록 테스트 1개당 자신감이 커진다. Trophy 꼭대기 위에는 manual testing(Aunt Marie)이 있고, 자신감은 최고지만 비용·속도가 최악이다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests

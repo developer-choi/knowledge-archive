@@ -2,15 +2,15 @@
 tags: [software-engineering, architecture, principle]
 ---
 # Questions
-- [What is Cohesion?](#what-is-cohesion)
-- [Why is high cohesion desirable?](#why-is-high-cohesion-desirable)
-- [What are the types of Cohesion?](#what-are-the-types-of-cohesion)
+- [응집도(Cohesion)란 무엇인가?](#응집도cohesion란-무엇인가)
+- [높은 응집도가 왜 바람직한가?](#높은-응집도가-왜-바람직한가)
+- [응집도의 종류에는 무엇이 있는가?](#응집도의-종류에는-무엇이-있는가)
 
 ---
 
 # Answers
 
-## What is Cohesion?
+## 응집도(Cohesion)란 무엇인가?
 ### Official Answer
 Cohesion refers to the degree to which the elements inside a module belong together.
 
@@ -23,23 +23,23 @@ Methods carry out a small number of related activities, by avoiding coarsely gra
 Related methods are in the same source file or otherwise grouped together; for example, in separate files but in the same sub-directory/folder.
 
 ### Reference
-- [Cohesion (computer science) - Wikipedia](https://en.wikipedia.org/wiki/Cohesion_\(computer_science\))
+- https://en.wikipedia.org/wiki/Cohesion_(computer_science)
 
 ---
 
-## Why is high cohesion desirable?
+## 높은 응집도가 왜 바람직한가?
 ### Official Answer
 High cohesion is associated with several desirable software traits including robustness, reliability, reusability, and understandability.
 
-> User Annotation
+> #### User Annotation:
 > 기획 바뀌어서 여기수정 저기수정 안해도 됨.
 
 ### Reference
-- [Cohesion (computer science) - Wikipedia](https://en.wikipedia.org/wiki/Cohesion_\(computer_science\))
+- https://en.wikipedia.org/wiki/Cohesion_(computer_science)
 
 ---
 
-## What are the types of Cohesion?
+## 응집도의 종류에는 무엇이 있는가?
 ### Official Answer
 #### Coincidental cohesion (worst)
 Coincidental cohesion is when parts of a module are grouped arbitrarily.
@@ -49,7 +49,7 @@ The only relationship between the parts is that they have been grouped together 
 #### Logical cohesion
 Logical cohesion is when parts of a module are grouped because they are logically categorized to do the same thing even though they are different by nature (e.g., grouping all mouse and keyboard input handling routines or bundling all models, views, and controllers in separate folders in an [MVC pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)).
 
-> User Annotation
+> #### User Annotation:
 > **Coincidental cohesion Examples:**
 > - 하나의 static class 안에 온갖 메소드 다 집어넣기
 > - 하나의 `utils.ts` / `common.ts`에 온갖 함수 다 집어넣기
@@ -61,4 +61,4 @@ Logical cohesion is when parts of a module are grouped because they are logicall
 > - styles
 
 ### Reference
-- [Cohesion (computer science) - Wikipedia](https://en.wikipedia.org/wiki/Cohesion_\(computer_science\))
+- https://en.wikipedia.org/wiki/Cohesion_(computer_science)

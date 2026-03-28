@@ -3,14 +3,16 @@ tags: [javascript, concept]
 ---
 
 # Questions
-- [What is the await operator?](#what-is-the-await-operator)
-- [How does await affect the execution order?](#how-does-await-affect-the-execution-order)
-- [Should I use return await?](#should-i-use-return-await)
-- [Does .catch() handle synchronous errors in promised functions?](#does-catch-handle-synchronous-errors-in-promised-functions)
+- [await 연산자란 무엇인가?](#await-연산자란-무엇인가)
+- [await는 실행 순서에 어떤 영향을 미치는가?](#await는-실행-순서에-어떤-영향을-미치는가)
+- [return await를 사용해야 하는가?](#return-await를-사용해야-하는가)
+- [.catch()는 프로미스 함수의 동기 에러를 처리하는가?](#catch는-프로미스-함수의-동기-에러를-처리하는가)
+
+---
 
 # Answers
 
-## What is the await operator?
+## await 연산자란 무엇인가?
 
 ### Official Answer
 The **await** operator is used to wait for a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) and get its fulfillment value.
@@ -22,11 +24,11 @@ The function containing the await expression will [appear in the stack trace](ht
 Otherwise, if the rejected promise is not awaited or is immediately returned, the caller function will not appear in the stack trace.
 
 ### Reference
-- [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 
 ---
 
-## How does await affect the execution order?
+## await는 실행 순서에 어떤 영향을 미치는가?
 
 ### Official Answer
 When the awaited expression's value is resolved, another [microtask](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model) that continues the paused code gets scheduled.
@@ -51,11 +53,11 @@ foo("Second");
 ```
 
 ### Reference
-- [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 
 ---
 
-## Should I use return await?
+## return await를 사용해야 하는가?
 
 ### Official Answer
 Contrary to some popular belief, `return await promise` is at least as fast as `return promise`, due to how the spec and engines optimize the resolution of native promises.
@@ -63,15 +65,15 @@ There's a proposal to [make return promise faster](https://github.com/tc39/propo
 Therefore, except for stylistic reasons, `return await` is **almost always preferable.**
 
 ### Reference
-- [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
 
 ---
 
-## Does .catch() handle synchronous errors in promised functions?
+## .catch()는 프로미스 함수의 동기 에러를 처리하는가?
 
 ### Official Answer
 If `promisedFunction()` throws an error synchronously, the error won't be caught by the `catch()` handler.
 In this case, the `try...catch` statement is necessary.
 
 ### Reference
-- [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await

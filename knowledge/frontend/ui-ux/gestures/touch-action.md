@@ -34,9 +34,11 @@ This means that in practice, touch-action is typically applied only to top-level
 
 #### 배경
 
-framer-motion의 `drag="y"`로 아래로 드래그하면 닫히는 풀스크린 바텀시트를 만들고 있었다. 문제는 시트 안에 스크롤 가능한 컨텐츠(리스트, 폼 등)가 있을 때, 모바일에서 터치 스크롤과 드래그 닫기가 충돌하는 것.
+framer-motion의 `drag="y"`로 아래로 드래그하면 닫히는 풀스크린 바텀시트를 만들고 있었다.
+문제는 시트 안에 스크롤 가능한 컨텐츠(리스트, 폼 등)가 있을 때, 모바일에서 터치 스크롤과 드래그 닫기가 충돌하는 것.
 
-처음에는 "부모에 `touch-action: none`을 걸면 자식에서 `touch-action: auto`를 줘도 교집합이 `none`이라 스크롤이 안 될 것"이라고 예상했다. `none ∩ auto = none`이니까.
+처음에는 "부모에 `touch-action: none`을 걸면 자식에서 `touch-action: auto`를 줘도 교집합이 `none`이라 스크롤이 안 될 것"이라고 예상했다.
+`none ∩ auto = none`이니까.
 
 #### 실제 테스트 결과
 
@@ -63,7 +65,8 @@ MDN 문서를 다시 읽어보니 핵심 문구가 있었다:
 | ScrollArea 안 | 터치 요소 → ScrollArea에서 멈춤 (첫 번째 스크롤 요소) | `auto` → 터치 스크롤 동작 |
 | 빈 영역 | 터치 요소 → 스크롤 요소 없음 → `.container`까지 올라감 | `none` → 브라우저 제스처 차단, JS 드래그 동작 |
 
-부수 효과로 `.container`의 `touch-action: none` 덕분에 빈 영역에서 아래로 드래그해도 브라우저 pull-to-refresh가 발동하지 않았다. 반대로 ScrollArea에 `touch-action: pan-y`를 줬을 때는 스크롤 맨 위에서 아래로 당기면 pull-to-refresh가 동작했다.
+부수 효과로 `.container`의 `touch-action: none` 덕분에 빈 영역에서 아래로 드래그해도 브라우저 pull-to-refresh가 발동하지 않았다.
+반대로 ScrollArea에 `touch-action: pan-y`를 줬을 때는 스크롤 맨 위에서 아래로 당기면 pull-to-refresh가 동작했다.
 
 #### 교훈
 

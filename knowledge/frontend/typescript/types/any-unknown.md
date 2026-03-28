@@ -1,16 +1,16 @@
 ---
-tags: [typescript, type-system]
+tags: [typescript, comparison]
 ---
 
-# Any vs Unknown
-
 # Questions
-- [What is the `unknown` type?](#what-is-the-unknown-type)
-- [What is the `any` type?](#what-is-the-any-type)
+- [`unknown` 타입이란 무엇인가?](#unknown-타입이란-무엇인가)
+- [`any` 타입이란 무엇인가?](#any-타입이란-무엇인가)
+
+---
 
 # Answers
 
-## What is the `unknown` type?
+## `unknown` 타입이란 무엇인가?
 
 ### Official Answer
 The `unknown` type represents any value.
@@ -29,7 +29,9 @@ Anything is assignable to **unknown**, but **unknown** isn’t assignable to any
 - https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-0.html#new-unknown-top-type
 - https://www.typescriptlang.org/play/#example/unknown-and-never
 
-## What is the `any` type?
+---
+
+## `any` 타입이란 무엇인가?
 
 ### Official Answer
 TypeScript also has a special type, `any`, that you can use whenever you don’t want a particular value to cause typechecking errors.

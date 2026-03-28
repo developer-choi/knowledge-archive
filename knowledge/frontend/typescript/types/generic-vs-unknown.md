@@ -2,18 +2,18 @@
 tags: [typescript, comparison, concept]
 ---
 # Questions
-- [What are Generics and why do we use them?](#what-are-generics-and-why-do-we-use-them)
+- [제네릭이란 무엇이며 왜 사용하는가?](#제네릭이란-무엇이며-왜-사용하는가)
 - [[TODO] unknown으로 만드는거랑 Generic으로 만드는거랑 무슨차이?](#unknown으로-만드는거랑-generic으로-만드는거랑-무슨차이)
-  - [[TODO] unknown 타입이랑 연계되는 다른 타입이랑 서로 관련을 이어주려고?](#이-unknown-타입이랑-연계되는-다른-타입이랑-서로-관련을-이어주려고)
+  - [[TODO] unknown 타입이랑 연계되는 다른 타입이랑 서로 관련을 이어주려고?](#todo-unknown-타입이랑-연계되는-다른-타입이랑-서로-관련을-이어주려고)
 - [[TODO] <T extends unknown> 은 왜 의미없는 코드?](#todo-t-extends-unknown-은-왜-의미없는-코드)
-- [How does the choice between Generics and Unknown impact refactoring?](#how-does-the-choice-between-generics-and-unknown-impact-refactoring)
+- [제네릭과 Unknown 중 선택이 리팩토링에 어떤 영향을 미치는가?](#제네릭과-unknown-중-선택이-리팩토링에-어떤-영향을-미치는가)
 - [[TODO] generic 쓰나 unknown 쓰나 똑같이 타입을 아 그럴거다 라고 생각하고 전달하는건데 저 경우에는 어떤 방식이 더 좋은가요?](#todo-generic-쓰나-unknown-쓰나-똑같이-타입을-아-그럴거다-라고-생각하고-전달하는건데-저-경우에는-어떤-방식이-더-좋은가요)
 
 ---
 
 # Answers
 
-## What are Generics and why do we use them?
+## 제네릭이란 무엇이며 왜 사용하는가?
 
 ### Official Answer
 Components that are capable of working on the data of today as well as the **data of tomorrow** will give you the **most flexible capabilities** for building up large software systems.
@@ -24,7 +24,7 @@ This allows users to consume these components and use their own types.
 
 This allows us to traffic that type information in one side of the function and out the other.
 
-> AI Annotation:
+> #### AI Annotation:
 > 다음과 같이 타입별로 함수를 여러 개 만들지 않기 위해 사용합니다.
 > ```typescript
 > converter(value: number): number
@@ -53,19 +53,43 @@ function loggingIdentity<Type>(arg: Type[]): Type[] {
 }
 ```
 
-> User Annotation:
+> #### User Annotation:
 > - 제네릭은 아무 타입이나 다 받기위해 쓰는것 외에도,
 > - 최소조건을 설정할 때 쓸 수 있다. (최소한 배열 형태여야 한다 등)
 > - (extends 문법으로도 이걸 달성가능)
 
 ### Reference
-- [TypeScript Handbook - Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
+- https://www.typescriptlang.org/docs/handbook/2/generics.html
 
 ---
 
-## How does the choice between Generics and Unknown impact refactoring?
+## [TODO] unknown으로 만드는거랑 Generic으로 만드는거랑 무슨차이?
 
-### User Annotation
+### Official Answer
+
+### Reference
+
+---
+
+## [TODO] unknown 타입이랑 연계되는 다른 타입이랑 서로 관련을 이어주려고?
+
+### Official Answer
+
+### Reference
+
+---
+
+## [TODO] <T extends unknown> 은 왜 의미없는 코드?
+
+### Official Answer
+
+### Reference
+
+---
+
+## 제네릭과 Unknown 중 선택이 리팩토링에 어떤 영향을 미치는가?
+
+### User Answer
 
 ```typescript
 // 방법 1. Generic 사용
@@ -95,7 +119,7 @@ function HomePage() : void {
 - **as**: 함수 호출부분 (as 쓴거) 수정 + 사용하는 부분 둘 다 수정해야함.
 
 ### Reference
-- [TypeScript Handbook - Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
+- https://www.typescriptlang.org/docs/handbook/2/generics.html
 
 ---
 
@@ -104,4 +128,4 @@ function HomePage() : void {
 ### Official Answer
 
 ### Reference
-- [TypeScript Handbook - Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
+- https://www.typescriptlang.org/docs/handbook/2/generics.html

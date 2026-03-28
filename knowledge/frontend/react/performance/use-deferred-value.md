@@ -2,23 +2,23 @@
 tags: [react, performance]
 ---
 
-# useDeferredValue
-
 # Questions
-- [What is the concept and role of `useDeferredValue`?](#what-is-the-concept-and-role-of-usedeferredvalue)
-- [Since `useDeferredValue` causes an additional re-render, doesn't it actually make the app slower without `memo`?](#since-usedeferredvalue-causes-an-additional-re-render-doesnt-it-actually-make-the-app-slower-without-memo)
-- [What is the difference in Suspense behavior when using `useDeferredValue` versus immediate updates?](#what-is-the-difference-in-suspense-behavior-when-using-usedeferredvalue-versus-immediate-updates)
-- [Why should you avoid passing objects created during render to `useDeferredValue`?](#why-should-you-avoid-passing-objects-created-during-render-to-usedeferredvalue)
-- [How does `useDeferredValue` manage background re-renders and handling interruptions?](#how-does-usedeferredvalue-manage-background-re-renders-and-handling-interruptions)
-- [Does implementing `useDeferredValue` reduce the number of API calls sent to the server?](#does-implementing-usedeferredvalue-reduce-the-number-of-api-calls-sent-to-the-server)
-- [What is the default timeout in milliseconds for `useDeferredValue`?](#what-is-the-default-timeout-in-milliseconds-for-usedeferredvalue)
-- [Does wrapping a slow component with `useDeferredValue` make its rendering faster?](#does-wrapping-a-slow-component-with-usedeferredvalue-make-its-rendering-faster)
-- [Won't a heavy deferred render eventually delay the next keystroke update if the main thread is busy with the list?](#wont-a-heavy-deferred-render-eventually-delay-the-next-keystroke-update-if-the-main-thread-is-busy-with-the-list)
-- [How does `useDeferredValue` differ from traditional optimization techniques like debouncing or throttling?](#how-does-usedeferredvalue-differ-from-traditional-optimization-techniques-like-debouncing-or-throttling)
+- [`useDeferredValue`의 개념과 역할은?](#usedeferredvalue의-개념과-역할은)
+- [`useDeferredValue`가 추가 리렌더링을 발생시키는데, `memo` 없이는 오히려 느려지지 않는가?](#usedeferredvalue가-추가-리렌더링을-발생시키는데-memo-없이는-오히려-느려지지-않는가)
+- [`useDeferredValue` 사용 시 Suspense 동작이 즉시 업데이트와 어떻게 다른가?](#usedeferredvalue-사용-시-suspense-동작이-즉시-업데이트와-어떻게-다른가)
+- [렌더링 중 생성한 객체를 `useDeferredValue`에 전달하면 안 되는 이유는?](#렌더링-중-생성한-객체를-usedeferredvalue에-전달하면-안-되는-이유는)
+- [`useDeferredValue`는 백그라운드 리렌더링과 중단을 어떻게 관리하는가?](#usedeferredvalue는-백그라운드-리렌더링과-중단을-어떻게-관리하는가)
+- [`useDeferredValue`를 사용하면 서버 API 호출 수가 줄어드는가?](#usedeferredvalue를-사용하면-서버-api-호출-수가-줄어드는가)
+- [`useDeferredValue`의 기본 타임아웃은 몇 밀리초인가?](#usedeferredvalue의-기본-타임아웃은-몇-밀리초인가)
+- [느린 컴포넌트를 `useDeferredValue`로 감싸면 렌더링이 빨라지는가?](#느린-컴포넌트를-usedeferredvalue로-감싸면-렌더링이-빨라지는가)
+- [무거운 deferred 렌더링이 메인 스레드를 점유하면 다음 키 입력이 지연되지 않는가?](#무거운-deferred-렌더링이-메인-스레드를-점유하면-다음-키-입력이-지연되지-않는가)
+- [`useDeferredValue`는 디바운싱이나 쓰로틀링과 어떻게 다른가?](#usedeferredvalue는-디바운싱이나-쓰로틀링과-어떻게-다른가)
+
+---
 
 # Answers
 
-## What is the concept and role of `useDeferredValue`?
+## `useDeferredValue`의 개념과 역할은?
 
 ### Official Answer
 useDeferredValue is a React Hook that lets you defer updating a part of the UI.
@@ -38,7 +38,9 @@ and then try another re-render in the background with the new value (so it will 
 ### Reference
 - https://react.dev/reference/react/useDeferredValue
 
-## Since `useDeferredValue` causes an additional re-render, doesn't it actually make the app slower without `memo`?
+---
+
+## `useDeferredValue`가 추가 리렌더링을 발생시키는데, `memo` 없이는 오히려 느려지지 않는가?
 
 ### Official Answer
 This optimization requires SlowList to be wrapped in memo.
@@ -47,13 +49,15 @@ During that re-render, deferredText still has its previous value, so SlowList is
 
 Without memo, it would have to re-render anyway, defeating the point of the optimization.
 
-> User Annotation
+> #### User Annotation:
 > - 렌더링이 두번씩 발생하니까 memo()를 감싸서 props가 바뀌지 않았을 때 리렌더링이 되지않게 할 수 있습니다.
 
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#deferring-re-rendering-for-a-part-of-the-ui
 
-## What is the difference in Suspense behavior when using `useDeferredValue` versus immediate updates?
+---
+
+## `useDeferredValue` 사용 시 Suspense 동작이 즉시 업데이트와 어떻게 다른가?
 
 ### Official Answer
 ```typescript jsx
@@ -81,7 +85,9 @@ However, the deferredQuery will keep its previous value until the data has loade
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#showing-stale-content-while-fresh-content-is-loading
 
-## Why should you avoid passing objects created during render to `useDeferredValue`?
+---
+
+## 렌더링 중 생성한 객체를 `useDeferredValue`에 전달하면 안 되는 이유는?
 
 ### Official Answer
 The values you pass to useDeferredValue should either be primitive values (like strings and numbers) or objects created outside of rendering.
@@ -92,7 +98,9 @@ it will be different on every render, causing unnecessary background re-renders.
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#caveats
 
-## How does `useDeferredValue` manage background re-renders and handling interruptions?
+---
+
+## `useDeferredValue`는 백그라운드 리렌더링과 중단을 어떻게 관리하는가?
 
 ### Official Answer
 When useDeferredValue receives a different value (compared with Object.is), in addition to the current render (when it still uses the previous value), it schedules a re-render in the background with the new value.
@@ -110,7 +118,9 @@ If this re-render completes, React will show it on the screen.
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#how-does-deferred-value-work-under-the-hood
 
-## Does implementing `useDeferredValue` reduce the number of API calls sent to the server?
+---
+
+## `useDeferredValue`를 사용하면 서버 API 호출 수가 줄어드는가?
 
 ### Official Answer
 useDeferredValue does not by itself prevent extra network requests.
@@ -122,7 +132,9 @@ What’s being deferred here is displaying results (until they’re ready), not 
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#deferring-a-value-does-not-prevent-network-requests
 
-## What is the default timeout in milliseconds for `useDeferredValue`?
+---
+
+## `useDeferredValue`의 기본 타임아웃은 몇 밀리초인가?
 
 ### Official Answer
 There is no fixed delay caused by useDeferredValue itself.
@@ -130,7 +142,9 @@ There is no fixed delay caused by useDeferredValue itself.
 ### Reference
 - https://react.dev/reference/react/useDeferredValue
 
-## Does wrapping a slow component with `useDeferredValue` make its rendering faster?
+---
+
+## 느린 컴포넌트를 `useDeferredValue`로 감싸면 렌더링이 빨라지는가?
 
 ### Official Answer
 useDeferredValue lets you prioritize updating the input (which must be fast) over updating the result list (which is allowed to be slower):
@@ -146,7 +160,9 @@ Like before, React will attempt to update the list as soon as possible, but will
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#deferring-re-rendering-for-a-part-of-the-ui
 
-## Won't a heavy deferred render eventually delay the next keystroke update if the main thread is busy with the list?
+---
+
+## 무거운 deferred 렌더링이 메인 스레드를 점유하면 다음 키 입력이 지연되지 않는가?
 
 ### Official Answer
 The background re-render is interruptible: if there’s another update to the value, React will restart the background re-render from scratch.
@@ -160,7 +176,9 @@ Any updates caused by events (like typing) will interrupt the background re-rend
 ### Reference
 - https://react.dev/reference/react/useDeferredValue
 
-## How does `useDeferredValue` differ from traditional optimization techniques like debouncing or throttling?
+---
+
+## `useDeferredValue`는 디바운싱이나 쓰로틀링과 어떻게 다른가?
 
 ### Official Answer
 There are two common optimization techniques you might have used before in this scenario:

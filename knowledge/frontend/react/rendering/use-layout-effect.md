@@ -2,19 +2,17 @@
 tags: [react, browser, concept]
 ---
 
-# useLayoutEffect
-
 # Questions
-- [Why is `useLayoutEffect` needed for measuring DOM elements like tooltips?](#why-is-uselayouteffect-needed-for-measuring-dom-elements-like-tooltips)
-  - [When you call `setState` inside `useLayoutEffect`, does it execute immediately?](#when-you-call-setstate-inside-uselayouteffect-does-it-execute-immediately)
-  - [What is the execution order from React commit to browser paint when `useLayoutEffect` is involved?](#what-is-the-execution-order-from-react-commit-to-browser-paint-when-uselayouteffect-is-involved)
-- [Does `useEffect` always run after paint?](#does-useeffect-always-run-after-paint)
+- [tooltip 같은 DOM 요소를 측정할 때 `useLayoutEffect`가 필요한 이유는?](#tooltip-같은-dom-요소를-측정할-때-uselayouteffect가-필요한-이유는)
+  - [`useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?](#uselayouteffect-안에서-setstate를-호출하면-즉시-실행되는가)
+  - [`useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?](#uselayouteffect가-관여할-때-react-commit부터-브라우저-paint까지의-실행-순서는)
+- [`useEffect`는 항상 paint 이후에 실행되는가?](#useeffect는-항상-paint-이후에-실행되는가)
 
 ---
 
 # Answers
 
-## Why is `useLayoutEffect` needed for measuring DOM elements like tooltips?
+## tooltip 같은 DOM 요소를 측정할 때 `useLayoutEffect`가 필요한 이유는?
 
 ### Official Answer
 The code inside `useLayoutEffect` and all state updates scheduled from it **block the browser from repainting the screen.**
@@ -25,7 +23,7 @@ React guarantees that the code inside `useLayoutEffect` and any state updates sc
 This lets you render the tooltip, measure it, and re-render the tooltip again without the user noticing the first extra render.
 In other words, `useLayoutEffect` blocks the browser from painting.
 
-> User Annotation: DOM에 반영한다고 하면 좀 말이 안맞고 Paint 하기 전이라고 하는게 맞음.
+> #### User Annotation: DOM에 반영한다고 하면 좀 말이 안맞고 Paint 하기 전이라고 하는게 맞음.
 > 순서는 DOM + CSSOM > Render Tree > Layout > Paint니까.
 > 결국 Paint가 안되면 사용자눈에 안보임.
 
@@ -35,7 +33,7 @@ In other words, `useLayoutEffect` blocks the browser from painting.
 
 ---
 
-## When you call `setState` inside `useLayoutEffect`, does it execute immediately?
+## `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
 
 ### AI Answer
 No. `setState`는 호출 즉시 상태를 변경하지 않는다.
@@ -53,7 +51,7 @@ useLayoutEffect(() => {
 
 ---
 
-## What is the execution order from React commit to browser paint when `useLayoutEffect` is involved?
+## `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
 
 ### AI Answer
 
@@ -77,7 +75,7 @@ useLayoutEffect 완전히 끝남
 
 ---
 
-## Does `useEffect` always run after paint?
+## `useEffect`는 항상 paint 이후에 실행되는가?
 
 ### Official Answer
 If you trigger a state update inside `useLayoutEffect`, React will execute all remaining Effects immediately including `useEffect`.

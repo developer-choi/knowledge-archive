@@ -1,17 +1,19 @@
 ---
-tags: [testing, test-adoption]
+tags: [testing, concept]
 ---
 # Questions
 
-- [Why did bugs occur in production?](#why-did-bugs-occur-in-production)
-- [What alternatives did you consider, and why did you choose testing?](#what-alternatives-did-you-consider-and-why-did-you-choose-testing)
+- [[TODO] 프로덕션에서 왜 버그가 발생했는가?](#todo-프로덕션에서-왜-버그가-발생했는가)
+- [어떤 대안을 검토했고, 왜 테스트를 선택했는가?](#어떤-대안을-검토했고-왜-테스트를-선택했는가)
 
 ---
 
 # Answers
 
-## Why did bugs occur in production?
-### User Annotation
+## [TODO] 프로덕션에서 왜 버그가 발생했는가?
+
+### TODO
+
 수정의 영향범위 파악의 한계
 >
 개발자 (사람)의 한계
@@ -19,15 +21,12 @@ tags: [testing, test-adoption]
 안전장치의 한계 (코드리뷰, QA)
 
 ### Reference
-TODO
 
 ---
 
-## What alternatives did you consider, and why did you choose testing?
-### Official Answer
-TODO
+## 어떤 대안을 검토했고, 왜 테스트를 선택했는가?
 
-### User Annotation
+### User Answer
 물리적인 시간을 길게 하기 (개발기간, QA기간, 코드리뷰 기간)
 테스트코드라는 안전장치를 추가하기
 둘 다 버그를 100% 막을 수는 없지만, 더 줄일 수 있는 방법은 맞습니다.

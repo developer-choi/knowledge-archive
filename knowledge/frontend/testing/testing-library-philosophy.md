@@ -27,8 +27,8 @@ In this way, the library helps ensure your tests give you confidence that your a
 
 The more your tests resemble the way your software is used, the more confidence they can give you.
 
-> Official Annotation: You may want to avoid the following implementation details: Internal state of a component, Internal methods of a component, Lifecycle methods of a component, Child components.
-> AI Annotation: implementation details에 의존하는 테스트는 기능이 동일한 리팩토링에도 깨진다. Testing Library는 `getByRole`, `getByText` 등 사용자의 인식 방식을 모방하는 쿼리를 제공하여 이 문제를 해결한다.
+> #### Official Annotation: You may want to avoid the following implementation details: Internal state of a component, Internal methods of a component, Lifecycle methods of a component, Child components.
+> #### AI Annotation: implementation details에 의존하는 테스트는 기능이 동일한 리팩토링에도 깨진다. Testing Library는 `getByRole`, `getByText` 등 사용자의 인식 방식을 모방하는 쿼리를 제공하여 이 문제를 해결한다.
 
 ### Reference
 - https://testing-library.com/docs/
@@ -40,7 +40,7 @@ The more your tests resemble the way your software is used, the more confidence 
 ### Official Answer
 Testing Library encourages you to avoid testing implementation details like the internals of a component you're testing (though it's still possible).
 
-> AI Annotation: `container.querySelector` 등으로 여전히 내부 구현을 테스트할 수 있다. 기술적으로 차단하지 않고, 올바른 방향으로 유도하되 강제하지 않는 설계 철학이다.
+> #### AI Annotation: `container.querySelector` 등으로 여전히 내부 구현을 테스트할 수 있다. 기술적으로 차단하지 않고, 올바른 방향으로 유도하되 강제하지 않는 설계 철학이다.
 
 ### Reference
 - https://testing-library.com/docs/
@@ -57,7 +57,7 @@ In this way, the library helps ensure your tests give you confidence that your a
 
 We believe this leads to less brittle and more meaningful test code.
 
-> AI Annotation: 역방향 논증(구현 세부사항 의존 → 거짓 실패 → 확신 저하)과 순방향 논증(사용자처럼 찾기 → 통과 시 실제 사용자도 동작 보장 → 확신). FAQ에서 직접적 선언이 추가됨: 사용자 관점 테스트 → less brittle(덜 깨짐) + more meaningful(더 의미 있음).
+> #### AI Annotation: 역방향 논증(구현 세부사항 의존 → 거짓 실패 → 확신 저하)과 순방향 논증(사용자처럼 찾기 → 통과 시 실제 사용자도 동작 보장 → 확신). FAQ에서 직접적 선언이 추가됨: 사용자 관점 테스트 → less brittle(덜 깨짐) + more meaningful(더 의미 있음).
 
 ### Reference
 - https://testing-library.com/docs/
@@ -91,7 +91,7 @@ It also exposes a recommended way to find elements by a data-testid as an "escap
 
 This library encourages your applications to be more accessible and allows you to get your tests closer to using your components the way a user will, which allows your tests to give you more confidence that your application will work when a real user uses it.
 
-> AI Annotation: label text, role, text content로 요소를 찾으려면 실제 HTML에 적절한 `<label>`, `aria-label`, semantic markup이 있어야 한다. 테스트를 통과시키기 위해 접근성을 챙기게 되는 선순환.
+> #### AI Annotation: label text, role, text content로 요소를 찾으려면 실제 HTML에 적절한 `<label>`, `aria-label`, semantic markup이 있어야 한다. 테스트를 통과시키기 위해 접근성을 챙기게 되는 선순환.
 
 ### Reference
 - https://testing-library.com/docs/react-testing-library/intro
@@ -104,7 +104,7 @@ This library encourages your applications to be more accessible and allows you t
 This library is a replacement for Enzyme.
 While you can follow these guidelines using Enzyme itself, enforcing this is harder because of all the extra utilities that Enzyme provides (utilities which facilitate testing implementation details).
 
-> AI Annotation: Enzyme은 `shallow()`, `instance()`, `state()` 같은 내부 접근 API를 제공해서, 좋은 테스트 습관을 강제하기 어렵다. RTL은 이런 API를 아예 제공하지 않아 자연스럽게 올바른 방향으로 유도한다.
+> #### AI Annotation: Enzyme은 `shallow()`, `instance()`, `state()` 같은 내부 접근 API를 제공해서, 좋은 테스트 습관을 강제하기 어렵다. RTL은 이런 API를 아예 제공하지 않아 자연스럽게 올바른 방향으로 유도한다.
 
 ### Reference
 - https://testing-library.com/docs/react-testing-library/intro

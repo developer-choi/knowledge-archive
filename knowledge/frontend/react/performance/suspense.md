@@ -2,14 +2,14 @@
 tags: [react, performance]
 ---
 
-# Suspense
-
 # Questions
-- [What does it mean when a component suspends?](#what-does-it-mean-when-a-component-suspends)
+- [컴포넌트가 suspend된다는 것은 무엇을 의미하는가?](#컴포넌트가-suspend된다는-것은-무엇을-의미하는가)
+
+---
 
 # Answers
 
-## What does it mean when a component suspends?
+## 컴포넌트가 suspend된다는 것은 무엇을 의미하는가?
 
 ### Official Answer
 In this example, the SearchResults component suspends while fetching the search results.
@@ -45,3 +45,4 @@ function SearchResults({ query }) {
 ```
 
 ### Reference
+- https://react.dev/reference/react/useDeferredValue
