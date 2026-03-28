@@ -115,12 +115,15 @@ A network is a group of communicating computers...
 ```
 
 ### URL 불명확 시
-- 임시로 `URL_UNKNOWN` 표시
-- 나중에 수동으로 보완
+
+| 상황 | 처리 |
+|------|------|
+| 출처는 아는데 URL 모름 | `- 출처 설명 (URL_UNKNOWN)` |
+| 출처 자체를 모름 | 해당 질문·답변을 삭제 |
 
 예시:
 ```markdown
-- URL_UNKNOWN
+- 토스 딥 리서치 결과물 (URL_UNKNOWN)
 ```
 
 ---
