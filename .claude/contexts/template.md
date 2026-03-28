@@ -14,14 +14,21 @@ tags: [keyword1, keyword2]
 ## Main Question 1
 ### Official Answer
 Official document text or objective fact.
-> AI Annotation: (짧은 보충)
-> User Annotation: (짧은 보충)
+
+> #### AI Annotation:
+> (짧은 보충)
+
+> #### User Annotation:
+> (짧은 보충)
 
 ### AI Answer
 (공식 출처를 아직 찾지 못한 경우, AI 생성 답변)
 
 ### User Answer
 (사용자의 해석, 경험 기반 답변)
+
+### TODO
+(메모 수준의 미완성 답변)
 
 ### Review Note
 - (평가 시 참고사항: 중요하지 않은 부분, 대신 집중할 부분 등)
