@@ -79,6 +79,8 @@ tags: [react, performance, concept]
 
 Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트 + `#### 헤딩`을 사용한다.
 
+- Annotation은 Answer(Official/AI/User)의 보충이다. Answer 없이 Annotation만 단독으로 존재하면, 해당 Annotation은 Answer로 승격시킨다.
+
 | Annotation 유형 | 형식 | 출처 | 용도 |
 |---|---|---|---|
 | Official Annotation | `> #### Official Annotation:` | 공식 문서 | Official Answer를 보충하는 공식 문서 원문. 같은 출처 또는 다른 공식 출처에서 가져온 부연 설명 |
