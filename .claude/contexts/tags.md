@@ -21,6 +21,7 @@ knowledge-archive에서 사용하는 태그 목록.
 - `nextjs`: Next.js Framework
 - `state-mgmt`: 상태 관리 (Redux, React Query, Zustand)
 - `styling`: CSS, SCSS, Tailwind, CSS-in-JS
+- `testing`: 테스트 전략, 테스트 도구
 - `a11y`: 접근성 (Accessibility)
 - `seo`: 검색 엔진 최적화
 
@@ -32,11 +33,13 @@ knowledge-archive에서 사용하는 태그 목록.
 - `algorithm`: 알고리즘
 - `data-structure`: 자료구조
 - `network`: 네트워크, 프로토콜
+- `protocol`: 개별 프로토콜 (HTTP, TCP, WebSocket)
 - `os`: 운영체제
 - `database`: DB, SQL/NoSQL
 - `auth`: 인증/인가 (OAuth, JWT)
 - `software-engineering`: 소프트웨어 공학, 개발 방법론
 - `design-pattern`: 디자인 패턴
+- `fsd`: Feature-Sliced Design
 - `architecture`: 아키텍처, 설계 원칙
 
 ## 5. AI
