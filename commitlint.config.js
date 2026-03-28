@@ -10,6 +10,7 @@ module.exports = {
         'convert',
         'digest',
         'review',
+        'skill',
         // .claude/contexts/
         'contexts',
         // knowledge/
