@@ -8,7 +8,7 @@ tags: [fsd, concept]
   - [응집도란 무엇이며, 높이기 위한 모범 사례는?](#응집도란-무엇이며-높이기-위한-모범-사례는)
   - [결합도란 무엇이며, 코드베이스에서 어떻게 측정하는가?](#결합도란-무엇이며-코드베이스에서-어떻게-측정하는가)
 - [App과 Shared 레이어는 왜 슬라이스 레벨을 건너뛰는가?](#app과-shared-레이어는-왜-슬라이스-레벨을-건너뛰는가)
-- [[TODO] 도메인이란 무엇인가?](#todo-도메인이란-무엇인가)
+- [도메인이란 무엇인가?](#도메인이란-무엇인가)
 - [FSD 공식 문서가 "변경에 최적화하지 말고, 삭제에 최적화하라"고 말하는 이유는 무엇인가?](#fsd-공식-문서가-변경에-최적화하지-말고-삭제에-최적화하라고-말하는-이유는-무엇인가)
 
 ---
@@ -119,10 +119,13 @@ The problem manifests itself at least in violation of the principle of High Cohe
 
 ---
 
-## [TODO] 도메인이란 무엇인가?
+## 도메인이란 무엇인가?
+
 ### Official Answer
+Of primary importance is a domain of the software, the subject area to which the user applies a program.
 
 ### Reference
+- https://en.wikipedia.org/wiki/Domain-driven_design
 
 ---
 
