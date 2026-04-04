@@ -21,6 +21,11 @@ tags: [network, concept, protocol]
 - [대역폭(Bandwidth)과 처리량(Throughput)을 비교하라](#대역폭bandwidth과-처리량throughput을-비교하라)
 - [처리량이 낮아지는 원인은?](#처리량이-낮아지는-원인은)
 - [(번외) 왜 하필 번역이 ‘처리량’일까?](#번외-왜-하필-번역이-처리량일까)
+- [Latency(지연시간)란?](#latency지연시간란)
+- [Internet이란 무엇인가?](#internet이란-무엇인가)
+- [LAN이란?](#lan이란)
+- [WAN이란?](#wan이란)
+- [LAN과 WAN의 차이는?](#lan과-wan의-차이는)
 
 ---
 
@@ -231,3 +236,73 @@ When taking various [protocol overheads](https://en.wikipedia.org/wiki/Protocol_
 > #### AI Annotation: **어원 분석 (LBL)**
 > - **Through** (통과하여) + **Put** (놓다, 투입하다) = 시스템 내부의 과정을 거쳐 결과물로 변환되어 나온 총량.
 > - **Hardware View**: 데이터는 단순히 흐르는 것이 아니라, 장비(라우터 등)가 매 순간 **패킷 분석(Parsing), 경로 계산(Routing), 에러 검사(Checksum), 다시 포장해서 보냄(Forwarding)** 등의 작업을 수행해야 합니다. 이 모든 과정이 CPU와 메모리를 쓰는 '일(Work/Process)'이기에 '처리해서(Through) 내보낸 양(Put)'이라는 의미에서 **처리량**으로 번역된 것입니다.
+
+---
+
+## Latency(지연시간)란?
+
+### Official Answer
+The time it takes for a request to be processed.
+The time it takes for a message to travel round trip between two devices.
+
+> #### User Annotation:
+> 지연시간은 a. Transmission Media, b. 패킷 크기, c. 라우터의 패킷처리 시간에 영향을 받음.
+> 두 장치 사이 거리도 한몫할 것 (너무 멀면 그만큼 오래걸림).
+
+### Reference
+- 네트워크 기초 교재 (URL_UNKNOWN)
+
+---
+
+## Internet이란 무엇인가?
+
+### Official Answer
+The Internet is a vast network that connects many networks around the world.
+
+If we only have one computer without internet connection, our capabilities are very limited.
+But if the computer is connected to another computer, many possibilities open up.
+Everything like web surfing becomes possible because computers can exchange data with each other.
+
+### Reference
+- 네트워크 기초 교재 (URL_UNKNOWN)
+
+---
+
+## LAN이란?
+
+### Official Answer
+LAN is a Local area network.
+When classified by scale, it refers to small-scale networks such as homes, offices, and schools.
+
+> #### User Annotation:
+> LAN은 사설망을 구축해 연결함. 다른 네트워크에서는 접근이 제한됨.
+>
+> ISP (Internet Service Provider) = 인터넷에 접속하는 수단을 제공. KT, SK같은거.
+> 인터넷 공유기 = LAN을 구성하기위해 필요한 장비. 공유기를 중심으로 사설망을 구성하고 다양한 기기를 연결할 수 있음.
+
+### Reference
+- 네트워크 기초 교재 (URL_UNKNOWN)
+
+---
+
+## WAN이란?
+
+### Official Answer
+WAN is a wide area network.
+It refers to large-scale networks such as connections between countries or continents.
+
+### Reference
+- 네트워크 기초 교재 (URL_UNKNOWN)
+
+---
+
+## LAN과 WAN의 차이는?
+
+### Official Answer
+There are three differences: space, speed, safety.
+The LAN is a local area and the WAN is a wide area.
+LAN is faster than WAN by default.
+LAN is safer than WAN basically.
+
+### Reference
+- 네트워크 기초 교재 (URL_UNKNOWN)
