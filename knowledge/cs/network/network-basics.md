@@ -5,8 +5,14 @@ tags: [network, concept, protocol]
 # Questions
 - [네트워크란 무엇인가?](#네트워크란-무엇인가)
   - [호스트란 무엇인가?](#호스트란-무엇인가)
-  - [[TODO] 일반 디바이스와 호스트의 기술적 차이는?](#todo-일반-디바이스와-호스트의-기술적-차이는)
-  - [[TODO] 라우터란 무엇인가?](#todo-라우터란-무엇인가)
+    - [호스트의 IP 주소는 어떻게 설정되는가?](#호스트의-ip-주소는-어떻게-설정되는가)
+    - [호스트는 네트워크에서 어떤 역할을 하는가?](#호스트는-네트워크에서-어떤-역할을-하는가)
+  - [네트워크 노드와 호스트의 차이는?](#네트워크-노드와-호스트의-차이는)
+  - [라우터란 무엇인가?](#라우터란-무엇인가)
+    - [라우팅 테이블은 어떻게 만들어지는가?](#라우팅-테이블은-어떻게-만들어지는가)
+    - [라우터가 Layer 3 장치인 이유는?](#라우터가-layer-3-장치인-이유는)
+    - [라우터는 패킷을 받으면 어떻게 전달하는가?](#라우터는-패킷을-받으면-어떻게-전달하는가)
+    - [라우터는 전달한 패킷의 정보를 기억하는가?](#라우터는-전달한-패킷의-정보를-기억하는가)
   - [라우팅과 포워딩의 차이는?](#라우팅과-포워딩의-차이는)
   - [[TODO] 라우터는 ‘다른 네트워크’의 경계를 어떻게 정의하는가?](#todo-라우터는-다른-네트워크의-경계를-어떻게-정의하는가)
   - [[TODO] 네트워크 스위치란 무엇인가?](#todo-네트워크-스위치란-무엇인가)
@@ -62,15 +68,111 @@ Hosts are assigned at least one network address.
 
 ---
 
-## [TODO] 일반 디바이스와 호스트의 기술적 차이는?
+## 호스트의 IP 주소는 어떻게 설정되는가?
+
+### Official Answer
+A computer participating in networks that use the Internet protocol suite may also be called an IP host.
+Specifically, computers participating in the Internet are called Internet hosts.
+Internet hosts and other IP hosts have one or more IP addresses assigned to their network interfaces.
+The addresses are configured either manually by an administrator, automatically at startup by means of the Dynamic Host Configuration Protocol (DHCP), or by stateless address autoconfiguration methods.
+
+### Reference
+- https://en.wikipedia.org/wiki/Host_(network)
 
 ---
 
-## [TODO] 라우터란 무엇인가?
+## 호스트는 네트워크에서 어떤 역할을 하는가?
 
 ### Official Answer
+Network hosts that participate in applications that use the client–server model of computing are classified as server or client systems.
+Network hosts may also function as nodes in peer-to-peer applications, in which all nodes share and consume resources in an equipotent manner.
 
 ### Reference
+- https://en.wikipedia.org/wiki/Host_(network)
+
+---
+
+## 네트워크 노드와 호스트의 차이는?
+
+### Official Answer
+A network node is any device participating in a network.
+A host is a node that participates in user applications, either as a server, client, or both.
+A server is a type of host that offers resources to the other hosts.
+Typically, a server accepts connections from clients who request a service function.
+
+Every network host is a node, but not every network node is a host.
+Network infrastructure hardware, such as modems, Ethernet hubs, and network switches are not directly or actively participating in application-level functions, do not necessarily have a network address, and are not considered to be network hosts.
+
+### Reference
+- https://en.wikipedia.org/wiki/Host_(network)
+
+---
+
+## 라우터란 무엇인가?
+
+### Official Answer
+A router is a computer and networking device that forwards data packets between computer networks, including internetworks such as the global Internet.
+
+Routers perform the traffic directing functions on the Internet.
+A router is connected to two or more data lines from different IP networks.
+When a data packet comes in on a line, the router reads the network address information in the packet header to determine the ultimate destination.
+Then, using information in its routing table or routing policy, it directs the packet to the next network on its journey.
+A data packet is forwarded from one router to another through an internetwork until it reaches its destination node.
+
+> #### Official Annotation:
+> The most familiar type of IP routers are home and small office routers that forward IP packets between the home computers and the Internet.
+
+> #### AI Annotation:
+> 집에 있는 공유기(Wi-Fi 라우터)가 대표적인 라우터.
+> 집 안의 사설 네트워크(192.168.x.x)와 ISP 네트워크 사이에서 패킷을 전달한다.
+
+### Reference
+- https://en.wikipedia.org/wiki/Router_(computing)
+
+---
+
+## 라우팅 테이블은 어떻게 만들어지는가?
+
+### Official Answer
+A router maintains a routing table that lists which route should be used to forward a data packet, and through which physical interface connection.
+It does this using internal pre-configured directives, called static routes, or by learning routes dynamically using a routing protocol.
+Static and dynamic routes are stored in the routing table.
+
+### Reference
+- https://en.wikipedia.org/wiki/Router_(computing)
+
+---
+
+## 라우터가 Layer 3 장치인 이유는?
+
+### Official Answer
+A router is considered a layer-3 device because its primary forwarding decision is based on the information in the layer-3 IP packet, specifically the destination IP address.
+
+### Reference
+- https://en.wikipedia.org/wiki/Router_(computing)
+
+---
+
+## 라우터는 패킷을 받으면 어떻게 전달하는가?
+
+### Official Answer
+When a router receives a packet, it searches its routing table to find the best match between the destination IP address of the packet and one of the addresses in the routing table.
+Once a match is found, the packet is encapsulated in the layer-2 data link frame for the outgoing interface indicated in the table entry.
+
+### Reference
+- https://en.wikipedia.org/wiki/Router_(computing)
+
+---
+
+## 라우터는 전달한 패킷의 정보를 기억하는가?
+
+### Official Answer
+A router typically does not look into the packet payload, but only at the layer-3 addresses to make a forwarding decision, plus optionally other information in the header for hints on, for example, quality of service (QoS).
+For pure IP forwarding, a router is designed to minimize the state information associated with individual packets.
+Once a packet is forwarded, the router does not retain any historical information about the packet.
+
+### Reference
+- https://en.wikipedia.org/wiki/Router_(computing)
 
 ---
 
