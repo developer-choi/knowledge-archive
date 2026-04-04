@@ -10,6 +10,8 @@ tags: [data-structure, concept]
   - [해시 함수에서 mod 연산이 중요한 이유는?](#해시-함수에서-mod-연산이-중요한-이유는)
 - [좋은 해시 함수의 조건은?](#좋은-해시-함수의-조건은)
 - [Hash Collision이란?](#hash-collision이란)
+- [Hash Table의 장점은?](#hash-table의-장점은)
+- [Hash Set과 Hash Map의 차이는?](#hash-set과-hash-map의-차이는)
 
 ---
 
@@ -112,3 +114,31 @@ To handle this collision, we use Collision Resolution Techniques.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/introduction-to-hashing-2/
+
+---
+
+## Hash Table의 장점은?
+
+### Official Answer
+It mainly supports search, insert and delete in O(1) time on average.
+
+> #### User Annotation:
+> "search"라고 언급했지만, 실제 어감은 access임.
+> hash map에 숫자 저장해놓고, 제일 큰 값 찾으려면 Array Linear Search랑 똑같이 O(n) 걸림.
+>
+> 배열은 인덱스기반이라서, 특정인덱스로 값 가져오는건 O(1)인데, 내가원하는 "값"이 있는지를 찾으려면 O(n)이 걸린다.
+> 그대신 해시테이블은 내가찾으려는 값을 키로 하고, 저장할 값을 밸류에 쌍으로 저장해두면, 나중에 그 키로 가져올 때 O(1)로 가져올 수 있음.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/hashing-data-structure/
+
+---
+
+## Hash Set과 Hash Map의 차이는?
+
+### Official Answer
+- **Hash Set**: Collection of unique keys (Implemented as Set in JavaScript, HashSet in Java).
+- **Hash Map**: Collection of key value pairs with keys being unique (Implemented as Map in JavaScript, HashMap in Java).
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/hashing-data-structure/
