@@ -3,7 +3,8 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [BST의 핵심 특성은?](#bst의-핵심-특성은)
+- [BST에서 임의의 노드를 골랐을 때, 왼쪽 서브트리와 오른쪽 서브트리의 값은 어떤 관계인가?](#bst에서-임의의-노드를-골랐을-때-왼쪽-서브트리와-오른쪽-서브트리의-값은-어떤-관계인가)
+  - [BST에 중복 값을 삽입할 수 있는가?](#bst에-중복-값을-삽입할-수-있는가)
 - [BST의 장점은?](#bst의-장점은)
 - [BST가 Array보다 정렬된 데이터 관리에 유리한 이유는?](#bst가-array보다-정렬된-데이터-관리에-유리한-이유는)
 - [BST vs Hash Table 비교는?](#bst-vs-hash-table-비교는)
@@ -13,16 +14,22 @@ tags: [data-structure, concept]
 
 # Answers
 
-## BST의 핵심 특성은?
+## BST에서 임의의 노드를 골랐을 때, 왼쪽 서브트리와 오른쪽 서브트리의 값은 어떤 관계인가?
 
 ### Official Answer
 - **Ordering Property**: For every node in the BST, all values in the left subtree are smaller, and all values in the right subtree are larger than the node's value.
 This rule holds recursively for all subtrees.
 - **Recursive Nature**: Each left or right subtree of a node in a BST is itself a BST, allowing recursive algorithms to naturally process the tree.
-- **No Duplicates**: There must be no duplicate nodes (BST may have duplicate values with different handling approaches).
-- **Efficient Operations**: In a balanced BST, operations like search, insertion, and deletion can be performed in O(log n) time.
-In the worst-case (unbalanced), these degrade to O(n).
-With self-balancing BSTs like AVL and Red Black Trees, we can ensure the worst case as O(Log n).
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/binary-search-tree-data-structure/
+
+---
+
+## BST에 중복 값을 삽입할 수 있는가?
+
+### Official Answer
+There must be no duplicate nodes (BST may have duplicate values with different handling approaches).
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/binary-search-tree-data-structure/

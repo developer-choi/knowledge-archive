@@ -27,10 +27,13 @@ tags: [network, protocol, concept]
 - [HTTP 요청 메시지의 시작 줄은 어떻게 구성되며, 필수 헤더는 무엇인가?](#http-요청-메시지의-시작-줄은-어떻게-구성되며-필수-헤더는-무엇인가)
 - [HTTP 메서드란 무엇이며, 주요 메서드(GET, POST, PUT, PATCH, DELETE)의 역할은?](#http-메서드란-무엇이며-주요-메서드get-post-put-patch-delete의-역할은)
   - [PUT과 POST의 차이, PUT과 PATCH의 차이는?](#put과-post의-차이-put과-patch의-차이는)
-- [HTTP에서 safe method란 무엇이며, GET 요청에 상태 변경 로직을 넣으면 어떤 문제가 발생하는가?](#http에서-safe-method란-무엇이며-get-요청에-상태-변경-로직을-넣으면-어떤-문제가-발생하는가)
-- [HTTP에서 idempotent(멱등) 메서드란 무엇이며, POST가 멱등이 아니면 실무에서 어떤 문제가 발생하는가?](#http에서-idempotent멱등-메서드란-무엇이며-post가-멱등이-아니면-실무에서-어떤-문제가-발생하는가)
+- [HTTP에서 safe method란 무엇인가?](#http에서-safe-method란-무엇인가)
+  - [safe method 원칙을 위반한 웹사이트에서 Google Web Accelerator가 어떤 피해를 일으켰는가?](#safe-method-원칙을-위반한-웹사이트에서-google-web-accelerator가-어떤-피해를-일으켰는가)
+- [HTTP에서 idempotent(멱등) 메서드란 무엇이며, 어떤 메서드가 멱등인가?](#http에서-idempotent멱등-메서드란-무엇이며-어떤-메서드가-멱등인가)
+  - [POST가 멱등이 아니면 실무에서 어떤 문제가 발생하는가?](#post가-멱등이-아니면-실무에서-어떤-문제가-발생하는가)
 - [HTTP 응답의 상태 코드는 어떤 구조이며, 1XX~5XX 각 클래스의 의미는?](#http-응답의-상태-코드는-어떤-구조이며-1xx5xx-각-클래스의-의미는)
-- [다음 HTTP 요청-응답 예시에서 각 헤더의 역할을 설명하라](#다음-http-요청-응답-예시에서-각-헤더의-역할을-설명하라)
+- [다음 HTTP 요청 예시에서 각 헤더의 역할을 설명하라](#다음-http-요청-예시에서-각-헤더의-역할을-설명하라)
+  - [다음 HTTP 응답 예시에서 각 헤더의 역할을 설명하라](#다음-http-응답-예시에서-각-헤더의-역할을-설명하라)
 
 ---
 
@@ -416,7 +419,7 @@ Compared to PUT, this can save bandwidth by sending only part of a resource's re
 
 ---
 
-## HTTP에서 safe method란 ��엇이며, GET 요청에 상태 변경 로직을 넣으면 어떤 문제가 발생하는가?
+## HTTP에서 safe method란 무엇인가?
 
 ### Official Answer
 A request method is safe if a request with that method has no intended effect on the server.
@@ -424,6 +427,15 @@ The methods GET, HEAD, OPTIONS, and TRACE are defined as safe.
 In other words, safe methods are intended to be read-only.
 In contrast, the methods POST, PUT, DELETE, CONNECT, and PATCH are not safe.
 They may modify the state of the server or have other effects such as sending an email.
+
+### Reference
+- https://en.wikipedia.org/wiki/HTTP
+
+---
+
+## safe method 원칙을 위반한 웹사이트에서 Google Web Accelerator가 어떤 피해를 일으켰는가?
+
+### Official Answer
 Despite the prescribed safety of GET requests, in practice their handling by the server is not technically limited in any way.
 Careless or deliberately irregular programming can allow GET requests to cause non-trivial changes on the server.
 For example, a website might allow deletion of a resource through a URL such as https://example.com/article/1234/delete, which, if arbitrarily fetched, even using GET, would simply delete the article.
@@ -436,20 +448,31 @@ The beta was suspended only weeks after its first release, following widespread 
 
 ---
 
-## HTTP에서 idempotent(멱등) 메서드란 무엇이며, POST가 멱등이 아니면 실무에서 어떤 문제가 발생하는가?
+## HTTP에서 idempotent(멱등) 메서드란 무엇이며, 어떤 메서드가 멱등인가?
 
 ### Official Answer
 A request method is idempotent if multiple identical requests with that method have the same effect as a single such request.
 The methods PUT and DELETE, and safe methods are defined as idempotent.
 Safe methods are trivially idempotent, since they are intended to have no effect on the server whatsoever; the PUT and DELETE methods, meanwhile, are idempotent since successive identical requests will be ignored.
 In contrast, the methods POST, CONNECT, and PATCH are not necessarily idempotent, and therefore sending an identical POST request multiple times may further modify the state of the server or have further effects, such as sending multiple emails.
-In some cases this is the desired effect, but in other cases it may occur accidentally.
-A user might, for example, inadvertently send multiple POST requests by clicking a button again if they were not given clear feedback that the first click was being processed.
-While web browsers may show alert dialog boxes to warn users in some cases where reloading a page may re-submit a POST request, it is generally up to the web application to handle cases where a POST request should not be submitted more than once.
 Note that whether or not a method is idempotent is not enforced by the protocol or web server.
 
 > #### AI Annotation:
 > 멱등 정리: GET/PUT/DELETE = 멱등 (여러 번 보내도 한 번과 같음), POST/PATCH = 비멱등 (중복 시 부작용).
+
+### Reference
+- https://en.wikipedia.org/wiki/HTTP
+
+---
+
+## POST가 멱등이 아니면 실무에서 어떤 문제가 발생하는가?
+
+### Official Answer
+In some cases this is the desired effect, but in other cases it may occur accidentally.
+A user might, for example, inadvertently send multiple POST requests by clicking a button again if they were not given clear feedback that the first click was being processed.
+While web browsers may show alert dialog boxes to warn users in some cases where reloading a page may re-submit a POST request, it is generally up to the web application to handle cases where a POST request should not be submitted more than once.
+
+> #### AI Annotation:
 > FE 실무에서 직접 겪는 문제: 버튼 연타로 POST 중복 전송 → 중복 주문, 이메일 다중 발송. 로딩 인디케이터나 버튼 비활성화로 방지해야 하며, 이는 웹 애플리케이션의 책임이다.
 
 ### Reference
@@ -477,9 +500,8 @@ A client may not understand each status code that a server reports but it must u
 
 ---
 
-## 다음 HTTP 요청-응답 예시에서 각 헤더의 역할을 설명하라
+## 다음 HTTP 요청 예시에서 각 헤더의 역할을 설명하라
 
-요청:
 ```
 GET / HTTP/1.1
 Host: www.example.com
@@ -490,7 +512,17 @@ Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 ```
 
-응답:
+### Official Answer
+The Host header field distinguishes between various DNS names sharing a single IP address, allowing name-based virtual hosting.
+While optional in HTTP/1.0, it is mandatory in HTTP/1.1.
+
+### Reference
+- https://en.wikipedia.org/wiki/HTTP
+
+---
+
+## 다음 HTTP 응답 예시에서 각 헤더의 역할을 설명하라
+
 ```
 HTTP/1.1 200 OK
 Date: Mon, 23 May 2005 22:38:34 GMT
@@ -504,8 +536,6 @@ Connection: close
 ```
 
 ### Official Answer
-The Host header field distinguishes between various DNS names sharing a single IP address, allowing name-based virtual hosting.
-While optional in HTTP/1.0, it is mandatory in HTTP/1.1.
 The ETag (entity tag) header field is used to determine if a cached version of the requested resource is identical to the current version of the resource on the server.
 The Content-Type header field specifies the Internet media type of the data conveyed by the HTTP message, and Content-Length indicates its length in bytes.
 The HTTP/1.1 webserver publishes its ability to respond to requests for a byte range of the resource by including Accept-Ranges: bytes.

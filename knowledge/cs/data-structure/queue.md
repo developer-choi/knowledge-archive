@@ -4,8 +4,11 @@ tags: [data-structure, concept]
 
 # Questions
 - [Queue란 무엇인가?](#queue란-무엇인가)
+  - [Queue에서 Front와 Rear는 각각 어디를 가리키며, Size와 Capacity의 차이는?](#queue에서-front와-rear는-각각-어디를-가리키며-size와-capacity의-차이는)
 - [Queue의 주요 연산과 시간복잡도는?](#queue의-주요-연산과-시간복잡도는)
-- [Queue의 종류는?](#queue의-종류는)
+  - [Queue의 Enqueue/Dequeue 연산에서 overflow와 underflow는 각각 언제 발생하는가?](#queue의-enqueuedequeue-연산에서-overflow와-underflow는-각각-언제-발생하는가)
+- [Deque(Double Ended Queue)란 무엇이며, 일반 Queue와 어떻게 다른가?](#dequedouble-ended-queue란-무엇이며-일반-queue와-어떻게-다른가)
+- [Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?](#priority-queue란-무엇이며-어떤-자료구조로-구현하는가)
 - [CircularQueue와 LinkedListQueue의 차이는?](#circularqueue와-linkedlistqueue의-차이는)
 
 ---
@@ -17,6 +20,14 @@ tags: [data-structure, concept]
 ### Official Answer
 Queue is a linear data structure that follows FIFO (First In First Out) Principle.
 
+### Reference
+- https://www.geeksforgeeks.org/dsa/queue-data-structure/
+
+---
+
+## Queue에서 Front와 Rear는 각각 어디를 가리키며, Size와 Capacity의 차이는?
+
+### Official Answer
 - **Front / Head**: Position of the entry in a queue ready to be served, that is, the first entry that will be removed from the queue, is called the front of the queue.
 It is also referred as the head of the queue.
 - **Rear / Back / Tail**: Position of the last entry in the queue, that is, the one most recently added, is called the rear of the queue.
@@ -42,6 +53,14 @@ It is also referred as the tail of the queue.
 | isEmpty | O(1) | O(1) |
 | isFull | O(1) | O(1) |
 
+### Reference
+- https://www.geeksforgeeks.org/dsa/queue-data-structure/
+
+---
+
+## Queue의 Enqueue/Dequeue 연산에서 overflow와 underflow는 각각 언제 발생하는가?
+
+### Official Answer
 - **Enqueue**: Adds an element to the end (rear) of the queue.
 If the queue is full, an overflow error occurs.
 - **Dequeue**: Removes the element from the front of the queue.
@@ -56,7 +75,7 @@ If the queue is empty, an underflow error occurs.
 
 ---
 
-## Queue의 종류는?
+## Deque(Double Ended Queue)란 무엇이며, 일반 Queue와 어떻게 다른가?
 
 ### Official Answer
 - **Simple Queue**: Simple Queue simply follows FIFO Structure.
@@ -64,13 +83,19 @@ We can only insert the element at the back and remove the element from the front
 A simple queue is efficiently implemented either using a linked list or a circular array.
 - **Deque (Double Ended Queue)**: The insertion and deletion operations, both can be performed from both ends.
 
-> #### User Annotation:
-> **Priority Queue**: dequeue할 때 우선순위에 맞게 값이 빠져나오는 큐.
-> 힙(Heap) 자료구조로 구현한다.
-
 ### Reference
 - https://www.geeksforgeeks.org/dsa/queue-data-structure/
 - https://www.geeksforgeeks.org/dsa/deque-set-1-introduction-applications/
+
+---
+
+## Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?
+
+### User Answer
+dequeue할 때 우선순위에 맞게 값이 빠져나오는 큐.
+힙(Heap) 자료구조로 구현한다.
+
+### Reference
 - https://www.geeksforgeeks.org/priority-queue-set-1-introduction/
 
 ---

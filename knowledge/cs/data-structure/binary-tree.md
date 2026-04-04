@@ -4,9 +4,16 @@ tags: [data-structure, concept]
 
 # Questions
 - [Binary Tree란 무엇인가?](#binary-tree란-무엇인가)
-- [Binary Tree의 주요 속성(Properties)은?](#binary-tree의-주요-속성properties은)
+- [높이 h인 Binary Tree의 레벨 h에 최대 몇 개 노드가 존재할 수 있는가?](#높이-h인-binary-tree의-레벨-h에-최대-몇-개-노드가-존재할-수-있는가)
+- [높이 h인 Binary Tree가 가질 수 있는 최대 노드 수는?](#높이-h인-binary-tree가-가질-수-있는-최대-노드-수는)
+- [N개 노드를 가진 Binary Tree의 최소 높���는?](#n개-노드를-가진-binary-tree의-최소-높이는)
+- [L개의 리프 노드를 가진 Binary Tree의 최소 레벨 수는?](#l개의-리프-노드를-가진-binary-tree의-최소-레벨-수는)
+- [N개 노드를 가진 Binary Tree의 총 간선(edge) 수는?](#n개-노드를-가진-binary-tree의-총-간선edge-수는)
 - [Self-Balancing BST의 활용은?](#self-balancing-bst의-활용은)
-- [Binary Tree의 종류는?](#binary-tree의-종류는)
+- [Complete Binary Tree와 Perfect Binary Tree의 차이는?](#complete-binary-tree와-perfect-binary-tree의-차이는)
+- [Full Binary Tree란 무엇인가?](#full-binary-tree란-무엇인가)
+- [Degenerate(Pathological) Binary Tree란 무엇이며, 왜 비효율적인가?](#degeneratepathological-binary-tree란-무엇이며-왜-비효율적인가)
+- [Balanced Binary Tree란 무엇이며, 대표적인 예시는?](#balanced-binary-tree란-무엇이며-대표적인-예시는)
 - [Tree를 구현/표현하는 2가지 방법은?](#tree를-구현표현하는-2가지-방법은)
 
 ---
@@ -26,14 +33,50 @@ In a binary tree, each node can have a maximum of two children linked to it.
 
 ---
 
-## Binary Tree의 주요 속성(Properties)은?
+## 높이 h인 Binary Tree의 레벨 h에 최대 몇 개 노드가 존재할 수 있는가?
 
 ### Official Answer
-- A binary tree can have at most 2^h nodes at level h.
-- A binary tree of height h can have at most 2^(h+1) - 1 nodes.
-- The minimum possible height for N nodes is ⌈log₂N⌉.
-- A binary tree with L leaves must have at least ⌈log₂L⌉ levels.
-- In any non-empty binary tree with n nodes, the total number of edges is n - 1.
+A binary tree can have at most 2^h nodes at level h.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/properties-of-binary-tree/
+
+---
+
+## 높이 h인 Binary Tree가 가질 수 있는 최대 노드 수는?
+
+### Official Answer
+A binary tree of height h can have at most 2^(h+1) - 1 nodes.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/properties-of-binary-tree/
+
+---
+
+## N개 노드를 가진 Binary Tree의 최소 높이는?
+
+### Official Answer
+The minimum possible height for N nodes is ⌈log₂N⌉.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/properties-of-binary-tree/
+
+---
+
+## L개의 리프 노드를 가진 Binary Tree의 최소 레벨 수는?
+
+### Official Answer
+A binary tree with L leaves must have at least ⌈log₂L⌉ levels.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/properties-of-binary-tree/
+
+---
+
+## N개 노드를 가진 Binary Tree의 총 간선(edge) 수는?
+
+### Official Answer
+In any non-empty binary tree with n nodes, the total number of edges is n - 1.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/properties-of-binary-tree/
@@ -52,28 +95,57 @@ If we wish to support both the operations, we use a Self-Balancing Binary Search
 
 ---
 
-## Binary Tree의 종류는?
+## Complete Binary Tree와 Perfect Binary Tree의 차이는?
 
 ### Official Answer
 - **Complete Binary Tree**: A special type of binary tree where all the levels of the tree are filled completely except the lowest level nodes which are filled from as left as possible.
-- **Full Binary Tree**: A binary tree where every node has either 0 or 2 children.
 - **Perfect Binary Tree**: All levels are completely filled.
 The number of leaf nodes equals the number of internal nodes plus one.
-- **Degenerate (Pathological) Binary Tree**: A tree in which each parent node has only one child.
-This essentially forms a linked list, which leads to inefficient operations.
-- **Balanced Binary Tree**: A binary tree where the difference in heights between the left and right subtrees of any node is minimal (often defined as at most 1).
-Examples: AVL Tree, Red Black Tree, Splay Tree.
 
 > #### User Annotation:
 > - 마지막레벨 제외하고 다 채워져있으면 Complete Binary Tree
 > - 마지막레벨 까지도 다 채워져있으면 Perfect Binary Tree가 됨.
 > - Complete에서 마지막 레벨 노드가 왼쪽부터 채워져있지 않으면 해당안됨.
-> - Full Binary Tree = 자식이 1개인 노드가 없으면 됨. 상위 레벨에서 자식이 없는 경우도 Full Binary Tree 자체는 맞음.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/types-of-trees-in-data-structures/
 - https://www.geeksforgeeks.org/dsa/complete-binary-tree/
 - https://www.geeksforgeeks.org/dsa/perfect-binary-tree/
+
+---
+
+## Full Binary Tree란 무엇인가?
+
+### Official Answer
+A binary tree where every node has either 0 or 2 children.
+
+> #### User Annotation:
+> 자식이 1개인 노드가 없으면 됨. 상위 레벨에서 자식이 없는 경우도 Full Binary Tree 자체는 맞음.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/types-of-trees-in-data-structures/
+
+---
+
+## Degenerate(Pathological) Binary Tree란 무엇이며, 왜 비효율적인가?
+
+### Official Answer
+A tree in which each parent node has only one child.
+This essentially forms a linked list, which leads to inefficient operations.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/types-of-trees-in-data-structures/
+
+---
+
+## Balanced Binary Tree란 무엇이며, 대표적인 예시는?
+
+### Official Answer
+A binary tree where the difference in heights between the left and right subtrees of any node is minimal (often defined as at most 1).
+Examples: AVL Tree, Red Black Tree, Splay Tree.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/types-of-trees-in-data-structures/
 
 ---
 

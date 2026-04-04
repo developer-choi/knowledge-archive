@@ -4,7 +4,8 @@ tags: [algorithm, concept]
 
 # Questions
 - [Linear Search란?](#linear-search란)
-- [Linear Search의 활용과 장점은?](#linear-search의-활용과-장점은)
+- [Linear Search는 어떤 상황에서 활용되는가?](#linear-search는-어떤-상황에서-활용되는가)
+  - [Linear Search의 장점은?](#linear-search의-장점은)
 
 ---
 
@@ -31,16 +32,23 @@ It mainly does one by one comparison of the item to be search with array element
 
 ---
 
-## Linear Search의 활용과 장점은?
+## Linear Search는 어떤 상황에서 활용되는가?
 
 ### Official Answer
-**Applications**:
 - **Unsorted Lists**: When we have an unsorted array or list, linear search is most commonly used to find any element in the collection.
 - **Searching Linked Lists**: In linked list implementations, linear search is commonly used to find elements within the list.
 Each node is checked sequentially until the desired element is found.
 - **Finding Minimum and Maximum Values**: Linear search can be used to find the minimum and maximum values in an array or list.
 
-**Advantages**:
+### Reference
+- https://www.geeksforgeeks.org/dsa/linear-search/
+- https://www.geeksforgeeks.org/dsa/what-is-linear-search/
+
+---
+
+## Linear Search의 장점은?
+
+### Official Answer
 - Linear search can be used irrespective of whether the array is sorted or not.
 - It can be used on arrays of any data type.
 - Linear Search is much easier to understand and implement as compared to Binary Search or Ternary Search.
