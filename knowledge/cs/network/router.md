@@ -9,7 +9,7 @@ tags: [network, concept]
   - [라우터는 패킷을 받으면 어떻게 전달하는가?](#라우터는-패킷을-받으면-어떻게-전달하는가)
   - [라우터는 전달한 패킷의 정보를 기억하는가?](#라우터는-전달한-패킷의-정보를-기억하는가)
 - [라우팅과 포워딩의 차이는?](#라우팅과-포워딩의-차이는)
-- [[TODO] 라우터는 '다른 네트워크'의 경계를 어떻게 정의하는가?](#todo-라우터는-다른-네트워크의-경계를-어떻게-정의하는가)
+- [라우터는 '다른 네트워크'의 경계를 어떻게 정의하는가?](#라우터는-다른-네트워크의-경계를-어떻게-정의하는가)
 - [네트워크 스위치란 무엇인가?](switch.md#네트워크-스위치란-무엇인가)
 
 ---
@@ -98,4 +98,15 @@ Forwarding is the relaying of packets from one network segment to another by nod
 
 ---
 
-## [TODO] 라우터는 '다른 네트워크'의 경계를 어떻게 정의하는가?
+## 라우터는 '다른 네트워크'의 경계를 어떻게 정의하는가?
+
+### Official Answer
+An IP address is recognized as consisting of two parts: the network prefix in the high-order bits and the remaining bits called the rest field, host identifier, or interface identifier (IPv6), used for host numbering within a network.
+The subnet mask or CIDR notation determines how the IP address is divided into network and host parts.
+
+> #### AI Annotation:
+> 같은 네트워크 프리픽스를 공유하는 장치들이 하나의 네트워크를 이룬다.
+> 라우터는 목적지 IP의 네트워크 프리픽스를 라우팅 테이블과 대조하여, 자신의 직접 연결된 네트워크와 프리픽스가 다르면 "다른 네트워크"로 판단하고 적절한 다음 홉으로 포워딩한다.
+
+### Reference
+- https://en.wikipedia.org/wiki/IP_address
