@@ -154,6 +154,11 @@ HTTP/2 is supported by 71% of websites (34.1% HTTP/2 + 36.9% HTTP/3 with backwar
 HTTP/3 is used on 36.9% of websites and is supported by most web browsers, i.e. (at least partially) supported by 97% of users.
 HTTPS, the secure variant of HTTP, is used by more than 85% of websites.
 
+> #### Official Annotation:
+> As of June 2025, 71.2% of the Internet's 150,000 most popular websites have a secure implementation of HTTPS (up from 58.4% in December 2022).
+> However, despite TLS 1.3's release in 2018, adoption has been slow, with many still remaining on the older TLS 1.2 protocol.
+> — https://en.wikipedia.org/wiki/HTTPS
+
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
 
