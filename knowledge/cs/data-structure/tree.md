@@ -7,6 +7,7 @@ tags: [data-structure, concept]
 - [Tree의 DFS 순회 방법은?](#tree의-dfs-순회-방법은)
 - [Tree의 BFS 순회 방법은?](#tree의-bfs-순회-방법은)
 - [BST가 일반 Binary Tree보다 빠른 이유는?](#bst가-일반-binary-tree보다-빠른-이유는)
+- [Tree의 기본 용어는?](#tree의-기본-용어는)
 
 ---
 
@@ -58,6 +59,26 @@ Visit nodes level by level.
 ### User Answer
 어떤 연산 (순회, 최소값 찾기 등)을 하더라도 대체로 BST가 그냥 Binary Tree보다 더 빠름.
 그냥 Tree는 모든 노드를 다 한번씩 찾아야하는데 BST는 Tree의 높이만큼만 찾아가면 되니까.
+
+### Reference
+- https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/
+
+---
+
+## Tree의 기본 용어는?
+
+### Official Answer
+- **Leaf Node (External Node)**: The nodes which do not have any child nodes are called leaf nodes.
+- **Ancestor of a Node**: Any predecessor nodes on the path of the root to that node are called Ancestors of that node.
+- **Neighbour of a Node**: Parent or child nodes of that node are called neighbors of that node.
+- **Sibling**: Children of the same parent node are called siblings.
+- **Internal Node**: A node with at least one child is called Internal Node.
+- **Subtree**: Any node of the tree along with its descendant.
+- **Edge**: A connection between two nodes.
+
+> #### User Annotation:
+> Subtree = 트리의 어떤 노드든 그 노드의 자손들을 포함하는 것을 서브트리라고 함. (즉, 특정 노드를 루트로 하는 모든 하위 노드의 집합)
+> Edge = 노드와 노드 사이를 연결하는 선
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/
