@@ -34,6 +34,11 @@ The protocol is therefore also referred to as HTTP over TLS, or HTTP over SSL.
 > #### Official Annotation:
 > HTTPS URLs begin with "https://" and use port 443 by default, whereas HTTP URLs begin with "http://" and use port 80 by default.
 
+> #### Official Annotation:
+> HTTPS (HyperText Transfer Protocol Secure) is an encrypted version of the HTTP protocol.
+> It uses TLS to encrypt all communication between a client and a server.
+> This secure connection allows clients to safely exchange sensitive data with a server, such as when performing banking activities or online shopping.
+
 > #### AI Annotation:
 > HTTPS는 새로운 프로토콜이 아니라 HTTP 위에 TLS 암호화 계층을 얹은 확장이다.
 > SSL은 TLS의 전신으로 현재는 보안 취약점 때문에 사용이 중단되었지만, "SSL 인증서"라는 이름이 관습적으로 혼용된다.
