@@ -10,6 +10,8 @@ tags: [react, performance]
   - [아이템 높이가 제각각인 리스트에서 estimateSize에 작은 값을 넣으면 어떤 문제가 생기는가?](#아이템-높이가-제각각인-리스트에서-estimatesize에-작은-값을-넣으면-어떤-문제가-생기는가)
 - [@tanstack/virtual의 overscan 옵션은 무엇이며, 값을 높이면 어떤 trade-off가 있는가?](#tanstackvirtual의-overscan-옵션은-무엇이며-값을-높이면-어떤-trade-off가-있는가)
 - [@tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?](#tanstackvirtual의-getvirtualitems는-무엇을-반환하는가)
+- [@tanstack/virtual의 VirtualItem 객체는 어떤 정보를 담고 있으며, start와 size는 어떻게 사용하는가?](#tanstackvirtual의-virtualitem-객체는-어떤-정보를-담고-있으며-start와-size는-어떻게-사용하는가)
+  - [VirtualItem의 size는 언제 추정값이고 언제 실측값인가?](#virtualitem의-size는-언제-추정값이고-언제-실측값인가)
 
 ---
 
@@ -156,3 +158,40 @@ Returns the virtual items for the current state of the virtualizer.
 
 ### Reference
 - https://tanstack.com/virtual/latest/docs/api/virtualizer
+
+---
+
+## @tanstack/virtual의 VirtualItem 객체는 어떤 정보를 담고 있으며, start와 size는 어떻게 사용하는가?
+
+### Official Answer
+The VirtualItem object represents a single item returned by the virtualizer.
+It contains information you need to render the item in the coordinate space within your virtualizer's scrollElement and other helpful properties/functions.
+
+`start`: The starting pixel offset for the item.
+This is usually mapped to a css property or transform like top/left or translateX/translateY.
+
+`size`: The size of the item.
+This is usually mapped to a css property like width/height.
+
+> #### AI Annotation:
+> VirtualItem은 "이 아이템을 어디에(`start`), 얼마나 크게(`size`) 그려라"라는 렌더링 지시서다.
+> virtualizer가 좌표를 계산하고, 개발자는 이 값을 CSS에 매핑하면 된다.
+> 예: 세로 리스트에서 `start`가 200이면 `transform: translateY(200px)`, `size`가 50이면 `height: 50px`.
+
+### Reference
+- https://tanstack.com/virtual/latest/docs/api/virtual-item
+
+---
+
+## VirtualItem의 size는 언제 추정값이고 언제 실측값인가?
+
+### Official Answer
+Before an item is measured with the VirtualItem.measureElement method, this will be the estimated size returned from your estimateSize virtualizer option.
+After an item is measured (if you choose to measure it at all), this value will be the number returned by your measureElement virtualizer option (which by default is configured to measure elements with getBoundingClientRect()).
+
+> #### AI Annotation:
+> `measureElement`로 측정하기 전에는 `estimateSize`가 반환한 추정값이고, 측정 후에는 `getBoundingClientRect()` 기반 실제 크기로 교체된다.
+> 고정 크기 리스트는 측정이 필요 없고, 가변 크기 리스트에서만 이 전환이 일어난다.
+
+### Reference
+- https://tanstack.com/virtual/latest/docs/api/virtual-item
