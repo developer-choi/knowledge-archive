@@ -34,6 +34,11 @@ tags: [network, protocol, concept]
 - [HTTP 응답의 상태 코드는 어떤 구조이며, 1XX~5XX 각 클래스의 의미는?](#http-응답의-상태-코드는-어떤-구조이며-1xx5xx-각-클래스의-의미는)
 - [다음 HTTP 요청 예시에서 각 헤더의 역할을 설명하라](#다음-http-요청-예시에서-각-헤더의-역할을-설명하라)
   - [다음 HTTP 응답 예시에서 각 헤더의 역할을 설명하라](#다음-http-응답-예시에서-각-헤더의-역할을-설명하라)
+- [하나의 웹페이지를 표시하기 위해 브라우저는 HTTP 요청을 어떤 순서로 보내는가?](#하나의-웹페이지를-표시하기-위해-브라우저는-http-요청을-어떤-순서로-보내는가)
+- [HTTP/1.1에서 Host 헤더가 필수가 된 이유와, 이것이 가상 호스팅(virtual hosting)을 가능하게 하는 원리는?](#http11에서-host-헤더가-필수가-된-이유와-이것이-가상-호스팅virtual-hosting을-가능하게-하는-원리는)
+- [웹 브라우저가 Same-Origin Policy로 웹사이트 간 정보 접근을 제한하는데, HTTP는 이 제약을 어떻게 완화하는가?](#웹-브라우저가-same-origin-policy로-웹사이트-간-정보-접근을-제한하는데-http는-이-제약을-어떻게-완화하는가)
+- [클라이언트가 서버와 HTTP 통신을 수행하는 전체 흐름(4단계)은?](#클라이언트가-서버와-http-통신을-수행하는-전체-흐름4단계은)
+- [HTTP는 서버가 먼저 클라이언트에게 데이터를 보낼 수 없는데, SSE(Server-Sent Events)는 이 제약을 어떻게 우회하는가?](#http는-서버가-먼저-클라이언트에게-데이터를-보낼-수-없는데-sseserver-sent-events는-이-제약을-어떻게-우회하는가)
 
 ---
 
@@ -45,8 +50,16 @@ tags: [network, protocol, concept]
 HTTP (Hypertext Transfer Protocol) is an application layer protocol in the Internet protocol suite for distributed, collaborative, hypermedia information systems.
 HTTP is the foundation of data communication for the World Wide Web, where hypertext documents include hyperlinks to other resources that the user can easily access, for example by a mouse click or by tapping the screen in a web browser.
 
+> #### Official Annotation:
+> HTTP is an application-layer protocol for transmitting hypermedia documents, such as HTML.
+> It was designed for communication between web browsers and web servers, but it can also be used for other purposes, such as machine-to-machine communication, programmatic access to APIs, and more.
+> HTTP is an extensible protocol that relies on concepts like resources and Uniform Resource Identifiers (URIs), a basic message structure, and client-server communication model.
+> New functionality can even be introduced by an agreement between a client and a server about a new header's semantics.
+
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
 
 ---
 
@@ -56,13 +69,22 @@ HTTP is the foundation of data communication for the World Wide Web, where hyper
 HTTP is a request-response protocol in the client-server model.
 A transaction starts with a client submitting a request to the server, the server attempts to satisfy the request and returns a response to the client that describes the disposition of the request and optionally contains a requested resource such as an HTML document or other content.
 
+> #### Official Annotation:
+> Clients and servers communicate by exchanging individual messages (as opposed to a stream of data).
+> The messages sent by the client are called requests and the messages sent by the server as an answer are called responses.
+> The browser is always the entity initiating the request.
+> It is never the server (though some mechanisms have been added over the years to simulate server-initiated messages).
+
 > #### AI Annotation:
 > 클라이언트가 먼저 요청을 보내고, 서버가 응답하는 단방향 구조다.
 > 서버가 먼저 클라이언트에게 데이터를 밀어넣을 수 없으며, 이 한계를 극복하기 위해 WebSocket 같은 프로토콜이 등장했다.
+> "simulate server-initiated messages"의 예: Server-Sent Events(SSE), WebSocket, HTTP/2 Server Push.
+> HTTP는 연속적인 데이터 스트림이 아니라 독립된 메시지 단위로 교환된다. 이 메시지 기반 특성이 stateless 설계의 구조적 기반이다.
 > 응답에는 항상 처리 결과(disposition)가 담기지만, 본문(리소스)은 선택적이다 (예: 204 No Content, 304 Not Modified).
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
 
 ---
 
@@ -74,8 +96,13 @@ High-traffic websites often benefit from web cache servers that deliver content 
 Web browsers cache previously accessed web resources and reuse them, whenever possible, to reduce network traffic.
 HTTP proxy servers at private network boundaries can facilitate communication for clients without a globally routable address, by relaying messages with external servers.
 
+> #### Official Annotation:
+> Those operating at the application layers are generally called proxies.
+> These can be transparent, forwarding on the requests they receive without altering them in any way, or non-transparent, in which case they will change the request in some way before passing it along to the server.
+
 > #### AI Annotation:
 > 대표적인 중간 노드: 웹 캐시 서버(CDN — Cloudflare, CloudFront 등)는 원본 서버 대신 콘텐츠를 전달하여 응답 시간을 줄이고, 프록시 서버는 공인 IP가 없는 사설 네트워크 클라이언트의 외부 통신을 중계한다.
+> transparent 프록시: 요청을 그대로 전달. non-transparent 프록시: 요청을 변경(캐시 응답 반환, 헤더 추가 등)한 뒤 전달.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
@@ -186,12 +213,18 @@ HTTP presumes an underlying and reliable transport layer protocol.
 The standard choice of the underlying protocol prior to HTTP/3 is Transmission Control Protocol (TCP).
 HTTP/3 uses a different transport layer called QUIC, which provides reliability on top of the unreliable User Datagram Protocol (UDP).
 
+> #### Official Annotation:
+> A connection is controlled at the transport layer, and therefore fundamentally out of scope for HTTP.
+> HTTP doesn't require the underlying transport protocol to be connection-based; it only requires it to be reliable, or not lose messages (at minimum, presenting an error in such cases).
+
 > #### AI Annotation:
 > HTTP 자체는 패킷 유실이나 순서 보장을 신경 쓰지 않는다 — 하위 전송 계층이 해줄 거라고 전제한다.
 > TCP는 재전송과 순서 보장으로 신뢰성을 제공하고, QUIC은 "신뢰할 수 없는" UDP 위에 신뢰성을 직접 구현한 프로토콜이다.
+> "connection-based일 필요 없다"는 것이 HTTP/3가 UDP 기반 QUIC을 채택할 수 있었던 근거다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
 
 ---
 
@@ -291,12 +324,18 @@ This is useful to resume an interrupted download (when a file is very large), wh
 As a stateless protocol, HTTP does not require the web server to retain information or status about each user for the duration of multiple requests.
 If a web application needs an application session, it implements it via HTTP cookies, hidden variables in a web form or another mechanism.
 
+> #### Official Annotation:
+> HTTP is stateless: there is no link between two requests being successively carried out on the same connection.
+> But while the core of HTTP itself is stateless, HTTP cookies allow the use of stateful sessions.
+
 > #### AI Annotation:
 > HTTP 자체는 상태를 유지하지 않으므로, 세션은 애플리케이션 레벨에서 쿠키, hidden 변수 등으로 구현한다.
 > HTTP가 제공하는 기능이 아니라 그 위에서 만들어낸 것이다.
+> MDN의 표현이 정확하다: HTTP는 stateless이지만 sessionless는 아니다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
 
 ---
 
@@ -342,13 +381,20 @@ A body is optional or, in other words, can be blank.
 Later versions, HTTP/2 and HTTP/3, use a binary protocol, where headers are encoded in a single HEADERS and zero or more CONTINUATION frames using HPACK (HTTP/2) or QPACK (HTTP/3), which both provide efficient header compression.
 The request or response line from HTTP/1 has also been replaced by several pseudo-header fields, each beginning with a colon (:).
 
+> #### Official Annotation:
+> HTTP is generally designed to be human-readable, even with the added complexity introduced in HTTP/2 by encapsulating HTTP messages into frames.
+> Even if only part of the original HTTP message is sent in this version of HTTP, the semantics of each message is unchanged and the client reconstitutes (virtually) the original HTTP/1.1 request.
+> It is therefore useful to comprehend HTTP/2 messages in the HTTP/1.1 format.
+
 > #### AI Annotation:
 > HTTP/1.1은 사람이 읽을 수 있는 ASCII 텍스트로 헤더를 전송한다.
 > HTTP/2+는 바이너리 프레임으로 인코딩하고, HPACK(HTTP/2) 또는 QPACK(HTTP/3)으로 헤더를 압축한다.
 > HTTP/1의 요청 라인(예: `GET / HTTP/1.1`)은 pseudo-header 필드(`:method`, `:path` 등)로 대체됐다.
+> 핵심: HTTP/2는 전송 최적화이지 프로토콜 의미의 변경이 아니다. DevTools가 HTTP/2 요청도 HTTP/1.1 형식으로 보여주는 이유다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
 
 ---
 
@@ -377,12 +423,29 @@ The start line includes a method name, a request URI and the protocol version wi
 Request header fields allow the client to pass additional information beyond the request line, acting as request modifiers.
 In the HTTP/1.1 protocol, all header fields except Host are optional.
 
+> #### Official Annotation:
+> Requests consist of the following elements:
+> An HTTP method, usually a verb like GET, POST, or a noun like OPTIONS or HEAD that defines the operation the client wants to perform.
+> The path of the resource to fetch; the URL of the resource stripped from elements that are obvious from the context, for example without the protocol, the domain, or the TCP port.
+> The version of the HTTP protocol.
+> Optional headers that convey additional information for the servers.
+> A body, for some methods like POST, similar to those in responses, which contain the resource sent.
+
 > #### AI Annotation:
-> 요청 시작 줄 예시: `GET /customer/123 HTTP/1.1` — 메서드 + URI + 버전.
+> 요청 메시지 구조:
+> ```
+> GET / HTTP/1.1                ← Request Line: Method | Path | Version
+> Host: developer.mozilla.org   ← Headers (Host만 필수)
+> Accept-Language: fr            ←
+>                                ← 빈 줄 (헤더 끝)
+> (body)                         ← Body (GET은 비어있음, POST는 데이터)
+> ```
 > Host만 필수인 이유는 하나의 IP에 여러 도메인이 호스팅될 수 있어서(가상 호스팅), 어느 도메인에 대한 요청인지 명시해야 하기 때문이다.
+> 원본 다이어그램: https://mdn.github.io/shared-assets/images/diagrams/http/overview/http-request.svg
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
 
 ---
 
@@ -548,5 +611,114 @@ When Connection: close is sent, it means that the web server will close the TCP 
 When header Content-Length is missing from a response with a body, then this should be considered an error in HTTP/1.0 but it may not be an error in HTTP/1.1 if header Transfer-Encoding: chunked is present.
 Content-Encoding: gzip informs the client that the body is compressed per the gzip algorithm.
 
+> #### Official Annotation:
+> Responses consist of the following elements:
+> The version of the HTTP protocol they follow.
+> A status code, indicating if the request was successful or not, and why.
+> A status message, a non-authoritative short description of the status code.
+> HTTP headers, like those for requests.
+> Optionally, a body containing the fetched resource.
+
+> #### AI Annotation:
+> 응답 메시지 구조:
+> ```
+> HTTP/1.1 200 OK                        ← Status Line: Version | Code | Message
+> date: Tue, 18 Jun 2024 10:03:55 GMT    ← Headers
+> cache-control: public, max-age=3600    ←
+> content-type: text/html                ←
+>                                        ← 빈 줄 (헤더 끝)
+> <!doctype html>…                       ← Body (리소스, 선택적)
+> ```
+> status message는 "non-authoritative" — 표준이 아니라 서버가 자유롭게 바꿀 수 있다.
+> 원본 다이어그램: https://mdn.github.io/shared-assets/images/diagrams/http/overview/http-response.svg
+
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+
+---
+
+## 하나의 웹페이지를 표시하기 위해 브라우저는 HTTP 요청을 어떤 순서로 보내는가?
+
+### Official Answer
+To display a Web page, the browser sends an original request to fetch the HTML document that represents the page.
+It then parses this file, making additional requests corresponding to execution scripts, layout information (CSS) to display, and sub-resources contained within the page (usually images and videos).
+The Web browser then combines these resources to present the complete document, the Web page.
+Scripts executed by the browser can fetch more resources in later phases and the browser updates the Web page accordingly.
+
+> #### AI Annotation:
+> 웹페이지 하나 = 수십~수백 개의 개별 HTTP 요청이다.
+> 순서: HTML 요청 → 파싱 → CSS/JS/이미지 병렬 요청 → 조합 → JS 실행 후 추가 요청(AJAX/fetch).
+> 이것이 HTTP/2 멀티플렉싱이 중요한 이유다 — HTTP/1.1에서는 이 많은 요청을 직렬로 처리해야 했다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+
+---
+
+## HTTP/1.1에서 Host 헤더가 필수가 된 이유와, 이것이 가상 호스팅(virtual hosting)을 가능하게 하는 원리는?
+
+### Official Answer
+A server is not necessarily a single machine, but several server software instances can be hosted on the same machine.
+With HTTP/1.1 and the Host header, they may even share the same IP address.
+
+> #### AI Annotation:
+> HTTP/1.0에서는 Host 헤더가 없어 서버가 어떤 도메인에 대한 요청인지 알 수 없었다. IP 하나 = 사이트 하나였다.
+> HTTP/1.1에서 Host 헤더가 필수가 되면서, 하나의 IP에서 여러 도메인(예: example.com, blog.example.com)을 서비스할 수 있게 되었다.
+> HTTPS에서는 TLS 핸드셰이크가 HTTP 요청보다 먼저 일어나므로 Host 헤더를 볼 수 없어, SNI가 같은 역할을 TLS 레벨에서 수행한다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+
+---
+
+## 웹 브라우저가 Same-Origin Policy로 웹사이트 간 정보 접근을 제한하는데, HTTP는 이 제약을 어떻게 완화하는가?
+
+### Official Answer
+To prevent snooping and other privacy invasions, Web browsers enforce strict separation between websites.
+Only pages from the same origin can access all the information of a Web page.
+Though such a constraint is a burden to the server, HTTP headers can relax this strict separation on the server side, allowing a document to become a patchwork of information sourced from different domains; there could even be security-related reasons to do so.
+
+> #### AI Annotation:
+> Same-Origin Policy(SOP): 프로토콜 + 도메인 + 포트가 같은 출처(origin)끼리만 리소스 접근을 허용하는 브라우저 보안 정책.
+> CORS(Cross-Origin Resource Sharing): 서버가 `Access-Control-Allow-Origin` 등 HTTP 헤더로 다른 출처의 접근을 명시적으로 허용하는 메커니즘.
+> 프론트엔드에서 API 서버로 fetch 요청 시 CORS 에러를 만나는 이유가 바로 SOP 때문이며, 서버가 CORS 헤더를 설정해야 해결된다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+
+---
+
+## 클라이언트가 서버와 HTTP 통신을 수행하는 전체 흐름(4단계)은?
+
+### Official Answer
+Open a TCP connection: The TCP connection is used to send a request, or several, and receive an answer.
+The client may open a new connection, reuse an existing connection, or open several TCP connections to the servers.
+Send an HTTP message: HTTP messages (before HTTP/2) are human-readable.
+With HTTP/2, these messages are encapsulated in frames, making them impossible to read directly, but the principle remains the same.
+Read the response sent by the server.
+Close or reuse the connection for further requests.
+
+> #### AI Annotation:
+> 4단계: TCP 연결 열기 → 요청 전송 → 응답 읽기 → 연결 닫기/재사용.
+> "새 연결, 기존 연결 재사용, 여러 연결 동시 오픈" — HTTP/1.1 keep-alive가 재사용, 브라우저가 도메인당 6개 연결을 여는 것이 동시 오픈이다.
+> 이 흐름은 HTTP 버전이 바뀌어도 동일하며, 바뀌는 것은 메시지 인코딩(텍스트 vs 바이너리 프레임)뿐이다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+
+---
+
+## HTTP는 서버가 먼저 클라이언트에게 데이터를 보낼 수 없는데, SSE(Server-Sent Events)는 이 제약을 어떻게 우회하는가?
+
+### Official Answer
+Another API, server-sent events, is a one-way service that allows a server to send events to the client, using HTTP as a transport mechanism.
+Using the EventSource interface, the client opens a connection and establishes event handlers.
+
+> #### AI Annotation:
+> SSE는 클라이언트가 먼저 HTTP 연결을 열고(EventSource), 서버가 그 연결을 닫지 않고 계속 이벤트를 흘려보내는 방식이다.
+> 엄밀히 말해 "서버가 먼저 보내는 것"이 아니라, 클라이언트가 열어둔 연결에 서버가 응답을 계속 이어쓰는 것이다.
+> WebSocket(양방향)과 달리 SSE는 서버→클라이언트 단방향이며, 일반 HTTP 위에서 동작하므로 프록시/방화벽 호환성이 좋다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
