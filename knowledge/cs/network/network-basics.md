@@ -50,9 +50,7 @@ Hosts are assigned at least one network address.
 ## 호스트의 IP 주소는 어떻게 설정되는가?
 
 ### Official Answer
-A computer participating in networks that use the Internet protocol suite may also be called an IP host.
-Specifically, computers participating in the Internet are called Internet hosts.
-Internet hosts and other IP hosts have one or more IP addresses assigned to their network interfaces.
+Hosts have one or more IP addresses assigned to their network interfaces.
 The addresses are configured either manually by an administrator, automatically at startup by means of the Dynamic Host Configuration Protocol (DHCP), or by stateless address autoconfiguration methods.
 
 ### Reference
@@ -63,7 +61,7 @@ The addresses are configured either manually by an administrator, automatically 
 ## 호스트는 네트워크에서 어떤 역할을 하는가?
 
 ### Official Answer
-Network hosts that participate in applications that use the client–server model of computing are classified as server or client systems.
+Network hosts are classified as server or client systems.
 Network hosts may also function as nodes in peer-to-peer applications, in which all nodes share and consume resources in an equipotent manner.
 
 ### Reference

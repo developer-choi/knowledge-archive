@@ -4,13 +4,13 @@ tags: [network, concept]
 
 # Questions
 - [MAC 주소란 무엇인가?](#mac-주소란-무엇인가)
-- [물리 주소와 네트워크 주소의 차이는?](#물리-주소와-네트워크-주소의-차이는)
+- [TODO] [물리 주소와 네트워크 주소의 차이는?](#물리-주소와-네트워크-주소의-차이는)
   - [IP 주소와 MAC 주소의 역할 차이는?](#ip-주소와-mac-주소의-역할-차이는)
 - [논리 주소(IP)가 있는데 물리 주소(MAC)가 왜 필요한가?](#논리-주소ip가-있는데-물리-주소mac가-왜-필요한가)
   - [ARP(Address Resolution Protocol)란 무엇인가?](#arpaddress-resolution-protocol란-무엇인가)
 - [MAC 주소가 전 세계적으로 고유한데 왜 호스트를 찾으려면 IP 주소가 필요한가?](#mac-주소가-전-세계적으로-고유한데-왜-호스트를-찾으려면-ip-주소가-필요한가)
 - [네트워크 내에서 호스트를 어떻게 식별하는가?](#네트워크-내에서-호스트를-어떻게-식별하는가)
-- [호스트명이란 무엇이며 네트워크 주소로 어떻게 변환되는가?](#호스트명이란-무엇이며-네트워크-주소로-어떻게-변환되는가)
+- [도메인명은 어떻게 네트워크 주소로 변환되는가?](#도메인명은-어떻게-네트워크-주소로-변환되는가)
 - [Static IP와 Dynamic IP의 차이는?](#static-ip와-dynamic-ip의-차이는)
 - [Unicast의 한계와, Broadcast/Multicast/Anycast는 각각 어떻게 다른가?](#unicast의-한계와-broadcastmulticastanycast는-각각-어떻게-다른가)
 - [NAT(Network Address Translation)란 무엇이며, 사설 IP를 가진 장치가 인터넷과 통신할 수 있는 원리는?](#natnetwork-address-translation란-무엇이며-사설-ip를-가진-장치가-인터넷과-통신할-수-있는-원리는)
@@ -93,8 +93,6 @@ The host broadcasts a request containing the target node's IP address, and the n
 
 It is communicated within the boundaries of a single subnetwork and is never routed.
 
-In Internet Protocol Version 6 (IPv6) networks, the functionality of ARP is provided by the Neighbor Discovery Protocol (NDP).
-
 > #### Official Annotation:
 > Typically, a network node maintains a lookup cache that associates IP and MAC addresses.
 > When a host receives an ARP response, it can cache the lookup for future messages addressed to the same IP address.
@@ -103,7 +101,7 @@ In Internet Protocol Version 6 (IPv6) networks, the functionality of ARP is prov
 > - **동작**: broadcast로 "이 IP 가진 장치 누구?" → 해당 장치가 자기 MAC으로 유니캐스트 응답
 > - **범위**: 단일 서브네트워크 내에서만 동작. 라우터를 넘어가지 않는다.
 > - **ARP 캐시**: 매번 broadcast하지 않도록 IP→MAC 매핑을 양쪽 다 저장. `arp -a`로 확인 가능.
-> - **IPv6**: ARP 대신 NDP(Neighbor Discovery Protocol)가 동일 역할 수행
+
 
 ### Reference
 - https://en.wikipedia.org/wiki/Address_Resolution_Protocol
@@ -119,6 +117,11 @@ An IP address serves two principal functions: it identifies the host, or more sp
 > MAC 주소는 전 세계적으로 고유하지만 **flat addressing** — 주소 자체에 위치 정보가 인코딩되어 있지 않다.
 > 라우터가 MAC 주소만 보고는 "이 장치가 어느 네트워크에 있는지" 알 수 없으므로 경로를 계산할 방법이 없다.
 > 반면 IP 주소는 **hierarchical addressing** — 네트워크 프리픽스가 위치를 인코딩하고 있어, 라우터가 목적지 네트워크를 특정하고 경로를 수립(establish a path)할 수 있다.
+>
+> **실생활 비유**: MAC 주소는 주민등록번호, IP 주소는 집 주소에 대응된다.
+> - 주민번호(MAC)는 전국에서 유일하지만 번호만으로는 그 사람이 어디 사는지 알 수 없다 — 5천만 명에게 하나씩 물어봐야 한다 (flat addressing).
+> - 집 주소(IP)는 시→구→동→번지 계층 구조로 되어 있어 택배 배송(라우팅)이 가능하다 (hierarchical addressing).
+> - ARP는 "이 주소(IP)에 사는 사람 주민번호(MAC) 뭐예요?"라고 동네에 방송하는 것과 같다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/IP_address
@@ -139,10 +142,10 @@ Within a computer network, hosts are identified by [network addresses](https://e
 
 ---
 
-## 호스트명이란 무엇이며 네트워크 주소로 어떻게 변환되는가?
+## 도메인명은 어떻게 네트워크 주소로 변환되는가?
 
 ### Official Answer
-Hosts may also have [hostnames](https://en.wikipedia.org/wiki/Hostname), memorable labels for the host [nodes](https://en.wikipedia.org/wiki/Node_(networking)), which can be mapped to a network address using a [hosts file](https://en.wikipedia.org/wiki/File) or a name server such as [Domain Name Service](https://en.wikipedia.org/wiki/Domain_Name_Service).
+Hostnames can be mapped to a network address using a [hosts file](https://en.wikipedia.org/wiki/File) or a name server such as [Domain Name Service](https://en.wikipedia.org/wiki/Domain_Name_Service).
 
 > #### AI Annotation: 컴퓨터가 이름을 주소로 변환할 때 거치는 순서는 다음과 같습니다.
 > 1. **Local Cache/Hosts File**: 컴퓨터는 먼저 자기 자신(로컬)에게 물어봅니다. (`/etc/hosts` 파일 확인)
@@ -180,7 +183,6 @@ In contrast, when a computer's IP address is assigned each time it restarts, thi
 Sending the same data to multiple unicast addresses requires the sender to send all the data many times over, once for each recipient.
 
 Broadcasting is an addressing technique available in IPv4 to address data to all possible destinations on a network in one transmission operation as an all-hosts broadcast.
-IPv6 does not implement broadcast addressing and replaces it with multicast to the specially defined all-nodes multicast address.
 
 A multicast address is associated with a group of interested receivers.
 The sender sends a single datagram from its unicast address to the multicast group address, and the intermediary routers take care of making copies and sending them to all interested receivers (those that have joined the corresponding multicast group).
