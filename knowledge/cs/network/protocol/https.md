@@ -44,15 +44,21 @@ The protocol is therefore also referred to as HTTP over TLS, or HTTP over SSL.
 > #### Official Annotation:
 > Transport Layer Security (TLS), formerly known as Secure Sockets Layer (SSL), is a protocol used by applications to communicate securely across a network, preventing tampering with and eavesdropping on email, web browsing, messaging, and other protocols.
 
+> #### Official Annotation:
+> Secure Sockets Layer, or SSL, was the old standard security technology for creating an encrypted network link between a server and client, ensuring all data passed is private and secure.
+> The current version of SSL is version 3.0, released by Netscape in 1996, and has been superseded by the Transport Layer Security (TLS) protocol.
+
 > #### AI Annotation:
 > HTTPS는 새로운 프로토콜이 아니라 HTTP 위에 TLS 암호화 계층을 얹은 확장이다.
 > SSL은 TLS의 전신으로 현재는 보안 취약점 때문에 사용이 중단되었지만, "SSL 인증서"라는 이름이 관습적으로 혼용된다.
 > TLS는 웹 전용이 아니라 이메일, 메시징 등 다양한 프로토콜에서 범용적으로 사용되는 보안 프로토콜이다.
+> SSL 마지막 버전은 3.0(1996, Netscape). 이후 TLS 1.0 → 1.1 → 1.2 → 1.3으로 발전했다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 - https://developer.mozilla.org/en-US/docs/Glossary/HTTPS
 - https://developer.mozilla.org/en-US/docs/Glossary/TLS
+- https://developer.mozilla.org/en-US/docs/Glossary/SSL
 
 ---
 
