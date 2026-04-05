@@ -9,6 +9,7 @@ tags: [react, performance]
 - [@tanstack/virtual의 estimateSize 옵션은 무엇인가?](#tanstackvirtual의-estimatesize-옵션은-무엇인가)
   - [아이템 높이가 제각각인 리스트에서 estimateSize에 작은 값을 넣으면 어떤 문제가 생기는가?](#아이템-높이가-제각각인-리스트에서-estimatesize에-작은-값을-넣으면-어떤-문제가-생기는가)
 - [@tanstack/virtual의 overscan 옵션은 무엇이며, 값을 높이면 어떤 trade-off가 있는가?](#tanstackvirtual의-overscan-옵션은-무엇이며-값을-높이면-어떤-trade-off가-있는가)
+- [@tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?](#tanstackvirtual의-getvirtualitems는-무엇을-반환하는가)
 
 ---
 
@@ -137,6 +138,21 @@ The default value is 1.
 > 화면에 보이는 영역 바깥으로 미리 렌더링할 버퍼 아이템 수를 지정하는 옵션이다.
 > 값을 높이면 빠른 스크롤 시 빈 공간이 줄어들지만, 렌더링할 아이템이 늘어나 성능 비용이 증가한다.
 > 기본값 1은 위아래 각 1개씩만 미리 렌더링하는 것이다.
+
+### Reference
+- https://tanstack.com/virtual/latest/docs/api/virtualizer
+
+---
+
+## @tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?
+
+### Official Answer
+Returns the virtual items for the current state of the virtualizer.
+
+> #### AI Annotation:
+> virtualizer가 현재 스크롤 위치에서 렌더링해야 할 가상 아이템(`VirtualItem[]`) 배열을 반환하는 메서드다.
+> 전체 `count`개가 아니라 화면에 보이는 + overscan 범위의 소수만 포함된다.
+> `count`(입력)와 `estimateSize`(크기 추정)를 넣으면, `getVirtualItems()`(출력)로 "지금 뭘 그려야 하는지"를 받는 구조다.
 
 ### Reference
 - https://tanstack.com/virtual/latest/docs/api/virtualizer
