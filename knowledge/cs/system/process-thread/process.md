@@ -60,6 +60,10 @@ Depending on the OS, a process may be made up of multiple threads of execution t
 > Docker 컨테이너든, VM이든, 결국 호스트 OS의 프로세스 위에서 돌아간다.
 
 > #### Official Annotation:
+> A process is a unit of resources, while a thread is a unit of scheduling and execution.
+> — https://en.wikipedia.org/wiki/Thread_(computing)
+
+> #### Official Annotation:
 > In general, a computer system process consists of (or is said to own) the following resources:
 > - An image of the executable machine code associated with a program.
 > - Memory (typically some region of virtual memory); which includes the executable code, process-specific data (input and output), a call stack (to keep track of active subroutines and/or other events), and a heap to hold intermediate computation data generated during run time.
@@ -148,6 +152,12 @@ Depending on the operating system implementation, switches could be performed wh
 > 3. 하드웨어 인터럽트 — 키보드/마우스 같은 외부 이벤트
 > 4. 타임 슬라이스 만료 — OS 스케줄러가 "네 차례 끝"이라고 판단할 때
 
+> #### Official Annotation:
+> Multi-user operating systems generally favor preemptive multithreading for its finer-grained control over execution time via context switching.
+> However, preemptive scheduling may context-switch threads at moments unanticipated by programmers, thus causing lock convoy, priority inversion, or other side-effects.
+> In contrast, cooperative multithreading relies on threads to relinquish control of execution, thus ensuring that threads run to completion.
+> — https://en.wikipedia.org/wiki/Thread_(computing)
+
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 
@@ -168,6 +178,10 @@ For security and reliability, most modern operating systems prevent direct commu
 
 > #### AI Annotation:
 > `ls | grep .md`에서 `ls`의 stdout이 `grep`의 stdin으로 파이프로 연결되는 것이 IPC의 대표적 실례.
+
+> #### Official Annotation:
+> Simplified sharing and communication of threads: unlike processes, which require a message passing or shared memory mechanism to perform inter-process communication (IPC), threads can communicate through data, code and files they already share.
+> — https://en.wikipedia.org/wiki/Thread_(computing)
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
