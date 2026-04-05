@@ -19,6 +19,7 @@ tags: [network, protocol, concept]
 - [HTTPS 사이트에서 일부 콘텐츠만 HTTP로 로드되면 어떤 문제가 발생하며, 쿠키의 secure 속성은 왜 필요한가?](#https-사이트에서-일부-콘텐츠만-http로-로드되면-어떤-문제가-발생하며-쿠키의-secure-속성은-왜-필요한가)
 - [인증서가 만료 전에 무효화(revoke)되어야 할 때, 브라우저는 인증서의 유효 상태를 어떻게 확인하는가?](#인증서가-만료-전에-무효화revoke되어야-할-때-브라우저는-인증서의-유효-상태를-어떻게-확인하는가)
 - [TLS 서버가 하나의 IP:포트 조합에 하나의 인증서만 제시할 수 있는 이유와, 이 제약을 SNI가 어떻게 해결하는가?](#tls-서버가-하나의-ip포트-조합에-하나의-인증서만-제시할-수-있는-이유와-이-제약을-sni가-어떻게-해결하는가)
+- [[TODO] TLS handshake의 구체적인 단계(ClientHello, ServerHello, 키 교환, Finished)는 어떻게 진행되는가?](#todo-tls-handshake의-구체적인-단계clienthello-serverhello-키-교환-finished는-어떻게-진행되는가)
 
 ---
 
@@ -40,13 +41,18 @@ The protocol is therefore also referred to as HTTP over TLS, or HTTP over SSL.
 > It uses TLS to encrypt all communication between a client and a server.
 > This secure connection allows clients to safely exchange sensitive data with a server, such as when performing banking activities or online shopping.
 
+> #### Official Annotation:
+> Transport Layer Security (TLS), formerly known as Secure Sockets Layer (SSL), is a protocol used by applications to communicate securely across a network, preventing tampering with and eavesdropping on email, web browsing, messaging, and other protocols.
+
 > #### AI Annotation:
 > HTTPS는 새로운 프로토콜이 아니라 HTTP 위에 TLS 암호화 계층을 얹은 확장이다.
 > SSL은 TLS의 전신으로 현재는 보안 취약점 때문에 사용이 중단되었지만, "SSL 인증서"라는 이름이 관습적으로 혼용된다.
+> TLS는 웹 전용이 아니라 이메일, 메시징 등 다양한 프로토콜에서 범용적으로 사용되는 보안 프로토콜이다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 - https://developer.mozilla.org/en-US/docs/Glossary/HTTPS
+- https://developer.mozilla.org/en-US/docs/Glossary/TLS
 
 ---
 
@@ -77,6 +83,9 @@ It protects against man-in-the-middle attacks, and the bidirectional block ciphe
 > This ensures reasonable protection from eavesdroppers and man-in-the-middle attacks, provided that adequate cipher suites are used and that the server certificate is verified and trusted.
 > HTTPS is designed to withstand such attacks and is considered secure against them (with the exception of HTTPS implementations that use deprecated versions of SSL).
 
+> #### Official Annotation:
+> All major browsers began removing support for TLS 1.0 and 1.1 in early 2020; you'll need to make sure your web server supports TLS 1.2 or 1.3 going forward.
+
 > #### AI Annotation:
 > HTTPS의 3대 보안 목표:
 > - **Authentication(인증)**: 접속한 사이트가 진짜인지 확인 (피싱 방어)
@@ -84,6 +93,7 @@ It protects against man-in-the-middle attacks, and the bidirectional block ciphe
 > - **Integrity(무결성)**: 데이터가 전송 도중 변조되지 않았음을 보장
 >
 > 단, 전제조건이 있다: 적절한 암호화 스위트를 사용하고, 서버 인증서가 검증·신뢰되어야 한다. 약한 암호화를 쓰거나 인증서 검증을 건너뛰면 HTTPS라도 안전하지 않다.
+> 2020년부터 TLS 1.0/1.1 지원이 제거되어, 최소 TLS 1.2가 필수다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -309,3 +319,12 @@ A solution called Server Name Indication (SNI) exists, which sends the hostname 
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
+
+---
+
+## [TODO] TLS handshake의 구체적인 단계(ClientHello, ServerHello, 키 교환, Finished)는 어떻게 진행되는가?
+
+### Official Answer
+
+### Reference
+- https://en.wikipedia.org/wiki/Transport_Layer_Security
