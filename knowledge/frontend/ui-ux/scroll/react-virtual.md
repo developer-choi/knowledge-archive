@@ -8,6 +8,7 @@ tags: [react, performance]
 - [@tanstack/virtual의 count 옵션은 무엇인가?](#tanstackvirtual의-count-옵션은-무엇인가)
 - [@tanstack/virtual의 estimateSize 옵션은 무엇인가?](#tanstackvirtual의-estimatesize-옵션은-무엇인가)
   - [아이템 높이가 제각각인 리스트에서 estimateSize에 작은 값을 넣으면 어떤 문제가 생기는가?](#아이템-높이가-제각각인-리스트에서-estimatesize에-작은-값을-넣으면-어떤-문제가-생기는가)
+- [@tanstack/virtual의 overscan 옵션은 무엇이며, 값을 높이면 어떤 trade-off가 있는가?](#tanstackvirtual의-overscan-옵션은-무엇이며-값을-높이면-어떤-trade-off가-있는가)
 
 ---
 
@@ -119,6 +120,23 @@ This will help the virtualizer calculate more accurate initial positions.
 > 추정값이 실제보다 작으면 초기 위치 계산이 어긋나서 스크롤 시 아이템이 점프하는 현상이 발생한다.
 > 반대로 크게 잡으면 실제 측정값으로 교정될 때 자연스럽게 줄어들어 덜 거슬린다.
 > 그래서 공식 문서는 "가장 큰 크기로 넉넉하게 잡으라"고 권장한다.
+
+### Reference
+- https://tanstack.com/virtual/latest/docs/api/virtualizer
+
+---
+
+## @tanstack/virtual의 overscan 옵션은 무엇이며, 값을 높이면 어떤 trade-off가 있는가?
+
+### Official Answer
+The number of items to render above and below the visible area.
+Increasing this number will increase the amount of time it takes to render the virtualizer, but might decrease the likelihood of seeing slow-rendering blank items at the top and bottom of the virtualizer when scrolling.
+The default value is 1.
+
+> #### AI Annotation:
+> 화면에 보이는 영역 바깥으로 미리 렌더링할 버퍼 아이템 수를 지정하는 옵션이다.
+> 값을 높이면 빠른 스크롤 시 빈 공간이 줄어들지만, 렌더링할 아이템이 늘어나 성능 비용이 증가한다.
+> 기본값 1은 위아래 각 1개씩만 미리 렌더링하는 것이다.
 
 ### Reference
 - https://tanstack.com/virtual/latest/docs/api/virtualizer
