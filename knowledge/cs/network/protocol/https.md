@@ -45,6 +45,7 @@ The protocol is therefore also referred to as HTTP over TLS, or HTTP over SSL.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
+- https://developer.mozilla.org/en-US/docs/Glossary/HTTPS
 
 ---
 
