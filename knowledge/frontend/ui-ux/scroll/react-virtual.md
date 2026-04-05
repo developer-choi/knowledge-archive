@@ -12,6 +12,8 @@ tags: [react, performance]
 - [@tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?](#tanstackvirtual의-getvirtualitems는-무엇을-반환하는가)
 - [@tanstack/virtual의 VirtualItem 객체는 어떤 정보를 담고 있으며, start와 size는 어떻게 사용하는가?](#tanstackvirtual의-virtualitem-객체는-어떤-정보를-담고-있으며-start와-size는-어떻게-사용하는가)
   - [VirtualItem의 size는 언제 추정값이고 언제 실측값인가?](#virtualitem의-size는-언제-추정값이고-언제-실측값인가)
+- [@tanstack/virtual의 getTotalSize()는 무엇을 반환하며, 동적 측정 시 어떻게 변하는가?](#tanstackvirtual의-gettotalsize는-무엇을-반환하며-동적-측정-시-어떻게-변하는가)
+- [@tanstack/virtual의 measureElement 옵션은 무엇이며, estimateSize와 어떤 관계인가?](#tanstackvirtual의-measureelement-옵션은-무엇이며-estimatesize와-어떤-관계인가)
 
 ---
 
@@ -195,3 +197,35 @@ After an item is measured (if you choose to measure it at all), this value will 
 
 ### Reference
 - https://tanstack.com/virtual/latest/docs/api/virtual-item
+
+---
+
+## @tanstack/virtual의 getTotalSize()는 무엇을 반환하며, 동적 측정 시 어떻게 변하는가?
+
+### Official Answer
+Returns the total size in pixels for the virtualized items.
+This measurement will incrementally change if you choose to dynamically measure your elements as they are rendered.
+
+> #### AI Annotation:
+> 가상화된 아이템 전체의 총 크기(px)를 반환하는 메서드다.
+> 이 값을 스크롤 컨테이너 내부 요소의 `height`(또는 `width`)로 설정하여 스크롤바 길이를 결정한다.
+> `measureElement`로 동적 측정 시, 추정값에서 실측값으로 점진적으로 보정된다.
+
+### Reference
+- https://tanstack.com/virtual/latest/docs/api/virtualizer
+
+---
+
+## @tanstack/virtual의 measureElement 옵션은 무엇이며, estimateSize와 어떤 관계인가?
+
+### Official Answer
+This optional function is called when the virtualizer needs to dynamically measure the size (width or height) of an item.
+You can use `instance.options.horizontal` to determine if the width or height of the item should be measured.
+
+> #### AI Annotation:
+> 아이템의 실제 DOM 크기를 동적으로 측정하는 선택적 함수다.
+> `estimateSize`가 초기 추정값을 제공하고, `measureElement`가 렌더링 후 실측값으로 교체하는 한 쌍의 관계다.
+> 기본 구현은 `getBoundingClientRect()`로 실제 DOM 크기를 재며, 고정 크기 리스트에서는 필요 없다.
+
+### Reference
+- https://tanstack.com/virtual/latest/docs/api/virtualizer
