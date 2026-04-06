@@ -36,7 +36,6 @@ A network is a group of communicating [computers](https://en.wikipedia.org/wiki/
 
 ### Official Answer
 A network host is a computer or other device connected to a computer network.
-A host may work as a server offering information resources, services, and applications to users or other hosts on the network.
 Hosts are assigned at least one network address.
 
 > #### User Annotation:
@@ -51,7 +50,7 @@ Hosts are assigned at least one network address.
 
 ### Official Answer
 Hosts have one or more IP addresses assigned to their network interfaces.
-The addresses are configured either manually by an administrator, automatically at startup by means of the Dynamic Host Configuration Protocol (DHCP), or by stateless address autoconfiguration methods.
+The addresses are configured either manually by an administrator, or automatically at startup by means of the Dynamic Host Configuration Protocol (DHCP).
 
 ### Reference
 - https://en.wikipedia.org/wiki/Host_(network)
@@ -61,6 +60,7 @@ The addresses are configured either manually by an administrator, automatically 
 ## 호스트는 네트워크에서 어떤 역할을 하는가?
 
 ### Official Answer
+A host may work as a server offering information resources, services, and applications to users or other hosts on the network.
 Network hosts are classified as server or client systems.
 Network hosts may also function as nodes in peer-to-peer applications, in which all nodes share and consume resources in an equipotent manner.
 
