@@ -24,6 +24,7 @@ tags: [react, concept]
 - [Motion의 `useTransform` 훅이란 무엇이며, 어떤 두 가지 방식으로 사용하는가?](#motion의-usetransform-훅이란-무엇이며-어떤-두-가지-방식으로-사용하는가)
   - [`useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?](#usetransform의-value-mapping에서-input-범위가-반드시-단조증가감소여야-하는-이유는)
   - [`useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?](#usetransform의-value-mapping에서-입력이-범위를-벗어나면-출력은-어떻게-되며-이를-해제하려면)
+- [Radix UI 컴포넌트에 Motion의 exit 애니메이션을 적용하려면 어떤 설정이 필요한가?](#radix-ui-컴포넌트에-motion의-exit-애니메이션을-적용하려면-어떤-설정이-필요한가)
 
 ---
 
@@ -835,3 +836,57 @@ When calling `on` inside a React component, it should be wrapped with a `useEffe
 
 ### Reference
 - https://motion.dev/docs/react-motion-value
+
+---
+
+## Radix UI 컴포넌트에 Motion의 exit 애니메이션을 적용하려면 어떤 설정이 필요한가?
+
+### Official Answer
+Most Radix components render and control their own DOM elements. But they also provide the `asChild` prop that, when set to true, will make the component use the first provided child as its DOM node instead.
+
+By passing a motion component as this child, we can now use all of its animation props as normal:
+
+```jsx
+<Toast.Root asChild>
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    layout
+  />
+</Toast.Root>
+```
+
+By default Radix tends to control state like `isOpen` internally. However, it provides some helper props for us to track or control this state externally.
+
+For instance, the Tooltip component provides the `open` and `onOpenChange` props, which makes it easy to track the tooltip state:
+
+```jsx
+const [isOpen, setOpen] = useState(false)
+
+return (
+  <Tooltip.Provider>
+    <Tooltip.Root open={isOpen} onOpenChange={setOpen}>
+      <AnimatePresence>
+        {isOpen && (
+          <Tooltip.Portal forceMount>
+            <Tooltip.Content asChild>
+              <motion.div exit={{ opacity: 0 }} />
+            </Tooltip.Content>
+          </Tooltip.Portal>
+        )}
+      </AnimatePresence>
+    </Tooltip.Root>
+  </Tooltip.Provider>
+)
+```
+
+Because Radix expects all its children to be rendered at all times, when we're conditionally rendering children like this, setting `forceMount` to true allows our enter/exit animations to work correctly.
+
+> #### AI Annotation:
+> Radix + Motion exit 애니메이션 통합의 3단계:
+> 1. **`asChild`로 motion 컴포넌트 주입** — Radix가 자체 DOM 대신 motion 컴포넌트를 사용하게 한다
+> 2. **상태 끌어올리기** (`open`/`onOpenChange`) — Radix의 내부 상태를 `useState`로 외부에 노출하여 `{isOpen && ...}` 조건부 렌더링을 가능하게 한다
+> 3. **`forceMount`** — Radix Portal이 자체적으로 자식을 언마운트하는 것을 막아, AnimatePresence가 exit 타이밍을 제어할 수 있게 한다
+
+### Reference
+- https://motion.dev/docs/radix
