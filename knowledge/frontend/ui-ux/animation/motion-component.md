@@ -25,6 +25,10 @@ tags: [react, concept]
   - [`useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?](#usetransform의-value-mapping에서-input-범위가-반드시-단조증가감소여야-하는-이유는)
   - [`useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?](#usetransform의-value-mapping에서-입력이-범위를-벗어나면-출력은-어떻게-되며-이를-해제하려면)
 - [Radix UI 컴포넌트에 Motion의 exit 애니메이션을 적용하려면 어떤 설정이 필요한가?](#radix-ui-컴포넌트에-motion의-exit-애니메이션을-적용하려면-어떤-설정이-필요한가)
+- [Motion의 `transition`이란 무엇이며, 어디에 설정할 수 있는가?](#motion의-transition이란-무엇이며-어디에-설정할-수-있는가)
+  - [Motion의 애니메이션 타입 tween, spring, inertia는 각각 어떤 방식인가?](#motion의-애니메이션-타입-tween-spring-inertia는-각각-어떤-방식인가)
+    - [spring의 물리 기반(stiffness/damping/mass)과 duration 기반(duration/bounce)의 차이는?](#spring의-물리-기반stiffnessdampingmass과-duration-기반durationbounce의-차이는)
+    - [`inertia` 애니메이션은 어떻게 동작하며, 주요 설정 옵션은 무엇인가?](#inertia-애니메이션은-어떻게-동작하며-주요-설정-옵션은-무엇인가)
 
 ---
 
@@ -555,11 +559,6 @@ For instance, physical properties like `x` or `scale` are animated with spring p
 > `transition: { type: 'tween' }`을 명시하는 건 이 기본 spring을 오버라이드하기 위함이다.
 
 > #### User Annotation:
-> - **tween** = 시간 기반 애니메이션. "3초 동안 A→B로 가라" — 끝나는 시간이 보장됨.
-> - **spring** = 물리 기반 애니메이션. "스프링으로 A→B로 가라" — 끝나는 시간은 물리 계산 결과에 따라 다름.
-> - tween은 **카테고리**이고, `linear`/`easeOut` 등은 그 안의 **ease 옵션**이다. CSS로 치면 tween = `transition`, ease = `transition-timing-function`.
-> - spring에서 `stiffness`/`damping`/`mass`를 지정하면 `duration`/`bounce`는 **무시된다**. 이 둘을 섞으면 duration이 안 먹히는 것처럼 보인다.
->
 > FullScreenOverlay에서의 사용 판단:
 > ```tsx
 > // 열기/닫기: tween — 매번 동일한 0.3초, 예측 가능한 UI 전환
@@ -890,3 +889,120 @@ Because Radix expects all its children to be rendered at all times, when we're c
 
 ### Reference
 - https://motion.dev/docs/radix
+
+---
+
+## Motion의 `transition`이란 무엇이며, 어디에 설정할 수 있는가?
+
+### Official Answer
+A transition defines the type of animation used when animating between two values.
+
+```jsx
+const transition = {
+  duration: 0.8,
+  delay: 0.5,
+  ease: [0, 0.71, 0.2, 1.01],
+}
+
+<motion.div
+  animate={{ x: 100 }}
+  transition={transition}
+/>
+```
+
+`transition` can be set on any animation prop, and that transition will be used when the animation fires.
+
+```jsx
+<motion.div
+  whileHover={{
+    scale: 1.1,
+    transition: { duration: 0.2 }
+  }}
+/>
+```
+
+> #### AI Annotation:
+> transition을 설정할 수 있는 3곳:
+> 1. **컴포넌트 `transition` prop** — 해당 컴포넌트의 모든 애니메이션에 기본 적용
+> 2. **개별 애니메이션 prop 안** (`whileHover`, `whileTap`, `exit` 등) — 해당 애니메이션 발동 시에만 적용되며, 컴포넌트 레벨 transition을 오버라이드
+> 3. **`animate()` 함수의 세 번째 인자** — 명령형 애니메이션에서 사용
+
+### Reference
+- https://motion.dev/docs/react-transitions
+
+---
+
+### Motion의 애니메이션 타입 tween, spring, inertia는 각각 어떤 방식인가?
+
+### Official Answer
+`type` decides the type of animation to use. It can be `"tween"`, `"spring"` or `"inertia"`.
+
+Tween animations are set with a duration and an easing curve.
+
+Spring animations are either physics-based or duration-based.
+
+Inertia animations decelerate a value based on its initial velocity, usually used to implement inertial scrolling.
+
+```jsx
+<motion.path
+  animate={{ pathLength: 1 }}
+  transition={{ duration: 2, type: "tween" }}
+/>
+```
+
+> #### AI Annotation:
+> - **tween**: "3초 동안 A→B로 가라" — 끝나는 시간이 보장되는 시간 기반 애니메이션. CSS transition과 같은 개념.
+> - **spring**: "스프링으로 A→B로 가라" — 물리 시뮬레이션 기반. 끝나는 시간은 물리 계산에 따라 다름.
+> - **inertia**: "현재 속도로 미끄러지다 멈춰라" — 드래그를 놓은 뒤 관성으로 감속하는 애니메이션.
+> Motion이 `type`을 명시하지 않으면 값 타입에 따라 자동 선택한다 (물리 속성은 spring, 시각 속성은 tween).
+
+### Reference
+- https://motion.dev/docs/react-transitions
+
+---
+
+#### spring의 물리 기반(stiffness/damping/mass)과 duration 기반(duration/bounce)의 차이는?
+
+### Official Answer
+Physics-based spring animations are set via `stiffness`, `damping` and `mass`, and these incorporate the velocity of any existing gestures or animations for natural feedback.
+
+Duration-based spring animations are set via a `duration` and `bounce`. These don't incorporate velocity but are easier to understand.
+
+> #### AI Annotation:
+> 물리 기반은 드래그를 놓는 순간의 속도가 spring에 전달되어 관성 있는 복귀가 된다. duration 기반은 속도를 무시하지만 "0.5초 동안 바운스 0.3으로" 같은 직관적 설정이 가능.
+> 드래그 snap-back처럼 제스처 속도가 중요한 곳에는 물리 기반, 단순 진입/전환 애니메이션에는 duration 기반을 선택한다.
+
+### Reference
+- https://motion.dev/docs/react-transitions
+
+---
+
+#### `inertia` 애니메이션은 어떻게 동작하며, 주요 설정 옵션은 무엇인가?
+
+### Official Answer
+An animation that decelerates a value based on its initial velocity. Optionally, `min` and `max` boundaries can be defined, and inertia will snap to these with a spring animation.
+
+The animation automatically precalculates a target value, which can be modified with the `modifyTarget` property. This enables snap-to-grid functionality.
+
+```jsx
+dragTransition={{ modifyTarget: target => Math.round(target / 50) * 50 }}
+```
+
+`power` (default: `0.8`): A higher power value equals a further calculated target.
+
+`timeConstant` (default: `700`): Adjusting the time constant will change the duration of the deceleration, thereby affecting its feel.
+
+`min`/`max`: If set, the value will "bump" against this value (or immediately spring to it if the animation starts beyond this value).
+
+`bounceStiffness` (default: `500`): When `min` or `max` is set, this affects the stiffness of the bounce spring. Higher values will create more sudden movement.
+
+`bounceDamping` (default: `10`): When `min` or `max` is set, this affects the damping of the bounce spring. Set to `0`, spring will oscillate indefinitely.
+
+> #### AI Annotation:
+> inertia는 tween/spring과 근본적으로 다르다 — 목표값을 직접 지정하지 않고, **현재 속도에서 자연스럽게 감속하여 멈추는** 방식이다.
+> 대표적 사용처는 `dragTransition` prop으로, 드래그를 놓은 뒤 관성으로 미끄러지는 동작이 바로 inertia다.
+> `modifyTarget`으로 자동 계산된 정지 위치를 가로채 50px 단위 그리드 등으로 반올림하면 snap-to-grid가 된다.
+> `min`/`max`는 "벽"처럼 동작하여 값이 경계에 부딪히면 `bounceStiffness`/`bounceDamping`으로 제어되는 스프링 바운스가 발생한다.
+
+### Reference
+- https://motion.dev/docs/react-transitions
