@@ -7,7 +7,10 @@ tags: [react, concept]
 - [motion 컴포넌트의 style prop은 일반 React의 style과 어떻게 다른가?](#motion-컴포넌트의-style-prop은-일반-react의-style과-어떻게-다른가)
 - [SSR 환경에서 motion 컴포넌트의 진입 애니메이션 깜빡임을 방지하려면?](#ssr-환경에서-motion-컴포넌트의-진입-애니메이션-깜빡임을-방지하려면)
 - [`initial`, `animate`, `exit`은 motion 컴포넌트의 생애주기에서 각각 어떤 시점에 적용되는가?](#initial-animate-exit은-motion-컴포넌트의-생애주기에서-각각-어떤-시점에-적용되는가)
-- [motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?](#motion-컴포넌트에서-exit-애니메이션이-동작하려면-어떤-조건이-필요한가)
+- [Motion의 `AnimatePresence`란 무엇이며, 자식 컴포넌트의 퇴장을 감지하는 세 가지 경우는?](#motion의-animatepresence란-무엇이며-자식-컴포넌트의-퇴장을-감지하는-세-가지-경우는)
+  - [motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?](#motion-컴포넌트에서-exit-애니메이션이-동작하려면-어떤-조건이-필요한가)
+  - [AnimatePresence에서 단일 자식의 key만 바꾸면 슬라이드쇼/탭 전환 애니메이션을 만들 수 있다. 어떻게 동작하는가?](#animatepresence에서-단일-자식의-key만-바꾸면-슬라이드쇼탭-전환-애니메이션을-만들-수-있다-어떻게-동작하는가)
+  - [AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?](#animatepresence의-mode-prop은-진입퇴장-순서를-어떻게-제어하며-sync-wait-poplayout-각각-언제-쓰는가)
 - [motion의 `variants`란 무엇이며 어떤 이점이 있는가?](#motion의-variants란-무엇이며-어떤-이점이-있는가)
 - [motion의 `onPan`은 `drag` prop과 어떻게 다른가?](#motion의-onpan은-drag-prop과-어떻게-다른가)
 - [motion의 pan 제스처가 터치 환경에서 올바르게 동작하려면 어떤 CSS 설정이 필요한가?](#motion의-pan-제스처가-터치-환경에서-올바르게-동작하려면-어떤-css-설정이-필요한가)
@@ -221,18 +224,142 @@ Can be set either as an animation target, or variant.
 
 ---
 
-## motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?
+## Motion의 `AnimatePresence`란 무엇이며, 자식 컴포넌트의 퇴장을 감지하는 세 가지 경우는?
+
+### Official Answer
+`AnimatePresence` makes exit animations easy. By wrapping one or more motion components with `AnimatePresence`, we gain access to the `exit` animation prop.
+
+```jsx
+<AnimatePresence>
+  {show && <motion.div key="modal" exit={{ opacity: 0 }} />}
+</AnimatePresence>
+```
+
+`AnimatePresence` works by detecting when its direct children are removed from the React tree.
+
+This can be due to a component mounting/remounting:
+
+```jsx
+<AnimatePresence>
+  {show && <Modal key="modal" />}
+</AnimatePresence>
+```
+
+Its key changing:
+
+```jsx
+<AnimatePresence>
+  <Slide key={activeItem.id} />
+</AnimatePresence>
+```
+
+Or when children in a list are added/removed:
+
+```jsx
+<AnimatePresence>
+  {items.map(item => (
+    <motion.li key={item.id} exit={{ opacity: 1 }} layout />
+  ))}
+</AnimatePresence>
+```
+
+Direct children must each have a unique key prop so `AnimatePresence` can track their presence in the tree.
+
+> #### AI Annotation:
+> React는 컴포넌트가 unmount되면 즉시 DOM에서 제거한다. AnimatePresence는 이 동작을 가로채서 exit 애니메이션이 끝날 때까지 DOM 제거를 지연시킨다.
+> 세 가지 감지 패턴 — (1) 조건부 렌더링(`show && <Modal />`), (2) key 변경(슬라이더/탭 전환), (3) 리스트 아이템 추가/제거 — 은 모두 React 트리에서 직접 자식이 사라지는 것을 감지하는 방식이다.
+
+### Reference
+- https://motion.dev/docs/react-animate-presence
+
+---
+
+### motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?
 
 ### Official Answer
 Owing to React limitations, the component being removed **must** be a **direct child** of `AnimatePresence` to enable this animation.
 
 > #### AI Annotation:
-> React는 컴포넌트가 unmount되면 즉시 DOM에서 제거한다.
-> `AnimatePresence`가 children을 감시하여 사라진 child를 감지하고, exit 애니메이션이 끝날 때까지 DOM에 유지시킨다.
 > 직접 자식이어야 하는 이유는 `AnimatePresence`가 children 목록의 변화로 제거를 감지하는 방식이기 때문이다.
+> 손자 컴포넌트의 마운트/언마운트는 직접 추적하지 않는다.
+
+> #### Official Annotation:
+> Source: https://motion.dev/docs/react-animate-presence
+>
+> Also make sure `AnimatePresence` is outside of the code that unmounts the element. If `AnimatePresence` itself unmounts, then it can't control exit animations!
+>
+> ```jsx
+> // ❌
+> isVisible && (
+>   <AnimatePresence>
+>     <Component />
+>   </AnimatePresence>
+> )
+> // ✅
+> <AnimatePresence>
+>   {isVisible && <Component />}
+> </AnimatePresence>
+> ```
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
+
+---
+
+### AnimatePresence에서 단일 자식의 key만 바꾸면 슬라이드쇼/탭 전환 애니메이션을 만들 수 있다. 어떻게 동작하는가?
+
+### Official Answer
+Changing a key prop makes React create an entirely new component. So by changing the key of a single child of `AnimatePresence`, we can easily make components like slideshows.
+
+```jsx
+export const Slideshow = ({ image }) => (
+  <AnimatePresence>
+    <motion.img
+      key={image.src}
+      src={image.src}
+      initial={{ x: 300, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: -300, opacity: 0 }}
+    />
+  </AnimatePresence>
+)
+```
+
+> #### AI Annotation:
+> key가 바뀌면 React는 기존 컴포넌트를 파괴하고 새로 만든다. AnimatePresence가 이를 감지해서 기존 이미지는 exit(왼쪽으로 퇴장), 새 이미지는 initial→animate(오른쪽에서 등장)을 동시에 실행한다.
+> 이미지 슬라이더, 탭 전환, 스텝 폼 등 "한 번에 하나만 보여주는" UI에서 key만 바꾸면 진입/퇴장 애니메이션이 자동으로 동작하는 패턴이다.
+
+### Reference
+- https://motion.dev/docs/react-animate-presence
+
+---
+
+### AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?
+
+### Official Answer
+`mode` decides how `AnimatePresence` handles entering and exiting children. Default: `"sync"`.
+
+**sync**: In `"sync"` mode, elements animate in and out as soon as they're added/removed.
+
+**wait**: In `"wait"` mode, the entering element will wait until the exiting child has animated out, before it animates in. `wait` mode only supports one child at a time.
+
+**popLayout**: Exiting elements will be "popped" out of the page layout, allowing surrounding elements to immediately reflow. Pairs especially well with the `layout` prop, so elements can animate to their new layout.
+
+```jsx
+<AnimatePresence mode="popLayout">
+  {items.map(item => (
+    <motion.li layout exit={{ opacity: 0 }} />
+  ))}
+</AnimatePresence>
+```
+
+> #### AI Annotation:
+> - **sync** (기본값): 진입과 퇴장이 동시. 레이아웃 충돌은 `position: absolute` 등으로 직접 해결해야 한다.
+> - **wait**: 퇴장이 완전히 끝난 뒤 진입 시작. 탭 전환, 스텝 폼 등 한 번에 하나만 보여주는 UI에 적합. exit에 `easeIn`, enter에 `easeOut`을 쓰면 전체적으로 `easeInOut` 효과.
+> - **popLayout**: 퇴장 요소가 레이아웃에서 즉시 빠져서 나머지가 바로 리플로우된다. 리스트에서 아이템 삭제 시 빈 자리가 즉시 채워지면서 퇴장 애니메이션도 동시 진행. `layout` prop과 함께 쓰면 리플로우도 애니메이션된다.
+
+### Reference
+- https://motion.dev/docs/react-animate-presence
 
 ---
 
