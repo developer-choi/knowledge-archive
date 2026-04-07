@@ -42,7 +42,7 @@ In many cases, a thread is a component of a process.
 
 ### Official Answer
 The multiple threads of a given process may be executed concurrently (via multithreading capabilities), sharing resources such as memory, while different processes do not share these resources.
-In particular, the threads of a process share its executable code and the values of its dynamically allocated variables and non-thread-local global variables at any given time.
+In particular, the threads of a process share its executable code and the values of its dynamically allocated variables and global variables at any given time.
 
 > #### AI Annotation:
 > 공유 = 코드 영역 + 힙(동적 할당) + 전역변수.
