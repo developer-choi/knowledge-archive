@@ -26,7 +26,7 @@ tags: [os, concept]
 ## 스레드(thread)란 무엇이며, 프로세스와 어떤 관계인가?
 
 ### Official Answer
-In computer science, a thread of execution is the smallest sequence of programmed instructions that can be managed independently by a scheduler, which is typically a part of the operating system.
+In computer science, a thread of execution is the smallest sequence of programmed instructions that can be managed independently by a scheduler.
 In many cases, a thread is a component of a process.
 
 > #### AI Annotation:
