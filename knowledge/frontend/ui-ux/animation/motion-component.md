@@ -14,6 +14,10 @@ tags: [react, concept]
 - [CSS에서 `height: auto`로의 transition이 불가능한 문제를 Motion은 어떻게 해결하는가?](#css에서-height-auto로의-transition이-불가능한-문제를-motion은-어떻게-해결하는가)
 - [Motion이 `transition`을 명시하지 않아도 자연스러운 애니메이션을 만드는 이유는?](#motion이-transition을-명시하지-않아도-자연스러운-애니메이션을-만드는-이유는)
 - [motion의 `while-` gesture props는 제스처가 끝나면 어떻게 되는가?](#motion의-while--gesture-props는-제스처가-끝나면-어떻게-되는가)
+- [Motion의 motion value란 무엇이며, `useMotionValue` 훅으로 어떻게 생성하는가?](#motion의-motion-value란-무엇이며-usemotionvalue-훅으로-어떻게-생성하는가)
+  - [motion value의 `set`과 `get` 메서드는 각각 어떤 역할이며, DOM 업데이트는 어떻게 처리되는가?](#motion-value의-set과-get-메서드는-각각-어떤-역할이며-dom-업데이트는-어떻게-처리되는가)
+  - [motion value에서 `set()`과 `jump()`의 차이는 무엇인가?](#motion-value에서-set과-jump의-차이는-무엇인가)
+  - [React 컴포넌트 안에서 motion value의 이벤트를 구독하려면 어떻게 해야 하며, `on()` 메서드를 직접 쓸 때 주의할 점은?](#react-컴포넌트-안에서-motion-value의-이벤트를-구독하려면-어떻게-해야-하며-on-메서드를-직접-쓸-때-주의할-점은)
 - [Motion의 `useTransform` 훅이란 무엇이며, 어떤 두 가지 방식으로 사용하는가?](#motion의-usetransform-훅이란-무엇이며-어떤-두-가지-방식으로-사용하는가)
   - [`useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?](#usetransform의-value-mapping에서-input-범위가-반드시-단조증가감소여야-하는-이유는)
   - [`useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?](#usetransform의-value-mapping에서-입력이-범위를-벗어나면-출력은-어떻게-되며-이를-해제하려면)
@@ -117,6 +121,11 @@ return <motion.div style={{ x }} />
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
+
+> #### Official Annotation:
+> Source: https://motion.dev/docs/react-motion-value
+>
+> Changes to the motion value will update the DOM without triggering a React re-render. Motion values can be updated multiple times but renders will be batched to the next animation frame.
 
 ---
 
@@ -593,3 +602,109 @@ const rotate = useTransform(
 
 ### Reference
 - https://motion.dev/docs/react-use-transform
+
+---
+
+## Motion의 motion value란 무엇이며, `useMotionValue` 훅으로 어떻게 생성하는가?
+
+### Official Answer
+Motion values track the state and velocity of animated values.
+
+They are composable, signal-like values that are performant because Motion can render them with its optimised DOM renderer.
+
+Usually, these are created automatically by motion components. But for advanced use cases, it's possible to create them manually.
+
+```jsx
+import { motion, useMotionValue } from "motion/react"
+
+export function MyComponent() {
+  const x = useMotionValue(0)
+  return <motion.div style={{ x }} />
+}
+```
+
+Motion values can be created with the useMotionValue hook. The string or number passed to useMotionValue will act as its initial state.
+
+> #### AI Annotation:
+> motion value는 React state 바깥에서 동작하는 "애니메이션 전용 시그널"이다. `useState`처럼 값을 저장하고 변경을 추적하지만, 값이 바뀌어도 React 리렌더를 일으키지 않고 Motion의 자체 렌더러로 DOM을 직접 업데이트한다.
+> `<motion.div animate={{ x: 100 }} />`처럼 선언적으로 쓰면 내부에서 motion value가 자동 생성되지만, 여러 컴포넌트 간 값 공유나 `useTransform` 체이닝이 필요하면 `useMotionValue`로 직접 생성해야 한다.
+
+### Reference
+- https://motion.dev/docs/react-motion-value
+
+---
+
+### motion value의 `set`과 `get` 메서드는 각각 어떤 역할이며, DOM 업데이트는 어떻게 처리되는가?
+
+### Official Answer
+Motion values can be updated with the set method.
+
+```jsx
+x.set(100)
+```
+
+Changes to the motion value will update the DOM without triggering a React re-render. Motion values can be updated multiple times but renders will be batched to the next animation frame.
+
+A motion value can hold any string or number. We can read it with the get method.
+
+```jsx
+x.get() // 100
+```
+
+> #### AI Annotation:
+> `set()`은 값을 바꾸고 DOM을 업데이트하되 React 리렌더는 건너뛴다. 한 프레임 안에 여러 번 `set()`해도 DOM 반영은 다음 `requestAnimationFrame`에 한 번만(배치 처리).
+> `get()`은 현재 값을 동기적으로 읽는다. 이벤트 핸들러나 `useTransform` 콜백 안에서 현재 값을 꺼낼 때 사용한다.
+
+### Reference
+- https://motion.dev/docs/react-motion-value
+
+---
+
+### motion value에서 `set()`과 `jump()`의 차이는 무엇인가?
+
+### Official Answer
+`jump()` jumps the motion value to a new state in a way that breaks continuity from previous values:
+
+- Resets velocity to 0.
+- Ends active animations.
+- Ignores attached effects (for instance `useSpring`'s spring).
+
+```jsx
+const x = useSpring(0)
+x.jump(10)
+x.getVelocity() // 0
+```
+
+> #### AI Annotation:
+> `set()`은 값을 바꾸되 물리 상태(속도, 스프링 연결)를 유지한다. `useSpring`으로 연결된 값에 `set()`을 호출하면 스프링이 따라오면서 바운스된다.
+> `jump()`은 "순간이동"이다 — 속도를 0으로 리셋하고, 진행 중 애니메이션을 종료하고, 연결된 스프링도 무시한다. 초기 위치로 리셋하거나 화면 전환 시 이전 애니메이션 상태를 깨끗이 정리할 때 사용한다.
+
+### Reference
+- https://motion.dev/docs/react-motion-value
+
+---
+
+### React 컴포넌트 안에서 motion value의 이벤트를 구독하려면 어떻게 해야 하며, `on()` 메서드를 직접 쓸 때 주의할 점은?
+
+### Official Answer
+Listeners can be added to motion values via the `on` method or the `useMotionValueEvent` hook.
+
+```jsx
+useMotionValueEvent(x, "change", (latest) => console.log(latest))
+```
+
+Available events are `"change"`, `"animationStart"`, `"animationComplete"`, `"animationCancel"`.
+
+It returns a function that, when called, will unsubscribe the listener.
+
+```jsx
+const unsubscribe = x.on("change", latest => console.log(latest))
+```
+
+When calling `on` inside a React component, it should be wrapped with a `useEffect` hook, or instead use the `useMotionValueEvent` hook.
+
+> #### AI Annotation:
+> `on()`은 구독 해제 함수를 반환하는 패턴이다. React 컴포넌트 안에서 `on()`을 `useEffect` 없이 쓰면 매 렌더마다 리스너가 누적되어 메모리 누수가 발생한다. `useMotionValueEvent`는 이 cleanup을 자동 처리해주므로, 컴포넌트 안에서는 `useMotionValueEvent`를 쓰는 것이 안전하다.
+
+### Reference
+- https://motion.dev/docs/react-motion-value
