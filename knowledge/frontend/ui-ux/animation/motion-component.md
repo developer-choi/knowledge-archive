@@ -14,6 +14,9 @@ tags: [react, concept]
 - [CSS에서 `height: auto`로의 transition이 불가능한 문제를 Motion은 어떻게 해결하는가?](#css에서-height-auto로의-transition이-불가능한-문제를-motion은-어떻게-해결하는가)
 - [Motion이 `transition`을 명시하지 않아도 자연스러운 애니메이션을 만드는 이유는?](#motion이-transition을-명시하지-않아도-자연스러운-애니메이션을-만드는-이유는)
 - [motion의 `while-` gesture props는 제스처가 끝나면 어떻게 되는가?](#motion의-while--gesture-props는-제스처가-끝나면-어떻게-되는가)
+- [Motion의 `useTransform` 훅이란 무엇이며, 어떤 두 가지 방식으로 사용하는가?](#motion의-usetransform-훅이란-무엇이며-어떤-두-가지-방식으로-사용하는가)
+  - [`useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?](#usetransform의-value-mapping에서-input-범위가-반드시-단조증가감소여야-하는-이유는)
+  - [`useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?](#usetransform의-value-mapping에서-입력이-범위를-벗어나면-출력은-어떻게-되며-이를-해제하려면)
 
 ---
 
@@ -328,3 +331,75 @@ When a gesture starts, it animates to the values defined in `while-`, and then w
 
 ### Reference
 - https://motion.dev/docs/react-animation
+
+---
+
+## Motion의 `useTransform` 훅이란 무엇이며, 어떤 두 가지 방식으로 사용하는가?
+
+### Official Answer
+`useTransform` creates a new motion value that transforms the output of one or more motion values.
+
+```jsx
+const x = useMotionValue(1)
+const y = useMotionValue(1)
+
+const z = useTransform(() => x.get() + y.get()) // z.get() === 2
+```
+
+`useTransform` can be used in two ways: with a transform function and via value maps:
+
+```jsx
+// Transform function
+const doubledX = useTransform(() => x.get() * 2)
+
+// Value mapping
+const color = useTransform(x, [0, 100], ["#f00", "#00f"])
+```
+
+> #### AI Annotation:
+> motion value의 "파생 값"을 만드는 훅이다.
+> 스프레드시트에서 셀 A1에 값을 넣고, B1에 `=A1*2` 수식을 거는 것과 같다 — 원본이 바뀌면 파생도 자동 갱신된다.
+> transform 함수 방식은 자유로운 JS 연산이 가능하고, value mapping 방식은 입력 범위→출력 범위를 선언적으로 매핑한다.
+> React state를 거치지 않으므로 리렌더가 발생하지 않는다.
+
+### Reference
+- https://motion.dev/docs/react-use-transform
+
+---
+
+## `useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?
+
+### Official Answer
+The input range must always be a series of increasing or decreasing numbers.
+
+> #### AI Annotation:
+> 보간 알고리즘이 "현재 입력이 어느 구간에 있는가"를 판단해야 하는데, `[-100, 100, 0]`처럼 정렬되지 않으면 구간이 모호해진다.
+> 이 제약을 모르면 비정렬 input을 넣고 예상치 못한 보간 결과를 디버깅하게 된다.
+
+### Reference
+- https://motion.dev/docs/react-use-transform
+
+---
+
+## `useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?
+
+### Official Answer
+By setting `clamp: false`, the ranges will map perpetually.
+For instance, in this example we're saying "for every `100px` scrolled, rotate another `360deg`":
+
+```jsx
+const { scrollY } = useScroll()
+const rotate = useTransform(
+  scrollY,
+  [0, 100],
+  [0, 360],
+  { clamp: false }
+)
+```
+
+> #### AI Annotation:
+> 기본값은 `clamp: true`로, 입력이 범위를 벗어나면 출력이 범위 끝 값에서 멈춘다.
+> 스크롤 기반 무한 회전이나 패럴랙스처럼 범위 밖에서도 비례 매핑이 필요한 패턴에서 `clamp: false`를 사용한다.
+
+### Reference
+- https://motion.dev/docs/react-use-transform
