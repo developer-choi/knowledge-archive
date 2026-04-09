@@ -10,11 +10,8 @@ tags: [react, performance, principle]
   - [`layoutId`가 같은 두 컴포넌트가 동시에 DOM에 존재할 때 Motion은 어떻게 처리하는가?](#layoutid가-같은-두-컴포넌트가-동시에-dom에-존재할-때-motion은-어떻게-처리하는가)
   - [`layoutId`로 연결된 두 컴포넌트 간 shared element transition에서, 어느 쪽의 `transition` prop이 실제 애니메이션에 적용되는가?](#layoutid로-연결된-두-컴포넌트-간-shared-element-transition에서-어느-쪽의-transition-prop이-실제-애니메이션에-적용되는가)
 - [layout animation 사용 시, 레이아웃에 영향을 주는 CSS 값을 변경할 때 `animate` prop이 아닌 `style`이나 `className`을 사용해야 하는 이유는?](#layout-animation-사용-시-레이아웃에-영향을-주는-css-값을-변경할-때-animate-prop이-아닌-style이나-classname을-사용해야-하는-이유는)
-- [`layout` prop을 사용하는 컴포넌트가 스크롤 가능한 컨테이너 안에 있을 때, `layoutScroll` prop을 추가하지 않으면 어떤 문제가 생기는가?](#layout-prop을-사용하는-컴포넌트가-스크롤-가능한-컨테이너-안에-있을-때-layoutscroll-prop을-추가하지-않으면-어떤-문제가-생기는가)
 - [여러 `Accordion` 컴포넌트가 나란히 있고 하나가 펼쳐질 때 나머지도 밀려나는 경우, 밀려난 컴포넌트의 layout animation이 실행되지 않는 이유와 해결책은?](#여러-accordion-컴포넌트가-나란히-있고-하나가-펼쳐질-때-나머지도-밀려나는-경우-밀려난-컴포넌트의-layout-animation이-실행되지-않는-이유와-해결책은)
-- [`layout` prop을 추가했는데 애니메이션이 전혀 실행되지 않는다. 확인해야 할 두 가지는?](#layout-prop을-추가했는데-애니메이션이-전혀-실행되지-않는다-확인해야-할-두-가지는)
 - [콘텐츠가 추가되어 스크롤바가 나타날 때 의도치 않은 layout animation이 발생하는 이유와 방지 방법은?](#콘텐츠가-추가되어-스크롤바가-나타날-때-의도치-않은-layout-animation이-발생하는-이유와-방지-방법은)
-- [layout animation 중 자식 이미지가 찌그러진다. `layout="position"`과 자식에 `layout` 추가 중 어떤 것을 선택해야 하며 그 기준은?](#layout-animation-중-자식-이미지가-찌그러진다-layoutposition과-자식에-layout-추가-중-어떤-것을-선택해야-하며-그-기준은)
 - [layout animation에서 `border` 속성을 직접 사용하면 안 되는 두 가지 이유와 대안은?](#layout-animation에서-border-속성을-직접-사용하면-안-되는-두-가지-이유와-대안은)
 
 ---
@@ -81,6 +78,14 @@ Or by using the layoutId prop, it's possible to match two elements and animate b
 > - **`layout`**: 하나의 컴포넌트가 자기 자리에서 크기·위치가 바뀌는 경우. 예: 아코디언 펼치기, 리스트 재정렬
 > - **`layoutId`**: 서로 다른 두 컴포넌트를 같은 문자열 ID로 연결해 shared element transition을 만드는 경우. 예: 썸네일(unmount) → 모달(mount) 확장 애니메이션. Motion이 두 요소를 "같은 것"으로 인식해 이전 위치에서 새 위치로 자동으로 이어줍니다.
 
+> #### User Annotation:
+> 카드 리스트 → 모달 확장 패턴에서 `layoutId`를 요소 단위로 분리해 적용할 수 있다:
+> - 그리드 카드 `layoutId="card-1"` → 모달 카드 `layoutId="card-1"` (카드 전체 확대)
+> - 그리드 이미지 `layoutId="image-1"` → 모달 이미지 `layoutId="image-1"` (이미지 전환)
+> - 그리드 제목 `layoutId="title-1"` → 모달 제목 `layoutId="title-1"` (텍스트 전환)
+>
+> `layoutId`는 `AnimatePresence`와 함께 사용해야 마운트/언마운트 시에도 전환이 동작한다. (`AnimatePresence` 없이는 언마운트 시 즉시 사라짐)
+
 ### Reference
 - https://motion.dev/docs/react-layout-animations
 
@@ -130,25 +135,6 @@ When performing layout animations, changes to layout should be made via style or
 
 ---
 
-## `layout` prop을 사용하는 컴포넌트가 스크롤 가능한 컨테이너 안에 있을 때, `layoutScroll` prop을 추가하지 않으면 어떤 문제가 생기는가?
-
-### Official Answer
-To correctly animate layout within a scrollable container, you must add the layoutScroll prop to the scrollable element.
-This allows Motion to account for the element's scroll offset.
-
-> #### AI Annotation:
-> Motion은 layout animation 시 요소의 위치를 측정합니다.
-> 스크롤 컨테이너 안에서 `layoutScroll`이 없으면 Motion이 스크롤 오프셋을 반영하지 못해, 실제 위치와 다른 곳을 기준으로 애니메이션이 시작/끝납니다.
-> 결과적으로 요소가 잘못된 위치로 튀거나 어색하게 이동하는 버그가 발생합니다.
->
-> ```jsx
-> <motion.div layoutScroll style={{ overflow: "scroll" }} />
-> ```
-
-### Reference
-- https://motion.dev/docs/react-layout-animations
-
----
 
 ## 여러 `Accordion` 컴포넌트가 나란히 있고 하나가 펼쳐질 때 나머지도 밀려나는 경우, 밀려난 컴포넌트의 layout animation이 실행되지 않는 이유와 해결책은?
 
@@ -182,21 +168,6 @@ When layout changes are detected in any grouped motion component, layout animati
 
 ---
 
-## `layout` prop을 추가했는데 애니메이션이 전혀 실행되지 않는다. 확인해야 할 두 가지는?
-
-### Official Answer
-Ensure the component is not set to display: inline, as browsers don't apply transform to these elements.
-Ensure the component is re-rendering when you expect the layout animation to start.
-
-> #### AI Annotation:
-> 1. **`display: inline` 여부**: layout animation의 핵심인 CSS transform이 inline 요소에는 적용되지 않습니다. `inline-block` 또는 `block`으로 변경하면 해결됩니다.
-> 2. **re-render 여부**: layout animation은 React render 결과로 발생한 변화만 감지합니다. state/props 변경 없이 DOM이 바뀐 경우(직접 DOM 조작 등)는 Motion이 감지하지 못합니다.
-
-### Reference
-- https://motion.dev/docs/react-layout-animations
-
----
-
 ## 콘텐츠가 추가되어 스크롤바가 나타날 때 의도치 않은 layout animation이 발생하는 이유와 방지 방법은?
 
 ### Official Answer
@@ -216,28 +187,6 @@ If you're finding that this is leading to unwanted layout animations, you can en
 >   scrollbar-gutter: stable;
 > }
 > ```
-
-### Reference
-- https://motion.dev/docs/react-layout-animations
-
----
-
-## layout animation 중 자식 이미지가 찌그러진다. `layout="position"`과 자식에 `layout` 추가 중 어떤 것을 선택해야 하며 그 기준은?
-
-### Official Answer
-Often, this can be fixed by providing these elements a layout animation and they'll be scale-corrected.
-Some elements, like images or text that are changing between different aspect ratios, might be better animated with layout="position".
-
-> #### Official Annotation:
-> When Motion uses scale to animate a size change, child elements can get visually distorted.
-> Fix this by adding layout to the children too and Motion will calculate counter-scales them so they appear undistorted.
-> For elements that change aspect ratio (like images), use layout="position" to only animate the position and let the size snap.
-
-> #### AI Annotation:
-> - **자식에 `layout` 추가**: 부모의 scale을 역보정(counter-scale)해 자식 크기를 유지. 가로세로 비율이 유지되는 요소에 적합
-> - **`layout="position"`**: 크기 변화는 즉시 적용하고 위치(translate)만 애니메이션. 가로세로 비율이 바뀌는 요소(이미지, 텍스트 등)에서 scale 왜곡 자체를 피할 수 있어 더 자연스러움
->
-> **선택 기준**: 비율이 유지되면 `layout` 추가, 비율이 달라지면 `layout="position"`
 
 ### Reference
 - https://motion.dev/docs/react-layout-animations
