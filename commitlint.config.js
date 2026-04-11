@@ -21,5 +21,6 @@ module.exports = {
     ],
     'scope-empty': [2, 'never'],
     'subject-case': [0],
+    'body-max-line-length': [2, 'always', 200],
   },
 };
