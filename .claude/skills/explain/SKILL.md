@@ -52,7 +52,7 @@ review와 달리, 사용자에게 질문을 던지지 않는다. AI가 개념을
 
 각 질문마다:
 
-1. **Official Answer 해설**: [explanation-format.md](../../contexts/explanation-format.md)의 3단계 포맷으로 진행한다. 질문 제목 바로 다음에 원문이 오도록 한다 (원문 앞에 한글 요약을 넣지 않는다).
+1. **Official Answer 해설**: [explanation-format.md](../../contexts/explanation-format.md)의 3단계 포맷 + [explanation-style.md](../../contexts/explanation-style.md)의 스타일 가이드를 따른다. 질문 제목 바로 다음에 원문이 오도록 한다 (원문 앞에 한글 요약을 넣지 않는다).
 2. **Annotation 활용**: User/AI/Official Annotation이 있으면 해설에 자연스럽게 녹여서 보충한다
 3. **실생활 비유**: 추상적인 개념은 실생활 비유를 적극 활용하여 설명한다 (예: MAC 주소 = 주민등록번호, IP 주소 = 집 주소). 비유는 의역 해설 안에 자연스럽게 녹인다.
 4. **오개념 예방**: 해당 개념에서 흔히 틀리는 포인트가 있으면 짚어준다
