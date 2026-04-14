@@ -2,11 +2,11 @@
 tags: [react, design-pattern, concept]
 ---
 # Questions
-- [Compound Components 패턴이란 무엇이며, 어떤 문제를 해결하는가?](#compound-components-패턴이란-무엇이며-어떤-문제를-해결하는가)
-  - [Compound Components에서 "implicit state"란 무엇이며, 왜 중요한가?](#compound-components에서-implicit-state란-무엇이며-왜-중요한가)
-- [React에서 Compound Components의 implicit state를 Context로 구현할 때, 부모 컴포넌트는 어떤 구조로 상태를 공유하는가?](#react에서-compound-components의-implicit-state를-context로-구현할-때-부모-컴포넌트는-어떤-구조로-상태를-공유하는가)
-  - [Compound Components에서 자식 컴포넌트가 Provider 바깥에서 렌더링되면 어떤 문제가 생기며, 이를 어떻게 방어하는가?](#compound-components에서-자식-컴포넌트가-provider-바깥에서-렌더링되면-어떤-문제가-생기며-이를-어떻게-방어하는가)
-  - [Compound Components에서 Context value에 useMemo를 쓰는 이유는?](#compound-components에서-context-value에-usememo를-쓰는-이유는)
+- Compound Components 패턴이란 무엇이며, 어떤 문제를 해결하는가?
+  - Compound Components에서 "implicit state"란 무엇이며, 왜 중요한가?
+- React에서 Compound Components의 implicit state를 Context로 구현할 때, 부모 컴포넌트는 어떤 구조로 상태를 공유하는가?
+  - Compound Components에서 자식 컴포넌트가 Provider 바깥에서 렌더링되면 어떤 문제가 생기며, 이를 어떻게 방어하는가?
+  - Compound Components에서 Context value에 useMemo를 쓰는 이유는?
 
 ---
 

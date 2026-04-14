@@ -2,11 +2,11 @@
 tags: [software-engineering, concept]
 ---
 # Questions
-- [DDD(Domain-Driven Design)란 무엇인가?](#ddddomain-driven-design란-무엇인가)
-  - [DDD에서 Ubiquitous Language란 무엇인가?](#ddd에서-ubiquitous-language란-무엇인가)
-  - [DDD에서 Entity와 Value Object의 핵심 차이는?](#ddd에서-entity와-value-object의-핵심-차이는)
-  - [DDD에서 Aggregate란 무엇이며, 왜 외부에서 루트만 참조하도록 제한하는가?](#ddd에서-aggregate란-무엇이며-왜-외부에서-루트만-참조하도록-제한하는가)
-- [DDD는 모든 프로젝트에 적합한가?](#ddd는-모든-프로젝트에-적합한가)
+- DDD(Domain-Driven Design)란 무엇인가?
+  - DDD에서 Ubiquitous Language란 무엇인가?
+  - DDD에서 Entity와 Value Object의 핵심 차이는?
+  - DDD에서 Aggregate란 무엇이며, 왜 외부에서 루트만 참조하도록 제한하는가?
+- DDD는 모든 프로젝트에 적합한가?
 
 ---
 

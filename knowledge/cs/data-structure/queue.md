@@ -3,13 +3,13 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [Queue란 무엇인가?](#queue란-무엇인가)
-  - [Queue에서 Front와 Rear는 각각 어디를 가리키며, Size와 Capacity의 차이는?](#queue에서-front와-rear는-각각-어디를-가리키며-size와-capacity의-차이는)
-- [Queue의 주요 연산과 시간복잡도는?](#queue의-주요-연산과-시간복잡도는)
-  - [Queue의 Enqueue/Dequeue 연산에서 overflow와 underflow는 각각 언제 발생하는가?](#queue의-enqueuedequeue-연산에서-overflow와-underflow는-각각-언제-발생하는가)
-- [Deque(Double Ended Queue)란 무엇이며, 일반 Queue와 어떻게 다른가?](#dequedouble-ended-queue란-무엇이며-일반-queue와-어떻게-다른가)
-- [Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?](#priority-queue란-무엇이며-어떤-자료구조로-구현하는가)
-- [CircularQueue와 LinkedListQueue의 차이는?](#circularqueue와-linkedlistqueue의-차이는)
+- Queue란 무엇인가?
+  - Queue에서 Front와 Rear는 각각 어디를 가리키며, Size와 Capacity의 차이는?
+- Queue의 주요 연산과 시간복잡도는?
+  - Queue의 Enqueue/Dequeue 연산에서 overflow와 underflow는 각각 언제 발생하는가?
+- Deque(Double Ended Queue)란 무엇이며, 일반 Queue와 어떻게 다른가?
+- Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?
+- CircularQueue와 LinkedListQueue의 차이는?
 
 ---
 

@@ -3,12 +3,12 @@ tags: [os, performance, concept]
 ---
 
 # Questions
-- [Locality of reference(참조 지역성)란 무엇인가?](#locality-of-reference참조-지역성란-무엇인가)
-  - [Temporal locality란 무엇인가?](#temporal-locality란-무엇인가)
-  - [Spatial locality란 무엇인가?](#spatial-locality란-무엇인가)
-    - [Sequential locality란 무엇인가?](#sequential-locality란-무엇인가)
-- [캐시가 locality of reference를 활용하는 방식은?](#캐시가-locality-of-reference를-활용하는-방식은)
-  - [캐시에 저장된 데이터는 메인 메모리에서 공간적으로 가까운 데이터끼리 모여있는가?](#캐시에-저장된-데이터는-메인-메모리에서-공간적으로-가까운-데이터끼리-모여있는가)
+- Locality of reference(참조 지역성)란 무엇인가?
+  - Temporal locality란 무엇인가?
+  - Spatial locality란 무엇인가?
+    - Sequential locality란 무엇인가?
+- 캐시가 locality of reference를 활용하는 방식은?
+  - 캐시에 저장된 데이터는 메인 메모리에서 공간적으로 가까운 데이터끼리 모여있는가?
 
 ---
 

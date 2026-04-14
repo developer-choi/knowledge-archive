@@ -2,11 +2,11 @@
 tags: [ai, concept]
 ---
 # Questions
-- [Skill authors couldn't systematically measure compatibility after model updates, trigger accuracy, or quality changes after edits. How does skill-creator solve this?](#skill-authors-couldnt-systematically-measure)
-- [There are two categories of skills: one that enables what the base model can't do, and one that sequences what it already can. As models improve, which becomes unnecessary first, and why?](#two-categories-of-skills)
-- [When running multiple prompt tests sequentially, earlier test context can bleed into later tests. How can this problem be solved?](#sequential-test-context-contamination)
-- [As the number of skills grows, why does description precision become critical? What specific problems arise?](#skill-description-precision)
-- [Currently, skills describe "how" to perform a task in detail. If model capabilities keep improving, how might the role of skills change?](#skills-how-to-what)
+- Skill authors couldn't systematically measure compatibility after model updates, trigger accuracy, or quality changes after edits. How does skill-creator solve this?
+- There are two categories of skills: one that enables what the base model can't do, and one that sequences what it already can. As models improve, which becomes unnecessary first, and why?
+- When running multiple prompt tests sequentially, earlier test context can bleed into later tests. How can this problem be solved?
+- As the number of skills grows, why does description precision become critical? What specific problems arise?
+- Currently, skills describe "how" to perform a task in detail. If model capabilities keep improving, how might the role of skills change?
 
 ---
 

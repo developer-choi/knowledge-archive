@@ -2,18 +2,18 @@
 tags: [react, performance]
 ---
 # Questions
-- [@tanstack/react-virtual의 useVirtualizer와 useWindowVirtualizer의 차이는?](#tanstackreact-virtual의-usevirtualizer와-usewindowvirtualizer의-차이는)
-- [React 19에서 @tanstack/react-virtual 사용 시 스크롤할 때 "flushSync was called from inside a lifecycle method" 경고가 발생한다. 원인과 해결 방법은?](#react-19에서-tanstackreact-virtual-사용-시-스크롤할-때-flushsync-was-called-from-inside-a-lifecycle-method-경고가-발생한다-원인과-해결-방법은)
-  - [useFlushSync를 false로 설정하면 어떤 trade-off가 있는가?](#useflushsync를-false로-설정하면-어떤-trade-off가-있는가)
-- [@tanstack/virtual의 count 옵션은 무엇인가?](#tanstackvirtual의-count-옵션은-무엇인가)
-- [@tanstack/virtual의 estimateSize 옵션은 무엇인가?](#tanstackvirtual의-estimatesize-옵션은-무엇인가)
-  - [아이템 높이가 제각각인 리스트에서 estimateSize에 작은 값을 넣으면 어떤 문제가 생기는가?](#아이템-높이가-제각각인-리스트에서-estimatesize에-작은-값을-넣으면-어떤-문제가-생기는가)
-- [@tanstack/virtual의 overscan 옵션은 무엇이며, 값을 높이면 어떤 trade-off가 있는가?](#tanstackvirtual의-overscan-옵션은-무엇이며-값을-높이면-어떤-trade-off가-있는가)
-- [@tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?](#tanstackvirtual의-getvirtualitems는-무엇을-반환하는가)
-- [@tanstack/virtual의 VirtualItem 객체는 어떤 정보를 담고 있으며, start와 size는 어떻게 사용하는가?](#tanstackvirtual의-virtualitem-객체는-어떤-정보를-담고-있으며-start와-size는-어떻게-사용하는가)
-  - [VirtualItem의 size는 언제 추정값이고 언제 실측값인가?](#virtualitem의-size는-언제-추정값이고-언제-실측값인가)
-- [@tanstack/virtual의 getTotalSize()는 무엇을 반환하며, 동적 측정 시 어떻게 변하는가?](#tanstackvirtual의-gettotalsize는-무엇을-반환하며-동적-측정-시-어떻게-변하는가)
-- [@tanstack/virtual의 measureElement 옵션은 무엇이며, estimateSize와 어떤 관계인가?](#tanstackvirtual의-measureelement-옵션은-무엇이며-estimatesize와-어떤-관계인가)
+- @tanstack/react-virtual의 useVirtualizer와 useWindowVirtualizer의 차이는?
+- React 19에서 @tanstack/react-virtual 사용 시 스크롤할 때 "flushSync was called from inside a lifecycle method" 경고가 발생한다. 원인과 해결 방법은?
+  - useFlushSync를 false로 설정하면 어떤 trade-off가 있는가?
+- @tanstack/virtual의 count 옵션은 무엇인가?
+- @tanstack/virtual의 estimateSize 옵션은 무엇인가?
+  - 아이템 높이가 제각각인 리스트에서 estimateSize에 작은 값을 넣으면 어떤 문제가 생기는가?
+- @tanstack/virtual의 overscan 옵션은 무엇이며, 값을 높이면 어떤 trade-off가 있는가?
+- @tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?
+- @tanstack/virtual의 VirtualItem 객체는 어떤 정보를 담고 있으며, start와 size는 어떻게 사용하는가?
+  - VirtualItem의 size는 언제 추정값이고 언제 실측값인가?
+- @tanstack/virtual의 getTotalSize()는 무엇을 반환하며, 동적 측정 시 어떻게 변하는가?
+- @tanstack/virtual의 measureElement 옵션은 무엇이며, estimateSize와 어떤 관계인가?
 
 ---
 

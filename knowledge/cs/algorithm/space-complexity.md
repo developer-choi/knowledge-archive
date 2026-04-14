@@ -2,8 +2,8 @@
 tags: [algorithm, concept, comparison]
 ---
 # Questions
-- [Auxiliary Space와 Space Complexity의 차이는?](#auxiliary-space와-space-complexity의-차이는)
-  - [정렬 알고리즘 비교 시 Auxiliary Space를 기준으로 써야 하는 이유는?](#정렬-알고리즘-비교-시-auxiliary-space를-기준으로-써야-하는-이유는)
+- Auxiliary Space와 Space Complexity의 차이는?
+  - 정렬 알고리즘 비교 시 Auxiliary Space를 기준으로 써야 하는 이유는?
 
 ---
 

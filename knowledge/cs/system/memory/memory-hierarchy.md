@@ -3,11 +3,11 @@ tags: [os, performance, concept]
 ---
 
 # Questions
-- [메모리 계층 구조(Memory Hierarchy)란 무엇인가?](#메모리-계층-구조memory-hierarchy란-무엇인가)
-  - [[TODO] Register란 무엇인가?](#todo-register란-무엇인가)
-  - [[TODO] Cache Memory란 무엇인가?](#todo-cache-memory란-무엇인가)
-  - [[TODO] Main Memory란 무엇인가?](#todo-main-memory란-무엇인가)
-  - [[TODO] Secondary Memory란 무엇인가?](#todo-secondary-memory란-무엇인가)
+- 메모리 계층 구조(Memory Hierarchy)란 무엇인가?
+  - [TODO] Register란 무엇인가?
+  - [TODO] Cache Memory란 무엇인가?
+  - [TODO] Main Memory란 무엇인가?
+  - [TODO] Secondary Memory란 무엇인가?
 
 ---
 

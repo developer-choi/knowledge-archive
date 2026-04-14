@@ -3,10 +3,10 @@ tags: [react, browser, concept]
 ---
 
 # Questions
-- [tooltip 같은 DOM 요소를 측정할 때 `useLayoutEffect`가 필요한 이유는?](#tooltip-같은-dom-요소를-측정할-때-uselayouteffect가-필요한-이유는)
-  - [`useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?](#uselayouteffect-안에서-setstate를-호출하면-즉시-실행되는가)
-  - [`useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?](#uselayouteffect가-관여할-때-react-commit부터-브라우저-paint까지의-실행-순서는)
-- [`useEffect`는 항상 paint 이후에 실행되는가?](#useeffect는-항상-paint-이후에-실행되는가)
+- tooltip 같은 DOM 요소를 측정할 때 `useLayoutEffect`가 필요한 이유는?
+  - `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
+  - `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
+- `useEffect`는 항상 paint 이후에 실행되는가?
 
 ---
 

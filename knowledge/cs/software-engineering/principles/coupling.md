@@ -2,9 +2,9 @@
 tags: [software-engineering, architecture, principle]
 ---
 # Questions
-- [결합도(Coupling)란 무엇인가?](#결합도coupling란-무엇인가)
-- [결합도의 종류에는 무엇이 있는가?](#결합도의-종류에는-무엇이-있는가)
-- [결합도를 어떻게 줄일 수 있는가?](#결합도를-어떻게-줄일-수-있는가)
+- 결합도(Coupling)란 무엇인가?
+- 결합도의 종류에는 무엇이 있는가?
+- 결합도를 어떻게 줄일 수 있는가?
 
 ---
 

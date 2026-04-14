@@ -2,23 +2,23 @@
 tags: [styling, concept]
 ---
 # Questions
-- [CSS custom property란 무엇이며, 어떻게 정의하고 사용하는가?](#css-custom-property란-무엇이며-어떻게-정의하고-사용하는가)
-- [CSS custom property를 `--` 문법으로 정의하면 캐스케이드와 상속이 어떻게 적용되는가?](#css-custom-property를----문법으로-정의하면-캐스케이드와-상속이-어떻게-적용되는가)
-- [`@property` at-rule은 `--` 문법 대비 어떤 추가 제어를 제공하는가?](#property-at-rule은----문법-대비-어떤-추가-제어를-제공하는가)
-  - [`@property` at-rule의 세 가지 디스크립터(`syntax`, `inherits`, `initial-value`)는 각각 무엇을 제어하는가?](#property-at-rule의-세-가지-디스크립터syntax-inherits-initial-value는-각각-무엇을-제어하는가)
-- [`var()` 함수는 CSS의 어디에서 사용할 수 있고, 어디에서 사용할 수 없는가?](#var-함수는-css의-어디에서-사용할-수-있고-어디에서-사용할-수-없는가)
-- [CSS custom property가 해결하는 두 가지 문제는 무엇인가?](#css-custom-property가-해결하는-두-가지-문제는-무엇인가)
-- [CSS custom property의 스코프는 어떻게 결정되며, 전역으로 사용하려면 어떻게 하는가?](#css-custom-property의-스코프는-어떻게-결정되며-전역으로-사용하려면-어떻게-하는가)
-- [CSS custom property 이름은 대소문자를 구분하는가?](#css-custom-property-이름은-대소문자를-구분하는가)
-- [CSS custom property의 상속은 프로그래밍 언어의 변수와 어떻게 다른가?](#css-custom-property의-상속은-프로그래밍-언어의-변수와-어떻게-다른가)
-- [다음 CSS에서 `.four`의 `background-color`는 무엇이 되는가? 그 이유는?](#다음-css에서-four의-background-color는-무엇이-되는가-그-이유는)
-- [`@property`에서 `inherits: false`를 설정하면, 자식 요소에서 해당 커스텀 프로퍼티를 참조했을 때 어떤 값이 사용되는가?](#property에서-inherits-false를-설정하면-자식-요소에서-해당-커스텀-프로퍼티를-참조했을-때-어떤-값이-사용되는가)
-- [`var()` 함수의 폴백 값은 어떻게 지정하며, 쉼표가 여러 개 있을 때 어떻게 파싱되는가?](#var-함수의-폴백-값은-어떻게-지정하며-쉼표가-여러-개-있을-때-어떻게-파싱되는가)
-- [`var()`로 둘 이상의 커스텀 프로퍼티를 폴백 체인으로 사용하려면 어떻게 해야 하는가?](#var로-둘-이상의-커스텀-프로퍼티를-폴백-체인으로-사용하려면-어떻게-해야-하는가)
-- [`var()` 폴백과 `@property`의 `initial-value` 폴백은 어떤 상황에서 각각 동작하는가?](#var-폴백과-property의-initial-value-폴백은-어떤-상황에서-각각-동작하는가)
-- [일반 CSS 프로퍼티에 유효하지 않은 값을 넣었을 때와, `var()`를 통해 유효하지 않은 값이 대입되었을 때, 브라우저의 처리 방식은 어떻게 다른가?](#일반-css-프로퍼티에-유효하지-않은-값을-넣었을-때와-var를-통해-유효하지-않은-값이-대입되었을-때-브라우저의-처리-방식은-어떻게-다른가)
-- [CSS 커스텀 프로퍼티의 값은 왜 파싱 시점이 아닌 computed time에 유효성이 판별되는가?](#css-커스텀-프로퍼티의-값은-왜-파싱-시점이-아닌-computed-time에-유효성이-판별되는가)
-- [JavaScript에서 CSS 커스텀 프로퍼티 값을 읽고 쓰는 API는 무엇인가?](#javascript에서-css-커스텀-프로퍼티-값을-읽고-쓰는-api는-무엇인가)
+- CSS custom property란 무엇이며, 어떻게 정의하고 사용하는가?
+- CSS custom property를 `--` 문법으로 정의하면 캐스케이드와 상속이 어떻게 적용되는가?
+- `@property` at-rule은 `--` 문법 대비 어떤 추가 제어를 제공하는가?
+  - `@property` at-rule의 세 가지 디스크립터(`syntax`, `inherits`, `initial-value`)는 각각 무엇을 제어하는가?
+- `var()` 함수는 CSS의 어디에서 사용할 수 있고, 어디에서 사용할 수 없는가?
+- CSS custom property가 해결하는 두 가지 문제는 무엇인가?
+- CSS custom property의 스코프는 어떻게 결정되며, 전역으로 사용하려면 어떻게 하는가?
+- CSS custom property 이름은 대소문자를 구분하는가?
+- CSS custom property의 상속은 프로그래밍 언어의 변수와 어떻게 다른가?
+- 다음 CSS에서 `.four`의 `background-color`는 무엇이 되는가? 그 이유는?
+- `@property`에서 `inherits: false`를 설정하면, 자식 요소에서 해당 커스텀 프로퍼티를 참조했을 때 어떤 값이 사용되는가?
+- `var()` 함수의 폴백 값은 어떻게 지정하며, 쉼표가 여러 개 있을 때 어떻게 파싱되는가?
+- `var()`로 둘 이상의 커스텀 프로퍼티를 폴백 체인으로 사용하려면 어떻게 해야 하는가?
+- `var()` 폴백과 `@property`의 `initial-value` 폴백은 어떤 상황에서 각각 동작하는가?
+- 일반 CSS 프로퍼티에 유효하지 않은 값을 넣었을 때와, `var()`를 통해 유효하지 않은 값이 대입되었을 때, 브라우저의 처리 방식은 어떻게 다른가?
+- CSS 커스텀 프로퍼티의 값은 왜 파싱 시점이 아닌 computed time에 유효성이 판별되는가?
+- JavaScript에서 CSS 커스텀 프로퍼티 값을 읽고 쓰는 API는 무엇인가?
 
 ---
 

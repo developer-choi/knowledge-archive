@@ -3,16 +3,16 @@ tags: [react, performance, principle]
 ---
 # Questions
 
-- [`motion.div`에 `layout` prop을 추가하면 어떤 동작이 활성화되는가?](#motiondiv에-layout-prop을-추가하면-어떤-동작이-활성화되는가)
-  - [layout animation이 감지하는 레이아웃 변화는 어떤 조건에서 발생해야 하는가? JavaScript로 DOM을 직접 조작하면 동작하는가?](#layout-animation이-감지하는-레이아웃-변화는-어떤-조건에서-발생해야-하는가-javascript로-dom을-직접-조작하면-동작하는가)
-- [`justify-content`처럼 CSS transition으로 원래 애니메이션할 수 없는 값이, `layout` prop이 있으면 부드럽게 전환되는 이유는?](#justify-content처럼-css-transition으로-원래-애니메이션할-수-없는-값이-layout-prop이-있으면-부드럽게-전환되는-이유는)
-- [`layout` prop과 `layoutId` prop의 차이는? 각각 어떤 시나리오에 쓰는가?](#layout-prop과-layoutid-prop의-차이는-각각-어떤-시나리오에-쓰는가)
-  - [`layoutId`가 같은 두 컴포넌트가 동시에 DOM에 존재할 때 Motion은 어떻게 처리하는가?](#layoutid가-같은-두-컴포넌트가-동시에-dom에-존재할-때-motion은-어떻게-처리하는가)
-  - [`layoutId`로 연결된 두 컴포넌트 간 shared element transition에서, 어느 쪽의 `transition` prop이 실제 애니메이션에 적용되는가?](#layoutid로-연결된-두-컴포넌트-간-shared-element-transition에서-어느-쪽의-transition-prop이-실제-애니메이션에-적용되는가)
-- [layout animation 사용 시, 레이아웃에 영향을 주는 CSS 값을 변경할 때 `animate` prop이 아닌 `style`이나 `className`을 사용해야 하는 이유는?](#layout-animation-사용-시-레이아웃에-영향을-주는-css-값을-변경할-때-animate-prop이-아닌-style이나-classname을-사용해야-하는-이유는)
-- [여러 `Accordion` 컴포넌트가 나란히 있고 하나가 펼쳐질 때 나머지도 밀려나는 경우, 밀려난 컴포넌트의 layout animation이 실행되지 않는 이유와 해결책은?](#여러-accordion-컴포넌트가-나란히-있고-하나가-펼쳐질-때-나머지도-밀려나는-경우-밀려난-컴포넌트의-layout-animation이-실행되지-않는-이유와-해결책은)
-- [콘텐츠가 추가되어 스크롤바가 나타날 때 의도치 않은 layout animation이 발생하는 이유와 방지 방법은?](#콘텐츠가-추가되어-스크롤바가-나타날-때-의도치-않은-layout-animation이-발생하는-이유와-방지-방법은)
-- [layout animation에서 `border` 속성을 직접 사용하면 안 되는 두 가지 이유와 대안은?](#layout-animation에서-border-속성을-직접-사용하면-안-되는-두-가지-이유와-대안은)
+- `motion.div`에 `layout` prop을 추가하면 어떤 동작이 활성화되는가?
+  - layout animation이 감지하는 레이아웃 변화는 어떤 조건에서 발생해야 하는가? JavaScript로 DOM을 직접 조작하면 동작하는가?
+- `justify-content`처럼 CSS transition으로 원래 애니메이션할 수 없는 값이, `layout` prop이 있으면 부드럽게 전환되는 이유는?
+- `layout` prop과 `layoutId` prop의 차이는? 각각 어떤 시나리오에 쓰는가?
+  - `layoutId`가 같은 두 컴포넌트가 동시에 DOM에 존재할 때 Motion은 어떻게 처리하는가?
+  - `layoutId`로 연결된 두 컴포넌트 간 shared element transition에서, 어느 쪽의 `transition` prop이 실제 애니메이션에 적용되는가?
+- layout animation 사용 시, 레이아웃에 영향을 주는 CSS 값을 변경할 때 `animate` prop이 아닌 `style`이나 `className`을 사용해야 하는 이유는?
+- 여러 `Accordion` 컴포넌트가 나란히 있고 하나가 펼쳐질 때 나머지도 밀려나는 경우, 밀려난 컴포넌트의 layout animation이 실행되지 않는 이유와 해결책은?
+- 콘텐츠가 추가되어 스크롤바가 나타날 때 의도치 않은 layout animation이 발생하는 이유와 방지 방법은?
+- layout animation에서 `border` 속성을 직접 사용하면 안 되는 두 가지 이유와 대안은?
 
 ---
 

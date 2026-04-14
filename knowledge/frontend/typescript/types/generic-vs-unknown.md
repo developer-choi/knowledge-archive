@@ -2,12 +2,12 @@
 tags: [typescript, comparison, concept]
 ---
 # Questions
-- [제네릭이란 무엇이며 왜 사용하는가?](#제네릭이란-무엇이며-왜-사용하는가)
-- [[TODO] unknown으로 만드는거랑 Generic으로 만드는거랑 무슨차이?](#unknown으로-만드는거랑-generic으로-만드는거랑-무슨차이)
-  - [[TODO] unknown 타입이랑 연계되는 다른 타입이랑 서로 관련을 이어주려고?](#todo-unknown-타입이랑-연계되는-다른-타입이랑-서로-관련을-이어주려고)
-- [[TODO] <T extends unknown> 은 왜 의미없는 코드?](#todo-t-extends-unknown-은-왜-의미없는-코드)
-- [제네릭과 Unknown 중 선택이 리팩토링에 어떤 영향을 미치는가?](#제네릭과-unknown-중-선택이-리팩토링에-어떤-영향을-미치는가)
-- [[TODO] generic 쓰나 unknown 쓰나 똑같이 타입을 아 그럴거다 라고 생각하고 전달하는건데 저 경우에는 어떤 방식이 더 좋은가요?](#todo-generic-쓰나-unknown-쓰나-똑같이-타입을-아-그럴거다-라고-생각하고-전달하는건데-저-경우에는-어떤-방식이-더-좋은가요)
+- 제네릭이란 무엇이며 왜 사용하는가?
+- [TODO] unknown으로 만드는거랑 Generic으로 만드는거랑 무슨차이?
+  - [TODO] unknown 타입이랑 연계되는 다른 타입이랑 서로 관련을 이어주려고?
+- [TODO] <T extends unknown> 은 왜 의미없는 코드?
+- 제네릭과 Unknown 중 선택이 리팩토링에 어떤 영향을 미치는가?
+- [TODO] generic 쓰나 unknown 쓰나 똑같이 타입을 아 그럴거다 라고 생각하고 전달하는건데 저 경우에는 어떤 방식이 더 좋은가요?
 
 ---
 

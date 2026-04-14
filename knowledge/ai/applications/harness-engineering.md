@@ -2,10 +2,10 @@
 tags: [ai, concept]
 ---
 # Questions
-- [하네스 엔지니어링이란 무엇인가?](#하네스-엔지니어링이란-무엇인가)
-- [Claude Messages API는 왜 매 턴마다 전체 대화를 다시 보내야 하는가?](#claude-messages-api는-왜-매-턴마다-전체-대화를-다시-보내야-하는가)
-- [Claude API에서 prompt caching 비용을 최대화하려면 context를 어떤 순서로 배치해야 하는가?](#claude-api에서-prompt-caching-비용을-최대화하려면-context를-어떤-순서로-배치해야-하는가)
-- [Claude API 세션 중간에 모델을 변경하면 안 되는 이유는?](#claude-api-세션-중간에-모델을-변경하면-안-되는-이유는)
+- 하네스 엔지니어링이란 무엇인가?
+- Claude Messages API는 왜 매 턴마다 전체 대화를 다시 보내야 하는가?
+- Claude API에서 prompt caching 비용을 최대화하려면 context를 어떤 순서로 배치해야 하는가?
+- Claude API 세션 중간에 모델을 변경하면 안 되는 이유는?
 
 ---
 

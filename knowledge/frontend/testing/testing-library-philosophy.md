@@ -2,17 +2,17 @@
 tags: [testing, concept]
 ---
 # Questions
-- [컴포넌트 테스트에서 implementation details를 테스트하면 어떤 문제가 생기는가? Testing Library는 이 문제를 어떻게 해결하는가?](#컴포넌트-테스트에서-implementation-details를-테스트하면-어떤-문제가-생기는가-testing-library는-이-문제를-어떻게-해결하는가)
-  - [Testing Library는 implementation details 테스트를 기술적으로 차단하는가?](#testing-library는-implementation-details-테스트를-기술적으로-차단하는가)
-  - [테스트가 사용자의 소프트웨어 사용 방식과 닮을수록 더 큰 확신을 준다고 하는데, 그 근거는 무엇인가?](#테스트가-사용자의-소프트웨어-사용-방식과-닮을수록-더-큰-확신을-준다고-하는데-그-근거는-무엇인가)
-- [Testing Library의 Guiding Principles는 "사용자처럼 테스트하라"는 원칙을 API 설계에 어떻게 반영하는가?](#testing-library의-guiding-principles는-사용자처럼-테스트하라는-원칙을-api-설계에-어떻게-반영하는가)
-- [React Testing Library로 테스트를 작성하면 접근성(a11y)이 자연스럽게 개선된다고 하는데, 어떤 원리인가?](#react-testing-library로-테스트를-작성하면-접근성a11y이-자연스럽게-개선된다고-하는데-어떤-원리인가)
-- [React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?](#react-testing-library에서-컴포넌트-트리의-어느-레벨을-테스트해야-하나)
-- [implementation details를 테스트하면 왜 all downside, no upside인가?](#implementation-details를-테스트하면-왜-all-downside-no-upside인가)
-- [implementation details의 정의는 무엇이고, React 컴포넌트에서 구현 세부사항에 해당하는 것은?](#implementation-details의-정의는-무엇이고-react-컴포넌트에서-구현-세부사항에-해당하는-것은)
-- [테스트할 대상을 결정하는 5단계 프로세스는 무엇인가?](#테스트할-대상을-결정하는-5단계-프로세스는-무엇인가)
-- [테스트를 작성할 때 코드 자체가 아니라 유스케이스를 중심으로 생각해야 하는 이유는?](#테스트를-작성할-때-코드-자체가-아니라-유스케이스를-중심으로-생각해야-하는-이유는)
-- [테스트가 없는 대규모 앱에서 테스트를 도입할 때 어디서부터 시작해야 하는가?](#테스트가-없는-대규모-앱에서-테스트를-도입할-때-어디서부터-시작해야-하는가)
+- 컴포넌트 테스트에서 implementation details를 테스트하면 어떤 문제가 생기는가? Testing Library는 이 문제를 어떻게 해결하는가?
+  - Testing Library는 implementation details 테스트를 기술적으로 차단하는가?
+  - 테스트가 사용자의 소프트웨어 사용 방식과 닮을수록 더 큰 확신을 준다고 하는데, 그 근거는 무엇인가?
+- Testing Library의 Guiding Principles는 "사용자처럼 테스트하라"는 원칙을 API 설계에 어떻게 반영하는가?
+- React Testing Library로 테스트를 작성하면 접근성(a11y)이 자연스럽게 개선된다고 하는데, 어떤 원리인가?
+- React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?
+- implementation details를 테스트하면 왜 all downside, no upside인가?
+- implementation details의 정의는 무엇이고, React 컴포넌트에서 구현 세부사항에 해당하는 것은?
+- 테스트할 대상을 결정하는 5단계 프로세스는 무엇인가?
+- 테스트를 작성할 때 코드 자체가 아니라 유스케이스를 중심으로 생각해야 하는 이유는?
+- 테스트가 없는 대규모 앱에서 테스트를 도입할 때 어디서부터 시작해야 하는가?
 
 ---
 

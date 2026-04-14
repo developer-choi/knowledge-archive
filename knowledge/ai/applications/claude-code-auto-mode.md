@@ -2,8 +2,8 @@
 tags: [ai, concept]
 ---
 # Questions
-- [Claude Code의 auto mode는 기존 권한 모드들 사이에서 어떤 문제를 해결하기 위해 도입되었는가?](#claude-code의-auto-mode는-기존-권한-모드들-사이에서-어떤-문제를-해결하기-위해-도입되었는가)
-  - [Auto mode에서 위험한 tool call이 차단되면 어떤 일이 일어나는가?](#auto-mode에서-위험한-tool-call이-차단되면-어떤-일이-일어나는가)
+- Claude Code의 auto mode는 기존 권한 모드들 사이에서 어떤 문제를 해결하기 위해 도입되었는가?
+  - Auto mode에서 위험한 tool call이 차단되면 어떤 일이 일어나는가?
 
 ---
 

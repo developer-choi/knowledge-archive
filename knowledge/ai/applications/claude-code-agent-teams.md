@@ -2,9 +2,9 @@
 tags: [ai, concept, comparison]
 ---
 # Questions
-- [Claude Code에서 subagent와 agent team의 근본적인 차이는 무엇인가?](#claude-code에서-subagent와-agent-team의-근본적인-차이는-무엇인가)
-- [Agent team이 단일 세션보다 비효율적인 상황은 언제인가?](#agent-team이-단일-세션보다-비효율적인-상황은-언제인가)
-- [근본 원인을 찾을 때, 여러 에이전트가 서로 반박하게 하면 왜 더 나은 결과가 나오는가?](#근본-원인을-찾을-때-여러-에이전트가-서로-반박하게-하면-왜-더-나은-결과가-나오는가)
+- Claude Code에서 subagent와 agent team의 근본적인 차이는 무엇인가?
+- Agent team이 단일 세션보다 비효율적인 상황은 언제인가?
+- 근본 원인을 찾을 때, 여러 에이전트가 서로 반박하게 하면 왜 더 나은 결과가 나오는가?
 
 ---
 

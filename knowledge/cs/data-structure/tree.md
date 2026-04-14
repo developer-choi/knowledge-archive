@@ -3,11 +3,11 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [Tree 자료구조를 사용하는 이유는?](#tree-자료구조를-사용하는-이유는)
-- [Tree의 DFS 순회 방법은?](#tree의-dfs-순회-방법은)
-- [Tree의 BFS 순회 방법은?](#tree의-bfs-순회-방법은)
-- [BST가 일반 Binary Tree보다 빠른 이유는?](#bst가-일반-binary-tree보다-빠른-이유는)
-- [Tree의 기본 용어는?](#tree의-기본-용어는)
+- Tree 자료구조를 사용하는 이유는?
+- Tree의 DFS 순회 방법은?
+- Tree의 BFS 순회 방법은?
+- BST가 일반 Binary Tree보다 빠른 이유는?
+- Tree의 기본 용어는?
 
 ---
 

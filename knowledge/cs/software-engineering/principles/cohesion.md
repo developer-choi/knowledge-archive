@@ -2,9 +2,9 @@
 tags: [software-engineering, architecture, principle]
 ---
 # Questions
-- [응집도(Cohesion)란 무엇인가?](#응집도cohesion란-무엇인가)
-- [높은 응집도가 왜 바람직한가?](#높은-응집도가-왜-바람직한가)
-- [응집도의 종류에는 무엇이 있는가?](#응집도의-종류에는-무엇이-있는가)
+- 응집도(Cohesion)란 무엇인가?
+- 높은 응집도가 왜 바람직한가?
+- 응집도의 종류에는 무엇이 있는가?
 
 ---
 

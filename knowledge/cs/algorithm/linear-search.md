@@ -3,9 +3,9 @@ tags: [algorithm, concept]
 ---
 
 # Questions
-- [Linear Search란?](#linear-search란)
-- [Linear Search는 어떤 상황에서 활용되는가?](#linear-search는-어떤-상황에서-활용되는가)
-  - [Linear Search의 장점은?](#linear-search의-장점은)
+- Linear Search란?
+- Linear Search는 어떤 상황에서 활용되는가?
+  - Linear Search의 장점은?
 
 ---
 

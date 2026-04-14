@@ -3,16 +3,16 @@ tags: [react, performance]
 ---
 
 # Questions
-- [`useDeferredValue`의 개념과 역할은?](#usedeferredvalue의-개념과-역할은)
-- [`useDeferredValue`가 추가 리렌더링을 발생시키는데, `memo` 없이는 오히려 느려지지 않는가?](#usedeferredvalue가-추가-리렌더링을-발생시키는데-memo-없이는-오히려-느려지지-않는가)
-- [`useDeferredValue` 사용 시 Suspense 동작이 즉시 업데이트와 어떻게 다른가?](#usedeferredvalue-사용-시-suspense-동작이-즉시-업데이트와-어떻게-다른가)
-- [렌더링 중 생성한 객체를 `useDeferredValue`에 전달하면 안 되는 이유는?](#렌더링-중-생성한-객체를-usedeferredvalue에-전달하면-안-되는-이유는)
-- [`useDeferredValue`는 백그라운드 리렌더링과 중단을 어떻게 관리하는가?](#usedeferredvalue는-백그라운드-리렌더링과-중단을-어떻게-관리하는가)
-- [`useDeferredValue`를 사용하면 서버 API 호출 수가 줄어드는가?](#usedeferredvalue를-사용하면-서버-api-호출-수가-줄어드는가)
-- [`useDeferredValue`의 기본 타임아웃은 몇 밀리초인가?](#usedeferredvalue의-기본-타임아웃은-몇-밀리초인가)
-- [느린 컴포넌트를 `useDeferredValue`로 감싸면 렌더링이 빨라지는가?](#느린-컴포넌트를-usedeferredvalue로-감싸면-렌더링이-빨라지는가)
-- [무거운 deferred 렌더링이 메인 스레드를 점유하면 다음 키 입력이 지연되지 않는가?](#무거운-deferred-렌더링이-메인-스레드를-점유하면-다음-키-입력이-지연되지-않는가)
-- [`useDeferredValue`는 디바운싱이나 쓰로틀링과 어떻게 다른가?](#usedeferredvalue는-디바운싱이나-쓰로틀링과-어떻게-다른가)
+- `useDeferredValue`의 개념과 역할은?
+- `useDeferredValue`가 추가 리렌더링을 발생시키는데, `memo` 없이는 오히려 느려지지 않는가?
+- `useDeferredValue` 사용 시 Suspense 동작이 즉시 업데이트와 어떻게 다른가?
+- 렌더링 중 생성한 객체를 `useDeferredValue`에 전달하면 안 되는 이유는?
+- `useDeferredValue`는 백그라운드 리렌더링과 중단을 어떻게 관리하는가?
+- `useDeferredValue`를 사용하면 서버 API 호출 수가 줄어드는가?
+- `useDeferredValue`의 기본 타임아웃은 몇 밀리초인가?
+- 느린 컴포넌트를 `useDeferredValue`로 감싸면 렌더링이 빨라지는가?
+- 무거운 deferred 렌더링이 메인 스레드를 점유하면 다음 키 입력이 지연되지 않는가?
+- `useDeferredValue`는 디바운싱이나 쓰로틀링과 어떻게 다른가?
 
 ---
 

@@ -2,9 +2,9 @@
 tags: [react, concept]
 ---
 # Questions
-- [React의 `Children` 유틸리티(대문자 C)는 어떤 역할을 하며, React 공식문서는 이 API를 어떻게 평가하는가?](#react의-children-유틸리티대문자-c는-어떤-역할을-하며-react-공식문서는-이-api를-어떻게-평가하는가)
-- [`Children.count`에서 커스텀 컴포넌트를 children으로 넘기면, 그 컴포넌트가 내부적으로 10개를 렌더링해도 몇 개로 세는가?](#childrencount에서-커스텀-컴포넌트를-children으로-넘기면-그-컴포넌트가-내부적으로-10개를-렌더링해도-몇-개로-세는가)
-- [`Children.map`이 반환하는 배열은 어떤 특성을 갖는가?](#childrenmap이-반환하는-배열은-어떤-특성을-갖는가)
+- React의 `Children` 유틸리티(대문자 C)는 어떤 역할을 하며, React 공식문서는 이 API를 어떻게 평가하는가?
+- `Children.count`에서 커스텀 컴포넌트를 children으로 넘기면, 그 컴포넌트가 내부적으로 10개를 렌더링해도 몇 개로 세는가?
+- `Children.map`이 반환하는 배열은 어떤 특성을 갖는가?
 
 ---
 

@@ -3,15 +3,15 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [Hashing이란?](#hashing이란)
-  - [Hash function이란?](#hash-function이란)
-- [해시 함수의 출력이 고정 크기(fixed-size)여야 하는 이유는?](#해시-함수의-출력이-고정-크기fixed-size여야-하는-이유는)
-- [Hashing은 어떻게 동작하는가?](#hashing은-어떻게-동작하는가)
-  - [해시 함수에서 mod 연산이 중요한 이유는?](#해시-함수에서-mod-연산이-중요한-이유는)
-- [좋은 해시 함수의 조건은?](#좋은-해시-함수의-조건은)
-- [Hash Collision이란?](#hash-collision이란)
-- [Hash Table의 장점은?](#hash-table의-장점은)
-- [Hash Set과 Hash Map의 차이는?](#hash-set과-hash-map의-차이는)
+- Hashing이란?
+  - Hash function이란?
+- 해시 함수의 출력이 고정 크기(fixed-size)여야 하는 이유는?
+- Hashing은 어떻게 동작하는가?
+  - 해시 함수에서 mod 연산이 중요한 이유는?
+- 좋은 해시 함수의 조건은?
+- Hash Collision이란?
+- Hash Table의 장점은?
+- Hash Set과 Hash Map의 차이는?
 
 ---
 

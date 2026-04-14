@@ -3,8 +3,8 @@ tags: [typescript, comparison]
 ---
 
 # Questions
-- [`unknown` 타입이란 무엇인가?](#unknown-타입이란-무엇인가)
-- [`any` 타입이란 무엇인가?](#any-타입이란-무엇인가)
+- `unknown` 타입이란 무엇인가?
+- `any` 타입이란 무엇인가?
 
 ---
 

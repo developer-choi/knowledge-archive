@@ -2,10 +2,10 @@
 tags: [ai, best-practice]
 ---
 # Questions
-- [If you write general coding knowledge that Claude already knows into a skill, what problem arises? What kind of information should a skill contain?](#dont-state-the-obvious)
-- [What is a Gotchas section, how should it be built, and why is it the most valuable part of a skill?](#gotchas-section)
-- [What does "Avoid Railroading" mean in skill authoring, and why is it important?](#avoid-railroading)
-- [When a skill needs user-specific settings (channel name, credentials, etc.), what is the recommended pattern?](#skill-setup-pattern)
+- If you write general coding knowledge that Claude already knows into a skill, what problem arises? What kind of information should a skill contain?
+- What is a Gotchas section, how should it be built, and why is it the most valuable part of a skill?
+- What does "Avoid Railroading" mean in skill authoring, and why is it important?
+- When a skill needs user-specific settings (channel name, credentials, etc.), what is the recommended pattern?
 
 ---
 

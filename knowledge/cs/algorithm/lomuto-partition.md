@@ -2,8 +2,8 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- [Lomuto Partition의 목표는?](#lomuto-partition의-목표는)
-- [Lomuto Partition의 동작 방식은?](#lomuto-partition의-동작-방식은)
+- Lomuto Partition의 목표는?
+- Lomuto Partition의 동작 방식은?
 
 ---
 

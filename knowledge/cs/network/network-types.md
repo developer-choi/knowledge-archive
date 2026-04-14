@@ -3,10 +3,10 @@ tags: [network, concept]
 ---
 
 # Questions
-- [Internet이란 무엇인가?](#internet이란-무엇인가)
-- [LAN이란?](#lan이란)
-- [WAN이란?](#wan이란)
-- [LAN과 WAN의 차이는?](#lan과-wan의-차이는)
+- Internet이란 무엇인가?
+- LAN이란?
+- WAN이란?
+- LAN과 WAN의 차이는?
 
 ---
 

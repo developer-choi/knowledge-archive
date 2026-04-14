@@ -3,17 +3,17 @@ tags: [network, concept]
 ---
 
 # Questions
-- [MAC 주소란 무엇인가?](#mac-주소란-무엇인가)
-- [TODO] [물리 주소와 네트워크 주소의 차이는?](#물리-주소와-네트워크-주소의-차이는)
-  - [IP 주소와 MAC 주소의 역할 차이는?](#ip-주소와-mac-주소의-역할-차이는)
-- [논리 주소(IP)가 있는데 물리 주소(MAC)가 왜 필요한가?](#논리-주소ip가-있는데-물리-주소mac가-왜-필요한가)
-  - [ARP(Address Resolution Protocol)란 무엇인가?](#arpaddress-resolution-protocol란-무엇인가)
-- [MAC 주소가 전 세계적으로 고유한데 왜 호스트를 찾으려면 IP 주소가 필요한가?](#mac-주소가-전-세계적으로-고유한데-왜-호스트를-찾으려면-ip-주소가-필요한가)
-- [네트워크 내에서 호스트를 어떻게 식별하는가?](#네트워크-내에서-호스트를-어떻게-식별하는가)
-- [도메인명은 어떻게 네트워크 주소로 변환되는가?](#도메인명은-어떻게-네트워크-주소로-변환되는가)
-- [Static IP와 Dynamic IP의 차이는?](#static-ip와-dynamic-ip의-차이는)
-- [Unicast의 한계와, Broadcast/Multicast/Anycast는 각각 어떻게 다른가?](#unicast의-한계와-broadcastmulticastanycast는-각각-어떻게-다른가)
-- [NAT(Network Address Translation)란 무엇이며, 사설 IP를 가진 장치가 인터넷과 통신할 수 있는 원리는?](#natnetwork-address-translation란-무엇이며-사설-ip를-가진-장치가-인터넷과-통신할-수-있는-원리는)
+- MAC 주소란 무엇인가?
+- [TODO] 물리 주소와 네트워크 주소의 차이는?
+  - IP 주소와 MAC 주소의 역할 차이는?
+- 논리 주소(IP)가 있는데 물리 주소(MAC)가 왜 필요한가?
+  - ARP(Address Resolution Protocol)란 무엇인가?
+- MAC 주소가 전 세계적으로 고유한데 왜 호스트를 찾으려면 IP 주소가 필요한가?
+- 네트워크 내에서 호스트를 어떻게 식별하는가?
+- 도메인명은 어떻게 네트워크 주소로 변환되는가?
+- Static IP와 Dynamic IP의 차이는?
+- Unicast의 한계와, Broadcast/Multicast/Anycast는 각각 어떻게 다른가?
+- NAT(Network Address Translation)란 무엇이며, 사설 IP를 가진 장치가 인터넷과 통신할 수 있는 원리는?
 
 ---
 

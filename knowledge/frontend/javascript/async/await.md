@@ -3,10 +3,10 @@ tags: [javascript, concept]
 ---
 
 # Questions
-- [await 연산자란 무엇인가?](#await-연산자란-무엇인가)
-- [await는 실행 순서에 어떤 영향을 미치는가?](#await는-실행-순서에-어떤-영향을-미치는가)
-- [return await를 사용해야 하는가?](#return-await를-사용해야-하는가)
-- [.catch()는 프로미스 함수의 동기 에러를 처리하는가?](#catch는-프로미스-함수의-동기-에러를-처리하는가)
+- await 연산자란 무엇인가?
+- await는 실행 순서에 어떤 영향을 미치는가?
+- return await를 사용해야 하는가?
+- .catch()는 프로미스 함수의 동기 에러를 처리하는가?
 
 ---
 

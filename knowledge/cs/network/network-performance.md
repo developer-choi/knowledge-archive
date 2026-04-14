@@ -3,11 +3,11 @@ tags: [network, concept]
 ---
 
 # Questions
-- [처리량(Throughput)이란 무엇인가?](#처리량throughput이란-무엇인가)
-- [대역폭(Bandwidth)과 처리량(Throughput)을 비교하라](#대역폭bandwidth과-처리량throughput을-비교하라)
-- [처리량이 낮아지는 원인은?](#처리량이-낮아지는-원인은)
-- [(번외) 왜 하필 번역이 '처리량'일까?](#번외-왜-하필-번역이-처리량일까)
-- [Latency(지연시간)란?](#latency지연시간란)
+- 처리량(Throughput)이란 무엇인가?
+- 대역폭(Bandwidth)과 처리량(Throughput)을 비교하라
+- 처리량이 낮아지는 원인은?
+- (번외) 왜 하필 번역이 '처리량'일까?
+- Latency(지연시간)란?
 
 ---
 

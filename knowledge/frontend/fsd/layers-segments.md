@@ -3,17 +3,17 @@ tags: [fsd, architecture, concept]
 ---
 
 # Questions
-- [FSD에서 레이어의 목적과 각 레이어의 책임은 무엇인가?](#fsd에서-레이어의-목적과-각-레이어의-책임은-무엇인가)
-  - [Widgets 레이어는 언제 사용하고 언제 피해야 하는가?](#widgets-레이어는-언제-사용하고-언제-피해야-하는가)
-    - [여러 페이지에서 재사용되는 큰 UI 블록을 Shared와 Widgets 중 어디에 놓아야 하는가?](#여러-페이지에서-재사용되는-큰-ui-블록을-shared와-widgets-중-어디에-놓아야-하는가)
-  - [FSD에서 Entities와 Features의 핵심 차이는 무엇인가?](#fsd에서-entities와-features의-핵심-차이는-무엇인가)
-    - [FSD에서 feature 슬라이스의 경계를 어떻게 판단하는가? 하나의 feature에 여러 기능이 들어가면 어떤 문제가 생기는가?](#fsd에서-feature-슬라이스의-경계를-어떻게-판단하는가-하나의-feature에-여러-기능이-들어가면-어떤-문제가-생기는가)
-  - [FSD에서 Entities 레이어를 만들지 않아도 되는가? 만든다면 언제 만들어야 하는가?](#fsd에서-entities-레이어를-만들지-않아도-되는가-만든다면-언제-만들어야-하는가)
-  - [[TODO] FSD에서 App과 Pages의 핵심 차이는 무엇인가?](#todo-fsd에서-app과-pages의-핵심-차이는-무엇인가)
-- [FSD에서 세그먼트란 무엇이며, 각 세그먼트의 역할은?](#fsd에서-세그먼트란-무엇이며-각-세그먼트의-역할은)
-- [FSD 슬라이스에서 Public API의 역할과 리팩토링 지원 방식은?](#fsd-슬라이스에서-public-api의-역할과-리팩토링-지원-방식은)
-  - [FSD에서 Shared 레이어와 도메인 레이어의 Public API 전략은 어떻게 다른가?](#fsd에서-shared-레이어와-도메인-레이어의-public-api-전략은-어떻게-다른가)
-- [FSD에서 Public API에 와일드카드 re-export를 피해야 하는 이유는?](#fsd에서-public-api에-와일드카드-re-export를-피해야-하는-이유는)
+- FSD에서 레이어의 목적과 각 레이어의 책임은 무엇인가?
+  - Widgets 레이어는 언제 사용하고 언제 피해야 하는가?
+    - 여러 페이지에서 재사용되는 큰 UI 블록을 Shared와 Widgets 중 어디에 놓아야 하는가?
+  - FSD에서 Entities와 Features의 핵심 차이는 무엇인가?
+    - FSD에서 feature 슬라이스의 경계를 어떻게 판단하는가? 하나의 feature에 여러 기능이 들어가면 어떤 문제가 생기는가?
+  - FSD에서 Entities 레이어를 만들지 않아도 되는가? 만든다면 언제 만들어야 하는가?
+  - [TODO] FSD에서 App과 Pages의 핵심 차이는 무엇인가?
+- FSD에서 세그먼트란 무엇이며, 각 세그먼트의 역할은?
+- FSD 슬라이스에서 Public API의 역할과 리팩토링 지원 방식은?
+  - FSD에서 Shared 레이어와 도메인 레이어의 Public API 전략은 어떻게 다른가?
+- FSD에서 Public API에 와일드카드 re-export를 피해야 하는 이유는?
 
 ---
 

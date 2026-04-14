@@ -3,10 +3,10 @@ tags: [os, performance, concept]
 ---
 
 # Questions
-- [[TODO] Cache Hit와 Cache Miss란?](#todo-cache-hit와-cache-miss란)
-- [[TODO] Cache-friendly 코드란?](#todo-cache-friendly-코드란)
-  - [[TODO] Quicksort가 cache-friendly인 이유는?](#todo-quicksort가-cache-friendly인-이유는)
-  - [[TODO] 캐시 친화적이지 않은 코드의 예시는?](#todo-캐시-친화적이지-않은-코드의-예시는)
+- [TODO] Cache Hit와 Cache Miss란?
+- [TODO] Cache-friendly 코드란?
+  - [TODO] Quicksort가 cache-friendly인 이유는?
+  - [TODO] 캐시 친화적이지 않은 코드의 예시는?
 
 ---
 

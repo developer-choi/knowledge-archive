@@ -2,8 +2,8 @@
 tags: [ai, concept]
 ---
 # Questions
-- [Claude Code의 subagent란 무엇이며, 어떤 문제를 해결하기 위해 존재하는가?](#claude-code의-subagent란-무엇이며-어떤-문제를-해결하기-위해-존재하는가)
-- [Claude Code에서 메인 대화, subagent, Skills는 각각 언제 쓰는가?](#claude-code에서-메인-대화-subagent-skills는-각각-언제-쓰는가)
+- Claude Code의 subagent란 무엇이며, 어떤 문제를 해결하기 위해 존재하는가?
+- Claude Code에서 메인 대화, subagent, Skills는 각각 언제 쓰는가?
 
 ---
 

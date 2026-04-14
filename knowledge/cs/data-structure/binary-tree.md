@@ -3,18 +3,18 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [Binary Tree란 무엇인가?](#binary-tree란-무엇인가)
-- [높이 h인 Binary Tree의 레벨 h에 최대 몇 개 노드가 존재할 수 있는가?](#높이-h인-binary-tree의-레벨-h에-최대-몇-개-노드가-존재할-수-있는가)
-- [높이 h인 Binary Tree가 가질 수 있는 최대 노드 수는?](#높이-h인-binary-tree가-가질-수-있는-최대-노드-수는)
-- [N개 노드를 가진 Binary Tree의 최소 높���는?](#n개-노드를-가진-binary-tree의-최소-높이는)
-- [L개의 리프 노드를 가진 Binary Tree의 최소 레벨 수는?](#l개의-리프-노드를-가진-binary-tree의-최소-레벨-수는)
-- [N개 노드를 가진 Binary Tree의 총 간선(edge) 수는?](#n개-노드를-가진-binary-tree의-총-간선edge-수는)
-- [Self-Balancing BST의 활용은?](#self-balancing-bst의-활용은)
-- [Complete Binary Tree와 Perfect Binary Tree의 차이는?](#complete-binary-tree와-perfect-binary-tree의-차이는)
-- [Full Binary Tree란 무엇인가?](#full-binary-tree란-무엇인가)
-- [Degenerate(Pathological) Binary Tree란 무엇이며, 왜 비효율적인가?](#degeneratepathological-binary-tree란-무엇이며-왜-비효율적인가)
-- [Balanced Binary Tree란 무엇이며, 대표적인 예시는?](#balanced-binary-tree란-무엇이며-대표적인-예시는)
-- [Tree를 구현/표현하는 2가지 방법은?](#tree를-구현표현하는-2가지-방법은)
+- Binary Tree란 무엇인가?
+- 높이 h인 Binary Tree의 레벨 h에 최대 몇 개 노드가 존재할 수 있는가?
+- 높이 h인 Binary Tree가 가질 수 있는 최대 노드 수는?
+- N개 노드를 가진 Binary Tree의 최소 높���는?
+- L개의 리프 노드를 가진 Binary Tree의 최소 레벨 수는?
+- N개 노드를 가진 Binary Tree의 총 간선(edge) 수는?
+- Self-Balancing BST의 활용은?
+- Complete Binary Tree와 Perfect Binary Tree의 차이는?
+- Full Binary Tree란 무엇인가?
+- Degenerate(Pathological) Binary Tree란 무엇이며, 왜 비효율적인가?
+- Balanced Binary Tree란 무엇이며, 대표적인 예시는?
+- Tree를 구현/표현하는 2가지 방법은?
 
 ---
 

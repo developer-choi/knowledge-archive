@@ -8,7 +8,7 @@
 
 질문 목록(Table of Contents)과 본문(Answers)의 질문 순서는 1:1로 일치해야 한다.
 
-- 새로운 질문을 본문의 중간에 삽입했다면, 상단 목차(Questions)에서도 동일한 위치에 링크를 삽입했는가?
+- 새로운 질문을 본문의 중간에 삽입했다면, 상단 목차(Questions)에서도 동일한 위치에 항목을 삽입했는가?
 - 본문의 질문 순서를 변경했다면, 목차의 순서도 동일하게 변경했는가?
 - 질문의 들여쓰기(계층 구조)가 목차와 본문 간에 논리적으로 일치하는가?
 - 파일을 저장하기 전에 위에서 아래로 훑어보며 목차의 순서대로 본문이 전개되는지 검증했는가?
@@ -24,10 +24,10 @@
 예시:
 ```markdown
 # Questions
-- [Main Question 1](#main-question-1)
-  - [Follow-up Question 1](#follow-up-question-1)
-  - [Follow-up Question 2](#follow-up-question-2)
-- [Main Question 2](#main-question-2)
+- Main Question 1
+  - Follow-up Question 1
+  - Follow-up Question 2
+- Main Question 2
 ```
 
 ### Answers 섹션
@@ -58,7 +58,7 @@
 
 1. **Questions 목록**: 질문 왼쪽에 `[TODO]` 접두사를 붙입니다.
    ```markdown
-   - [[TODO] 도메인이란 무엇인가?](#todo-도메인이란-무엇인가)
+   - [TODO] 도메인이란 무엇인가?
    ```
 
 2. **Answers 섹션**: 제목과 하위 구조(Keywords, Official Answer 등)를 미리 만들어두되 내용은 비워둡니다.

@@ -3,23 +3,23 @@ tags: [network, protocol, concept]
 ---
 
 # Questions
-- [HTTPS(Hypertext Transfer Protocol Secure)란 무엇인가?](#httpshypertext-transfer-protocol-secure란-무엇인가)
-- [TCP/IP 모델에서 TLS는 어느 계층에서 동작하며, HTTP 메시지를 어떻게 처리하는가?](#tcpip-모델에서-tls는-어느-계층에서-동작하며-http-메시지를-어떻게-처리하는가)
-- [HTTPS가 해결하는 보안 문제는 무엇이며, 어떤 메커니즘으로 보호하는가?](#https가-해결하는-보안-문제는-무엇이며-어떤-메커니즘으로-보호하는가)
-  - [HTTPS 인증에 신뢰할 수 있는 제3자(trusted third party)가 필요한 이유와, 이것이 HTTPS 초기 보급을 제한한 원인은?](#https-인증에-신뢰할-수-있는-제3자trusted-third-party가-필요한-이유와-이것이-https-초기-보급을-제한한-원인은)
-- [HTTPS는 HTTP의 어떤 부분을 암호화하고, 어떤 정보는 보호하지 못하는가?](#https는-http의-어떤-부분을-암호화하고-어떤-정보는-보호하지-못하는가)
-- [웹에서 TLS 인증은 보통 어느 한쪽만 수행되는데, 어느 쪽이 인증되며 그 이유는?](#웹에서-tls-인증은-보통-어느-한쪽만-수행되는데-어느-쪽이-인증되며-그-이유는)
-- [사용자가 HTTPS 연결을 신뢰할 수 있으려면 어떤 전제조건이 충족되어야 하는가?](#사용자가-https-연결을-신뢰할-수-있으려면-어떤-전제조건이-충족되어야-하는가)
-- [HTTPS가 공용 와이파이 같은 안전하지 않은 네트워크에서 특히 중요한 이유는?](#https가-공용-와이파이-같은-안전하지-않은-네트워크에서-특히-중요한-이유는)
-- [HTTPS가 보안 외에 성능에도 영향을 미치는 이유는?](#https가-보안-외에-성능에도-영향을-미치는-이유는)
+- HTTPS(Hypertext Transfer Protocol Secure)란 무엇인가?
+- TCP/IP 모델에서 TLS는 어느 계층에서 동작하며, HTTP 메시지를 어떻게 처리하는가?
+- HTTPS가 해결하는 보안 문제는 무엇이며, 어떤 메커니즘으로 보호하는가?
+  - HTTPS 인증에 신뢰할 수 있는 제3자(trusted third party)가 필요한 이유와, 이것이 HTTPS 초기 보급을 제한한 원인은?
+- HTTPS는 HTTP의 어떤 부분을 암호화하고, 어떤 정보는 보호하지 못하는가?
+- 웹에서 TLS 인증은 보통 어느 한쪽만 수행되는데, 어느 쪽이 인증되며 그 이유는?
+- 사용자가 HTTPS 연결을 신뢰할 수 있으려면 어떤 전제조건이 충족되어야 하는가?
+- HTTPS가 공용 와이파이 같은 안전하지 않은 네트워크에서 특히 중요한 이유는?
+- HTTPS가 보안 외에 성능에도 영향을 미치는 이유는?
   - [HTTP/2가 HTTP/1.1 대비 어떤 점을 개선했는가? → `http.md`](http.md#http2가-http11-대비-개선한-점은)
-- [HSTS(HTTP Strict Transport Security)란 무엇이며, 어떤 공격을 방어하는가?](#hstshttp-strict-transport-security란-무엇이며-어떤-공격을-방어하는가)
-- [TLS가 데이터를 암호화하는 과정에서 장기 키와 세션 키의 역할은?](#tls가-데이터를-암호화하는-과정에서-장기-키와-세션-키의-역할은)
-  - [Forward secrecy란 무엇이며, 이것이 없으면 어떤 위험이 있는가?](#forward-secrecy란-무엇이며-이것이-없으면-어떤-위험이-있는가)
-- [HTTPS 사이트에서 일부 콘텐츠만 HTTP로 로드되면 어떤 문제가 발생하며, 쿠키의 secure 속성은 왜 필요한가?](#https-사이트에서-일부-콘텐츠만-http로-로드되면-어떤-문제가-발생하며-쿠키의-secure-속성은-왜-필요한가)
-- [인증서가 만료 전에 무효화(revoke)되어야 할 때, 브라우저는 인증서의 유효 상태를 어떻게 확인하는가?](#인증서가-만료-전에-무효화revoke되어야-할-때-브라우저는-인증서의-유효-상태를-어떻게-확인하는가)
-- [TLS 서버가 하나의 IP:포트 조합에 하나의 인증서만 제시할 수 있는 이유와, 이 제약을 SNI가 어떻게 해결하는가?](#tls-서버가-하나의-ip포트-조합에-하나의-인증서만-제시할-수-있는-이유와-이-제약을-sni가-어떻게-해결하는가)
-- [[TODO] TLS handshake의 구체적인 단계(ClientHello, ServerHello, 키 교환, Finished)는 어떻게 진행되는가?](#todo-tls-handshake의-구체적인-단계clienthello-serverhello-키-교환-finished는-어떻게-진행되는가)
+- HSTS(HTTP Strict Transport Security)란 무엇이며, 어떤 공격을 방어하는가?
+- TLS가 데이터를 암호화하는 과정에서 장기 키와 세션 키의 역할은?
+  - Forward secrecy란 무엇이며, 이것이 없으면 어떤 위험이 있는가?
+- HTTPS 사이트에서 일부 콘텐츠만 HTTP로 로드되면 어떤 문제가 발생하며, 쿠키의 secure 속성은 왜 필요한가?
+- 인증서가 만료 전에 무효화(revoke)되어야 할 때, 브라우저는 인증서의 유효 상태를 어떻게 확인하는가?
+- TLS 서버가 하나의 IP:포트 조합에 하나의 인증서만 제시할 수 있는 이유와, 이 제약을 SNI가 어떻게 해결하는가?
+- [TODO] TLS handshake의 구체적인 단계(ClientHello, ServerHello, 키 교환, Finished)는 어떻게 진행되는가?
 
 ---
 

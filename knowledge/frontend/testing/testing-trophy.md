@@ -2,24 +2,24 @@
 tags: [software-engineering, comparison]
 ---
 # Questions
-- [Static test란 무엇인가?](#static-test란-무엇인가)
-- [Unit test란 무엇인가?](#unit-test란-무엇인가)
-  - [Unit test의 장점과 단점은?](#unit-test의-장점과-단점은)
-  - [Unit test에서 의존성을 mock하고 호출 assertion이 통과하면, 실제 연동도 정상이라고 볼 수 있는가?](#unit-test에서-의존성을-mock하고-호출-assertion이-통과하면-실제-연동도-정상이라고-볼-수-있는가)
-- [Integration test란 무엇인가?](#integration-test란-무엇인가)
-  - [Integration test의 장점과 단점은?](#integration-test의-장점과-단점은)
-  - [Integration test에서 mock하는 것과 하지 않는 것의 기준은?](#integration-test에서-mock하는-것과-하지-않는-것의-기준은)
-  - [Integration test도 잡을 수 없는 문제는 무엇인가?](#integration-test도-잡을-수-없는-문제는-무엇인가)
-- [E2E test란 무엇인가?](#e2e-test란-무엇인가)
-  - [E2E test의 장점과 단점은?](#e2e-test의-장점과-단점은)
-  - [E2E로 모든 edge case를 잡으면 가장 확실한 거 아닌가?](#e2e로-모든-edge-case를-잡으면-가장-확실한-거-아닌가)
-- [Testing Pyramid 대신 Testing Trophy를 쓰는 이유는?](#testing-pyramid-대신-testing-trophy를-쓰는-이유는)
-  - [confidence coefficient란 무엇인가?](#confidence-coefficient란-무엇인가)
-  - [각 테스트 레벨이 잡을 수 없는 문제를 정리하면?](#각-테스트-레벨이-잡을-수-없는-문제를-정리하면)
-- [테스트 전략에서 레벨 분류보다 중요한 판단 기준은 무엇인가?](#테스트-전략에서-레벨-분류보다-중요한-판단-기준은-무엇인가)
-- [팀에서 애플리케이션 코드 커버리지 100%를 의무화하면 어떤 문제가 생기는가?](#팀에서-애플리케이션-코드-커버리지-100를-의무화하면-어떤-문제가-생기는가)
-  - [100% 코드 커버리지가 적절한 경우는 언제인가?](#100-코드-커버리지가-적절한-경우는-언제인가)
-- [코드 커버리지 리포트에서 테스트가 없는 라인을 발견했을 때, 어떤 질문을 던져야 하는가?](#코드-커버리지-리포트에서-테스트가-없는-라인을-발견했을-때-어떤-질문을-던져야-하는가)
+- Static test란 무엇인가?
+- Unit test란 무엇인가?
+  - Unit test의 장점과 단점은?
+  - Unit test에서 의존성을 mock하고 호출 assertion이 통과하면, 실제 연동도 정상이라고 볼 수 있는가?
+- Integration test란 무엇인가?
+  - Integration test의 장점과 단점은?
+  - Integration test에서 mock하는 것과 하지 않는 것의 기준은?
+  - Integration test도 잡을 수 없는 문제는 무엇인가?
+- E2E test란 무엇인가?
+  - E2E test의 장점과 단점은?
+  - E2E로 모든 edge case를 잡으면 가장 확실한 거 아닌가?
+- Testing Pyramid 대신 Testing Trophy를 쓰는 이유는?
+  - confidence coefficient란 무엇인가?
+  - 각 테스트 레벨이 잡을 수 없는 문제를 정리하면?
+- 테스트 전략에서 레벨 분류보다 중요한 판단 기준은 무엇인가?
+- 팀에서 애플리케이션 코드 커버리지 100%를 의무화하면 어떤 문제가 생기는가?
+  - 100% 코드 커버리지가 적절한 경우는 언제인가?
+- 코드 커버리지 리포트에서 테스트가 없는 라인을 발견했을 때, 어떤 질문을 던져야 하는가?
 
 ---
 

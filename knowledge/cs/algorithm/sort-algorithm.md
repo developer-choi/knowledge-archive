@@ -2,11 +2,11 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- [정렬 알고리즘을 알아야 하는 이유는?](#정렬-알고리즘을-알아야-하는-이유는)
-- [Internal Sorting이란?](#internal-sorting이란)
-- [External Sorting이란?](#external-sorting이란)
-- [Stable Sorting이란?](#stable-sorting이란)
-- [Hybrid Sorting이란?](#hybrid-sorting이란)
+- 정렬 알고리즘을 알아야 하는 이유는?
+- Internal Sorting이란?
+- External Sorting이란?
+- Stable Sorting이란?
+- Hybrid Sorting이란?
 
 ---
 

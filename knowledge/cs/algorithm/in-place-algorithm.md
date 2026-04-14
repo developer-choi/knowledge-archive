@@ -2,11 +2,11 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- [In-place algorithm이란?](#in-place-algorithm이란)
-  - [constant space란?](#constant-space란)
-- [In-place algorithm의 장점은?](#in-place-algorithm의-장점은)
-- [In-place algorithm 예시 — Bubble Sort란?](#in-place-algorithm-예시--bubble-sort란)
-- [In-place algorithm 예시 — Selection Sort란?](#in-place-algorithm-예시--selection-sort란)
+- In-place algorithm이란?
+  - constant space란?
+- In-place algorithm의 장점은?
+- In-place algorithm 예시 — Bubble Sort란?
+- In-place algorithm 예시 — Selection Sort란?
 
 ---
 

@@ -3,7 +3,7 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [Heap 자료구조의 장점은?](#heap-자료구조의-장점은)
+- Heap 자료구조의 장점은?
 
 ---
 

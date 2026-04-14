@@ -2,13 +2,13 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- [Quick Sort란?](#quick-sort란)
-- [Quick Sort의 핵심 요소 2가지는?](#quick-sort의-핵심-요소-2가지는)
-  - [Pivot이란?](#pivot이란)
-  - [Partition이란?](#partition이란)
-- [Quick Sort의 동작 방식은?](#quick-sort의-동작-방식은)
-- [Quick Sort의 시간복잡도와 Auxiliary Space는?](#quick-sort의-시간복잡도와-auxiliary-space는)
-- [Quick Sort의 장단점은?](#quick-sort의-장단점은)
+- Quick Sort란?
+- Quick Sort의 핵심 요소 2가지는?
+  - Pivot이란?
+  - Partition이란?
+- Quick Sort의 동작 방식은?
+- Quick Sort의 시간복잡도와 Auxiliary Space는?
+- Quick Sort의 장단점은?
 
 ---
 

@@ -2,12 +2,12 @@
 tags: [algorithm, concept, performance]
 ---
 # Questions
-- [Time Complexity란?](#time-complexity란)
-- [Time Complexity가 필요한 이유는?](#time-complexity가-필요한-이유는)
-- [Time Complexity를 점근 표기법(asymptotic notation)으로 표현하는 이유는?](#time-complexity를-점근-표기법asymptotic-notation으로-표현하는-이유는)
-- [Time Complexity를 어떻게 계산하는가?](#time-complexity를-어떻게-계산하는가)
-- [시간복잡도별 알고리즘 종류는?](#시간복잡도별-알고리즘-종류는)
-- [Time Complexity의 한계는?](#time-complexity의-한계는)
+- Time Complexity란?
+- Time Complexity가 필요한 이유는?
+- Time Complexity를 점근 표기법(asymptotic notation)으로 표현하는 이유는?
+- Time Complexity를 어떻게 계산하는가?
+- 시간복잡도별 알고리즘 종류는?
+- Time Complexity의 한계는?
 
 ---
 

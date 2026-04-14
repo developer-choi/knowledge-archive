@@ -3,10 +3,10 @@ tags: [data-structure, concept, principle]
 ---
 
 # Questions
-- [Stack이란 무엇인가?](#stack이란-무엇인가)
-- [Stack이 가장 적합한 문제 유형의 특징은?](#stack이-가장-적합한-문제-유형의-특징은)
-  - [LIFO가 "가장 가까운" 문제에 적합한 이유는?](#lifo가-가장-가까운-문제에-적합한-이유는)
-  - [Monotonic Stack 패턴이 이중 반복문임에도 O(n)인 이유는?](#monotonic-stack-패턴이-이중-반복문임에도-on인-이유는)
+- Stack이란 무엇인가?
+- Stack이 가장 적합한 문제 유형의 특징은?
+  - LIFO가 "가장 가까운" 문제에 적합한 이유는?
+  - Monotonic Stack 패턴이 이중 반복문임에도 O(n)인 이유는?
 
 ---
 

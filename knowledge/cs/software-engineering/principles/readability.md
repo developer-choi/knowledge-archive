@@ -3,11 +3,11 @@ tags: [react, architecture, best-practice]
 ---
 # Questions
 
-- [전통적인 `if (isLoading)` 로딩 처리의 문제점은?](#전통적인-if-isloading-로딩-처리의-문제점은)
-- [Suspense는 어떻게 관심사 분리를 달성하는가?](#suspense는-어떻게-관심사-분리를-달성하는가)
-- [Child.loading 패턴의 장점은 무엇인가?](#childloading-패턴의-장점은-무엇인가)
-- [추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?](#추출extraction이-해로운-이유와-추상화abstraction가-이를-어떻게-해결하는가)
-- [명령형 프로그래밍과 선언형 프로그래밍의 차이는?](#명령형-프로그래밍과-선언형-프로그래밍의-차이는)
+- 전통적인 `if (isLoading)` 로딩 처리의 문제점은?
+- Suspense는 어떻게 관심사 분리를 달성하는가?
+- Child.loading 패턴의 장점은 무엇인가?
+- 추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?
+- 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
 
 ---
 

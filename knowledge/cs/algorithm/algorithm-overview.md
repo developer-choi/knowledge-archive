@@ -2,9 +2,9 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- [What kind of algorithms exist?](#what-kind-of-algorithms-exist)
-- [Divide and Conquer란?](#divide-and-conquer란)
-- [알고리즘 평가 기준 3가지는?](#알고리즘-평가-기준-3가지는)
+- What kind of algorithms exist?
+- Divide and Conquer란?
+- 알고리즘 평가 기준 3가지는?
 
 ---
 

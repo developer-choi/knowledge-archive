@@ -3,7 +3,7 @@ tags: [react, performance]
 ---
 
 # Questions
-- [컴포넌트가 suspend된다는 것은 무엇을 의미하는가?](#컴포넌트가-suspend된다는-것은-무엇을-의미하는가)
+- 컴포넌트가 suspend된다는 것은 무엇을 의미하는가?
 
 ---
 

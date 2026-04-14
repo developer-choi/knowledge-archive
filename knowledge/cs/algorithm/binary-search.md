@@ -3,9 +3,9 @@ tags: [algorithm, concept]
 ---
 
 # Questions
-- [Searching Algorithm이란?](#searching-algorithm이란)
-- [Binary Search란?](#binary-search란)
-- [Binary Search의 시간복잡도와 Auxiliary Space는?](#binary-search의-시간복잡도와-auxiliary-space는)
+- Searching Algorithm이란?
+- Binary Search란?
+- Binary Search의 시간복잡도와 Auxiliary Space는?
 
 ---
 

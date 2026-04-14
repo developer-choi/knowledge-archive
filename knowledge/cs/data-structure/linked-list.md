@@ -3,10 +3,10 @@ tags: [data-structure, concept]
 ---
 
 # Questions
-- [Linked List란 무엇인가?](#linked-list란-무엇인가)
-- [Linked List와 Array의 차이는?](#linked-list와-array의-차이는)
-- [Linked List의 종류는?](#linked-list의-종류는)
-  - [Doubly Linked List가 Singly Linked List 대비 삽입/삭제에서 유리한 점은?](#doubly-linked-list가-singly-linked-list-대비-삽입삭제에서-유리한-점은)
+- Linked List란 무엇인가?
+- Linked List와 Array의 차이는?
+- Linked List의 종류는?
+  - Doubly Linked List가 Singly Linked List 대비 삽입/삭제에서 유리한 점은?
 
 ---
 

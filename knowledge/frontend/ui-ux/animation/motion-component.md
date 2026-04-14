@@ -2,33 +2,33 @@
 tags: [react, concept]
 ---
 # Questions
-- [Motion의 `<motion />` 컴포넌트란 무엇인가?](#motion의-motion--컴포넌트란-무엇인가)
-- [motion 컴포넌트의 애니메이션이 React 리렌더를 유발하지 않는 이유는?](#motion-컴포넌트의-애니메이션이-react-리렌더를-유발하지-않는-이유는)
-- [motion 컴포넌트의 style prop은 일반 React의 style과 어떻게 다른가?](#motion-컴포넌트의-style-prop은-일반-react의-style과-어떻게-다른가)
-- [SSR 환경에서 motion 컴포넌트의 진입 애니메이션 깜빡임을 방지하려면?](#ssr-환경에서-motion-컴포넌트의-진입-애니메이션-깜빡임을-방지하려면)
-- [`initial`, `animate`, `exit`은 motion 컴포넌트의 생애주기에서 각각 어떤 시점에 적용되는가?](#initial-animate-exit은-motion-컴포넌트의-생애주기에서-각각-어떤-시점에-적용되는가)
-- [Motion의 `AnimatePresence`란 무엇이며, 자식 컴포넌트의 퇴장을 감지하는 세 가지 경우는?](#motion의-animatepresence란-무엇이며-자식-컴포넌트의-퇴장을-감지하는-세-가지-경우는)
-  - [motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?](#motion-컴포넌트에서-exit-애니메이션이-동작하려면-어떤-조건이-필요한가)
-  - [AnimatePresence에서 단일 자식의 key만 바꾸면 슬라이드쇼/탭 전환 애니메이션을 만들 수 있다. 어떻게 동작하는가?](#animatepresence에서-단일-자식의-key만-바꾸면-슬라이드쇼탭-전환-애니메이션을-만들-수-있다-어떻게-동작하는가)
-  - [AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?](#animatepresence의-mode-prop은-진입퇴장-순서를-어떻게-제어하며-sync-wait-poplayout-각각-언제-쓰는가)
-- [motion의 `variants`란 무엇이며 어떤 이점이 있는가?](#motion의-variants란-무엇이며-어떤-이점이-있는가)
-- [motion의 `onPan`은 `drag` prop과 어떻게 다른가?](#motion의-onpan은-drag-prop과-어떻게-다른가)
-- [motion의 pan 제스처가 터치 환경에서 올바르게 동작하려면 어떤 CSS 설정이 필요한가?](#motion의-pan-제스처가-터치-환경에서-올바르게-동작하려면-어떤-css-설정이-필요한가)
-- [CSS에서 `height: auto`로의 transition이 불가능한 문제를 Motion은 어떻게 해결하는가?](#css에서-height-auto로의-transition이-불가능한-문제를-motion은-어떻게-해결하는가)
-- [Motion이 `transition`을 명시하지 않아도 자연스러운 애니메이션을 만드는 이유는?](#motion이-transition을-명시하지-않아도-자연스러운-애니메이션을-만드는-이유는)
-- [motion의 `while-` gesture props는 제스처가 끝나면 어떻게 되는가?](#motion의-while--gesture-props는-제스처가-끝나면-어떻게-되는가)
-- [Motion의 motion value란 무엇이며, `useMotionValue` 훅으로 어떻게 생성하는가?](#motion의-motion-value란-무엇이며-usemotionvalue-훅으로-어떻게-생성하는가)
-  - [motion value의 `set`과 `get` 메서드는 각각 어떤 역할이며, DOM 업데이트는 어떻게 처리되는가?](#motion-value의-set과-get-메서드는-각각-어떤-역할이며-dom-업데이트는-어떻게-처리되는가)
-  - [motion value에서 `set()`과 `jump()`의 차이는 무엇인가?](#motion-value에서-set과-jump의-차이는-무엇인가)
-  - [React 컴포넌트 안에서 motion value의 이벤트를 구독하려면 어떻게 해야 하며, `on()` 메서드를 직접 쓸 때 주의할 점은?](#react-컴포넌트-안에서-motion-value의-이벤트를-구독하려면-어떻게-해야-하며-on-메서드를-직접-쓸-때-주의할-점은)
-- [Motion의 `useTransform` 훅이란 무엇이며, 어떤 두 가지 방식으로 사용하는가?](#motion의-usetransform-훅이란-무엇이며-어떤-두-가지-방식으로-사용하는가)
-  - [`useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?](#usetransform의-value-mapping에서-input-범위가-반드시-단조증가감소여야-하는-이유는)
-  - [`useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?](#usetransform의-value-mapping에서-입력이-범위를-벗어나면-출력은-어떻게-되며-이를-해제하려면)
-- [Radix UI 컴포넌트에 Motion의 exit 애니메이션을 적용하려면 어떤 설정이 필요한가?](#radix-ui-컴포넌트에-motion의-exit-애니메이션을-적용하려면-어떤-설정이-필요한가)
-- [Motion의 `transition`이란 무엇이며, 어디에 설정할 수 있는가?](#motion의-transition이란-무엇이며-어디에-설정할-수-있는가)
-  - [Motion의 애니메이션 타입 tween, spring, inertia는 각각 어떤 방식인가?](#motion의-애니메이션-타입-tween-spring-inertia는-각각-어떤-방식인가)
-    - [spring의 물리 기반(stiffness/damping/mass)과 duration 기반(duration/bounce)의 차이는?](#spring의-물리-기반stiffnessdampingmass과-duration-기반durationbounce의-차이는)
-    - [`inertia` 애니메이션은 어떻게 동작하며, 주요 설정 옵션은 무엇인가?](#inertia-애니메이션은-어떻게-동작하며-주요-설정-옵션은-무엇인가)
+- Motion의 `<motion />` 컴포넌트란 무엇인가?
+- motion 컴포넌트의 애니메이션이 React 리렌더를 유발하지 않는 이유는?
+- motion 컴포넌트의 style prop은 일반 React의 style과 어떻게 다른가?
+- SSR 환경에서 motion 컴포넌트의 진입 애니메이션 깜빡임을 방지하려면?
+- `initial`, `animate`, `exit`은 motion 컴포넌트의 생애주기에서 각각 어떤 시점에 적용되는가?
+- Motion의 `AnimatePresence`란 무엇이며, 자식 컴포넌트의 퇴장을 감지하는 세 가지 경우는?
+  - motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?
+  - AnimatePresence에서 단일 자식의 key만 바꾸면 슬라이드쇼/탭 전환 애니메이션을 만들 수 있다. 어떻게 동작하는가?
+  - AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?
+- motion의 `variants`란 무엇이며 어떤 이점이 있는가?
+- motion의 `onPan`은 `drag` prop과 어떻게 다른가?
+- motion의 pan 제스처가 터치 환경에서 올바르게 동작하려면 어떤 CSS 설정이 필요한가?
+- CSS에서 `height: auto`로의 transition이 불가능한 문제를 Motion은 어떻게 해결하는가?
+- Motion이 `transition`을 명시하지 않아도 자연스러운 애니메이션을 만드는 이유는?
+- motion의 `while-` gesture props는 제스처가 끝나면 어떻게 되는가?
+- Motion의 motion value란 무엇이며, `useMotionValue` 훅으로 어떻게 생성하는가?
+  - motion value의 `set`과 `get` 메서드는 각각 어떤 역할이며, DOM 업데이트는 어떻게 처리되는가?
+  - motion value에서 `set()`과 `jump()`의 차이는 무엇인가?
+  - React 컴포넌트 안에서 motion value의 이벤트를 구독하려면 어떻게 해야 하며, `on()` 메서드를 직접 쓸 때 주의할 점은?
+- Motion의 `useTransform` 훅이란 무엇이며, 어떤 두 가지 방식으로 사용하는가?
+  - `useTransform`의 value mapping에서 input 범위가 반드시 단조증가/감소여야 하는 이유는?
+  - `useTransform`의 value mapping에서 입력이 범위를 벗어나면 출력은 어떻게 되며, 이를 해제하려면?
+- Radix UI 컴포넌트에 Motion의 exit 애니메이션을 적용하려면 어떤 설정이 필요한가?
+- Motion의 `transition`이란 무엇이며, 어디에 설정할 수 있는가?
+  - Motion의 애니메이션 타입 tween, spring, inertia는 각각 어떤 방식인가?
+    - spring의 물리 기반(stiffness/damping/mass)과 duration 기반(duration/bounce)의 차이는?
+    - `inertia` 애니메이션은 어떻게 동작하며, 주요 설정 옵션은 무엇인가?
 
 ---
 

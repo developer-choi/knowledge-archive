@@ -4,33 +4,33 @@ tags: [browser, performance, concept]
 
 # Questions
 ## Overview
-- [Critical Rendering Path(CRP)란 무엇이며, 어떤 단계로 구성되는가?](#critical-rendering-pathcrp란-무엇이며-어떤-단계로-구성되는가)
-  - [수천 개의 리스트 항목 렌더링 시 성능 문제가 발생하는 이유는?](#수천-개의-리스트-항목-렌더링-시-성능-문제가-발생하는-이유는)
+- Critical Rendering Path(CRP)란 무엇이며, 어떤 단계로 구성되는가?
+  - 수천 개의 리스트 항목 렌더링 시 성능 문제가 발생하는 이유는?
 ## Parsing
-- [HTML 파싱 중 `async`나 `defer` 없는 `<script>` 태그를 만나면 어떻게 되는가?](#html-파싱-중-async나-defer-없는-script-태그를-만나면-어떻게-되는가)
-- [DOM 트리 구축 중 리소스 다운로드가 지연될 수 있는데, 브라우저는 이를 어떻게 완화하는가?](#dom-트리-구축-중-리소스-다운로드가-지연될-수-있는데-브라우저는-이를-어떻게-완화하는가)
-  - [[TODO] 외부 CSS 파일(`<link>`)을 만나면 브라우저는 어떻게 처리하나?](#todo-외부-css-파일link을-만나면-브라우저는-어떻게-처리하나)
-- [`<head>`에 `<link rel="stylesheet">`를 넣어도 HTML 파싱을 막지 않는다면, CSS가 JavaScript 실행을 막는 이유는?](#head에-link-relstylesheet를-넣어도-html-파싱을-막지-않는다면-css가-javascript-실행을-막는-이유는)
-  - [[TODO] CSS가 렌더 블로킹이라면서 왜 `<link>`를 `<head>`에 넣으라고 하나? `<body>` 끝에 넣으면 더 빠르지 않나?](#todo-css가-렌더-블로킹이라면서-왜-link를-head에-넣으라고-하나-body-끝에-넣으면-더-빠르지-않나)
+- HTML 파싱 중 `async`나 `defer` 없는 `<script>` 태그를 만나면 어떻게 되는가?
+- DOM 트리 구축 중 리소스 다운로드가 지연될 수 있는데, 브라우저는 이를 어떻게 완화하는가?
+  - [TODO] 외부 CSS 파일(`<link>`)을 만나면 브라우저는 어떻게 처리하나?
+- `<head>`에 `<link rel="stylesheet">`를 넣어도 HTML 파싱을 막지 않는다면, CSS가 JavaScript 실행을 막는 이유는?
+  - [TODO] CSS가 렌더 블로킹이라면서 왜 `<link>`를 `<head>`에 넣으라고 하나? `<body>` 끝에 넣으면 더 빠르지 않나?
 ## CSSOM
-- [CSSOM(CSS Object Model)이란 무엇이며, DOM과의 관계는?](#cssomcss-object-model이란-무엇이며-dom과의-관계는)
-  - [[TODO] CSS 파일 다운로드를 기다리는 동안 DOM은 어떤 상태인가?](#todo-css-파일-다운로드를-기다리는-동안-dom은-어떤-상태인가)
-- [브라우저는 수신한 CSS로 CSSOM 트리를 어떻게 구축하는가?](#브라우저는-수신한-css로-cssom-트리를-어떻게-구축하는가)
-  - [CSSOM 구축은 성능 병목인가? DevTools에서 어떻게 확인하는가?](#cssom-구축은-성능-병목인가-devtools에서-어떻게-확인하는가)
-  - [[TODO] CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?](#todo-cssom은-어떻게-구축되며-dom-구축과-어떻게-다른가)
+- CSSOM(CSS Object Model)이란 무엇이며, DOM과의 관계는?
+  - [TODO] CSS 파일 다운로드를 기다리는 동안 DOM은 어떤 상태인가?
+- 브라우저는 수신한 CSS로 CSSOM 트리를 어떻게 구축하는가?
+  - CSSOM 구축은 성능 병목인가? DevTools에서 어떻게 확인하는가?
+  - [TODO] CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?
 ## Optimization
-- [[TODO] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?](#todo-critical-rendering-path-전체에서-성능을-개선하려면-어디를-건드려야-하나)
-  - [[TODO] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?](#todo-crp-최적화-전략-중-roi가-가장-높은-한-가지는)
-  - [[TODO] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?](#todo-코드-스플리팅은-렌더링-파이프라인의-어느-단계에-영향을-주나)
+- [TODO] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?
+  - [TODO] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?
+  - [TODO] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?
 ## Render
-- [파싱 완료 후 Render Tree는 어떻게 구성되는가?](#파싱-완료-후-render-tree는-어떻게-구성되는가)
-  - [Render Tree에서 `display: none`과 `visibility: hidden`은 어떻게 다르게 처리되는가?](#render-tree에서-display-none과-visibility-hidden은-어떻게-다르게-처리되는가)
+- 파싱 완료 후 Render Tree는 어떻게 구성되는가?
+  - Render Tree에서 `display: none`과 `visibility: hidden`은 어떻게 다르게 처리되는가?
 ## Layout
-- [Render Tree 구축 후 Layout 단계에서 브라우저는 무엇을 하는가?](#render-tree-구축-후-layout-단계에서-브라우저는-무엇을-하는가)
-  - [Layout과 Reflow의 차이는 무엇이고, Reflow는 왜 발생하는가?](#layout과-reflow의-차이는-무엇이고-reflow는-왜-발생하는가)
+- Render Tree 구축 후 Layout 단계에서 브라우저는 무엇을 하는가?
+  - Layout과 Reflow의 차이는 무엇이고, Reflow는 왜 발생하는가?
 ## Paint
-- [부드러운 애니메이션을 위해 브라우저는 한 프레임을 몇 밀리초 안에 완료해야 하며, Paint 성능을 개선하는 전략은?](#부드러운-애니메이션을-위해-브라우저는-한-프레임을-몇-밀리초-안에-완료해야-하며-paint-성능을-개선하는-전략은)
-  - [GPU 레이어를 더 많이 만들면 항상 성능이 좋아지는가?](#gpu-레이어를-더-많이-만들면-항상-성능이-좋아지는가)
+- 부드러운 애니메이션을 위해 브라우저는 한 프레임을 몇 밀리초 안에 완료해야 하며, Paint 성능을 개선하는 전략은?
+  - GPU 레이어를 더 많이 만들면 항상 성능이 좋아지는가?
 
 ---
 
