@@ -17,6 +17,8 @@ tags: [software-engineering, comparison]
   - [confidence coefficient란 무엇인가?](#confidence-coefficient란-무엇인가)
   - [각 테스트 레벨이 잡을 수 없는 문제를 정리하면?](#각-테스트-레벨이-잡을-수-없는-문제를-정리하면)
 - [테스트 전략에서 레벨 분류보다 중요한 판단 기준은 무엇인가?](#테스트-전략에서-레벨-분류보다-중요한-판단-기준은-무엇인가)
+- [팀에서 애플리케이션 코드 커버리지 100%를 의무화하면 어떤 문제가 생기는가?](#팀에서-애플리케이션-코드-커버리지-100를-의무화하면-어떤-문제가-생기는가)
+  - [100% 코드 커버리지가 적절한 경우는 언제인가?](#100-코드-커버리지가-적절한-경우는-언제인가)
 
 ---
 
@@ -68,6 +70,8 @@ In fact, as you go lower down the testing trophy, there are some things that are
 ### Official Answer
 Unit tests are incapable of ensuring that when you call into a dependency that you're calling it appropriately (though you can make assertions on how it's being called, you can't ensure that it's being called properly with a unit test).
 
+> #### Official Annotation: It doesn't matter if your component `<A />` renders component `<B />` with props c and d if component `<B />` actually breaks if prop e is not supplied. So while having some unit tests to verify these pieces work in isolation isn't a bad thing, it doesn't do you any good if you don't also verify that they work together properly.
+> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
 > #### AI Annotation: 아니오. mock은 가짜 구현이므로, 실제 의존성이 해당 인자를 받아서 올바르게 동작하는지는 보장할 수 없다. 예를 들어 `api.createUser({name: 'Kim'})`을 호출했다고 assertion하더라도, 실제 API가 `username` 필드를 기대한다면 unit test는 이를 잡지 못한다.
 
 ### Reference
@@ -114,6 +118,9 @@ I pretty much only mock:
 1. Network requests (using MSW)
 2. Components responsible for animation (because who wants to wait for that in your tests?)
 
+> #### Official Annotation: When you mock something you're removing all confidence in the integration between what you're testing and what's being mocked.
+> You don't actually want to send emails or charge credit cards every test, but most of the time you can avoid mocking and you'll be better for it.
+> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
 > #### AI Annotation: 그 외에는 전부 실제 코드를 사용한다. 커스텀 render가 앱의 모든 Provider(Router, Theme, Auth 등)를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
 
 ### Reference
@@ -259,5 +266,43 @@ The biggest and most important reason that I write tests is CONFIDENCE.
 I want to be confident that the code I'm writing for the future won't break the app that I have running in production today.
 So whatever I do, I want to make sure that the kinds of tests I write bring me the most confidence possible and I need to be cognizant of the trade-offs I'm making when testing.
 
+> #### Official Annotation: Much better to catch a bug locally from the tests than getting a call at 2:00 in the morning and fix it then. Often I find myself saving time when I put time in to write tests. It may or may not take longer to implement what I'm building, but I (and others) will almost definitely save time maintaining it.
+> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
+
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://kentcdodds.com/blog/write-tests
+
+---
+
+## 팀에서 애플리케이션 코드 커버리지 100%를 의무화하면 어떤 문제가 생기는가?
+
+### Official Answer
+The problem is that you get diminishing returns on your tests as the coverage increases much beyond 70% (I made that number up... no science there).
+When you strive for 100% all the time, you find yourself spending time testing things that really don't need to be tested.
+Things that really have no logic in them at all (so any bugs could be caught by ESLint and Flow).
+Maintaining tests like this actually really slow you and your team down.
+
+You may also find yourself testing implementation details just so you can make sure you get that one line of code that's hard to reproduce in a test environment.
+You really want to avoid testing implementation details because it doesn't give you very much confidence that your application is working and it slows you down when refactoring.
+You should very rarely have to change tests when you refactor code.
+
+> #### Key Terms:
+> - **diminishing returns**: 투입 대비 산출이 줄어드는 수확 체감 현상. 커버리지가 일정 수준을 넘으면 테스트 1개당 얻는 자신감이 급감한다
+> - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
+
+### Reference
+- https://kentcdodds.com/blog/write-tests
+
+---
+
+## 100% 코드 커버리지가 적절한 경우는 언제인가?
+
+### Official Answer
+Almost all of my open source projects have 100% code coverage.
+This is because most of my open source projects are smaller libraries and tools that are reusable in many different situations (a breakage could lead to a serious problem in a lot of consuming projects) and they're relatively easy to get 100% code coverage on anyway.
+
+> #### AI Annotation: 100% 커버리지가 합리적인 조건 2가지: (1) 깨지면 다수 소비 프로젝트에 심각한 영향 (높은 파급력), (2) 작은 라이브러리라 100% 달성이 쉬움 (낮은 비용). 애플리케이션 코드에서 이 두 조건을 동시에 만족하기는 어렵다.
+
+### Reference
+- https://kentcdodds.com/blog/write-tests
