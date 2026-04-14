@@ -75,6 +75,29 @@ tags: [react, performance, concept]
 - **원본 언어 유지**: 사용자가 작성한 필기나 요약이 한글이라면 **한글 그대로 작성**합니다.
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
 
+### Key Terms
+
+Official Answer 원문에서 복습 시 꼬리질문할 가치가 있는 영단어를 선별하여 정의를 붙인다.
+
+| 항목 | 규칙 |
+|---|---|
+| 위치 | Official Answer 바로 아래, Annotation 위 |
+| 형식 | `> #### Key Terms:` 블록쿼트 |
+| 키워드 출처 | **반드시 Official Answer 원문에 등장하는 영단어**만 사용 |
+| 정의 | 이 Q&A 문맥에서 막히지 않을 최소 정의 (한 줄 한국어). 별도 Q&A가 있어도 여기선 정의 수준만. |
+| 작성 시점 | digest 시 AI가 제안, review 시 사용자가 제안 |
+
+```markdown
+### Official Answer
+In computing, a process is the instance of a computer program that is being executed by one or many threads.
+
+> #### Key Terms:
+> - **instance**: 클래스(설계도)로부터 만들어진 실체
+
+> #### AI Annotation:
+> ...
+```
+
 ### Annotation
 
 Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트 + `#### 헤딩`을 사용한다.

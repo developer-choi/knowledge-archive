@@ -15,6 +15,9 @@ tags: [keyword1, keyword2]
 ### Official Answer
 Official document text or objective fact.
 
+> #### Key Terms:
+> - **term**: 이 문맥에서 막히지 않을 최소 정의
+
 > #### AI Annotation:
 > (짧은 보충)
 
