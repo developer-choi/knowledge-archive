@@ -4,7 +4,6 @@ tags: [os, concept]
 
 # Questions
 - [프로세스란 무엇이며, 프로그램과 어떻게 다른가?](#프로세스란-무엇이며-프로그램과-어떻게-다른가)
-  - [같은 프로그램을 여러 번 실행하면 프로세스는 어떻게 되는가?](#같은-프로그램을-여러-번-실행하면-프로세스는-어떻게-되는가)
   - [OS가 프로세스를 관리하기 위해 묶어두는 구성 요소에는 무엇이 있는가?](#os가-프로세스를-관리하기-위해-묶어두는-구성-요소에는-무엇이-있는가)
     - [프로세스의 메모리 영역은 어떤 구성 요소를 포함하는가?](#프로세스의-메모리-영역은-어떤-구성-요소를-포함하는가)
     - [PCB(프로세스 제어 블록)란 무엇인가?](#pcb프로세스-제어-블록란-무엇인가)
@@ -29,20 +28,6 @@ While a computer program is a passive collection of instructions typically store
 > #### AI Annotation:
 > 프로그램 = 디스크에 저장된 정적 파일 (요리책), 프로세스 = 메모리에 올라가서 실행 중인 동적 실체 (요리하는 행위).
 > OOP로 비유하면 프로그램이 클래스, 프로세스가 인스턴스.
-
-### Reference
-- https://en.wikipedia.org/wiki/Process_(computing)
-
----
-
-## 같은 프로그램을 여러 번 실행하면 프로세스는 어떻게 되는가?
-
-### Official Answer
-Several processes may be associated with the same program; for example, opening up several instances of the same program often results in more than one process being executed.
-
-> #### AI Annotation:
-> 프로그램:프로세스 = 1:N 관계.
-> Chrome을 3개 열면 같은 `chrome.exe`에서 프로세스가 3개 생긴다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
