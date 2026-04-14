@@ -11,6 +11,8 @@ tags: [testing, concept]
 - [implementation details를 테스트하면 왜 all downside, no upside인가?](#implementation-details를-테스트하면-왜-all-downside-no-upside인가)
 - [implementation details의 정의는 무엇이고, React 컴포넌트에서 구현 세부사항에 해당하는 것은?](#implementation-details의-정의는-무엇이고-react-컴포넌트에서-구현-세부사항에-해당하는-것은)
 - [테스트할 대상을 결정하는 5단계 프로세스는 무엇인가?](#테스트할-대상을-결정하는-5단계-프로세스는-무엇인가)
+- [테스트를 작성할 때 코드 자체가 아니라 유스케이스를 중심으로 생각해야 하는 이유는?](#테스트를-작성할-때-코드-자체가-아니라-유스케이스를-중심으로-생각해야-하는-이유는)
+- [테스트가 없는 대규모 앱에서 테스트를 도입할 때 어디서부터 시작해야 하는가?](#테스트가-없는-대규모-앱에서-테스트를-도입할-때-어디서부터-시작해야-하는가)
 
 ---
 
@@ -160,9 +162,12 @@ So our test should typically only see/interact with the props that are passed, a
 
 > #### Key Terms:
 > - **implementation details**: 코드의 사용자(end user, developer)가 보지도, 쓰지도, 알지도 못하는 내부 구현
+> #### Official Annotation: Here are a few aspects of React that people often think about testing which results in implementation details tests: Lifecycle methods, Element event handlers, Internal Component State. Conversely, here are things that you should be testing because they concern your two users: User interactions (using userEvent), Changing props (using rerender), Context changes (using rerender), Subscription changes.
+> — Kent C. Dodds, "How to Know What to Test"
 
 ### Reference
 - https://kentcdodds.com/blog/testing-implementation-details
+- https://kentcdodds.com/blog/how-to-know-what-to-test
 
 ---
 
@@ -181,3 +186,49 @@ Turn that list of instructions into an automated test.
 
 ### Reference
 - https://kentcdodds.com/blog/testing-implementation-details
+
+---
+
+## 테스트를 작성할 때 코드 자체가 아니라 유스케이스를 중심으로 생각해야 하는 이유는?
+
+### Official Answer
+Think less about the code you are testing and more about the use cases that code supports.
+
+When you think about the code itself, it's too easy and natural to start testing implementation details (which is road to disaster).
+
+We write tests to be confident that our application will work when the user uses them.
+That being the case, what we test should map directly to enhancing our confidence.
+
+> #### Key Terms:
+> - **use cases**: 사용자가 소프트웨어를 통해 달성하려는 구체적 시나리오. 테스트의 판단 기준이 되어야 할 단위
+> #### AI Annotation: 코드를 보면 if/else 분기, 내부 상태 등 구현 세부사항을 테스트하게 된다. 유스케이스를 보면 사용자가 쓰는 방식에 가까운 테스트를 쓰게 되어 진짜 자신감을 얻는다.
+
+### Reference
+- https://kentcdodds.com/blog/how-to-know-what-to-test
+
+---
+
+## 테스트가 없는 대규모 앱에서 테스트를 도입할 때 어디서부터 시작해야 하는가?
+
+### Official Answer
+Consider your app from the user's point of view and ask:
+
+What part of this app would make me most upset if it were broken?
+
+I'd suggest making a list of features that your application supports and prioritize them based on this criteria.
+
+Once you have that prioritized list, then I suggest writing a single end to end (E2E) test to cover the "happy path" that most of your users go through for the particular use case.
+Often you can cover parts of several of the top features on your list this way.
+
+The E2E tests aren't going to give you 100% use case coverage (and you should not even try), nor will they give you 100% code coverage (and you should not even record that for E2E tests anyway), but it will give you a great starting point and boost your confidence big time.
+
+Once you have a few E2E tests in place, then you can start looking at writing some integration tests for some of the edge cases that you are missing in your E2E tests and unit tests for the more complex business logic that those features are using.
+From here it just becomes a matter of adding tests over time.
+Just don't bother with targeting a 100% code coverage report, it's not worth the time.
+
+> #### Key Terms:
+> - **happy path**: 대다수 사용자가 거치는 가장 일반적인 성공 시나리오. 테스트 시작점으로 가장 효율적
+> #### AI Annotation: 위에서 아래로 내려가는 전략 — E2E로 happy path → integration으로 edge cases → unit으로 복잡한 비즈니스 로직. 점진적으로 자신감을 넓혀가되, 100% 커버리지는 목표로 삼지 않는다.
+
+### Reference
+- https://kentcdodds.com/blog/how-to-know-what-to-test

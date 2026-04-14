@@ -19,6 +19,7 @@ tags: [software-engineering, comparison]
 - [테스트 전략에서 레벨 분류보다 중요한 판단 기준은 무엇인가?](#테스트-전략에서-레벨-분류보다-중요한-판단-기준은-무엇인가)
 - [팀에서 애플리케이션 코드 커버리지 100%를 의무화하면 어떤 문제가 생기는가?](#팀에서-애플리케이션-코드-커버리지-100를-의무화하면-어떤-문제가-생기는가)
   - [100% 코드 커버리지가 적절한 경우는 언제인가?](#100-코드-커버리지가-적절한-경우는-언제인가)
+- [코드 커버리지 리포트에서 테스트가 없는 라인을 발견했을 때, 어떤 질문을 던져야 하는가?](#코드-커버리지-리포트에서-테스트가-없는-라인을-발견했을-때-어떤-질문을-던져야-하는가)
 
 ---
 
@@ -290,9 +291,12 @@ You should very rarely have to change tests when you refactor code.
 > #### Key Terms:
 > - **diminishing returns**: 투입 대비 산출이 줄어드는 수확 체감 현상. 커버리지가 일정 수준을 넘으면 테스트 1개당 얻는 자신감이 급감한다
 > - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
+> #### Official Annotation: The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
+> — Kent C. Dodds, "How to Know What to Test"
 
 ### Reference
 - https://kentcdodds.com/blog/write-tests
+- https://kentcdodds.com/blog/how-to-know-what-to-test
 
 ---
 
@@ -306,3 +310,27 @@ This is because most of my open source projects are smaller libraries and tools 
 
 ### Reference
 - https://kentcdodds.com/blog/write-tests
+
+---
+
+## 코드 커버리지 리포트에서 테스트가 없는 라인을 발견했을 때, 어떤 질문을 던져야 하는가?
+
+### Official Answer
+When you look at a code coverage report and note the lines that are missing tests, don't think about the ifs/elses, loops, or lifecycles.
+Instead ask yourself:
+
+What use cases are these lines of code supporting, and what tests can I add to support those use cases?
+
+"Use Case Coverage" tells us how many of the use cases our tests support.
+Unfortunately, there's no such thing as an automated "Use Case Coverage Report."
+We have to make that up ourselves.
+But the code coverage report can sometimes help us identify use cases that we're not covering.
+
+> #### Key Terms:
+> - **Use Case Coverage**: 테스트가 커버하는 유스케이스의 비율. 자동 측정 도구가 없어 개발자가 직접 판단해야 한다
+> #### Official Annotation: Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
+> Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".
+> #### AI Annotation: Code Coverage는 "어떤 라인이 실행되었는가"만 보여주고, "이 라인이 왜 중요한가"는 알려주지 않는다. 커버리지 리포트는 유스케이스 발견의 보조 도구로만 쓰고, 진짜 판단 기준은 Use Case Coverage다.
+
+### Reference
+- https://kentcdodds.com/blog/how-to-know-what-to-test
