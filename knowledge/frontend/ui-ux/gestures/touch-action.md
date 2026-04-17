@@ -19,6 +19,12 @@ An application using Pointer events will receive a pointercancel event when the 
 By explicitly specifying which gestures should be handled by the browser, an application can supply its own behavior in pointermove and pointerup listeners for the remaining gestures.
 Applications using Touch events disable the browser handling of gestures by calling preventDefault(), but should also use touch-action to ensure the browser knows the intent of the application before any event listeners have been invoked.
 
+> #### User Annotation:
+> FullScreenBottomSheet 디버깅하면서 확인한 것: framer-motion `drag="y"`가 걸린 `motion.div` 안에서, 자식에 `touch-action: pan-y`나 `auto`가 적용되면 브라우저가 터치를 네이티브 스크롤 제스처로 인식하고 가져간다. 그 순간 `pointercancel`이 발생하고 framer-motion이 드래그를 즉시 중단한다. 드래그 offset/velocity가 임계값에 도달하기 전에 끊기므로 `onDragEnd`의 닫기 로직이 절대 트리거되지 않는다. `touch-action: none`이어야만 브라우저가 개입하지 않아서 framer-motion이 pointer event를 끝까지 수신하고 드래그를 완주할 수 있다.
+
+> #### User Annotation:
+> `touch-action: auto`가 설정된 영역에서 터치하면, 브라우저가 네이티브 스크롤 제스처로 인식하고 `touchmove`를 `cancelable: false`로 발행한다. `react-remove-scroll`은 `event.cancelable`을 체크한 뒤 `preventDefault()`를 호출하지만, `cancelable: false`면 무시된다. FullScreenBottomSheet의 DisableDragArea가 `touch-action: auto` inline style만으로 react-remove-scroll의 스크롤 차단을 우회할 수 있었던 이유가 이것이다.
+
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/touch-action
 
@@ -29,6 +35,9 @@ Applications using Touch events disable the browser handling of gestures by call
 ### Official Answer
 When a gesture is started, the browser intersects the touch-action values of the touched element and its ancestors, up to the one that implements the gesture (in other words, the first containing scrolling element).
 This means that in practice, touch-action is typically applied only to top-level elements which have some custom behavior, without needing to specify touch-action explicitly on any of that element's descendants.
+
+> #### User Annotation:
+> framer-motion은 `drag='y'` 시 컨테이너(`motion.div`)에 `touch-action: pan-x`를 자동 설정한다. 그런데 `.dragArea { overflow: hidden }`이 있으면 새 formatting context 경계가 생겨서 컨테이너의 `touch-action`이 Content 내부까지 상속되지 않는다. Content에 명시적으로 `touch-action`을 지정하지 않으면 브라우저 기본값(`auto`)을 따르게 되고, 위 첫 번째 질문의 `pointercancel` 문제가 발생한다. "top-level에만 걸면 된다"는 공식 설명의 예외 케이스.
 
 ### 실전 사례: FullScreenBottomSheet에서 드래그/스크롤 분리
 

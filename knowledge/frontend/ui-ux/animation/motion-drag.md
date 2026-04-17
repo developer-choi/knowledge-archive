@@ -127,6 +127,9 @@ This is useful for creating a heavier or bouncier feel.
 />
 ```
 
+> #### User Annotation:
+> FullScreenBottomSheet에서 `dragConstraints={{ top: 0, bottom: 0 }}`를 설정했더니, 임계점을 넘겨서 닫으려는 순간 시트가 살짝 위로 올라갔다가 내려가는 dip-up 현상이 발생했다. pointer up 순간 `dragTransition` 스프링(constraints 위치로 복귀)과 `onDragEnd` → exit 애니메이션이 동시에 시작되는데, exit 애니메이션이 React 리렌더를 거치는 1~2프레임 동안 스프링이 먼저 위로 당겨서 발생한 것. `bounceStiffness: 0`으로 하면 사라지고, `bounceStiffness: 6000, bounceDamping: 0`으로 하면 극단적으로 심해지는 것으로 증명했다. 해결: `dragConstraints`에서 `bottom`을 제거해 자동 snap-back 자체를 없애고, `onDragEnd`에서 `animate(y, 0, ...)`으로 수동 snap-back을 처리했다.
+
 ### Reference
 
 - https://motion.dev/docs/react-drag
@@ -175,6 +178,9 @@ function onDrag(event, info) {
 
 <motion.div drag onDrag={onDrag} />
 ```
+
+> #### User Annotation:
+> `onDragEnd`에서만 동작을 제어하면 시각적 왜곡이 생긴다. framer-motion의 드래그 흐름은 `pointerMove → drag animation(시트가 따라 내려감) → pointerUp → onDragEnd`인데, `onDragEnd`에서 "스크롤 가능하면 닫지 않는다"를 체크해도 그 사이 시트가 이미 아래로 끌려 내려간 상태다. 손을 떼면 원위치로 튀어돌아오는 UX가 된다. 드래그 자체를 막으려면 `pointerMove` 단에서 `stopPropagation`해야 framer-motion이 pan 제스처를 인식조차 못한다.
 
 ### Reference
 
