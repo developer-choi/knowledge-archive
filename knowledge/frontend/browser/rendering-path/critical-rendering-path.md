@@ -191,6 +191,51 @@ In terms of web performance, there are many better ways to invest optimization e
 
 ---
 
+## [TODO] CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?
+
+### Official Answer
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path#css_object_model
+
+---
+
+## [TODO] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?
+
+### AI Answer
+크리티컬 렌더링 패스를 줄이는 것이 핵심이다.
+CSS 인라인/최소화, JS defer, 리소스 프리로드, 레이아웃 스래싱 방지 등의 기법이 있다.
+네트워크(리소스 수·크기), 파싱(블로킹 리소스), 렌더링(리플로우/리페인트) 각 단계별 최적화 포인트가 다르다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
+- https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/CSS
+
+---
+
+## [TODO] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?
+
+### AI Answer
+상황에 따라 다르지만, 일반적으로 크리티컬 렌더링 패스에서 블로킹 리소스를 제거하거나 줄이는 것이 가장 높은 ROI를 가진다.
+CSS 인라인화 + JS defer만으로도 초기 렌더링 속도가 크게 개선되는 경우가 많다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
+
+---
+
+## [TODO] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?
+
+### AI Answer
+코드 스플리팅은 주로 파싱 단계에 영향을 준다.
+초기 로드 시 필요한 JS 번들 크기를 줄여서, 스크립트 다운로드·파싱·실행으로 인한 메인 스레드 블로킹 시간을 단축한다.
+결과적으로 DOM 파싱 완료와 렌더트리 합성이 빨라진다.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
+
+---
+
 ## 파싱 완료 후 Render Tree는 어떻게 구성되는가?
 
 ### Official Answer
@@ -275,48 +320,3 @@ Layers do improve performance but are expensive when it comes to memory manageme
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
-
----
-
-## [TODO] CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?
-
-### Official Answer
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path#css_object_model
-
----
-
-## [TODO] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?
-
-### AI Answer
-크리티컬 렌더링 패스를 줄이는 것이 핵심이다.
-CSS 인라인/최소화, JS defer, 리소스 프리로드, 레이아웃 스래싱 방지 등의 기법이 있다.
-네트워크(리소스 수·크기), 파싱(블로킹 리소스), 렌더링(리플로우/리페인트) 각 단계별 최적화 포인트가 다르다.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
-- https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Performance/CSS
-
----
-
-## [TODO] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?
-
-### AI Answer
-상황에 따라 다르지만, 일반적으로 크리티컬 렌더링 패스에서 블로킹 리소스를 제거하거나 줄이는 것이 가장 높은 ROI를 가진다.
-CSS 인라인화 + JS defer만으로도 초기 렌더링 속도가 크게 개선되는 경우가 많다.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
-
----
-
-## [TODO] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?
-
-### AI Answer
-코드 스플리팅은 주로 파싱 단계에 영향을 준다.
-초기 로드 시 필요한 JS 번들 크기를 줄여서, 스크립트 다운로드·파싱·실행으로 인한 메인 스레드 블로킹 시간을 단축한다.
-결과적으로 DOM 파싱 완료와 렌더트리 합성이 빨라진다.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
