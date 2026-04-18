@@ -10,7 +10,7 @@ tags: [ai, concept]
 - AI 에이전트의 evaluator-optimizer workflow란 무엇인가?
 - Evaluator-optimizer에서 생성과 평가를 왜 분리하는가?
 - Evaluator-optimizer workflow는 어떤 조건에서 도입해야 하는가?
-  - Evaluator-optimizer workflow의 대표적인 유스케이스는?
+- Evaluator-optimizer workflow의 대표적인 유스케이스는?
 - AI 에이전트 evaluator-optimizer workflow의 트레이드오프는 무엇인가?
 - AI 에이전트 evaluator-optimizer workflow 도입 시 주의할 점은?
 
