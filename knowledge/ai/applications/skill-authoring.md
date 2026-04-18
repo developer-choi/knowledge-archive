@@ -2,16 +2,16 @@
 tags: [ai, best-practice]
 ---
 # Questions
-- If you write general coding knowledge that Claude already knows into a skill, what problem arises? What kind of information should a skill contain?
-- What is a Gotchas section, how should it be built, and why is it the most valuable part of a skill?
-- What does "Avoid Railroading" mean in skill authoring, and why is it important?
-- When a skill needs user-specific settings (channel name, credentials, etc.), what is the recommended pattern?
+- Claude가 이미 아는 일반 코딩 지식을 스킬에 적으면 어떤 문제가 생기며, 스킬에는 어떤 정보를 담아야 하는가?
+- Gotchas 섹션이란 무엇이며, 어떻게 구축되고, 왜 스킬에서 가장 가치 있는 부분인가?
+- 스킬 작성에서 "Avoid Railroading"은 무엇을 의미하며, 왜 중요한가?
+- 스킬이 사용자별 설정(채널명, 자격증명 등)을 필요로 할 때 권장되는 패턴은?
 
 ---
 
 # Answers
 
-## Don't State the Obvious
+## Claude가 이미 아는 일반 코딩 지식을 스킬에 적으면 어떤 문제가 생기며, 스킬에는 어떤 정보를 담아야 하는가?
 ### Official Answer
 Claude Code knows a lot about your codebase, and Claude knows a lot about coding, including many default opinions.
 If you're publishing a skill that is primarily about knowledge, try to focus on information that pushes Claude out of its normal way of thinking.
@@ -24,7 +24,7 @@ If you're publishing a skill that is primarily about knowledge, try to focus on 
 
 ---
 
-## Gotchas section
+## Gotchas 섹션이란 무엇이며, 어떻게 구축되고, 왜 스킬에서 가장 가치 있는 부분인가?
 ### Official Answer
 The highest-signal content in any skill is the Gotchas section.
 These sections should be built up from common failure points that Claude runs into when using your skill.
@@ -39,7 +39,7 @@ Ideally, you will update your skill over time to capture these gotchas.
 
 ---
 
-## Avoid Railroading
+## 스킬 작성에서 "Avoid Railroading"은 무엇을 의미하며, 왜 중요한가?
 ### Official Answer
 Claude will generally try to stick to your instructions, and because Skills are so reusable you'll want to be careful of being too specific in your instructions.
 Give Claude the information it needs, but give it the flexibility to adapt to the situation.
@@ -52,7 +52,7 @@ Give Claude the information it needs, but give it the flexibility to adapt to th
 
 ---
 
-## Skill setup pattern
+## 스킬이 사용자별 설정(채널명, 자격증명 등)을 필요로 할 때 권장되는 패턴은?
 ### Official Answer
 A good pattern to do this is to store this setup information in a config.json file in the skill directory.
 If the config is not set up, the agent can then ask the user for information.
