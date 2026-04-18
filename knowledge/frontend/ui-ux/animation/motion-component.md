@@ -516,8 +516,7 @@ Pan and drag events are provided the origin `PointerEvent` as well as an object 
 For pan gestures to work correctly with touch input, the element needs touch scrolling to be disabled on either x/y or both axis with the `touch-action` CSS rule.
 
 > #### AI Annotation:
-> 브라우저가 터치 입력을 스크롤로 먼저 소비하면 pan 이벤트가 발생하지 않는다.
-> `touch-action: none`으로 브라우저의 기본 터치 처리를 비활성화해야 pan 제스처가 정상 동작한다.
+> `touch-action` 메커니즘과 framer-motion 사례는 [`touch-action.md`](../gestures/touch-action.md) 참조.
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
