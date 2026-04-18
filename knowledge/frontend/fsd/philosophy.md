@@ -5,8 +5,8 @@ tags: [fsd, concept]
 # Questions
 - FSD에서 슬라이스란 무엇이며, 그 목적은?
   - FSD에서 'components'나 'hooks' 같은 이름을 피해야 하는 이유는?
-  - 응집도란 무엇이며, 높이기 위한 모범 사례는?
-  - 결합도란 무엇이며, 코드베이스에서 어떻게 측정하는가?
+  - [응집도란 무엇이며, 높이기 위한 모범 사례는? → `cohesion.md`](../../cs/software-engineering/principles/cohesion.md#응집도cohesion란-무엇인가)
+  - [결합도란 무엇이며, 코드베이스에서 어떻게 측정하는가? → `coupling.md`](../../cs/software-engineering/principles/coupling.md#결합도coupling란-무엇인가)
 - App과 Shared 레이어는 왜 슬라이스 레벨을 건너뛰는가?
 - 도메인이란 무엇인가?
 - FSD 공식 문서가 "변경에 최적화하지 말고, 삭제에 최적화하라"고 말하는 이유는 무엇인가?
@@ -67,42 +67,6 @@ The problem manifests itself at least in violation of the principle of High Cohe
 - https://feature-sliced.design/docs/guides/issues/desegmented
 - https://feature-sliced.design/docs/get-started/tutorial
 - https://feature-sliced.design/docs/guides/examples/types
-
----
-
-## 응집도란 무엇이며, 높이기 위한 모범 사례는?
-
-### AI Answer
-**Cohesion**은 쉽게 말해 "한 폴더(모듈) 안에 있는 코드들이 얼마나 친한가?"입니다.
-- **높은 응집도 (Good)**: 유저 관련 폴더 안에 유저 이름 변경, 유저 주소 수정 로직만 있는 경우. (모두 유저라는 목적에 집중)
-- **낮은 응집도 (Bad)**: 유저 폴더 안에 갑자기 상품 결제 로직이나 날씨 정보 유틸리티가 섞여 있는 경우. (서로 상관없는 코드들이 모여 있음)
-
-**측정 방법**:
-- **단일 책임 원칙 (SRP)**: 이 모듈이 "하나의 일"만 하는가? (목적이 하나라면 응집도가 높은 것)
-
-### Frequent Mistakes
-- cohesion(응집도)을 colocation(물리적 위치)과 혼동. 같은 폴더에 있어도 관련 없는 코드면 응집도는 낮다.
-
-### Reference
-- https://feature-sliced.design/docs/get-started/overview
-
----
-
-## 결합도란 무엇이며, 코드베이스에서 어떻게 측정하는가?
-
-### AI Answer
-**Coupling**은 "한 모듈이 다른 모듈에 얼마나 의존하고 있는가?"입니다.
-- **낮은 결합도 (Good)**: A를 고쳐도 B가 안 깨짐. (독립적)
-
-**측정 방법**:
-- **의존성 개수**: 한 파일에서 import 해오는 다른 모듈의 개수를 세어봅니다. 너무 많으면 결합도가 높은 것입니다.
-- **Fan-in / Fan-out**:
-  - Fan-out: 내가 호출하는 다른 모듈의 수 (높을수록 복잡함)
-  - Fan-in: 나를 호출하는 다른 모듈의 수 (높을수록 공통화가 잘 됨)
-- **영향 범위**: 특정 함수의 파라미터를 바꿨을 때, 몇 개의 파일을 수정해야 하는지 확인합니다. (많을수록 결합도가 높은 것)
-
-### Reference
-- https://feature-sliced.design/docs/get-started/overview
 
 ---
 
