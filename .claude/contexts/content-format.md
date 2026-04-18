@@ -8,7 +8,7 @@
 
 - **Fact-First**: 객관적 사실만 Official Answer에 기록. 해석·보충은 `> OO Annotation:`으로 구분. (Official / AI / User)
 - **원문 보존**: 공식 문서 원문의 핵심 내용을 그대로 보존. 문장 간 연결이 어색하더라도 AI가 임의로 가공하지 않는다.
-- **영어 사용 범위**: 문서 내 영어는 공식 문서 원문(Official Answer, Official Annotation)에만 사용한다. 그 외 편집·주석 성격의 내용(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
+- **Official Answer 언어**: Official Answer와 Official Annotation은 공식 문서 원문을 그대로 보존한다. 공식 출처가 영어이면 영어 원문을 유지하며, 한글 번역·요약·의역으로 대체하지 않는다. 그 외 편집·주석 성격(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
 - **출처 없으면 작업 중단**: 출처가 제공되지 않으면, 내용 작성 전에 출처 링크를 요청하고 대기한다.
 
 ---
@@ -72,8 +72,9 @@ tags: [react, performance, concept]
 
 ### 작성 원칙
 - **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
-- **원본 언어 유지**: 사용자가 작성한 필기나 요약이 한글이라면 **한글 그대로 작성**합니다.
+- **원본 언어 유지**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
+- **출처-Answer 매핑**: Reference에 공식 출처 URL이 있으면 해당 원문을 Official Answer에 담는다. 공식 출처가 있는데 Official Answer 섹션을 생략하고 User/AI Answer로만 답하지 않는다.
 
 ### Key Terms
 
