@@ -37,7 +37,7 @@ tags: [network, protocol, concept]
 - 하나의 웹페이지를 표시하기 위해 브라우저는 HTTP 요청을 어떤 순서로 보내는가?
   - [HTTP로 받은 리소스들이 어떤 과정을 거쳐 화면에 그려지는가? → `critical-rendering-path.md`](../../frontend/browser/rendering-path/critical-rendering-path.md#critical-rendering-pathcrp란-무엇이며-어떤-단계로-구성되는가)
 - HTTP/1.1에서 Host 헤더가 필수가 된 이유와, 이것이 가상 호스팅(virtual hosting)을 가능하게 하는 원리는?
-  - [HTTPS에서는 Host 헤더를 볼 수 없는데, 같은 IP에서 여러 도메인을 어떻게 구분하는가? → `https.md`](../../../cs/network/protocol/https.md#tls-서버가-하나의-ip포트-조합에-하나의-인증서만-제시할-수-있는-이유와-이-제약을-sni가-어떻게-해결하는가)
+  - [HTTPS에서는 Host 헤더를 볼 수 없는데, 같은 IP에서 여러 도메인을 어떻게 구분하는가? → `https.md`](https.md#tls-서버가-하나의-ip포트-조합에-하나의-인증서만-제시할-수-있는-이유와-이-제약을-sni가-어떻게-해결하는가)
 - 웹 브라우저가 Same-Origin Policy로 웹사이트 간 정보 접근을 제한하는데, HTTP는 이 제약을 어떻게 완화하는가?
 - 클라이언트가 서버와 HTTP 통신을 수행하는 전체 흐름(4단계)은?
 - HTTP는 서버가 먼저 클라이언트에게 데이터를 보낼 수 없는데, SSE(Server-Sent Events)는 이 제약을 어떻게 우회하는가?
