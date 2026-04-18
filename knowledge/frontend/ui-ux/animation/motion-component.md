@@ -279,7 +279,7 @@ Direct children must each have a unique key prop so `AnimatePresence` can track 
 
 ---
 
-### motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?
+## motion 컴포넌트에서 `exit` 애니메이션이 동작하려면 어떤 조건이 필요한가?
 
 ### Official Answer
 Owing to React limitations, the component being removed **must** be a **direct child** of `AnimatePresence` to enable this animation.
@@ -311,7 +311,7 @@ Owing to React limitations, the component being removed **must** be a **direct c
 
 ---
 
-### AnimatePresence에서 단일 자식의 key만 바꾸면 슬라이드쇼/탭 전환 애니메이션을 만들 수 있다. 어떻게 동작하는가?
+## AnimatePresence에서 단일 자식의 key만 바꾸면 슬라이드쇼/탭 전환 애니메이션을 만들 수 있다. 어떻게 동작하는가?
 
 ### Official Answer
 Changing a key prop makes React create an entirely new component. So by changing the key of a single child of `AnimatePresence`, we can easily make components like slideshows.
@@ -339,7 +339,7 @@ export const Slideshow = ({ image }) => (
 
 ---
 
-### AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?
+## AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?
 
 ### Official Answer
 `mode` decides how `AnimatePresence` handles entering and exiting children. Default: `"sync"`.
@@ -761,7 +761,7 @@ Motion values can be created with the useMotionValue hook. The string or number 
 
 ---
 
-### motion value의 `set`과 `get` 메서드는 각각 어떤 역할이며, DOM 업데이트는 어떻게 처리되는가?
+## motion value의 `set`과 `get` 메서드는 각각 어떤 역할이며, DOM 업데이트는 어떻게 처리되는가?
 
 ### Official Answer
 Motion values can be updated with the set method.
@@ -787,7 +787,7 @@ x.get() // 100
 
 ---
 
-### motion value에서 `set()`과 `jump()`의 차이는 무엇인가?
+## motion value에서 `set()`과 `jump()`의 차이는 무엇인가?
 
 ### Official Answer
 `jump()` jumps the motion value to a new state in a way that breaks continuity from previous values:
@@ -811,7 +811,7 @@ x.getVelocity() // 0
 
 ---
 
-### React 컴포넌트 안에서 motion value의 이벤트를 구독하려면 어떻게 해야 하며, `on()` 메서드를 직접 쓸 때 주의할 점은?
+## React 컴포넌트 안에서 motion value의 이벤트를 구독하려면 어떻게 해야 하며, `on()` 메서드를 직접 쓸 때 주의할 점은?
 
 ### Official Answer
 Listeners can be added to motion values via the `on` method or the `useMotionValueEvent` hook.
@@ -932,7 +932,7 @@ const transition = {
 
 ---
 
-### Motion의 애니메이션 타입 tween, spring, inertia는 각각 어떤 방식인가?
+## Motion의 애니메이션 타입 tween, spring, inertia는 각각 어떤 방식인가?
 
 ### Official Answer
 `type` decides the type of animation to use. It can be `"tween"`, `"spring"` or `"inertia"`.
@@ -961,7 +961,7 @@ Inertia animations decelerate a value based on its initial velocity, usually use
 
 ---
 
-#### spring의 물리 기반(stiffness/damping/mass)과 duration 기반(duration/bounce)의 차이는?
+## spring의 물리 기반(stiffness/damping/mass)과 duration 기반(duration/bounce)의 차이는?
 
 ### Official Answer
 Physics-based spring animations are set via `stiffness`, `damping` and `mass`, and these incorporate the velocity of any existing gestures or animations for natural feedback.
@@ -977,7 +977,7 @@ Duration-based spring animations are set via a `duration` and `bounce`. These do
 
 ---
 
-#### `inertia` 애니메이션은 어떻게 동작하며, 주요 설정 옵션은 무엇인가?
+## `inertia` 애니메이션은 어떻게 동작하며, 주요 설정 옵션은 무엇인가?
 
 ### Official Answer
 An animation that decelerates a value based on its initial velocity. Optionally, `min` and `max` boundaries can be defined, and inertia will snap to these with a spring animation.
