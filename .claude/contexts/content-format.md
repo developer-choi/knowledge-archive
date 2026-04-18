@@ -74,7 +74,7 @@ tags: [react, performance, concept]
 - **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
 - **원본 언어 유지**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
-- **출처-Answer 매핑**: Reference에 공식 출처 URL이 있으면 해당 원문을 Official Answer에 담는다. 공식 출처가 있는데 Official Answer 섹션을 생략하고 User/AI Answer로만 답하지 않는다.
+- **출처-Answer 매핑**: Reference에 공식 출처 URL이 있으면, 학습이 끝난 시점에 해당 원문을 Official Answer에 담는다. Reference만 적어두고 Official Answer가 비어있는 상태(학습 진행 중)는 위반이 아니다.
 
 ### Key Terms
 
