@@ -6,7 +6,7 @@ tags: [data-structure, concept]
 - Binary Tree란 무엇인가?
 - 높이 h인 Binary Tree의 레벨 h에 최대 몇 개 노드가 존재할 수 있는가?
 - 높이 h인 Binary Tree가 가질 수 있는 최대 노드 수는?
-- N개 노드를 가진 Binary Tree의 최소 높���는?
+- N개 노드를 가진 Binary Tree의 최소 높이는?
 - L개의 리프 노드를 가진 Binary Tree의 최소 레벨 수는?
 - N개 노드를 가진 Binary Tree의 총 간선(edge) 수는?
 - Self-Balancing BST의 활용은?
