@@ -46,7 +46,7 @@ A subarray is a contiguous part of an array, formed by selecting one or more con
 
 ## 배열이 왜 필요한가?
 
-### User Annotation
+### User Answer
 학생 5명의 이름을 저장해야할 일이 있을 때 string 변수 5개 만들면 관리하기 너무힘들어짐. (6명된다거나 등등)
 
 ### Reference
