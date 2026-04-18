@@ -141,6 +141,47 @@ HTTP/1.1 communications therefore experience less latency as the establishment o
 
 ---
 
+## HTTP/1.0까지는 왜 요청마다 TCP 연결을 새로 맺어야 했고, HTTP/1.1의 keep-alive는 이를 어떻게 해결했는가?
+
+### Official Answer
+In HTTP/1.0, the TCP/IP connection should always be closed by server after a response has been sent.
+In HTTP/1.1, a keep-alive-mechanism was officially introduced so that a connection could be reused for more than one request/response.
+Such persistent connections reduce request latency perceptibly because the client does not need to re-negotiate the TCP 3-Way-Handshake connection after the first request has been sent.
+Another positive side effect is that, in general, the connection becomes faster with time due to TCP's slow-start-mechanism.
+
+### Reference
+- https://en.wikipedia.org/wiki/HTTP
+
+---
+
+## HTTP/1.1의 파이프라이닝은 어떤 최적화를 시도했고, 왜 실패했는가?
+
+### Official Answer
+HTTP/1.1 added also HTTP pipelining in order to further reduce lag time when using persistent connections by allowing clients to send multiple requests before waiting for each response.
+This optimization was never considered really safe because a few web servers and many proxy servers, specially transparent proxy servers placed in Internet / Intranets between clients and servers, did not handle pipelined requests properly (they served only the first request discarding the others, they closed the connection because they saw more data after the first request or some proxies even returned responses out of order etc.).
+Because of this, only HEAD and some GET requests could be pipelined in a safe and idempotent mode.
+After many years of struggling with the problems introduced by enabling pipelining, this feature was first disabled and then removed from most browsers also because of the announced adoption of HTTP/2.
+
+> #### AI Annotation:
+> 파이프라이닝은 "응답을 기다리지 않고 요청을 연달아 보내기"라는 좋은 아이디어였지만, 현실의 프록시/서버 호환성 문제로 실패했다.
+> HTTP/2의 멀티플렉싱이 이 문제를 근본적으로 해결하면서 파이프라이닝은 역사 속으로 사라졌다.
+
+### Reference
+- https://en.wikipedia.org/wiki/HTTP
+
+---
+
+## HTTP/2와 HTTP/3는 영속 연결(persistent connection)을 어떻게 발전시켰는가?
+
+### Official Answer
+HTTP/2 extended the usage of persistent connections by multiplexing many concurrent requests/responses through a single TCP/IP connection.
+HTTP/3 does not use TCP/IP connections but QUIC + UDP.
+
+### Reference
+- https://en.wikipedia.org/wiki/HTTP
+
+---
+
 ## HTTP/2가 HTTP/1.1 대비 개선한 점은?
 
 ### Official Answer
@@ -239,47 +280,6 @@ In HTTP implementations, TCP/IP connections are used using well-known ports (typ
 > #### AI Annotation:
 > stateless란 서버가 이전 요청의 정보를 기억하지 않는다는 뜻이다.
 > 로그인 상태를 유지하려면 쿠키, 세션, JWT 같은 별도 메커니즘이 필요한 이유가 바로 이것이다.
-
-### Reference
-- https://en.wikipedia.org/wiki/HTTP
-
----
-
-## HTTP/1.0까지는 왜 요청마다 TCP 연결을 새로 맺어야 했고, HTTP/1.1의 keep-alive는 이를 어떻게 해결했는가?
-
-### Official Answer
-In HTTP/1.0, the TCP/IP connection should always be closed by server after a response has been sent.
-In HTTP/1.1, a keep-alive-mechanism was officially introduced so that a connection could be reused for more than one request/response.
-Such persistent connections reduce request latency perceptibly because the client does not need to re-negotiate the TCP 3-Way-Handshake connection after the first request has been sent.
-Another positive side effect is that, in general, the connection becomes faster with time due to TCP's slow-start-mechanism.
-
-### Reference
-- https://en.wikipedia.org/wiki/HTTP
-
----
-
-## HTTP/1.1의 파이프라이닝은 어떤 최적화를 시도했고, 왜 실패했는가?
-
-### Official Answer
-HTTP/1.1 added also HTTP pipelining in order to further reduce lag time when using persistent connections by allowing clients to send multiple requests before waiting for each response.
-This optimization was never considered really safe because a few web servers and many proxy servers, specially transparent proxy servers placed in Internet / Intranets between clients and servers, did not handle pipelined requests properly (they served only the first request discarding the others, they closed the connection because they saw more data after the first request or some proxies even returned responses out of order etc.).
-Because of this, only HEAD and some GET requests could be pipelined in a safe and idempotent mode.
-After many years of struggling with the problems introduced by enabling pipelining, this feature was first disabled and then removed from most browsers also because of the announced adoption of HTTP/2.
-
-> #### AI Annotation:
-> 파이프라이닝은 "응답을 기다리지 않고 요청을 연달아 보내기"라는 좋은 아이디어였지만, 현실의 프록시/서버 호환성 문제로 실패했다.
-> HTTP/2의 멀티플렉싱이 이 문제를 근본적으로 해결하면서 파이프라이닝은 역사 속으로 사라졌다.
-
-### Reference
-- https://en.wikipedia.org/wiki/HTTP
-
----
-
-## HTTP/2와 HTTP/3는 영속 연결(persistent connection)을 어떻게 발전시켰는가?
-
-### Official Answer
-HTTP/2 extended the usage of persistent connections by multiplexing many concurrent requests/responses through a single TCP/IP connection.
-HTTP/3 does not use TCP/IP connections but QUIC + UDP.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
