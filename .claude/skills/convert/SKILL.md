@@ -9,21 +9,23 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 원칙
 
-- **원문은 원재료**: 사용자 필기는 주로 한국어로 작성된 학습 노트다. 원문 언어와 관계없이, 각 내용은 아래 3단계로 판정하여 섹션에 배치한다.
+- **원문만 변환**: convert는 사용자가 작성한 원문을 Q&A 형식으로 재배치하는 작업이다. AI가 외부 지식을 검색·주입하지 않는다.
+- **Official Answer 신규 생성 금지**: AI가 Wikipedia/MDN 등에서 영문 원문을 WebFetch/WebSearch하여 `Official Answer`를 새로 구성하지 않는다. convert의 출력은 기본적으로 User Answer + 사용자 필기 다듬은 Annotation으로만 구성된다.
+- **사용자 필기에 없는 Q 추가 금지**: 사용자 필기에 등장하지 않는 개념·질문을 AI 판단으로 새로 만들지 않는다.
 - **변환 거부 조건**: 사실이 아니거나, 출처 불명확하거나, 회사 특정 정보는 변환을 거부한다.
 - **저작권 주의**: Getty Images 등 외부 이미지는 텍스트 설명으로 대체.
 
-## 내용 판정 (3단계)
+## 내용 판정 (2단계)
 
 각 Q&A 항목에 대해 아래 순서로 판정한다:
 
-1. **(a) Wikipedia/MDN 등 정전(正典) 대응 개념**
-   → AI가 영문 원문을 리서치하여 `Official Answer` 구성
-   → 사용자의 한국어 서술은 `AI Annotation`으로 다듬어 배치
-2. **(b) 경험/해석/강사 의견 등 정전에 없는 내용**
+1. **(a) 사용자 필기의 설명이 검증 가능한 일반 CS 내용 또는 경험·해석**
    → `User Answer`로 배치
-3. **(c) 정전 대응 없음 + 사실 검증 불가**
-   → drop 후보로 사용자에게 보고 ([content-format.md](../../contexts/content-format.md)의 "출처 없으면 작업 중단" 원칙)
+   → 한국어 다듬기 허용 범위는 [content-format.md](../../contexts/content-format.md)의 "작성 원칙" 참고
+2. **(b) 사실 검증 불가 또는 원문에 내용이 부족함**
+   → drop 후보로 보고
+
+**예외**: 사용자 원문에 공식 문서 원문(영어 블록쿼트·인용)이 이미 포함되어 있다면, 그 부분만 `Official Answer`로 배치하고 출처를 `Reference`에 그대로 옮긴다. AI가 추가 검색으로 보강하지 않는다.
 
 ## 이미지·링크 처리
 
@@ -63,7 +65,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 ### Step 3. 판정 & 매핑
 
-[content-format.md](../../contexts/content-format.md)를 읽고, 위 "내용 판정 (3단계)"에 따라 각 Q&A의 섹션을 결정한다. 기존 knowledge 파일이 있으면 "기존 knowledge 병합" 규칙 적용.
+[content-format.md](../../contexts/content-format.md)를 읽고, 위 "내용 판정 (2단계)"에 따라 각 Q&A의 섹션을 결정한다. 기존 knowledge 파일이 있으면 "기존 knowledge 병합" 규칙 적용.
 
 ### Step 4. 링크 보완 (사용자 대기)
 
@@ -76,4 +78,5 @@ PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우, [
 추가 검증:
 - Step 2에서 사용자가 확정한 큐레이션 결정이 반영되었는가?
 - 원본의 핵심 답변 내용이 (드롭 합의 제외) 빠짐없이 포함되었는가?
-- Official Answer의 출처 URL이 실제 Wikipedia/MDN 페이지인가?
+- 사용자 원문에 없던 내용을 AI가 외부 리서치로 추가하지 않았는가?
+- 사용자 원문에 없던 Q를 AI 판단으로 새로 만들지 않았는가?
