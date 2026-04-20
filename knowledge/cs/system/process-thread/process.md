@@ -14,6 +14,8 @@ tags: [os, concept]
 - 부모 프로세스와 자식 프로세스의 관계는 어떻게 형성되는가?
 - 프로세스가 blocked 상태가 되는 조건과, 가상 메모리 시스템에서 blocked 프로세스의 메모리는 어떻게 처리되는가?
 - 프로세스의 상태 전이(lifecycle)에서 waiting과 blocked의 차이는?
+- OS는 실행 중인 프로세스들을 어떻게 식별하는가?
+- 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
 
 ---
 
@@ -28,6 +30,10 @@ While a computer program is a passive collection of instructions typically store
 > #### AI Annotation:
 > 프로그램 = 디스크에 저장된 정적 파일 (요리책), 프로세스 = 메모리에 올라가서 실행 중인 동적 실체 (요리하는 행위).
 > OOP로 비유하면 프로그램이 클래스, 프로세스가 인스턴스.
+
+> #### User Annotation:
+> 프로세스는 흔히 "잡(job)"이라는 단어로도 쓰인다.
+> 잡 스케줄링 = 프로세스 스케줄링 같은 뜻이다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
@@ -70,6 +76,14 @@ Memory (typically some region of virtual memory); which includes the executable 
 > 프로세스의 메모리 = 코드 + 데이터 + 콜 스택 + 힙.
 > JS의 콜 스택(함수 호출 추적)과 힙(객체/배열 등 동적 데이터)이 바로 프로세스 메모리 영역에 해당한다.
 
+> #### User Annotation:
+> 프로세스는 메모리상의 특정 위치를 OS에게 할당받고, 내부적으로 메모리 크기를 동적으로 조절한다.
+> 네 영역으로 세분화하면:
+> - 텍스트 영역: 실제 실행 코드가 들어있다.
+> - 데이터 영역: 프로그램 실행부터 종료까지 지워지지 않는 데이터가 저장된다 (전역 변수 등).
+> - 스택: 매개변수, 지역변수 등 임시 데이터가 저장된다. 컴파일 시점에 메모리 크기가 결정되고 주소값은 가장 위에 할당된다.
+> - 힙: 프로그램 실행 시 동적으로 할당되는 영역 (= 런타임).
+
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 
@@ -85,6 +99,15 @@ Any subset of the resources, typically at least the processor state, may be asso
 > PCB = 프로세스 하나당 하나씩 존재하는 OS 내부 자료구조로, 코드·메모리·파일 디스크립터·권한·레지스터 상태를 모두 담고 있다.
 > 컨텍스트 스위치 시 PCB에서 상태를 저장/복원한다.
 > 스레드는 프로세스의 자원을 공유하되, 각 스레드마다 독립적인 프로세서 상태(레지스터, PC)를 가진다.
+
+> #### User Annotation:
+> PCB는 프로세스가 생성될 때 같이 생성되고, 프로세스가 종료될 때 같이 소멸된다.
+> 크게 다섯 개의 영역으로 구성된다:
+> - Process State: 프로세스 상태를 나타내는 영역.
+> - Program Counter: 프로세스가 다음에 실행할 명령어의 주소값. 인터럽트 발생 시 요청 작업 수행 후 기존 작업을 이어서 할 때 필요하다.
+> - CPU 레지스터: Accumulator, Index Register, Stack Register 등.
+> - Memory Limit.
+> - CPU 스케줄링 정보: 프로세스 우선순위, 스케줄링 큐에 대한 포인터 등.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
@@ -183,6 +206,10 @@ It is usual to associate a single process with a main program, and child process
 > 자식은 비동기 서브루틴처럼 독립적으로 실행된다.
 > Node.js에서 `child_process.fork()`로 무거운 작업을 별도 프로세스에 위임하는 것이 이 패턴.
 
+> #### User Annotation:
+> 자식 프로세스는 부모 프로세스로부터 리소스 권한과 스케줄링 속성을 상속받는다.
+> 단, 부모가 가진 자원의 부분집합만을 사용하도록 제한된다.
+
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 
@@ -235,3 +262,36 @@ The process is removed instantly or is moved to the "terminated" state.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
+
+---
+
+## OS는 실행 중인 프로세스들을 어떻게 식별하는가?
+
+### User Answer
+프로세스들은 PID(Process ID)로 구분된다.
+리눅스 기준으로 Systemd(PID 1)를 제외한 나머지 프로세스는 생성될 때마다 증가하는 값을 부여받으며, 외울 필요 없는 값이다.
+
+부팅이 되자마자 Systemd 프로세스가 실행되고, Systemd가 다른 프로세스들을 생성한다.
+Systemd가 생성하는 보편적인 프로세스의 예시:
+- logind process: 시스템에 직접 로그인하는 클라이언트들을 관리.
+- sshd process: SSH 프로토콜을 사용해서 시스템에 접속하는 클라이언트를 관리.
+- rdp process: 윈도우 원격 접속을 관리.
+
+---
+
+## 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
+
+### User Answer
+일반적인 생성/종료 흐름:
+- `fork()` (시스템 콜)로 새로운 프로세스(자식 프로세스)를 생성한다.
+- `exec()` (시스템 콜)로 새로운 프로그램을 메모리에 적재해서 실행을 시작한다.
+- 자식 프로세스가 종료될 때까지 부모 프로세스는 `wait()`으로 기다린다.
+- 자식 프로세스는 `exit()`을 통해 종료된다.
+  - `exit()`은 OS에게 프로세스가 할당받았던 자원을 반납하는 것이다.
+  - OS에 의해 할당된 자원은 해제된다.
+- 부모 프로세스는 실행을 재개한다.
+
+예외적으로 `abort()`로 자식 프로세스를 강제 종료시키는 경우도 있다:
+- 자식이 할당된 자원의 사용량을 초과하는 경우.
+- 자식 task가 더 이상 필요하지 않은 경우.
+- 부모가 종료되었는데 자식만 실행되는 경우.
