@@ -42,10 +42,14 @@ Static: Catch typos and type errors as you write the code.
 ### Official Answer
 Unit: Verify that individual, isolated parts work as expected.
 
+> #### Official Annotation: The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
+> — Martin Fowler, "On the Diverse And Fantastical Shapes of Testing"
 > #### AI Annotation: Testing Trophy에서 Static 바로 위에 위치한다. 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
+> #### AI Annotation: Kent는 "individual, isolated parts"로 정의하지만, Fowler는 "내/우리 코드 vs 별도 개발 코드"라는 조직적 색채를 남긴다. 같은 개념을 다른 각도(기술적 격리 vs 조직적 경계)에서 본다. 더 자세한 기원은 test-shapes-unit-vs-integration.md 참고.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://martinfowler.com/articles/2021-test-shapes.html
 
 ---
 
