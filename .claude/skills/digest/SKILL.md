@@ -97,7 +97,7 @@ digest 모드 시작.
 
 단락이 사용자의 학습 목적에 가치가 없다고 판단하면 (하드웨어 표준 세부사항, 관리 체계, 사용자 관심 밖의 전문 분야 등), line-by-line 해설 없이 "넘어간다"로 건너뛴다. 사유도 한 줄 이내로 짧게 쓴다.
 
-가치가 있는 단락에 대해서는 [explanation-format.md](../../contexts/explanation-format.md)의 3단계 포맷으로 원문을 해설한다.
+가치가 있는 단락에 대해서는 [explanation-guide.md](../../contexts/explanation-guide.md)를 따라 원문을 해설한다.
 
 #### 1-0. 해설 완전성 검증
 

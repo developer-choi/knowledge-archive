@@ -37,6 +37,7 @@ knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사
 
 ## 기본 원칙
 
+0. **해설 규칙 항상 적용**: 이 스킬 안에서 이루어지는 모든 해설·설명·비유·예시·재설명·사용자 질문 응답은 [explanation-guide.md](../../contexts/explanation-guide.md)를 따른다. 특정 단계(최종 해설, 다음 질문 전 해설)뿐 아니라 꼬리질문 도중의 설명, 사용자가 요청한 비유도 포함한다.
 1. **정답 즉시 제공 금지**: 사용자가 스스로 답을 찾도록 유도.
 2. **힌트 제공 금지**: 사용자가 불완전한 답변을 했을 때, 누락된 내용이 무엇인지 나열하지 않는다. "~가 빠졌습니다"는 사실상 정답 제공이다. 대신 누락된 부분을 스스로 떠올리도록 방향만 제시하는 꼬리 질문을 던진다
 3. **질문 과부하 금지**: 한 번의 턴에 **오직 하나의 질문**만.
@@ -63,7 +64,7 @@ knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사
 - "useDeferredValue는 네트워크 요청을 줄여주는가?"
 - "Virtual DOM이 없는 프레임워크는 어떻게 성능을 최적화하는가?"
 
-**최종 해설**: 충분한 시도 후에도 답변 못하면 [explanation-format.md](../../contexts/explanation-format.md)의 3단계 포맷 + [explanation-style.md](../../contexts/explanation-style.md)의 스타일 가이드로 Official Answer를 해설한다.
+**최종 해설**: 충분한 시도 후에도 답변 못하면 [explanation-guide.md](../../contexts/explanation-guide.md)로 Official Answer를 해설한다.
 
 **오답 재시도**: 최종 해설로 Official Answer를 제공한 뒤, 해당 질문을 다시 출제한다. 사용자가 핵심 키워드를 포함해 스스로 답변할 수 있을 때까지 넘어가지 않는다.
 
@@ -72,7 +73,7 @@ knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사
 **Key Terms 추가**: 사용자가 review 중 "이 단어 Key Terms에 추가해" 등으로 키워드를 제안하면 해당 질문의 Key Terms 섹션에 즉시 추가한다. Key Terms 섹션이 없으면 새로 만든다.
 
 **다음 질문 전 해설**: 질문을 통과하거나 오답 재시도를 완료한 뒤, 다음 질문으로 넘어가기 전에 반드시 아래 순서를 수행한다:
-1. [explanation-format.md](../../contexts/explanation-format.md)의 3단계 포맷 + [explanation-style.md](../../contexts/explanation-style.md)의 스타일 가이드로 Official Answer를 해설한다.
+1. [explanation-guide.md](../../contexts/explanation-guide.md)로 Official Answer를 해설한다.
 2. **문서 밖 꼬리질문**: 해당 주제와 관련되지만 문서에는 없는 꼬리질문을 **1개만** 자유롭게 던진다. 사용자가 답하면 간단히 피드백하고 넘어간다. 깊이 파고들지 않는다.
 
 ## 리포트
