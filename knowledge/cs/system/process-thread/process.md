@@ -43,8 +43,8 @@ While a computer program is a passive collection of instructions typically store
 ## OS가 프로세스를 관리하기 위해 묶어두는 구성 요소에는 무엇이 있는가?
 
 ### Official Answer
-Almost all processes (even entire virtual machines) are rooted in an operating system (OS) process which comprises the program code, assigned system resources, physical and logical access permissions, and data structures to initiate, control and coordinate execution activity.
-Depending on the OS, a process may be made up of multiple threads of execution that execute instructions concurrently.
+A process comprises the program code, assigned system resources, physical and logical access permissions, and data structures to initiate, control and coordinate execution activity.
+A process may be made up of multiple threads.
 
 > #### AI Annotation:
 > 프로세스는 단순히 "실행 중인 코드"가 아니라, 코드 + 자원 + 권한 + 제어 구조를 패키지로 묶은 것.
