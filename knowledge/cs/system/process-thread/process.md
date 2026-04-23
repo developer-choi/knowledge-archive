@@ -4,7 +4,7 @@ tags: [os, concept]
 
 # Questions
 - 프로세스란 무엇이며, 프로그램과 어떻게 다른가?
-  - OS가 프로세스를 관리하기 위해 묶어두는 구성 요소에는 무엇이 있는가?
+  - 프로세스는 무엇으로 구성되는가?
     - 여기서 말하는 initiate / control / coordinate가 뭔가요?
     - initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
     - 프로세스의 메모리 영역은 어떤 구성 요소를 포함하는가?
@@ -41,7 +41,7 @@ While a computer program is typically stored in a file on disk, a process is the
 
 ---
 
-## OS가 프로세스를 관리하기 위해 묶어두는 구성 요소에는 무엇이 있는가?
+## 프로세스는 무엇으로 구성되는가?
 
 ### Official Answer
 A process comprises the program code, assigned system resources, physical and logical access permissions, and data structures to initiate, control and coordinate execution activity.
