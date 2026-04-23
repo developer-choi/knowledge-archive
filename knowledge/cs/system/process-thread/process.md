@@ -8,7 +8,7 @@ tags: [os, concept]
     - 여기서 말하는 initiate / control / coordinate가 뭔가요?
     - initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
     - 프로세스의 메모리 영역은 어떤 구성 요소를 포함하는가?
-    - PCB(프로세스 제어 블록)란 무엇인가?
+    - [PCB(프로세스 제어 블록)란 무엇인가?](process-control-block.md)
   - OS가 프로세스들을 서로 격리하는 이유와, 격리 실패 시 발생할 수 있는 문제는?
 - 멀티태스킹이란 무엇이며, 하나의 CPU 코어에서 여러 프로세스가 동시에 실행되는 것처럼 보이는 원리는?
   - OS에서 컨텍스트 스위치(프로세스 전환)가 발생하는 시점은?
@@ -113,26 +113,7 @@ Memory (typically some region of virtual memory); which includes the executable 
 
 ## PCB(프로세스 제어 블록)란 무엇인가?
 
-### Official Answer
-The operating system holds most of this information about active processes in data structures called process control blocks.
-Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads in operating systems that support threads or child processes.
-
-> #### AI Annotation:
-> PCB = 프로세스 하나당 하나씩 존재하는 OS 내부 자료구조로, 코드·메모리·파일 디스크립터·권한·레지스터 상태를 모두 담고 있다.
-> 컨텍스트 스위치 시 PCB에서 상태를 저장/복원한다.
-> 스레드는 프로세스의 자원을 공유하되, 각 스레드마다 독립적인 프로세서 상태(레지스터, PC)를 가진다.
-
-> #### User Annotation:
-> PCB는 프로세스가 생성될 때 같이 생성되고, 프로세스가 종료될 때 같이 소멸된다.
-> 크게 다섯 개의 영역으로 구성된다:
-> - Process State: 프로세스 상태를 나타내는 영역.
-> - Program Counter: 프로세스가 다음에 실행할 명령어의 주소값. 인터럽트 발생 시 요청 작업 수행 후 기존 작업을 이어서 할 때 필요하다.
-> - CPU 레지스터: Accumulator, Index Register, Stack Register 등.
-> - Memory Limit.
-> - CPU 스케줄링 정보: 프로세스 우선순위, 스케줄링 큐에 대한 포인터 등.
-
-### Reference
-- https://en.wikipedia.org/wiki/Process_(computing)
+→ [process-control-block.md](process-control-block.md)
 
 ---
 
