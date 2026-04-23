@@ -12,8 +12,7 @@ tags: [os, concept]
   - OS에서 컨텍스트 스위치(프로세스 전환)가 발생하는 시점은?
   - 현대 OS가 프로세스 간 직접 통신을 막고 IPC를 제공하는 이유는?
 - 부모 프로세스와 자식 프로세스의 관계는 어떻게 형성되는가?
-- 프로세스가 blocked 상태가 되는 조건과, 가상 메모리 시스템에서 blocked 프로세스의 메모리는 어떻게 처리되는가?
-- 프로세스의 상태 전이(lifecycle)에서 waiting과 blocked의 차이는?
+- 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
 - OS는 실행 중인 프로세스들을 어떻게 식별하는가?
 - 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
 
@@ -25,7 +24,7 @@ tags: [os, concept]
 
 ### Official Answer
 In computing, a process is the instance of a computer program that is being executed by one or many threads.
-While a computer program is a passive collection of instructions typically stored in a file on disk, a process is the execution of those instructions after being loaded from the disk into memory.
+While a computer program is typically stored in a file on disk, a process is the execution of those instructions after being loaded from the disk into memory.
 
 > #### AI Annotation:
 > 프로그램 = 디스크에 저장된 정적 파일 (요리책), 프로세스 = 메모리에 올라가서 실행 중인 동적 실체 (요리하는 행위).
@@ -44,7 +43,6 @@ While a computer program is a passive collection of instructions typically store
 
 ### Official Answer
 A process comprises the program code, assigned system resources, physical and logical access permissions, and data structures to initiate, control and coordinate execution activity.
-A process may be made up of multiple threads.
 
 > #### AI Annotation:
 > 프로세스는 단순히 "실행 중인 코드"가 아니라, 코드 + 자원 + 권한 + 제어 구조를 패키지로 묶은 것.
@@ -215,26 +213,7 @@ It is usual to associate a single process with a main program, and child process
 
 ---
 
-## 프로세스가 blocked 상태가 되는 조건과, 가상 메모리 시스템에서 blocked 프로세스의 메모리는 어떻게 처리되는가?
-
-### Official Answer
-If a process requests something for which it must wait, it will be blocked.
-When the process is in the blocked state, it is eligible for swapping to disk, but this is transparent in a virtual memory system, where regions of a process's memory may be really on disk and not in main memory at any time.
-Even portions of active processes/tasks (executing programs) are eligible for swapping to disk, if the portions have not been used recently.
-Not all parts of an executing program and its data have to be in physical memory for the associated process to be active.
-
-> #### AI Annotation:
-> I/O 완료, 락 해제 등 기다려야 할 리소스가 있으면 blocked 상태가 된다.
-> 가상 메모리 덕분에 프로세스 입장에서는 투명하게 디스크로 스와핑될 수 있다.
-> 실행 중인 프로세스조차 전부 물리 메모리에 있을 필요 없이, 최근 사용되지 않은 부분은 디스크에 둔다.
-> 프로그램이 4GB인데 RAM이 2GB여도 실행 가능한 이유.
-
-### Reference
-- https://en.wikipedia.org/wiki/Process_(computing)
-
----
-
-## 프로세스의 상태 전이(lifecycle)에서 waiting과 blocked의 차이는?
+## 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
 
 ### Official Answer
 First, the process is "created" by being loaded from a secondary storage device (hard disk drive, CD-ROM, etc.) into main memory.
