@@ -6,6 +6,7 @@ tags: [software-engineering, comparison]
 - Unit test란 무엇인가?
   - Unit test의 장점과 단점은?
   - Unit test에서 의존성을 mock하고 호출 assertion이 통과하면, 실제 연동도 정상이라고 볼 수 있는가?
+  - Unit test에서 dependency가 있을 때 어떻게 처리하는가?
 - Integration test란 무엇인가?
   - Integration test의 장점과 단점은?
   - Integration test에서 mock하는 것과 하지 않는 것의 기준은?
@@ -13,6 +14,8 @@ tags: [software-engineering, comparison]
 - E2E test란 무엇인가?
   - E2E test의 장점과 단점은?
   - E2E로 모든 edge case를 잡으면 가장 확실한 거 아닌가?
+  - Async Server Component는 어떤 테스트 방식을 권장하는가?
+- Snapshot Testing이란 무엇이며 Unit/Integration/E2E와 어떤 관계인가?
 - Testing Pyramid 대신 Testing Trophy를 쓰는 이유는?
   - confidence coefficient란 무엇인가?
   - 각 테스트 레벨이 잡을 수 없는 문제를 정리하면?
@@ -44,12 +47,18 @@ Unit: Verify that individual, isolated parts work as expected.
 
 > #### Official Annotation: The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
 > — Martin Fowler, "On the Diverse And Fantastical Shapes of Testing"
+> #### Official Annotation: Unit testing is the process where you test the smallest functional unit of code.
+> A unit test is a block of code that verifies the accuracy of a smaller, isolated block of application code, typically a function or method.
+> Unit tests are typically the first set of tests that run during full system software testing.
+> They can be written as soon as any code is written and don't require any special tools to run.
+> — AWS, "What is Unit Testing"
 > #### AI Annotation: Testing Trophy에서 Static 바로 위에 위치한다. 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
 > #### AI Annotation: Kent는 "individual, isolated parts"로 정의하지만, Fowler는 "내/우리 코드 vs 별도 개발 코드"라는 조직적 색채를 남긴다. 같은 개념을 다른 각도(기술적 격리 vs 조직적 경계)에서 본다. 더 자세한 기원은 test-shapes-unit-vs-integration.md 참고.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
 - https://martinfowler.com/articles/2021-test-shapes.html
+- https://aws.amazon.com/what-is/unit-testing/
 
 ---
 
@@ -84,6 +93,25 @@ Unit tests are incapable of ensuring that when you call into a dependency that y
 
 ---
 
+## Unit test에서 dependency가 있을 때 어떻게 처리하는가?
+
+### Official Answer
+When a block of code requires other parts of the system to run, you can't use a unit test with that external data.
+The unit test needs to run in isolation.
+Other system data, such as databases, objects, or network communication, might be required for the code's functionality.
+If that's the case, you should use data stubs instead.
+
+> #### Key Terms:
+> - **data stubs**: 실제 외부 데이터 대신 사용하는 가짜(고정) 데이터
+
+> #### AI Annotation: Unit test는 isolation이 핵심이므로, DB·네트워크·외부 객체 같은 외부 의존성은 그대로 사용할 수 없다.
+> 대신 data stub(고정된 가짜 데이터)으로 대체하여 테스트 대상 코드만 격리해 검증한다.
+
+### Reference
+- https://aws.amazon.com/what-is/unit-testing/
+
+---
+
 ## Integration test란 무엇인가?
 
 ### Official Answer
@@ -91,10 +119,14 @@ Integration: Verify that several units work together in harmony.
 
 The idea behind integration tests is to mock as little as possible.
 
+> #### Official Annotation: Integration Testing involves testing how multiple units work together.
+> This can be a combination of components, hooks, and functions.
+> — Next.js, "Testing"
 > #### AI Annotation: Testing Trophy에서 가장 큰 비중을 차지한다. 여러 단위가 함께 동작하는지를 검증하며, 앱의 모든 Provider를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://nextjs.org/docs/app/guides/testing
 
 ---
 
@@ -192,6 +224,35 @@ If you try to use a unit test to verify what happens when you call your add func
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+
+---
+
+## Async Server Component는 어떤 테스트 방식을 권장하는가?
+
+### Official Answer
+Since async Server Components are new to the React ecosystem, some tools do not fully support them.
+In the meantime, we recommend using End-to-End Testing over Unit Testing for async components.
+
+> #### AI Annotation: 현재 Jest 등 일부 도구가 async Server Component를 완전히 지원하지 못한다.
+> 그래서 Next.js는 async 컴포넌트는 Unit test 대신 E2E로 검증할 것을 권장한다.
+
+### Reference
+- https://nextjs.org/docs/app/guides/testing
+
+---
+
+## Snapshot Testing이란 무엇이며 Unit/Integration/E2E와 어떤 관계인가?
+
+### Official Answer
+Snapshot Testing involves capturing the rendered output of a component and saving it to a snapshot file.
+When tests run, the current rendered output of the component is compared against the saved snapshot.
+Changes in the snapshot are used to indicate unexpected changes in behavior.
+
+> #### AI Annotation: Snapshot Testing은 Unit / Integration / E2E와 같은 "테스트 범위" 축이 아니라, 그 위에서 보조로 쓰이는 검증 방식이다.
+> 컴포넌트의 렌더 결과를 스냅샷 파일에 저장해두고, 이후 실행에서 의도치 않은 변화가 생겼는지 비교한다.
+
+### Reference
+- https://nextjs.org/docs/app/guides/testing
 
 ---
 
@@ -297,6 +358,10 @@ You should very rarely have to change tests when you refactor code.
 > - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
 > #### Official Annotation: The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
 > — Kent C. Dodds, "How to Know What to Test"
+> #### User Annotation: 이상적인 커버리지 수치는 회사 역량과 대상 코드의 중요도에 따라 달라진다.
+> 규모가 작아 기능 구현이 벅찬 회사라면 테스트 도입 자체가 부담일 수 있고,
+> 인원이 충분한 대기업에서 금융 관련 서비스를 만든다면 커버리지를 최대한 높여야 한다.
+> 즉, 회사 역량이 뒷받침되어야 하고, 테스트 대상이 그만큼 중요한지에 따라 적정 수치가 달라진다.
 
 ### Reference
 - https://kentcdodds.com/blog/write-tests
