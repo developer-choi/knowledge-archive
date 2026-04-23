@@ -5,6 +5,8 @@ tags: [os, concept]
 # Questions
 - 프로세스란 무엇이며, 프로그램과 어떻게 다른가?
   - OS가 프로세스를 관리하기 위해 묶어두는 구성 요소에는 무엇이 있는가?
+    - 여기서 말하는 initiate / control / coordinate가 뭔가요?
+    - initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
     - 프로세스의 메모리 영역은 어떤 구성 요소를 포함하는가?
     - PCB(프로세스 제어 블록)란 무엇인가?
   - OS가 프로세스들을 서로 격리하는 이유와, 격리 실패 시 발생할 수 있는 문제는?
@@ -62,6 +64,28 @@ A process comprises the program code, assigned system resources, physical and lo
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
+
+---
+
+## 여기서 말하는 initiate / control / coordinate가 뭔가요?
+
+### AI Answer
+- **initiate**: 프로세스를 처음 만드는 것. PCB 생성, 메모리 할당, 코드 적재까지 — created state를 만드는 행위.
+- **control**: CPU를 interrupt하는 것. 타임슬라이스 만료 시 실행 중인 프로세스에서 CPU를 빼앗고, 나중에 차례가 오면 돌려주는 것.
+- **coordinate**: [TODO]
+
+---
+
+## initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
+
+### AI Answer
+- **initiate**: `node app.js` 실행 시 OS가 PCB를 생성하며 기록하는 값들.
+  - Program Counter 초기값: V8이 컴파일한 첫 번째 기계어 명령어 주소. 이게 없으면 OS가 CPU를 처음 줄 때 어디서 실행을 시작할지 몰라 프로세스를 띄울 수 없습니다.
+  - Memory Limit: 이 프로세스에게 허용할 최대 메모리. 이게 없으면 `node app.js` 하나가 메모리를 무제한 점유해 다른 프로세스가 죽습니다.
+- **control**: 컨텍스트 스위치 시 갱신·저장되는 값들.
+  - Program Counter: 중단 시점의 명령어 주소로 덮어씌워짐. 이게 없으면 재개 시 어디서 이어야 할지 몰라 프로세스가 처음부터 다시 실행되거나 엉뚱한 주소에서 재개됩니다.
+  - CPU 레지스터 상태: 중단 시점 레지스터 값 전체 저장. for문 1억 번 돌다 중단됐을 때 `i` 값이 여기 들어있는데, 이게 없으면 재개 시 `i`가 날아가서 처음부터 다시 돕니다.
+- **coordinate**: [TODO]
 
 ---
 
