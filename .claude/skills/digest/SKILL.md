@@ -31,6 +31,13 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 ### 범위 제한
 사용자가 제공한 내용의 범위 내에서만 Q&A를 작성한다. 출처 URL을 방문하여 사용자가 언급하지 않은 추가 내용을 가져오지 않는다.
 
+### User/AI Answer → OA 교체
+새 영어 원문이 들어왔을 때, 기존 knowledge/ 문서에서 Official Answer 없이 User Answer 또는 AI Answer만 있는 질문과 매칭되면 OA로 교체한다.
+
+- 기존 User Answer / AI Answer는 삭제한다
+- 새 영어 원문을 Official Answer로 저장한다
+- 교체 전 사용자에게 확인받는다: "X 질문의 User Answer를 OA로 교체할까요?"
+
 ### TODO 매칭
 Q&A를 새로 만들기 전에, 기존 knowledge/ 문서에서 TODO를 2단계로 검색한다.
 
