@@ -53,9 +53,10 @@ digest, review, explain에서 해설·설명·비유·예시를 만들 때 **항
 비유나 코드 예시를 들 때 JS/브라우저/Node.js 생태계에서 가져온다.
 
 - ✅ `console.log` 실행 흐름, 이벤트 루프, Web Worker, `async/await`
+- ✅ Chrome 동작 방식 (탭 = 별도 프로세스, 메인 프로세스와 탭 프로세스 간 IPC 등) — OS/CS 개념 설명 시 적극 활용
 - ❌ Java의 `synchronized`, C의 `pthread`, Python의 GIL 중심 설명
 
-다른 언어를 언급하는 것 자체는 괜찮지만, 핵심 비유와 첫 예시는 JS 기반이어야 한다.
+다른 언어를 언급하는 것 자체는 괜찮지만, 핵심 비유와 첫 예시는 JS/Chrome 기반이어야 한다.
 
 ### 개념 설명 시 JS 흐름으로 풀어주기
 
