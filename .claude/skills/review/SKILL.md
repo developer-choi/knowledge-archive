@@ -64,6 +64,8 @@ knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사
 - "useDeferredValue는 네트워크 요청을 줄여주는가?"
 - "Virtual DOM이 없는 프레임워크는 어떻게 성능을 최적화하는가?"
 
+**완전 모름 감지**: 사용자가 "전혀 모르겠다", "모른다", "처음 듣는다" 등 개념 자체를 모른다는 신호를 보내면, 꼬리질문 없이 즉시 [explanation-guide.md](../../contexts/explanation-guide.md)로 해당 질문의 Official Answer를 해설한다. 해설 후 같은 질문을 다시 출제한다.
+
 **최종 해설**: 충분한 시도 후에도 답변 못하면 [explanation-guide.md](../../contexts/explanation-guide.md)로 Official Answer를 해설한다.
 
 **오답 재시도**: 최종 해설로 Official Answer를 제공한 뒤, 해당 질문을 다시 출제한다. 사용자가 핵심 키워드를 포함해 스스로 답변할 수 있을 때까지 넘어가지 않는다.
