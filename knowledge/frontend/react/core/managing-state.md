@@ -10,6 +10,12 @@ tags: [react, concept]
 - `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
 - `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
 - React declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
+- [TODO] state 구조를 설계할 때 어떤 원칙들을 따라야 하는가? (Choosing the State Structure)
+- [TODO] 여러 컴포넌트가 같은 state를 공유해야 할 때 어떻게 구조화하는가? (Sharing State Between Components / lifting state up)
+- [TODO] React는 컴포넌트 트리에서 state를 언제 유지하고 언제 리셋하는가? `key` prop의 역할은? (Preserving and Resetting State)
+- [TODO] `useState` 대신 `useReducer`로 state 로직을 분리해야 하는 시점은? 전환 방법은? (Extracting State Logic into a Reducer)
+- [TODO] Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는? (Passing Data Deeply with Context)
+- [TODO] reducer와 context를 함께 쓰는 패턴은 어떻게 구성되며 어떤 규모에서 유용한가? (Scaling Up with Reducer and Context)
 
 ---
 
@@ -346,3 +352,57 @@ It also lets you change what should be displayed in each state without changing 
 
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
+
+---
+
+## [TODO] state 구조를 설계할 때 어떤 원칙들을 따라야 하는가? (Choosing the State Structure)
+
+### Official Answer
+
+### Reference
+- https://react.dev/learn/choosing-the-state-structure
+
+---
+
+## [TODO] 여러 컴포넌트가 같은 state를 공유해야 할 때 어떻게 구조화하는가? (Sharing State Between Components / lifting state up)
+
+### Official Answer
+
+### Reference
+- https://react.dev/learn/sharing-state-between-components
+
+---
+
+## [TODO] React는 컴포넌트 트리에서 state를 언제 유지하고 언제 리셋하는가? `key` prop의 역할은? (Preserving and Resetting State)
+
+### Official Answer
+
+### Reference
+- https://react.dev/learn/preserving-and-resetting-state
+
+---
+
+## [TODO] `useState` 대신 `useReducer`로 state 로직을 분리해야 하는 시점은? 전환 방법은? (Extracting State Logic into a Reducer)
+
+### Official Answer
+
+### Reference
+- https://react.dev/learn/extracting-state-logic-into-a-reducer
+
+---
+
+## [TODO] Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는? (Passing Data Deeply with Context)
+
+### Official Answer
+
+### Reference
+- https://react.dev/learn/passing-data-deeply-with-context
+
+---
+
+## [TODO] reducer와 context를 함께 쓰는 패턴은 어떻게 구성되며 어떤 규모에서 유용한가? (Scaling Up with Reducer and Context)
+
+### Official Answer
+
+### Reference
+- https://react.dev/learn/scaling-up-with-reducer-and-context
