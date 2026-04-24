@@ -8,8 +8,8 @@ tags: [network, concept, protocol]
     - 호스트의 IP 주소는 어떻게 설정되는가?
     - 호스트는 네트워크에서 어떤 역할을 하는가?
   - 네트워크 노드와 호스트의 차이는?
-  - [라우터란 무엇인가?](router.md#라우터란-무엇인가)
-  - [MAC 주소란 무엇인가?](network-address.md#mac-주소란-무엇인가)
+  - [라우터란 무엇인가? → `router.md`](router.md#라우터란-무엇인가)
+  - [MAC 주소란 무엇인가? → `network-address.md`](network-address.md#mac-주소란-무엇인가)
 
 ---
 

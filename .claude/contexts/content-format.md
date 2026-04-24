@@ -8,7 +8,7 @@
 
 - **Fact-First**: 객관적 사실만 Official Answer에 기록. 해석·보충은 `> OO Annotation:`으로 구분. (Official / AI / User)
 - **원문 보존**: 공식 문서 원문의 핵심 내용을 그대로 보존. 문장 간 연결이 어색하더라도 AI가 임의로 가공하지 않는다.
-- **영어 사용 범위**: 문서 내 영어는 공식 문서 원문(Official Answer, Official Annotation)에만 사용한다. 그 외 편집·주석 성격의 내용(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
+- **Official Answer 언어**: Official Answer와 Official Annotation은 공식 문서 원문을 그대로 보존한다. 공식 출처가 영어이면 영어 원문을 유지하며, 한글 번역·요약·의역으로 대체하지 않는다. 그 외 편집·주석 성격(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
 - **출처 없으면 작업 중단**: 출처가 제공되지 않으면, 내용 작성 전에 출처 링크를 요청하고 대기한다.
 
 ---
@@ -72,11 +72,12 @@ tags: [react, performance, concept]
 
 ### 작성 원칙
 - **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
-- **원본 언어 유지 (번역 금지)**: 사용자가 작성한 필기나 요약이 한글이면 한글로 유지한다.
+- **원본 언어 유지 (번역 금지)**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
   - 허용 편집: 맞춤법, 조사, 문장 흐름, 전문 용어 정확화
   - **명백한 사실 오류 정정은 필수**: 위키피디아 수준의 확립된 지식(표준 수치·프로토콜 헤더 필드·레지스터 정의 등)과 충돌하거나 같은 섹션 내 자기모순이 있으면 `User Answer`/`User Annotation`/`AI Annotation`에 한해 정정한다. **`Official Answer`는 예외 없이 수정 금지**.
   - 금지: 소스에 없는 새 사실 덧붙이기, 뉘앙스 변경, 근거 없는 주장
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
+- **출처-Answer 매핑**: Reference에 공식 출처 URL이 있으면, 학습이 끝난 시점에 해당 원문을 Official Answer에 담는다. Reference만 적어두고 Official Answer가 비어있는 상태(학습 진행 중)는 위반이 아니다.
 
 ### Key Terms
 

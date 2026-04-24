@@ -20,6 +20,15 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 | 템플릿 | [template.md](../../contexts/template.md) |
 | 폴더 구조 | [folder-blueprint.md](../../contexts/folder-blueprint.md) |
 
+## 필수 체크 항목
+
+규칙 소스 전체를 대조하되, 다음 항목은 누락 없이 확인한다:
+
+- **Official Answer 언어**: Official Answer/Official Annotation 본문이 공식 문서 원문(대체로 영어)으로 유지되어 있는가. 한글 의역·요약으로 대체된 경우 위반.
+- **목차-본문 순서**: Questions 목차와 Answers 본문의 질문 순서가 1:1로 일치하는가.
+
+각 항목에서 위반 발견 시 아래 "## 검증 및 수정" 절차에 따라 처리한다.
+
 ## 검증 및 수정
 
 1. 대상 파일을 규칙 소스와 대조하여 위반을 찾는다

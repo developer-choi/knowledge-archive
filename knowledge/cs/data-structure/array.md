@@ -46,7 +46,7 @@ A subarray is a contiguous part of an array, formed by selecting one or more con
 
 ## 배열이 왜 필요한가?
 
-### User Annotation
+### User Answer
 학생 5명의 이름을 저장해야할 일이 있을 때 string 변수 5개 만들면 관리하기 너무힘들어짐. (6명된다거나 등등)
 
 ### Reference
@@ -103,8 +103,9 @@ Since items/references are stored at contiguous memory locations, we get the adv
 ### Official Answer
 It is not useful in places where we have operations like insert in the middle, delete from middle and search in a unsorted data.
 
-1. **Insertion/Deletion**: 삽입, 삭제가 O(n)임.
-2. **Searching**: sorted array + binary search인 경우에 한해 O(log n)이지, 그 외 나머지 전부 O(n)임.
+> #### User Annotation:
+> 1. **Insertion/Deletion**: 삽입, 삭제가 O(n)임.
+> 2. **Searching**: sorted array + binary search인 경우에 한해 O(log n)이지, 그 외 나머지 전부 O(n)임.
 
 ### Reference
 - https://www.geeksforgeeks.org/introduction-to-arrays-data-structure-and-algorithm-tutorials/

@@ -4,7 +4,7 @@ tags: [algorithm, concept]
 # Questions
 - What kind of algorithms exist?
 - Divide and Conquer란?
-- 알고리즘 평가 기준 3가지는?
+- 알고리즘 평가의 핵심 기준은?
 
 ---
 
@@ -43,9 +43,13 @@ It works on the principle of divide and conquer, breaking down the problem into 
 
 ---
 
-## 알고리즘 평가 기준 3가지는?
+## 알고리즘 평가의 핵심 기준은?
 
 ### Official Answer
+Analysis of Algorithms is a fundamental aspect of computer science that involves evaluating performance of algorithms and programs.
+Efficiency is measured in terms of time and space.
+
+### User Answer
 1. 시간 복잡도 — 빠를수록 좋다.
 2. 공간 복잡도 — 메모리를 적게 쓸수록 좋다.
 3. 구현 복잡도 — 구현 방법이 간단할수록 좋다.
