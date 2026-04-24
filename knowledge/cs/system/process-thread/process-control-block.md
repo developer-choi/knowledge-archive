@@ -17,7 +17,7 @@ tags: [os, concept]
 
 ### Official Answer
 The operating system holds most of this information about active processes in data structures called process control blocks.
-Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads in operating systems that support threads or child processes.
+Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads.
 
 > #### Official Annotation:
 > A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
