@@ -3,7 +3,6 @@ tags: [react, concept]
 ---
 # Questions
 - React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
-- React에서 imperative 폼을 declarative하게 재구현할 때, `useState` 코드나 이벤트 핸들러를 짜기 전에 먼저 해야 하는 일은 무엇이며 왜 그래야 하는가?
 - React 컴포넌트에서 visual states를 `useState`로 메모리에 표현할 때 따라야 하는 핵심 원칙은 무엇이며, 왜 그런가?
 - `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
 - `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
@@ -59,28 +58,6 @@ This is similar to how designers think about UI.
 - https://react.dev/learn/managing-state
 - https://react.dev/learn/reacting-to-input-with-state
 - 명령형/선언형 패러다임 일반론: [declarative-vs-imperative.md](../../../cs/software-engineering/principles/declarative-vs-imperative.md)
-
----
-
-## React에서 imperative 폼을 declarative하게 재구현할 때, `useState` 코드나 이벤트 핸들러를 짜기 전에 먼저 해야 하는 일은 무엇이며 왜 그래야 하는가?
-
-### Official Answer
-First, you need to visualize all the different "states" of the UI the user might see.
-Just like a designer, you'll want to "mock up" or create "mocks" for the different states before you add logic.
-
-> #### Key Terms:
-> - **visualize**: UI가 보일 모든 모습을 눈에 보이는 형태(종이, 목업, 머릿속 이미지)로 그리기
-> - **states**: UI가 취할 수 있는 화면들 (Empty, Typing, Submitting, Success, Error 등)
-> - **mock up / mocks**: 로직 없이 시각만 담은 결과물. prop 하나(`status`)로 상태를 외부 주입하여 고정 렌더링
-> - **before you add logic**: 이벤트 핸들러·`useState` 붙이기 전에 수행
-
-> #### Official Annotation:
-> In computer science, you may hear about a "state machine" being in one of several "states".
-> If you work with a designer, you may have seen mockups for different "visual states".
-> React stands at the intersection of design and computer science, so both of these ideas are sources of inspiration.
-
-### Reference
-- https://react.dev/learn/reacting-to-input-with-state
 
 ---
 
