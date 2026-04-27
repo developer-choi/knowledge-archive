@@ -448,21 +448,6 @@ To remove the "impossible" state, you can combine these into a `status` that mus
 > - **combine these into a `status`**: boolean들을 enum(union 문자열) 하나로 합쳐 유효 값만 취할 수 있게 제약
 > - **leaves the door open**: 직접 만들지 않더라도 만들어질 가능성 자체가 열려있음
 
-> #### Official Annotation:
-> While this code works, it leaves the door open for "impossible" states.
-> For example, if you forget to call setIsSent and setIsSending together, you may end up in a situation where both isSending and isSent are true at the same time.
-> The more complex your component is, the harder it is to understand what happened.
->
-> 출처: https://react.dev/learn/choosing-the-state-structure
-
-> #### Official Annotation:
-> You can still declare some constants for readability:
-> `const isSending = status === 'sending';`
-> `const isSent = status === 'sent';`
-> But they're not state variables, so you don't need to worry about them getting out of sync with each other.
->
-> 출처: https://react.dev/learn/choosing-the-state-structure
-
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
 - https://react.dev/learn/choosing-the-state-structure
