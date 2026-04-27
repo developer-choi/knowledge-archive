@@ -3,7 +3,7 @@ tags: [react, concept]
 ---
 # Questions
 - React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
-- React 컴포넌트에서 visual states를 `useState`로 메모리에 표현할 때 따라야 하는 핵심 원칙은 무엇이며, 왜 그런가?
+- `useState()`로 만든 state 변수들은 잘게 쪼개는 게 좋은가, 합치는 게 좋은가? 많아지면 어떤 문제가 있고, 어떤 기준으로 합치거나 쪼개야 하는가?
 - `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
 - `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
 - React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
@@ -61,7 +61,7 @@ This is similar to how designers think about UI.
 
 ---
 
-## React 컴포넌트에서 visual states를 `useState`로 메모리에 표현할 때 따라야 하는 핵심 원칙은 무엇이며, 왜 그런가?
+## `useState()`로 만든 state 변수들은 잘게 쪼개는 게 좋은가, 합치는 게 좋은가? 많아지면 어떤 문제가 있고, 어떤 기준으로 합치거나 쪼개야 하는가?
 
 ### Official Answer
 Simplicity is key: each piece of state is a "moving piece", and you want as few "moving pieces" as possible.
