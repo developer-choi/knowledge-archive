@@ -18,17 +18,16 @@ tags: [react, concept]
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
 - Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
 - 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
-- [TODO] (면접) '상태관리 어떻게 하세요?'
-  - (면접 꼬리) 그럼 불필요한 상태가 어떤 게 있나요?
+- [TODO] '상태관리 어떻게 하세요?'
+  - 그럼 불필요한 상태가 어떤 게 있나요?
     - Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
     - 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
-  - [TODO] (면접 꼬리) 로컬 상태에서 useState와 useReducer는 어떤 기준으로 갈라쓰나요?
-  - [TODO] (면접 꼬리) 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요? — 변경 빈도가 핵심
-  - [TODO] (면접 꼬리) 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-  - [TODO] (면접 꼬리) overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
-  - [TODO] (면접 꼬리) Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기며, 어떻게 대응하나요? — Provider 분리, useSyncExternalStore(R18) 등
+  - [TODO] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+    - Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
+  - [TODO] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+  - [TODO] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ---
 
@@ -604,12 +603,12 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [TODO] (면접) '상태관리 어떻게 하세요?'
+## [TODO] '상태관리 어떻게 하세요?'
 
 ### User Answer
 (작성 예정 — 4단계 사다리)
-- step 1: 필요없는 state부터 삭제 (자세한 내용은 아래 "(면접 꼬리) 불필요한 상태" 참고)
-- step 2: 로컬 상태 — 단순값은 useState, 복잡한 전이/이전 상태 의존은 useReducer
+- step 1: 필요없는 state부터 삭제 (자세한 내용은 아래 "그럼 불필요한 상태가 어떤 게 있나요?" 참고)
+- step 2: 로컬 상태는 useState
 - step 3: 전역 상태 — 변경 빈도로 갈라치기. 거의 안 바뀌는 값(테마/언어/유저)은 Context, 자주 바뀌는 값은 외부 store(Zustand 등)
 - step 4: 특화 상태는 별도 분리 — 서버 상태는 React Query, overlay 같은 UI 특화 상태는 overlay-kit
 
@@ -617,45 +616,44 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [TODO] (면접 꼬리) 로컬 상태에서 useState와 useReducer는 어떤 기준으로 갈라쓰나요?
-
-### Reference
-- https://react.dev/learn/extracting-state-logic-into-a-reducer
-
----
-
-## [TODO] (면접 꼬리) 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+## [TODO] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
 
 ### Reference
 
 ---
 
-## [TODO] (면접 꼬리) 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+## [TODO] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
 
 ### Reference
 
 ---
 
-## [TODO] (면접 꼬리) overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+## [TODO] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ### Reference
 
 ---
 
-## [TODO] (면접 꼬리) Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기며, 어떻게 대응하나요?
+## Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
 
-### Review Note
-대응 방법 학습 시 다룰 키워드:
-- Provider 분리 (state context와 dispatch context를 따로 두는 패턴 — Scaling Up with Reducer and Context 참고)
-- `useSyncExternalStore` (R18) — 외부 store 구독을 React에 안전하게 연결, Context 리렌더 우회 가능
+### Official Answer
+React automatically re-renders all the children that use a particular context starting from the provider that receives a different value.
+The previous and the next values are compared with the `Object.is` comparison.
+Skipping re-renders with `memo` does not prevent the children receiving fresh context values.
+
+> #### Key Terms:
+> - **all the children that use a particular context**: 그 Provider 아래에서 같은 context를 `useContext`한 모든 자식 — 일부 필드만 읽어도 전부 대상
+> - **starting from the provider that receives a different value**: 트리거 시점은 Provider value가 달라진 그 순간부터
+> - **`Object.is` comparison**: 참조 비교. 객체/함수 리터럴을 매 렌더 새로 만들면 안의 값이 같아도 "달라짐"으로 판정
+> - **Skipping re-renders with `memo`**: `React.memo`로 자식을 감싸 props 변화 없으면 리렌더 스킵하는 최적화
+> - **does not prevent**: context 채널은 props 비교를 우회하므로 memo로 막을 수 없다
 
 ### Reference
-- https://react.dev/learn/scaling-up-with-reducer-and-context
-- https://react.dev/reference/react/useSyncExternalStore
+- https://react.dev/reference/react/useContext#caveats
 
 ---
 
-## (면접 꼬리) 그럼 불필요한 상태가 어떤 게 있나요?
+## 그럼 불필요한 상태가 어떤 게 있나요?
 
 ### Official Answer
 Group related state. If you always update two or more state variables at the same time, consider merging them into a single state variable.
