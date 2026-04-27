@@ -52,23 +52,47 @@
 
 ---
 
-## TODO 질문 처리
+## 미완성 질문 처리
 
-답변이 아직 작성되지 않은 질문은 다음과 같이 처리합니다:
+답변이 미완성인 질문은 두 마커로 구분한다. Questions 목록과 Answers 섹션 양쪽에 동일 마커를 동기화한다.
 
-1. **Questions 목록**: 질문 왼쪽에 `[TODO]` 접두사를 붙입니다.
-   ```markdown
-   - [TODO] 도메인이란 무엇인가?
-   ```
+### `[BACKLOG]` — 임시 메모
 
-2. **Answers 섹션**: 제목과 하위 구조(Keywords, Official Answer 등)를 미리 만들어두되 내용은 비워둡니다.
-   ```markdown
-   ## [TODO] 도메인이란 무엇인가?
-   
-   ### Official Answer
+질문 자체가 미정·미뤄둠 상태. AI Answer / Official Answer 모두 비어 있다. `/review` 면접 연습 풀에서 영구 제외된다.
 
-   ### Reference
-   ```
+```markdown
+- [BACKLOG] 도메인이란 무엇인가?
+
+## [BACKLOG] 도메인이란 무엇인가?
+
+### Official Answer
+
+### Reference
+```
+
+### `[UNVERIFIED]` — 잠정 답변, 출처 미확보
+
+질문은 확정. `### AI Answer`가 채워져 있고 `### Official Answer`는 비어 있다. `### Reference`에 후보 출처 URL을 둘 수 있다. `/review`에서 ⚠️ 경고와 함께 AI Answer 기준으로 채점된다.
+
+```markdown
+- [UNVERIFIED] 도메인이란 무엇인가?
+
+## [UNVERIFIED] 도메인이란 무엇인가?
+
+### AI Answer
+(AI 추정 답변)
+
+### Official Answer
+
+### Reference
+- https://...
+```
+
+### 상태 흐름
+
+- 무언가 떠오름 → `[BACKLOG]`로 메모만 남김
+- 면접 연습에 넣을 가치가 판단되면 → AI Answer를 채우고 `[UNVERIFIED]`로 승격
+- 공식 출처를 찾으면 → 마커 제거하고 Official Answer 채움. AI Answer는 삭제하거나 AI Annotation으로 강등
 
 ---
 
@@ -80,7 +104,7 @@
 |---|---|
 | `# Questions` | 질문 목차 |
 | `# Answers` | 답변 본문 |
-| `# TODO` | 문서 자체가 TODO |
+| `# BACKLOG` | 문서 자체가 임시 (질문 골격만 작성된 상태) |
 
 이 외의 H1 헤딩(문서 제목 등)은 사용하지 않는다.
 

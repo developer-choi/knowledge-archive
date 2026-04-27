@@ -30,7 +30,7 @@ Official document text or objective fact.
 ### User Answer
 (사용자의 해석, 경험 기반 답변)
 
-### TODO
+### BACKLOG
 (메모 수준의 미완성 답변)
 
 ### Review Note
