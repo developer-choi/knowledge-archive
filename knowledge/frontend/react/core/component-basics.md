@@ -4,7 +4,10 @@ tags: [react, concept]
 # Questions
 - Component와 Element의 차이는 무엇이며, Component는 개념적으로 무엇과 유사한가?
 - state에는 어떤 값을 저장하는 것이 좋은가?
-- React 컴포넌트의 lifecycle 3단계(마운트/업데이트/언마운트)는 각각 언제 일어나는가?
+- React 컴포넌트의 lifecycle을 설명하라.
+  - 업데이트 phase에서 같은 타입의 DOM 엘리먼트는 어떻게 처리되며, 어떤 부분만 실제 DOM에 반영되는가?
+  - 업데이트 phase에서 같은 타입의 컴포넌트는 어떻게 처리되며, 그 결과 state는 어떻게 보존되는가?
+  - React가 자식 리스트의 어떤 항목을 재사용(업데이트)하고 어떤 항목을 새로 마운트할지 결정할 때, 기본 매칭 방식은 무엇이며 그 한계는 무엇인가?
 
 ---
 
@@ -70,7 +73,7 @@ state는 다음 세 가지 특성을 가진다.
 
 ---
 
-## React 컴포넌트의 lifecycle 3단계(마운트/업데이트/언마운트)는 각각 언제 일어나는가?
+## React 컴포넌트의 lifecycle을 설명하라.
 
 ### User Answer
 주로 사용하는 lifecycle은 총 3가지로, 마운트 → 업데이트 → 언마운트 순서로 일어난다.
@@ -81,3 +84,107 @@ state는 다음 세 가지 특성을 가진다.
 업데이트는, 화면이 업데이트 되고 난 이후이다.
 
 언마운트는, 컴포넌트가 반환했던 elements가 제거되기 직전이다.
+
+---
+
+## 업데이트 phase에서 같은 타입의 DOM 엘리먼트는 어떻게 처리되며, 어떤 부분만 실제 DOM에 반영되는가?
+
+### Official Answer
+When comparing two React DOM elements of the same type, React looks at the attributes of both, keeps the same underlying DOM node, and only updates the changed attributes.
+For example:
+
+```jsx
+<div className="before" title="stuff" />
+
+<div className="after" title="stuff" />
+```
+
+By comparing these two elements, React knows to only modify the className on the underlying DOM node.
+
+When updating style, React also knows to update only the properties that changed.
+For example:
+
+```jsx
+<div style={{color: 'red', fontWeight: 'bold'}} />
+
+<div style={{color: 'green', fontWeight: 'bold'}} />
+```
+
+When converting between these two elements, React knows to only modify the color style, not the fontWeight.
+
+After handling the DOM node, React then recurses on the children.
+
+> #### Key Terms:
+> - **underlying DOM node**: React 엘리먼트(VDOM) 뒤에 있는 실제 브라우저 DOM 노드
+> - **attributes**: `className`, `title` 같은 HTML 속성
+> - **recurses on the children**: 같은 diff 절차를 자식 트리에 그대로 적용
+
+> #### AI Annotation:
+> 노드를 유지한다는 건 focus, scroll 위치, 입력값 같은 DOM 자체의 상태가 보존된다는 뜻이다.
+> 만약 매번 새 DOM 노드를 만들었다면 input에 글자 치다가 부모 state 바뀔 때마다 focus가 풀리고 입력이 끊긴다.
+
+### Reference
+- https://legacy.reactjs.org/docs/reconciliation.html
+
+---
+
+## 업데이트 phase에서 같은 타입의 컴포넌트는 어떻게 처리되며, 그 결과 state는 어떻게 보존되는가?
+
+### Official Answer
+When a component updates, the instance stays the same, so that state is maintained across renders.
+React updates the props of the underlying component instance to match the new element, and calls UNSAFE_componentWillReceiveProps(), UNSAFE_componentWillUpdate() and componentDidUpdate() on the underlying instance.
+
+Next, the render() method is called and the diff algorithm recurses on the previous result and the new result.
+
+> #### Key Terms:
+> - **instance**: 컴포넌트의 실체. 클래스면 `this`가 가리키는 객체, 함수 컴포넌트면 React 내부 fiber에 묶인 hook 상태의 묶음
+> - **maintained across renders**: 렌더가 다시 일어나도 보존됨
+
+> #### AI Annotation:
+> "왜 useState 값이 다음 렌더에서도 살아있는가"의 답이 여기 있다 — 인스턴스가 같기 때문.
+> 반대로 reconciliation에서 타입이 바뀌거나 부모 트리가 해체되면 인스턴스 자체가 새로 만들어지므로 state가 초기값으로 돌아간다.
+>
+> 본문에 등장하는 `UNSAFE_componentWillReceiveProps`, `UNSAFE_componentWillUpdate`는 legacy class lifecycle이며, 함수 컴포넌트 환경에서는 신경 쓸 필요 없다.
+
+### Reference
+- https://legacy.reactjs.org/docs/reconciliation.html
+
+---
+
+## React가 자식 리스트의 어떤 항목을 재사용(업데이트)하고 어떤 항목을 새로 마운트할지 결정할 때, 기본 매칭 방식은 무엇이며 그 한계는 무엇인가?
+
+### Official Answer
+By default, when recursing on the children of a DOM node, React just iterates over both lists of children at the same time and generates a mutation whenever there's a difference.
+
+If you implement it naively, inserting an element at the beginning has worse performance.
+For example, converting between these two trees works poorly:
+
+```jsx
+<ul>
+  <li>Duke</li>
+  <li>Villanova</li>
+</ul>
+
+<ul>
+  <li>Connecticut</li>
+  <li>Duke</li>
+  <li>Villanova</li>
+</ul>
+```
+
+React will mutate every child instead of realizing it can keep the `<li>Duke</li>` and `<li>Villanova</li>` subtrees intact.
+This inefficiency can be a problem.
+
+> #### Key Terms:
+> - **iterates over both lists at the same time**: 두 리스트를 인덱스 0부터 짝지어 동시에 순회 — 위치 기반 매칭
+> - **mutation**: DOM에 가할 변경 명령 (속성 변경, 추가, 제거)
+> - **naively**: key 없이 순진하게 위치 기반으로만 매칭하는 구현
+> - **intact**: 그대로 유지된 상태
+
+> #### AI Annotation:
+> 인덱스 0이 `Duke → Connecticut`, 인덱스 1이 `Villanova → Duke`, 인덱스 2는 새로 추가된 `Villanova`로 보여서 실제로는 단순 prepend인데도 모든 자식이 mutate된다.
+> 자식이 컴포넌트라면 인스턴스가 재사용되지 않고 새로 마운트되어 그 안의 state까지 함께 사라진다.
+> 다음 절(Keys)이 이 문제의 해결책 — `key`로 위치 대신 식별자 기반 매칭으로 바꾼다.
+
+### Reference
+- https://legacy.reactjs.org/docs/reconciliation.html
