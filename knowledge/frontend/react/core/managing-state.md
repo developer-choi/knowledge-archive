@@ -5,7 +5,7 @@ tags: [react, concept]
 - React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
 - React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
 - React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
-- "state는 컴포넌트 안에 산다"는 멘탈 모델은 정확한가? 정확하지 않다면 실제로는 어떻게 보관되는가?
+- 컴포넌트 함수는 매 렌더마다 새로 호출되는데, `useState`로 만든 값이 직전 값을 기억하는 메커니즘은 무엇인가?
 - 다른 컴포넌트 함수 본문 안에 컴포넌트 함수를 중첩 정의하면 어떤 문제가 생기는가?
 - `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 - `key`는 전역으로 유일해야 하는가?
@@ -108,7 +108,7 @@ If it gets removed, or a different component gets rendered at the same position,
 
 ---
 
-## "state는 컴포넌트 안에 산다"는 멘탈 모델은 정확한가? 정확하지 않다면 실제로는 어떻게 보관되는가?
+## 컴포넌트 함수는 매 렌더마다 새로 호출되는데, `useState`로 만든 값이 직전 값을 기억하는 메커니즘은 무엇인가?
 
 ### Official Answer
 When you give a component state, you might think the state "lives" inside the component.
