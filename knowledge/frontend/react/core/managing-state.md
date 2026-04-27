@@ -5,7 +5,6 @@ tags: [react, concept]
 - React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
 - `useState()`로 만든 state 변수들은 잘게 쪼개는 게 좋은가, 합치는 게 좋은가? 많아지면 어떤 문제가 있고, 어떤 기준으로 합치거나 쪼개야 하는가?
 - `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
-- `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
 - React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
 - React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
 - "state는 컴포넌트 안에 산다"는 멘탈 모델은 정확한가? 정확하지 않다면 실제로는 어떻게 보관되는가?
@@ -90,21 +89,6 @@ Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
 > - **same information available in another state variable**: 이미 다른 state에서 도출 가능한 정보
 > - **going out of sync**: 짝으로 갱신해야 하는 state들이 한쪽만 갱신되어 불일치
 > - **remove `isEmpty` and instead check `answer.length === 0`**: state 변수를 제거하고 매 렌더 시 파생 표현식으로 계산. source of truth는 `answer` 하나
-
-### Reference
-- https://react.dev/learn/reacting-to-input-with-state
-
----
-
-## `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
-
-### Official Answer
-Can you get the same information from the inverse of another state variable?
-`isError` is not needed because you can check `error !== null` instead.
-
-> #### Key Terms:
-> - **inverse of another state variable**: 다른 state의 null 체크·존재 여부 등으로 도출 가능한 정보
-> - **`error !== null`**: `error` 자체가 에러 내용과 존재 유무를 모두 담으므로 `isError`는 파생 표현식으로 충분
 
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
