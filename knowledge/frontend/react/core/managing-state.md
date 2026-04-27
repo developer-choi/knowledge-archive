@@ -377,11 +377,6 @@ More complexity leads to more bugs!
 > - **as few moving pieces as possible**: 동기화·일관성 관리 대상이 곱셈으로 늘어나므로 개수 자체를 최소화
 > - **More complexity leads to more bugs**: state가 N개면 조합이 2^N으로 증가. 복잡도 자체가 버그 표면
 
-Group related state. If you always update two or more state variables at the same time, consider merging them into a single state variable.
-Avoid contradictions in state. When the state is structured in a way that several pieces of state may contradict and "disagree" with each other, you leave room for mistakes. Try to avoid this.
-Avoid redundant state. If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
-Avoid deeply nested state. Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
-
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
 - https://react.dev/learn/choosing-the-state-structure
@@ -392,7 +387,7 @@ Avoid deeply nested state. Deeply hierarchical state is not very convenient to u
 
 ### Official Answer
 But if some two state variables always change together, it might be a good idea to unify them into a single state variable.
-Then you won't forget to always keep them in sync, like in this example where moving the cursor updates both coordinates of the red dot.
+Then you won't forget to always keep them in sync.
 
 > #### Key Terms:
 > - **always change together**: 항상 같이 바뀌는 — 어느 이벤트에서든 둘 다 갱신되는 패턴
@@ -440,15 +435,6 @@ Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
 > - **going out of sync**: 짝으로 갱신해야 하는 state들이 한쪽만 갱신되어 불일치
 > - **remove `isEmpty` and instead check `answer.length === 0`**: state 변수를 제거하고 매 렌더 시 파생 표현식으로 계산. source of truth는 `answer` 하나
 
-If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
-You can always calculate fullName from firstName and lastName during render, so remove it from state.
-As a result, the change handlers don't need to do anything special to update it.
-When you call setFirstName or setLastName, you trigger a re-render, and then the next fullName will be calculated from the fresh data.
-
-> #### Key Terms:
-> - **calculate ... during rendering**: 매 렌더에 derive 가능 — 다른 source로부터 산출 가능
-> - **redundant**: 같은 정보가 두 군데(원본 + 사본)에 보관되어 동기화 부담을 만드는 상태
-
 > #### Official Annotation:
 > A common example of redundant state is code like this:
 > `function Message({ messageColor }) { const [color, setColor] = useState(messageColor); }`
@@ -476,8 +462,6 @@ When you call setFirstName or setLastName, you trigger a re-render, and then the
 
 ### Official Answer
 Updating nested state involves making copies of objects all the way up from the part that changed.
-Deleting a deeply nested place would involve copying its entire parent place chain.
-Such code can be very verbose.
 If the state is too nested to update easily, consider making it "flat".
 Instead of a tree-like structure where each place has an array of its child places, you can have each place hold an array of its child place IDs.
 Then store a mapping from each place ID to the corresponding place.
@@ -500,16 +484,9 @@ Now that the state is "flat" (also known as "normalized"), updating nested items
 >
 > 출처: https://react.dev/learn/choosing-the-state-structure
 
-> #### Official Annotation:
-> Sometimes, you can also reduce state nesting by moving some of the nested state into the child components.
-> This works well for ephemeral UI state that doesn't need to be stored, like whether an item is hovered.
->
-> 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Improving memory usage)
-
 > #### AI Annotation:
 > 핵심 효과: 트리 깊이와 무관하게 update 비용이 항상 2단계 복사 — `O(depth)`가 `O(1)`로 떨어진다.
 > "DB 정규화"는 비유가 아니라 실제 같은 알고리즘 — 행(row) = 평면 객체, primary key = id, foreign key = childIds.
-> ephemeral UI state(hover, focus, expand 등) 자식 위임은 별개 기법이지만 같은 목적: 부모 state 평탄화.
 
 ### Reference
 - https://react.dev/learn/choosing-the-state-structure
