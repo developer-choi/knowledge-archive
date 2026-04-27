@@ -6,16 +6,21 @@ tags: [react, concept]
 - imperative 방식으로 UI를 조작하는 코드는 폼 하나에서는 잘 작동한다. 여러 폼이 섞인 복잡한 시스템으로 규모가 커지면 어떤 문제가 생기는가?
 - React에서 imperative 폼을 declarative하게 재구현할 때, `useState` 코드나 이벤트 핸들러를 짜기 전에 먼저 해야 하는 일은 무엇이며 왜 그래야 하는가?
 - React 컴포넌트에서 visual states를 `useState`로 메모리에 표현할 때 따라야 하는 핵심 원칙은 무엇이며, 왜 그런가?
-- 두 boolean state가 동시에 `true`가 될 수 없는 경우가 있다면, 이 설계에 어떤 문제가 있고 어떻게 리팩토링하는가? (예: `isTyping`과 `isSubmitting`)
 - `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
 - `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
 - React declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
-- [TODO] state 구조를 설계할 때 어떤 원칙들을 따라야 하는가? (Choosing the State Structure)
+- React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
 - [TODO] 여러 컴포넌트가 같은 state를 공유해야 할 때 어떻게 구조화하는가? (Sharing State Between Components / lifting state up)
 - [TODO] React는 컴포넌트 트리에서 state를 언제 유지하고 언제 리셋하는가? `key` prop의 역할은? (Preserving and Resetting State)
 - [TODO] `useState` 대신 `useReducer`로 state 로직을 분리해야 하는 시점은? 전환 방법은? (Extracting State Logic into a Reducer)
 - [TODO] Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는? (Passing Data Deeply with Context)
 - [TODO] reducer와 context를 함께 쓰는 패턴은 어떻게 구성되며 어떤 규모에서 유용한가? (Scaling Up with Reducer and Context)
+- [TODO] (면접) '상태관리 어떻게 하세요?' — 필요 없는 state 줄이기부터 외부 상태관리 라이브러리 사용 판단까지
+  - (면접 꼬리) 그럼 불필요한 상태가 어떤 게 있나요?
+    - Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
+    - Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
+    - state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
+    - 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
 
 ---
 
@@ -181,27 +186,6 @@ More complexity leads to more bugs!
 
 ---
 
-## 두 boolean state가 동시에 `true`가 될 수 없는 경우가 있다면, 이 설계에 어떤 문제가 있고 어떻게 리팩토링하는가? (예: `isTyping`과 `isSubmitting`)
-
-### Official Answer
-Does this state cause a paradox?
-For example, `isTyping` and `isSubmitting` can't both be `true`.
-A paradox usually means that the state is not constrained enough.
-There are four possible combinations of two booleans, but only three correspond to valid states.
-To remove the "impossible" state, you can combine these into a `status` that must be one of three values: `'typing'`, `'submitting'`, or `'success'`.
-
-> #### Key Terms:
-> - **paradox**: 논리적으로 동시에 성립할 수 없는 state 조합이 표현 가능한 상황
-> - **not constrained enough**: state 타입이 invalid 조합을 허용할 만큼 느슨함
-> - **four possible combinations / only three correspond to valid states**: 두 boolean = 4조합, 유효는 3개. 남는 1개가 "impossible" state
-> - **impossible state**: 현실 UI에 대응하지 않지만 메모리에는 표현 가능한 조합
-> - **combine these into a `status`**: boolean들을 enum(union 문자열) 하나로 합쳐 유효 값만 취할 수 있게 제약
-
-### Reference
-- https://react.dev/learn/reacting-to-input-with-state
-
----
-
 ## `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
 
 ### Official Answer
@@ -355,9 +339,25 @@ It also lets you change what should be displayed in each state without changing 
 
 ---
 
-## [TODO] state 구조를 설계할 때 어떤 원칙들을 따라야 하는가? (Choosing the State Structure)
+## React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
 
 ### Official Answer
+The goal behind these principles is to make state easy to update without introducing mistakes.
+Removing redundant and duplicate data from state helps ensure that all its pieces stay in sync.
+This is similar to how a database engineer might want to "normalize" the database structure to reduce the chance of bugs.
+To paraphrase Albert Einstein, "Make your state as simple as it can be—but no simpler."
+
+> #### Key Terms:
+> - **easy to update without introducing mistakes**: 5원칙의 공통 목표 — "버그 없이 + 쉽게" 모두 충족
+> - **stay in sync**: 여러 state 조각이 일관성을 유지한 상태. redundant/duplicate가 있으면 깨질 수 있음
+> - **normalize**: DB 정규화 — 데이터를 중복 없이 분해하여 한 곳만 수정해도 모든 참조가 갱신되도록 하는 설계 원칙
+> - **paraphrase**: 의역, 다른 말로 바꿔 말하기
+> - **as simple as it can be—but no simpler**: 가능한 한 단순하게, 그러나 표현력 잃을 정도로 단순화하지 말 것
+
+> #### AI Annotation:
+> 5원칙(Group, Avoid contradictions, Avoid redundant, Avoid duplication, Avoid deeply nested)을 따로따로가 아니라 한 사고체계로 묶는 추상화. 모두 "동기화 부담을 없앤다"는 한 가지 원리에서 파생된다.
+> DB 정규화 비유의 본질: 같은 데이터가 두 곳에 있으면 동기화 부담이 생기지만, 한 곳에만 두면 동기화할 게 없으니 동기화 실수도 사라진다. React state도 정확히 같은 사고.
+> Einstein 인용("as simple as it can be—but no simpler")은 단서 역할 — 무조건 합치라는 뜻이 아니라 표현력을 잃지 않는 선까지만 단순화하라는 것. 두 변수를 무리하게 합쳐서 의미가 모호해지면 그건 "더 단순화한 것"이라 안 된다.
 
 ### Reference
 - https://react.dev/learn/choosing-the-state-structure
@@ -406,3 +406,160 @@ It also lets you change what should be displayed in each state without changing 
 
 ### Reference
 - https://react.dev/learn/scaling-up-with-reducer-and-context
+
+---
+
+## [TODO] (면접) '상태관리 어떻게 하세요?' — 필요 없는 state 줄이기부터 외부 상태관리 라이브러리 사용 판단까지
+
+### User Answer
+(작성 예정 — step 1: 불필요한 상태 안 만들기 / step 2 ~ N / 외부 상태관리 라이브러리 도입 판단)
+
+### Reference
+
+---
+
+## (면접 꼬리) 그럼 불필요한 상태가 어떤 게 있나요?
+
+### Official Answer
+Group related state. If you always update two or more state variables at the same time, consider merging them into a single state variable.
+Avoid contradictions in state. When the state is structured in a way that several pieces of state may contradict and "disagree" with each other, you leave room for mistakes. Try to avoid this.
+Avoid redundant state. If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
+Avoid deeply nested state. Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
+
+### Reference
+- https://react.dev/learn/choosing-the-state-structure
+
+---
+
+## Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
+
+### Official Answer
+But if some two state variables always change together, it might be a good idea to unify them into a single state variable.
+Then you won't forget to always keep them in sync, like in this example where moving the cursor updates both coordinates of the red dot.
+Another case where you'll group data into an object or an array is when you don't know how many pieces of state you'll need.
+For example, it's helpful when you have a form where the user can add custom fields.
+
+> #### Key Terms:
+> - **always change together**: 항상 같이 바뀌는 — 어느 이벤트에서든 둘 다 갱신되는 패턴
+> - **unify**: 통합. 한 객체/배열 state로 합침
+> - **forget to ... keep them in sync**: 동기화 실수의 원천 — `setX`만 호출하고 `setY` 빼먹음
+> - **don't know how many pieces of state**: state 변수 개수가 런타임에 결정되는 경우. 예: 사용자가 커스텀 필드를 추가하는 폼
+
+### Reference
+- https://react.dev/learn/choosing-the-state-structure
+
+---
+
+## Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
+
+### Official Answer
+Does this state cause a paradox?
+For example, `isTyping` and `isSubmitting` can't both be `true`.
+A paradox usually means that the state is not constrained enough.
+There are four possible combinations of two booleans, but only three correspond to valid states.
+To remove the "impossible" state, you can combine these into a `status` that must be one of three values: `'typing'`, `'submitting'`, or `'success'`.
+
+> #### Key Terms:
+> - **paradox**: 논리적으로 동시에 성립할 수 없는 state 조합이 표현 가능한 상황
+> - **not constrained enough**: state 타입이 invalid 조합을 허용할 만큼 느슨함
+> - **four possible combinations / only three correspond to valid states**: 두 boolean = 4조합, 유효는 3개. 남는 1개가 "impossible" state
+> - **impossible state**: 현실 UI에 대응하지 않지만 메모리에는 표현 가능한 조합
+> - **combine these into a `status`**: boolean들을 enum(union 문자열) 하나로 합쳐 유효 값만 취할 수 있게 제약
+> - **leaves the door open**: 직접 만들지 않더라도 만들어질 가능성 자체가 열려있음
+
+> #### Official Annotation:
+> While this code works, it leaves the door open for "impossible" states.
+> For example, if you forget to call setIsSent and setIsSending together, you may end up in a situation where both isSending and isSent are true at the same time.
+> The more complex your component is, the harder it is to understand what happened.
+>
+> 출처: https://react.dev/learn/choosing-the-state-structure
+
+> #### Official Annotation:
+> You can still declare some constants for readability:
+> `const isSending = status === 'sending';`
+> `const isSent = status === 'sent';`
+> But they're not state variables, so you don't need to worry about them getting out of sync with each other.
+>
+> 출처: https://react.dev/learn/choosing-the-state-structure
+
+### Reference
+- https://react.dev/learn/reacting-to-input-with-state
+- https://react.dev/learn/choosing-the-state-structure
+
+---
+
+## state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
+
+### Official Answer
+If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
+You can always calculate fullName from firstName and lastName during render, so remove it from state.
+As a result, the change handlers don't need to do anything special to update it.
+When you call setFirstName or setLastName, you trigger a re-render, and then the next fullName will be calculated from the fresh data.
+
+> #### Key Terms:
+> - **calculate ... during rendering**: 매 렌더에 derive 가능 — 다른 source로부터 산출 가능
+> - **redundant**: 같은 정보가 두 군데(원본 + 사본)에 보관되어 동기화 부담을 만드는 상태
+
+> #### Official Annotation:
+> A common example of redundant state is code like this:
+> `function Message({ messageColor }) { const [color, setColor] = useState(messageColor); }`
+> The problem is that if the parent component passes a different value of messageColor later (for example, 'red' instead of 'blue'), the color state variable would not be updated!
+> The state is only initialized during the first render.
+> This is why "mirroring" some prop in a state variable can lead to confusion.
+> Instead, use the messageColor prop directly in your code. If you want to give it a shorter name, use a constant: `const color = messageColor;`
+>
+> 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Don't mirror props in state)
+
+> #### Official Annotation:
+> "Mirroring" props into state only makes sense when you want to ignore all updates for a specific prop.
+> By convention, start the prop name with initial or default to clarify that its new values are ignored:
+> `function Message({ initialColor }) { const [color, setColor] = useState(initialColor); }`
+>
+> 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Don't mirror props in state)
+
+### Reference
+- https://react.dev/learn/choosing-the-state-structure
+
+---
+
+## 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
+
+### Official Answer
+Updating nested state involves making copies of objects all the way up from the part that changed.
+Deleting a deeply nested place would involve copying its entire parent place chain.
+Such code can be very verbose.
+If the state is too nested to update easily, consider making it "flat".
+Instead of a tree-like structure where each place has an array of its child places, you can have each place hold an array of its child place IDs.
+Then store a mapping from each place ID to the corresponding place.
+Now that the state is "flat" (also known as "normalized"), updating nested items becomes easier.
+
+> #### Key Terms:
+> - **all the way up from the part that changed**: 변경 지점부터 root까지 부모 사슬 전체 복사 (immutable 업데이트 원칙)
+> - **parent place chain**: 변경 노드 → 부모 → 조부모 → ... → root
+> - **verbose**: spread 연산이 층마다 반복되어 코드량 폭증
+> - **flat / normalized**: 트리 구조 대신 ID 참조 + ID→객체 lookup 테이블로 재구성. DB 정규화와 같은 사고
+> - **child place IDs**: 자식 객체를 직접 임베드하지 않고 ID 배열로 보관
+
+> #### Official Annotation:
+> In order to remove a place now, you only need to update two levels of state:
+> the updated version of its parent place should exclude the removed ID from its childIds array, and
+> the updated version of the root "table" object should include the updated version of the parent place.
+>
+> You can nest state as much as you like, but making it "flat" can solve numerous problems.
+> It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
+>
+> 출처: https://react.dev/learn/choosing-the-state-structure
+
+> #### Official Annotation:
+> Sometimes, you can also reduce state nesting by moving some of the nested state into the child components.
+> This works well for ephemeral UI state that doesn't need to be stored, like whether an item is hovered.
+>
+> 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Improving memory usage)
+
+> #### AI Annotation:
+> 핵심 효과: 트리 깊이와 무관하게 update 비용이 항상 2단계 복사 — `O(depth)`가 `O(1)`로 떨어진다.
+> "DB 정규화"는 비유가 아니라 실제 같은 알고리즘 — 행(row) = 평면 객체, primary key = id, foreign key = childIds.
+> ephemeral UI state(hover, focus, expand 등) 자식 위임은 별개 기법이지만 같은 목적: 부모 state 평탄화.
+
+### Reference
+- https://react.dev/learn/choosing-the-state-structure
