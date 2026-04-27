@@ -87,3 +87,7 @@ PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우, [
 - **자기모순 스캔**: 각 Q 내부에 상충하는 문장 쌍이 없는가? (예: "증가하는 값이며 랜덤값이다")
 - **확립된 사실 대조**: 표준 수치(IANA 포트 범위, IP 클래스별 비트 수 등)와 핵심 용어 정의(CPU 레지스터·헤더 필드 역할)가 위키피디아 수준의 확립된 지식과 일치하는가? WebFetch 아님, 내부 지식과 대조.
 - 자기모순·사실 오류 발견 시 `User Answer`/`User Annotation`/`AI Annotation`에 한해 정정하고 `Official Answer`는 그대로 둔다. 정정 내역은 사용자 보고서에 기록한다.
+
+### Step 6. 스킬 종료 시
+
+[production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행.

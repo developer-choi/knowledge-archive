@@ -16,16 +16,16 @@ tags: [react, concept]
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
 - Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
 - 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
-- [TODO] '상태관리 어떻게 하세요?'
+- [BACKLOG] '상태관리 어떻게 하세요?'
   - 그럼 불필요한 상태가 어떤 게 있나요?
     - Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
     - 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
-  - [TODO] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+  - [BACKLOG] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
     - Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
-  - [TODO] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-  - [TODO] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+  - [BACKLOG] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+  - [BACKLOG] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ---
 
@@ -391,7 +391,7 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [TODO] '상태관리 어떻게 하세요?'
+## [BACKLOG] '상태관리 어떻게 하세요?'
 
 ### User Answer
 (작성 예정 — 4단계 사다리)
@@ -404,19 +404,19 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [TODO] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+## [BACKLOG] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
 
 ### Reference
 
 ---
 
-## [TODO] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+## [BACKLOG] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
 
 ### Reference
 
 ---
 
-## [TODO] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+## [BACKLOG] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ### Reference
 
