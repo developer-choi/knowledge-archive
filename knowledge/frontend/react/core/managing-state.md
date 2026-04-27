@@ -3,8 +3,6 @@ tags: [react, concept]
 ---
 # Questions
 - React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
-- `useState()`로 만든 state 변수들은 잘게 쪼개는 게 좋은가, 합치는 게 좋은가? 많아지면 어떤 문제가 있고, 어떤 기준으로 합치거나 쪼개야 하는가?
-- `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
 - React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
 - React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
 - "state는 컴포넌트 안에 산다"는 멘탈 모델은 정확한가? 정확하지 않다면 실제로는 어떻게 보관되는가?
@@ -57,41 +55,6 @@ This is similar to how designers think about UI.
 - https://react.dev/learn/managing-state
 - https://react.dev/learn/reacting-to-input-with-state
 - 명령형/선언형 패러다임 일반론: [declarative-vs-imperative.md](../../../cs/software-engineering/principles/declarative-vs-imperative.md)
-
----
-
-## `useState()`로 만든 state 변수들은 잘게 쪼개는 게 좋은가, 합치는 게 좋은가? 많아지면 어떤 문제가 있고, 어떤 기준으로 합치거나 쪼개야 하는가?
-
-### Official Answer
-Simplicity is key: each piece of state is a "moving piece", and you want as few "moving pieces" as possible.
-More complexity leads to more bugs!
-
-> #### Key Terms:
-> - **Simplicity is key**: state 설계의 제1원칙 — 단순함이 핵심
-> - **moving piece**: 기계 부품 비유. state 변수 하나하나가 움직이는 부품이며, 서로 어긋날 수 있는 지점
-> - **as few moving pieces as possible**: 동기화·일관성 관리 대상이 곱셈으로 늘어나므로 개수 자체를 최소화
-> - **More complexity leads to more bugs**: state가 N개면 조합이 2^N으로 증가. 복잡도 자체가 버그 표면
-
-### Reference
-- https://react.dev/learn/reacting-to-input-with-state
-
----
-
-## `isEmpty`처럼 다른 state(`answer`)에서 길이만 체크하면 얻을 수 있는 정보를 별도 boolean state로 두면 어떤 위험이 있고 어떻게 해결하는가?
-
-### Official Answer
-Is the same information available in another state variable already?
-Another paradox: `isEmpty` and `isTyping` can't be `true` at the same time.
-By making them separate state variables, you risk them going out of sync and causing bugs.
-Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
-
-> #### Key Terms:
-> - **same information available in another state variable**: 이미 다른 state에서 도출 가능한 정보
-> - **going out of sync**: 짝으로 갱신해야 하는 state들이 한쪽만 갱신되어 불일치
-> - **remove `isEmpty` and instead check `answer.length === 0`**: state 변수를 제거하고 매 렌더 시 파생 표현식으로 계산. source of truth는 `answer` 하나
-
-### Reference
-- https://react.dev/learn/reacting-to-input-with-state
 
 ---
 
@@ -405,12 +368,22 @@ Skipping re-renders with `memo` does not prevent the children receiving fresh co
 ## 그럼 불필요한 상태가 어떤 게 있나요?
 
 ### Official Answer
+Simplicity is key: each piece of state is a "moving piece", and you want as few "moving pieces" as possible.
+More complexity leads to more bugs!
+
+> #### Key Terms:
+> - **Simplicity is key**: state 설계의 제1원칙 — 단순함이 핵심
+> - **moving piece**: 기계 부품 비유. state 변수 하나하나가 움직이는 부품이며, 서로 어긋날 수 있는 지점
+> - **as few moving pieces as possible**: 동기화·일관성 관리 대상이 곱셈으로 늘어나므로 개수 자체를 최소화
+> - **More complexity leads to more bugs**: state가 N개면 조합이 2^N으로 증가. 복잡도 자체가 버그 표면
+
 Group related state. If you always update two or more state variables at the same time, consider merging them into a single state variable.
 Avoid contradictions in state. When the state is structured in a way that several pieces of state may contradict and "disagree" with each other, you leave room for mistakes. Try to avoid this.
 Avoid redundant state. If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
 Avoid deeply nested state. Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
 
 ### Reference
+- https://react.dev/learn/reacting-to-input-with-state
 - https://react.dev/learn/choosing-the-state-structure
 
 ---
@@ -457,6 +430,16 @@ To remove the "impossible" state, you can combine these into a `status` that mus
 ## state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
 
 ### Official Answer
+Is the same information available in another state variable already?
+Another paradox: `isEmpty` and `isTyping` can't be `true` at the same time.
+By making them separate state variables, you risk them going out of sync and causing bugs.
+Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
+
+> #### Key Terms:
+> - **same information available in another state variable**: 이미 다른 state에서 도출 가능한 정보
+> - **going out of sync**: 짝으로 갱신해야 하는 state들이 한쪽만 갱신되어 불일치
+> - **remove `isEmpty` and instead check `answer.length === 0`**: state 변수를 제거하고 매 렌더 시 파생 표현식으로 계산. source of truth는 `answer` 하나
+
 If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
 You can always calculate fullName from firstName and lastName during render, so remove it from state.
 As a result, the change handlers don't need to do anything special to update it.
@@ -484,6 +467,7 @@ When you call setFirstName or setLastName, you trigger a re-render, and then the
 > 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Don't mirror props in state)
 
 ### Reference
+- https://react.dev/learn/reacting-to-input-with-state
 - https://react.dev/learn/choosing-the-state-structure
 
 ---
