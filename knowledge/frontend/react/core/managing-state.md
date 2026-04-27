@@ -6,7 +6,6 @@ tags: [react, concept]
 - React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
 - React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
 - 컴포넌트 함수는 매 렌더마다 새로 호출되는데, `useState`로 만든 값이 직전 값을 기억하는 메커니즘은 무엇인가?
-- 다른 컴포넌트 함수 본문 안에 컴포넌트 함수를 중첩 정의하면 어떤 문제가 생기는가?
 - `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 - `key`는 전역으로 유일해야 하는가?
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
@@ -124,53 +123,6 @@ React associates each piece of state it's holding with the correct component by 
 > #### AI Annotation:
 > 이 멘탈 모델 정정이 중요한 실무적 이유: 컴포넌트 함수는 매 렌더마다 새로 호출되어 로컬 변수도 새로 만들어진다. 그런데도 `useState`로 선언한 값이 직전 값을 기억하는 건, React가 트리 위치를 키로 직전 state를 다시 꽂아주기 때문.
 > "위치가 식별자"라는 사고를 잡아두면 이후 동작들이 한 줄로 설명된다 — 형제 카운터 격리(위치가 다름), 조건부 렌더링 시 state 소실(위치가 비워짐), key/타입 변경 시 reset(같은 위치라도 식별자가 달라짐).
-
-### Reference
-- https://react.dev/learn/preserving-and-resetting-state
-
----
-
-## 다른 컴포넌트 함수 본문 안에 컴포넌트 함수를 중첩 정의하면 어떤 문제가 생기는가?
-
-### Official Answer
-Every time you click the button, the input state disappears!
-This is because a different `MyTextField` function is created for every render of `MyComponent`.
-You're rendering a different component in the same position, so React resets all state below.
-This leads to bugs and performance problems.
-To avoid this problem, always declare component functions at the top level, and don't nest their definitions.
-
-> #### Key Terms:
-> - **a different ... function is created for every render**: 부모가 렌더될 때마다 자식 컴포넌트 함수 정의 자체가 새 identity로 생성됨
-> - **rendering a different component in the same position**: 좌표는 같지만 React가 보는 타입이 매 렌더 달라짐 — 매번 unmount/mount
-> - **resets all state below**: 그 위치를 뿌리로 한 서브트리 전체 state 파괴
-> - **bugs**: 입력값 소실, ref 끊김 등 직접 버그
-> - **performance problems**: 매 렌더 DOM 재생성 + effect cleanup·재실행 비용
-> - **at the top level**: 모듈 최상위(파일 스코프). 한 번만 정의되어 identity가 안정됨
-
-> #### AI Annotation:
-> 안티패턴 예시 — 이렇게 하면 버튼 클릭으로 부모가 리렌더될 때마다 input이 비워진다.
->
-> ```jsx
-> export default function MyComponent() {
->   const [counter, setCounter] = useState(0);
->
->   function MyTextField() {
->     const [text, setText] = useState('');
->     return <input value={text} onChange={e => setText(e.target.value)} />;
->   }
->
->   return (
->     <>
->       <MyTextField />
->       <button onClick={() => setCounter(counter + 1)}>
->         Clicked {counter} times
->       </button>
->     </>
->   );
-> }
-> ```
->
-> 해결: `MyTextField`를 `MyComponent` 바깥(파일 최상위)으로 빼서 한 번만 정의되게 한다.
 
 ### Reference
 - https://react.dev/learn/preserving-and-resetting-state
