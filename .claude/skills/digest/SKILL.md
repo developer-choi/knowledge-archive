@@ -211,7 +211,7 @@ digest 모드 시작.
 
 **같은 파일에 추가 승인 시:**
 - 기존 파일에 Q&A를 추가 (Questions 목록과 Answers 섹션 모두)
-- 구조 검증, 분할 경고만 재실행
+- 구조 검증만 재실행
 
 **다른 주제/파일 대상 승인 시:**
 - 파일 배치를 다시 결정하고 새 파일에 저장
@@ -223,7 +223,8 @@ digest 모드 시작.
 모드를 종료한다. 승인된 질문은 이미 파일에 저장되어 있으므로 아래 절차만 수행한다.
 
 1. 이번 세션에서 변경한 knowledge 파일 목록과 요약(새 질문 N건, 보충 N건)을 보고한다
-2. 변경된 knowledge 파일을 커밋한다. 커밋 메시지 형식: `feat(knowledge): [주제] 위키피디아/MDN Q&A 추가 및 보충`
+2. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
+3. 변경된 knowledge 파일을 커밋한다. 커밋 메시지 형식: `feat(knowledge): [주제] 위키피디아/MDN Q&A 추가 및 보충`
 
 ---
 
@@ -238,3 +239,4 @@ digest 모드 시작.
 3. TODO 매칭: 공통 규칙 적용
 4. Q&A 작성: [content-format.md](../../contexts/content-format.md)에 따라 작성
 5. [production-guide.md](../../contexts/production-guide.md)의 **After** 실행
+6. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행
