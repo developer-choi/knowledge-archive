@@ -10,8 +10,11 @@ tags: [react, concept]
 - `isError` 같은 boolean state를 다른 state의 역(inverse)으로 대체할 수 있는 경우는 어떤 경우이며 어떻게 대체하는가?
 - React declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
 - React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
-- [TODO] 여러 컴포넌트가 같은 state를 공유해야 할 때 어떻게 구조화하는가? (Sharing State Between Components / lifting state up)
-- [TODO] React는 컴포넌트 트리에서 state를 언제 유지하고 언제 리셋하는가? `key` prop의 역할은? (Preserving and Resetting State)
+- React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
+- "state는 컴포넌트 안에 산다"는 멘탈 모델은 정확한가? 정확하지 않다면 실제로는 어떻게 보관되는가?
+- 다른 컴포넌트 함수 본문 안에 컴포넌트 함수를 중첩 정의하면 어떤 문제가 생기는가?
+- `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
+- `key`는 전역으로 유일해야 하는가?
 - [TODO] `useState` 대신 `useReducer`로 state 로직을 분리해야 하는 시점은? 전환 방법은? (Extracting State Logic into a Reducer)
 - [TODO] Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는? (Passing Data Deeply with Context)
 - [TODO] reducer와 context를 함께 쓰는 패턴은 어떻게 구성되며 어떤 규모에서 유용한가? (Scaling Up with Reducer and Context)
@@ -364,18 +367,154 @@ To paraphrase Albert Einstein, "Make your state as simple as it can be—but no 
 
 ---
 
-## [TODO] 여러 컴포넌트가 같은 state를 공유해야 할 때 어떻게 구조화하는가? (Sharing State Between Components / lifting state up)
+## React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
 
 ### Official Answer
+React preserves a component's state for as long as it's being rendered at its position in the UI tree.
+If it gets removed, or a different component gets rendered at the same position, React discards its state.
+
+> #### Key Terms:
+> - **preserves**: 보존 — 직전 값을 그대로 유지
+> - **position in the UI tree**: 트리에서의 자리 — 컴포넌트와 state를 매핑하는 키
+> - **removed**: 그 위치에서 더 이상 렌더되지 않음 (예: 조건부 렌더링이 false로 바뀜)
+> - **a different component gets rendered at the same position**: 위치는 그대로인데 컴포넌트 타입이 바뀜 (예: `<Counter />` → `<Spinner />`)
+> - **discards**: 버림 — 메모리에서 제거. 다시 렌더해도 복구 안 되고 처음부터 초기화
+
+> #### Official Annotation:
+> Notice how the moment you stop rendering the second counter, its state disappears completely.
+> That's because when React removes a component, it destroys its state.
+> When you tick "Render the second counter", a second `Counter` and its state are initialized from scratch (`score = 0`) and added to the DOM.
+>
+> 출처: https://react.dev/learn/preserving-and-resetting-state
 
 ### Reference
-- https://react.dev/learn/sharing-state-between-components
+- https://react.dev/learn/preserving-and-resetting-state
 
 ---
 
-## [TODO] React는 컴포넌트 트리에서 state를 언제 유지하고 언제 리셋하는가? `key` prop의 역할은? (Preserving and Resetting State)
+## "state는 컴포넌트 안에 산다"는 멘탈 모델은 정확한가? 정확하지 않다면 실제로는 어떻게 보관되는가?
 
 ### Official Answer
+When you give a component state, you might think the state "lives" inside the component.
+But the state is actually held inside React.
+React associates each piece of state it's holding with the correct component by where that component sits in the render tree.
+
+> #### Key Terms:
+> - **lives inside the component**: 흔한 (잘못된) 멘탈 모델 — `useState`가 컴포넌트 함수 본문에 있으니 거기 산다고 착각
+> - **held inside React**: 실제 저장소는 React 내부. 컴포넌트 함수가 매 렌더 새로 호출되어도 값이 유지되는 이유
+> - **associates ... by where ... sits**: 위치를 키로 매핑. 컴포넌트 정의가 같아도 트리 위치가 다르면 별개의 state
+> - **render tree**: 화면에 실제로 그려진 컴포넌트 인스턴스 트리. 같은 JSX 변수를 두 군데 꽂으면 트리상 두 위치 → 두 인스턴스
+
+> #### AI Annotation:
+> 이 멘탈 모델 정정이 중요한 실무적 이유: 컴포넌트 함수는 매 렌더마다 새로 호출되어 로컬 변수도 새로 만들어진다. 그런데도 `useState`로 선언한 값이 직전 값을 기억하는 건, React가 트리 위치를 키로 직전 state를 다시 꽂아주기 때문.
+> "위치가 식별자"라는 사고를 잡아두면 이후 동작들이 한 줄로 설명된다 — 형제 카운터 격리(위치가 다름), 조건부 렌더링 시 state 소실(위치가 비워짐), key/타입 변경 시 reset(같은 위치라도 식별자가 달라짐).
+
+### Reference
+- https://react.dev/learn/preserving-and-resetting-state
+
+---
+
+## 다른 컴포넌트 함수 본문 안에 컴포넌트 함수를 중첩 정의하면 어떤 문제가 생기는가?
+
+### Official Answer
+Every time you click the button, the input state disappears!
+This is because a different `MyTextField` function is created for every render of `MyComponent`.
+You're rendering a different component in the same position, so React resets all state below.
+This leads to bugs and performance problems.
+To avoid this problem, always declare component functions at the top level, and don't nest their definitions.
+
+> #### Key Terms:
+> - **a different ... function is created for every render**: 부모가 렌더될 때마다 자식 컴포넌트 함수 정의 자체가 새 identity로 생성됨
+> - **rendering a different component in the same position**: 좌표는 같지만 React가 보는 타입이 매 렌더 달라짐 — 매번 unmount/mount
+> - **resets all state below**: 그 위치를 뿌리로 한 서브트리 전체 state 파괴
+> - **bugs**: 입력값 소실, ref 끊김 등 직접 버그
+> - **performance problems**: 매 렌더 DOM 재생성 + effect cleanup·재실행 비용
+> - **at the top level**: 모듈 최상위(파일 스코프). 한 번만 정의되어 identity가 안정됨
+
+> #### AI Annotation:
+> 안티패턴 예시 — 이렇게 하면 버튼 클릭으로 부모가 리렌더될 때마다 input이 비워진다.
+>
+> ```jsx
+> export default function MyComponent() {
+>   const [counter, setCounter] = useState(0);
+>
+>   function MyTextField() {
+>     const [text, setText] = useState('');
+>     return <input value={text} onChange={e => setText(e.target.value)} />;
+>   }
+>
+>   return (
+>     <>
+>       <MyTextField />
+>       <button onClick={() => setCounter(counter + 1)}>
+>         Clicked {counter} times
+>       </button>
+>     </>
+>   );
+> }
+> ```
+>
+> 해결: `MyTextField`를 `MyComponent` 바깥(파일 최상위)으로 빼서 한 번만 정의되게 한다.
+
+### Reference
+- https://react.dev/learn/preserving-and-resetting-state
+
+---
+
+## `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
+
+### Official Answer
+You might have seen keys when rendering lists.
+Keys aren't just for lists!
+You can use keys to make React distinguish between any components.
+By default, React uses order within the parent ("first counter", "second counter") to discern between components.
+But keys let you tell React that this is not just a first counter, or a second counter, but a specific counter—for example, Taylor's counter.
+Specifying a key tells React to use the key itself as part of the position, instead of their order within the parent.
+This is why, even though you render them in the same place in JSX, React sees them as two different counters, and so they will never share state.
+
+> #### Key Terms:
+> - **distinguish between any components**: 임의의 컴포넌트 짝을 구분 — 리스트 항목이 아니어도 OK
+> - **order within the parent**: 부모 안에서의 순번. `key`가 없을 때의 기본 식별 방식
+> - **a specific counter**: 순번이 아니라 의미 기반 식별 (예: "Taylor의 카운터")
+> - **as part of the position**: key가 위치 식별자에 합쳐짐 → 같은 JSX 자리라도 key가 다르면 다른 좌표로 취급
+> - **never share state**: 절대 state 공유 안 함 — key가 다르면 별개 인스턴스
+
+> #### Official Annotation:
+> Switching between Taylor and Sarah does not preserve the state.
+> This is because you gave them different keys:
+>
+> ```jsx
+> {isPlayerA ? (
+>   <Counter key="Taylor" person="Taylor" />
+> ) : (
+>   <Counter key="Sarah" person="Sarah" />
+> )}
+> ```
+>
+> Every time a counter appears on the screen, its state is created.
+> Every time it is removed, its state is destroyed.
+> Toggling between them resets their state over and over.
+>
+> 출처: https://react.dev/learn/preserving-and-resetting-state
+
+### Reference
+- https://react.dev/learn/preserving-and-resetting-state
+
+---
+
+## `key`는 전역으로 유일해야 하는가?
+
+### Official Answer
+Remember that keys are not globally unique.
+They only specify the position within the parent.
+
+> #### Key Terms:
+> - **not globally unique**: 전역 유일할 필요 없음. 다른 부모 아래에 같은 key가 있어도 무방
+> - **position within the parent**: 부모 내에서의 위치 — 형제들 사이에서만 의미
+
+> #### AI Annotation:
+> React가 식별에 쓰는 건 `(부모 좌표, key)` 조합이지 `key` 단독이 아니다.
+> 그래서 list A의 `key="1"`과 list B의 `key="1"`이 충돌하지 않는다 — 부모가 다르면 좌표 자체가 다르니까.
 
 ### Reference
 - https://react.dev/learn/preserving-and-resetting-state
