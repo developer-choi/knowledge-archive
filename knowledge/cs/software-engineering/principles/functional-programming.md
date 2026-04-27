@@ -3,7 +3,7 @@ tags: [programming-paradigm, concept]
 ---
 # Questions
 - 함수형 프로그래밍이란 무엇이며, 명령형과 어떻게 다른가?
-- FP에서 함수가 "first-class entity"라는 건 무슨 뜻인가?
+  - FP에서 "함수의 합성(composing)"은 구체적으로 무엇을 말하는가?
 - 순수 함수(pure function)는 어떤 두 조건을 만족해야 하는가?
 - 부수효과를 제한하면 어떤 실무적 이점이 있는가?
 - 순수 함수가 가진 어떤 구체적 성질이 컴파일러 최적화·병렬화를 가능하게 하는가?
@@ -37,24 +37,35 @@ It is a declarative programming paradigm in which function definitions are trees
 
 ---
 
-## FP에서 함수가 "first-class entity"라는 건 무슨 뜻인가?
+## FP에서 "함수의 합성(composing)"은 구체적으로 무엇을 말하는가?
 
 ### Official Answer
-In functional programming, functions are treated as first-class entities, meaning that they can be bound to names (including local identifiers), passed as arguments, and returned from other functions, just as any other data type can.
-This allows programs to be written in a declarative and composable style, where small functions are combined in a modular manner.
+Function composition is an act or mechanism to combine simple functions to build more complex ones.
+In functional programming languages, function composition can be naturally expressed as a higher-order function or operator.
 
 > #### Key Terms:
-> - **first-class entities**: 변수에 담고 인자로 넘기고 반환할 수 있는 존재
-> - **bound to names**: 이름(변수)에 묶이는 것
-> - **local identifiers**: 함수 내부의 지역 변수 이름
-> - **composable**: 합쳐서 새 함수를 만들 수 있는 성질
-> - **modular manner**: 독립 단위들을 조립하는 방식
+> - **composition**: 두 함수를 이어 붙여 새 함수를 만드는 연산
+> - **act or mechanism**: 행위 또는 메커니즘 (개념과 구현 양쪽을 포괄)
+> - **higher-order function**: 다른 함수를 인자로 받거나 결과로 반환하는 함수
+> - **operator**: 언어 차원의 합성 기호 (Haskell의 `.`, F#의 `>>` 등)
 
 > #### AI Annotation:
-> JS의 `arr.map(fn)`, `arr.filter(predicate)`, `useEffect(() => ...)`, `setTimeout(cb, 0)` 같은 패턴이 first-class function의 직접 활용이다.
-> 함수가 데이터처럼 다뤄지지 않으면 콜백·고차함수·합성 패턴 자체가 성립하지 않는다.
+> 수학의 (g ∘ f)(x) = g(f(x))를 코드로 옮긴 것이다.
+> 한 함수의 출력을 다음 함수의 입력으로 흘려보내 새 함수를 만든다.
+>
+> ```js
+> const compose = (g, f) => (x) => g(f(x));
+> const trim = (s) => s.trim();
+> const lower = (s) => s.toLowerCase();
+> const normalize = compose(lower, trim);
+> normalize('  HELLO  '); // 'hello'
+> ```
+>
+> 실무에서는 lodash `_.flow`, RxJS `pipe`, Redux 미들웨어 합성, React HOC 합성이 모두 이 패턴이다.
+> 상위 질문의 정의 첫 문장 "applying and composing functions"에서 "composing"의 무게가 "applying"과 동등한 이유를 구체화한 것.
 
 ### Reference
+- https://en.wikipedia.org/wiki/Function_composition_(computer_science)
 - https://en.wikipedia.org/wiki/Functional_programming
 
 ---
@@ -142,7 +153,9 @@ This means that pure functions have several useful properties, many of which can
 > 3. **Reordering / Parallelism** — 데이터 의존성이 없으면 순서 바꿔 실행하거나 병렬 실행.
 > 4. **Free evaluation strategy** — 부수효과가 없으면 컴파일러가 평가 순서를 자유롭게 재배열·결합.
 >
-> Q3-2가 "왜 부수효과를 제한하나"라는 추상적 이점을 다뤘다면, 이 답변은 "구체적으로 어떤 코드 변환이 가능해지는가"라는 메커니즘을 설명한다.
+> 네 성질 모두 "같은 입력 → 같은 출력 + 외부 영향 없음"이라는 순수 함수의 두 조건에서 파생된다.
+> 컴파일러 입장에서 순수 함수는 "건드려도 안전한 식"이라 자유롭게 제거·치환·재배열할 수 있다.
+> 부수효과 제한이 단순히 "버그가 적다"를 넘어 코드 변환의 토대가 되는 이유다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Functional_programming
