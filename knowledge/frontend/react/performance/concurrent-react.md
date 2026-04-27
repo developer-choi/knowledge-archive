@@ -2,17 +2,17 @@
 tags: [react, performance, concept, history]
 ---
 # Questions
-- [TODO] Concurrent React란 무엇인가? (React v18 공식 발표)
-- [TODO] React 18의 concurrent rendering 도입 전략은 어떻게 설계되었는가? (The Plan for React 18)
-- [TODO] "Concurrent Mode"는 왜 사라지고 "Concurrent Features"로 바뀌었는가?
-- [TODO] React 19의 stylesheet 지원은 어떻게 동작하는가?
-- [TODO] UI runtime 관점에서 React의 concurrent rendering은 어떻게 이해할 수 있는가?
+- [BACKLOG] Concurrent React란 무엇인가? (React v18 공식 발표)
+- [BACKLOG] React 18의 concurrent rendering 도입 전략은 어떻게 설계되었는가? (The Plan for React 18)
+- [BACKLOG] "Concurrent Mode"는 왜 사라지고 "Concurrent Features"로 바뀌었는가?
+- [BACKLOG] React 19의 stylesheet 지원은 어떻게 동작하는가?
+- [BACKLOG] UI runtime 관점에서 React의 concurrent rendering은 어떻게 이해할 수 있는가?
 
 ---
 
 # Answers
 
-## [TODO] Concurrent React란 무엇인가? (React v18 공식 발표)
+## [BACKLOG] Concurrent React란 무엇인가? (React v18 공식 발표)
 
 ### Official Answer
 
@@ -21,7 +21,7 @@ tags: [react, performance, concept, history]
 
 ---
 
-## [TODO] React 18의 concurrent rendering 도입 전략은 어떻게 설계되었는가? (The Plan for React 18)
+## [BACKLOG] React 18의 concurrent rendering 도입 전략은 어떻게 설계되었는가? (The Plan for React 18)
 
 ### Official Answer
 
@@ -30,7 +30,7 @@ tags: [react, performance, concept, history]
 
 ---
 
-## [TODO] "Concurrent Mode"는 왜 사라지고 "Concurrent Features"로 바뀌었는가?
+## [BACKLOG] "Concurrent Mode"는 왜 사라지고 "Concurrent Features"로 바뀌었는가?
 
 ### Official Answer
 
@@ -39,7 +39,7 @@ tags: [react, performance, concept, history]
 
 ---
 
-## [TODO] React 19의 stylesheet 지원은 어떻게 동작하는가?
+## [BACKLOG] React 19의 stylesheet 지원은 어떻게 동작하는가?
 
 ### Official Answer
 
@@ -48,7 +48,7 @@ tags: [react, performance, concept, history]
 
 ---
 
-## [TODO] UI runtime 관점에서 React의 concurrent rendering은 어떻게 이해할 수 있는가?
+## [BACKLOG] UI runtime 관점에서 React의 concurrent rendering은 어떻게 이해할 수 있는가?
 
 ### Official Answer
 

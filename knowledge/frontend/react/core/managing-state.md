@@ -18,17 +18,17 @@ tags: [react, concept]
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
 - Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
 - 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
-- [TODO] (면접) '상태관리 어떻게 하세요?'
+- [BACKLOG] (면접) '상태관리 어떻게 하세요?'
   - (면접 꼬리) 그럼 불필요한 상태가 어떤 게 있나요?
     - Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
     - 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
-  - [TODO] (면접 꼬리) 로컬 상태에서 useState와 useReducer는 어떤 기준으로 갈라쓰나요?
-  - [TODO] (면접 꼬리) 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요? — 변경 빈도가 핵심
-  - [TODO] (면접 꼬리) 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-  - [TODO] (면접 꼬리) overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
-  - [TODO] (면접 꼬리) Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기며, 어떻게 대응하나요? — Provider 분리, useSyncExternalStore(R18) 등
+  - [BACKLOG] (면접 꼬리) 로컬 상태에서 useState와 useReducer는 어떤 기준으로 갈라쓰나요?
+  - [BACKLOG] (면접 꼬리) 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요? — 변경 빈도가 핵심
+  - [BACKLOG] (면접 꼬리) 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+  - [BACKLOG] (면접 꼬리) overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+  - [BACKLOG] (면접 꼬리) Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기며, 어떻게 대응하나요? — Provider 분리, useSyncExternalStore(R18) 등
 
 ---
 
@@ -604,7 +604,7 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [TODO] (면접) '상태관리 어떻게 하세요?'
+## [BACKLOG] (면접) '상태관리 어떻게 하세요?'
 
 ### User Answer
 (작성 예정 — 4단계 사다리)
@@ -617,32 +617,32 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [TODO] (면접 꼬리) 로컬 상태에서 useState와 useReducer는 어떤 기준으로 갈라쓰나요?
+## [BACKLOG] (면접 꼬리) 로컬 상태에서 useState와 useReducer는 어떤 기준으로 갈라쓰나요?
 
 ### Reference
 - https://react.dev/learn/extracting-state-logic-into-a-reducer
 
 ---
 
-## [TODO] (면접 꼬리) 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+## [BACKLOG] (면접 꼬리) 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
 
 ### Reference
 
 ---
 
-## [TODO] (면접 꼬리) 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+## [BACKLOG] (면접 꼬리) 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
 
 ### Reference
 
 ---
 
-## [TODO] (면접 꼬리) overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+## [BACKLOG] (면접 꼬리) overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ### Reference
 
 ---
 
-## [TODO] (면접 꼬리) Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기며, 어떻게 대응하나요?
+## [BACKLOG] (면접 꼬리) Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기며, 어떻게 대응하나요?
 
 ### Review Note
 대응 방법 학습 시 다룰 키워드:
