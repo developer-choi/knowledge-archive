@@ -420,14 +420,11 @@ Avoid deeply nested state. Deeply hierarchical state is not very convenient to u
 ### Official Answer
 But if some two state variables always change together, it might be a good idea to unify them into a single state variable.
 Then you won't forget to always keep them in sync, like in this example where moving the cursor updates both coordinates of the red dot.
-Another case where you'll group data into an object or an array is when you don't know how many pieces of state you'll need.
-For example, it's helpful when you have a form where the user can add custom fields.
 
 > #### Key Terms:
 > - **always change together**: 항상 같이 바뀌는 — 어느 이벤트에서든 둘 다 갱신되는 패턴
 > - **unify**: 통합. 한 객체/배열 state로 합침
 > - **forget to ... keep them in sync**: 동기화 실수의 원천 — `setX`만 호출하고 `setY` 빼먹음
-> - **don't know how many pieces of state**: state 변수 개수가 런타임에 결정되는 경우. 예: 사용자가 커스텀 필드를 추가하는 폼
 
 ### Reference
 - https://react.dev/learn/choosing-the-state-structure
