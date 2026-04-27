@@ -4,10 +4,10 @@ tags: [os, performance, concept]
 
 # Questions
 - 메모리 계층 구조(Memory Hierarchy)란 무엇인가?
-  - [UNVERIFIED] Register란 무엇인가?
-  - [UNVERIFIED] Cache Memory란 무엇인가?
-  - [UNVERIFIED] Main Memory란 무엇인가?
-  - [UNVERIFIED] Secondary Memory란 무엇인가?
+  - Register란 무엇인가?
+  - Cache Memory란 무엇인가?
+  - Main Memory란 무엇인가?
+  - Secondary Memory란 무엇인가?
 
 ---
 
@@ -30,7 +30,7 @@ A program will achieve greater performance if it uses memory while it is cached 
 
 ---
 
-## [UNVERIFIED] Register란 무엇인가?
+## Register란 무엇인가?
 
 ### Official Answer
 It is a type of memory in which data is stored and accepted that are immediately stored in the CPU.
@@ -41,7 +41,7 @@ The most commonly used register is Accumulator, Program counter, Address Registe
 
 ---
 
-## [UNVERIFIED] Cache Memory란 무엇인가?
+## Cache Memory란 무엇인가?
 
 ### Official Answer
 It is the fastest memory that has faster access time where data is temporarily stored for faster access.
@@ -51,7 +51,7 @@ It is the fastest memory that has faster access time where data is temporarily s
 
 ---
 
-## [UNVERIFIED] Main Memory란 무엇인가?
+## Main Memory란 무엇인가?
 
 ### Official Answer
 It is the memory on which the computer works currently.
@@ -62,7 +62,7 @@ It is small in size and once power is off data no longer stays in this memory.
 
 ---
 
-## [UNVERIFIED] Secondary Memory란 무엇인가?
+## Secondary Memory란 무엇인가?
 
 ### Official Answer
 It is external memory that is not as fast as the main memory but data stays permanently in this memory.

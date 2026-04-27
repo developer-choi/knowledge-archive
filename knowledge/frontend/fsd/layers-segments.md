@@ -9,7 +9,7 @@ tags: [fsd, architecture, concept]
   - FSD에서 Entities와 Features의 핵심 차이는 무엇인가?
     - FSD에서 feature 슬라이스의 경계를 어떻게 판단하는가? 하나의 feature에 여러 기능이 들어가면 어떤 문제가 생기는가?
   - FSD에서 Entities 레이어를 만들지 않아도 되는가? 만든다면 언제 만들어야 하는가?
-  - [BACKLOG] FSD에서 App과 Pages의 핵심 차이는 무엇인가?
+  - FSD에서 App과 Pages의 핵심 차이는 무엇인가?
 - FSD에서 세그먼트란 무엇이며, 각 세그먼트의 역할은?
 - FSD 슬라이스에서 Public API의 역할과 리팩토링 지원 방식은?
   - FSD에서 Shared 레이어와 도메인 레이어의 Public API 전략은 어떻게 다른가?
@@ -165,7 +165,7 @@ Remember: the later you move code to the entities layer, the less dangerous your
 
 ---
 
-## [BACKLOG] FSD에서 App과 Pages의 핵심 차이는 무엇인가?
+## FSD에서 App과 Pages의 핵심 차이는 무엇인가?
 ### Official Answer
 
 ### Reference

@@ -25,7 +25,7 @@ tags: [react, concept]
   - [BACKLOG] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
     - Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
   - [BACKLOG] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-  - [BACKLOG] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+  - overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ---
 
@@ -416,7 +416,7 @@ And the Section wraps its children into the LevelContext to specify that anythin
 
 ---
 
-## [BACKLOG] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+## overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ### Reference
 
