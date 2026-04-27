@@ -16,7 +16,9 @@ tags: [react, concept]
 - `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 - `key`는 전역으로 유일해야 하는가?
 - [TODO] `useState` 대신 `useReducer`로 state 로직을 분리해야 하는 시점은? 전환 방법은? (Extracting State Logic into a Reducer)
-- [TODO] Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는? (Passing Data Deeply with Context)
+- Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
+- Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
+- 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
 - [TODO] reducer와 context를 함께 쓰는 패턴은 어떻게 구성되며 어떤 규모에서 유용한가? (Scaling Up with Reducer and Context)
 - [TODO] (면접) '상태관리 어떻게 하세요?' — 필요 없는 state 줄이기부터 외부 상태관리 라이브러리 사용 판단까지
   - (면접 꼬리) 그럼 불필요한 상태가 어떤 게 있나요?
@@ -530,9 +532,78 @@ They only specify the position within the parent.
 
 ---
 
-## [TODO] Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는? (Passing Data Deeply with Context)
+## Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
 
 ### Official Answer
+Passing props is a great way to explicitly pipe data through your UI tree to the components that use it.
+But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop.
+The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called "prop drilling".
+Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
+
+> #### Key Terms:
+> - **pipe data through**: UI 트리를 따라 데이터를 흘려보내다
+> - **verbose**: 장황한 — 코드가 쓸데없이 길어진다
+> - **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들의 가장 가까운 공통 부모 (lifting state up의 도착지)
+> - **far removed from**: ~로부터 멀리 떨어진
+> - **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들을 props가 단순 통과하며 내려가는 상황
+> - **available to**: ~가 접근/사용할 수 있는
+> - **no matter how deep**: 아무리 깊든 상관없이
+> - **explicitly**: 명시적으로 (props는 한 단계씩 손으로 넘긴다는 점 부각)
+
+> #### AI Annotation:
+> Context는 prop drilling을 우회하는 "순간이동" 채널로 비유된다.
+> 부모가 한 번 값을 공급(provide)해두면, 그 아래 트리의 어느 깊이에 있는 자식이든 중간 컴포넌트를 거치지 않고 직접 그 값을 읽을 수 있다.
+> 중간 컴포넌트들이 자신은 쓰지도 않는 props를 단순 통과시켜야 하는 부담에서 해방된다.
+
+### Reference
+- https://react.dev/learn/passing-data-deeply-with-context
+
+---
+
+## Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
+
+### Official Answer
+You can't do it with props alone.
+This is where context comes into play.
+You will do it in three steps:
+1. Create a context. (You can call it LevelContext, since it's for the heading level.)
+2. Use that context from the component that needs the data. (Heading will use LevelContext.)
+3. Provide that context from the component that specifies the data. (Section will provide LevelContext.)
+
+> #### Key Terms:
+> - **comes into play**: 작동하기 시작하다, 등장하다
+> - **Create**: 컨텍스트 객체 자체를 만든다 (`createContext()`)
+> - **Use**: 데이터를 읽는 쪽(자식)에서 그 컨텍스트를 가져다 쓴다 (`useContext()`)
+> - **Provide**: 데이터의 값을 결정하는 쪽(부모)에서 컨텍스트 provider로 자식들을 감싸 값을 공급한다
+
+> #### AI Annotation:
+> 핵심은 "어디가 read 측이고 어디가 write 측인가"의 분리다.
+> 데이터를 **결정**하는 컴포넌트(예시의 `Section`)가 Provide, 데이터를 **소비**하는 컴포넌트(예시의 `Heading`)가 Use.
+> Create 단계에서 만든 컨텍스트 객체는 두 컴포넌트가 서로를 직접 참조하지 않고도 통신할 수 있게 해주는 약속(채널 식별자) 역할을 한다.
+
+### Reference
+- https://react.dev/learn/passing-data-deeply-with-context
+
+---
+
+## 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
+
+### Official Answer
+Since context lets you read information from a component above, each Section could read the level from the Section above, and pass level + 1 down automatically.
+Now both Heading and Section read the LevelContext to figure out how "deep" they are.
+And the Section wraps its children into the LevelContext to specify that anything inside of it is at a "deeper" level.
+
+> #### Key Terms:
+> - **read information from a component above**: 위쪽 컴포넌트의 정보를 읽다 — 컴포넌트 자신이 read 측이 됨
+> - **pass ... down automatically**: 자동으로 아래로 전달 — 사람이 값을 손으로 입력하지 않음
+> - **figure out how "deep" they are**: 자기가 얼마나 깊은지 스스로 알아낸다
+> - **wraps its children into**: children을 ~로 감싼다 — provider로 새 값을 공급
+
+> #### AI Annotation:
+> "Provider는 부모, useContext는 자식"이라는 단순 이분법을 깨는 패턴.
+> 한 컴포넌트가 위쪽 값을 useContext로 읽은 뒤, 그 값을 가공해 `<Context value={가공된값}>`으로 자기 children을 감싸면, 중첩 깊이만으로 값이 자동 누적된다.
+> 예시의 `Section`이 위쪽 level을 읽어 `level + 1`로 다시 provide하므로, `<Section>`을 중첩하기만 해도 안쪽 Heading의 level이 자동으로 깊어진다.
+> 실무에서 누적·변형이 필요한 컨텍스트(theme override, depth tracking, prefix path 등)에 자주 등장한다.
 
 ### Reference
 - https://react.dev/learn/passing-data-deeply-with-context
