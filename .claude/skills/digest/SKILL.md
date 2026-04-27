@@ -1,5 +1,5 @@
 ---
-description: 공식문서를 단락별로 읽으며 한글 해설하고, 기억할 내용을 Q&A로 만들어 knowledge 문서에 저장한다. 두 가지 모드가 있다. (1) 대화형 학습 모드: "/digest ON [URL]"로 시작하고 "/digest OFF"로 종료. 사용자가 공식문서 URL을 주며 "같이 공부하자", "이거 읽으면서 정리하자", "digest", "해설해줘" 등을 말하면 이 모드. (2) 즉시 저장 모드: 사용자가 공식문서 원문, 한글 메모, 출처 URL을 제공하며 "필기해줘", "기록해둬", "정리해줘", "메모", "저장해줘" 등을 말하면 이 모드. 기존 knowledge 문서의 [TODO] 빈 답변을 채우는 경우에도 사용한다. 사용자가 학습 내용을 언급하면서 출처 URL이나 영어 원문 인용이 포함되어 있다면 거의 확실히 이 스킬이 필요하다. 단, PDF/구글문서 변환은 convert 스킬이, 복습/면접 모드는 review 스킬이 담당한다.
+description: 공식문서를 단락별로 읽으며 한글 해설하고, 기억할 내용을 Q&A로 만들어 knowledge 문서에 저장한다. 두 가지 모드가 있다. (1) 대화형 학습 모드: "/digest ON [URL]"로 시작하고 "/digest OFF"로 종료. 사용자가 공식문서 URL을 주며 "같이 공부하자", "이거 읽으면서 정리하자", "digest", "해설해줘" 등을 말하면 이 모드. (2) 즉시 저장 모드: 사용자가 공식문서 원문, 한글 메모, 출처 URL을 제공하며 "필기해줘", "기록해둬", "정리해줘", "메모", "저장해줘" 등을 말하면 이 모드. 기존 knowledge 문서의 [BACKLOG]/[UNVERIFIED] 미완성 질문을 채우는 경우에도 사용한다. 사용자가 학습 내용을 언급하면서 출처 URL이나 영어 원문 인용이 포함되어 있다면 거의 확실히 이 스킬이 필요하다. 단, PDF/구글문서 변환은 convert 스킬이, 복습/면접 모드는 review 스킬이 담당한다.
 argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 ---
 
@@ -38,20 +38,35 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 - 새 영어 원문을 Official Answer로 저장한다
 - 교체 전 사용자에게 확인받는다: "X 질문의 User Answer를 OA로 교체할까요?"
 
-### TODO 매칭
-Q&A를 새로 만들기 전에, 기존 knowledge/ 문서에서 TODO를 2단계로 검색한다.
+### 기존 미완성 질문 매칭
 
-**1단계: `[TODO]` 질문 검색**
-- 사용자 내용과 관련된 `[TODO]` 질문이 있는지 검색한다
-- **매칭됨**: 해당 `[TODO]` 질문의 Answer 섹션에 내용을 채우고, Questions 목록과 Answers 제목 양쪽에서 `[TODO]` 접두사를 제거
+Q&A를 새로 만들기 전에, 기존 knowledge/ 문서에서 미완성 질문을 2단계로 검색한다. 마커 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 
-**2단계: 답변/annotation 내 `TODO` 검색**
+**1단계: `[BACKLOG]` 또는 `[UNVERIFIED]` 질문 검색**
+- 사용자 내용과 관련된 마커 질문이 있는지 검색한다
+- **매칭됨**: 새 내용으로 답변을 어떻게 채울지 사용자에게 확인 후 처리한다.
+  - 공식 출처 원문이 들어왔다 → Official Answer를 채우고 마커 제거 (Questions 목록·본문 헤딩 양쪽). 기존 AI Answer가 있으면 AI Annotation으로 강등하거나 삭제한다.
+  - AI 추정 답변만 가능하다 → AI Answer를 채우고 마커를 `[UNVERIFIED]`로 변경 (이미 `[UNVERIFIED]`이면 답변 보강만)
+
+**2단계: 답변/annotation 내 `TODO` 문자열 검색**
 - 1단계 이후, 답변이나 annotation 본문에 `TODO` 문자열이 포함된 항목을 추가로 검색한다
 - **매칭됨**: 해당 `TODO` 부분만 교체/보충한다. 질문이나 전체 답변을 교체하지 않는다
 
-**매칭 안 됨**: 새 Q&A를 작성
+**매칭 안 됨**: 새 Q&A를 작성한다. 마커는 아래 "마커 결정" 규칙으로 정한다.
 
-TODO 답변을 채울 때, 해당 질문에 대한 **직접적인 답**이 되는 내용을 작성한다. 같은 파일 내 다른 답변의 문장을 그대로 복사하지 않는다.
+답변을 채울 때, 해당 질문에 대한 **직접적인 답**이 되는 내용을 작성한다. 같은 파일 내 다른 답변의 문장을 그대로 복사하지 않는다.
+
+### 마커 결정
+
+새 Q&A를 만들 때 답변 상태에 따라 마커를 결정한다.
+
+| 상태 | 마커 | Answer 섹션 |
+|---|---|---|
+| 공식 출처 원문 확보 | 없음 | `### Official Answer` 채움 |
+| AI 추정 답변만 가능 | `[UNVERIFIED]` | `### AI Answer` 채움 |
+| 사용자가 "메모로만" 명시 | `[BACKLOG]` | 비움 |
+
+**기본값은 `[BACKLOG]`다.** 사용자가 명시적으로 "AI Answer로라도 채워달라"는 의사를 보일 때만 `[UNVERIFIED]`로 승격한다. 출처가 없는데 AI Answer 채우는 흐름이면 사용자에게 "AI Answer로 채워 `[UNVERIFIED]`로 승격할까요, 아니면 `[BACKLOG]`로 메모만 둘까요?"로 확인받는다.
 
 ### Official Answer 길이 관리
 - Official Answer가 **6문장 이상**이면, 질문을 쪼갤 수 있는 아이디어를 사용자에게 제안한다.
@@ -77,7 +92,7 @@ digest 모드 시작.
 단락을 붙여넣으면 해설합니다.
 기억할 만한 내용은 질문으로 만들어 제안합니다.
 승인하면 즉시 파일에 저장합니다.
-나중에 더 파고들 주제가 있으면 TODO 질문을 요청해 주세요.
+나중에 더 파고들 주제가 있으면 [BACKLOG] 질문으로 메모해 두세요.
 단락을 붙여넣어 주세요.
 ```
 
@@ -236,7 +251,7 @@ digest 모드 시작.
 
 1. [production-guide.md](../../contexts/production-guide.md)의 **Before** 읽기
 2. 내용 파악: 공통 규칙(내용 분류, 범위 제한) 적용
-3. TODO 매칭: 공통 규칙 적용
+3. 기존 미완성 질문 매칭: 공통 규칙 적용
 4. Q&A 작성: [content-format.md](../../contexts/content-format.md)에 따라 작성
 5. [production-guide.md](../../contexts/production-guide.md)의 **After** 실행
 6. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행

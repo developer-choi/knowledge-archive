@@ -66,13 +66,16 @@ review와 달리, 사용자에게 질문을 던지지 않는다. AI가 개념을
 
 꼬리질문도 독립된 질문과 동일하게 취급한다. 매 질문마다 체크포인트를 넣고, 사용자 반응을 기다린 뒤 다음 질문으로 넘어간다.
 
-### [TODO] 질문 처리
+### 미완성 질문 처리
 
-Questions 목록에 `[TODO]`가 붙은 질문은 답변이 아직 없는 항목이다. "이 질문은 아직 답변이 작성되지 않은 항목입니다"라고 안내하고 건너뛴다. AI 자체 지식으로 설명을 시도하지 않는다.
+Questions 목록에 `[BACKLOG]` 또는 `[UNVERIFIED]` 마커가 붙은 질문은 다음 안내를 출력하고 건너뛴다. AI 자체 지식으로 설명을 시도하지 않는다.
 
-### Official Answer 없는 질문
+- `[BACKLOG]`: "이 질문은 아직 답변이 작성되지 않은 항목입니다"
+- `[UNVERIFIED]`: "이 질문은 AI 추정 답변만 있고 공식 출처가 미확보 상태입니다. 입문 학습 신뢰도를 위해 건너뜁니다"
 
-Official Answer가 없는 질문은 User Answer나 AI Answer 유무와 관계없이 건너뛴다.
+마커 없이 Official Answer가 비어 있는 질문은 User Answer / AI Answer 유무와 관계없이 건너뛴다. 정합성 위반이므로 `/validate`가 잡아야 한다.
+
+마커 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 
 ## 종료 산출물
 

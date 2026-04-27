@@ -26,6 +26,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 - **Official Answer 언어**: Official Answer/Official Annotation 본문이 공식 문서 원문(대체로 영어)으로 유지되어 있는가. 한글 의역·요약으로 대체된 경우 위반.
 - **목차-본문 순서**: Questions 목차와 Answers 본문의 질문 순서가 1:1로 일치하는가.
+- **마커 정합성**: `[BACKLOG]` / `[UNVERIFIED]` 마커가 Questions 목록과 본문 헤딩 양쪽에 동일하게 붙어 있는가. `[BACKLOG]`는 답변 섹션이 비어 있는가. `[UNVERIFIED]`는 `### AI Answer`가 채워져 있고 `### Official Answer`는 비어 있는가. 마커 없이 Official Answer가 비어 있고 AI/User Answer만 있는 경우 위반(마커 추가 필요). 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 
 각 항목에서 위반 발견 시 아래 "## 검증 및 수정" 절차에 따라 처리한다.
 
