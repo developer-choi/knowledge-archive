@@ -56,9 +56,21 @@
 
 답변이 미완성인 질문은 두 마커로 구분한다. Questions 목록과 Answers 섹션 양쪽에 동일 마커를 동기화한다.
 
+### 사용 조건
+
+`### Official Answer`와 `### Reference`가 **모두 비어 있을 때만** 마커를 붙인다. 둘 중 하나라도 채워지면 마커를 제거한다 (출처 단서가 잡히면 더 이상 "출처 미확보" 상태가 아니므로).
+
 ### `[BACKLOG]` — 임시 메모
 
-질문 자체가 미정·미뤄둠 상태. AI Answer / Official Answer 모두 비어 있다. `/review` 면접 연습 풀에서 영구 제외된다.
+질문 자체가 미정·미뤄둠 상태. `/review` 면접 연습 풀에서 영구 제외된다.
+
+### `[UNVERIFIED]` — 출처 미확보
+
+질문은 확정되었으나 공식 출처를 아직 못 찾은 상태. `/review`에서 정상 출제된다.
+
+### 양식
+
+두 마커 모두 양식이 동일하다. 답변 섹션은 비어 있어도, User Answer / AI Answer가 채워져 있어도 무관하다 (마커는 OA/Reference 부재 상태만을 의미).
 
 ```markdown
 - [BACKLOG] 도메인이란 무엇인가?
@@ -70,29 +82,15 @@
 ### Reference
 ```
 
-### `[UNVERIFIED]` — 잠정 답변, 출처 미확보
-
-질문은 확정. `### AI Answer`가 채워져 있고 `### Official Answer`는 비어 있다. `### Reference`에 후보 출처 URL을 둘 수 있다. `/review`에서 ⚠️ 경고와 함께 AI Answer 기준으로 채점된다.
-
 ```markdown
 - [UNVERIFIED] 도메인이란 무엇인가?
 
 ## [UNVERIFIED] 도메인이란 무엇인가?
 
-### AI Answer
-(AI 추정 답변)
-
 ### Official Answer
 
 ### Reference
-- https://...
 ```
-
-### 상태 흐름
-
-- 무언가 떠오름 → `[BACKLOG]`로 메모만 남김
-- 면접 연습에 넣을 가치가 판단되면 → AI Answer를 채우고 `[UNVERIFIED]`로 승격
-- 공식 출처를 찾으면 → 마커 제거하고 Official Answer 채움. AI Answer는 삭제하거나 AI Annotation으로 강등
 
 ---
 
