@@ -166,10 +166,6 @@ Remember: the later you move code to the entities layer, the less dangerous your
 ---
 
 ## FSD에서 App과 Pages의 핵심 차이는 무엇인가?
-### Official Answer
-
-### Reference
-
 ---
 
 ## FSD에서 세그먼트란 무엇이며, 각 세그먼트의 역할은?

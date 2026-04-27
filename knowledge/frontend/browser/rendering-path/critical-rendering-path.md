@@ -278,8 +278,6 @@ In terms of web performance, there are many better ways to invest optimization e
 
 ## CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path#css_object_model
 

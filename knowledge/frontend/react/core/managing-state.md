@@ -400,25 +400,17 @@ And the Section wraps its children into the LevelContext to specify that anythin
 - step 3: 전역 상태 — 변경 빈도로 갈라치기. 거의 안 바뀌는 값(테마/언어/유저)은 Context, 자주 바뀌는 값은 외부 store(Zustand 등)
 - step 4: 특화 상태는 별도 분리 — 서버 상태는 React Query, overlay 같은 UI 특화 상태는 overlay-kit
 
-### Reference
-
 ---
 
 ## [BACKLOG] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
-
-### Reference
 
 ---
 
 ## [BACKLOG] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
 
-### Reference
-
 ---
 
 ## overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
-
-### Reference
 
 ---
 

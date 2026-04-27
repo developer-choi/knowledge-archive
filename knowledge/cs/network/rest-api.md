@@ -430,8 +430,6 @@ It can do this because of the code sent by the server.
 
 ## Client-Server 제약이란 무엇이며 왜 6대 제약 중 가장 자명한 것으로 취급되는가?
 
-### Official Answer
-
 ### Reference
 - https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 - https://en.wikipedia.org/wiki/REST
@@ -868,8 +866,6 @@ They give more context about the response and include information such as the se
 
 ## PUT과 PATCH의 차이는 무엇인가?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/PATCH
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/PUT
@@ -877,8 +873,6 @@ They give more context about the response and include information such as the se
 ---
 
 ## POST와 PUT 중 리소스를 생성할 때 무엇을 쓰는 기준은?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST
@@ -888,8 +882,6 @@ They give more context about the response and include information such as the se
 
 ## Safe method와 Idempotent method의 정의 및 차이는?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP
 - https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
@@ -898,16 +890,12 @@ They give more context about the response and include information such as the se
 
 ## DELETE를 두 번 호출하면 두 번째 응답은 200인가 404인가? 멱등성과 응답 코드는 같은 개념인가?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
 
 ---
 
 ## POST를 멱등하게 만드는 패턴(Idempotency-Key)은 어떻게 동작하는가?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Idempotency-Key
@@ -916,16 +904,12 @@ They give more context about the response and include information such as the se
 
 ## 201 Created와 204 No Content는 각각 언제 쓰는가?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 
 ---
 
 ## 401 Unauthorized와 403 Forbidden의 차이는 무엇인가?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401
@@ -935,16 +919,12 @@ They give more context about the response and include information such as the se
 
 ## 400 Bad Request와 422 Unprocessable Content는 어떤 기준으로 구분하는가?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/422
 
 ---
 
 ## 304 Not Modified는 어떤 흐름에서 발생하는가?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/304
@@ -953,16 +933,12 @@ They give more context about the response and include information such as the se
 
 ## 서버 세션 기반 인증은 REST의 stateless 제약에 부합하는가?
 
-### Official Answer
-
 ### Reference
 - https://www.jwt.io/introduction
 
 ---
 
 ## JWT가 stateless 인증으로 분류되는 이유는?
-
-### Official Answer
 
 ### Reference
 - https://www.jwt.io/introduction
@@ -971,16 +947,12 @@ They give more context about the response and include information such as the se
 
 ## JWT의 한계(폐기 어려움, 페이로드 노출, 사이즈)는 각각 무엇인가?
 
-### Official Answer
-
 ### Reference
 - https://www.jwt.io/introduction
 
 ---
 
 ## HTTP 캐싱의 동작 흐름은 어떻게 되는가?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
@@ -989,16 +961,12 @@ They give more context about the response and include information such as the se
 
 ## Cache-Control의 주요 디렉티브(max-age, no-cache, no-store, public/private)는 각각 무엇을 지시하는가?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control
 
 ---
 
 ## ETag와 Last-Modified의 역할 및 차이는?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/ETag
@@ -1008,16 +976,12 @@ They give more context about the response and include information such as the se
 
 ## 조건부 요청(If-None-Match, If-Modified-Since)이 304 응답을 만드는 흐름은?
 
-### Official Answer
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Conditional_requests
 
 ---
 
 ## POST는 왜 기본적으로 캐싱되지 않는가?
-
-### Official Answer
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
@@ -1026,16 +990,12 @@ They give more context about the response and include information such as the se
 
 ## 자원 중심 URL은 왜 동사 대신 명사를 쓰는가? (`/getUsers` vs `/users`)
 
-### Official Answer
-
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
 ## 검색 엔드포인트는 `/users/search?q=` 와 `/users?q=` 중 무엇이 더 RESTful한가?
-
-### Official Answer
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
@@ -1044,16 +1004,12 @@ They give more context about the response and include information such as the se
 
 ## 중첩 자원의 적절한 깊이는 어디까지인가?
 
-### Official Answer
-
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
 ## 로그인/로그아웃 같은 행위는 어떻게 자원으로 표현하는가?
-
-### Official Answer
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
@@ -1062,16 +1018,12 @@ They give more context about the response and include information such as the se
 
 ## URL 버저닝(`/v1/users`) vs 헤더 버저닝 vs 미디어타입 버저닝의 trade-off는?
 
-### Official Answer
-
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
 ## Fielding이 URL 버저닝을 비판하는 이유는?
-
-### Official Answer
 
 ### Reference
 - https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
@@ -1080,8 +1032,6 @@ They give more context about the response and include information such as the se
 
 ## HATEOAS란 무엇이며 왜 Uniform Interface의 핵심 제약인가?
 
-### Official Answer
-
 ### Reference
 - https://en.wikipedia.org/wiki/HATEOAS
 
@@ -1089,16 +1039,12 @@ They give more context about the response and include information such as the se
 
 ## HATEOAS가 실무에서 거의 채택되지 않는 이유는?
 
-### Official Answer
-
 ### Reference
 - https://en.wikipedia.org/wiki/HATEOAS
 
 ---
 
 ## Richardson Maturity Model의 Level 0~3은 각각 무엇인가?
-
-### Official Answer
 
 ### Reference
 - https://martinfowler.com/articles/richardsonMaturityModel.html
@@ -1108,16 +1054,12 @@ They give more context about the response and include information such as the se
 
 ## 업계가 "REST"라고 부르는 것이 보통 Level 몇인가?
 
-### Official Answer
-
 ### Reference
 - https://martinfowler.com/articles/richardsonMaturityModel.html
 
 ---
 
 ## REST의 한계(over-fetching, under-fetching, 다중 라운드트립)는 무엇인가?
-
-### Official Answer
 
 ### Reference
 - https://graphql.org/
@@ -1126,8 +1068,6 @@ They give more context about the response and include information such as the se
 
 ## GraphQL의 핵심 개념(엔티티 그래프, 단일 엔드포인트, 스키마)과 REST 대비 장점은?
 
-### Official Answer
-
 ### Reference
 - https://graphql.org/
 
@@ -1135,16 +1075,12 @@ They give more context about the response and include information such as the se
 
 ## GraphQL의 단점(캐싱, N+1, 학습곡선)은?
 
-### Official Answer
-
 ### Reference
 - https://graphql.org/
 
 ---
 
 ## gRPC는 무엇이며 어떤 환경(내부 마이크로서비스, 양방향 스트리밍)에서 REST보다 유리한가?
-
-### Official Answer
 
 ### Reference
 - https://grpc.io/docs/what-is-grpc/introduction/

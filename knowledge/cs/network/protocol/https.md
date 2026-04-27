@@ -328,9 +328,7 @@ A solution called Server Name Indication (SNI) exists, which sends the hostname 
 
 ---
 
-## TLS handshake의 구체적인 단계(ClientHello, ServerHello, 키 교환, Finished)는 어떻게 진행되는가?
-
-### Official Answer
+## [UNVERIFIED] TLS handshake의 구체적인 단계(ClientHello, ServerHello, 키 교환, Finished)는 어떻게 진행되는가?
 
 ### Reference
 - https://en.wikipedia.org/wiki/Transport_Layer_Security
