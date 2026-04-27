@@ -12,6 +12,9 @@ tags: [keyword1, keyword2]
 # Answers
 
 ## Main Question 1
+
+각 섹션은 **선택**이다. 채울 본문이 있을 때만 헤딩을 추가한다 (빈 섹션 금지).
+
 ### Official Answer
 Official document text or objective fact.
 
@@ -30,9 +33,6 @@ Official document text or objective fact.
 ### User Answer
 (사용자의 해석, 경험 기반 답변)
 
-### BACKLOG
-(메모 수준의 미완성 답변)
-
 ### Review Note
 - (평가 시 참고사항: 중요하지 않은 부분, 대신 집중할 부분 등)
 
@@ -41,18 +41,3 @@ Official document text or objective fact.
 
 ### Reference
 - https://example.com
-
----
-
-## Follow-up Question 1
-### Official Answer
-Same as above
-
-### Review Note
-- (평가 시 참고사항)
-
-### Frequent Mistakes
-- (복습 시 자주 혼동한 키워드나 오개념 기록)
-
-### Reference
-Same as above
