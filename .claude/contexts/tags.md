@@ -38,6 +38,7 @@ knowledge-archive에서 사용하는 태그 목록.
 - `database`: DB, SQL/NoSQL
 - `auth`: 인증/인가 (OAuth, JWT)
 - `software-engineering`: 소프트웨어 공학, 개발 방법론
+- `programming-paradigm`: 프로그래밍 패러다임 (Functional, OOP, Declarative vs Imperative 등)
 - `design-pattern`: 디자인 패턴
 - `fsd`: Feature-Sliced Design
 - `architecture`: 아키텍처, 설계 원칙
