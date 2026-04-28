@@ -20,9 +20,18 @@ knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사
 - 내부 동작 원리와 이유를 파고든다.
 - "실제 프로덕션 환경에서 ~한 상황이라면?" 같은 심화 질문을 던진다.
 
-## Official Answer 없는 질문 처리
+## 미완성 질문 처리
 
-Official Answer가 없는 질문은 User Answer나 AI Answer 유무와 관계없이 건너뛴다.
+질문 마커에 따라 분기한다. 마커 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
+
+### `[BACKLOG]` 마커
+출제하지 않는다. 영구 스킵.
+
+### `[UNVERIFIED]` 마커
+일반 질문과 동일하게 출제한다. Official Answer가 없으므로 AI가 자체 지식으로 채점한다. 시작 시 "이 질문은 공식 출처 미확보 상태입니다 — 자체 지식 기반 채점으로 진행합니다" 한 줄을 안내한다.
+
+### 마커 없이 Official Answer가 비어 있는 경우
+User Answer / AI Answer 유무와 관계없이 건너뛴다. 정합성 위반 상태이므로 `/validate`가 잡아야 한다.
 
 ## 기본 원칙
 

@@ -71,13 +71,14 @@ tags: [react, performance, concept]
 | `### User Answer` | 사용자 작성 | 사용자의 해석, 경험 기반 답변 |
 
 ### 작성 원칙
+- **빈 섹션 금지**: 채울 본문이 없는 섹션 헤딩(`### Official Answer`, `### AI Answer`, `### User Answer`, `### Reference`, `> #### Key Terms:`, Annotation 등)은 만들지 않는다. 본문이 생기는 시점에 섹션을 추가한다. 섹션 본문을 비우면 마커 정합성 검증과 마커 사용 조건 판단이 무너진다.
 - **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
 - **원본 언어 유지 (번역 금지)**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
   - 허용 편집: 맞춤법, 조사, 문장 흐름, 전문 용어 정확화
   - **명백한 사실 오류 정정은 필수**: 위키피디아 수준의 확립된 지식(표준 수치·프로토콜 헤더 필드·레지스터 정의 등)과 충돌하거나 같은 섹션 내 자기모순이 있으면 `User Answer`/`User Annotation`/`AI Annotation`에 한해 정정한다. **`Official Answer`는 예외 없이 수정 금지**.
   - 금지: 소스에 없는 새 사실 덧붙이기, 뉘앙스 변경, 근거 없는 주장
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
-- **출처-Answer 매핑**: Reference에 공식 출처 URL이 있으면, 학습이 끝난 시점에 해당 원문을 Official Answer에 담는다. Reference만 적어두고 Official Answer가 비어있는 상태(학습 진행 중)는 위반이 아니다.
+- **출처-Answer 매핑**: Reference에 공식 출처 URL이 있고 Official Answer가 아직 비어 있는 상태(학습 진행 중)는 위반이 아니다. 단 이 경우 `### Official Answer` 빈 헤딩을 만들지 말고 `### Reference`만 둔다.
 
 ### Key Terms
 
