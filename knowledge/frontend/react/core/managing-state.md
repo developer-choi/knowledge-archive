@@ -9,7 +9,6 @@ tags: [react, concept]
 - `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 - `key`는 전역으로 유일해야 하는가?
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
-- Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
 - 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
 - [TODO] '상태관리 어떻게 하세요?'
   - 그럼 불필요한 상태가 어떤 게 있나요?
@@ -176,32 +175,6 @@ Context lets the parent component make some information available to any compone
 > - **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들의 가장 가까운 공통 부모 (lifting state up의 도착지)
 > - **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들을 props가 단순 통과하며 내려가는 상황
 > - **no matter how deep**: 아무리 깊든 상관없이
-
-### Reference
-- https://react.dev/learn/passing-data-deeply-with-context
-
----
-
-## Context를 사용하는 3단계는 무엇인가? 각 단계는 어떤 컴포넌트에서 일어나는가?
-
-### Official Answer
-You can't do it with props alone.
-This is where context comes into play.
-You will do it in three steps:
-1. Create a context. (You can call it LevelContext, since it's for the heading level.)
-2. Use that context from the component that needs the data. (Heading will use LevelContext.)
-3. Provide that context from the component that specifies the data. (Section will provide LevelContext.)
-
-> #### Key Terms:
-> - **comes into play**: 작동하기 시작하다, 등장하다
-> - **Create**: 컨텍스트 객체 자체를 만든다 (`createContext()`)
-> - **Use**: 데이터를 읽는 쪽(자식)에서 그 컨텍스트를 가져다 쓴다 (`useContext()`)
-> - **Provide**: 데이터의 값을 결정하는 쪽(부모)에서 컨텍스트 provider로 자식들을 감싸 값을 공급한다
-
-> #### AI Annotation:
-> 핵심은 "어디가 read 측이고 어디가 write 측인가"의 분리다.
-> 데이터를 **결정**하는 컴포넌트(예시의 `Section`)가 Provide, 데이터를 **소비**하는 컴포넌트(예시의 `Heading`)가 Use.
-> Create 단계에서 만든 컨텍스트 객체는 두 컴포넌트가 서로를 직접 참조하지 않고도 통신할 수 있게 해주는 약속(채널 식별자) 역할을 한다.
 
 ### Reference
 - https://react.dev/learn/passing-data-deeply-with-context
