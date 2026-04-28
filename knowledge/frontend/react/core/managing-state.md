@@ -132,38 +132,17 @@ React associates each piece of state it's holding with the correct component by 
 ## `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 
 ### Official Answer
-You might have seen keys when rendering lists.
 Keys aren't just for lists!
 You can use keys to make React distinguish between any components.
-By default, React uses order within the parent ("first counter", "second counter") to discern between components.
-But keys let you tell React that this is not just a first counter, or a second counter, but a specific counter—for example, Taylor's counter.
+By default, React uses order within the parent to discern between components.
 Specifying a key tells React to use the key itself as part of the position, instead of their order within the parent.
 This is why, even though you render them in the same place in JSX, React sees them as two different counters, and so they will never share state.
 
 > #### Key Terms:
 > - **distinguish between any components**: 임의의 컴포넌트 짝을 구분 — 리스트 항목이 아니어도 OK
 > - **order within the parent**: 부모 안에서의 순번. `key`가 없을 때의 기본 식별 방식
-> - **a specific counter**: 순번이 아니라 의미 기반 식별 (예: "Taylor의 카운터")
 > - **as part of the position**: key가 위치 식별자에 합쳐짐 → 같은 JSX 자리라도 key가 다르면 다른 좌표로 취급
 > - **never share state**: 절대 state 공유 안 함 — key가 다르면 별개 인스턴스
-
-> #### Official Annotation:
-> Switching between Taylor and Sarah does not preserve the state.
-> This is because you gave them different keys:
->
-> ```jsx
-> {isPlayerA ? (
->   <Counter key="Taylor" person="Taylor" />
-> ) : (
->   <Counter key="Sarah" person="Sarah" />
-> )}
-> ```
->
-> Every time a counter appears on the screen, its state is created.
-> Every time it is removed, its state is destroyed.
-> Toggling between them resets their state over and over.
->
-> 출처: https://react.dev/learn/preserving-and-resetting-state
 
 ### Reference
 - https://react.dev/learn/preserving-and-resetting-state
