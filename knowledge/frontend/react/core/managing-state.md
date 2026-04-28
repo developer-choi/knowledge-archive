@@ -9,7 +9,6 @@ tags: [react, concept]
 - `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 - `key`는 전역으로 유일해야 하는가?
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
-- 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
 - [TODO] '상태관리 어떻게 하세요?'
   - 그럼 불필요한 상태가 어떤 게 있나요?
     - Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
@@ -175,30 +174,6 @@ Context lets the parent component make some information available to any compone
 > - **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들의 가장 가까운 공통 부모 (lifting state up의 도착지)
 > - **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들을 props가 단순 통과하며 내려가는 상황
 > - **no matter how deep**: 아무리 깊든 상관없이
-
-### Reference
-- https://react.dev/learn/passing-data-deeply-with-context
-
----
-
-## 한 컴포넌트가 같은 컨텍스트를 읽으면서 동시에 새 값으로 다시 provide할 수 있는가? 어떤 효과가 있는가?
-
-### Official Answer
-Since context lets you read information from a component above, each Section could read the level from the Section above, and pass level + 1 down automatically.
-Now both Heading and Section read the LevelContext to figure out how "deep" they are.
-And the Section wraps its children into the LevelContext to specify that anything inside of it is at a "deeper" level.
-
-> #### Key Terms:
-> - **read information from a component above**: 위쪽 컴포넌트의 정보를 읽다 — 컴포넌트 자신이 read 측이 됨
-> - **pass ... down automatically**: 자동으로 아래로 전달 — 사람이 값을 손으로 입력하지 않음
-> - **figure out how "deep" they are**: 자기가 얼마나 깊은지 스스로 알아낸다
-> - **wraps its children into**: children을 ~로 감싼다 — provider로 새 값을 공급
-
-> #### AI Annotation:
-> "Provider는 부모, useContext는 자식"이라는 단순 이분법을 깨는 패턴.
-> 한 컴포넌트가 위쪽 값을 useContext로 읽은 뒤, 그 값을 가공해 `<Context value={가공된값}>`으로 자기 children을 감싸면, 중첩 깊이만으로 값이 자동 누적된다.
-> 예시의 `Section`이 위쪽 level을 읽어 `level + 1`로 다시 provide하므로, `<Section>`을 중첩하기만 해도 안쪽 Heading의 level이 자동으로 깊어진다.
-> 실무에서 누적·변형이 필요한 컨텍스트(theme override, depth tracking, prefix path 등)에 자주 등장한다.
 
 ### Reference
 - https://react.dev/learn/passing-data-deeply-with-context
