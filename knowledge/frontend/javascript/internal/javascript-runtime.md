@@ -33,43 +33,49 @@ tags: [javascript, concept]
 
 하지만 결국 오래 걸리는 함수를 비동기로 실행한다고 쳐도, 그 함수가 콜스택에 들어가는 순간 완료될 때까지 다른 일을 못하는 건 여전하므로, 작게 분리해야 한다는 것까지는 이해를 하겠는데 아직 이 개념을 응용해 본 적은 없다.
 
-### 보충: 외부 자료 발췌
-- Javascript Runtime은 Heap, Call Stack, Web APIs(DOM, Ajax, setTimeout 등), Callback Queue, Event Loop로 구성된다.
-- 싱글 스레드는 하나의 힙 영역과 하나의 콜스택을 가진다. 하나의 콜스택을 가진다는 의미는 한 번에 한 가지 일밖에 하지 못한다는 의미다.
-- `Uncaught RangeError: Maximum call stack size exceeded`는 콜스택이 가득 차서 발생하는 에러다.
-- 코드가 종료될 때까지 유저가 클릭을 해도 어떠한 반응을 하지 않는 상태가 되는데, 콜스택이 멈춘 상태를 블로킹 상태라고 한다.
-- 싱글 스레드인 자바스크립트가 매번 5초가 지났는지 체크하지 않고 5초 후에 콜백을 호출할 수 있는 이유는 브라우저가 자바스크립트를 실행하는 것 이상의 의미를 가지기 때문이다.
-- V8 엔진은 크게 두 부분으로 구성된다.
-  - 메모리 힙(Memory Heap): 메모리 할당이 이루어지는 곳
-  - 콜스택(Call Stack): 코드가 실행되면서 스택 프레임이 쌓이는 곳
-- 단일 스레드는 데드락(deadlocks) 같은 상황을 신경 쓰지 않아도 된다는 장점이 있지만, 특정 코드 실행이 늦어지면 UI가 막히는 한계가 있다. 해결책은 비동기 콜백(asynchronous callbacks)이다.
+> #### User Annotation:
+> 외부 자료 발췌:
+> - Javascript Runtime은 Heap, Call Stack, Web APIs(DOM, Ajax, setTimeout 등), Callback Queue, Event Loop로 구성된다.
+> - 싱글 스레드는 하나의 힙 영역과 하나의 콜스택을 가진다. 하나의 콜스택을 가진다는 의미는 한 번에 한 가지 일밖에 하지 못한다는 의미다.
+> - `Uncaught RangeError: Maximum call stack size exceeded`는 콜스택이 가득 차서 발생하는 에러다.
+> - 코드가 종료될 때까지 유저가 클릭을 해도 어떠한 반응을 하지 않는 상태가 되는데, 콜스택이 멈춘 상태를 블로킹 상태라고 한다.
+> - 싱글 스레드인 자바스크립트가 매번 5초가 지났는지 체크하지 않고 5초 후에 콜백을 호출할 수 있는 이유는 브라우저가 자바스크립트를 실행하는 것 이상의 의미를 가지기 때문이다.
+> - V8 엔진은 크게 두 부분으로 구성된다.
+>   - 메모리 힙(Memory Heap): 메모리 할당이 이루어지는 곳
+>   - 콜스택(Call Stack): 코드가 실행되면서 스택 프레임이 쌓이는 곳
+> - 단일 스레드는 데드락(deadlocks) 같은 상황을 신경 쓰지 않아도 된다는 장점이 있지만, 특정 코드 실행이 늦어지면 UI가 막히는 한계가 있다. 해결책은 비동기 콜백(asynchronous callbacks)이다.
 
-### 보충: setTimeout과 for문 예시
-```html
-<script>
-  for (var i = 0 ; i < 10 ; i++ ) {
-    setTimeout(function () {
-      console.log(i);
-    }, 0);
-  }
-  console.log("for loop end");
-
-  for (let i = 0 ; i < 99999999; i++) {}
-
-  console.log("99999999 loop end");
-</script>
-```
-실행 순서는
-```
-for loop end
-99999999 loop end
-10 10 ... (10이 10번)
-```
-이렇게 된다.
-
-script 안에 있는 전역 실행문들은 전체가 하나의 global()처럼 실행되기 때문에, for문을 포함한 모든 전역 실행문이 끝나기 전까지 event queue에 있는 작업은 callstack으로 올 수 없어서 이런 일이 발생한다.
-
-아.. 이 부분 인사이드 자바스크립트 책 봐야 마저 이해할 수 있겠다.
+> #### User Annotation:
+> setTimeout과 for문 예시:
+>
+> ```html
+> <script>
+>   for (var i = 0 ; i < 10 ; i++ ) {
+>     setTimeout(function () {
+>       console.log(i);
+>     }, 0);
+>   }
+>   console.log("for loop end");
+>
+>   for (let i = 0 ; i < 99999999; i++) {}
+>
+>   console.log("99999999 loop end");
+> </script>
+> ```
+>
+> 실행 순서는
+>
+> ```
+> for loop end
+> 99999999 loop end
+> 10 10 ... (10이 10번)
+> ```
+>
+> 이렇게 된다.
+>
+> script 안에 있는 전역 실행문들은 전체가 하나의 global()처럼 실행되기 때문에, for문을 포함한 모든 전역 실행문이 끝나기 전까지 event queue에 있는 작업은 callstack으로 올 수 없어서 이런 일이 발생한다.
+>
+> 아.. 이 부분 인사이드 자바스크립트 책 봐야 마저 이해할 수 있겠다.
 
 ### Reference
 - https://beomy.github.io/tech/javascript/javascript-runtime/
