@@ -172,32 +172,7 @@ Answer 하위에 추가할 수 있는 선택적 섹션이다.
 
 ---
 
-## 6. 문장 단위 줄바꿈 (Semantic Line Breaks)
-
-### 원칙
-- 한 문장이 끝날 때마다 줄바꿈한다.
-- 문장이 길어지더라도 온점(`.`)이나 물음표(`?`)로 문장이 종료되면 줄을 바꾼다.
-
-### 이유
-Git 등 버전 관리 시스템에서 Diff(변경 내역)를 문장 단위로 깔끔하게 확인하기 위함입니다.
-
-### 예시
-
-❌ 잘못된 예:
-```markdown
-A network is a group of communicating computers. The network allows computers to share resources and information. Networks can be classified by their size and scope.
-```
-
-✅ 올바른 예:
-```markdown
-A network is a group of communicating computers.
-The network allows computers to share resources and information.
-Networks can be classified by their size and scope.
-```
-
----
-
-## 7. 이미지 처리
+## 6. 이미지 처리
 
 ### Case 1: AI 답변 캡처
 Official Answer 섹션 내부에 인용 블록으로 추가:
