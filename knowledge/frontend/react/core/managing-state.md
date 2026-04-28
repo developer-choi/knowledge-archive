@@ -156,12 +156,8 @@ Remember that keys are not globally unique.
 They only specify the position within the parent.
 
 > #### Key Terms:
-> - **not globally unique**: 전역 유일할 필요 없음. 다른 부모 아래에 같은 key가 있어도 무방
-> - **position within the parent**: 부모 내에서의 위치 — 형제들 사이에서만 의미
-
-> #### AI Annotation:
-> React가 식별에 쓰는 건 `(부모 좌표, key)` 조합이지 `key` 단독이 아니다.
-> 그래서 list A의 `key="1"`과 list B의 `key="1"`이 충돌하지 않는다 — 부모가 다르면 좌표 자체가 다르니까.
+> - **not globally unique**: 전역 유일할 필요 없음
+> - **position within the parent**: 부모 내에서의 위치
 
 ### Reference
 - https://react.dev/learn/preserving-and-resetting-state
