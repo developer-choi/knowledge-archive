@@ -5,7 +5,7 @@ tags: [data-structure, concept]
 # Questions
 - 배열이란 무엇인가?
   - 부분 배열(Subarray)이란 무엇인가?
-- 배열이 왜 필요한가?
+- [UNVERIFIED] 배열이 왜 필요한가?
 - 배열의 장점은 무엇인가?
   - 임의 접근(Random Access)이란 무엇이고, 왜 O(1)인가?
   - 배열이 캐시 친화적인 이유는?
@@ -44,7 +44,7 @@ A subarray is a contiguous part of an array, formed by selecting one or more con
 
 ---
 
-## 배열이 왜 필요한가?
+## [UNVERIFIED] 배열이 왜 필요한가?
 
 ### User Answer
 학생 5명의 이름을 저장해야할 일이 있을 때 string 변수 5개 만들면 관리하기 너무힘들어짐. (6명된다거나 등등)

@@ -4,9 +4,9 @@ tags: [data-structure, concept, principle]
 
 # Questions
 - Stack이란 무엇인가?
-- Stack이 가장 적합한 문제 유형의 특징은?
-  - LIFO가 "가장 가까운" 문제에 적합한 이유는?
-  - Monotonic Stack 패턴이 이중 반복문임에도 O(n)인 이유는?
+- [UNVERIFIED] Stack이 가장 적합한 문제 유형의 특징은?
+  - [UNVERIFIED] LIFO가 "가장 가까운" 문제에 적합한 이유는?
+  - [UNVERIFIED] Monotonic Stack 패턴이 이중 반복문임에도 O(n)인 이유는?
 
 ---
 
@@ -30,7 +30,7 @@ The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 
 ---
 
-## Stack이 가장 적합한 문제 유형의 특징은?
+## [UNVERIFIED] Stack이 가장 적합한 문제 유형의 특징은?
 
 ### User Answer
 배열이나 문자열에서,
@@ -50,7 +50,7 @@ The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 
 ---
 
-## LIFO가 "가장 가까운" 문제에 적합한 이유는?
+## [UNVERIFIED] LIFO가 "가장 가까운" 문제에 적합한 이유는?
 
 ### User Answer
 기준값 보다 좌측 혹은 우측으로 가까운 여부를 따지려면, FIFO가 아니라 LIFO 특성을 따라야함.
@@ -63,7 +63,7 @@ The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 
 ---
 
-## Monotonic Stack 패턴이 이중 반복문임에도 O(n)인 이유는?
+## [UNVERIFIED] Monotonic Stack 패턴이 이중 반복문임에도 O(n)인 이유는?
 
 ### User Answer
 핵심은 '각 루프의 최악의 경우를 모두 더하는' 것이 아니라 '알고리즘 전체에서 실행되는 연산의 총합'을 계산하는 것.

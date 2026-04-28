@@ -5,9 +5,9 @@ tags: [data-structure, concept]
 # Questions
 - Hashing이란?
   - Hash function이란?
-- 해시 함수의 출력이 고정 크기(fixed-size)여야 하는 이유는?
-- Hashing은 어떻게 동작하는가?
-  - 해시 함수에서 mod 연산이 중요한 이유는?
+- [UNVERIFIED] 해시 함수의 출력이 고정 크기(fixed-size)여야 하는 이유는?
+- [UNVERIFIED] Hashing은 어떻게 동작하는가?
+  - [UNVERIFIED] 해시 함수에서 mod 연산이 중요한 이유는?
 - 좋은 해시 함수의 조건은?
 - Hash Collision이란?
 - Hash Table의 장점은?
@@ -48,7 +48,7 @@ A simple example hash function can be to consider the last two digits of phone n
 
 ---
 
-## 해시 함수의 출력이 고정 크기(fixed-size)여야 하는 이유는?
+## [UNVERIFIED] 해시 함수의 출력이 고정 크기(fixed-size)여야 하는 이유는?
 
 ### AI Answer
 1. **해시 테이블의 효율적인 인덱싱**: 고정된 크기의 출력이면 나머지 연산(%)으로 쉽게 인덱스로 변환 가능.
@@ -63,7 +63,7 @@ A simple example hash function can be to consider the last two digits of phone n
 
 ---
 
-## Hashing은 어떻게 동작하는가?
+## [UNVERIFIED] Hashing은 어떻게 동작하는가?
 
 ### User Answer
 1. 해시함수로 입력된 값을 1차변환 하고,
@@ -79,7 +79,7 @@ A simple example hash function can be to consider the last two digits of phone n
 
 ---
 
-## 해시 함수에서 mod 연산이 중요한 이유는?
+## [UNVERIFIED] 해시 함수에서 mod 연산이 중요한 이유는?
 
 ### AI Answer
 1. **인덱스 범위 제한**: 해시 값이 아무리 크더라도 테이블 크기는 유한.

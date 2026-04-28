@@ -4,14 +4,14 @@ tags: [network, concept]
 
 # Questions
 
-- Application Layer의 역할은 무엇인가?
-- Application Layer에서 사용되는 대표적인 프로토콜에는 어떤 것들이 있는가?
+- [UNVERIFIED] Application Layer의 역할은 무엇인가?
+- [UNVERIFIED] Application Layer에서 사용되는 대표적인 프로토콜에는 어떤 것들이 있는가?
 
 ---
 
 # Answers
 
-## Application Layer의 역할은 무엇인가?
+## [UNVERIFIED] Application Layer의 역할은 무엇인가?
 
 ### User Answer
 사용자가 네트워크로 서비스를 이용할 수 있게 해준다.
@@ -21,7 +21,7 @@ tags: [network, concept]
 
 ---
 
-## Application Layer에서 사용되는 대표적인 프로토콜에는 어떤 것들이 있는가?
+## [UNVERIFIED] Application Layer에서 사용되는 대표적인 프로토콜에는 어떤 것들이 있는가?
 
 ### User Answer
 - 원격 로그인: Telnet Protocol

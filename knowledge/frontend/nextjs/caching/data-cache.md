@@ -8,7 +8,7 @@ tags: [nextjs, performance, principle]
 - Data Cache는 클라이언트 사이드에서도 작동하는가?
 - `fetch()`의 `cache` 옵션 기본값(auto no cache), `no-store`, `force-cache`는 각각 어떻게 동작하는가?
 - 한 페이지 안에서 cached data와 uncached data를 혼합할 수 있는가?
-- Pages Router의 SSG 대비 App Router의 Data Cache가 개선한 부분은?
+- [UNVERIFIED] Pages Router의 SSG 대비 App Router의 Data Cache가 개선한 부분은?
 - Data Cache를 revalidate 하면 Full Route Cache는? 반대는?
 - Route Handler에서 Data Cache를 revalidate 하면 Router Cache는?
 - 한 페이지에서 fetch 요청 중 하나라도 cached가 아니면 라우트 전체는?
@@ -117,7 +117,7 @@ Other `fetch` requests that do not opt out of caching will still be cached in th
 
 ---
 
-## Pages Router의 SSG 대비 App Router의 Data Cache가 개선한 부분은?
+## [UNVERIFIED] Pages Router의 SSG 대비 App Router의 Data Cache가 개선한 부분은?
 
 ### User Answer
 Pages Router는 페이지 **전체를** SSG 하는 것만 가능했다.

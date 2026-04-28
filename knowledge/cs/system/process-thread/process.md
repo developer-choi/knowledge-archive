@@ -5,8 +5,8 @@ tags: [os, concept]
 # Questions
 - 프로세스란 무엇이며, 프로그램과 어떻게 다른가?
   - 프로세스는 무엇으로 구성되는가?
-    - 여기서 말하는 initiate / control / coordinate가 뭔가요?
-    - initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
+    - [UNVERIFIED] 여기서 말하는 initiate / control / coordinate가 뭔가요?
+    - [UNVERIFIED] initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
     - 프로세스의 메모리 영역은 어떤 구성 요소를 포함하는가?
     - [PCB(프로세스 제어 블록)란 무엇인가?](process-control-block.md)
   - OS가 프로세스들을 서로 격리하는 이유와, 격리 실패 시 발생할 수 있는 문제는?
@@ -15,8 +15,8 @@ tags: [os, concept]
   - 현대 OS가 프로세스 간 직접 통신을 막고 IPC를 제공하는 이유는?
 - 부모 프로세스와 자식 프로세스의 관계는 어떻게 형성되는가?
 - 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
-- OS는 실행 중인 프로세스들을 어떻게 식별하는가?
-- 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
+- [UNVERIFIED] OS는 실행 중인 프로세스들을 어떻게 식별하는가?
+- [UNVERIFIED] 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
 
 ---
 
@@ -67,7 +67,7 @@ A process comprises the program code, assigned system resources, physical and lo
 
 ---
 
-## 여기서 말하는 initiate / control / coordinate가 뭔가요?
+## [UNVERIFIED] 여기서 말하는 initiate / control / coordinate가 뭔가요?
 
 ### AI Answer
 - **initiate**: 프로세스를 처음 만드는 것. PCB 생성, 메모리 할당, 코드 적재까지 — created state를 만드는 행위.
@@ -76,7 +76,7 @@ A process comprises the program code, assigned system resources, physical and lo
 
 ---
 
-## initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
+## [UNVERIFIED] initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
 
 ### AI Answer
 - **initiate**: `node app.js` 실행 시 OS가 PCB를 생성하며 기록하는 값들.
@@ -249,7 +249,7 @@ The process is removed instantly or is moved to the "terminated" state.
 
 ---
 
-## OS는 실행 중인 프로세스들을 어떻게 식별하는가?
+## [UNVERIFIED] OS는 실행 중인 프로세스들을 어떻게 식별하는가?
 
 ### User Answer
 프로세스들은 PID(Process ID)로 구분된다.
@@ -263,7 +263,7 @@ Systemd가 생성하는 보편적인 프로세스의 예시:
 
 ---
 
-## 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
+## [UNVERIFIED] 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
 
 ### User Answer
 일반적인 생성/종료 흐름:

@@ -3,18 +3,18 @@ tags: [javascript, concept]
 ---
 
 # Questions
-- 블로킹과 논블로킹은 무엇을 기준으로 구분하는가?
-- 동기와 비동기는 무엇을 기준으로 구분하는가?
-- 블로킹/논블로킹과 동기/비동기는 어떤 관계인가?
-- Blocking + Sync 코드는 어떤 모습인가?
-- Non-blocking + Async 코드는 어떤 모습인가?
-- 프론트엔드에서 블로킹/논블로킹을 따지는 이유는 무엇인가?
+- [UNVERIFIED] 블로킹과 논블로킹은 무엇을 기준으로 구분하는가?
+- [UNVERIFIED] 동기와 비동기는 무엇을 기준으로 구분하는가?
+- [UNVERIFIED] 블로킹/논블로킹과 동기/비동기는 어떤 관계인가?
+- [UNVERIFIED] Blocking + Sync 코드는 어떤 모습인가?
+- [UNVERIFIED] Non-blocking + Async 코드는 어떤 모습인가?
+- [UNVERIFIED] 프론트엔드에서 블로킹/논블로킹을 따지는 이유는 무엇인가?
 
 ---
 
 # Answers
 
-## 블로킹과 논블로킹은 무엇을 기준으로 구분하는가?
+## [UNVERIFIED] 블로킹과 논블로킹은 무엇을 기준으로 구분하는가?
 
 ### User Answer
 제어권의 관점에서 구분한다.
@@ -27,7 +27,7 @@ tags: [javascript, concept]
 
 ---
 
-## 동기와 비동기는 무엇을 기준으로 구분하는가?
+## [UNVERIFIED] 동기와 비동기는 무엇을 기준으로 구분하는가?
 
 ### User Answer
 순서의 관점에서 구분한다.
@@ -42,7 +42,7 @@ tags: [javascript, concept]
 
 ---
 
-## 블로킹/논블로킹과 동기/비동기는 어떤 관계인가?
+## [UNVERIFIED] 블로킹/논블로킹과 동기/비동기는 어떤 관계인가?
 
 ### User Answer
 서로 관점이 다를 뿐이다.
@@ -55,7 +55,7 @@ tags: [javascript, concept]
 
 ---
 
-## Blocking + Sync 코드는 어떤 모습인가?
+## [UNVERIFIED] Blocking + Sync 코드는 어떤 모습인가?
 
 ### User Answer
 ```javascript
@@ -84,7 +84,7 @@ work();
 
 ---
 
-## Non-blocking + Async 코드는 어떤 모습인가?
+## [UNVERIFIED] Non-blocking + Async 코드는 어떤 모습인가?
 
 ### User Answer
 ```javascript
@@ -119,7 +119,7 @@ work();
 
 ---
 
-## 프론트엔드에서 블로킹/논블로킹을 따지는 이유는 무엇인가?
+## [UNVERIFIED] 프론트엔드에서 블로킹/논블로킹을 따지는 이유는 무엇인가?
 
 ### User Answer
 브라우저가 블로킹 상태로 빠지지 않도록 하기 위함이다.

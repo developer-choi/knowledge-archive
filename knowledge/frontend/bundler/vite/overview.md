@@ -3,14 +3,14 @@ tags: [javascript, concept]
 ---
 
 # Questions
-- Vite가 기본 제공하는 features는 어떤 것들이 있는가?
-- 라이브러리에서 `index.ts`의 진짜 목적은 무엇인가?
+- [UNVERIFIED] Vite가 기본 제공하는 features는 어떤 것들이 있는가?
+- [UNVERIFIED] 라이브러리에서 `index.ts`의 진짜 목적은 무엇인가?
 
 ---
 
 # Answers
 
-## Vite가 기본 제공하는 features는 어떤 것들이 있는가?
+## [UNVERIFIED] Vite가 기본 제공하는 features는 어떤 것들이 있는가?
 
 ### User Answer
 Vite가 별도 설정 없이 제공하는 주요 기능.
@@ -23,7 +23,7 @@ Vite가 별도 설정 없이 제공하는 주요 기능.
 
 ---
 
-## 라이브러리에서 `index.ts`의 진짜 목적은 무엇인가?
+## [UNVERIFIED] 라이브러리에서 `index.ts`의 진짜 목적은 무엇인가?
 
 ### User Answer
 `index.ts`(또는 `index.tsx`)의 진짜 목적은 **빌드 진입점(entry point)** 이지, "결과물 파일을 1개로 합치는 것"이 아니다.

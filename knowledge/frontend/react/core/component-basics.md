@@ -3,8 +3,8 @@ tags: [react, concept]
 ---
 # Questions
 - Component와 Element의 차이는 무엇이며, Component는 개념적으로 무엇과 유사한가?
-- state에는 어떤 값을 저장하는 것이 좋은가?
-- React 컴포넌트의 lifecycle을 설명하라.
+- [UNVERIFIED] state에는 어떤 값을 저장하는 것이 좋은가?
+- [UNVERIFIED] React 컴포넌트의 lifecycle을 설명하라.
   - 업데이트 phase에서 같은 타입의 DOM 엘리먼트는 어떻게 처리되며, 어떤 부분만 실제 DOM에 반영되는가?
   - 업데이트 phase에서 같은 타입의 컴포넌트는 어떻게 처리되며, 그 결과 state는 어떻게 보존되는가?
   - React가 자식 리스트의 어떤 항목을 재사용(업데이트)하고 어떤 항목을 새로 마운트할지 결정할 때, 기본 매칭 방식은 무엇이며 그 한계는 무엇인가?
@@ -60,7 +60,7 @@ Components let you split the UI into independent, reusable pieces, and think abo
 
 ---
 
-## state에는 어떤 값을 저장하는 것이 좋은가?
+## [UNVERIFIED] state에는 어떤 값을 저장하는 것이 좋은가?
 
 ### User Answer
 state는 다음 세 가지 특성을 가진다.
@@ -73,7 +73,7 @@ state는 다음 세 가지 특성을 가진다.
 
 ---
 
-## React 컴포넌트의 lifecycle을 설명하라.
+## [UNVERIFIED] React 컴포넌트의 lifecycle을 설명하라.
 
 ### User Answer
 주로 사용하는 lifecycle은 총 3가지로, 마운트 → 업데이트 → 언마운트 순서로 일어난다.

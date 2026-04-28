@@ -4,18 +4,18 @@ tags: [network, concept]
 
 # Questions
 
-- Physical Layer의 역할은 무엇인가?
-- LAN Card란 무엇인가?
-- Network Adaptor와 NIC(Network Interface Controller)의 관계는?
-- Transmission Media란 무엇이며, 어떤 특성이 있는가?
-- Repeater는 어떤 장비이며, 왜 deprecated 되었는가?
-- Hub는 어떤 장비이며, Repeater와 어떤 차이가 있는가?
+- [UNVERIFIED] Physical Layer의 역할은 무엇인가?
+- [UNVERIFIED] LAN Card란 무엇인가?
+- [UNVERIFIED] Network Adaptor와 NIC(Network Interface Controller)의 관계는?
+- [UNVERIFIED] Transmission Media란 무엇이며, 어떤 특성이 있는가?
+- [UNVERIFIED] Repeater는 어떤 장비이며, 왜 deprecated 되었는가?
+- [UNVERIFIED] Hub는 어떤 장비이며, Repeater와 어떤 차이가 있는가?
 
 ---
 
 # Answers
 
-## Physical Layer의 역할은 무엇인가?
+## [UNVERIFIED] Physical Layer의 역할은 무엇인가?
 
 ### User Answer
 Physical Layer는 아래 3가지 역할을 한다.
@@ -26,7 +26,7 @@ Physical Layer는 아래 3가지 역할을 한다.
 
 ---
 
-## LAN Card란 무엇인가?
+## [UNVERIFIED] LAN Card란 무엇인가?
 
 ### User Answer
 Physical Layer 장비다.
@@ -37,7 +37,7 @@ Physical Layer 장비다.
 
 ---
 
-## Network Adaptor와 NIC(Network Interface Controller)의 관계는?
+## [UNVERIFIED] Network Adaptor와 NIC(Network Interface Controller)의 관계는?
 
 ### User Answer
 랜카드는 넓게 봤을 때 Network Adaptor의 한 종류다.
@@ -46,7 +46,7 @@ NIC(Network Interface Controller)는 Network Adapter와 같은 말이다.
 
 ---
 
-## Transmission Media란 무엇이며, 어떤 특성이 있는가?
+## [UNVERIFIED] Transmission Media란 무엇이며, 어떤 특성이 있는가?
 
 ### User Answer
 Physical Layer 장비다.
@@ -56,7 +56,7 @@ Physical Layer 장비다.
 
 ---
 
-## Repeater는 어떤 장비이며, 왜 deprecated 되었는가?
+## [UNVERIFIED] Repeater는 어떤 장비이며, 왜 deprecated 되었는가?
 
 ### User Answer
 Physical Layer 장비다.
@@ -69,7 +69,7 @@ Physical Layer 장비다.
 
 ---
 
-## Hub는 어떤 장비이며, Repeater와 어떤 차이가 있는가?
+## [UNVERIFIED] Hub는 어떤 장비이며, Repeater와 어떤 차이가 있는가?
 
 ### User Answer
 Physical Layer 장비다.

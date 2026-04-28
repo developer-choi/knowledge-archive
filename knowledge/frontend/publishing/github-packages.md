@@ -4,8 +4,8 @@ tags: [concept, ci-cd]
 
 # Questions
 - GitHub Packages는 무엇인가?
-- GitHub Packages가 일반 패키지 레지스트리와 차별화되는 가치는?
-- GitHub Packages는 어떤 패키지 종류를 지원하는가?
+- [UNVERIFIED] GitHub Packages가 일반 패키지 레지스트리와 차별화되는 가치는?
+- [UNVERIFIED] GitHub Packages는 어떤 패키지 종류를 지원하는가?
 
 ---
 
@@ -21,7 +21,7 @@ GitHub Packages is a software package hosting service that allows you to host yo
 
 ---
 
-## GitHub Packages가 일반 패키지 레지스트리와 차별화되는 가치는?
+## [UNVERIFIED] GitHub Packages가 일반 패키지 레지스트리와 차별화되는 가치는?
 
 ### User Answer
 - Hosting + managing: 단순 업로드만이 아니라, 컨테이너 등 의존성까지 함께 관리한다.
@@ -34,7 +34,7 @@ GitHub Packages is a software package hosting service that allows you to host yo
 
 ---
 
-## GitHub Packages는 어떤 패키지 종류를 지원하는가?
+## [UNVERIFIED] GitHub Packages는 어떤 패키지 종류를 지원하는가?
 
 ### User Answer
 지원 registry.

@@ -4,7 +4,7 @@ tags: [concept, architecture]
 
 # Questions
 - Workspaces란 무엇인가?
-- Workspaces는 어디서 제공하는 기능인가?
+- [UNVERIFIED] Workspaces는 어디서 제공하는 기능인가?
 
 ---
 
@@ -27,7 +27,7 @@ This allows you to install all dependencies of multiple projects in one go and t
 
 ---
 
-## Workspaces는 어디서 제공하는 기능인가?
+## [UNVERIFIED] Workspaces는 어디서 제공하는 기능인가?
 
 ### User Answer
 패키지 매니저가 제공하는 기능이다.

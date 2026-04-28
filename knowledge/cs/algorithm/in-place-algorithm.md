@@ -3,10 +3,10 @@ tags: [algorithm, concept]
 ---
 # Questions
 - In-place algorithm이란?
-  - constant space란?
+  - [UNVERIFIED] constant space란?
 - In-place algorithm의 장점은?
-- In-place algorithm 예시 — Bubble Sort란?
-- In-place algorithm 예시 — Selection Sort란?
+- [UNVERIFIED] In-place algorithm 예시 — Bubble Sort란?
+- [UNVERIFIED] In-place algorithm 예시 — Selection Sort란?
 
 ---
 
@@ -41,7 +41,7 @@ It is called in-place according to broad definition as extra space required is n
 
 ---
 
-## constant space란?
+## [UNVERIFIED] constant space란?
 
 ### User Answer
 알고리즘이 사용하는 추가적인 메모리 공간의 크기가 입력의 크기와 **무관하게 항상 일정**한 경우.
@@ -66,7 +66,7 @@ It does not require any additional memory space.
 
 ---
 
-## In-place algorithm 예시 — Bubble Sort란?
+## [UNVERIFIED] In-place algorithm 예시 — Bubble Sort란?
 
 ### User Answer
 좌우를 비교해서 **계속 swap**해가며, 순회 한 번 할 때마다 **우측**에 정렬된 값이 쌓이게 하는 알고리즘.
@@ -81,7 +81,7 @@ It does not require any additional memory space.
 
 ---
 
-## In-place algorithm 예시 — Selection Sort란?
+## [UNVERIFIED] In-place algorithm 예시 — Selection Sort란?
 
 ### User Answer
 순회할 때마다 순회 기준 숫자와 우측에서 제일 작은 숫자를 swap하는 알고리즘.

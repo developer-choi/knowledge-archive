@@ -4,9 +4,9 @@ tags: [browser, principle]
 
 # Questions
 - 브라우저는 HTML markup을 어떻게 DOM tree로 변환하는가?
-- DOM tree가 없다면 어떤 문제가 생기는가?
+- [UNVERIFIED] DOM tree가 없다면 어떤 문제가 생기는가?
 - CSSOM tree에는 어떤 스타일이 포함되는가?
-- Cascading Style Sheets의 'Cascading'은 무엇을 의미하는가?
+- [UNVERIFIED] Cascading Style Sheets의 'Cascading'은 무엇을 의미하는가?
 - Parser blocking과 Render blocking은 어떻게 다른가?
 
 ---
@@ -38,7 +38,7 @@ While the browser builds the DOM tree, this process occupies the main thread.
 
 ---
 
-## DOM tree가 없다면 어떤 문제가 생기는가?
+## [UNVERIFIED] DOM tree가 없다면 어떤 문제가 생기는가?
 
 ### User Answer
 화면을 바꿀 수가 없음.
@@ -63,7 +63,7 @@ The CSSOM tree includes styles from the user agent style sheet.
 
 ---
 
-## Cascading Style Sheets의 'Cascading'은 무엇을 의미하는가?
+## [UNVERIFIED] Cascading Style Sheets의 'Cascading'은 무엇을 의미하는가?
 
 ### User Answer
 (사용자 메모 기준)

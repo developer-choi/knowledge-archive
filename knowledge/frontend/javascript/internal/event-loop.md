@@ -3,14 +3,14 @@ tags: [javascript, browser, concept]
 ---
 
 # Questions
-- Macrotask와 Microtask는 각각 무엇인가?
-- 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
+- [UNVERIFIED] Macrotask와 Microtask는 각각 무엇인가?
+- [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
 - task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
-- 비동기 작업은 호출되자마자 Queue에 들어가는가?
+- [UNVERIFIED] 비동기 작업은 호출되자마자 Queue에 들어가는가?
 ---
 # Answers
 
-## Macrotask와 Microtask는 각각 무엇인가?
+## [UNVERIFIED] Macrotask와 Microtask는 각각 무엇인가?
 
 ### User Answer
 Macrotask는 일반적으로 `setTimeout`으로 만든 작업을 말한다.
@@ -20,7 +20,7 @@ Microtask는 일반적으로 `Promise`로 만든 작업을 말한다.
 - Microtask Queue: 큐가 완전히 비워질 때까지 계속 꺼내 실행한다. 실행 도중 새로운 Microtask가 추가되면 그것까지 포함하여 큐가 0이 될 때까지 멈추지 않는다.
 - Macrotask Queue: 한 틱에 딱 하나만 꺼내 실행한 뒤, 다시 이벤트 루프의 제어권이 루프로 돌아간다.
 
-## 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
+## [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
 
 ```js
 console.log(1);
@@ -102,7 +102,7 @@ task가 실행되는 동안에는 아무리 그 안에서 렌더링하는 코드
 일반적으로 60Hz 모니터 기준 약 16.7ms마다 렌더링 기회(Rendering Opportunity)를 가지며, Microtask Queue가 비워진 시점에 마침 렌더링 주기가 돌아왔다면 그때 비로소 화면을 업데이트한다.
 또한 Microtask가 무한히 추가되면 (예: `function loop() { Promise.resolve().then(loop); }`) 이벤트 루프는 절대 렌더링 단계로 진입하지 못하며, 화면이 완전히 굳어버리는(Jank) 현상이 발생한다.
 
-## 비동기 작업은 호출되자마자 Queue에 들어가는가?
+## [UNVERIFIED] 비동기 작업은 호출되자마자 Queue에 들어가는가?
 
 ### User Answer
 들어가지 않는다.

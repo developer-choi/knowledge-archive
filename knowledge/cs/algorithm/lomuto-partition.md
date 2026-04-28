@@ -2,14 +2,14 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- Lomuto Partition의 목표는?
-- Lomuto Partition의 동작 방식은?
+- [UNVERIFIED] Lomuto Partition의 목표는?
+- [UNVERIFIED] Lomuto Partition의 동작 방식은?
 
 ---
 
 # Answers
 
-## Lomuto Partition의 목표는?
+## [UNVERIFIED] Lomuto Partition의 목표는?
 
 ### User Answer
 1. pivot을 정한다 (랜덤, 중앙, 첫, 마지막 중 선택).
@@ -21,7 +21,7 @@ tags: [algorithm, concept]
 
 ---
 
-## Lomuto Partition의 동작 방식은?
+## [UNVERIFIED] Lomuto Partition의 동작 방식은?
 
 ### User Answer
 **Step 0. 포인터 2개 준비**

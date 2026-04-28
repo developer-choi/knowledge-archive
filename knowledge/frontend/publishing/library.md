@@ -3,14 +3,14 @@ tags: [concept, best-practice]
 ---
 
 # Questions
-- 라이브러리 빌드 결과물에 원본 .tsx가 포함되는가?
-- 라이브러리에서 react를 peer dependency로 두는 이유는?
+- [UNVERIFIED] 라이브러리 빌드 결과물에 원본 .tsx가 포함되는가?
+- [UNVERIFIED] 라이브러리에서 react를 peer dependency로 두는 이유는?
 
 ---
 
 # Answers
 
-## 라이브러리 빌드 결과물에 원본 .tsx가 포함되는가?
+## [UNVERIFIED] 라이브러리 빌드 결과물에 원본 .tsx가 포함되는가?
 
 ### User Answer
 포함되지 않는다.
@@ -19,7 +19,7 @@ tags: [concept, best-practice]
 
 ---
 
-## 라이브러리에서 react를 peer dependency로 두는 이유는?
+## [UNVERIFIED] 라이브러리에서 react를 peer dependency로 두는 이유는?
 
 ### User Answer
 라이브러리가 import해서 쓰는 react와, 라이브러리를 사용하는 프로젝트의 react가 **동일한 인스턴스**를 바라봐야 하기 때문이다.

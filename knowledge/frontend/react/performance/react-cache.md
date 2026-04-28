@@ -10,7 +10,7 @@ tags: [react, nextjs, performance]
 - `cache()`의 캐시는 언제 무효화되는가?
 - `cache()`는 Client Component에서도 사용 가능한가?
 - memoized function을 컴포넌트 바깥에서 호출하면 어떻게 되는가?
-- memoized function을 여러 컴포넌트에서 공유하려면 어떻게 배치해야 하는가?
+- [UNVERIFIED] memoized function을 여러 컴포넌트에서 공유하려면 어떻게 배치해야 하는가?
 
 ---
 
@@ -129,7 +129,7 @@ This is because cache access is provided through a **context** which is only acc
 
 ---
 
-## memoized function을 여러 컴포넌트에서 공유하려면 어떻게 배치해야 하는가?
+## [UNVERIFIED] memoized function을 여러 컴포넌트에서 공유하려면 어떻게 배치해야 하는가?
 
 ### User Answer
 컴포넌트 바깥(별도 파일)에 memoized function을 만들고 그것을 export하여, 오직 컴포넌트 안에서만 호출한다.

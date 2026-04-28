@@ -2,7 +2,7 @@
 tags: [algorithm, concept]
 ---
 # Questions
-- 정렬 알고리즘을 알아야 하는 이유는?
+- [UNVERIFIED] 정렬 알고리즘을 알아야 하는 이유는?
 - Internal Sorting이란?
 - External Sorting이란?
 - Stable Sorting이란?
@@ -12,7 +12,7 @@ tags: [algorithm, concept]
 
 # Answers
 
-## 정렬 알고리즘을 알아야 하는 이유는?
+## [UNVERIFIED] 정렬 알고리즘을 알아야 하는 이유는?
 
 ### User Answer
 정렬해두면 탐색하기 쉬워지기 때문이다.

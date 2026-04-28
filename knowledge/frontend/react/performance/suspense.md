@@ -8,9 +8,9 @@ tags: [react, performance, principle]
 - Suspense를 활성화(suspend)시킬 수 있는 데이터 소스 조건은?
 - Suspense가 Effect나 이벤트 핸들러에서 fetch한 데이터도 감지하는가?
 - Nested Suspense를 사용하면 어떤 이점이 있는가?
-- 직렬로 배치된 Suspense는 왜 위험하고 어떤 문제를 만드는가?
+- [UNVERIFIED] 직렬로 배치된 Suspense는 왜 위험하고 어떤 문제를 만드는가?
 - Suspense가 Streaming에 기여하는 방식은?
-- Suspense를 사용하면 코드 가독성 측면에서 어떤 변화가 있는가?
+- [UNVERIFIED] Suspense를 사용하면 코드 가독성 측면에서 어떤 변화가 있는가?
 - Suspense는 Code Splitting 기능인가?
 
 ---
@@ -135,7 +135,7 @@ With this change, displaying the Biography **doesn't need to "wait"** for the Al
 
 ---
 
-## 직렬로 배치된 Suspense는 왜 위험하고 어떤 문제를 만드는가?
+## [UNVERIFIED] 직렬로 배치된 Suspense는 왜 위험하고 어떤 문제를 만드는가?
 
 ### User Answer
 suspense는 throw 기반이기 때문에, 컴포넌트(함수)가 실행되다가
@@ -203,7 +203,7 @@ If the user attempts to interact with a certain component, that component will b
 
 ---
 
-## Suspense를 사용하면 코드 가독성 측면에서 어떤 변화가 있는가?
+## [UNVERIFIED] Suspense를 사용하면 코드 가독성 측면에서 어떤 변화가 있는가?
 
 ### User Answer
 코드가 더 깔끔해진다 (Imperative ⇒ Declarative).

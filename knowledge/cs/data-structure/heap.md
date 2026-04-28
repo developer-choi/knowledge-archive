@@ -4,7 +4,7 @@ tags: [data-structure, concept]
 
 # Questions
 - Heap이란 무엇인가?
-  - Min Heap에서 원소가 정렬된 순서로 저장되어야 하는가?
+  - [UNVERIFIED] Min Heap에서 원소가 정렬된 순서로 저장되어야 하는가?
 - Heap 자료구조의 장점은?
 
 ---
@@ -29,7 +29,7 @@ where the smallest (or largest) element is always at the root of the tree.
 
 ---
 
-## Min Heap에서 원소가 정렬된 순서로 저장되어야 하는가?
+## [UNVERIFIED] Min Heap에서 원소가 정렬된 순서로 저장되어야 하는가?
 
 ### User Answer
 [1, 3, 2]도 [1, 2, 3]도 둘 다 Min Heap이 맞음.

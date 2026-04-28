@@ -6,8 +6,8 @@ tags: [typescript, concept]
 - `satisfies` 연산자는 어떻게 동작하는가?
 - `satisfies`로 객체의 Key만 엄격하게 검사하려면 어떻게 쓰는가?
 - `satisfies`로 객체의 value만 엄격하게 검사하려면 어떻게 쓰는가?
-- Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?
-- 왜 `satisfies`를 `as`보다 우선 검토해야 하는가?
+- [UNVERIFIED] Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?
+- [UNVERIFIED] 왜 `satisfies`를 `as`보다 우선 검토해야 하는가?
 ---
 # Answers
 ## `satisfies` 연산자는 어떤 문제를 해결하기 위해 등장했는가?
@@ -79,14 +79,14 @@ const greenNormalized = palette.green.toUpperCase();
 
 
 ---
-## Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?
+## [UNVERIFIED] Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?
 ### User Answer
 - Type Annotation = 타입을 지정.
 - assertion = 타입을 단언.
 - satisfies = 타입을 체크만 하고, 추론 결과에 영향을 주지 않음.
 
 ---
-## 왜 `satisfies`를 `as`보다 우선 검토해야 하는가?
+## [UNVERIFIED] 왜 `satisfies`를 `as`보다 우선 검토해야 하는가?
 ### User Answer
 안정성 때문이다.
 

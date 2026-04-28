@@ -4,19 +4,19 @@ tags: [network, concept]
 
 # Questions
 
-- Transport Layer의 역할은 무엇인가?
-  - Port Addressing이란 무엇인가?
-  - Segmentation and Reassembly는 어떤 순서로 동작하는가?
-  - Accuracy는 왜 Transport Layer의 책임인가?
-- Port Number와 PID의 차이는 무엇인가?
-- Port Number란 무엇이며, 한 컴퓨터에서 여러 서비스를 동시에 사용할 수 있는 이유는?
-- Port Number의 범위별 분류(well-known / registered / dynamic)는 어떻게 나뉘는가?
+- [UNVERIFIED] Transport Layer의 역할은 무엇인가?
+  - [UNVERIFIED] Port Addressing이란 무엇인가?
+  - [UNVERIFIED] Segmentation and Reassembly는 어떤 순서로 동작하는가?
+  - [UNVERIFIED] Accuracy는 왜 Transport Layer의 책임인가?
+- [UNVERIFIED] Port Number와 PID의 차이는 무엇인가?
+- [UNVERIFIED] Port Number란 무엇이며, 한 컴퓨터에서 여러 서비스를 동시에 사용할 수 있는 이유는?
+- [UNVERIFIED] Port Number의 범위별 분류(well-known / registered / dynamic)는 어떻게 나뉘는가?
 
 ---
 
 # Answers
 
-## Transport Layer의 역할은 무엇인가?
+## [UNVERIFIED] Transport Layer의 역할은 무엇인가?
 
 ### User Answer
 Transport Layer는 다음 세 가지 역할을 한다.
@@ -27,14 +27,14 @@ Transport Layer는 다음 세 가지 역할을 한다.
 
 ---
 
-## Port Addressing이란 무엇인가?
+## [UNVERIFIED] Port Addressing이란 무엇인가?
 
 ### User Answer
 프로세스 대 프로세스 전달에 책임을 진다.
 
 ---
 
-## Segmentation and Reassembly는 어떤 순서로 동작하는가?
+## [UNVERIFIED] Segmentation and Reassembly는 어떤 순서로 동작하는가?
 
 ### User Answer
 데이터가 처음 보낸 순서 그대로 도착하는 것을 보장한다.
@@ -50,7 +50,7 @@ Transport Layer는 다음 세 가지 역할을 한다.
 
 ---
 
-## Accuracy는 왜 Transport Layer의 책임인가?
+## [UNVERIFIED] Accuracy는 왜 Transport Layer의 책임인가?
 
 ### User Answer
 전송 계층 없이 물리 계층, 데이터링크 계층, 네트워크 계층까지만 있으면, 다른 네트워크의 목적지까지 데이터를 전송할 수는 있지만 데이터가 정확하게 전송되는 것까지는 보장할 수 없다.
@@ -58,7 +58,7 @@ Transport Layer는 다음 세 가지 역할을 한다.
 
 ---
 
-## Port Number와 PID의 차이는 무엇인가?
+## [UNVERIFIED] Port Number와 PID의 차이는 무엇인가?
 
 ### User Answer
 - **PID**: 실행 중인 프로그램(프로세스)을 구분하기 위한 값.
@@ -75,7 +75,7 @@ Transport Layer는 다음 세 가지 역할을 한다.
 
 ---
 
-## Port Number란 무엇이며, 한 컴퓨터에서 여러 서비스를 동시에 사용할 수 있는 이유는?
+## [UNVERIFIED] Port Number란 무엇이며, 한 컴퓨터에서 여러 서비스를 동시에 사용할 수 있는 이유는?
 
 ### User Answer
 Port Number는 포트를 구분하기 위한 값이다.
@@ -86,7 +86,7 @@ Port Number는 포트를 구분하기 위한 값이다.
 
 ---
 
-## Port Number의 범위별 분류(well-known / registered / dynamic)는 어떻게 나뉘는가?
+## [UNVERIFIED] Port Number의 범위별 분류(well-known / registered / dynamic)는 어떻게 나뉘는가?
 
 ### User Answer
 - **well-known port number (0 ~ 1023)**: IANA가 주요 프로토콜(HTTP 등)에 사용하려고 예약해둔 포트 번호.

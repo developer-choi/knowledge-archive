@@ -4,20 +4,20 @@ tags: [os, concept]
 
 # Questions
 
-- HDD란 무엇이며, 어떤 특성을 가지는가?
-- RAID란 무엇인가?
-- RAID의 궁극적인 목적은 무엇인가?
-- Fault tolerant란 무엇인가?
-- RAID 구성 방식은 어떻게 되는가?
-- 네트워크 저장장치란 무엇인가?
-- 디스크 인터페이스란 무엇이며, 어떤 종류가 있는가?
-- DAS, NAS, SAN의 스토리지 아키텍처를 설명하라.
+- [UNVERIFIED] HDD란 무엇이며, 어떤 특성을 가지는가?
+- [UNVERIFIED] RAID란 무엇인가?
+- [UNVERIFIED] RAID의 궁극적인 목적은 무엇인가?
+- [UNVERIFIED] Fault tolerant란 무엇인가?
+- [UNVERIFIED] RAID 구성 방식은 어떻게 되는가?
+- [UNVERIFIED] 네트워크 저장장치란 무엇인가?
+- [UNVERIFIED] 디스크 인터페이스란 무엇이며, 어떤 종류가 있는가?
+- [UNVERIFIED] DAS, NAS, SAN의 스토리지 아키텍처를 설명하라.
 
 ---
 
 # Answers
 
-## HDD란 무엇이며, 어떤 특성을 가지는가?
+## [UNVERIFIED] HDD란 무엇이며, 어떤 특성을 가지는가?
 
 ### User Answer
 원형판으로 만들어진 저장장치다.
@@ -27,7 +27,7 @@ tags: [os, concept]
 
 ---
 
-## RAID란 무엇인가?
+## [UNVERIFIED] RAID란 무엇인가?
 
 ### User Answer
 RAID는 Redundant Array of Independent Disks의 약자로, 복수 배열 독립 디스크들을 의미한다.
@@ -35,7 +35,7 @@ RAID는 Redundant Array of Independent Disks의 약자로, 복수 배열 독립 
 
 ---
 
-## RAID의 궁극적인 목적은 무엇인가?
+## [UNVERIFIED] RAID의 궁극적인 목적은 무엇인가?
 
 ### User Answer
 RAID의 목적은 다음과 같다.
@@ -53,14 +53,14 @@ RAID의 목적은 다음과 같다.
 
 ---
 
-## Fault tolerant란 무엇인가?
+## [UNVERIFIED] Fault tolerant란 무엇인가?
 
 ### User Answer
 시스템이 고장나도 계속 작동될 수 있도록 하는 시스템이다.
 
 ---
 
-## RAID 구성 방식은 어떻게 되는가?
+## [UNVERIFIED] RAID 구성 방식은 어떻게 되는가?
 
 ### User Answer
 RAID 구성 방식은 크게 세 가지로 나뉜다.
@@ -71,7 +71,7 @@ RAID 구성 방식은 크게 세 가지로 나뉜다.
 
 ---
 
-## 네트워크 저장장치란 무엇인가?
+## [UNVERIFIED] 네트워크 저장장치란 무엇인가?
 
 ### User Answer
 네트워크를 통해 클라이언트들이 접근하여 데이터를 읽고 쓸 수 있는 저장장치다.
@@ -79,7 +79,7 @@ RAID 구성 방식은 크게 세 가지로 나뉜다.
 
 ---
 
-## 디스크 인터페이스란 무엇이며, 어떤 종류가 있는가?
+## [UNVERIFIED] 디스크 인터페이스란 무엇이며, 어떤 종류가 있는가?
 
 ### User Answer
 컴퓨터와 저장장치를 연결하는 인터페이스를 말한다.
@@ -87,7 +87,7 @@ RAID 구성 방식은 크게 세 가지로 나뉜다.
 
 ---
 
-## DAS, NAS, SAN의 스토리지 아키텍처를 설명하라.
+## [UNVERIFIED] DAS, NAS, SAN의 스토리지 아키텍처를 설명하라.
 
 ### User Answer
 

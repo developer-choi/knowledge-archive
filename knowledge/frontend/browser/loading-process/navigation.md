@@ -12,7 +12,7 @@ tags: [browser, network, performance]
 - DNS lookup이란 무엇이며 왜 캐싱되는가?
 - Redirect는 왜 성능에 부정적인가?
 - 페이지가 paint된 직후에도 브라우저가 'all set' 상태가 아닐 수 있는 이유는?
-- [TODO] 브라우저 캐싱은 네비게이션 과정의 어떤 단계를 건너뛰게 하나?
+- [UNVERIFIED] 브라우저 캐싱은 네비게이션 과정의 어떤 단계를 건너뛰게 하나?
 
 ---
 
@@ -156,7 +156,7 @@ If the load includes JavaScript, that was correctly deferred, and only executed 
 
 ---
 
-## [TODO] 브라우저 캐싱은 네비게이션 과정의 어떤 단계를 건너뛰게 하나?
+## [UNVERIFIED] 브라우저 캐싱은 네비게이션 과정의 어떤 단계를 건너뛰게 하나?
 
 ### AI Answer
 HTTP 캐시에 리소스가 있으면 DNS lookup, TCP handshake, TLS negotiation, HTTP 요청/응답 등 네트워크 단계 전체를 건너뛸 수 있다.

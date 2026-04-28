@@ -6,8 +6,8 @@ tags: [javascript, concept, best-practice]
 - `name` 필드의 명명 규약은 무엇인가?
 - `private: true`는 어떤 효과가 있는가?
 - `publishConfig`는 무엇을 위한 필드인가?
-- `type` 필드는 무엇을 결정하는가?
-- `module` 필드는 무엇인가?
+- [UNVERIFIED] `type` 필드는 무엇을 결정하는가?
+- [UNVERIFIED] `module` 필드는 무엇인가?
 
 ---
 
@@ -58,7 +58,7 @@ It's especially handy if you want to set the tag, registry or access, so that yo
 
 ---
 
-## `type` 필드는 무엇을 결정하는가?
+## [UNVERIFIED] `type` 필드는 무엇을 결정하는가?
 
 ### User Answer
 `type` 필드는 패키지가 어떤 모듈 시스템으로 처리될지를 결정한다.
@@ -72,7 +72,7 @@ It's especially handy if you want to set the tag, registry or access, so that yo
 
 ---
 
-## `module` 필드는 무엇인가?
+## [UNVERIFIED] `module` 필드는 무엇인가?
 
 ### User Answer
 `module` 필드는 `main` 필드와 유사한 목적으로 사용된다.

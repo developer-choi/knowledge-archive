@@ -4,7 +4,7 @@ tags: [network, concept]
 
 # Questions
 - MAC 주소란 무엇인가?
-- [TODO] 물리 주소와 네트워크 주소의 차이는?
+- [UNVERIFIED] 물리 주소와 네트워크 주소의 차이는?
   - IP 주소와 MAC 주소의 역할 차이는?
 - 논리 주소(IP)가 있는데 물리 주소(MAC)가 왜 필요한가?
   - ARP(Address Resolution Protocol)란 무엇인가?
@@ -31,7 +31,7 @@ MAC addresses are primarily assigned by device manufacturers, and are therefore 
 
 ---
 
-## 물리 주소와 네트워크 주소의 차이는?
+## [UNVERIFIED] 물리 주소와 네트워크 주소의 차이는?
 
 ### AI Answer
 MAC Address가 넓은 의미에서는 Network Address가 맞긴하지만,

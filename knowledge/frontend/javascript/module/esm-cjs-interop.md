@@ -3,15 +3,15 @@ tags: [javascript, troubleshooting, history]
 ---
 
 # Questions
-- ESM-only 라이브러리를 CJS/SSR 환경에서 require로 가져오면 어떻게 되는가?
-- 결국 ESM과 CJS는 어떻게 섞어 써야 하는가?
-- TypeScript에서 ESM/CJS interop은 어떻게 다루는가?
+- [UNVERIFIED] ESM-only 라이브러리를 CJS/SSR 환경에서 require로 가져오면 어떻게 되는가?
+- [UNVERIFIED] 결국 ESM과 CJS는 어떻게 섞어 써야 하는가?
+- [UNVERIFIED] TypeScript에서 ESM/CJS interop은 어떻게 다루는가?
 
 ---
 
 # Answers
 
-## ESM-only 라이브러리를 CJS/SSR 환경에서 require로 가져오면 어떻게 되는가?
+## [UNVERIFIED] ESM-only 라이브러리를 CJS/SSR 환경에서 require로 가져오면 어떻게 되는가?
 
 ### User Answer
 ESM-only로 배포된 라이브러리를 CommonJS 환경(예: 일부 SSR 환경, 구형 Node)에서 `require()`로 불러오려고 하면 모듈 해석 단계에서 에러가 난다.
@@ -23,7 +23,7 @@ ESM-only로 배포된 라이브러리를 CommonJS 환경(예: 일부 SSR 환경,
 
 ---
 
-## 결국 ESM과 CJS는 어떻게 섞어 써야 하는가?
+## [UNVERIFIED] 결국 ESM과 CJS는 어떻게 섞어 써야 하는가?
 
 ### User Answer
 원칙적으로 ESM과 CJS는 섞어 쓰지 않는 게 좋다.
@@ -41,7 +41,7 @@ ESM-only로 배포된 라이브러리를 CommonJS 환경(예: 일부 SSR 환경,
 
 ---
 
-## TypeScript에서 ESM/CJS interop은 어떻게 다루는가?
+## [UNVERIFIED] TypeScript에서 ESM/CJS interop은 어떻게 다루는가?
 
 ### User Answer
 TS 측 호환은 `esModuleInterop` 옵션이 담당한다.

@@ -3,11 +3,11 @@ tags: [algorithm, concept, performance]
 ---
 # Questions
 - Time Complexity란?
-- Time Complexity가 필요한 이유는?
-- Time Complexity를 점근 표기법(asymptotic notation)으로 표현하는 이유는?
-- Time Complexity를 어떻게 계산하는가?
-- 시간복잡도별 알고리즘 종류는?
-- Time Complexity의 한계는?
+- [UNVERIFIED] Time Complexity가 필요한 이유는?
+- [UNVERIFIED] Time Complexity를 점근 표기법(asymptotic notation)으로 표현하는 이유는?
+- [UNVERIFIED] Time Complexity를 어떻게 계산하는가?
+- [UNVERIFIED] 시간복잡도별 알고리즘 종류는?
+- [UNVERIFIED] Time Complexity의 한계는?
 
 ---
 
@@ -23,7 +23,7 @@ Time complexity is **a way** to describe how the execution time of an algorithm 
 
 ---
 
-## Time Complexity가 필요한 이유는?
+## [UNVERIFIED] Time Complexity가 필요한 이유는?
 
 ### User Answer
 입력값이 커졌을 때 실행시간이 얼마나 될지 점근적으로 따져보기 위해.
@@ -34,7 +34,7 @@ Time complexity is **a way** to describe how the execution time of an algorithm 
 
 ---
 
-## Time Complexity를 점근 표기법(asymptotic notation)으로 표현하는 이유는?
+## [UNVERIFIED] Time Complexity를 점근 표기법(asymptotic notation)으로 표현하는 이유는?
 
 ### User Answer
 정확한 실행시간을 알기 위함이 아니라, 입력값이 커졌을 때 어림잡아보기 위함이다.
@@ -48,7 +48,7 @@ Time complexity is **a way** to describe how the execution time of an algorithm 
 
 ---
 
-## Time Complexity를 어떻게 계산하는가?
+## [UNVERIFIED] Time Complexity를 어떻게 계산하는가?
 
 ### User Answer
 **방법 1 — 코드 라인별로 따지기**
@@ -74,7 +74,7 @@ n × (1/2)^k = 1 이 되려면 k = log₂n → O(log n).
 
 ---
 
-## 시간복잡도별 알고리즘 종류는?
+## [UNVERIFIED] 시간복잡도별 알고리즘 종류는?
 
 ### User Answer
 | 시간복잡도 | 알고리즘 예시 |
@@ -96,7 +96,7 @@ n × (1/2)^k = 1 이 되려면 k = log₂n → O(log n).
 
 ---
 
-## Time Complexity의 한계는?
+## [UNVERIFIED] Time Complexity의 한계는?
 
 ### User Answer
 시간복잡도가 알고리즘 속도의 모든 것을 표현할 수 없다.

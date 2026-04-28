@@ -5,11 +5,11 @@ tags: [nextjs, performance]
 # Questions
 - App Router에서 `<Link>`의 기본 prefetch 동작은? (prefetch prop 미지정 시)
 - `<Link>`의 `prefetch` prop을 true/false로 설정하면 각각 어떻게 동작하는가?
-- App Router는 Pages Router의 prefetching 동작과 어떻게 다른가?
-- Pages Router에 있던 hover prefetching이 App Router에서 빠졌을 때, 왜 직접 구현해야 한다고 판단했는가?
-- hover prefetching을 prefetch prop 값에 따라 어떻게 다르게 적용해야 하는가?
-- 왜 prefetch={false}일 때는 hover prefetching도 같이 꺼야 하는가?
-- prefetch 옵션을 어떤 페이지에 우선 적용하는 것이 효과적인가?
+- [UNVERIFIED] App Router는 Pages Router의 prefetching 동작과 어떻게 다른가?
+- [UNVERIFIED] Pages Router에 있던 hover prefetching이 App Router에서 빠졌을 때, 왜 직접 구현해야 한다고 판단했는가?
+- [UNVERIFIED] hover prefetching을 prefetch prop 값에 따라 어떻게 다르게 적용해야 하는가?
+- [UNVERIFIED] 왜 prefetch={false}일 때는 hover prefetching도 같이 꺼야 하는가?
+- [UNVERIFIED] prefetch 옵션을 어떤 페이지에 우선 적용하는 것이 효과적인가?
 
 ---
 
@@ -47,7 +47,7 @@ Alternatively, you can prefetch the full page data beyond the loading boundaries
 
 ---
 
-## App Router는 Pages Router의 prefetching 동작과 어떻게 다른가?
+## [UNVERIFIED] App Router는 Pages Router의 prefetching 동작과 어떻게 다른가?
 
 ### User Answer
 Pages Router에는 마우스 오버 시점에 항상 무조건 prefetching하는 기능이 있었지만, App Router에서는 이 동작이 빠졌다.
@@ -60,7 +60,7 @@ Pages Router에는 마우스 오버 시점에 항상 무조건 prefetching하는
 
 ---
 
-## Pages Router에 있던 hover prefetching이 App Router에서 빠졌을 때, 왜 직접 구현해야 한다고 판단했는가?
+## [UNVERIFIED] Pages Router에 있던 hover prefetching이 App Router에서 빠졌을 때, 왜 직접 구현해야 한다고 판단했는가?
 
 ### User Answer
 직접 측정해본 결과, 마우스를 올리고 클릭하기까지 걸리는 시간이 0.2 ~ 0.5초였다.
@@ -73,7 +73,7 @@ Pages Router에는 마우스 오버 시점에 항상 무조건 prefetching하는
 
 ---
 
-## hover prefetching을 prefetch prop 값에 따라 어떻게 다르게 적용해야 하는가?
+## [UNVERIFIED] hover prefetching을 prefetch prop 값에 따라 어떻게 다르게 적용해야 하는가?
 
 ### User Answer
 prefetch prop 값에 따라 다음과 같이 적용한다.
@@ -89,7 +89,7 @@ prefetch가 undefined일 때만 hover prefetching을 추가하는 이유는, Pag
 
 ---
 
-## 왜 prefetch={false}일 때는 hover prefetching도 같이 꺼야 하는가?
+## [UNVERIFIED] 왜 prefetch={false}일 때는 hover prefetching도 같이 꺼야 하는가?
 
 ### User Answer
 prefetch={false}를 쓰는 대표적 상황은 다음과 같다.
@@ -104,7 +104,7 @@ prefetch={false}를 쓰는 대표적 상황은 다음과 같다.
 
 ---
 
-## prefetch 옵션을 어떤 페이지에 우선 적용하는 것이 효과적인가?
+## [UNVERIFIED] prefetch 옵션을 어떤 페이지에 우선 적용하는 것이 효과적인가?
 
 ### User Answer
 prefetching이 App Router로 오면서 굉장해졌으므로, 진짜 진짜 중요한 페이지 위주로 조정해보면 좋다.

@@ -9,16 +9,16 @@ tags: [react, concept]
 - `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 - `key`는 전역으로 유일해야 하는가?
 - Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
-- [TODO] '상태관리 어떻게 하세요?'
+- [UNVERIFIED] '상태관리 어떻게 하세요?'
   - 그럼 불필요한 상태가 어떤 게 있나요?
     - Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
     - state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
     - 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
-  - [TODO] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+  - [UNVERIFIED] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
     - Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
-  - [TODO] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-  - [TODO] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
+  - [UNVERIFIED] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+  - [UNVERIFIED] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ---
 
@@ -180,7 +180,7 @@ Context lets the parent component make some information available to any compone
 
 ---
 
-## [TODO] '상태관리 어떻게 하세요?'
+## [UNVERIFIED] '상태관리 어떻게 하세요?'
 
 ### User Answer
 (작성 예정 — 4단계 사다리)
@@ -189,25 +189,17 @@ Context lets the parent component make some information available to any compone
 - step 3: 전역 상태 — 변경 빈도로 갈라치기. 거의 안 바뀌는 값(테마/언어/유저)은 Context, 자주 바뀌는 값은 외부 store(Zustand 등)
 - step 4: 특화 상태는 별도 분리 — 서버 상태는 React Query, overlay 같은 UI 특화 상태는 overlay-kit
 
-### Reference
+---
+
+## [UNVERIFIED] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
 
 ---
 
-## [TODO] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
-
-### Reference
+## [UNVERIFIED] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
 
 ---
 
-## [TODO] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-
-### Reference
-
----
-
-## [TODO] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
-
-### Reference
+## [UNVERIFIED] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
 
 ---
 

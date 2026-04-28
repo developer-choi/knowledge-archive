@@ -3,15 +3,15 @@ tags: [history, comparison, architecture]
 ---
 
 # Questions
-- 프로젝트 관리 방식의 역사는 어떻게 흘러왔는가?
-- 모노레포가 유리한 경우와 폴리레포가 유리한 경우는?
-- 코드 공유와 수정 측면에서 모노레포와 폴리레포는 어떻게 다른가?
+- [UNVERIFIED] 프로젝트 관리 방식의 역사는 어떻게 흘러왔는가?
+- [UNVERIFIED] 모노레포가 유리한 경우와 폴리레포가 유리한 경우는?
+- [UNVERIFIED] 코드 공유와 수정 측면에서 모노레포와 폴리레포는 어떻게 다른가?
 
 ---
 
 # Answers
 
-## 프로젝트 관리 방식의 역사는 어떻게 흘러왔는가?
+## [UNVERIFIED] 프로젝트 관리 방식의 역사는 어떻게 흘러왔는가?
 
 ### User Answer
 크게 세 단계로 정리된다.
@@ -23,7 +23,7 @@ tags: [history, comparison, architecture]
 
 ---
 
-## 모노레포가 유리한 경우와 폴리레포가 유리한 경우는?
+## [UNVERIFIED] 모노레포가 유리한 경우와 폴리레포가 유리한 경우는?
 
 ### User Answer
 공통 코드 비중에 따라 손익이 갈린다.
@@ -43,7 +43,7 @@ tags: [history, comparison, architecture]
 
 ---
 
-## 코드 공유와 수정 측면에서 모노레포와 폴리레포는 어떻게 다른가?
+## [UNVERIFIED] 코드 공유와 수정 측면에서 모노레포와 폴리레포는 어떻게 다른가?
 
 ### User Answer
 - Monorepo: 같은 repo 안의 패키지를 install 없이 import 한다 (workspaces가 link 처리).

@@ -4,11 +4,11 @@ tags: [javascript, concept, history]
 
 # Questions
 - Yarn은 무엇인가?
-- Yarn의 핵심 features는 무엇인가?
-- Plug'n'Play(PnP)는 무엇인가?
-- Classic Yarn과 Berry의 차이는?
-- Corepack은 무엇이며 왜 필요한가?
-- Yarn Berry는 왜 npm에 일부러 배포하지 않았는가?
+- [UNVERIFIED] Yarn의 핵심 features는 무엇인가?
+- [UNVERIFIED] Plug'n'Play(PnP)는 무엇인가?
+- [UNVERIFIED] Classic Yarn과 Berry의 차이는?
+- [UNVERIFIED] Corepack은 무엇이며 왜 필요한가?
+- [UNVERIFIED] Yarn Berry는 왜 npm에 일부러 배포하지 않았는가?
 
 ---
 
@@ -25,7 +25,7 @@ It allows you to install, update, configure, and remove your project dependencie
 
 ---
 
-## Yarn의 핵심 features는 무엇인가?
+## [UNVERIFIED] Yarn의 핵심 features는 무엇인가?
 
 ### User Answer
 - Workspaces: 모노레포 환경에서 여러 패키지를 함께 install·link.
@@ -39,7 +39,7 @@ It allows you to install, update, configure, and remove your project dependencie
 
 ---
 
-## Plug'n'Play(PnP)는 무엇인가?
+## [UNVERIFIED] Plug'n'Play(PnP)는 무엇인가?
 
 ### User Answer
 Plug'n'Play는 Yarn Berry의 기본 install 전략이다.
@@ -54,7 +54,7 @@ Plug'n'Play는 Yarn Berry의 기본 install 전략이다.
 
 ---
 
-## Classic Yarn과 Berry의 차이는?
+## [UNVERIFIED] Classic Yarn과 Berry의 차이는?
 
 ### User Answer
 - Classic Yarn (v1): `node_modules` 방식. npm과 같은 디렉토리 구조.
@@ -65,7 +65,7 @@ Plug'n'Play는 Yarn Berry의 기본 install 전략이다.
 
 ---
 
-## Corepack은 무엇이며 왜 필요한가?
+## [UNVERIFIED] Corepack은 무엇이며 왜 필요한가?
 
 ### User Answer
 Corepack은 Node.js에 내장된 공식 도구로, 프로젝트별 패키지 매니저 버전을 lockfile처럼 고정한다.
@@ -77,7 +77,7 @@ Corepack은 Node.js에 내장된 공식 도구로, 프로젝트별 패키지 매
 
 ---
 
-## Yarn Berry는 왜 npm에 일부러 배포하지 않았는가?
+## [UNVERIFIED] Yarn Berry는 왜 npm에 일부러 배포하지 않았는가?
 
 ### User Answer
 Yarn Berry는 Corepack을 통한 사용을 권장한다.

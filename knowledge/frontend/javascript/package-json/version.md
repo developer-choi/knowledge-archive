@@ -3,20 +3,20 @@ tags: [javascript, concept, best-practice]
 ---
 
 # Questions
-- dependencies/devDependencies/peerDependencies는 왜 존재하는가?
+- [UNVERIFIED] dependencies/devDependencies/peerDependencies는 왜 존재하는가?
 - devDependencies는 무엇을 위한 필드인가?
 - peerDependencies는 무엇을 위한 필드인가? (Purpose)
 - peerDependencies는 npm 버전에 따라 어떻게 동작하는가?
 - peerDependencies 버전 범위는 어떻게 작성해야 하는가?
 - peerDependencies는 의존성 그래프에 어떻게 나타나는가?
-- 의존성 그래프는 왜 보여주는가?
+- [UNVERIFIED] 의존성 그래프는 왜 보여주는가?
 - peerDependencies 사용 예시는?
 
 ---
 
 # Answers
 
-## dependencies/devDependencies/peerDependencies는 왜 존재하는가?
+## [UNVERIFIED] dependencies/devDependencies/peerDependencies는 왜 존재하는가?
 
 ### User Answer
 어떤 모듈을 어떤 버전으로 설치해야 하는지를 명시하기 위해서다.
@@ -116,7 +116,7 @@ peerDependencies에 `"@npm/tea": "2.x"`로 명시된 조건이 잘 지켜진 결
 
 ---
 
-## 의존성 그래프는 왜 보여주는가?
+## [UNVERIFIED] 의존성 그래프는 왜 보여주는가?
 
 ### User Answer
 의존성 그래프는 패키지를 설치했을 때 의도한 대로 모든 의존성이 올바른 버전으로 설치됐는지 확인하는 데 유용하다.

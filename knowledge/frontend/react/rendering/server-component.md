@@ -3,7 +3,7 @@ tags: [react, nextjs, principle]
 ---
 
 # Questions
-- Server Component의 장점은?
+- [UNVERIFIED] Server Component의 장점은?
   - JS 번들 크기 감소가 어떻게 일어나는가?
   - 초기 페이지 로딩 속도가 어떻게 더 빨라지는가?
   - 네트워크 비용은 어떻게 절감되는가?
@@ -22,7 +22,7 @@ tags: [react, nextjs, principle]
 
 # Answers
 
-## Server Component의 장점은?
+## [UNVERIFIED] Server Component의 장점은?
 
 ### User Answer
 SC가 제공하는 장점은 다음과 같다 (각 항목은 follow-up Q에서 Official 원문으로 다룬다):

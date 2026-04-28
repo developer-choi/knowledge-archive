@@ -4,14 +4,14 @@ tags: [os, concept]
 
 # Questions
 
-- I/O 장치들이 시스템 버스에 직접 접속하지 못하는 이유는?
-- I/O Controller의 주요 기능은?
+- [UNVERIFIED] I/O 장치들이 시스템 버스에 직접 접속하지 못하는 이유는?
+- [UNVERIFIED] I/O Controller의 주요 기능은?
 
 ---
 
 # Answers
 
-## I/O 장치들이 시스템 버스에 직접 접속하지 못하는 이유는?
+## [UNVERIFIED] I/O 장치들이 시스템 버스에 직접 접속하지 못하는 이유는?
 
 ### User Answer
 I/O 장치들은 종류가 다양하여 제어 방법이 각각 다르다.
@@ -25,7 +25,7 @@ CPU마다 프린터를 따로 만들 수는 없으니까.
 
 ---
 
-## I/O Controller의 주요 기능은?
+## [UNVERIFIED] I/O Controller의 주요 기능은?
 
 ### User Answer
 - I/O 장치 제어

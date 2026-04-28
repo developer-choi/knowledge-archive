@@ -6,7 +6,7 @@ tags: [data-structure, concept]
 - Tree 자료구조를 사용하는 이유는?
 - Tree의 DFS 순회 방법은?
 - Tree의 BFS 순회 방법은?
-- BST가 일반 Binary Tree보다 빠른 이유는?
+- [UNVERIFIED] BST가 일반 Binary Tree보다 빠른 이유는?
 - Tree의 기본 용어는?
 
 ---
@@ -54,7 +54,7 @@ Visit nodes level by level.
 
 ---
 
-## BST가 일반 Binary Tree보다 빠른 이유는?
+## [UNVERIFIED] BST가 일반 Binary Tree보다 빠른 이유는?
 
 ### User Answer
 어떤 연산 (순회, 최소값 찾기 등)을 하더라도 대체로 BST가 그냥 Binary Tree보다 더 빠름.

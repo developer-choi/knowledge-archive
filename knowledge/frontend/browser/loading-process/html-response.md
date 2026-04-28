@@ -5,7 +5,7 @@ tags: [browser, performance, network]
 # Questions
 - TTFB가 웹페이지 성능에서 첫 단추로 중요한 이유는?
 - HTML/JS/CSS/SVG 같은 텍스트 응답의 전송 크기를 줄이는 일반적인 방법은?
-- HTML 응답을 캐싱할 때 고려해야 할 trade-off는?
+- [UNVERIFIED] HTML 응답을 캐싱할 때 고려해야 할 trade-off는?
 
 ---
 
@@ -52,7 +52,7 @@ Getting compression right on your own is challenging, and it's often best to let
 
 ---
 
-## HTML 응답을 캐싱할 때 고려해야 할 trade-off는?
+## [UNVERIFIED] HTML 응답을 캐싱할 때 고려해야 할 trade-off는?
 
 ### User Answer
 - 요청을 다시 안 해도 돼서 좋다.

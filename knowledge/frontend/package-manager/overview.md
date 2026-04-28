@@ -3,15 +3,15 @@ tags: [javascript, concept]
 ---
 
 # Questions
-- 패키지 매니저는 무엇이며 어떤 역할을 하는가?
-- 패키지 매니저가 없으면 어떤 문제가 생기는가?
-- 패키지 매니저가 주는 효과는 무엇인가?
+- [UNVERIFIED] 패키지 매니저는 무엇이며 어떤 역할을 하는가?
+- [UNVERIFIED] 패키지 매니저가 없으면 어떤 문제가 생기는가?
+- [UNVERIFIED] 패키지 매니저가 주는 효과는 무엇인가?
 
 ---
 
 # Answers
 
-## 패키지 매니저는 무엇이며 어떤 역할을 하는가?
+## [UNVERIFIED] 패키지 매니저는 무엇이며 어떤 역할을 하는가?
 
 ### User Answer
 패키지 매니저는 다른 개발자가 만든 모듈을 다운로드·공유할 수 있게 해주는 도구다.
@@ -19,7 +19,7 @@ tags: [javascript, concept]
 
 ---
 
-## 패키지 매니저가 없으면 어떤 문제가 생기는가?
+## [UNVERIFIED] 패키지 매니저가 없으면 어떤 문제가 생기는가?
 
 ### User Answer
 패키지 매니저가 없으면 다음 문제가 발생한다.
@@ -29,7 +29,7 @@ tags: [javascript, concept]
 
 ---
 
-## 패키지 매니저가 주는 효과는 무엇인가?
+## [UNVERIFIED] 패키지 매니저가 주는 효과는 무엇인가?
 
 ### User Answer
 - 명령 한 줄로 모든 의존성을 설치 (`yarn install`, `npm install` 등).

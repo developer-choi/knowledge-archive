@@ -3,7 +3,7 @@ tags: [algorithm, concept]
 ---
 # Questions
 - Quick Sort란?
-- Quick Sort의 핵심 요소 2가지는?
+- [UNVERIFIED] Quick Sort의 핵심 요소 2가지는?
   - Pivot이란?
   - Partition이란?
 - Quick Sort의 동작 방식은?
@@ -27,7 +27,7 @@ QuickSort is a sorting algorithm that picks an element as a pivot and partitions
 
 ---
 
-## Quick Sort의 핵심 요소 2가지는?
+## [UNVERIFIED] Quick Sort의 핵심 요소 2가지는?
 
 ### User Answer
 1. **Pivot** — 무엇을 pivot으로 고르냐에 따라 달라진다.

@@ -4,25 +4,25 @@ tags: [os, concept]
 
 # Questions
 
-- 디지털 데이터란 무엇인가?
-- bit란 무엇인가?
-- byte란 무엇인가?
-- Character Code란 무엇인가?
-  - ASCII Code란 무엇이며, 한계는 무엇인가?
-  - Unicode란 무엇인가?
+- [UNVERIFIED] 디지털 데이터란 무엇인가?
+- [UNVERIFIED] bit란 무엇인가?
+- [UNVERIFIED] byte란 무엇인가?
+- [UNVERIFIED] Character Code란 무엇인가?
+  - [UNVERIFIED] ASCII Code란 무엇이며, 한계는 무엇인가?
+  - [UNVERIFIED] Unicode란 무엇인가?
 
 ---
 
 # Answers
 
-## 디지털 데이터란 무엇인가?
+## [UNVERIFIED] 디지털 데이터란 무엇인가?
 
 ### User Answer
 0과 1의 집합.
 
 ---
 
-## bit란 무엇인가?
+## [UNVERIFIED] bit란 무엇인가?
 
 ### User Answer
 정보를 나타내는 최소 단위다. (0, 1 총 2개가 있다.)
@@ -34,7 +34,7 @@ tags: [os, concept]
 
 ---
 
-## byte란 무엇인가?
+## [UNVERIFIED] byte란 무엇인가?
 
 ### User Answer
 컴퓨터는 바이트 단위로 데이터를 읽고 쓰는 작업을 한다.
@@ -45,7 +45,7 @@ tags: [os, concept]
 
 ---
 
-## Character Code란 무엇인가?
+## [UNVERIFIED] Character Code란 무엇인가?
 
 ### User Answer
 Character Code 덕분에 컴퓨터에서 문자를 입력하고 보여줄 수 있다.
@@ -57,7 +57,7 @@ Character Code는 0과 1로 대응되는 문자의 대응표다. (예: 110101000
 
 ---
 
-## ASCII Code란 무엇이며, 한계는 무엇인가?
+## [UNVERIFIED] ASCII Code란 무엇이며, 한계는 무엇인가?
 
 ### User Answer
 Character Code 중 하나가 ASCII Code다.
@@ -66,7 +66,7 @@ Character Code 중 하나가 ASCII Code다.
 
 ---
 
-## Unicode란 무엇인가?
+## [UNVERIFIED] Unicode란 무엇인가?
 
 ### User Answer
 Character Code 중 하나가 Unicode다.

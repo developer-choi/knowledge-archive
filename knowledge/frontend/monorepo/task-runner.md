@@ -3,16 +3,16 @@ tags: [concept, architecture]
 ---
 
 # Questions
-- Task Runner / Build System / Monorepo Management Tool은 어떤 역할군인가?
-- Task Runner의 종류는 무엇이 있는가?
-- Task Runner는 무엇을 하는가?
-- Task Runner를 안 쓰면 어떻게 되는가?
+- [UNVERIFIED] Task Runner / Build System / Monorepo Management Tool은 어떤 역할군인가?
+- [UNVERIFIED] Task Runner의 종류는 무엇이 있는가?
+- [UNVERIFIED] Task Runner는 무엇을 하는가?
+- [UNVERIFIED] Task Runner를 안 쓰면 어떻게 되는가?
 
 ---
 
 # Answers
 
-## Task Runner / Build System / Monorepo Management Tool은 어떤 역할군인가?
+## [UNVERIFIED] Task Runner / Build System / Monorepo Management Tool은 어떤 역할군인가?
 
 ### User Answer
 모노레포 환경에서 빌드/테스트/캐싱 같은 작업을 통합 관리하는 역할군이다.
@@ -24,7 +24,7 @@ tags: [concept, architecture]
 
 ---
 
-## Task Runner의 종류는 무엇이 있는가?
+## [UNVERIFIED] Task Runner의 종류는 무엇이 있는가?
 
 ### User Answer
 - Turborepo
@@ -37,7 +37,7 @@ tags: [concept, architecture]
 
 ---
 
-## Task Runner는 무엇을 하는가?
+## [UNVERIFIED] Task Runner는 무엇을 하는가?
 
 ### User Answer
 Turborepo의 미션을 라인 기술블로그 정리에서 인용하면, "모노레포 환경에서 빌드 도구를 제공해 복잡한 빌드 시스템을 직접 구축하는 대신 표준화된 도구로 대체한다"는 것이다.
@@ -53,7 +53,7 @@ Turborepo의 미션을 라인 기술블로그 정리에서 인용하면, "모노
 
 ---
 
-## Task Runner를 안 쓰면 어떻게 되는가?
+## [UNVERIFIED] Task Runner를 안 쓰면 어떻게 되는가?
 
 ### User Answer
 Task Runner 없이 모노레포를 운영하면, Yarn workspaces의 parallel execution 같은 PM 기본 기능에 의존하거나 직접 스크립트를 짜야 한다.

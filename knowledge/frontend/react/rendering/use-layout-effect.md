@@ -4,8 +4,8 @@ tags: [react, browser, concept]
 
 # Questions
 - tooltip 같은 DOM 요소를 측정할 때 `useLayoutEffect`가 필요한 이유는?
-  - `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
-  - `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
+  - [UNVERIFIED] `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
+  - [UNVERIFIED] `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
 - `useEffect`는 항상 paint 이후에 실행되는가?
 
 ---
@@ -33,7 +33,7 @@ In other words, `useLayoutEffect` blocks the browser from painting.
 
 ---
 
-## `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
+## [UNVERIFIED] `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
 
 ### AI Answer
 No. `setState`는 호출 즉시 상태를 변경하지 않는다.
@@ -51,7 +51,7 @@ useLayoutEffect(() => {
 
 ---
 
-## `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
+## [UNVERIFIED] `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
 
 ### AI Answer
 

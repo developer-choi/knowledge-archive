@@ -10,9 +10,9 @@ tags: [network, architecture, concept]
   - 웹 API에서 "리소스(resource)"는 무엇을 가리키며, 누가 그것을 제공하는가?
   - API는 단순히 데이터를 주고받는 통로인가? 조직이 DB를 직접 공개하지 않고 API 계층을 두는 이유는 무엇인가?
 - RESTful API란 무엇인가?
-  - 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
+  - [UNVERIFIED] 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
 - REST(Representational State Transfer)란 무엇인가?
-  - REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
+  - [UNVERIFIED] REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
   - REST에서 "representation"이란 무엇이며, 리소스(resource) 자체와 어떻게 다른가?
 - REST 아키텍처가 따르는 핵심 원칙(제약)들은 무엇인가?
   - Uniform Interface 제약이란 무엇이며, 그 4가지 하위 제약은 각각 무엇인가?
@@ -29,7 +29,7 @@ tags: [network, architecture, concept]
   - RESTful API가 "기술 독립적(Independence)"이라는 말의 의미는?
 - RESTful API 호출 한 번은 어떤 단계들로 진행되는가?
   - REST API에서 "API documentation"이 필수인 이유는 무엇인가?
-  - REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
+  - [UNVERIFIED] REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
 
 ## REST 요청 구성요소
 - RESTful API 클라이언트 요청은 어떤 구성요소들을 포함하는가?
@@ -51,51 +51,51 @@ tags: [network, architecture, concept]
   - REST 응답 헤더에는 어떤 종류의 정보가 담기는가?
 
 ## HTTP 메서드 / 멱등성 / Safe
-- [TODO] PUT과 PATCH의 차이는 무엇인가?
-- [TODO] POST와 PUT 중 리소스를 생성할 때 무엇을 쓰는 기준은?
-- [TODO] Safe method와 Idempotent method의 정의 및 차이는?
-- [TODO] DELETE를 두 번 호출하면 두 번째 응답은 200인가 404인가? 멱등성과 응답 코드는 같은 개념인가?
-- [TODO] POST를 멱등하게 만드는 패턴(Idempotency-Key)은 어떻게 동작하는가?
+- [UNVERIFIED] PUT과 PATCH의 차이는 무엇인가?
+- [UNVERIFIED] POST와 PUT 중 리소스를 생성할 때 무엇을 쓰는 기준은?
+- [UNVERIFIED] Safe method와 Idempotent method의 정의 및 차이는?
+- [UNVERIFIED] DELETE를 두 번 호출하면 두 번째 응답은 200인가 404인가? 멱등성과 응답 코드는 같은 개념인가?
+- [UNVERIFIED] POST를 멱등하게 만드는 패턴(Idempotency-Key)은 어떻게 동작하는가?
 
 ## HTTP 상태 코드
-- [TODO] 201 Created와 204 No Content는 각각 언제 쓰는가?
-- [TODO] 401 Unauthorized와 403 Forbidden의 차이는 무엇인가?
-- [TODO] 400 Bad Request와 422 Unprocessable Content는 어떤 기준으로 구분하는가?
-- [TODO] 304 Not Modified는 어떤 흐름에서 발생하는가?
+- [UNVERIFIED] 201 Created와 204 No Content는 각각 언제 쓰는가?
+- [UNVERIFIED] 401 Unauthorized와 403 Forbidden의 차이는 무엇인가?
+- [UNVERIFIED] 400 Bad Request와 422 Unprocessable Content는 어떤 기준으로 구분하는가?
+- [UNVERIFIED] 304 Not Modified는 어떤 흐름에서 발생하는가?
 
 ## Stateless / 인증
-- [TODO] 서버 세션 기반 인증은 REST의 stateless 제약에 부합하는가?
-- [TODO] JWT가 stateless 인증으로 분류되는 이유는?
-- [TODO] JWT의 한계(폐기 어려움, 페이로드 노출, 사이즈)는 각각 무엇인가?
+- [UNVERIFIED] 서버 세션 기반 인증은 REST의 stateless 제약에 부합하는가?
+- [UNVERIFIED] JWT가 stateless 인증으로 분류되는 이유는?
+- [UNVERIFIED] JWT의 한계(폐기 어려움, 페이로드 노출, 사이즈)는 각각 무엇인가?
 
 ## HTTP 캐싱
-- [TODO] HTTP 캐싱의 동작 흐름은 어떻게 되는가?
-- [TODO] Cache-Control의 주요 디렉티브(max-age, no-cache, no-store, public/private)는 각각 무엇을 지시하는가?
-- [TODO] ETag와 Last-Modified의 역할 및 차이는?
-- [TODO] 조건부 요청(If-None-Match, If-Modified-Since)이 304 응답을 만드는 흐름은?
-- [TODO] POST는 왜 기본적으로 캐싱되지 않는가?
+- [UNVERIFIED] HTTP 캐싱의 동작 흐름은 어떻게 되는가?
+- [UNVERIFIED] Cache-Control의 주요 디렉티브(max-age, no-cache, no-store, public/private)는 각각 무엇을 지시하는가?
+- [UNVERIFIED] ETag와 Last-Modified의 역할 및 차이는?
+- [UNVERIFIED] 조건부 요청(If-None-Match, If-Modified-Since)이 304 응답을 만드는 흐름은?
+- [UNVERIFIED] POST는 왜 기본적으로 캐싱되지 않는가?
 
 ## URL 설계
-- [TODO] 자원 중심 URL은 왜 동사 대신 명사를 쓰는가? (`/getUsers` vs `/users`)
-- [TODO] 검색 엔드포인트는 `/users/search?q=` 와 `/users?q=` 중 무엇이 더 RESTful한가?
-- [TODO] 중첩 자원의 적절한 깊이는 어디까지인가?
-- [TODO] 로그인/로그아웃 같은 행위는 어떻게 자원으로 표현하는가?
+- [UNVERIFIED] 자원 중심 URL은 왜 동사 대신 명사를 쓰는가? (`/getUsers` vs `/users`)
+- [UNVERIFIED] 검색 엔드포인트는 `/users/search?q=` 와 `/users?q=` 중 무엇이 더 RESTful한가?
+- [UNVERIFIED] 중첩 자원의 적절한 깊이는 어디까지인가?
+- [UNVERIFIED] 로그인/로그아웃 같은 행위는 어떻게 자원으로 표현하는가?
 
 ## API 버저닝
-- [TODO] URL 버저닝(`/v1/users`) vs 헤더 버저닝 vs 미디어타입 버저닝의 trade-off는?
-- [TODO] Fielding이 URL 버저닝을 비판하는 이유는?
+- [UNVERIFIED] URL 버저닝(`/v1/users`) vs 헤더 버저닝 vs 미디어타입 버저닝의 trade-off는?
+- [UNVERIFIED] Fielding이 URL 버저닝을 비판하는 이유는?
 
 ## HATEOAS / Richardson Maturity Model
-- [TODO] HATEOAS란 무엇이며 왜 Uniform Interface의 핵심 제약인가?
-- [TODO] HATEOAS가 실무에서 거의 채택되지 않는 이유는?
-- [TODO] Richardson Maturity Model의 Level 0~3은 각각 무엇인가?
-- [TODO] 업계가 "REST"라고 부르는 것이 보통 Level 몇인가?
+- [UNVERIFIED] HATEOAS란 무엇이며 왜 Uniform Interface의 핵심 제약인가?
+- [UNVERIFIED] HATEOAS가 실무에서 거의 채택되지 않는 이유는?
+- [UNVERIFIED] Richardson Maturity Model의 Level 0~3은 각각 무엇인가?
+- [UNVERIFIED] 업계가 "REST"라고 부르는 것이 보통 Level 몇인가?
 
 ## REST의 한계 / 대안
-- [TODO] REST의 한계(over-fetching, under-fetching, 다중 라운드트립)는 무엇인가?
-- [TODO] GraphQL의 핵심 개념(엔티티 그래프, 단일 엔드포인트, 스키마)과 REST 대비 장점은?
-- [TODO] GraphQL의 단점(캐싱, N+1, 학습곡선)은?
-- [TODO] gRPC는 무엇이며 어떤 환경(내부 마이크로서비스, 양방향 스트리밍)에서 REST보다 유리한가?
+- [UNVERIFIED] REST의 한계(over-fetching, under-fetching, 다중 라운드트립)는 무엇인가?
+- [UNVERIFIED] GraphQL의 핵심 개념(엔티티 그래프, 단일 엔드포인트, 스키마)과 REST 대비 장점은?
+- [UNVERIFIED] GraphQL의 단점(캐싱, N+1, 학습곡선)은?
+- [UNVERIFIED] gRPC는 무엇이며 어떤 환경(내부 마이크로서비스, 양방향 스트리밍)에서 REST보다 유리한가?
 
 ---
 
@@ -207,7 +207,7 @@ RESTful APIs support this information exchange because they follow secure, relia
 
 ---
 
-## 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
+## [UNVERIFIED] 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
 
 ### AI Answer
 아니다.
@@ -248,7 +248,7 @@ You can easily implement and modify it, bringing visibility and cross-platform p
 
 ---
 
-## REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
+## [UNVERIFIED] REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
 
 ### AI Answer
 REST는 프로토콜이 아니라 아키텍처 스타일(설계 규칙의 모음)이다.
@@ -428,9 +428,7 @@ It can do this because of the code sent by the server.
 
 ---
 
-## [TODO] Client-Server 제약이란 무엇이며 왜 6대 제약 중 가장 자명한 것으로 취급되는가?
-
-### Official Answer
+## [UNVERIFIED] Client-Server 제약이란 무엇이며 왜 6대 제약 중 가장 자명한 것으로 취급되는가?
 
 ### Reference
 - https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
@@ -563,7 +561,7 @@ The REST API request and response details vary slightly depending on how the API
 
 ---
 
-## REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
+## [UNVERIFIED] REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
 
 ### AI Answer
 인증(authentication)은 "누구냐"를 확인하는 것 — 토큰이 유효한 사용자의 것이냐 같은 신원 확인.
@@ -866,9 +864,7 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] PUT과 PATCH의 차이는 무엇인가?
-
-### Official Answer
+## [UNVERIFIED] PUT과 PATCH의 차이는 무엇인가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/PATCH
@@ -876,9 +872,7 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] POST와 PUT 중 리소스를 생성할 때 무엇을 쓰는 기준은?
-
-### Official Answer
+## [UNVERIFIED] POST와 PUT 중 리소스를 생성할 때 무엇을 쓰는 기준은?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST
@@ -886,9 +880,7 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] Safe method와 Idempotent method의 정의 및 차이는?
-
-### Official Answer
+## [UNVERIFIED] Safe method와 Idempotent method의 정의 및 차이는?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Glossary/Safe/HTTP
@@ -896,36 +888,28 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] DELETE를 두 번 호출하면 두 번째 응답은 200인가 404인가? 멱등성과 응답 코드는 같은 개념인가?
-
-### Official Answer
+## [UNVERIFIED] DELETE를 두 번 호출하면 두 번째 응답은 200인가 404인가? 멱등성과 응답 코드는 같은 개념인가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Glossary/Idempotent
 
 ---
 
-## [TODO] POST를 멱등하게 만드는 패턴(Idempotency-Key)은 어떻게 동작하는가?
-
-### Official Answer
+## [UNVERIFIED] POST를 멱등하게 만드는 패턴(Idempotency-Key)은 어떻게 동작하는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Idempotency-Key
 
 ---
 
-## [TODO] 201 Created와 204 No Content는 각각 언제 쓰는가?
-
-### Official Answer
+## [UNVERIFIED] 201 Created와 204 No Content는 각각 언제 쓰는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
 
 ---
 
-## [TODO] 401 Unauthorized와 403 Forbidden의 차이는 무엇인가?
-
-### Official Answer
+## [UNVERIFIED] 401 Unauthorized와 403 Forbidden의 차이는 무엇인가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401
@@ -933,72 +917,56 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] 400 Bad Request와 422 Unprocessable Content는 어떤 기준으로 구분하는가?
-
-### Official Answer
+## [UNVERIFIED] 400 Bad Request와 422 Unprocessable Content는 어떤 기준으로 구분하는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/422
 
 ---
 
-## [TODO] 304 Not Modified는 어떤 흐름에서 발생하는가?
-
-### Official Answer
+## [UNVERIFIED] 304 Not Modified는 어떤 흐름에서 발생하는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/304
 
 ---
 
-## [TODO] 서버 세션 기반 인증은 REST의 stateless 제약에 부합하는가?
-
-### Official Answer
+## [UNVERIFIED] 서버 세션 기반 인증은 REST의 stateless 제약에 부합하는가?
 
 ### Reference
 - https://www.jwt.io/introduction
 
 ---
 
-## [TODO] JWT가 stateless 인증으로 분류되는 이유는?
-
-### Official Answer
+## [UNVERIFIED] JWT가 stateless 인증으로 분류되는 이유는?
 
 ### Reference
 - https://www.jwt.io/introduction
 
 ---
 
-## [TODO] JWT의 한계(폐기 어려움, 페이로드 노출, 사이즈)는 각각 무엇인가?
-
-### Official Answer
+## [UNVERIFIED] JWT의 한계(폐기 어려움, 페이로드 노출, 사이즈)는 각각 무엇인가?
 
 ### Reference
 - https://www.jwt.io/introduction
 
 ---
 
-## [TODO] HTTP 캐싱의 동작 흐름은 어떻게 되는가?
-
-### Official Answer
+## [UNVERIFIED] HTTP 캐싱의 동작 흐름은 어떻게 되는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
 
 ---
 
-## [TODO] Cache-Control의 주요 디렉티브(max-age, no-cache, no-store, public/private)는 각각 무엇을 지시하는가?
-
-### Official Answer
+## [UNVERIFIED] Cache-Control의 주요 디렉티브(max-age, no-cache, no-store, public/private)는 각각 무엇을 지시하는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control
 
 ---
 
-## [TODO] ETag와 Last-Modified의 역할 및 차이는?
-
-### Official Answer
+## [UNVERIFIED] ETag와 Last-Modified의 역할 및 차이는?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/ETag
@@ -1006,99 +974,77 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] 조건부 요청(If-None-Match, If-Modified-Since)이 304 응답을 만드는 흐름은?
-
-### Official Answer
+## [UNVERIFIED] 조건부 요청(If-None-Match, If-Modified-Since)이 304 응답을 만드는 흐름은?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Conditional_requests
 
 ---
 
-## [TODO] POST는 왜 기본적으로 캐싱되지 않는가?
-
-### Official Answer
+## [UNVERIFIED] POST는 왜 기본적으로 캐싱되지 않는가?
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching
 
 ---
 
-## [TODO] 자원 중심 URL은 왜 동사 대신 명사를 쓰는가? (`/getUsers` vs `/users`)
-
-### Official Answer
+## [UNVERIFIED] 자원 중심 URL은 왜 동사 대신 명사를 쓰는가? (`/getUsers` vs `/users`)
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
-## [TODO] 검색 엔드포인트는 `/users/search?q=` 와 `/users?q=` 중 무엇이 더 RESTful한가?
-
-### Official Answer
+## [UNVERIFIED] 검색 엔드포인트는 `/users/search?q=` 와 `/users?q=` 중 무엇이 더 RESTful한가?
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
-## [TODO] 중첩 자원의 적절한 깊이는 어디까지인가?
-
-### Official Answer
+## [UNVERIFIED] 중첩 자원의 적절한 깊이는 어디까지인가?
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
-## [TODO] 로그인/로그아웃 같은 행위는 어떻게 자원으로 표현하는가?
-
-### Official Answer
+## [UNVERIFIED] 로그인/로그아웃 같은 행위는 어떻게 자원으로 표현하는가?
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
-## [TODO] URL 버저닝(`/v1/users`) vs 헤더 버저닝 vs 미디어타입 버저닝의 trade-off는?
-
-### Official Answer
+## [UNVERIFIED] URL 버저닝(`/v1/users`) vs 헤더 버저닝 vs 미디어타입 버저닝의 trade-off는?
 
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
 ---
 
-## [TODO] Fielding이 URL 버저닝을 비판하는 이유는?
-
-### Official Answer
+## [UNVERIFIED] Fielding이 URL 버저닝을 비판하는 이유는?
 
 ### Reference
 - https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 
 ---
 
-## [TODO] HATEOAS란 무엇이며 왜 Uniform Interface의 핵심 제약인가?
-
-### Official Answer
+## [UNVERIFIED] HATEOAS란 무엇이며 왜 Uniform Interface의 핵심 제약인가?
 
 ### Reference
 - https://en.wikipedia.org/wiki/HATEOAS
 
 ---
 
-## [TODO] HATEOAS가 실무에서 거의 채택되지 않는 이유는?
-
-### Official Answer
+## [UNVERIFIED] HATEOAS가 실무에서 거의 채택되지 않는 이유는?
 
 ### Reference
 - https://en.wikipedia.org/wiki/HATEOAS
 
 ---
 
-## [TODO] Richardson Maturity Model의 Level 0~3은 각각 무엇인가?
-
-### Official Answer
+## [UNVERIFIED] Richardson Maturity Model의 Level 0~3은 각각 무엇인가?
 
 ### Reference
 - https://martinfowler.com/articles/richardsonMaturityModel.html
@@ -1106,45 +1052,35 @@ They give more context about the response and include information such as the se
 
 ---
 
-## [TODO] 업계가 "REST"라고 부르는 것이 보통 Level 몇인가?
-
-### Official Answer
+## [UNVERIFIED] 업계가 "REST"라고 부르는 것이 보통 Level 몇인가?
 
 ### Reference
 - https://martinfowler.com/articles/richardsonMaturityModel.html
 
 ---
 
-## [TODO] REST의 한계(over-fetching, under-fetching, 다중 라운드트립)는 무엇인가?
-
-### Official Answer
+## [UNVERIFIED] REST의 한계(over-fetching, under-fetching, 다중 라운드트립)는 무엇인가?
 
 ### Reference
 - https://graphql.org/
 
 ---
 
-## [TODO] GraphQL의 핵심 개념(엔티티 그래프, 단일 엔드포인트, 스키마)과 REST 대비 장점은?
-
-### Official Answer
+## [UNVERIFIED] GraphQL의 핵심 개념(엔티티 그래프, 단일 엔드포인트, 스키마)과 REST 대비 장점은?
 
 ### Reference
 - https://graphql.org/
 
 ---
 
-## [TODO] GraphQL의 단점(캐싱, N+1, 학습곡선)은?
-
-### Official Answer
+## [UNVERIFIED] GraphQL의 단점(캐싱, N+1, 학습곡선)은?
 
 ### Reference
 - https://graphql.org/
 
 ---
 
-## [TODO] gRPC는 무엇이며 어떤 환경(내부 마이크로서비스, 양방향 스트리밍)에서 REST보다 유리한가?
-
-### Official Answer
+## [UNVERIFIED] gRPC는 무엇이며 어떤 환경(내부 마이크로서비스, 양방향 스트리밍)에서 REST보다 유리한가?
 
 ### Reference
 - https://grpc.io/docs/what-is-grpc/introduction/

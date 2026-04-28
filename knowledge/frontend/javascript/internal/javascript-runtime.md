@@ -2,10 +2,10 @@
 tags: [javascript, concept]
 ---
 # Questions
-- Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
+- [UNVERIFIED] Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
 ---
 # Answers
-## Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
+## [UNVERIFIED] Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
 한번에 하나의 코드만 실행할 수 있어서 무거운 함수를 실행하면 사용자는 그 함수가 끝날 때까지 아무것도 못하는데, 이걸 어떻게 극복했을까?
 
 ### User Answer

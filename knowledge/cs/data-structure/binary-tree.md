@@ -14,7 +14,7 @@ tags: [data-structure, concept]
 - Full Binary Tree란 무엇인가?
 - Degenerate(Pathological) Binary Tree란 무엇이며, 왜 비효율적인가?
 - Balanced Binary Tree란 무엇이며, 대표적인 예시는?
-- Tree를 구현/표현하는 2가지 방법은?
+- [UNVERIFIED] Tree를 구현/표현하는 2가지 방법은?
 
 ---
 
@@ -149,7 +149,7 @@ Examples: AVL Tree, Red Black Tree, Splay Tree.
 
 ---
 
-## Tree를 구현/표현하는 2가지 방법은?
+## [UNVERIFIED] Tree를 구현/표현하는 2가지 방법은?
 
 ### User Answer
 **Linked List 방식**:

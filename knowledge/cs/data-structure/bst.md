@@ -8,7 +8,7 @@ tags: [data-structure, concept]
 - BST의 장점은?
 - BST가 Array보다 정렬된 데이터 관리에 유리한 이유는?
 - BST vs Hash Table 비교는?
-- BST가 불균형하면 어떤 일이 발생하는가?
+- [UNVERIFIED] BST가 불균형하면 어떤 일이 발생하는가?
 
 ---
 
@@ -111,7 +111,7 @@ When we need only search, insert and delete and do not need other operations, we
 
 ---
 
-## BST가 불균형하면 어떤 일이 발생하는가?
+## [UNVERIFIED] BST가 불균형하면 어떤 일이 발생하는가?
 
 ### User Answer
 탐색의 시간복잡도가 O(log n) → O(n)이 됨.

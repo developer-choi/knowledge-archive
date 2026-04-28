@@ -4,14 +4,14 @@ tags: [network, concept]
 
 # Questions
 
-- Network Layer의 역할은 무엇인가?
-- Network Layer는 언제 필요한 계층인가?
+- [UNVERIFIED] Network Layer의 역할은 무엇인가?
+- [UNVERIFIED] Network Layer는 언제 필요한 계층인가?
 
 ---
 
 # Answers
 
-## Network Layer의 역할은 무엇인가?
+## [UNVERIFIED] Network Layer의 역할은 무엇인가?
 
 ### User Answer
 발신지 대 목적지 전달에 대한 책임을 진다.
@@ -23,7 +23,7 @@ tags: [network, concept]
 
 ---
 
-## Network Layer는 언제 필요한 계층인가?
+## [UNVERIFIED] Network Layer는 언제 필요한 계층인가?
 
 ### User Answer
 다른 네트워크와 통신할 때 필요한 계층이다.

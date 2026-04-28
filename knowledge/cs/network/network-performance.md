@@ -6,7 +6,7 @@ tags: [network, concept]
 - 처리량(Throughput)이란 무엇인가?
 - 대역폭(Bandwidth)과 처리량(Throughput)을 비교하라
 - 처리량이 낮아지는 원인은?
-- (번외) 왜 하필 번역이 '처리량'일까?
+- [BACKLOG] (번외) 왜 하필 번역이 '처리량'일까?
 - Latency(지연시간)란?
 
 ---
@@ -69,7 +69,7 @@ When taking various [protocol overheads](https://en.wikipedia.org/wiki/Protocol_
 
 ---
 
-## (번외) 왜 하필 번역이 '처리량'일까?
+## [BACKLOG] (번외) 왜 하필 번역이 '처리량'일까?
 
 > #### AI Annotation: **어원 분석 (LBL)**
 > - **Through** (통과하여) + **Put** (놓다, 투입하다) = 시스템 내부의 과정을 거쳐 결과물로 변환되어 나온 총량.

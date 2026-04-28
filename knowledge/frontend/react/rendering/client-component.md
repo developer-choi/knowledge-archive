@@ -9,7 +9,7 @@ tags: [react, nextjs, principle]
 - Client Component는 Subsequent Navigation에서 어떻게 렌더링되는가?
 - Client Component에서 Server Component를 import할 수 없는 이유는?
 - Server Component에서 Client Component로 props를 전달할 때 serializable이어야 하는 이유는?
-- `"use client"`가 붙어있지 않은 컴포넌트는 항상 Server Component인가?
+- [UNVERIFIED] `"use client"`가 붙어있지 않은 컴포넌트는 항상 Server Component인가?
 - 3rd-party 라이브러리(`"use client"`가 없는 것)를 Server Component 안에서 그대로 쓸 수 있는가?
 - Context Provider를 App 루트에서 바로 쓰면 왜 에러가 나는가?
 - 3rd-party Provider를 Server Component 아래에서 쓰려면 어떻게 감싸야 하는가?
@@ -144,7 +144,7 @@ This means that values such as functions, Dates, etc, cannot be passed directly 
 
 ---
 
-## `"use client"`가 붙어있지 않은 컴포넌트는 항상 Server Component인가?
+## [UNVERIFIED] `"use client"`가 붙어있지 않은 컴포넌트는 항상 Server Component인가?
 
 ### User Answer
 1. 공식문서가 한 말은 틀린 말이 없다. 우선순위가 있을 뿐이다.

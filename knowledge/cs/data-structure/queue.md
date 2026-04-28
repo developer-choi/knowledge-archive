@@ -8,8 +8,8 @@ tags: [data-structure, concept]
 - Queue의 주요 연산과 시간복잡도는?
   - Queue의 Enqueue/Dequeue 연산에서 overflow와 underflow는 각각 언제 발생하는가?
 - Deque(Double Ended Queue)란 무엇이며, 일반 Queue와 어떻게 다른가?
-- Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?
-- CircularQueue와 LinkedListQueue의 차이는?
+- [UNVERIFIED] Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?
+- [UNVERIFIED] CircularQueue와 LinkedListQueue의 차이는?
 
 ---
 
@@ -89,7 +89,7 @@ A simple queue is efficiently implemented either using a linked list or a circul
 
 ---
 
-## Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?
+## [UNVERIFIED] Priority Queue란 무엇이며, 어떤 자료구조로 구현하는가?
 
 ### User Answer
 dequeue할 때 우선순위에 맞게 값이 빠져나오는 큐.
@@ -100,7 +100,7 @@ dequeue할 때 우선순위에 맞게 값이 빠져나오는 큐.
 
 ---
 
-## CircularQueue와 LinkedListQueue의 차이는?
+## [UNVERIFIED] CircularQueue와 LinkedListQueue의 차이는?
 
 ### User Answer
 CircularQueue / LinkedListQueue 둘 다 enqueue() dequeue()의 Time Complexity는 O(1)로 동일함.

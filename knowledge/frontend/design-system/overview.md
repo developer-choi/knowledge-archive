@@ -3,14 +3,14 @@ tags: [concept, best-practice, styling]
 ---
 
 # Questions
-- 디자인 시스템 라이브러리들은 빌드 결과물을 어떻게 분할하는가?
-- 디자인 시스템 스타일링 방식의 두 갈래는?
+- [UNVERIFIED] 디자인 시스템 라이브러리들은 빌드 결과물을 어떻게 분할하는가?
+- [UNVERIFIED] 디자인 시스템 스타일링 방식의 두 갈래는?
 
 ---
 
 # Answers
 
-## 디자인 시스템 라이브러리들은 빌드 결과물을 어떻게 분할하는가?
+## [UNVERIFIED] 디자인 시스템 라이브러리들은 빌드 결과물을 어떻게 분할하는가?
 
 ### User Answer
 대표 디자인 시스템 라이브러리들의 빌드 결과물 패턴.
@@ -21,7 +21,7 @@ tags: [concept, best-practice, styling]
 
 ---
 
-## 디자인 시스템 스타일링 방식의 두 갈래는?
+## [UNVERIFIED] 디자인 시스템 스타일링 방식의 두 갈래는?
 
 ### User Answer
 크게 두 가지 접근이 있다.

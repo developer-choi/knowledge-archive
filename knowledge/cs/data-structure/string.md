@@ -5,10 +5,10 @@ tags: [data-structure, concept]
 # Questions
 - 문자열(String)이란 무엇인가?
 - 문자열이 불변(Immutable)이라는 것은 무엇을 의미하는가?
-  - 문자열이 불변인 것이 왜 중요한가?
-- 문자열은 메모리에 어떻게 저장되는가?
+  - [UNVERIFIED] 문자열이 불변인 것이 왜 중요한가?
+- [UNVERIFIED] 문자열은 메모리에 어떻게 저장되는가?
 - 문자열의 길이를 구하는 시간 복잡도는?
-- 두 문자열의 동일성 비교(equality check)의 시간 복잡도는?
+- [UNVERIFIED] 두 문자열의 동일성 비교(equality check)의 시간 복잡도는?
 
 ---
 
@@ -41,7 +41,7 @@ In Python, Java and JavaScript, strings are immutable.
 
 ---
 
-## 문자열이 불변인 것이 왜 중요한가?
+## [UNVERIFIED] 문자열이 불변인 것이 왜 중요한가?
 
 ### User Answer
 1. **안전성 (Thread-Safety)**: 여러 기능(스레드)이 하나의 문자열 데이터를 동시에 참조해도, 어차피 수정이 불가능하므로 데이터가 꼬일(race condition) 걱정이 없다.
@@ -55,7 +55,7 @@ In Python, Java and JavaScript, strings are immutable.
 
 ---
 
-## 문자열은 메모리에 어떻게 저장되는가?
+## [UNVERIFIED] 문자열은 메모리에 어떻게 저장되는가?
 
 ### User Answer
 Python, Java, JavaScript에서 문자열의 문자들은 배열처럼 **연속된(contiguous)** 메모리 위치에 저장된다.
@@ -81,7 +81,7 @@ The length of a string refers to the total number of characters present in it, i
 
 ---
 
-## 두 문자열의 동일성 비교(equality check)의 시간 복잡도는?
+## [UNVERIFIED] 두 문자열의 동일성 비교(equality check)의 시간 복잡도는?
 
 ### User Answer
 문자열 2개의 === 비교는 O(n)이다.
