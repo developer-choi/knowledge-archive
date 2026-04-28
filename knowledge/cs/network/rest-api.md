@@ -20,7 +20,7 @@ tags: [network, architecture, concept]
   - Layered System 제약은 어떤 효용을 주며 클라이언트에게 어떻게 보이는가?
   - RESTful 웹 서비스의 캐싱(Cacheability)은 어떻게 통제되는가?
   - Code on Demand 제약은 다른 제약들과 어떻게 다른가? 실무 예시는?
-  - [TODO] Client-Server 제약이란 무엇이며 왜 6대 제약 중 가장 자명한 것으로 취급되는가? (AWS 미수록 — Fielding 원전)
+  - [UNVERIFIED] Client-Server 제약이란 무엇이며 왜 6대 제약 중 가장 자명한 것으로 취급되는가?
 
 ## REST 이점 / 동작 흐름
 - RESTful API가 가져다주는 핵심 이점은 무엇이며, 그것은 앞서 본 어떤 제약에서 비롯되는가?

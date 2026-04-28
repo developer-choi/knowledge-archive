@@ -111,12 +111,6 @@ Memory (typically some region of virtual memory); which includes the executable 
 
 ---
 
-## PCB(프로세스 제어 블록)란 무엇인가?
-
-→ [process-control-block.md](process-control-block.md)
-
----
-
 ## OS가 프로세스들을 서로 격리하는 이유와, 격리 실패 시 발생할 수 있는 문제는?
 
 ### Official Answer

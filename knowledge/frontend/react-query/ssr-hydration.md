@@ -1,5 +1,5 @@
 ---
-tags: [react-query, ssr, hydration]
+tags: [state-mgmt, nextjs, concept]
 ---
 
 # Questions

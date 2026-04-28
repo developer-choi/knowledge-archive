@@ -51,7 +51,6 @@ This is similar to how designers think about UI.
 ### Reference
 - https://react.dev/learn/managing-state
 - https://react.dev/learn/reacting-to-input-with-state
-- 명령형/선언형 패러다임 일반론: [declarative-vs-imperative.md](../../../cs/software-engineering/principles/declarative-vs-imperative.md)
 
 ---
 

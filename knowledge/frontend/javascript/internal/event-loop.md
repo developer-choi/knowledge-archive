@@ -97,10 +97,10 @@ task가 실행되는 동안에는 아무리 그 안에서 렌더링하는 코드
 기존에는 (1) 화면에 Progressing이 보이고 (2) for 문 도는 동안 잠시 뒤 (3) 화면에 Done이 보일 것이라 예상했지만, 실제로는 아무것도 안 보이다가 바로 Done이 보였다.
 즉 `main()`이라는 task가 실행되는 동안에는 그 안에서 작성한 렌더링 코드가 즉시 반영되지 않고, `main()`이 모두 끝나야 렌더링이 된다.
 
-### AI Annotation
-브라우저는 매 틱마다 무조건 렌더링을 하지 않는다.
-일반적으로 60Hz 모니터 기준 약 16.7ms마다 렌더링 기회(Rendering Opportunity)를 가지며, Microtask Queue가 비워진 시점에 마침 렌더링 주기가 돌아왔다면 그때 비로소 화면을 업데이트한다.
-또한 Microtask가 무한히 추가되면 (예: `function loop() { Promise.resolve().then(loop); }`) 이벤트 루프는 절대 렌더링 단계로 진입하지 못하며, 화면이 완전히 굳어버리는(Jank) 현상이 발생한다.
+> #### AI Annotation:
+> 브라우저는 매 틱마다 무조건 렌더링을 하지 않는다.
+> 일반적으로 60Hz 모니터 기준 약 16.7ms마다 렌더링 기회(Rendering Opportunity)를 가지며, Microtask Queue가 비워진 시점에 마침 렌더링 주기가 돌아왔다면 그때 비로소 화면을 업데이트한다.
+> 또한 Microtask가 무한히 추가되면 (예: `function loop() { Promise.resolve().then(loop); }`) 이벤트 루프는 절대 렌더링 단계로 진입하지 못하며, 화면이 완전히 굳어버리는(Jank) 현상이 발생한다.
 
 ## [UNVERIFIED] 비동기 작업은 호출되자마자 Queue에 들어가는가?
 

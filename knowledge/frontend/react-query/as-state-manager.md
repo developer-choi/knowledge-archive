@@ -1,5 +1,5 @@
 ---
-tags: [react-query, state-mgmt, concept]
+tags: [state-mgmt, concept]
 ---
 # Questions
 - React Query는 무엇인가?
@@ -13,6 +13,8 @@ tags: [react-query, state-mgmt, concept]
 - React Query의 디폴트 fetch 빈도가 거슬려 refetchOnMount/refetchOnWindowFocus를 끄거나, server data를 별도 state manager에도 함께 보관하는 식으로 우회하려는 시도에 대해, 저자는 어떻게 평가하며 정공법으로 무엇을 권하는가?
 
 ---
+
+# Answers
 
 ## React Query는 무엇인가?
 

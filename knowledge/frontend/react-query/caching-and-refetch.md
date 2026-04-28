@@ -1,5 +1,5 @@
 ---
-tags: [react-query, caching, stale-while-revalidate, concept]
+tags: [state-mgmt, performance, concept]
 ---
 # Questions
 - React Query가 사용하는 캐싱 메커니즘은 무엇인가?
@@ -17,6 +17,8 @@ tags: [react-query, caching, stale-while-revalidate, concept]
 - Query Key별로 staleTime 같은 디폴트를 다르게 설정하려면 어떻게 하는가?
 
 ---
+
+# Answers
 
 ## React Query가 사용하는 캐싱 메커니즘은 무엇인가?
 
