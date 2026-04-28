@@ -8,7 +8,7 @@ tags: [nextjs, performance, principle]
 - Router Cache의 지속 기간을 결정하는 두 요인은?
 - Automatic Invalidation Period는 prefetch 종류·정적/동적 페이지에 따라 어떻게 다른가?
 - Router Cache를 invalidate 하는 두 가지 방법은?
-- `router.refresh()`의 동작 범위는?
+- [`router.refresh()`의 자세한 동작은? → `router-refresh.md`](./router-refresh.md)
 
 ---
 
@@ -119,22 +119,6 @@ There are two ways you can invalidate the Router Cache:
 > - **Server Action**: 서버에서 실행되며 클라이언트 라우트에 연결된 함수
 > - **revalidatePath / revalidateTag**: 경로 또는 태그 단위로 데이터를 재검증하는 API
 > - **router.refresh**: `useRouter` 훅이 제공하는 현재 라우트 강제 갱신 API
-
-### Reference
-- https://nextjs.org/docs/14/app/building-your-application/caching#invalidation-1
-
----
-
-## `router.refresh()`의 동작 범위는?
-
-### Official Answer
-Calling `router.refresh` will invalidate the Router Cache and make a new request to the server for the current route.
-
-> #### Key Terms:
-> - **current route**: 현재 보고 있는 라우트. `router.refresh()`는 이 라우트에 한해서만 동작함
-
-> #### User Annotation:
-> router.refresh()는 현재 경로의 Router Cache(layouts, pages 모두)를 비우고 서버에 새 요청을 보낸다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#invalidation-1

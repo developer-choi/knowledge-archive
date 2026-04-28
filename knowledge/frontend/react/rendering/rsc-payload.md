@@ -96,26 +96,16 @@ Instead, we can stream a response as work is completed.
 ## Full Page Load에서 RSC Payload는 어떻게 사용되는가?
 
 ### Official Answer
-To optimize the initial page load, Next.js will use React's APIs to render a static HTML preview on the server for both Client and Server Components.
-This means, when the user first visits your application, they will see the content of the page immediately, without having to wait for the client to download, parse, and execute the Client Component JavaScript bundle.
+React renders Server Components into a special data format called the React Server Component Payload (RSC Payload), which includes references to Client Components.
 
-On the server:
-
-1. React renders Server Components into a special data format called the React Server Component Payload (RSC Payload), which includes references to Client Components.
-2. Next.js uses the RSC Payload and Client Component JavaScript instructions to render HTML for the route on the server.
-
-Then, on the client:
-
-1. The HTML is used to immediately show a fast non-interactive initial preview of the route.
-2. The React Server Components Payload is used to reconcile the Client and Server Component trees, and update the DOM.
-3. The JavaScript instructions are used to hydrate Client Components and make their UI interactive.
+The React Server Components Payload is used to reconcile the Client and Server Component trees, and update the DOM.
 
 > #### User Annotation:
-> 같은 절차를 Client Component 관점에서 정리한 내용이 [client-component.md](./client-component.md)의 "Full Page Load" Q&A에도 있다.
->
 > RSC Payload는 reconcile에 사용된다:
 > 1. 현재 화면(Client)과
 > 2. SC 렌더링 결과물 두 개를 서로 비교해서 달라진 부분만 바꾼다.
+>
+> 같은 흐름을 Client Component 관점에서 본 전체 절차(서버 HTML preview, hydration까지)는 [client-component.md](./client-component.md#client-component는-full-page-load에서-어떻게-렌더링되는가) 참조.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/client-components#full-page-load
