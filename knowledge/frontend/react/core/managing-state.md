@@ -167,25 +167,15 @@ They only specify the position within the parent.
 ## Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
 
 ### Official Answer
-Passing props is a great way to explicitly pipe data through your UI tree to the components that use it.
 But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop.
 The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called "prop drilling".
 Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
 
 > #### Key Terms:
-> - **pipe data through**: UI 트리를 따라 데이터를 흘려보내다
 > - **verbose**: 장황한 — 코드가 쓸데없이 길어진다
 > - **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들의 가장 가까운 공통 부모 (lifting state up의 도착지)
-> - **far removed from**: ~로부터 멀리 떨어진
 > - **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들을 props가 단순 통과하며 내려가는 상황
-> - **available to**: ~가 접근/사용할 수 있는
 > - **no matter how deep**: 아무리 깊든 상관없이
-> - **explicitly**: 명시적으로 (props는 한 단계씩 손으로 넘긴다는 점 부각)
-
-> #### AI Annotation:
-> Context는 prop drilling을 우회하는 "순간이동" 채널로 비유된다.
-> 부모가 한 번 값을 공급(provide)해두면, 그 아래 트리의 어느 깊이에 있는 자식이든 중간 컴포넌트를 거치지 않고 직접 그 값을 읽을 수 있다.
-> 중간 컴포넌트들이 자신은 쓰지도 않는 props를 단순 통과시켜야 하는 부담에서 해방된다.
 
 ### Reference
 - https://react.dev/learn/passing-data-deeply-with-context
