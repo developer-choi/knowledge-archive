@@ -12,7 +12,7 @@ tags: [programming-paradigm, concept]
 
 ## 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
 
-### Official Answer
+### User Answer
 - **명령형:** "버튼을 누르면 -> 모달을 연다 -> 데이터를 가져온다."
 - **선언형:** "모달의 상태가 open이면 모달이 보인다. 모달이 보이면 데이터를 가져온다."
 
