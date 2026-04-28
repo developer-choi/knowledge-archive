@@ -39,9 +39,16 @@ The software is actually broken but the test passes (false positive) or the soft
 Tests which test implementation details can give you a false negative when you refactor your code.
 This leads to brittle and frustrating tests that seem to break anytime you so much as look at the code.
 
-> #### Official Annotation: You may want to avoid the following implementation details: Internal state of a component, Internal methods of a component, Lifecycle methods of a component, Child components.
-> #### AI Annotation: implementation details에 의존하는 테스트는 기능이 동일한 리팩토링에도 깨진다. Testing Library는 `getByRole`, `getByText` 등 사용자의 인식 방식을 모방하는 쿼리를 제공하여 이 문제를 해결한다.
-> #### AI Annotation: 구현 세부사항 테스트의 false positive 예시 — `wrapper.instance().setOpenIndex(1)`로 state 변경을 검증하면 "버튼 클릭 → state 변경" 연결이 끊어져도 테스트가 통과한다. 사용자 행동(클릭)이 아닌 내부 메서드를 직접 호출했기 때문이다.
+> #### Official Annotation:
+> You may want to avoid the following implementation details: Internal state of a component, Internal methods of a component, Lifecycle methods of a component, Child components.
+
+> #### AI Annotation:
+> implementation details에 의존하는 테스트는 기능이 동일한 리팩토링에도 깨진다.
+> Testing Library는 `getByRole`, `getByText` 등 사용자의 인식 방식을 모방하는 쿼리를 제공하여 이 문제를 해결한다.
+
+> #### AI Annotation:
+> 구현 세부사항 테스트의 false positive 예시 — `wrapper.instance().setOpenIndex(1)`로 state 변경을 검증하면 "버튼 클릭 → state 변경" 연결이 끊어져도 테스트가 통과한다.
+> 사용자 행동(클릭)이 아닌 내부 메서드를 직접 호출했기 때문이다.
 
 ### Reference
 - https://testing-library.com/docs/
@@ -54,7 +61,9 @@ This leads to brittle and frustrating tests that seem to break anytime you so mu
 ### Official Answer
 Testing Library encourages you to avoid testing implementation details like the internals of a component you're testing (though it's still possible).
 
-> #### AI Annotation: `container.querySelector` 등으로 여전히 내부 구현을 테스트할 수 있다. 기술적으로 차단하지 않고, 올바른 방향으로 유도하되 강제하지 않는 설계 철학이다.
+> #### AI Annotation:
+> `container.querySelector` 등으로 여전히 내부 구현을 테스트할 수 있다.
+> 기술적으로 차단하지 않고, 올바른 방향으로 유도하되 강제하지 않는 설계 철학이다.
 
 ### Reference
 - https://testing-library.com/docs/
@@ -76,7 +85,9 @@ Implementation details are things which users of your code will not typically us
 By making our test use the component differently than end-users and developers do, we create a third user our application code needs to consider: the tests!
 Automated tests should verify that the application code works for the production users.
 
-> #### AI Annotation: 역방향 논증(구현 세부사항 의존 → 거짓 실패 → 확신 저하)과 순방향 논증(사용자처럼 찾기 → 통과 시 실제 사용자도 동작 보장 → 확신). FAQ에서 직접적 선언이 추가됨: 사용자 관점 테스트 → less brittle(덜 깨짐) + more meaningful(더 의미 있음).
+> #### AI Annotation:
+> 역방향 논증(구현 세부사항 의존 → 거짓 실패 → 확신 저하)과 순방향 논증(사용자처럼 찾기 → 통과 시 실제 사용자도 동작 보장 → 확신).
+> FAQ에서 직접적 선언이 추가됨: 사용자 관점 테스트 → less brittle(덜 깨짐) + more meaningful(더 의미 있음).
 
 ### Reference
 - https://testing-library.com/docs/
@@ -109,7 +120,9 @@ It also exposes a recommended way to find elements by a data-testid as an "escap
 
 This library encourages your applications to be more accessible and allows you to get your tests closer to using your components the way a user will, which allows your tests to give you more confidence that your application will work when a real user uses it.
 
-> #### AI Annotation: label text, role, text content로 요소를 찾으려면 실제 HTML에 적절한 `<label>`, `aria-label`, semantic markup이 있어야 한다. 테스트를 통과시키기 위해 접근성을 챙기게 되는 선순환.
+> #### AI Annotation:
+> label text, role, text content로 요소를 찾으려면 실제 HTML에 적절한 `<label>`, `aria-label`, semantic markup이 있어야 한다.
+> 테스트를 통과시키기 위해 접근성을 챙기게 되는 선순환.
 
 ### Reference
 - https://testing-library.com/docs/react-testing-library/intro
@@ -140,9 +153,13 @@ It doesn't affect the rest of the system like the developer user.
 
 Writing tests that include implementation details is all downside and no upside.
 
-> #### Official Annotation: You should very rarely have to change tests when you refactor code.
+> #### Official Annotation:
+> You should very rarely have to change tests when you refactor code.
 > — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
-> #### AI Annotation: UI 코드의 사용자는 end user(컴포넌트와 상호작용하는 최종 사용자)와 developer user(컴포넌트를 렌더링하는 개발자) 두 명뿐이다. 구현 상세를 테스트하면 제3의 testing user가 생기는데, 이 사용자는 돈을 내지도, 시스템에 영향을 주지도 않는다.
+
+> #### AI Annotation:
+> UI 코드의 사용자는 end user(컴포넌트와 상호작용하는 최종 사용자)와 developer user(컴포넌트를 렌더링하는 개발자) 두 명뿐이다.
+> 구현 상세를 테스트하면 제3의 testing user가 생기는데, 이 사용자는 돈을 내지도, 시스템에 영향을 주지도 않는다.
 
 ### Reference
 - https://kentcdodds.com/blog/avoid-the-test-user
@@ -162,7 +179,10 @@ So our test should typically only see/interact with the props that are passed, a
 
 > #### Key Terms:
 > - **implementation details**: 코드의 사용자(end user, developer)가 보지도, 쓰지도, 알지도 못하는 내부 구현
-> #### Official Annotation: Here are a few aspects of React that people often think about testing which results in implementation details tests: Lifecycle methods, Element event handlers, Internal Component State. Conversely, here are things that you should be testing because they concern your two users: User interactions (using userEvent), Changing props (using rerender), Context changes (using rerender), Subscription changes.
+
+> #### Official Annotation:
+> Here are a few aspects of React that people often think about testing which results in implementation details tests: Lifecycle methods, Element event handlers, Internal Component State.
+> Conversely, here are things that you should be testing because they concern your two users: User interactions (using userEvent), Changing props (using rerender), Context changes (using rerender), Subscription changes.
 > — Kent C. Dodds, "How to Know What to Test"
 
 ### Reference
@@ -182,7 +202,10 @@ Turn that list of instructions into an automated test.
 
 > #### Key Terms:
 > - **untested codebase**: 아직 테스트가 없는 코드 영역. 전부 테스트하려 하지 말고 깨지면 가장 큰 피해를 주는 곳부터 시작
-> #### AI Annotation: 이 프로세스의 핵심은 3단계(사용자 파악)에 있다. 사용자를 먼저 정의하면 4단계에서 자연스럽게 구현 세부사항이 배제된다 — 사용자가 하지 않는 행동은 수동 테스트 지침에 들어갈 수 없기 때문이다.
+
+> #### AI Annotation:
+> 이 프로세스의 핵심은 3단계(사용자 파악)에 있다.
+> 사용자를 먼저 정의하면 4단계에서 자연스럽게 구현 세부사항이 배제된다 — 사용자가 하지 않는 행동은 수동 테스트 지침에 들어갈 수 없기 때문이다.
 
 ### Reference
 - https://kentcdodds.com/blog/testing-implementation-details
@@ -201,7 +224,10 @@ That being the case, what we test should map directly to enhancing our confidenc
 
 > #### Key Terms:
 > - **use cases**: 사용자가 소프트웨어를 통해 달성하려는 구체적 시나리오. 테스트의 판단 기준이 되어야 할 단위
-> #### AI Annotation: 코드를 보면 if/else 분기, 내부 상태 등 구현 세부사항을 테스트하게 된다. 유스케이스를 보면 사용자가 쓰는 방식에 가까운 테스트를 쓰게 되어 진짜 자신감을 얻는다.
+
+> #### AI Annotation:
+> 코드를 보면 if/else 분기, 내부 상태 등 구현 세부사항을 테스트하게 된다.
+> 유스케이스를 보면 사용자가 쓰는 방식에 가까운 테스트를 쓰게 되어 진짜 자신감을 얻는다.
 
 ### Reference
 - https://kentcdodds.com/blog/how-to-know-what-to-test
@@ -228,7 +254,10 @@ Just don't bother with targeting a 100% code coverage report, it's not worth the
 
 > #### Key Terms:
 > - **happy path**: 대다수 사용자가 거치는 가장 일반적인 성공 시나리오. 테스트 시작점으로 가장 효율적
-> #### AI Annotation: 위에서 아래로 내려가는 전략 — E2E로 happy path → integration으로 edge cases → unit으로 복잡한 비즈니스 로직. 점진적으로 자신감을 넓혀가되, 100% 커버리지는 목표로 삼지 않는다.
+
+> #### AI Annotation:
+> 위에서 아래로 내려가는 전략 — E2E로 happy path → integration으로 edge cases → unit으로 복잡한 비즈니스 로직.
+> 점진적으로 자신감을 넓혀가되, 100% 커버리지는 목표로 삼지 않는다.
 
 ### Reference
 - https://kentcdodds.com/blog/how-to-know-what-to-test

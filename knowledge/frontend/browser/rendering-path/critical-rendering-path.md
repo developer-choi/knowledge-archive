@@ -222,7 +222,8 @@ The CSS Object Model is a set of APIs allowing the manipulation of CSS from Java
 It is much like the DOM, but for the CSS rather than the HTML.
 It allows users to read and modify CSS style dynamically.
 
-> #### Official Annotation: The CSSStyleDeclaration interface is the base class for objects that represent CSS declaration blocks with different supported sets of CSS style information:
+> #### Official Annotation:
+> The CSSStyleDeclaration interface is the base class for objects that represent CSS declaration blocks with different supported sets of CSS style information:
 > CSSStyleProperties — CSS styles declared in stylesheet (CSSStyleRule.style), inline styles for an element such as HTMLElement, SVGElement, and MathMLElement, or the computed style for an element returned by Window.getComputedStyle().
 
 ### Reference

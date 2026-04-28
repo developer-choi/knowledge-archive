@@ -33,7 +33,10 @@ tags: [software-engineering, comparison]
 ### Official Answer
 Static: Catch typos and type errors as you write the code.
 
-> #### AI Annotation: Testing Trophy의 가장 아래에 위치한다. ESLint, TypeScript 같은 도구가 코드를 실행하지 않고도 문법 오류, 타입 불일치, 무한루프 등을 잡아준다. 테스트를 작성할 필요조차 없다.
+> #### AI Annotation:
+> Testing Trophy의 가장 아래에 위치한다.
+> ESLint, TypeScript 같은 도구가 코드를 실행하지 않고도 문법 오류, 타입 불일치, 무한루프 등을 잡아준다.
+> 테스트를 작성할 필요조차 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -45,15 +48,25 @@ Static: Catch typos and type errors as you write the code.
 ### Official Answer
 Unit: Verify that individual, isolated parts work as expected.
 
-> #### Official Annotation: The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
+> #### Official Annotation:
+> The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
 > — Martin Fowler, "On the Diverse And Fantastical Shapes of Testing"
-> #### Official Annotation: Unit testing is the process where you test the smallest functional unit of code.
+
+> #### Official Annotation:
+> Unit testing is the process where you test the smallest functional unit of code.
 > A unit test is a block of code that verifies the accuracy of a smaller, isolated block of application code, typically a function or method.
 > Unit tests are typically the first set of tests that run during full system software testing.
 > They can be written as soon as any code is written and don't require any special tools to run.
 > — AWS, "What is Unit Testing"
-> #### AI Annotation: Testing Trophy에서 Static 바로 위에 위치한다. 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
-> #### AI Annotation: Kent는 "individual, isolated parts"로 정의하지만, Fowler는 "내/우리 코드 vs 별도 개발 코드"라는 조직적 색채를 남긴다. 같은 개념을 다른 각도(기술적 격리 vs 조직적 경계)에서 본다. 더 자세한 기원은 test-shapes-unit-vs-integration.md 참고.
+
+> #### AI Annotation:
+> Testing Trophy에서 Static 바로 위에 위치한다.
+> 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
+
+> #### AI Annotation:
+> Kent는 "individual, isolated parts"로 정의하지만, Fowler는 "내/우리 코드 vs 별도 개발 코드"라는 조직적 색채를 남긴다.
+> 같은 개념을 다른 각도(기술적 격리 vs 조직적 경계)에서 본다.
+> 더 자세한 기원은 test-shapes-unit-vs-integration.md 참고.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -71,8 +84,11 @@ The lower down the trophy you are, the less code your tests are testing.
 If you're operating at a low level you need more tests to cover the same number of lines of code in your application as a single test could higher up the trophy.
 In fact, as you go lower down the testing trophy, there are some things that are impossible to test.
 
-> #### AI Annotation: 장점 — 빠르고(실행 코드가 적음), 비용이 낮고(작성·유지 간단), 실패 시 원인이 명확하다.
-> #### AI Annotation: 단점 — confidence coefficient가 낮고, 같은 커버리지를 위해 더 많은 테스트가 필요하며, 의존성 연동 문제는 구조적으로 잡을 수 없다.
+> #### AI Annotation:
+> 장점 — 빠르고(실행 코드가 적음), 비용이 낮고(작성·유지 간단), 실패 시 원인이 명확하다.
+
+> #### AI Annotation:
+> 단점 — confidence coefficient가 낮고, 같은 커버리지를 위해 더 많은 테스트가 필요하며, 의존성 연동 문제는 구조적으로 잡을 수 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -84,9 +100,15 @@ In fact, as you go lower down the testing trophy, there are some things that are
 ### Official Answer
 Unit tests are incapable of ensuring that when you call into a dependency that you're calling it appropriately (though you can make assertions on how it's being called, you can't ensure that it's being called properly with a unit test).
 
-> #### Official Annotation: It doesn't matter if your component `<A />` renders component `<B />` with props c and d if component `<B />` actually breaks if prop e is not supplied. So while having some unit tests to verify these pieces work in isolation isn't a bad thing, it doesn't do you any good if you don't also verify that they work together properly.
+> #### Official Annotation:
+> It doesn't matter if your component `<A />` renders component `<B />` with props c and d if component `<B />` actually breaks if prop e is not supplied.
+> So while having some unit tests to verify these pieces work in isolation isn't a bad thing, it doesn't do you any good if you don't also verify that they work together properly.
 > — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
-> #### AI Annotation: 아니오. mock은 가짜 구현이므로, 실제 의존성이 해당 인자를 받아서 올바르게 동작하는지는 보장할 수 없다. 예를 들어 `api.createUser({name: 'Kim'})`을 호출했다고 assertion하더라도, 실제 API가 `username` 필드를 기대한다면 unit test는 이를 잡지 못한다.
+
+> #### AI Annotation:
+> 아니오.
+> mock은 가짜 구현이므로, 실제 의존성이 해당 인자를 받아서 올바르게 동작하는지는 보장할 수 없다.
+> 예를 들어 `api.createUser({name: 'Kim'})`을 호출했다고 assertion하더라도, 실제 API가 `username` 필드를 기대한다면 unit test는 이를 잡지 못한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -104,7 +126,8 @@ If that's the case, you should use data stubs instead.
 > #### Key Terms:
 > - **data stubs**: 실제 외부 데이터 대신 사용하는 가짜(고정) 데이터
 
-> #### AI Annotation: Unit test는 isolation이 핵심이므로, DB·네트워크·외부 객체 같은 외부 의존성은 그대로 사용할 수 없다.
+> #### AI Annotation:
+> Unit test는 isolation이 핵심이므로, DB·네트워크·외부 객체 같은 외부 의존성은 그대로 사용할 수 없다.
 > 대신 data stub(고정된 가짜 데이터)으로 대체하여 테스트 대상 코드만 격리해 검증한다.
 
 ### Reference
@@ -119,10 +142,14 @@ Integration: Verify that several units work together in harmony.
 
 The idea behind integration tests is to mock as little as possible.
 
-> #### Official Annotation: Integration Testing involves testing how multiple units work together.
+> #### Official Annotation:
+> Integration Testing involves testing how multiple units work together.
 > This can be a combination of components, hooks, and functions.
 > — Next.js, "Testing"
-> #### AI Annotation: Testing Trophy에서 가장 큰 비중을 차지한다. 여러 단위가 함께 동작하는지를 검증하며, 앱의 모든 Provider를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
+
+> #### AI Annotation:
+> Testing Trophy에서 가장 큰 비중을 차지한다.
+> 여러 단위가 함께 동작하는지를 검증하며, 앱의 모든 Provider를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -140,8 +167,14 @@ I pretty much only mock:
 1. Network requests (using MSW)
 2. Components responsible for animation (because who wants to wait for that in your tests?)
 
-> #### AI Annotation: 장점 — 비용·속도와 자신감 사이의 최적 균형점. unit보다 높은 confidence coefficient를 가지면서, E2E보다 빠르고 저렴하다. mock을 최소화하므로 실제 동작에 가깝다.
-> #### AI Annotation: 단점 — unit보다는 느리고, 실패 시 원인 추적이 unit보다 어렵다. 실제 백엔드 연동 문제는 잡을 수 없다.
+> #### AI Annotation:
+> 장점 — 비용·속도와 자신감 사이의 최적 균형점.
+> unit보다 높은 confidence coefficient를 가지면서, E2E보다 빠르고 저렴하다.
+> mock을 최소화하므로 실제 동작에 가깝다.
+
+> #### AI Annotation:
+> 단점 — unit보다는 느리고, 실패 시 원인 추적이 unit보다 어렵다.
+> 실제 백엔드 연동 문제는 잡을 수 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -155,10 +188,14 @@ I pretty much only mock:
 1. Network requests (using MSW)
 2. Components responsible for animation (because who wants to wait for that in your tests?)
 
-> #### Official Annotation: When you mock something you're removing all confidence in the integration between what you're testing and what's being mocked.
+> #### Official Annotation:
+> When you mock something you're removing all confidence in the integration between what you're testing and what's being mocked.
 > You don't actually want to send emails or charge credit cards every test, but most of the time you can avoid mocking and you'll be better for it.
 > — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
-> #### AI Annotation: 그 외에는 전부 실제 코드를 사용한다. 커스텀 render가 앱의 모든 Provider(Router, Theme, Auth 등)를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
+
+> #### AI Annotation:
+> 그 외에는 전부 실제 코드를 사용한다.
+> 커스텀 render가 앱의 모든 Provider(Router, Theme, Auth 등)를 감싸 실제 환경과 최대한 비슷하게 렌더링한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -170,7 +207,8 @@ I pretty much only mock:
 ### Official Answer
 UI Integration tests are incapable of ensuring that you're passing the right data to your backend and that you respond to and parse errors correctly.
 
-> #### AI Annotation: MSW로 네트워크를 mock하기 때문에, 실제 백엔드에 올바른 데이터를 보내는지, 백엔드가 보내는 실제 에러 형식을 제대로 파싱하는지는 보장할 수 없다.
+> #### AI Annotation:
+> MSW로 네트워크를 mock하기 때문에, 실제 백엔드에 올바른 데이터를 보내는지, 백엔드가 보내는 실제 에러 형식을 제대로 파싱하는지는 보장할 수 없다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -186,7 +224,8 @@ Sometimes called "functional testing" or e2e.
 Typically these will run the entire application (both frontend and backend) and your test will interact with the app just like a typical user would.
 These tests are written with cypress.
 
-> #### AI Annotation: Testing Trophy에서 가장 꼭대기에 위치한다.
+> #### AI Annotation:
+> Testing Trophy에서 가장 꼭대기에 위치한다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -204,8 +243,13 @@ The higher up the trophy you go, the more points of failure there are and theref
 
 End to End tests are pretty darn capable, but typically you'll run these in a non-production environment (production-like, but not production) to trade-off that confidence for practicality.
 
-> #### AI Annotation: 장점 — confidence coefficient가 가장 높다. 프론트+백엔드 전체를 실제 사용자처럼 테스트하므로 가장 높은 자신감을 준다.
-> #### AI Annotation: 단점 — 가장 비싸고(CI 비용 + 유지보수), 가장 느리고(전체 앱 실행), 실패 시 원인 추적이 가장 어렵다. 비프로덕션 환경에서 돌리므로 프로덕션 100% 보장은 아니다.
+> #### AI Annotation:
+> 장점 — confidence coefficient가 가장 높다.
+> 프론트+백엔드 전체를 실제 사용자처럼 테스트하므로 가장 높은 자신감을 준다.
+
+> #### AI Annotation:
+> 단점 — 가장 비싸고(CI 비용 + 유지보수), 가장 느리고(전체 앱 실행), 실패 시 원인 추적이 가장 어렵다.
+> 비프로덕션 환경에서 돌리므로 프로덕션 100% 보장은 아니다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -220,7 +264,10 @@ That might be more suitable for an integration test.
 If you try to use an integration test to hit an edge case for the coupon code calculator, you're likely doing a fair amount of work in your setup function to make sure you can render the components that use the coupon code calculator and you could cover that edge case better in a unit test.
 If you try to use a unit test to verify what happens when you call your add function with a string instead of a number you could be much better served using a static type checking tool like TypeScript.
 
-> #### AI Annotation: 아니오. 각 edge case를 가장 효율적으로 잡을 수 있는 레벨이 따로 있다. E2E로 모든 것을 잡으려 하면 셋업 비용이 과도하고, 테스트가 느려지고, 실패 원인 추적이 어려워진다.
+> #### AI Annotation:
+> 아니오.
+> 각 edge case를 가장 효율적으로 잡을 수 있는 레벨이 따로 있다.
+> E2E로 모든 것을 잡으려 하면 셋업 비용이 과도하고, 테스트가 느려지고, 실패 원인 추적이 어려워진다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -233,7 +280,8 @@ If you try to use a unit test to verify what happens when you call your add func
 Since async Server Components are new to the React ecosystem, some tools do not fully support them.
 In the meantime, we recommend using End-to-End Testing over Unit Testing for async components.
 
-> #### AI Annotation: 현재 Jest 등 일부 도구가 async Server Component를 완전히 지원하지 못한다.
+> #### AI Annotation:
+> 현재 Jest 등 일부 도구가 async Server Component를 완전히 지원하지 못한다.
 > 그래서 Next.js는 async 컴포넌트는 Unit test 대신 E2E로 검증할 것을 권장한다.
 
 ### Reference
@@ -248,7 +296,8 @@ Snapshot Testing involves capturing the rendered output of a component and savin
 When tests run, the current rendered output of the component is compared against the saved snapshot.
 Changes in the snapshot are used to indicate unexpected changes in behavior.
 
-> #### AI Annotation: Snapshot Testing은 Unit / Integration / E2E와 같은 "테스트 범위" 축이 아니라, 그 위에서 보조로 쓰이는 검증 방식이다.
+> #### AI Annotation:
+> Snapshot Testing은 Unit / Integration / E2E와 같은 "테스트 범위" 축이 아니라, 그 위에서 보조로 쓰이는 검증 방식이다.
 > 컴포넌트의 렌더 결과를 스냅샷 파일에 저장해두고, 이후 실행에서 의도치 않은 변화가 생겼는지 비교한다.
 
 ### Reference
@@ -285,8 +334,13 @@ And the trade-off we're always making when we do that is now our tests don't res
 But we do it because we solve real problems we had with that approach.
 And that's what we're doing at every level of the testing trophy.
 
-> #### AI Annotation: Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다. Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
-> #### User Annotation: 촘촘하게 테스트 해야하니까. 비즈니스 로직 사이 사이를.
+> #### AI Annotation:
+> Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다.
+> Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
+
+> #### User Annotation:
+> 촘촘하게 테스트 해야하니까.
+> 비즈니스 로직 사이 사이를.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -301,7 +355,9 @@ This is the relative confidence that each test can get you at that level.
 You can imagine that above the trophy is manual testing.
 That would get you really great confidence from those tests, but the tests would be really expensive and slow.
 
-> #### AI Annotation: Trophy 위로 갈수록 테스트 1개당 자신감이 커진다. Trophy 꼭대기 위에는 manual testing(Aunt Marie)이 있고, 자신감은 최고지만 비용·속도가 최악이다.
+> #### AI Annotation:
+> Trophy 위로 갈수록 테스트 1개당 자신감이 커진다.
+> Trophy 꼭대기 위에는 manual testing(Aunt Marie)이 있고, 자신감은 최고지만 비용·속도가 최악이다.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -332,7 +388,10 @@ The biggest and most important reason that I write tests is CONFIDENCE.
 I want to be confident that the code I'm writing for the future won't break the app that I have running in production today.
 So whatever I do, I want to make sure that the kinds of tests I write bring me the most confidence possible and I need to be cognizant of the trade-offs I'm making when testing.
 
-> #### Official Annotation: Much better to catch a bug locally from the tests than getting a call at 2:00 in the morning and fix it then. Often I find myself saving time when I put time in to write tests. It may or may not take longer to implement what I'm building, but I (and others) will almost definitely save time maintaining it.
+> #### Official Annotation:
+> Much better to catch a bug locally from the tests than getting a call at 2:00 in the morning and fix it then.
+> Often I find myself saving time when I put time in to write tests.
+> It may or may not take longer to implement what I'm building, but I (and others) will almost definitely save time maintaining it.
 > — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
 
 ### Reference
@@ -356,9 +415,13 @@ You should very rarely have to change tests when you refactor code.
 > #### Key Terms:
 > - **diminishing returns**: 투입 대비 산출이 줄어드는 수확 체감 현상. 커버리지가 일정 수준을 넘으면 테스트 1개당 얻는 자신감이 급감한다
 > - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
-> #### Official Annotation: The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
+
+> #### Official Annotation:
+> The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
 > — Kent C. Dodds, "How to Know What to Test"
-> #### User Annotation: 이상적인 커버리지 수치는 회사 역량과 대상 코드의 중요도에 따라 달라진다.
+
+> #### User Annotation:
+> 이상적인 커버리지 수치는 회사 역량과 대상 코드의 중요도에 따라 달라진다.
 > 규모가 작아 기능 구현이 벅찬 회사라면 테스트 도입 자체가 부담일 수 있고,
 > 인원이 충분한 대기업에서 금융 관련 서비스를 만든다면 커버리지를 최대한 높여야 한다.
 > 즉, 회사 역량이 뒷받침되어야 하고, 테스트 대상이 그만큼 중요한지에 따라 적정 수치가 달라진다.
@@ -375,7 +438,9 @@ You should very rarely have to change tests when you refactor code.
 Almost all of my open source projects have 100% code coverage.
 This is because most of my open source projects are smaller libraries and tools that are reusable in many different situations (a breakage could lead to a serious problem in a lot of consuming projects) and they're relatively easy to get 100% code coverage on anyway.
 
-> #### AI Annotation: 100% 커버리지가 합리적인 조건 2가지: (1) 깨지면 다수 소비 프로젝트에 심각한 영향 (높은 파급력), (2) 작은 라이브러리라 100% 달성이 쉬움 (낮은 비용). 애플리케이션 코드에서 이 두 조건을 동시에 만족하기는 어렵다.
+> #### AI Annotation:
+> 100% 커버리지가 합리적인 조건 2가지: (1) 깨지면 다수 소비 프로젝트에 심각한 영향 (높은 파급력), (2) 작은 라이브러리라 100% 달성이 쉬움 (낮은 비용).
+> 애플리케이션 코드에서 이 두 조건을 동시에 만족하기는 어렵다.
 
 ### Reference
 - https://kentcdodds.com/blog/write-tests
@@ -397,9 +462,13 @@ But the code coverage report can sometimes help us identify use cases that we're
 
 > #### Key Terms:
 > - **Use Case Coverage**: 테스트가 커버하는 유스케이스의 비율. 자동 측정 도구가 없어 개발자가 직접 판단해야 한다
-> #### Official Annotation: Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
+> #### Official Annotation:
+> Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
 > Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".
-> #### AI Annotation: Code Coverage는 "어떤 라인이 실행되었는가"만 보여주고, "이 라인이 왜 중요한가"는 알려주지 않는다. 커버리지 리포트는 유스케이스 발견의 보조 도구로만 쓰고, 진짜 판단 기준은 Use Case Coverage다.
+
+> #### AI Annotation:
+> Code Coverage는 "어떤 라인이 실행되었는가"만 보여주고, "이 라인이 왜 중요한가"는 알려주지 않는다.
+> 커버리지 리포트는 유스케이스 발견의 보조 도구로만 쓰고, 진짜 판단 기준은 Use Case Coverage다.
 
 ### Reference
 - https://kentcdodds.com/blog/how-to-know-what-to-test

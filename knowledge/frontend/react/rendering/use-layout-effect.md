@@ -23,7 +23,8 @@ React guarantees that the code inside `useLayoutEffect` and any state updates sc
 This lets you render the tooltip, measure it, and re-render the tooltip again without the user noticing the first extra render.
 In other words, `useLayoutEffect` blocks the browser from painting.
 
-> #### User Annotation: DOM에 반영한다고 하면 좀 말이 안맞고 Paint 하기 전이라고 하는게 맞음.
+> #### User Annotation:
+> DOM에 반영한다고 하면 좀 말이 안맞고 Paint 하기 전이라고 하는게 맞음.
 > 순서는 DOM + CSSOM > Render Tree > Layout > Paint니까.
 > 결국 Paint가 안되면 사용자눈에 안보임.
 

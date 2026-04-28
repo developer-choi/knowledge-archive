@@ -66,7 +66,8 @@ In Next.js, the `cache` option indicates how a server-side request will interact
 > - **server's Data Cache**: Next.js 서버가 관리하는 영속 데이터 캐시
 
 > #### User Annotation:
-> Data Cache는 서버사이드 한정이다. 클라이언트에서 fetch()를 호출할 때 cache 옵션은 Next.js Data Cache가 아니라 브라우저 HTTP 캐시에 영향을 준다.
+> Data Cache는 서버사이드 한정이다.
+> 클라이언트에서 fetch()를 호출할 때 cache 옵션은 Next.js Data Cache가 아니라 브라우저 HTTP 캐시에 영향을 준다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#data-cache

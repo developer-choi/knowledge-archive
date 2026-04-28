@@ -204,7 +204,8 @@ A work around is to replace border with a parent element with padding that acts 
 > **이유 1**: `border` 변경은 reflow를 유발해 transform 기반 FLIP의 성능 이점이 사라집니다.
 > **이유 2**: 브라우저가 1px 미만의 border를 그릴 수 없어 scale 축소 시 border가 상대적으로 두꺼워 보이는 왜곡이 남습니다.
 >
-> **대안**: 배경색이 있는 부모 요소에 `padding`을 줘서 border처럼 보이게 합니다. `padding`은 reflow 없이 처리되고 1px 제한도 없습니다.
+> **대안**: 배경색이 있는 부모 요소에 `padding`을 줘서 border처럼 보이게 합니다.
+> `padding`은 reflow 없이 처리되고 1px 제한도 없습니다.
 >
 > ```jsx
 > <motion.div layout style={{ borderRadius: 10, padding: 5 }}>

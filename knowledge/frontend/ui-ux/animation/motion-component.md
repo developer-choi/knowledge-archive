@@ -99,7 +99,8 @@ return <motion.div style={{ x }} />
 > `useMotionValue`는 React state 바깥에서 값을 관리하므로, `x.set(100)`을 호출해도 컴포넌트가 리렌더되지 않는다.
 
 > #### User Annotation:
-> `useMotionValue`는 `useState`와 역할이 같다 — 값을 저장하고 변경을 추적한다. 차이는 값이 바뀔 때 리렌더가 발생하느냐 뿐이다.
+> `useMotionValue`는 `useState`와 역할이 같다 — 값을 저장하고 변경을 추적한다.
+> 차이는 값이 바뀔 때 리렌더가 발생하느냐 뿐이다.
 > `animate()`는 내부적으로 `.set()`을 매 프레임(~16ms)마다 호출해서 값을 조금씩 바꾸는 것이다:
 > ```
 > 0ms:   pan.set(0)
@@ -271,7 +272,8 @@ Or when children in a list are added/removed:
 Direct children must each have a unique key prop so `AnimatePresence` can track their presence in the tree.
 
 > #### AI Annotation:
-> React는 컴포넌트가 unmount되면 즉시 DOM에서 제거한다. AnimatePresence는 이 동작을 가로채서 exit 애니메이션이 끝날 때까지 DOM 제거를 지연시킨다.
+> React는 컴포넌트가 unmount되면 즉시 DOM에서 제거한다.
+> AnimatePresence는 이 동작을 가로채서 exit 애니메이션이 끝날 때까지 DOM 제거를 지연시킨다.
 > 세 가지 감지 패턴 — (1) 조건부 렌더링(`show && <Modal />`), (2) key 변경(슬라이더/탭 전환), (3) 리스트 아이템 추가/제거 — 은 모두 React 트리에서 직접 자식이 사라지는 것을 감지하는 방식이다.
 
 ### Reference
@@ -331,7 +333,8 @@ export const Slideshow = ({ image }) => (
 ```
 
 > #### AI Annotation:
-> key가 바뀌면 React는 기존 컴포넌트를 파괴하고 새로 만든다. AnimatePresence가 이를 감지해서 기존 이미지는 exit(왼쪽으로 퇴장), 새 이미지는 initial→animate(오른쪽에서 등장)을 동시에 실행한다.
+> key가 바뀌면 React는 기존 컴포넌트를 파괴하고 새로 만든다.
+> AnimatePresence가 이를 감지해서 기존 이미지는 exit(왼쪽으로 퇴장), 새 이미지는 initial→animate(오른쪽에서 등장)을 동시에 실행한다.
 > 이미지 슬라이더, 탭 전환, 스텝 폼 등 "한 번에 하나만 보여주는" UI에서 key만 바꾸면 진입/퇴장 애니메이션이 자동으로 동작하는 패턴이다.
 
 ### Reference
@@ -361,7 +364,9 @@ export const Slideshow = ({ image }) => (
 > #### AI Annotation:
 > - **sync** (기본값): 진입과 퇴장이 동시. 레이아웃 충돌은 `position: absolute` 등으로 직접 해결해야 한다.
 > - **wait**: 퇴장이 완전히 끝난 뒤 진입 시작. 탭 전환, 스텝 폼 등 한 번에 하나만 보여주는 UI에 적합. exit에 `easeIn`, enter에 `easeOut`을 쓰면 전체적으로 `easeInOut` 효과.
-> - **popLayout**: 퇴장 요소가 레이아웃에서 즉시 빠져서 나머지가 바로 리플로우된다. 리스트에서 아이템 삭제 시 빈 자리가 즉시 채워지면서 퇴장 애니메이션도 동시 진행. `layout` prop과 함께 쓰면 리플로우도 애니메이션된다.
+> - **popLayout**: 퇴장 요소가 레이아웃에서 즉시 빠져서 나머지가 바로 리플로우된다.
+>   리스트에서 아이템 삭제 시 빈 자리가 즉시 채워지면서 퇴장 애니메이션도 동시 진행.
+>   `layout` prop과 함께 쓰면 리플로우도 애니메이션된다.
 
 ### Reference
 - https://motion.dev/docs/react-animate-presence
@@ -454,7 +459,8 @@ Pan and drag events are provided the origin `PointerEvent` as well as an object 
 > `delta`는 매 프레임 미세한 이동량, `offset`은 최초부터 누적된 총 이동량이다.
 
 > #### User Annotation:
-> `drag="y"`로 끌면 요소가 실제로 아래로 이동한다. `onPan`으로 끌면 요소는 제자리인데 scale이 줄어들고 borderRadius가 커진다.
+> `drag="y"`로 끌면 요소가 실제로 아래로 이동한다.
+> `onPan`으로 끌면 요소는 제자리인데 scale이 줄어들고 borderRadius가 커진다.
 > FullScreenOverlay가 `drag` 대신 `onPan`을 쓴 이유: **위치 이동이 목적이 아니라 scale/borderRadius 변환이 목적**이기 때문이다.
 > ```tsx
 > // onPan: 이벤트만 받고, 시각 변화는 직접 구현
@@ -634,7 +640,8 @@ export function MyComponent() {
 Motion values can be created with the useMotionValue hook. The string or number passed to useMotionValue will act as its initial state.
 
 > #### AI Annotation:
-> motion value는 React state 바깥에서 동작하는 "애니메이션 전용 시그널"이다. `useState`처럼 값을 저장하고 변경을 추적하지만, 값이 바뀌어도 React 리렌더를 일으키지 않고 Motion의 자체 렌더러로 DOM을 직접 업데이트한다.
+> motion value는 React state 바깥에서 동작하는 "애니메이션 전용 시그널"이다.
+> `useState`처럼 값을 저장하고 변경을 추적하지만, 값이 바뀌어도 React 리렌더를 일으키지 않고 Motion의 자체 렌더러로 DOM을 직접 업데이트한다.
 > `<motion.div animate={{ x: 100 }} />`처럼 선언적으로 쓰면 내부에서 motion value가 자동 생성되지만, 여러 컴포넌트 간 값 공유나 `useTransform` 체이닝이 필요하면 `useMotionValue`로 직접 생성해야 한다.
 
 ### Reference
@@ -660,8 +667,10 @@ x.get() // 100
 ```
 
 > #### AI Annotation:
-> `set()`은 값을 바꾸고 DOM을 업데이트하되 React 리렌더는 건너뛴다. 한 프레임 안에 여러 번 `set()`해도 DOM 반영은 다음 `requestAnimationFrame`에 한 번만(배치 처리).
-> `get()`은 현재 값을 동기적으로 읽는다. 이벤트 핸들러나 `useTransform` 콜백 안에서 현재 값을 꺼낼 때 사용한다.
+> `set()`은 값을 바꾸고 DOM을 업데이트하되 React 리렌더는 건너뛴다.
+> 한 프레임 안에 여러 번 `set()`해도 DOM 반영은 다음 `requestAnimationFrame`에 한 번만(배치 처리).
+> `get()`은 현재 값을 동기적으로 읽는다.
+> 이벤트 핸들러나 `useTransform` 콜백 안에서 현재 값을 꺼낼 때 사용한다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-value
@@ -684,8 +693,10 @@ x.getVelocity() // 0
 ```
 
 > #### AI Annotation:
-> `set()`은 값을 바꾸되 물리 상태(속도, 스프링 연결)를 유지한다. `useSpring`으로 연결된 값에 `set()`을 호출하면 스프링이 따라오면서 바운스된다.
-> `jump()`은 "순간이동"이다 — 속도를 0으로 리셋하고, 진행 중 애니메이션을 종료하고, 연결된 스프링도 무시한다. 초기 위치로 리셋하거나 화면 전환 시 이전 애니메이션 상태를 깨끗이 정리할 때 사용한다.
+> `set()`은 값을 바꾸되 물리 상태(속도, 스프링 연결)를 유지한다.
+> `useSpring`으로 연결된 값에 `set()`을 호출하면 스프링이 따라오면서 바운스된다.
+> `jump()`은 "순간이동"이다 — 속도를 0으로 리셋하고, 진행 중 애니메이션을 종료하고, 연결된 스프링도 무시한다.
+> 초기 위치로 리셋하거나 화면 전환 시 이전 애니메이션 상태를 깨끗이 정리할 때 사용한다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-value
@@ -712,7 +723,9 @@ const unsubscribe = x.on("change", latest => console.log(latest))
 When calling `on` inside a React component, it should be wrapped with a `useEffect` hook, or instead use the `useMotionValueEvent` hook.
 
 > #### AI Annotation:
-> `on()`은 구독 해제 함수를 반환하는 패턴이다. React 컴포넌트 안에서 `on()`을 `useEffect` 없이 쓰면 매 렌더마다 리스너가 누적되어 메모리 누수가 발생한다. `useMotionValueEvent`는 이 cleanup을 자동 처리해주므로, 컴포넌트 안에서는 `useMotionValueEvent`를 쓰는 것이 안전하다.
+> `on()`은 구독 해제 함수를 반환하는 패턴이다.
+> React 컴포넌트 안에서 `on()`을 `useEffect` 없이 쓰면 매 렌더마다 리스너가 누적되어 메모리 누수가 발생한다.
+> `useMotionValueEvent`는 이 cleanup을 자동 처리해주므로, 컴포넌트 안에서는 `useMotionValueEvent`를 쓰는 것이 안전하다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-value
@@ -748,7 +761,8 @@ const color = useTransform(x, [0, 100], ["#f00", "#00f"])
 > React state를 거치지 않으므로 리렌더가 발생하지 않는다.
 
 > #### User Annotation:
-> `useTransform`의 파생값은 `.set()` 하지 않는다. 원본 MotionValue만 `.set()`하면 파생값은 자동 계산된다.
+> `useTransform`의 파생값은 `.set()` 하지 않는다.
+> 원본 MotionValue만 `.set()`하면 파생값은 자동 계산된다.
 >
 > `useTransform`이 없으면 안 되는 핵심 이유: 원본 값이 **여러 곳에서 바뀔 때** 직접 계산 방식은 모든 변경 지점에서 파생값을 따로 관리해야 한다.
 > ```tsx

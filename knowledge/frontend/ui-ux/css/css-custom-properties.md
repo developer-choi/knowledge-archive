@@ -86,7 +86,9 @@ The following example creates a custom property called `--logo-color` which expe
 ```
 
 > #### AI Annotation:
-> - `syntax`: 허용하는 값 타입을 지정한다. `"<color>"`, `"<length>"` 등. 이 타입에 맞지 않는 값이 할당되면 `initial-value`로 폴백된다.
+> - `syntax`: 허용하는 값 타입을 지정한다.
+>   `"<color>"`, `"<length>"` 등.
+>   이 타입에 맞지 않는 값이 할당되면 `initial-value`로 폴백된다.
 > - `inherits`: 부모로부터 값을 상속받을지 여부. `false`이면 자식 요소에서 별도 선언 없이 참조할 때 부모 값이 아닌 `initial-value`가 사용된다.
 > - `initial-value`: 값이 없거나 유효하지 않을 때 사용되는 기본값. `syntax`에 맞는 유효한 값이어야 한다.
 
@@ -120,7 +122,8 @@ For example, `--main-text-color` is easier to understand than the hexadecimal co
 
 > #### AI Annotation:
 > 두 가지 문제:
-> 1. **반복 값의 일괄 변경 어려움** - 같은 색상이 수백 곳에 하드코딩되면 변경 시 찾기-바꾸기를 해야 한다. 커스텀 프로퍼티는 단일 진실 공급원(single source of truth) 역할을 한다.
+> 1. **반복 값의 일괄 변경 어려움** - 같은 색상이 수백 곳에 하드코딩되면 변경 시 찾기-바꾸기를 해야 한다.
+>    커스텀 프로퍼티는 단일 진실 공급원(single source of truth) 역할을 한다.
 > 2. **가독성/의미론 부족** - `#00ff00`보다 `--main-text-color`가 코드의 의도를 명확히 드러낸다.
 
 ### Reference
@@ -364,7 +367,8 @@ For such cases, the `@property` at-rule can prevent unexpected results by allowi
 
 > #### AI Annotation:
 > 일반 CSS: `color: 16px`은 파싱 시점에 버려지므로 이전 규칙 `color: blue`가 살아남는다.
-> `var()` 대입: `color: var(--text-color)`은 파싱 시점에 유효하므로 `color: blue`를 덮어쓴다. 대입 실패 시 `blue`로 돌아가지 않고 initial/inherited로 리셋된다.
+> `var()` 대입: `color: var(--text-color)`은 파싱 시점에 유효하므로 `color: blue`를 덮어쓴다.
+> 대입 실패 시 `blue`로 돌아가지 않고 initial/inherited로 리셋된다.
 > 이 차이가 커스텀 프로퍼티 디버깅에서 가장 혼란스러운 부분이다 — 이전 규칙이 "살아남을 것"이라는 기대가 깨진다.
 
 ### Reference
@@ -407,9 +411,12 @@ element.style.setProperty("--my-var", jsVar + 4);
 ```
 
 > #### AI Annotation:
-> - `element.style.getPropertyValue()`: 해당 요소의 인라인 `style` 속성에 직접 설정된 값만 반환한다. CSS 파일이나 상속으로 적용된 값은 가져오지 못한다.
-> - `getComputedStyle(element).getPropertyValue()`: 캐스케이드, 상속, `var()` 대입 등을 모두 거친 최종 계산된 값을 반환한다. 실무에서 커스텀 프로퍼티 값을 읽을 때 가장 많이 쓰는 방법이다.
-> - `element.style.setProperty()`: 인라인 스타일에 값을 설정한다. 인라인 스타일이므로 높은 specificity를 가진다.
+> - `element.style.getPropertyValue()`: 해당 요소의 인라인 `style` 속성에 직접 설정된 값만 반환한다.
+>   CSS 파일이나 상속으로 적용된 값은 가져오지 못한다.
+> - `getComputedStyle(element).getPropertyValue()`: 캐스케이드, 상속, `var()` 대입 등을 모두 거친 최종 계산된 값을 반환한다.
+>   실무에서 커스텀 프로퍼티 값을 읽을 때 가장 많이 쓰는 방법이다.
+> - `element.style.setProperty()`: 인라인 스타일에 값을 설정한다.
+>   인라인 스타일이므로 높은 specificity를 가진다.
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascading_variables/Using_custom_properties
