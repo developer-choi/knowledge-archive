@@ -190,37 +190,6 @@ Context lets the parent component make some information available to any compone
 
 ---
 
-## [UNVERIFIED] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
-
----
-
-## [UNVERIFIED] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
-
----
-
-## [UNVERIFIED] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
-
----
-
-## Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
-
-### Official Answer
-React automatically re-renders all the children that use a particular context starting from the provider that receives a different value.
-The previous and the next values are compared with the `Object.is` comparison.
-Skipping re-renders with `memo` does not prevent the children receiving fresh context values.
-
-> #### Key Terms:
-> - **all the children that use a particular context**: 그 Provider 아래에서 같은 context를 `useContext`한 모든 자식 — 일부 필드만 읽어도 전부 대상
-> - **starting from the provider that receives a different value**: 트리거 시점은 Provider value가 달라진 그 순간부터
-> - **`Object.is` comparison**: 참조 비교. 객체/함수 리터럴을 매 렌더 새로 만들면 안의 값이 같아도 "달라짐"으로 판정
-> - **Skipping re-renders with `memo`**: `React.memo`로 자식을 감싸 props 변화 없으면 리렌더 스킵하는 최적화
-> - **does not prevent**: context 채널은 props 비교를 우회하므로 memo로 막을 수 없다
-
-### Reference
-- https://react.dev/reference/react/useContext#caveats
-
----
-
 ## 그럼 불필요한 상태가 어떤 게 있나요?
 
 ### Official Answer
@@ -346,3 +315,34 @@ Now that the state is "flat" (also known as "normalized"), updating nested items
 
 ### Reference
 - https://react.dev/learn/choosing-the-state-structure
+
+---
+
+## [UNVERIFIED] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
+
+---
+
+## Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
+
+### Official Answer
+React automatically re-renders all the children that use a particular context starting from the provider that receives a different value.
+The previous and the next values are compared with the `Object.is` comparison.
+Skipping re-renders with `memo` does not prevent the children receiving fresh context values.
+
+> #### Key Terms:
+> - **all the children that use a particular context**: 그 Provider 아래에서 같은 context를 `useContext`한 모든 자식 — 일부 필드만 읽어도 전부 대상
+> - **starting from the provider that receives a different value**: 트리거 시점은 Provider value가 달라진 그 순간부터
+> - **`Object.is` comparison**: 참조 비교. 객체/함수 리터럴을 매 렌더 새로 만들면 안의 값이 같아도 "달라짐"으로 판정
+> - **Skipping re-renders with `memo`**: `React.memo`로 자식을 감싸 props 변화 없으면 리렌더 스킵하는 최적화
+> - **does not prevent**: context 채널은 props 비교를 우회하므로 memo로 막을 수 없다
+
+### Reference
+- https://react.dev/reference/react/useContext#caveats
+
+---
+
+## [UNVERIFIED] 서버 상태는 왜 클라이언트 상태와 분리해서 React Query 같은 도구로 따로 관리하나요?
+
+---
+
+## [UNVERIFIED] overlay 같은 특화 상태는 왜 별도 라이브러리(overlay-kit 등)로 분리하나요?
