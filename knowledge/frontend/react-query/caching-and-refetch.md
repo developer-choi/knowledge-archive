@@ -15,7 +15,6 @@ tags: [react-query, caching, stale-while-revalidate, concept]
   - staleTime이 fresh인 동안 같은 query를 여러 번 호출하면 네트워크 요청은 어떻게 되는가?
   - staleTime의 "정답"은 정해져 있는가?
 - Query Key별로 staleTime 같은 디폴트를 다르게 설정하려면 어떻게 하는가?
-- React Query의 디폴트 fetch 빈도가 거슬려 refetchOnMount/refetchOnWindowFocus를 끄거나, server data를 별도 state manager에도 함께 보관하는 식으로 우회하려는 시도에 대해, 저자는 어떻게 평가하며 정공법으로 무엇을 권하는가?
 
 ---
 
@@ -349,32 +348,6 @@ queryClient.setQueryDefaults(todoKeys.all, { staleTime: 1000 * 60 })
 > - `setQueryDefaults(todoKeys.all, { staleTime: 1000 * 60 })`: todo 관련 모든 키만 1분으로 오버라이드
 > partial matching이라 `['todos']`, `['todos', 'list']`, `['todos', 'detail', 1]` 등 prefix 일치하는 모든 쿼리에 자동 적용된다.
 > 같은 키 매칭 모델이 invalidateQueries, removeQueries 등 라이브러리 전반에 일관되게 적용되어 있다.
-
-### Reference
-- https://tkdodo.eu/blog/react-query-as-a-state-manager
-
----
-
-## React Query의 디폴트 fetch 빈도가 거슬려 refetchOnMount/refetchOnWindowFocus를 끄거나, server data를 별도 state manager에도 함께 보관하는 식으로 우회하려는 시도에 대해, 저자는 어떻게 평가하며 정공법으로 무엇을 권하는가?
-
-### Official Answer
-React Query is great at managing async state globally in your app, if you let it.
-Only turn off the refetch flags if you know that make sense for your use-case, and resist the urge to sync server data to a different state manager.
-Usually, customizing staleTime is all you need to get a great ux while also being in control of how often background updates happen.
-
-> #### Key Terms:
-> - **if you let it**: 그렇게 쓰게 두면. 우회·차단하지 말라는 조건절
-> - **turn off the refetch flags**: refetchOnMount/refetchOnWindowFocus 같은 플래그를 끔
-> - **make sense for your use-case**: use-case에 맞는다는 판단이 분명할 때
-> - **resist the urge**: 충동에 저항하라
-> - **sync server data to a different state manager**: server data를 Redux/Zustand 등 다른 상태 관리자로 다시 동기화
-> - **customizing staleTime**: staleTime 커스터마이즈
-> - **in control of**: 제어권을 가짐 — 빈도를 통제
-
-> #### AI Annotation:
-> 두 우회 모두 React Query가 자동으로 하려는 background refetch를 막아 라이브러리 핵심 가치를 무력화하는 안티패턴이다.
-> server data를 다른 store로 sync하면 두 store의 일관성 관리 부담이 추가되고, React Query의 refetch가 갱신해도 다른 store는 stale인 채 남는다.
-> 정공법은 staleTime 커스터마이즈 — fresh 윈도우 안에서는 네트워크 0번이고 윈도우 밖에서는 자동 refetch가 살아 있어 UX(자동 최신화)와 제어(빈도 통제) 양쪽을 챙긴다.
 
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager

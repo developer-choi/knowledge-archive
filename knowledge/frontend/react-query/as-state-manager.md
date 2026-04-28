@@ -10,6 +10,7 @@ tags: [react-query, state-mgmt, concept]
 - React Query 이전, frontend에서 데이터 페칭에 흔히 쓰던 두 가지 접근은 무엇이었나?
   - 'fetch once, distribute globally, rarely update' 접근은 어떻게 동작하며 무엇이 문제인가?
   - 'fetch on every mount, keep it local' 접근은 어떻게 동작하며 무엇이 문제인가?
+- React Query의 디폴트 fetch 빈도가 거슬려 refetchOnMount/refetchOnWindowFocus를 끄거나, server data를 별도 state manager에도 함께 보관하는 식으로 우회하려는 시도에 대해, 저자는 어떻게 평가하며 정공법으로 무엇을 권하는가?
 
 ---
 
@@ -199,6 +200,32 @@ What else can we do, the local state is gone…
 > #### AI Annotation:
 > 결함의 핵심: 모달이 닫히면 데이터가 증발하므로, 다음에 모달을 열 때 같은 데이터를 이미 봤음에도 다시 fetch + 스피너부터 시작한다.
 > 캐싱 없이 useState만 쓰는 패턴은 "두 번째 마운트의 UX"를 항상 망친다.
+
+### Reference
+- https://tkdodo.eu/blog/react-query-as-a-state-manager
+
+---
+
+## React Query의 디폴트 fetch 빈도가 거슬려 refetchOnMount/refetchOnWindowFocus를 끄거나, server data를 별도 state manager에도 함께 보관하는 식으로 우회하려는 시도에 대해, 저자는 어떻게 평가하며 정공법으로 무엇을 권하는가?
+
+### Official Answer
+React Query is great at managing async state globally in your app, if you let it.
+Only turn off the refetch flags if you know that make sense for your use-case, and resist the urge to sync server data to a different state manager.
+Usually, customizing staleTime is all you need to get a great ux while also being in control of how often background updates happen.
+
+> #### Key Terms:
+> - **if you let it**: 그렇게 쓰게 두면. 우회·차단하지 말라는 조건절
+> - **turn off the refetch flags**: refetchOnMount/refetchOnWindowFocus 같은 플래그를 끔
+> - **make sense for your use-case**: use-case에 맞는다는 판단이 분명할 때
+> - **resist the urge**: 충동에 저항하라
+> - **sync server data to a different state manager**: server data를 Redux/Zustand 등 다른 상태 관리자로 다시 동기화
+> - **customizing staleTime**: staleTime 커스터마이즈
+> - **in control of**: 제어권을 가짐 — 빈도를 통제
+
+> #### AI Annotation:
+> 두 우회 모두 React Query가 자동으로 하려는 background refetch를 막아 라이브러리 핵심 가치를 무력화하는 안티패턴이다.
+> server data를 다른 store로 sync하면 두 store의 일관성 관리 부담이 추가되고, React Query의 refetch가 갱신해도 다른 store는 stale인 채 남는다.
+> 정공법은 staleTime 커스터마이즈 — fresh 윈도우 안에서는 네트워크 0번이고 윈도우 밖에서는 자동 refetch가 살아 있어 UX(자동 최신화)와 제어(빈도 통제) 양쪽을 챙긴다.
 
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
