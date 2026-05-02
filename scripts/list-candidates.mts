@@ -18,7 +18,7 @@ type SkipReason =
   | 'no-answers'
   | 'too-few-questions'
   | 'no-official-answer'
-  | 'todo-only'
+  | 'unfinished-only'
   | 'unpublishable';
 
 type SourceTag = 'official' | 'google-doc' | 'unverified';
@@ -185,7 +185,7 @@ function analyzeFile(absPath: string): Candidate {
 
   const passingQuestions: { text: string }[] = [];
   let h2Total = 0;
-  let todoCount = 0;
+  let unfinishedCount = 0;
 
   for (let i = answersH1Idx + 1; i < headings.length; i++) {
     const h = headings[i];
@@ -193,8 +193,13 @@ function analyzeFile(absPath: string): Candidate {
     if (h.depth !== 2) continue;
     h2Total++;
 
-    if (h.text.startsWith('[TODO]')) {
-      todoCount++;
+    // [TODO]/[UNVERIFIED]/[BACKLOG] 마커가 붙은 질문은 외부 노출 준비 안 됨 → 카운트 제외
+    if (
+      h.text.startsWith('[TODO]') ||
+      h.text.startsWith('[UNVERIFIED]') ||
+      h.text.startsWith('[BACKLOG]')
+    ) {
+      unfinishedCount++;
       continue;
     }
 
@@ -208,8 +213,8 @@ function analyzeFile(absPath: string): Candidate {
   if (h2Total === 0) {
     return { ...baseMeta, questionCount: 0, questions: [], skipped: { reason: 'no-answers' } };
   }
-  if (h2Total > 0 && todoCount === h2Total) {
-    return { ...baseMeta, questionCount: 0, questions: [], skipped: { reason: 'todo-only' } };
+  if (h2Total > 0 && unfinishedCount === h2Total) {
+    return { ...baseMeta, questionCount: 0, questions: [], skipped: { reason: 'unfinished-only' } };
   }
   if (passingQuestions.length === 0) {
     return { ...baseMeta, questionCount: 0, questions: [], skipped: { reason: 'no-official-answer' } };
