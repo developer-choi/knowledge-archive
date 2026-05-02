@@ -18,7 +18,8 @@ type SkipReason =
   | 'no-answers'
   | 'too-few-questions'
   | 'no-official-answer'
-  | 'todo-only';
+  | 'todo-only'
+  | 'unpublishable';
 
 type SourceTag = 'official' | 'google-doc' | 'unverified';
 
@@ -32,6 +33,7 @@ interface Candidate {
   firstCommitDate: string;
   lastCommitDate: string;
   source?: SourceTag;
+  publishable?: boolean;
   skipped?: { reason: SkipReason };
 }
 
@@ -155,6 +157,7 @@ function analyzeFile(absPath: string): Candidate {
 
   const tags: string[] = Array.isArray(frontmatter.tags) ? frontmatter.tags : [];
   const source = normalizeSource(frontmatter.source);
+  const publishable = typeof frontmatter.publishable === 'boolean' ? frontmatter.publishable : undefined;
 
   const firstCommitDate = gitDateAt(relPath, 'first');
   const lastCommitDate = gitDateAt(relPath, 'last');
@@ -167,7 +170,13 @@ function analyzeFile(absPath: string): Candidate {
     firstCommitDate,
     lastCommitDate,
     ...(source ? { source } : {}),
+    ...(publishable !== undefined ? { publishable } : {}),
   };
+
+  // publishable: false면 다른 조건 검사 없이 즉시 SKIP (사용자 의도적 제외)
+  if (publishable === false) {
+    return { ...baseMeta, questionCount: 0, questions: [], skipped: { reason: 'unpublishable' } };
+  }
 
   const answersH1Idx = headings.findIndex(h => h.depth === 1 && h.text === 'Answers');
   if (answersH1Idx === -1) {
