@@ -1,5 +1,6 @@
 ---
 tags: [algorithm, concept, comparison]
+publishable: false
 ---
 # Questions
 - Auxiliary Space와 Space Complexity의 차이는?

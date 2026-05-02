@@ -1,5 +1,6 @@
 ---
 tags: [react, performance, principle]
+publishable: false
 ---
 
 # Questions

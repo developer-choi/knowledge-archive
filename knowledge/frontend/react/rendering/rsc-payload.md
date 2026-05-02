@@ -1,5 +1,6 @@
 ---
 tags: [react, nextjs, principle]
+publishable: false
 ---
 
 # Questions

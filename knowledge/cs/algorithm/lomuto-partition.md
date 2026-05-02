@@ -1,5 +1,6 @@
 ---
 tags: [algorithm, concept]
+publishable: false
 ---
 # Questions
 - [UNVERIFIED] Lomuto Partition의 목표는?

@@ -1,5 +1,6 @@
 ---
 tags: [react, concept]
+publishable: false
 ---
 # Questions
 - Component와 Element의 차이는 무엇이며, Component는 개념적으로 무엇과 유사한가?

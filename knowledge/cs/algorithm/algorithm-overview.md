@@ -1,5 +1,6 @@
 ---
 tags: [algorithm, concept]
+publishable: false
 ---
 # Questions
 - What kind of algorithms exist?

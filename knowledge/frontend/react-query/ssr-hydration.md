@@ -1,5 +1,6 @@
 ---
 tags: [state-mgmt, nextjs, concept]
+publishable: false
 ---
 
 # Questions

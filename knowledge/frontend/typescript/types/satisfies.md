@@ -1,5 +1,6 @@
 ---
 tags: [typescript, concept]
+publishable: false
 ---
 # Questions
 - `satisfies` 연산자는 어떤 문제를 해결하기 위해 등장했는가?

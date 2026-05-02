@@ -1,5 +1,6 @@
 ---
 tags: [react, performance]
+publishable: false
 ---
 # Questions
 - @tanstack/react-virtual의 useVirtualizer와 useWindowVirtualizer의 차이는?

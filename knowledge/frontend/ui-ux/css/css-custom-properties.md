@@ -1,5 +1,6 @@
 ---
 tags: [styling, concept]
+publishable: false
 ---
 # Questions
 - CSS custom property란 무엇이며, 어떻게 정의하고 사용하는가?

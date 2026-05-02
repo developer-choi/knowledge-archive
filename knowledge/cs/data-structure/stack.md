@@ -1,5 +1,6 @@
 ---
 tags: [data-structure, concept, principle]
+publishable: false
 ---
 
 # Questions

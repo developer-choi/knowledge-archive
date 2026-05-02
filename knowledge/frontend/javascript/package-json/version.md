@@ -1,5 +1,6 @@
 ---
 tags: [javascript, concept, best-practice]
+publishable: false
 ---
 
 # Questions

@@ -1,5 +1,6 @@
 ---
 tags: [react, nextjs, performance]
+publishable: false
 ---
 
 # Questions

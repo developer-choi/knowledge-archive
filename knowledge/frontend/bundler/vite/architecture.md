@@ -1,5 +1,6 @@
 ---
 tags: [javascript, principle, performance]
+publishable: false
 ---
 
 # Questions

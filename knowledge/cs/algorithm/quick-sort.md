@@ -1,5 +1,6 @@
 ---
 tags: [algorithm, concept]
+publishable: false
 ---
 # Questions
 - Quick Sort란?

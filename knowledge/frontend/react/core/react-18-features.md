@@ -1,5 +1,6 @@
 ---
 tags: [react, principle, history]
+publishable: false
 ---
 # Questions
 - React 18에서 useEffect 타이밍은 어떻게 변경되었는가?

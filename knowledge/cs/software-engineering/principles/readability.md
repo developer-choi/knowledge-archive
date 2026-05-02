@@ -1,5 +1,6 @@
 ---
 tags: [react, architecture, best-practice]
+publishable: false
 ---
 # Questions
 
@@ -14,19 +15,16 @@ tags: [react, architecture, best-practice]
 
 ## 전통적인 `if (isLoading)` 로딩 처리의 문제점은?
 
-### Official Answer
+### User Answer
 1. **방어적 코드 증가:** 데이터가 null일 가능성을 컴포넌트 내부 곳곳에서 체크해야 한다 (`user?.name`).  
 2. **관심사의 혼재:** 비즈니스 로직을 처리하는 컴포넌트가 '로딩 상태'라는 UI 상태까지 관리해야 한다.  
 3. **암시적 흐름:** 부모 컴포넌트가 자식의 로딩 상태를 알기 어렵거나, 불필요한 Prop Drilling이 발생한다.
-
-### Reference
-- 토스 딥 리서치 결과물 (URL_UNKNOWN)
 
 ---
 
 ## Suspense는 어떻게 관심사 분리를 달성하는가?
 
-### Official Answer
+### User Answer
 **성공 케이스에만 집중해서 UI를 작성하겠다라는 선언**이라고 정의한다.
 
 Suspense를 사용하면 컴포넌트 내부에서는 데이터가 반드시 존재한다고 가정할 수 있다.
@@ -43,7 +41,7 @@ Suspense를 사용하면 컴포넌트 내부에서는 데이터가 반드시 존
 
 ## Child.loading 패턴의 장점은 무엇인가?
 
-### Official Answer
+### User Answer
 일반적으로 Suspense를 사용할 때, 부모 컴포넌트가 `fallback={<Spinner />}`를 주입한다.
 하지만 부모는 자식 컴포넌트의 크기나 모양(Skeleton)을 정확히 알지 못하는 경우가 많다.
 이로 인해 부모 컴포넌트에 자식의 스타일링 정보가 누수(Leak)된다.
@@ -62,7 +60,7 @@ Suspense를 사용하면 컴포넌트 내부에서는 데이터가 반드시 존
 
 ## 추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?
 
-### Official Answer
+### User Answer
 "이 파일 하나만 보고 이 페이지가 어떤 페이지인지 파악할 수 있는가?"
 
 | 구분 | 나쁜 예 (과도한 분리/추출) | 좋은 예 (적절한 추상화/응집) |
@@ -84,6 +82,3 @@ Suspense를 사용하면 컴포넌트 내부에서는 데이터가 반드시 존
 
 "재사용될 것이 확실하지 않다면 분리하지 않는다"는 원칙을 고수하라.
 파일이 200줄이 넘더라도, 하나의 완결된 이야기를 담고 있다면 쪼개진 10개의 파일보다 낫다.
-
-### Reference
-- 토스 딥 리서치 결과물 (URL_UNKNOWN)

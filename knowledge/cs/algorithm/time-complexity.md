@@ -1,5 +1,6 @@
 ---
 tags: [algorithm, concept, performance]
+publishable: false
 ---
 # Questions
 - Time Complexity란?

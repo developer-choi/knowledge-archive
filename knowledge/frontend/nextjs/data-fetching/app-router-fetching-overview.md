@@ -1,5 +1,6 @@
 ---
 tags: [nextjs, best-practice]
+publishable: false
 ---
 
 # Questions

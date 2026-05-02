@@ -1,5 +1,6 @@
 ---
 tags: [algorithm, concept]
+publishable: false
 ---
 # Questions
 - In-place algorithm이란?
