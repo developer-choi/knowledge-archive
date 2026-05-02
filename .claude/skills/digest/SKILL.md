@@ -17,6 +17,12 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 - 한글 메모는 Annotation으로 분류
 - **영어 원문 없이 한글만 제공된 경우**: User Answer로 작성. AI가 영어 Official Answer를 생성하지 않는다
 
+### Frontmatter publishable
+
+- **새로 만드는 knowledge/ 파일의 frontmatter에 `publishable: true`를 자동으로 박는다.** digest는 공식문서 1차 소스를 기반으로 하므로 외부 노출 가치가 검증된 입력이다.
+- 기존 파일에 추가할 때는 frontmatter를 건드리지 않는다 (이미 있는 값 유지).
+- 사용자가 명시적으로 false를 원하면 그 결정을 따른다.
+
 ### 이미지 alt text 필터링
 사용자가 붙여넣은 텍스트에는 이미지의 alt text가 섞여 들어올 수 있다. 주어-서술어 구조가 없는 나열형 문장, 이미지 캡션으로 추정되는 문장은 Official Answer에서 제외한다. 해설 시에도 본문과 구분하여 취급한다.
 

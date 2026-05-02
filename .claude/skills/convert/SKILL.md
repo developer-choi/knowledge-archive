@@ -15,6 +15,12 @@ argument-hint: [PDF/MD 파일 경로]
 - **변환 거부 조건**: 사실이 아니거나, 출처 불명확하거나, 회사 특정 정보는 변환을 거부한다.
 - **저작권 주의**: Getty Images 등 외부 이미지는 텍스트 설명으로 대체.
 
+## Frontmatter publishable
+
+- **새로 만드는 knowledge/ 파일의 frontmatter에 `publishable: false`를 자동으로 박는다.** convert는 사용자 구글 문서 필기 기반이라 공식 출처 검증이 약하므로 외부 채널(Blog/KQ) 자동 노출 대상에서 제외한다.
+- 사용자가 추후 검증을 거쳐 `publishable: true`로 승격할 수 있다.
+- 기존 파일에 병합할 때는 frontmatter를 건드리지 않는다 (이미 있는 값 유지).
+
 ## 내용 판정 (2단계)
 
 각 Q&A 항목에 대해 아래 순서로 판정한다:
