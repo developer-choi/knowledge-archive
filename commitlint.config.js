@@ -15,6 +15,7 @@ module.exports = {
         'contexts',
         // knowledge/
         'knowledge',
+        'explained',
         // scripts/
         'scripts',
         // 전체
