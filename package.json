@@ -10,7 +10,8 @@
   "scripts": {
     "prepare": "husky",
     "list-candidates": "tsx scripts/list-candidates.mts",
-    "merge-explained": "tsx scripts/merge-explained.mts"
+    "merge-explained": "tsx scripts/merge-explained.mts",
+    "verify-merge": "tsx scripts/verify-merge.mts"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
