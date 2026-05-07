@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "prepare": "husky",
-    "list-candidates": "tsx scripts/list-candidates.mts"
+    "list-candidates": "tsx scripts/list-candidates.mts",
+    "merge-explained": "tsx scripts/merge-explained.mts"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
