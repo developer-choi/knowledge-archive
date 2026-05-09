@@ -79,7 +79,7 @@ review와 달리, 사용자에게 질문을 던지지 않는다. AI가 개념을
 
 각 질문에 들어가기 전에 캐시 hit이면 위치만 안내하고 다음 질문으로 넘어간다 (위 "결과물 저장과 캐시" 참고). 아래 1~6단계는 캐시 miss인 경우(또는 사용자가 새로 해달라고 한 경우)의 흐름이다.
 
-출력 골격: 질문 텍스트는 `# <질문>` H1로, Official Answer는 blockquote(`>`)로 인용, 그 아래 해설 본문. 비유·오개념 예방·재설명은 모두 해설 본문에 자연스럽게 녹인다. 이 골격이 그대로 `explained/<상대경로>.md`의 한 섹션으로 저장되므로 매 질문 일관되게 지킨다.
+출력 골격: 질문 텍스트는 `# <질문>` H1로, Official Answer는 blockquote(`>`)로 인용, 그 아래 `## 도입` / `## 본문` / `## 종합` H2 헤딩으로 구성. 각 H2 사이는 `---`로 구분한다. 비유·오개념 예방·재설명은 모두 해설 본문에 자연스럽게 녹인다. 이 골격이 그대로 `explained/<상대경로>.md`의 한 섹션으로 저장되므로 매 질문 일관되게 지킨다.
 
 1. **Official Answer 해설**: [explanation-guide.md](../../contexts/explanation-guide.md)를 따른다. 질문 제목(H1) 바로 다음에 원문 인용(blockquote)이 오도록 한다 (원문 앞에 한글 요약을 넣지 않는다).
 2. **Annotation 활용**: User/AI/Official Annotation이 있으면 해설에 자연스럽게 녹여서 보충한다
@@ -94,9 +94,9 @@ review와 달리, 사용자에게 질문을 던지지 않는다. AI가 개념을
 
 ### 미완성 질문 처리
 
-Questions 목록에 `[BACKLOG]` 또는 `[UNVERIFIED]` 마커가 붙은 질문은 "이 질문은 아직 공식 출처가 확보되지 않은 항목입니다"라고 안내하고 건너뛴다. AI 자체 지식으로 설명을 시도하지 않는다.
+Questions 목록에 `[BACKLOG]` 또는 `[UNVERIFIED]` 마커가 붙은 질문은 건너뛰지 않는다. 질문 제목 H1에 마커를 그대로 붙여 출력하고 (`# [UNVERIFIED] 질문제목`), Official Answer 인용 없이 AI 자체 지식으로 해설한다. 나머지 진행 방식(비유, 오개념 예방, explained/ 저장, 체크포인트)은 동일하게 적용한다.
 
-마커 없이 Official Answer가 비어 있는 질문도 동일하게 건너뛴다. 정합성 위반이므로 `/validate`가 잡아야 한다.
+마커 없이 Official Answer가 비어 있는 질문은 건너뛴다. 정합성 위반이므로 `/validate`가 잡아야 한다.
 
 마커 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 
