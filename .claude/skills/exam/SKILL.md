@@ -13,9 +13,19 @@ knowledge/ 문서 Q&A를 HTML 시험지로 출력하고 일괄 채점한다.
 ### 마커 처리
 
 - `[BACKLOG]` 질문: 출제 제외
-- `[UNVERIFIED]` 질문: 출제 제외
+- `[UNVERIFIED]` 질문: 출제 포함. 결과 HTML 해당 문항에 "공식 출처 미확보 — 자체 지식 기반 채점" 표기.
 - Official Answer 없는 질문: 출제 제외
 - 부모·자식 질문: 모두 별개 문항으로 출제
+
+### [UNVERIFIED] 질문의 H1 형식 (explained 파일 작성 시)
+
+`[UNVERIFIED]` 마커가 붙은 질문은 `explained/<rel>.md` H1에도 마커를 포함한다.
+
+```
+# [UNVERIFIED] 프로세스를 처음 만들 때, OS는 자료구조에 무엇을 저장해야 하나요?
+```
+
+별도 주석(`*공식 출처 미확보...*` 등)으로 분리하지 않는다.
 
 ---
 
@@ -147,6 +157,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
     .verdict.fail   { color: #c0392b; }
     .user-ans { background: #f9f9f9; border-left: 3px solid #ccc; padding: 8px 12px; margin: 8px 0; font-size: 0.9rem; white-space: pre-wrap; }
     .reason { font-size: 0.9rem; color: #555; }
+    .unverified-note { font-size: 0.8rem; color: #888; margin-bottom: 4px; }
   </style>
 </head>
 <body>
@@ -158,6 +169,8 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
   {각 문항 반복:}
   <div class="q">
     <div class="verdict {pass|partial|fail}">Q{번호}. {질문 제목} &nbsp;{✓|△|✗}</div>
+    {[UNVERIFIED] 문항인 경우:}
+    <div class="unverified-note">공식 출처 미확보 — 자체 지식 기반 채점</div>
     <div class="user-ans">{사용자 답변 또는 "미응답"}</div>
     {✓가 아닌 경우:}
     <div class="reason">{판정 이유 1-2줄}</div>
