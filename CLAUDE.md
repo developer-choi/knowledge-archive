@@ -43,7 +43,16 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 - OA = Official Answer
 
 ## 학습 출처 선호도
-- 1순위: Wikipedia, MDN
+
+사용자가 개념·용어·동작 방식을 질문하면 아래 순위로 출처를 탐색하여 답한다.
+
+- 1순위: Wikipedia — 개념 정의의 기본값. 항상 여기서 먼저 찾는다.
+- 2순위 (도메인별 공식 1차 소스):
+  - MDN — 웹 API, HTTP, 브라우저 동작
+  - man7.org — Linux 시스템 콜 (`fork`, `exec`, `wait` 등)
+  - RFC (datatracker.ietf.org) — 네트워크 프로토콜 원문 (HTTP, TCP 등)
+  - OSTEP (ostep.org) — OS 개념 (프로세스, 스케줄링, 메모리 관리 등)
+  - POSIX spec (pubs.opengroup.org) — 시스템 콜 표준 정의
 - 공식문서 원문(영어)을 Official Answer로 사용
 
 ## frontmatter `source` 키
