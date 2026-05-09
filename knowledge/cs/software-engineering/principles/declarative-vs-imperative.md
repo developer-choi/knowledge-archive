@@ -1,5 +1,6 @@
 ---
 tags: [programming-paradigm, concept]
+source: official
 ---
 # Questions
 - 명령형 프로그래밍과 선언형 프로그래밍의 차이는?

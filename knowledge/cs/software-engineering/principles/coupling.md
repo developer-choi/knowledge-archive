@@ -1,5 +1,6 @@
 ---
 tags: [software-engineering, architecture, principle]
+source: official
 ---
 # Questions
 - 결합도(Coupling)란 무엇인가?

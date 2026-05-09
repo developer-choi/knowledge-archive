@@ -1,5 +1,6 @@
 ---
 tags: [programming-paradigm, concept]
+source: official
 ---
 # Questions
 - 함수형 프로그래밍이란 무엇이며, 명령형과 어떻게 다른가?

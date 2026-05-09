@@ -1,5 +1,6 @@
 ---
 tags: [os, concept]
+source: official
 ---
 
 # Questions
@@ -7,7 +8,6 @@ tags: [os, concept]
 - 부모 프로세스와 자식 프로세스의 관계는 어떻게 형성되는가?
   - [UNVERIFIED] 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
 - 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
-- [UNVERIFIED] OS는 실행 중인 프로세스들을 어떻게 식별하는가?
 
 ---
 
@@ -109,17 +109,3 @@ The process is removed instantly or is moved to the "terminated" state.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
-
----
-
-## [UNVERIFIED] OS는 실행 중인 프로세스들을 어떻게 식별하는가?
-
-### User Answer
-프로세스들은 PID(Process ID)로 구분된다.
-리눅스 기준으로 Systemd(PID 1)를 제외한 나머지 프로세스는 생성될 때마다 증가하는 값을 부여받으며, 외울 필요 없는 값이다.
-
-부팅이 되자마자 Systemd 프로세스가 실행되고, Systemd가 다른 프로세스들을 생성한다.
-Systemd가 생성하는 보편적인 프로세스의 예시:
-- logind process: 시스템에 직접 로그인하는 클라이언트들을 관리.
-- sshd process: SSH 프로토콜을 사용해서 시스템에 접속하는 클라이언트를 관리.
-- rdp process: 윈도우 원격 접속을 관리.

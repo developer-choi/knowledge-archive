@@ -1,5 +1,6 @@
 ---
 tags: [network, performance, concept]
+source: official
 ---
 # Questions
 - CDN이란 무엇인가?
