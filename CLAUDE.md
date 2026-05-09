@@ -1,5 +1,31 @@
 # Knowledge Archive
 
+## 디렉터리 구조
+
+```
+knowledge/   학습 Q&A 문서 (원본, 진실의 원천)
+explained/   /explain 스킬이 생성·저장하는 설명 캐시
+scripts/     마이그레이션·검증·후보 추출 스크립트
+```
+
+`explained/<rel>.md`는 `knowledge/<rel>.md`와 1:1 대응한다. 질문별 설명 섹션이 `\n\n---\n\n` 구분자로 이어붙여져 있고, 각 섹션은 H1(질문 제목)으로 시작한다.
+
+## npm 스크립트
+
+| 명령 | 역할 |
+|------|------|
+| `npm run list-candidates` | `knowledge/` 스캔 → AC `full-refresh`에 전달할 후보 JSON 출력 |
+| `npm run merge-explained` | `explained/<rel>/<slug>.md` 파일들을 `explained/<rel>.md` 단일 파일로 통합. `--dry-run`(기본) / `--apply` 플래그 사용 |
+| `npm run verify-merge` | 통합 후 각 섹션이 원본 파일과 바이트 동일한지 검증 |
+
+## explained/ 마이그레이션 절차
+
+구조 변경이 필요할 때:
+
+1. `npm run merge-explained --dry-run` — 플랜 미리보기, 오류 없으면
+2. `npm run merge-explained --apply` — 실제 통합 실행
+3. `npm run verify-merge` — 바이트 동일 검증 (전체 OK 확인 후 커밋)
+
 ## 약어
 - OA = Official Answer
 
