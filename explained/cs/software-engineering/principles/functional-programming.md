@@ -180,6 +180,30 @@ JSX 자체도 일종의 합성입니다 — `<Page><Header /><Content /></Page>`
 
 상위 질문(FP의 정의)에서 본 "applying and composing functions"의 두 단어 중 "composing"의 무게가 "applying"과 같은 이유가 여기서 드러납니다 — FP에서 프로그램은 함수를 호출(apply)할 뿐 아니라, 함수들을 엮어(compose) 더 큰 함수를 짓는 행위로 만들어집니다.
 
+함수 합성의 데이터 흐름을 다이어그램으로:
+
+```
+   compose(g, f)(x) = g(f(x))
+
+       x          f(x)         g(f(x))
+   ┌───────┐   ┌───────┐   ┌───────┐
+   │ input │──>│   f   │──>│   g   │──> result
+   └───────┘   └───────┘   └───────┘
+                  │            │
+                  │            └─ 두 번째 적용
+                  └─ 첫 번째 적용
+
+   예: normalize = compose(lower, trim)
+
+     '  HELLO  ' ──> [trim] ──> 'HELLO' ──> [lower] ──> 'hello'
+
+   pipe(f, g)(x) = g(f(x))  (왼→오 표기)
+   compose(g, f)(x) = g(f(x))  (수학식 표기, 오→왼)
+   둘은 같은 결과를 다른 순서로 표기할 뿐
+```
+
+핵심: 한 함수의 출력이 다음 함수의 입력으로 흘러가는 데이터 흐름. 작은 함수들을 잇대어 새 함수를 만든다.
+
 ---
 
 # 순수 함수(pure function)는 어떤 두 조건을 만족해야 하는가?
