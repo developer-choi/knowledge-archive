@@ -1,10 +1,5 @@
 # 메모리 계층 구조(Memory Hierarchy)란 무엇인가?
 
-> The lower levels of the memory hierarchy tend to be slower, but larger.
-> A program will achieve greater performance if it uses memory while it is cached in the upper levels of the memory hierarchy and avoids bringing other data into the upper levels of the hierarchy that will displace data that will be used shortly in the future.
-
----
-
 ## 도입
 
 CPU는 매 클럭마다 데이터를 필요로 하는데, 큰 메모리는 느리고 빠른 메모리는 작습니다. 한 종류로는 둘 다 만족시킬 수 없으니, 컴퓨터는 여러 단계의 저장 공간을 쌓아 올려 사용합니다 — 빠르고 작은 것부터 느리고 큰 것 순으로. 이게 메모리 계층 구조(Memory Hierarchy). 프로그램 성능 최적화의 가장 근본적인 토대.

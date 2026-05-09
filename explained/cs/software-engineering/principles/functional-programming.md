@@ -1,10 +1,5 @@
 # 함수형 프로그래밍이란 무엇이며, 명령형과 어떻게 다른가?
 
-> In computer science, functional programming is a programming paradigm where programs are constructed by applying and composing functions.
-> It is a declarative programming paradigm in which function definitions are trees of expressions that map values to other values, rather than a sequence of imperative statements which update the running state of the program.
-
----
-
 ## 도입
 
 함수형 프로그래밍(FP)은 프로그램을 **함수들의 조합**으로 짓는 패러다임입니다. 한쪽에는 "단계 지시문을 순서대로 나열해 상태를 바꿔가는" 명령형 스타일이 있고, 다른 한쪽에는 "값을 다른 값으로 매핑하는 표현식을 트리로 엮는" 함수형 스타일이 있습니다. JS는 두 패러다임을 함께 쓸 수 있는 언어라, 이 차이를 잡으면 같은 코드를 어느 스타일로 쓸지 의식적으로 고를 수 있게 됩니다.
@@ -99,11 +94,6 @@ User Annotation이 짚은 핵심 — FP와 OOP는 양자택일이 아닙니다. 
 ---
 
 # FP에서 "함수의 합성(composing)"은 구체적으로 무엇을 말하는가?
-
-> Function composition is an act or mechanism to combine simple functions to build more complex ones.
-> In functional programming languages, function composition can be naturally expressed as a higher-order function or operator.
-
----
 
 ## 도입
 
@@ -208,10 +198,6 @@ JSX 자체도 일종의 합성입니다 — `<Page><Header /><Content /></Page>`
 
 # 순수 함수(pure function)는 어떤 두 조건을 만족해야 하는가?
 
-> When a pure function is called with some given arguments, it will always return the same result, and cannot be affected by any mutable state or other side effects.
-
----
-
 ## 도입
 
 "함수란 인풋을 넣으면 아웃풋이 나오는 것"이라는 직관은 사실 일반 함수가 아니라 **순수 함수**의 정의에 가깝습니다. 일반 함수는 파일 IO, 네트워크 호출, 전역 상태 변경 같은 부수효과를 가질 수 있습니다. FP가 강조하는 "값을 다른 값으로 매핑한다"는 그림은 정확히 순수 함수의 그림이고, 이 문서는 그 두 조건을 한 문장에서 추출합니다.
@@ -304,10 +290,6 @@ React 프로젝트에서 순수성을 의식할 자리:
 ---
 
 # 부수효과를 제한하면 어떤 실무적 이점이 있는가?
-
-> Proponents of purely functional programming claim that by restricting side effects, programs can have fewer bugs, be easier to debug and test, and be more suited to formal verification.
-
----
 
 ## 도입
 
@@ -403,15 +385,6 @@ async function processOrderHandler(orderId) {
 ---
 
 # 순수 함수가 가진 어떤 구체적 성질이 컴파일러 최적화·병렬화를 가능하게 하는가?
-
-> Pure functions (or expressions) have no side effects (memory or I/O).
-> This means that pure functions have several useful properties, many of which can be used to optimize the code:
-> - If the result of a pure expression is not used, it can be removed without affecting other expressions.
-> - If a pure function is called with arguments that cause no side-effects, the result is constant with respect to that argument list (sometimes called referential transparency or idempotence), i.e., calling the pure function again with the same arguments returns the same result. (This can enable caching optimizations such as memoization.)
-> - If there is no data dependency between two pure expressions, their order can be reversed, or they can be performed in parallel and they cannot interfere with one another (in other terms, the evaluation of any pure expression is thread-safe).
-> - If the entire language does not allow side-effects, then any evaluation strategy can be used; this gives the compiler freedom to reorder or combine the evaluation of expressions in a program (for example, using deforestation).
-
----
 
 ## 도입
 

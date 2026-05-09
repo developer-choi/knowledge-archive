@@ -1,12 +1,5 @@
 # 멀티태스킹이란 무엇이며, 하나의 CPU 코어에서 여러 프로세스가 동시에 실행되는 것처럼 보이는 원리는?
 
-> Multitasking is a method to allow multiple processes to share processors (CPUs) and other system resources.
-> Each CPU (core) executes a single process at a time.
-> In time-sharing systems, context switches are performed rapidly, which makes it seem like multiple processes are being executed simultaneously on the same processor.
-> This seemingly-simultaneous execution of multiple processes is called concurrency.
-
----
-
 ## 도입
 
 노트북에서 Chrome, VS Code, Slack을 동시에 켜놓아도 다 잘 돌아가는 것처럼 보입니다. 근데 CPU 코어가 4개뿐이라면 같은 순간 실제로 실행되는 건 4개일 텐데, 어떻게 수십 개 프로그램이 멈추지 않고 굴러가는 걸까요? 답은 "사실 동시는 아닌데 동시처럼 보이게 한다"입니다.
@@ -56,11 +49,6 @@ concurrency vs parallelism은 처음 헷갈리는 단골 주제입니다.
 ---
 
 # OS에서 컨텍스트 스위치(프로세스 전환)가 발생하는 시점은?
-
-> Multitasking allows each processor to switch between tasks that are being executed without having to wait for each task to finish (preemption).
-> Switches could be performed when tasks initiate and wait for completion of input/output operations, when a task voluntarily yields the CPU, on hardware interrupts, and when the operating system scheduler decides that a process has expired its fair share of CPU time (e.g, by the Completely Fair Scheduler of the Linux kernel).
-
----
 
 ## 도입
 

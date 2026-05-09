@@ -1,10 +1,5 @@
 # 결합도(Coupling)란 무엇인가?
 
-> In software engineering, coupling is the degree of interdependence between software modules, a measure of how closely connected two routines or modules are.
-> Low coupling refers to a relationship in which one module interacts with another module through a simple and stable interface and does not need to be concerned with the other module's internal implementation (see Information Hiding).
-
----
-
 ## 도입
 
 응집도가 "한 모듈 안의 결속력"이었다면, 결합도는 그 반대 — "모듈들 사이의 의존 정도"입니다. 둘은 항상 한 쌍으로 다뤄지고, 좋은 설계는 "응집도는 높게, 결합도는 낮게"가 정석입니다. 이 문서는 결합도의 정의와, 낮은 결합도가 어떤 모습인지를 봅니다.
@@ -233,10 +228,6 @@ Class coupling — A가 B 타입의 속성을 가지거나, A가 B 객체의 서
 ---
 
 # 결합도를 어떻게 줄일 수 있는가?
-
-> One approach to decreasing coupling is functional design, which seeks to limit the responsibilities of modules along functionality.
-
----
 
 ## 도입
 

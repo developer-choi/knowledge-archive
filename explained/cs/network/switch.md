@@ -80,10 +80,6 @@
 
 # 네트워크 스위치와 허브의 차이는?
 
-> Unlike repeater hubs, which broadcast the same data out of each port and let the devices pick out the data addressed to them, a network switch learns the Ethernet addresses of connected devices and then only forwards data to the port connected to the device to which it is addressed.
-
----
-
 ## 도입
 
 20년 전 사무실에 흔하던 허브가 지금은 거의 사라진 이유는 단순합니다 — 허브는 LAN 안의 모든 장치에게 같은 데이터를 뿌렸고, 스위치는 정확히 한 명에게만 보냅니다. 이 한 가지 차이가 효율·보안·확장성 전반을 갈랐고, 그래서 시장이 통째로 스위치로 넘어갔습니다.
@@ -192,12 +188,6 @@
 ---
 
 # 스위치가 collision domain은 분리하지만 broadcast domain은 분리하지 못하는 이유는?
-
-> An Ethernet switch operates at the data link layer (layer 2) of the OSI model to create a separate collision domain for each switch port.
-> Each device connected to a switch port can transfer data to any of the other ports at any time and the transmissions will not interfere.
-> Because broadcasts are still being forwarded to all connected devices by the switch, the newly formed network segment continues to be a broadcast domain.
-
----
 
 ## 도입
 

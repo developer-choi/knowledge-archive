@@ -1,10 +1,5 @@
 # DDD(Domain-Driven Design)란 무엇인가?
 
-> Domain-driven design (DDD) is a software design approach that focuses on modeling software to match a domain according to input from that domain's experts.
-> DDD is against the idea of having a single unified model; instead it divides a large system into bounded contexts, each of which have their own model.
-
----
-
 ## 도입
 
 "도메인(domain)"은 소프트웨어가 다루는 업무 영역을 말합니다. 쇼핑몰이라면 "주문/결제/배송", 은행 앱이라면 "대출/예금/송금" 같은 것. DDD는 코드 구조를 그 업무 영역에 맞춰 설계하자는 접근법이고, 핵심 주장은 "큰 시스템을 하나의 거대한 모델로 통합하지 말고, 영역별로 작은 모델을 따로 두자"는 것입니다.
@@ -97,12 +92,6 @@ DDD의 분할 구조를 다이어그램으로:
 
 # DDD에서 Ubiquitous Language란 무엇인가?
 
-> These aspects of domain-driven design aim to foster a common language shared by domain experts, users, and developers—the ubiquitous language.
-> The ubiquitous language is used in the domain model and for describing system requirements.
-> Ubiquitous language is one of the pillars of DDD together with strategic design and tactical design.
-
----
-
 ## 도입
 
 같은 시스템을 두고 기획자는 "오퍼 승인", 개발자는 "approve", DB 스키마는 `is_accepted`라고 부르는 상황이 흔합니다. 회의 때마다 단어를 번역하느라 시간이 새고, 새 사람이 들어오면 용어 매핑부터 익혀야 합니다. ubiquitous language(편재 언어)는 이 번역 비용을 0으로 만들기 위한 합의입니다.
@@ -173,13 +162,6 @@ ubiquitous language의 운영 원칙을 표로 정리하면:
 ---
 
 # DDD에서 Entity와 Value Object의 핵심 차이는?
-
-> An entity is an object defined not by its attributes, but its identity.
-> As an example, most airlines assign a unique number to seats on every flight: this is the seat's identity.
-> In contrast, a value object is an immutable object that contains attributes but has no conceptual identity.
-> When people exchange business cards, for instance, they only care about the information on the card (its attributes) rather than trying to distinguish between each unique card.
-
----
 
 ## 도입
 
@@ -258,14 +240,6 @@ React 컴포넌트의 props를 설계할 때 이 구분이 도움이 됩니다. 
 ---
 
 # DDD에서 Aggregate란 무엇이며, 왜 외부에서 루트만 참조하도록 제한하는가?
-
-> Models can be bound together by a root entity to become an aggregate.
-> Objects outside the aggregate are allowed to hold references to the root but not to any other object of the aggregate.
-> The aggregate root checks the consistency of changes in the aggregate.
-> Drivers do not have to individually control each wheel of a car, for instance: they simply drive the car.
-> In this context, a car is an aggregate of several other objects (the engine, the brakes, the headlights, etc.).
-
----
 
 ## 도입
 
@@ -390,11 +364,6 @@ Aggregate 경계와 접근 규칙을 다이어그램으로:
 ---
 
 # DDD는 모든 프로젝트에 적합한가?
-
-> Critics of domain-driven design argue that developers must typically implement a great deal of isolation and encapsulation to maintain the model as a pure and helpful construct.
-> While domain-driven design provides benefits such as maintainability, Microsoft recommends it only for complex domains where the model provides clear benefits in formulating a common understanding of the domain.
-
----
 
 ## 도입
 

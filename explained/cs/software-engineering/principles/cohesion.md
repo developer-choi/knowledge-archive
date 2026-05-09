@@ -1,13 +1,5 @@
 # 응집도(Cohesion)란 무엇인가?
 
-> Cohesion refers to the degree to which the elements inside a module belong together.
-> In object-oriented programming, a class is said to have high cohesion if the methods that serve the class are similar in many aspects.
-> The functionalities embedded in a class, accessed through its methods, have much in common.
-> Methods carry out a small number of related activities, by avoiding coarsely grained or unrelated sets of data.
-> Related methods are in the same source file or otherwise grouped together; for example, in separate files but in the same sub-directory/folder.
-
----
-
 ## 도입
 
 응집도는 "한 파일/모듈 안에 모인 코드들이 얼마나 한 가지 일을 위해 모여 있는가"를 잰 척도입니다. 한 파일을 열었을 때 들어 있는 함수들이 모두 같은 목적을 향해 있으면 응집도가 높고, 잡다하게 섞여 있으면 낮습니다. 프론트엔드에서는 컴포넌트·hook·utils 모듈을 어떻게 쪼갤지의 기본 기준이 됩니다.
@@ -95,10 +87,6 @@
 ---
 
 # 높은 응집도가 왜 바람직한가?
-
-> High cohesion is associated with several desirable software traits including robustness, reliability, reusability, and understandability.
-
----
 
 ## 도입
 

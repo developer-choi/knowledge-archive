@@ -1,11 +1,5 @@
 # OS가 프로세스들을 서로 격리하는 이유와 격리 실패 시 문제, 그리고 격리된 프로세스 간 통신 방법은?
 
-> The operating system keeps its processes separate and allocates the resources they need, so that they are less likely to interfere with each other and cause system failures (e.g., deadlock or thrashing).
-> For security and reliability, most modern operating systems prevent direct communication between independent processes, providing strictly mediated and controlled inter-process communication.
-> The operating system may also provide mechanisms for inter-process communication to enable processes to interact in safe and predictable ways.
-
----
-
 ## 도입
 
 `node app.js`를 두 번 실행하면 두 Node 프로세스가 만들어지는데, 한 쪽이 다른 쪽의 메모리를 들여다볼 수 없습니다. 왜 OS가 일부러 이렇게 칸을 막아둘까요? 한 쪽이 망가져도 다른 쪽은 무사하기 위해서입니다. 그리고 그렇게 막아두면서도 필요할 땐 통신할 수 있도록 OS가 별도의 통로(IPC)를 열어둡니다. 이 문항은 격리하는 이유와 그 효과, 그리고 격리된 프로세스가 어떻게 안전하게 통신하는지를 한 묶음으로 다룹니다.
@@ -109,10 +103,6 @@ JS 개발자가 매일 마주하는 IPC 사례:
 ---
 
 # 부모 프로세스와 자식 프로세스의 관계는 어떻게 형성되는가?
-
-> It is usual to associate a single process with a main program, and child processes with any spin-off, parallel processes.
-
----
 
 ## 도입
 
@@ -238,17 +228,6 @@ Node.js 대응:
 ---
 
 # 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
-
-> First, the process is "created" by being loaded from a secondary storage device (hard disk drive, CD-ROM, etc.) into main memory.
-> After that the process scheduler assigns it the "waiting" state.
-> While the process is "waiting", it waits for the scheduler to do a so-called context switch.
-> The context switch loads the process into the processor and changes the state to "running" while the previously "running" process is stored in a "waiting" state.
-> If a process in the "running" state needs to wait for a resource (wait for user input or file to open, for example), it is assigned the "blocked" state.
-> The process state is changed back to "waiting" when the process no longer needs to wait (in a blocked state).
-> Once the process finishes execution, or is terminated by the operating system, it is no longer needed.
-> The process is removed instantly or is moved to the "terminated" state.
-
----
 
 ## 도입
 
