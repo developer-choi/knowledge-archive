@@ -3,7 +3,7 @@ tags: [os, concept]
 ---
 
 # Questions
-- OS가 프로세스들을 서로 격리하는 이유와 격리 실패 시 문제, 그리고 격리된 프로세스 간 통신 방법은?
+- OS가 프로세스들을 서로 격리하는 방법과 이유, 격리 실패 시 문제, 그리고 격리된 프로세스 간 통신 방법은?
 - 부모 프로세스와 자식 프로세스의 관계는 어떻게 형성되는가?
   - [UNVERIFIED] 부모 프로세스가 자식 프로세스를 생성하고 종료하는 과정은 어떤 시스템 콜로 이루어지는가?
 - 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
@@ -13,7 +13,7 @@ tags: [os, concept]
 
 # Answers
 
-## OS가 프로세스들을 서로 격리하는 이유와 격리 실패 시 문제, 그리고 격리된 프로세스 간 통신 방법은?
+## OS가 프로세스들을 서로 격리하는 방법과 이유, 격리 실패 시 문제, 그리고 격리된 프로세스 간 통신 방법은?
 
 ### Official Answer
 The operating system keeps its processes separate and allocates the resources they need, so that they are less likely to interfere with each other and cause system failures (e.g., deadlock or thrashing).
