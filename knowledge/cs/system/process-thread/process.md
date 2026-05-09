@@ -159,7 +159,7 @@ This seemingly-simultaneous execution of multiple processes is called concurrenc
 
 ### Official Answer
 Multitasking allows each processor to switch between tasks that are being executed without having to wait for each task to finish (preemption).
-Depending on the operating system implementation, switches could be performed when tasks initiate and wait for completion of input/output operations, when a task voluntarily yields the CPU, on hardware interrupts, and when the operating system scheduler decides that a process has expired its fair share of CPU time (e.g, by the Completely Fair Scheduler of the Linux kernel).
+Switches could be performed when tasks initiate and wait for completion of input/output operations, when a task voluntarily yields the CPU, on hardware interrupts, and when the operating system scheduler decides that a process has expired its fair share of CPU time (e.g, by the Completely Fair Scheduler of the Linux kernel).
 
 > #### AI Annotation:
 > 전환이 일어나는 4가지 시점:
