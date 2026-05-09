@@ -166,8 +166,7 @@ It also lets you change what should be displayed in each state without changing 
 > function enable(el) { el.disabled = false; }
 > function disable(el) { el.disabled = true; }
 > ```
-
-> #### Official Annotation:
+>
 > 비교 대상 — 같은 폼의 **declarative 버전** (React 5단계로 재구현).
 > 이벤트 핸들러는 `setStatus(...)` 호출만 하고, "무엇을 보여줄지"는 JSX 조건부 렌더링이 담당한다.
 >
