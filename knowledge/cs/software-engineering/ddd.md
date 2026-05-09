@@ -24,11 +24,9 @@ DDD is against the idea of having a single unified model; instead it divides a l
 > placing the project's primary focus on the core domain and domain logic layer;
 > basing complex designs on a model of the domain;
 > initiating a creative collaboration between technical and domain experts to iteratively refine a conceptual model that addresses particular domain problems.
-
-> #### Official Annotation:
+>
 > Software's developers build a domain model: a system of abstractions that describes selected aspects of a domain and can be used to solve problems related to that domain.
-
-> #### Official Annotation:
+>
 > The term was coined by Eric Evans in his book of the same name published in 2003.
 
 ### Reference
