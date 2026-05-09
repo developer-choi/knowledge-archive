@@ -43,3 +43,29 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 5. 사용자 승인 후 수정한다. 수정 1건당 커밋 1개.
 
 대상이 "전체"이면 `knowledge/` 하위 모든 .md 파일을 순회한다. 서브에이전트로 병렬 검증하되, 각 에이전트에게 전체 파일 경로 목록을 함께 전달하여 중복 설명 탐지 시 전용 문서 존재 여부를 판별할 수 있게 한다.
+
+---
+
+## explained/ 검증
+
+knowledge 파일 검증과 함께 수행한다. 대상이 특정 파일이면 해당 `explained/<rel>.md`만, "전체"이면 `explained/` 전체를 검증한다.
+
+### 검증 항목
+
+**커버리지** — knowledge → explained 방향
+- `knowledge/<rel>.md`에서 `[BACKLOG]`·`[UNVERIFIED]` 마커가 없고 Official Answer가 있는 모든 질문은 `explained/<rel>.md`에 동일 제목의 H1 섹션이 있어야 한다.
+- cross-link 항목(`[질문 제목](other.md)` 형식)은 제외한다.
+
+**고아 섹션** — explained → knowledge 방향
+- `explained/<rel>.md`의 각 H1 제목이 대응 `knowledge/<rel>.md`의 Questions 목록에 존재해야 한다. 없으면 고아 — 리팩토링 후 잔재.
+
+**고아 파일**
+- `explained/<rel>.md`에 대응하는 `knowledge/<rel>.md`가 없으면 고아 파일.
+
+### 수정 방침
+
+| 위반 | 조치 |
+|------|------|
+| 커버리지 누락 | 자동 수정 불가 — `/explain [파일]`로 해당 질문 설명 후 저장 필요. 사용자에게 누락 목록만 보고한다. |
+| 고아 섹션 | 사용자 확인 후 섹션 삭제 |
+| 고아 파일 | 사용자 확인 후 파일 삭제 |
