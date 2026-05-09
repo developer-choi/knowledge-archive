@@ -5,13 +5,13 @@
 
 ---
 
-**도입**
+## 도입
 
 "도메인(domain)"은 소프트웨어가 다루는 업무 영역을 말합니다. 쇼핑몰이라면 "주문/결제/배송", 은행 앱이라면 "대출/예금/송금" 같은 것. DDD는 코드 구조를 그 업무 영역에 맞춰 설계하자는 접근법이고, 핵심 주장은 "큰 시스템을 하나의 거대한 모델로 통합하지 말고, 영역별로 작은 모델을 따로 두자"는 것입니다.
 
 ---
 
-**본문**
+## 본문
 
 > Domain-driven design (DDD) is a software design approach
 
@@ -55,7 +55,7 @@ DDD는 하나의 통합된 모델을 두는 아이디어에 반대한다.
 
 ---
 
-**종합**
+## 종합
 
 DDD를 한 줄로 정리하면 "코드 구조를 DB 스키마가 아닌 비즈니스 도메인 구조에 맞추고, 큰 도메인은 더 작은 컨텍스트로 쪼개라"입니다. Eric Evans가 2003년 동명의 책에서 정립한 용어이고, Microsoft도 복잡한 도메인에서 명확한 이점이 있을 때 DDD를 권장합니다.
 
@@ -103,13 +103,13 @@ DDD의 분할 구조를 다이어그램으로:
 
 ---
 
-**도입**
+## 도입
 
 같은 시스템을 두고 기획자는 "오퍼 승인", 개발자는 "approve", DB 스키마는 `is_accepted`라고 부르는 상황이 흔합니다. 회의 때마다 단어를 번역하느라 시간이 새고, 새 사람이 들어오면 용어 매핑부터 익혀야 합니다. ubiquitous language(편재 언어)는 이 번역 비용을 0으로 만들기 위한 합의입니다.
 
 ---
 
-**본문**
+## 본문
 
 > These aspects of domain-driven design aim to foster a common language
 
@@ -153,7 +153,7 @@ ubiquitous language는 DDD의 기둥(pillar) 중 하나이다.
 
 ---
 
-**종합**
+## 종합
 
 ubiquitous language의 운영 원칙을 표로 정리하면:
 
@@ -181,13 +181,13 @@ ubiquitous language의 운영 원칙을 표로 정리하면:
 
 ---
 
-**도입**
+## 도입
 
 DDD의 전술적 설계(tactical design)에서 가장 먼저 만나는 분류가 Entity와 Value Object입니다. 두 개념의 갈림길은 단 하나 — "이 객체를 식별(identity)하는 게 의미가 있는가, 아니면 속성(attributes)만으로 충분한가". 같은 데이터처럼 보여도 도메인 맥락에 따라 어느 쪽이 되는지가 갈립니다.
 
 ---
 
-**본문**
+## 본문
 
 > An entity is an object defined not by its attributes, but its identity.
 
@@ -232,7 +232,7 @@ DDD의 전술적 설계(tactical design)에서 가장 먼저 만나는 분류가
 
 ---
 
-**종합**
+## 종합
 
 Entity vs Value Object를 표로 정리하면:
 
@@ -267,13 +267,13 @@ React 컴포넌트의 props를 설계할 때 이 구분이 도움이 됩니다. 
 
 ---
 
-**도입**
+## 도입
 
 앞 질문에서 Entity와 Value Object를 봤습니다. 실제 도메인은 이런 작은 객체 여러 개가 한 덩어리로 행동하는 경우가 많습니다. 주문 하나에는 여러 OrderItem이 딸려 있고, 그 합계 금액은 주문 단위로 검증되어야 합니다. Aggregate는 이런 "함께 묶여 일관성을 지키는 단위"이고, 그 단위에 들어가는 출입구가 바로 aggregate root입니다.
 
 ---
 
-**본문**
+## 본문
 
 > Models can be bound together by a root entity to become an aggregate.
 
@@ -319,7 +319,7 @@ aggregate 루트가 aggregate 내부 변경의 일관성을 검사한다.
 
 ---
 
-**종합**
+## 종합
 
 규칙을 한 표로 정리하면:
 
@@ -396,13 +396,13 @@ Aggregate 경계와 접근 규칙을 다이어그램으로:
 
 ---
 
-**도입**
+## 도입
 
 앞 질문들에서 DDD의 핵심 도구들(bounded context, ubiquitous language, Entity/Value Object, Aggregate)을 봤습니다. 강력해 보이지만, 모든 프로젝트에 다 적용해야 할까요? 결론부터 말하면 **아니다**입니다. DDD에는 비용이 있고, 도메인이 충분히 복잡할 때만 그 비용이 정당화됩니다.
 
 ---
 
-**본문**
+## 본문
 
 > Critics of domain-driven design argue
 
@@ -449,7 +449,7 @@ DDD가 유지보수성 같은 이점을 제공하는 한편,
 
 ---
 
-**종합**
+## 종합
 
 DDD 적용 의사결정을 표로 정리하면:
 
