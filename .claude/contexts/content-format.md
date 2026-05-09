@@ -13,15 +13,17 @@
 
 ---
 
-## 1. Frontmatter (tags)
+## 1. Frontmatter
 
-### 참고 자료
+### tags
+
+#### 참고 자료
 - [공식 태그 목록](tags.md)
 
-### 작성 규칙
--[공식 태그 목록](tags.md)에서 선택
--최소 1개, 최대 4개 선택
--우선순위: 기술명 > 카테고리 > 특성
+#### 작성 규칙
+- [공식 태그 목록](tags.md)에서 선택
+- 최소 1개, 최대 4개 선택
+- 우선순위: 기술명 > 카테고리 > 특성
 
 예시:
 ```markdown
@@ -30,9 +32,25 @@ tags: [react, performance, concept]
 ---
 ```
 
-### 새 태그 추가
+#### 새 태그 추가
 - 기존 태그 목록에 적합한 태그가 없는 경우, `tags.md`에 먼저 추가 제안
 - 비슷한 뜻을 가진 새로운 태그가 생기지 않도록 주의 (예: `error-handling` 대신 `troubleshooting` 사용)
+
+---
+
+### source
+
+**파일이 어떤 맥락에서 만들어졌는가**를 나타낸다. Q&A 개별 출처 신뢰도가 아님 — 개별 신뢰도는 `[UNVERIFIED]` 마커와 `### Reference`가 담당한다.
+
+| 값 | 의미 |
+|----|------|
+| `official` | MDN·Wikipedia 등 1차 소스를 직접 읽으면서 작성 |
+| `google-doc` | `/convert`로 구글 문서에서 변환된 파일 |
+| `unverified` | 출처 미추적 (유튜브·교재·개인 메모 등 기반) |
+
+- 필수 키. 누락 시 `list-candidates` 출력에서 "출처 미상" 그룹으로 빠짐.
+- 파일 안에 출처가 섞여 있어도 **파일을 만든 맥락** 기준으로 하나를 선택한다.
+- **파일 분리 시 반드시 상속**: 기존 파일을 여러 파일로 분리할 때, 원본의 `source` 값을 모든 파생 파일에 복사한다. 누락의 대부분이 이 경우에서 발생한다.
 
 ---
 
@@ -79,6 +97,7 @@ tags: [react, performance, concept]
   - 금지: 소스에 없는 새 사실 덧붙이기, 뉘앙스 변경, 근거 없는 주장
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
 - **출처-Answer 매핑**: Reference에 공식 출처 URL이 있고 Official Answer가 아직 비어 있는 상태(학습 진행 중)는 위반이 아니다. 단 이 경우 `### Official Answer` 빈 헤딩을 만들지 말고 `### Reference`만 둔다.
+- **동일 헤딩 중복 금지**: 하나의 Q&A 내에서 동일한 섹션 헤딩은 최대 1개만 허용한다. `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` 각각 최대 1개. `> #### AI Annotation:` / `> #### Official Annotation:` / `> #### User Annotation:` / `> #### Key Terms:` 각각 최대 1개. 중복 발생 시 내용을 합쳐 하나의 헤딩 아래 통합한다.
 
 ### Key Terms
 

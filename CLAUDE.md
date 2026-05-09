@@ -57,15 +57,17 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 
 ## frontmatter `source` 키
 
-KA 문서가 어떤 출처를 기반으로 작성됐는지 표기. `scripts/list-candidates.mts`가 이 값을 그대로 export하고, full-refresh dry-run에서 출처별 그룹화에 사용된다.
+**파일이 어떤 맥락에서 만들어졌는가**를 나타낸다. Q&A별 출처 신뢰도가 아님 — 개별 신뢰도는 `[UNVERIFIED]` 마커 + `### Reference`가 담당한다. `scripts/list-candidates.mts`가 그대로 export하여 full-refresh dry-run에서 출처별 그룹화에 쓰인다.
+
+상세 규칙은 `.claude/contexts/content-format.md`의 `source` 섹션 참고.
 
 | 값 | 의미 |
 |----|------|
-| `official` | MDN·공식 docs 등 1차 소스 기반 |
-| `google-doc` | 사용자 구글 문서 기반 (검증 약함) |
-| `unverified` | 출처 명시 없거나 검증 안 됨 |
+| `official` | MDN·Wikipedia 등 1차 소스를 직접 읽으면서 작성 |
+| `google-doc` | `/convert`로 구글 문서에서 변환된 파일 |
+| `unverified` | 출처 미추적 (유튜브·교재·개인 메모 등) |
 
-frontmatter에 `source` 키가 없으면 list-candidates 출력에서 빠진다 (full-refresh dry-run에서 "출처 미상" 그룹).
+**파일 분리 시 반드시 상속**: 파일을 여러 개로 쪼갤 때 원본의 `source` 값을 모든 파생 파일에 복사한다. 누락의 대부분이 이 경우에서 발생한다.
 
 ## 변경 시 동기화
 
