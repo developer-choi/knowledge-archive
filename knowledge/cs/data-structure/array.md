@@ -124,10 +124,11 @@ Insertion:
 3. **Insert the New Element**: Place the new value in the correct position.
 4. **Update the Size**: If the array is dynamic, its size is increased.
 
-> #### User Annotation: 삭제도 비슷하지만 반대 방향임.
+> #### User Annotation:
+> 삭제도 비슷하지만 반대 방향임.
 > 처음 원소를 삭제하면 그 뒤의 모든 원소를 앞으로 한 칸씩 당겨야 함.
-
-> #### User Annotation: 번외) 동적 배열에서 추가 시 기존 크기를 초과하면, 새 메모리를 할당하고 기존 값을 모두 복사한 뒤 새 원소를 추가해야 한다.
+>
+> 번외) 동적 배열에서 추가 시 기존 크기를 초과하면, 새 메모리를 할당하고 기존 값을 모두 복사한 뒤 새 원소를 추가해야 한다.
 > https://youtu.be/NFETSCJON2M?si=B4TvQnDGVdLkE_7L&t=554
 
 ### Reference
