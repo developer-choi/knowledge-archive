@@ -127,7 +127,6 @@ Memory (typically some region of virtual memory); which includes the executable 
 
 ### Official Answer
 The operating system keeps its processes separate and allocates the resources they need, so that they are less likely to interfere with each other and cause system failures (e.g., deadlock or thrashing).
-The operating system may also provide mechanisms for inter-process communication to enable processes to interact in safe and predictable ways.
 
 > #### AI Annotation:
 > deadlock = A가 B의 자원을 기다리고, B가 A의 자원을 기다려서 둘 다 영원히 멈추는 상태.
@@ -184,6 +183,7 @@ Depending on the operating system implementation, switches could be performed wh
 
 ### Official Answer
 For security and reliability, most modern operating systems prevent direct communication between independent processes, providing strictly mediated and controlled inter-process communication.
+The operating system may also provide mechanisms for inter-process communication to enable processes to interact in safe and predictable ways.
 
 > #### AI Annotation:
 > 프로세스끼리 직접 메모리를 들여다볼 수 없게 격리한다.
