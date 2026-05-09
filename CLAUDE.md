@@ -26,6 +26,19 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 2. `npm run merge-explained --apply` — 실제 통합 실행
 3. `npm run verify-merge` — 바이트 동일 검증 (전체 OK 확인 후 커밋)
 
+## explained 문서 보충
+
+사용자가 세션 중 explained 문서에 있는 내용을 이해 못 해 질문하면:
+1. 답변한다.
+2. 답변 직후 "explained에 방금 물어본 내용 보충할까요?" 라고 묻는다.
+3. 사용자가 승인하면 해당 설명을 explained 파일의 관련 섹션에 보충한다.
+
+## knowledge 파일 구조 규칙
+
+- 폴더명과 동일한 파일명을 그 폴더 안에 두지 않는다.
+  - 나쁜 예: `process/process.md` (폴더와 파일 이름 동일)
+  - 좋은 예: `process-thread/process.md` (부모 폴더가 더 넓은 범위를 기술)
+
 ## 약어
 - OA = Official Answer
 
