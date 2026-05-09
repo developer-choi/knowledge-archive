@@ -5,8 +5,9 @@ tags: [os, concept]
 # Questions
 - 프로세스란 무엇이며, 프로그램과 어떻게 다른가?
   - 프로세스는 무엇으로 구성되는가?
-    - [UNVERIFIED] 여기서 말하는 initiate / control / coordinate가 뭔가요?
-    - [UNVERIFIED] initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
+    - [UNVERIFIED] 프로세스를 처음 만들 때, OS는 자료구조에 무엇을 저장해야 하나요?
+    - [UNVERIFIED] 프로세스 실행 중 컨텍스트 스위치가 발생할 때, OS는 자료구조에 무엇을 저장해야 하나요?
+    - [UNVERIFIED] 여러 프로세스가 동시에 실행될 때, OS는 자료구조에 무엇을 저장해야 하나요?
     - 프로세스의 메모리 영역은 어떤 구성 요소를 포함하는가?
     - [PCB(프로세스 제어 블록)란 무엇인가?](process-control-block.md)
   - OS가 프로세스들을 서로 격리하는 이유와, 격리 실패 시 발생할 수 있는 문제는?
@@ -67,25 +68,36 @@ A process comprises the program code, assigned system resources, physical and lo
 
 ---
 
-## [UNVERIFIED] 여기서 말하는 initiate / control / coordinate가 뭔가요?
+## [UNVERIFIED] 프로세스를 처음 만들 때, OS는 자료구조에 무엇을 저장해야 하나요?
 
 ### AI Answer
-- **initiate**: 프로세스를 처음 만드는 것. PCB 생성, 메모리 할당, 코드 적재까지 — created state를 만드는 행위.
-- **control**: CPU를 interrupt하는 것. 타임슬라이스 만료 시 실행 중인 프로세스에서 CPU를 빼앗고, 나중에 차례가 오면 돌려주는 것.
-- **coordinate**: [TODO]
+`node app.js`를 치는 순간 OS는 PCB(프로세스 제어 블록)라는 자료구조를 만든다. 이 PCB가 없으면 OS는 이 프로세스의 존재 자체를 모른다.
+
+OS가 이 시점에 저장해야 하는 것들:
+
+- **Program Counter 초기값**: V8이 `app.js`를 컴파일한 기계어의 첫 번째 명령어 주소. 이게 없으면 OS가 CPU를 줄 때 "첫 줄이 어디야?"를 모른다.
+- **PID(Process ID)**: OS가 수십 개 프로세스를 동시에 관리하니까 각각을 구분할 번호. Task Manager에서 보이는 그 숫자.
+- **메모리 한도와 할당된 주소 범위**: 이게 없으면 `node app.js` 하나가 RAM 전체를 먹어버릴 수 있다.
+- **부모 PID**: 셸에서 `node app.js`를 실행했으면 셸이 부모. 자식이 종료됐을 때 부모한테 알려줘야 하니까 기록해둔다.
+- **권한 정보**: 파일 접근 권한, 소유자 정보. `app.js`가 `/etc/passwd`를 읽을 수 있는지 없는지가 여기서 결정된다.
+
+요약: "이 프로세스가 누구고, 어디서 시작하고, 얼마나 쓸 수 있고, 누가 낳았고, 뭘 할 수 있는지"를 처음 만드는 순간 PCB에 다 적어둔다.
 
 ---
 
-## [UNVERIFIED] initiate, control, coordinate 하기 위해 자료구조에 저장해야 하는 값들은 무엇이 있나요?
+## [UNVERIFIED] 프로세스 실행 중 컨텍스트 스위치가 발생할 때, OS는 자료구조에 무엇을 저장해야 하나요?
 
 ### AI Answer
-- **initiate**: `node app.js` 실행 시 OS가 PCB를 생성하며 기록하는 값들.
-  - Program Counter 초기값: V8이 컴파일한 첫 번째 기계어 명령어 주소. 이게 없으면 OS가 CPU를 처음 줄 때 어디서 실행을 시작할지 몰라 프로세스를 띄울 수 없습니다.
-  - Memory Limit: 이 프로세스에게 허용할 최대 메모리. 이게 없으면 `node app.js` 하나가 메모리를 무제한 점유해 다른 프로세스가 죽습니다.
-- **control**: 컨텍스트 스위치 시 갱신·저장되는 값들.
-  - Program Counter: 중단 시점의 명령어 주소로 덮어씌워짐. 이게 없으면 재개 시 어디서 이어야 할지 몰라 프로세스가 처음부터 다시 실행되거나 엉뚱한 주소에서 재개됩니다.
-  - CPU 레지스터 상태: 중단 시점 레지스터 값 전체 저장. for문 1억 번 돌다 중단됐을 때 `i` 값이 여기 들어있는데, 이게 없으면 재개 시 `i`가 날아가서 처음부터 다시 돕니다.
-- **coordinate**: [TODO]
+컨텍스트 스위치 시 갱신·저장되는 값들:
+- Program Counter: 중단 시점의 명령어 주소로 덮어씌워짐. 이게 없으면 재개 시 어디서 이어야 할지 몰라 프로세스가 처음부터 다시 실행되거나 엉뚱한 주소에서 재개됩니다.
+- CPU 레지스터 상태: 중단 시점 레지스터 값 전체 저장. for문 1억 번 돌다 중단됐을 때 `i` 값이 여기 들어있는데, 이게 없으면 재개 시 `i`가 날아가서 처음부터 다시 돕니다.
+
+---
+
+## [UNVERIFIED] 여러 프로세스가 동시에 실행될 때, OS는 자료구조에 무엇을 저장해야 하나요?
+
+### AI Answer
+[TODO]
 
 ---
 
