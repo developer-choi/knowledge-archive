@@ -35,25 +35,20 @@ Content coupling is said to occur when one module uses the code of another modul
 
 This violates [information hiding](https://en.wikipedia.org/wiki/Information_hiding) – a basic software design concept.
 
-> #### User Annotation:
-> **Example:**
-> - 다른 모듈의 (private) field를 직접 수정하는 경우.
-
 #### Common coupling
 Common coupling is said to occur when several modules have access to the same global data.
 
 But it can lead to uncontrolled error propagation and unforeseen side-effects when changes are made.
 
-> #### User Annotation:
-> **Example:**
-> - Redux같은거 남발해서 수많은 모듈들이 읽고 쓰고 하다보니 이 데이터가 어디서 어떻게 CRUD 되는지 흐름 파악하기 힘든 경우
-
 #### External coupling
 External coupling occurs when two modules share an externally imposed data format, communication protocol, or device interface.
 
 > #### User Annotation:
-> **Example:**
-> - 여러 컴포넌트가 API에서 응답하는 데이터를 직접 의존하는 경우
+> **Content coupling example:** 다른 모듈의 (private) field를 직접 수정하는 경우.
+>
+> **Common coupling example:** Redux같은거 남발해서 수많은 모듈들이 읽고 쓰고 하다보니 이 데이터가 어디서 어떻게 CRUD 되는지 흐름 파악하기 힘든 경우.
+>
+> **External coupling example:** 여러 컴포넌트가 API에서 응답하는 데이터를 직접 의존하는 경우.
 
 #### Control coupling
 Control coupling is one module controlling the flow of another, by passing it information on what to do (e.g., passing a what-to-do flag).
