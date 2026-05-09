@@ -47,8 +47,7 @@ A process comprises the program code, assigned system resources, physical and lo
 > #### Official Annotation:
 > A process is a unit of resources, while a thread is a unit of scheduling and execution.
 > — https://en.wikipedia.org/wiki/Thread_(computing)
-
-> #### Official Annotation:
+>
 > In general, a computer system process consists of (or is said to own) the following resources:
 > - An image of the executable machine code associated with a program.
 > - Memory (typically some region of virtual memory); which includes the executable code, process-specific data (input and output), a call stack (to keep track of active subroutines and/or other events), and a heap to hold intermediate computation data generated during run time.
