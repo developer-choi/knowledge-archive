@@ -5,8 +5,9 @@ tags: [testing, react, concept]
 - React Testing Library와 DOM Testing Library의 관계는?
 - RTL은 컴포넌트의 무엇을 대상으로 테스트하는가?
 - RTL의 trade-offs는 무엇이며 simulated browser 환경의 한계는 무엇인가?
-- 테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?
 - AAA 패턴이란 무엇이며 각 단계에서 RTL은 어떤 API를 제공하는가?
+
+> Mock 처리(MSW vs fetch stubbing 등)는 `mocking.md` 참고.
 
 ---
 
@@ -63,25 +64,6 @@ We are making some trade-offs here because we're using a computer and often a si
 
 ### Reference
 - https://github.com/testing-library/react-testing-library
-
----
-
-## 테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?
-
-### Official Answer
-We recommend using the Mock Service Worker (MSW) library to declaratively mock API communication in your tests instead of stubbing window.fetch, or relying on third-party adapters.
-
-> #### Key Terms:
-> - **declaratively**: 어떻게가 아니라 무엇을 선언하는 방식 (HTTP 핸들러 정의)
-> - **stubbing**: 원래 함수를 가짜로 바꿔치기하는 방식
-
-> #### AI Annotation:
-> window.fetch를 stub하면 axios 같은 다른 HTTP 클라이언트를 쓸 때 깨지고, 네트워크 레벨이 아닌 함수 레벨에서 가로채므로 실제 요청 흐름과 달라진다.
-> MSW는 Service Worker로 네트워크 레벨에서 가로채므로 선언적이고, 클라이언트 구현에 독립적이다.
-
-### Reference
-- https://github.com/testing-library/react-testing-library
-- https://github.com/mswjs/msw
 
 ---
 
