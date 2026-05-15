@@ -54,9 +54,12 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 기존 knowledge 병합
 
-기존 `knowledge/` 파일과 주제가 겹치는 경우:
+신규 변환 시작 전에 같은 개념을 다루는 기존 Q&A가 있는지 `Glob`/`Grep`으로 검색한다 (예: `'use client'` 관련은 `react/rendering/`, `publishing/`, `bundler/` 등 여러 디렉토리).
+
+기존 파일과 주제가 겹치는 경우:
 - 기존 Official Answer는 보존. 신규 입력의 한국어는 `AI Annotation`/`User Annotation`으로만 추가
 - 동일 개념 Q가 양쪽에 있으면 기존 Q 유지, 신규 Q는 삭제
+- 기존 파일이 같은 Official Answer(영문 원문)를 이미 인용 중이면, 신규 파일에서 다시 인용하지 않는다. 기존 파일을 `Reference`로 가리키고 `User Annotation`/`User Answer`만 추가
 
 ## 작업 순서
 
