@@ -1,10 +1,10 @@
 # Folder Blueprint
 
-앞으로 만들 폴더 구조를 미리 잡아둔 문서입니다.
+역할 디렉토리(knowledge/·techniques/·tips/·explained/)가 공유하는 도메인 트리를 정의한다. 같은 도메인 주제(예: `cs/network/`)에 대해 네 역할 디렉토리 모두 같은 트리를 가진다. 역할 디렉토리 정의는 [directory-roles.md](directory-roles.md) 참고.
 
 ---
 
-## 1. Knowledge Structure (Tech Only)
+## 1. 도메인 트리 (Tech)
 
 ### 1.1. Frontend & Web
 
