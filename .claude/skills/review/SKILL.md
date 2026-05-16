@@ -5,7 +5,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 # 기술 면접 복습
 
-knowledge/ 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사용자의 지식을 검증한다.
+[`knowledge/`](../../contexts/directory-roles.md) 문서의 Q&A를 기반으로 시니어 면접관 페르소나로 사용자의 지식을 검증한다.
 
 ## 복습 범위 선택
 

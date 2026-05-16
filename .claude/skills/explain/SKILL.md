@@ -5,7 +5,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 # Explain
 
-knowledge/ 문서의 Q&A를 기반으로, 주제를 모르는 사용자에게 개념을 설명한다.
+[`knowledge/`](../../contexts/directory-roles.md) 문서의 Q&A를 기반으로, 주제를 모르는 사용자에게 개념을 설명한다.
 
 ## 포지셔닝
 

@@ -5,7 +5,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 # 외부 문서 변환
 
-구글 문서 등 외부 필기를 knowledge/ Q&A 형식으로 변환한다.
+구글 문서 등 외부 필기를 [`knowledge/`](../../contexts/directory-roles.md) Q&A 형식으로 변환한다.
 
 ## 원칙
 

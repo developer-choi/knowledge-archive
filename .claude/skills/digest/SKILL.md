@@ -5,7 +5,7 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 
 # Digest
 
-공식문서를 학습하고, 중요한 내용을 Q&A로 knowledge/ 문서에 저장한다.
+공식문서를 학습하고, 중요한 내용을 Q&A로 [`knowledge/`](../../contexts/directory-roles.md) 문서에 저장한다.
 
 ## 공통 규칙
 

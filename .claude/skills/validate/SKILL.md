@@ -5,7 +5,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 # KA 문서 검증
 
-`knowledge/` 하위 문서가 KA 규칙을 준수하는지 검증하고, 위반을 수정한다.
+[`knowledge/`](../../contexts/directory-roles.md) 하위 문서가 KA 규칙을 준수하는지 검증하고, 위반을 수정한다.
 
 ## 규칙 소스
 
