@@ -27,7 +27,7 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 
 | 명령 | 역할 |
 |------|------|
-| `npm run list-candidates` | `knowledge/` 스캔 → AC `full-refresh`에 전달할 후보 JSON 출력 |
+| `npm run list-candidates` | `knowledge/` 스캔 → AC `full-refresh`에 전달할 후보 JSON 출력. 입출력·skip 규칙·폴더구조 변경 영향범위는 [`.claude/contexts/list-candidates.md`](.claude/contexts/list-candidates.md) |
 | `npm run merge-explained` | `explained/<rel>/<slug>.md` 파일들을 `explained/<rel>.md` 단일 파일로 통합. `--dry-run`(기본) / `--apply` 플래그 사용 |
 | `npm run verify-merge` | 통합 후 각 섹션이 원본 파일과 바이트 동일한지 검증 |
 
