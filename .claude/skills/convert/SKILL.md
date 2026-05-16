@@ -1,11 +1,11 @@
 ---
-description: 구글 문서나 외부 문서(PDF/MD)를 knowledge/ Q&A 형식으로 변환한다. 사용자가 PDF 파일을 주거나, 구글 문서를 export 했다고 말하거나, "변환해줘", "convert", "이 문서 knowledge로 옮겨줘" 등을 요청하면 이 스킬을 사용한다. 파일 경로(.pdf, .md)가 포함된 변환 요청이라면 거의 확실히 이 스킬이 필요하다. 단, 사용자가 직접 학습 내용을 텍스트로 타이핑하거나 공식문서를 읽으며 학습하는 경우는 digest 스킬이 담당한다.
+description: 구글 문서나 외부 문서(PDF/MD)를 KA 소주제(knowledge/·techniques/·tips/)에 맞춰 변환한다. 사용자가 PDF 파일을 주거나, 구글 문서를 export 했다고 말하거나, "변환해줘", "convert", "이 문서 KA로 옮겨줘" 등을 요청하면 이 스킬을 사용한다. 파일 경로(.pdf, .md)가 포함된 변환 요청이라면 거의 확실히 이 스킬이 필요하다. 단, 사용자가 직접 학습 내용을 텍스트로 타이핑하거나 공식문서를 읽으며 학습하는 경우는 digest 스킬이 담당한다.
 argument-hint: [PDF/MD 파일 경로]
 ---
 
 # 외부 문서 변환
 
-구글 문서 등 외부 필기를 [`knowledge/`](../../contexts/directory-roles.md) Q&A 형식으로 변환한다.
+구글 문서 등 외부 필기를 KA 소주제(knowledge/·techniques/·tips/)에 맞춰 변환한다. 소주제 정의는 [directory-roles.md](../../contexts/directory-roles.md) 참고.
 
 ## 원칙
 
@@ -15,9 +15,18 @@ argument-hint: [PDF/MD 파일 경로]
 - **변환 거부 조건**: 사실이 아니거나, 출처 불명확하거나, 회사 특정 정보는 변환을 거부한다.
 - **저작권 주의**: Getty Images 등 외부 이미지는 텍스트 설명으로 대체.
 
+## 소주제 결정
+
+변환 시작 전, 자료 성격으로 출력 소주제(knowledge/·techniques/·tips/)를 결정한다. 결정 기준은 [directory-roles.md](../../contexts/directory-roles.md)에 위임한다.
+
+소주제별 처리 절차:
+
+- knowledge/·techniques/ → 양식이 동일(Q&A)하므로 아래 본문 절차를 그대로 적용한다.
+- tips/ → 아래 '## tips 가벼운 정리' 섹션 참고. 본문 Q&A 절차는 적용하지 않는다.
+
 ## Frontmatter publishable
 
-- **새로 만드는 knowledge/ 파일의 frontmatter에 `publishable: false`를 자동으로 박는다.** convert는 사용자 구글 문서 필기 기반이라 공식 출처 검증이 약하므로 외부 채널(Blog/KQ) 자동 노출 대상에서 제외한다.
+- **새로 만드는 knowledge/·techniques/ 파일의 frontmatter에 `publishable: false`를 자동으로 박는다.** convert는 사용자 구글 문서 필기 기반이라 공식 출처 검증이 약하므로 외부 채널(Blog/KQ) 자동 노출 대상에서 제외한다. tips/는 외부 노출 대상이 아니므로 frontmatter를 강제하지 않는다.
 - 사용자가 추후 검증을 거쳐 `publishable: true`로 승격할 수 있다.
 - 기존 파일에 병합할 때는 frontmatter를 건드리지 않는다 (이미 있는 값 유지).
 
@@ -52,7 +61,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 구글 문서 여러 개를 한 번에 변환 요청받은 경우, 꼭 소스 파일 단위로 출력 파일을 만들 필요는 없다. 주제 응집도를 보고 소스끼리 합치거나 기존 knowledge 파일에 병합하는 판단을 AI가 스스로 한다.
 
-## 기존 knowledge 병합
+## 기존 Q&A 파일 병합 (knowledge/·techniques/)
 
 신규 변환 시작 전에 같은 개념을 다루는 기존 Q&A가 있는지 `Glob`/`Grep`으로 검색한다 (예: `'use client'` 관련은 `react/rendering/`, `publishing/`, `bundler/` 등 여러 디렉토리).
 
@@ -100,3 +109,16 @@ PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우, [
 ### Step 6. 스킬 종료 시
 
 [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행.
+
+---
+
+## tips 가벼운 정리
+
+tips/는 캡처·메모성 단편 필기. Q&A 양식이 아니므로 위 본문 절차를 적용하지 않는다.
+
+- **캡처·스크린샷**: 텍스트 설명으로 다듬는다. 이미지 그대로 두지 않음.
+- **중복된 항목**: 삭제.
+- **사용자 말투**: 자연스럽게 다듬는다. 직역 금지.
+- **기본 섹션**: 제목(H1) + 본문/코드. Q&A 헤딩 안 만든다.
+
+frontmatter는 강제하지 않는다 (외부 노출 대상이 아님).
