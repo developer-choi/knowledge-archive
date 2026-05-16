@@ -5,10 +5,23 @@
 ```
 knowledge/   학습 Q&A 문서 (원본, 진실의 원천)
 explained/   /explain 스킬이 생성·저장하는 설명 캐시
+techniques/  도구·기법 학습 정리 (검색·참조용, Q&A 아님)
 scripts/     마이그레이션·검증·후보 추출 스크립트
 ```
 
 `explained/<rel>.md`는 `knowledge/<rel>.md`와 1:1 대응한다. 질문별 설명 섹션이 `\n\n---\n\n` 구분자로 이어붙여져 있고, 각 섹션은 H1(질문 제목)으로 시작한다.
+
+## 폴더 규칙
+
+### 대주제 (이 콘텐츠가 KA에 속하는가)
+
+콘텐츠 추가 전 AC `deploy/contexts/placement.md`(글로벌 분업 정책)를 본다. KA로 갈지, MP(예제 코드)·AC(공통 원칙)로 갈지 먼저 판단한다.
+
+### 소주제 (KA 안에서 어디로)
+
+- **역할 디렉토리** (knowledge/ vs techniques/ vs explained/) — [`.claude/contexts/directory-roles.md`](.claude/contexts/directory-roles.md)
+- **도메인 트리** (frontend/, cs/, infra/, …) — [`.claude/contexts/folder-blueprint.md`](.claude/contexts/folder-blueprint.md)
+- **파일명·검색** — [`.claude/contexts/file-placement.md`](.claude/contexts/file-placement.md)
 
 ## npm 스크립트
 
