@@ -2,7 +2,7 @@
 
 ## 도입
 
-노트북에서 Chrome, VS Code, Slack을 동시에 켜놓아도 다 잘 돌아가는 것처럼 보입니다. 근데 CPU 코어가 4개뿐이라면 같은 순간 실제로 실행되는 건 4개일 텐데, 어떻게 수십 개 프로그램이 멈추지 않고 굴러가는 걸까요? 답은 "사실 동시는 아닌데 동시처럼 보이게 한다"입니다.
+지금 이 순간 컴퓨터에서 Chrome, VS Code, Spotify가 동시에 돌아가는 것처럼 보인다. 그런데 CPU 코어 하나는 한 번에 한 가지 명령어만 실행할 수 있다. 어떻게 동시에 돌아가는 것처럼 느껴지는 걸까? 멀티태스킹과 컨텍스트 스위치가 답이다.
 
 ---
 
@@ -10,41 +10,50 @@
 
 > Multitasking is a method to allow multiple processes to share processors (CPUs) and other system resources.
 
-멀티태스킹은 여러 프로세스가 CPU와 다른 시스템 자원을 공유할 수 있게 해주는 방법이다.
+"멀티태스킹은 여러 프로세스가 프로세서(CPU)와 다른 시스템 자원을 공유할 수 있게 하는 방법이다."
 
-- **share processors**: 한 CPU를 여러 프로세스가 돌아가며 사용. 시간을 잘게 쪼개 나눠 갖는다고 보면 됩니다.
-- **other system resources**: CPU만이 아니라 메모리·디스크 I/O·네트워크 대역폭도 공유 대상. 멀티태스킹은 자원 전반을 여러 프로세스가 나눠 쓰는 큰 그림.
+- **share processors**: 여러 프로세스가 하나의 CPU를 번갈아 가며 쓰는 것. "내 것"이 아니라 OS가 시간을 쪼개서 나눠주는 것이다.
 
 > Each CPU (core) executes a single process at a time.
 
-각 CPU(코어)는 한 번에 단 하나의 프로세스만 실행한다.
+"각 CPU(코어)는 한 번에 하나의 프로세스만 실행한다."
 
-- **a single process at a time**: 물리적으로 동시에 두 프로세스를 실행할 수 없습니다. 1코어 = 1실행. 4코어면 같은 순간 최대 4개 프로세스만 실제로 돌아갑니다. 이게 없으면 다음 문장(시분할)이 왜 필요한지가 안 잡힙니다.
+이것이 핵심 제약이다. 코어가 4개면 동시에 최대 4개 프로세스를 실행할 수 있지만, 프로세스가 100개면 여전히 번갈아가며 CPU를 써야 한다.
 
 > In time-sharing systems, context switches are performed rapidly, which makes it seem like multiple processes are being executed simultaneously on the same processor.
 
-시분할 시스템에서는 컨텍스트 스위치가 매우 빠르게 일어나서, 같은 프로세서 위에서 여러 프로세스가 동시에 실행되는 것처럼 보이게 한다.
+"시분할 시스템에서는 컨텍스트 스위치가 빠르게 수행되어, 같은 프로세서에서 여러 프로세스가 동시에 실행되는 것처럼 보인다."
 
-- **time-sharing**: CPU 시간을 잘게(예: 10ms 단위) 쪼개 여러 프로세스에 번갈아 할당. 사용자 입장에서는 계속 실행되는 것처럼 느껴집니다.
-- **context switches**: 한 프로세스에서 다른 프로세스로 CPU 점유를 전환하는 작업. OS가 CPU 하드웨어 안의 값들을 RAM의 PCB로 복사해두고, 다음 프로세스의 PCB 값을 CPU에 얹어줍니다. 저장되는 것은 두 가지입니다: **Program Counter**(어디서 이어받을지 — 명령어 주소)와 **레지스터 상태**(for문 `i`처럼 계산 중이던 값들). PC는 "책갈피(몇 페이지)", 레지스터는 "읽다 기억해둔 내용"으로 구분하면 됩니다.
-- **rapidly**: 사람이 인지할 수 없을 만큼 빠르게. 1초에 수백~수천 번 일어나며, 그래서 우리는 모든 프로그램이 "계속 돌고 있다"고 느낍니다.
+- **time-sharing**: CPU 시간을 짧은 슬라이스(타임 슬라이스)로 나눠 프로세스들에게 돌아가며 주는 방식. 각 프로세스는 자기 차례에만 CPU를 쓰지만, 전환이 너무 빨라서 사람 눈에는 동시에 돌아가는 것처럼 보인다.
+- **context switches are performed rapidly**: 컨텍스트 스위치 자체는 마이크로초(μs) 단위의 짧은 시간 안에 완료된다.
 
 > This seemingly-simultaneous execution of multiple processes is called concurrency.
 
-이렇게 동시에 실행되는 것처럼 보이는 것을 동시성(concurrency)이라고 한다.
+"이렇게 여러 프로세스가 동시에 실행되는 것처럼 보이는 것을 동시성(concurrency)이라 한다."
 
-- **seemingly-simultaneous**: "겉보기엔 동시"라는 게 핵심. 실제로는 시간 분할이지만, 빠르게 전환되어 동시처럼 보입니다.
+- **concurrency (동시성)**: 빠른 전환으로 동시에 실행되는 것처럼 보이는 것. 물리적으로 동시에 실행되는 **parallelism(병렬성)**과 구분된다.
+  - **concurrency**: 하나의 코어에서 빠르게 전환 — "동시에 보임"
+  - **parallelism**: 여러 코어에서 진짜로 동시 실행 — "실제로 동시"
+
+**비유:** 요리사 한 명이 파스타 끓이면서(대기 중) 샐러드를 자르고, 타이머 울리면 파스타 저어주는 것 → concurrency. 요리사 두 명이 각자 동시에 다른 음식을 만드는 것 → parallelism.
 
 ---
 
 ## 종합
 
-concurrency vs parallelism은 처음 헷갈리는 단골 주제입니다.
+멀티태스킹의 원리는 간단하다: CPU 시간을 아주 짧게 쪼개서 프로세스들에게 돌아가며 준다. 전환이 너무 빨라서(마이크로초 단위) 사람 눈에는 동시에 돌아가는 것처럼 보인다. 이것이 concurrency(동시성)다.
 
-| 용어 | 의미 | 예시 |
-|---|---|---|
-| concurrency (동시성) | 동시에 진행되는 것처럼 보임 (실제로는 빠른 전환) | 1코어 CPU에서 Chrome + VS Code |
-| parallelism (병렬성) | 물리적으로 동시 실행 | 4코어 CPU에서 4개 프로세스 동시 실행 |
+```
+시간 축 ────────────────────────────────────────→
+CPU: [Chrome][node.js][VS Code][Chrome][node.js][VS Code] ...
+      ↑ 각 슬라이스는 마이크로초 단위
+
+사람 눈: Chrome, node.js, VS Code가 동시에 돌아가는 것처럼 보임
+```
+
+Node.js가 싱글스레드 이벤트 루프로 수천 개의 동시 요청을 처리할 수 있는 것도 이 원리의 연장이다 — I/O 대기 중에 CPU를 다른 콜백에게 넘기는 concurrency 모델이다.
+
+---
 
 ---
 
@@ -52,7 +61,7 @@ concurrency vs parallelism은 처음 헷갈리는 단골 주제입니다.
 
 ## 도입
 
-컨텍스트 스위치는 "지금 돌고 있는 프로세스의 CPU를 빼고 다른 프로세스에 줘라"입니다. 그럼 OS는 언제 그 결정을 내릴까요? 제멋대로 끊으면 시스템이 혼란스러워지고, 안 끊으면 한 프로세스가 CPU를 독점합니다. OS는 정해진 4가지 시점에만 끊습니다.
+컨텍스트 스위치는 CPU의 주인이 바뀌는 순간이다. 언제 이 전환이 일어나는가? OA는 네 가지 시점을 제시한다. 또한 OS가 강제로 전환하는 선점형(preemptive)과 프로세스가 자발적으로 양보하는 협력형(cooperative) 방식의 차이도 다룬다.
 
 ---
 
@@ -60,59 +69,53 @@ concurrency vs parallelism은 처음 헷갈리는 단골 주제입니다.
 
 > Multitasking allows each processor to switch between tasks that are being executed without having to wait for each task to finish (preemption).
 
-멀티태스킹은 각 프로세서가 실행 중인 작업이 끝날 때까지 기다리지 않고도 작업 사이를 전환할 수 있게 해준다(선점).
+"멀티태스킹은 각 프로세서가 실행 중인 작업들 사이를 전환할 수 있게 해준다 — 각 작업이 완료될 때까지 기다리지 않고 (선점)."
 
-- **switch between tasks**: 작업 A → 작업 B로 CPU를 옮기는 것. 컨텍스트 스위치의 본질.
-- **without having to wait for each task to finish**: 작업이 끝날 때까지 기다리지 않습니다. 진행 중인 작업도 강제로 끊을 수 있습니다.
-- **preemption (선점)**: OS가 실행 중인 프로세스에서 CPU를 강제로 회수하는 권한. 이게 없으면 한 프로세스가 무한루프에 빠질 때 다른 프로세스가 영원히 못 돕니다.
+- **preemption (선점)**: OS가 강제로 CPU를 빼앗는 것. 프로세스가 "아직 안 끝났어!"라고 해도 OS가 타임 슬라이스가 만료됐다고 판단하면 강제 전환한다.
 
-> Switches could be performed when tasks initiate and wait for completion of input/output operations,
+> Switches could be performed when tasks initiate and wait for completion of input/output operations, when a task voluntarily yields the CPU, on hardware interrupts, and when the operating system scheduler decides that a process has expired its fair share of CPU time (e.g, by the Completely Fair Scheduler of the Linux kernel).
 
-작업이 입출력 연산을 시작하고 그 완료를 기다릴 때 전환이 일어날 수 있다.
+"컨텍스트 스위치는 다음 시점에 발생할 수 있다: 작업이 I/O 완료를 기다릴 때, 작업이 자발적으로 CPU를 양보할 때, 하드웨어 인터럽트가 발생할 때, 스케줄러가 프로세스의 공정한 CPU 시간 몫이 만료됐다고 판단할 때(예: Linux CFS)."
 
-- **initiate and wait for completion of I/O**: I/O는 디스크 읽기, 네트워크 응답 같이 시간이 오래 걸리는 작업. CPU는 I/O가 끝나기를 기다리는 동안 놀게 되니, OS는 그 시간을 다른 프로세스에게 넘겨줍니다. 가장 자연스러운 전환 시점.
+**네 가지 컨텍스트 스위치 발생 시점:**
 
-> when a task voluntarily yields the CPU,
+- **I/O 대기 시**: `fs.readFileSync()`처럼 파일을 기다려야 하면 그 프로세스는 blocked 상태가 되고, CPU는 다른 프로세스에게 넘어간다. CPU가 아무것도 안 하며 기다리는 것보다 다른 일을 하는 게 효율적이다.
 
-작업이 자발적으로 CPU를 양보할 때.
+- **자발적 CPU 양보**: `sched_yield()` 시스템 콜처럼 프로세스가 "나 잠깐 쉴게"라고 스스로 CPU를 내놓는 것. 협력형 멀티태스킹의 핵심 메커니즘.
 
-- **voluntarily yields**: 프로세스가 스스로 OS에 "지금 CPU 반납할게"라고 요청하는 것. I/O 대기(1번)와 헷갈리기 쉬운데, I/O 대기는 "기다릴 게 생겨서 어쩔 수 없이 양보"고, 자발적 양보는 "기다릴 것도 없는데 그냥 먼저 내려놓는" 차이입니다. `sleep()`, `sched_yield()` 같은 시스템 콜이 여기 해당합니다. 실제 사례:
-  - 게임 루프에서 `sleep(1ms)` 넣어 다른 프로세스가 CPU를 쓸 수 있게 배려
-  - 스핀락(spin-lock)을 구현할 때 락을 못 얻으면 `yield()`로 CPU를 잠깐 내려놓고 재시도
-  - Node.js `setImmediate()` — 현재 이벤트 루프 사이클을 끝내고 다음으로 넘기는 것도 유사한 개념
+- **하드웨어 인터럽트**: 키보드 입력, 마우스 클릭, 네트워크 패킷 도착 등 하드웨어 이벤트가 발생하면 CPU가 현재 작업을 잠깐 멈추고 인터럽트 핸들러를 실행한 뒤 돌아온다.
 
-> on hardware interrupts,
+- **타임 슬라이스 만료**: Linux CFS(Completely Fair Scheduler) 같은 스케줄러가 "이 프로세스가 자기 몫의 CPU 시간을 다 썼다"고 판단하면 강제로 전환한다.
 
-하드웨어 인터럽트가 발생할 때.
+---
 
-- **hardware interrupts**: 키보드, 마우스, 네트워크 카드 같은 외부 장치가 "처리할 일이 생겼다"고 CPU에 신호를 보내는 것. CPU는 즉시 현재 작업을 중단하고 인터럽트 핸들러로 점프합니다.
+**선점형 vs 협력형:**
 
-> and when the operating system scheduler decides that a process has expired its fair share of CPU time (e.g, by the Completely Fair Scheduler of the Linux kernel).
+> Multi-user operating systems generally favor preemptive multithreading for its finer-grained control over execution time via context switching.
+> However, preemptive scheduling may context-switch threads at moments unanticipated by programmers, thus causing lock convoy, priority inversion, or other side-effects.
 
-그리고 OS 스케줄러가 어떤 프로세스가 자신의 공정한 CPU 시간 몫을 다 썼다고 판단할 때(예: 리눅스 커널의 CFS).
+"멀티유저 OS는 일반적으로 컨텍스트 스위치를 통해 더 세밀하게 실행 시간을 제어할 수 있는 선점형 멀티스레딩을 선호한다. 그러나 선점형 스케줄링은 프로그래머가 예상하지 못한 순간에 스레드를 전환할 수 있어 락 컨보이, 우선순위 역전 등의 부작용을 일으킬 수 있다."
 
-- **fair share of CPU time**: 각 프로세스에 할당된 시간 조각(time slice 또는 quantum). 보통 수 ms ~ 수십 ms. 자발적 양보(2번)와 달리 프로세스가 원하든 원하지 않든 OS가 강제로 빼앗습니다 — 프로세스가 for문으로 1억 번 루프를 돌고 있어도 시간이 다 되면 중단됩니다.
-- **expired**: 시간 조각이 다 떨어진 상태. 스케줄러가 강제로 다음 프로세스에 CPU를 넘깁니다.
-- **Completely Fair Scheduler (CFS)**: 리눅스의 대표 스케줄러. 모든 프로세스가 "공정하게" CPU 시간을 받도록 설계됨.
+- **lock convoy**: 많은 스레드가 하나의 락을 순서대로 기다리며 병목이 생기는 현상.
+- **priority inversion**: 낮은 우선순위 프로세스가 락을 잡고 있어서 높은 우선순위 프로세스가 기다려야 하는 현상. Mars Pathfinder 탐사선에서 실제 발생한 유명한 버그다.
+
+> In contrast, cooperative multithreading relies on threads to relinquish control of execution, thus ensuring that threads run to completion.
+
+"반대로 협력형 멀티스레딩은 스레드가 스스로 실행 제어를 양보하여, 스레드가 완료까지 실행되도록 보장한다."
+
+- **cooperative**: 스레드가 자발적으로 양보해야만 전환이 일어난다. 양보하지 않으면 영원히 CPU를 독점할 수 있어 현대 OS는 거의 선점형을 쓴다.
 
 ---
 
 ## 종합
 
-전환이 일어나는 4가지 시점을 묶으면:
+컨텍스트 스위치가 발생하는 시점을 정리하면:
 
-| 시점 | 누가 트리거 | 예시 | 성격 |
-|---|---|---|---|
-| I/O 대기 | 프로세스가 I/O 호출 | `read()` 시스템 콜 블로킹 | 협력적 — 기다릴 게 생겨서 양보 |
-| 자발적 양보 | 프로세스 본인 | `sched_yield()` 시스템 콜 | 협력적 — 기다릴 것 없어도 먼저 양보 |
-| 하드웨어 인터럽트 | 외부 장치 | 키보드 입력, 네트워크 패킷 도착 | 외부 강제 |
-| 시간 조각 만료 | OS 스케줄러 | 리눅스 CFS의 10ms quantum 소진 | 선점적 — 프로세스 의사와 무관하게 강제 회수 |
+| 시점 | 방식 | 예시 |
+|---|---|---|
+| I/O 대기 | 자동(blocking 시) | `fs.readFileSync()` 호출 |
+| 자발적 양보 | 협력형 | `sched_yield()` 시스템 콜 |
+| 하드웨어 인터럽트 | 자동 | 키보드 입력, 네트워크 패킷 |
+| 타임 슬라이스 만료 | 선점형 | Linux CFS, Windows 스케줄러 |
 
-JS 비유:
-
-- I/O 대기: `await fs.readFile()` 또는 `await fetch()` 직후 — Node.js가 I/O를 기다리는 동안 다른 콜백을 처리하는 것이 OS가 다른 프로세스에게 CPU를 넘기는 구조와 비슷합니다 (단, JS 이벤트 루프는 단일 스레드 안의 동시성이지 OS 차원의 컨텍스트 스위치는 아닙니다).
-- 시간 조각 만료: 무한루프 `while(true) {}`에 빠진 JS — OS가 강제로 회수하지 않으면 그 스레드가 CPU를 영원히 독점합니다. OS 선점이 그래서 중요합니다.
-
-오개념 예방: 협력적 멀티태스킹(프로세스가 양보해줘야만 전환)에 의존하면 한 프로세스가 양보 안 할 때 다른 프로세스가 영원히 못 돕니다. 그래서 현대 OS는 선점적 방식이 기본입니다. Windows 95 이전 버전의 협력적 멀티태스킹이 한 프로그램 다운으로 OS 전체가 굳던 시절이 그 한계를 보여줍니다.
-
-OA 보충: 선점적 방식은 시간 조각이 끝나는 정확한 순간을 프로그래머가 예측 못 하기 때문에 lock convoy(락을 잡은 채 선점당해 다른 스레드가 전부 막힘), priority inversion(낮은 우선순위 스레드가 락을 잡고 있어서 높은 우선순위가 못 진행) 같은 부작용이 있습니다. 동기화 코드를 짤 때 이 부작용을 가정해야 합니다.
+현대 멀티유저 OS(Linux, Windows, macOS)는 선점형을 기본으로 쓴다. 선점형이라 프로그래머가 "이 코드 실행 중에는 전환하지 마"를 보장받기 어렵고, 그래서 공유 자원에는 뮤텍스·락이 필요하다. Node.js가 싱글스레드 이벤트 루프를 쓰는 이유 중 하나도 이 복잡성을 피하기 위해서다 — 기본적으로 레이스 컨디션이 없다.

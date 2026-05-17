@@ -2,91 +2,132 @@
 
 ## 도입
 
-OS는 수십~수백 개의 프로세스를 동시에 돌립니다. 그러려면 각 프로세스의 상태(메모리, 권한, CPU 레지스터, 파일 핸들 등)를 어딘가에 정리해둬야 하죠. 그 "프로세스의 신분증 + 상태 보관함" 역할을 하는 자료구조가 PCB입니다. 컨텍스트 스위치도 결국 PCB를 읽고 쓰는 작업.
+OS가 수십 개의 프로세스를 동시에 관리하려면, 각 프로세스에 대한 모든 정보를 어딘가에 정리해두어야 한다. 그 자료구조가 PCB(Process Control Block)다. 컨텍스트 스위치, 스케줄링, 프로세스 종료 — OS가 프로세스에 관해 하는 모든 작업이 PCB를 읽고 쓰는 것이다.
 
 ---
 
 ## 본문
 
+### 전체 맥락
+
 > The operating system holds most of this information about active processes in data structures called process control blocks.
 
-OS는 활성 프로세스에 관한 이 정보의 대부분을, 프로세스 제어 블록(PCB)이라 불리는 자료구조에 보관한다.
+"OS는 활성 프로세스에 대한 대부분의 정보를 프로세스 제어 블록이라 불리는 자료구조에 보관한다."
 
-- **active processes**: 현재 실행 중이거나 실행 가능한 상태의 프로세스. 종료된 프로세스는 PCB도 회수됩니다.
-- **most of this information**: 이전 문맥에서 언급된 프로세스 정보 — 메모리 매핑, 파일 디스크립터, 레지스터 상태 등. PCB가 거의 전부 담는다는 뜻.
-- **data structures called process control blocks**: 자료구조의 이름이 PCB. 책에 따라 process descriptor라고도 부릅니다.
+- **holds**: 단순히 "가지고 있다"가 아니라 OS가 직접 관리·유지한다는 의미. 프로세스 자신은 자기 PCB에 직접 접근할 수 없다.
+- **active processes**: 현재 메모리에 올라와 있는 실행 중인 프로세스들. 종료된 프로세스의 PCB는 삭제된다.
 
-> Any subset of the resources, typically at least the processor state,
+> Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads in operating systems that support threads or child processes.
 
-자원의 어떤 부분집합이라도, 보통 적어도 프로세서 상태는,
+"스레드나 자식 프로세스를 지원하는 OS에서는 자원의 일부가 스레드 단위에도 연결될 수 있으며, 최소한 프로세서 상태는 스레드별로 따로 관리된다."
 
-- **subset of the resources**: 프로세스 자원 중 일부. 전부가 아니라 골라서 분리할 수 있다는 뜻.
-- **at least the processor state**: 최소한 프로세서 상태(레지스터 값, PC 등)는 반드시. 이건 실행을 재개하려면 필수.
+스레드가 있는 OS에서는 PCB가 프로세스 전체 정보를 담고, 스레드별 정보(PC, 레지스터 등)는 TCB(Thread Control Block)에 별도로 저장된다.
 
-> may be associated with each of the process' threads in operating systems that support threads or child processes.
+---
 
-스레드나 자식 프로세스를 지원하는 OS에서는 프로세스의 각 스레드와 연관될 수 있다.
+### Definition (정의)
 
-- **associated with each of the process' threads**: 각 스레드가 자기만의 프로세서 상태를 따로 가짐. 같은 프로세스 안의 스레드들은 메모리는 공유하지만 레지스터·PC는 독립.
-- **threads or child processes**: 스레드 지원 OS, 또는 자식 프로세스 모델을 지원하는 OS. 현대 OS는 둘 다 지원.
+> A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
+
+"PCB(프로세스 제어 블록)은 프로세스 디스크립터라고도 불리며, OS가 프로세스에 관한 모든 정보를 저장하기 위해 사용하는 자료구조다."
+
+- **process descriptor**: 이름 그대로 "프로세스를 서술하는 것". 주민등록증처럼, 이 프로세스가 누구이고 어떤 상태인지를 기술한다.
+
+> When a process is created, the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. waiting).
+
+"프로세스가 생성되면 OS는 대응하는 PCB를 생성하며, 이 PCB는 프로세스 상태(예: 대기 중)를 지정하고 추적한다."
+
+프로세스와 PCB는 1:1로 연결된다. `node app.js`를 실행하는 순간 OS는 프로세스와 그 PCB를 동시에 만든다.
+
+> Since it is used to track process information, the PCB plays a key role in context switching.
+
+"프로세스 정보를 추적하는 데 사용되므로, PCB는 컨텍스트 스위치에서 핵심 역할을 한다."
+
+컨텍스트 스위치 시 현재 실행 중인 프로세스의 레지스터 상태와 Program Counter를 PCB에 저장하고, 다음 프로세스의 PCB에서 해당 정보를 복원한다.
+
+---
+
+### Categories (세 가지 범주)
+
+> In multitasking operating systems, the PCB stores data needed for correct and efficient process management.
+> Though the details of these structures are system-dependent, common elements fall in three main categories:
+> - Process identification
+> - Process state
+> - Process control
+
+"멀티태스킹 OS에서 PCB는 올바르고 효율적인 프로세스 관리에 필요한 데이터를 저장한다. 세부사항은 시스템마다 다르지만, 공통 요소는 세 가지 범주로 나뉜다: 프로세스 식별, 프로세스 상태, 프로세스 제어."
+
+- **Process identification**: PID처럼 이 프로세스가 "누구인지" 식별하는 정보.
+- **Process state**: 컨텍스트 스위치 시 저장해야 하는 CPU 레지스터 상태 등 "지금 어디까지 했는지" 정보.
+- **Process control**: OS가 프로세스를 관리하는 데 필요한 스케줄링, IPC, 권한 정보 등.
+
+---
+
+### Process state (프로세스 상태 정보)
+
+> Process state data define the status of a process when it is suspended, allowing the OS to restart it later.
+> This always includes the content of general-purpose CPU registers, the CPU process status word, stack and frame pointers, etc.
+
+"프로세스 상태 데이터는 프로세스가 일시 중단됐을 때의 상태를 정의하여, OS가 나중에 재시작할 수 있게 한다. 여기에는 항상 범용 CPU 레지스터 내용, CPU 프로세스 상태 워드, 스택·프레임 포인터 등이 포함된다."
+
+- **suspended**: 프로세스가 실행을 멈춘 상태 — 컨텍스트 스위치로 CPU를 빼앗겼거나, I/O 대기 중.
+- **CPU process status word**: 조건 플래그, 인터럽트 마스크 등 CPU의 현재 실행 모드를 담은 레지스터.
+- **stack and frame pointers**: 콜 스택의 현재 위치. 어떤 함수 안에 있는지, 지역변수가 어디에 있는지 추적.
+
+이 정보가 없으면 재개 시 "어디서 이어야 하는지"를 몰라 프로세스를 처음부터 다시 실행해야 한다.
+
+---
+
+### Process control (프로세스 제어 정보)
+
+> Process control information is used by the OS to manage the process itself.
+
+"프로세스 제어 정보는 OS가 프로세스 자체를 관리하는 데 사용된다."
+
+주요 항목을 하나씩 풀면:
+
+- **Process scheduling state** (ready/suspended/etc. + 우선순위, CPU 점유 시간): 스케줄러가 "다음에 누구를 실행할지" 판단하는 근거.
+- **Process structuring information** (자식 PID 목록): `child_process.fork()`로 만든 자식들의 PID. 부모가 자식의 종료를 기다리거나(wait) 신호를 보낼 때 사용.
+- **Interprocess communication information** (flags, signals, messages): `ls | grep .md`의 파이프처럼, 프로세스 간 메시지를 전달하기 위한 메타데이터.
+- **Process Privileges** (시스템 자원 접근 허용/거부): 이 프로세스가 네트워크 소켓을 열 수 있는지, 특정 파일을 읽을 수 있는지.
+- **Process State** (new, ready, running, waiting, dead): 스케줄러가 `ready` 상태인 프로세스들 중에서만 다음 실행자를 고른다.
+- **Process Number / PID**: 고유 식별 번호. Task Manager에서 보이는 숫자.
+- **Program Counter (PC)**: 다음에 실행할 명령어 주소. 컨텍스트 스위치 시 저장되고, 재개 시 복원된다.
+- **CPU Registers**: 실행 상태를 담은 레지스터 집합. for 루프의 `i` 값이 여기 있을 수 있다.
+- **CPU Scheduling Information**: 우선순위, CPU 타임 슬라이스 만료 여부.
+- **Memory Management Information** (page table, memory limits, segment table): 이 프로세스의 가상 주소 공간을 물리 메모리로 매핑하는 테이블.
+- **Accounting Information** (CPU 사용량, 실행 시간 등): 공정 스케줄러가 "얼마나 썼는지" 판단하는 통계.
+- **I/O Status Information** (할당된 I/O 장치 목록): 이 프로세스가 열어둔 파일, 소켓, 장치 목록.
 
 ---
 
 ## 종합
 
-PCB의 구성 요소를 정리(여러 Official Annotation을 종합):
-
-| 카테고리 | 항목 | 역할 |
-|---|---|---|
-| Process identification | PID, 부모 PID, 사용자 ID | 프로세스 식별 |
-| Process state | 레지스터, PC, 스택/프레임 포인터, 상태(new/ready/running/waiting/terminated) | 실행 재개에 필요한 모든 상태 |
-| Process control | 우선순위, IPC 정보, 권한, 메모리 한계, 페이지 테이블, I/O 자원 목록 | 관리/스케줄링 정보 |
-
-JS/Node.js와 매핑:
-
-- `process.pid` → PCB의 Process Number(PID)
-- `process.cwd()` → PCB의 current working directory
-- `process.memoryUsage()` → PCB의 Memory Management Information 일부
-- `process.uid()` (POSIX) → PCB의 user identifier
-
-이 모든 값이 결국 OS 커널 안 PCB의 필드에서 읽어오는 거라고 보면 됩니다. `node app.js` 실행 시 OS가 PCB를 만들어주고, JS 코드가 `process.xxx`를 호출할 때 시스템 콜을 통해 그 PCB의 값을 가져오는 흐름.
-
-컨텍스트 스위치와의 관계: 프로세스를 전환할 때 커널이 하는 일이 본질적으로 "현재 프로세스의 PCB에 CPU 상태를 저장하고, 다음 프로세스의 PCB에서 CPU 상태를 복원"입니다. PCB가 없으면 전환 자체가 불가능. 멀티태스킹의 물리적 기반.
-
-스레드와 PCB: 스레드가 있는 OS에서는 프로세스 자원(메모리, 파일 등) 대부분은 PCB에 한 번만 저장하고, 각 스레드는 자기만의 작은 TCB(Thread Control Block) — 스택 포인터, PC, 레지스터, TLS 정도 — 를 가집니다. 그래서 스레드 생성/전환이 프로세스보다 가벼운 것.
-
-이게 없으면 어떻게 되는가: PCB가 없다면 OS가 "이 프로세스는 어디서 멈췄지?", "이 프로세스 메모리는 어디?", "권한은 뭐지?"를 매번 따로 찾아야 합니다. 사실상 멀티태스킹·멀티유저·보안 모두 불가능. PCB는 OS가 프로세스를 "관리할 수 있는 객체"로 다루기 위한 가장 기본적인 추상화.
-
-User Annotation 보충: PCB는 프로세스 생성과 함께 만들어지고 종료와 함께 사라집니다. `fork()`나 `CreateProcess()`가 호출될 때 커널의 첫 작업 중 하나가 새 PCB 할당, `exit()` 시 마지막 작업 중 하나가 PCB 회수.
-
-AI Annotation 보충: PCB는 한 프로세스당 하나씩만 존재하는 OS 내부 자료구조라, 일반 사용자 프로그램은 직접 보거나 수정할 수 없습니다. 시스템 콜 (`getpid()`, `getrlimit()` 등)이나 `/proc` 파일시스템(리눅스)을 통해 간접적으로만 일부 필드를 조회.
-
-PCB의 구성 요소를 계층도로:
+PCB는 OS가 프로세스를 관리하기 위한 "프로세스 주민등록부"다. 프로세스가 생성되면 PCB가 만들어지고, 프로세스가 종료되면 PCB가 삭제된다. 그 사이 모든 컨텍스트 스위치, 스케줄링 결정, IPC, 권한 검사에서 PCB가 참조된다.
 
 ```
-   PCB (Process Control Block)
-   │
-   ├── Process Identification
-   │     ├── PID (Process ID)
-   │     ├── Parent PID
-   │     └── User ID
-   │
-   ├── Process State
-   │     ├── CPU Registers (저장된 사본)
-   │     ├── Program Counter (PC)
-   │     ├── Stack Pointer (SP) / Frame Pointer
-   │     └── State (new/ready/running/waiting/terminated)
-   │
-   └── Process Control
-         ├── Priority (스케줄링 우선순위)
-         ├── IPC 정보
-         ├── 권한 / 메모리 한계
-         ├── Page Table (가상→물리 매핑)
-         ├── Open Files / I/O 자원 목록
-         └── Current Working Directory
+PCB (프로세스 하나당 하나)
+├── Process Identification
+│   ├── PID (고유 식별 번호)
+│   └── 부모 PID
+├── Process State (컨텍스트 스위치 저장/복원)
+│   ├── Program Counter (다음 실행 명령어 주소)
+│   ├── CPU 범용 레지스터 (rax, rbx, ...)
+│   ├── CPU 상태 워드 (조건 플래그 등)
+│   └── 스택·프레임 포인터
+└── Process Control (OS 관리용)
+    ├── 스케줄링 상태 (ready/running/waiting/dead)
+    ├── 우선순위, CPU 사용 통계
+    ├── 자식 PID 목록
+    ├── IPC 플래그·메시지 큐
+    ├── 권한 (Privilege)
+    ├── 메모리 관리 (page table, memory limits)
+    └── I/O 장치 목록 (열린 파일 디스크립터)
 ```
 
-핵심: PCB는 "프로세스를 OS가 관리 가능한 객체로 다루기 위한 모든 정보"를 한 자료구조에 모은다. 컨텍스트 스위치 = PCB의 Process State 영역을 읽고 쓰는 작업.
+Node.js에서 `process.pid`가 PID를, `process.cwd()`가 현재 작업 디렉토리(PCB에 저장된 속성)를 반환한다. OS 내부에서 이 값들은 모두 PCB에서 온다.
+
+---
 
 ---
 
@@ -94,7 +135,7 @@ PCB의 구성 요소를 계층도로:
 
 ## 도입
 
-PCB에는 PID, 권한, 메모리 한계, 스케줄링 우선순위 등이 들어 있습니다. 만약 프로세스가 자기 PCB를 직접 수정할 수 있다면? "내 권한을 root로 올리자", "내 우선순위를 최고로 하자" — OS의 모든 통제가 무너집니다. 그래서 PCB는 보호된 메모리에 둡니다.
+PCB에는 PID, 권한(Privilege), 스케줄링 우선순위 등 민감한 정보가 들어있다. 만약 프로세스가 자신의 PCB를 직접 수정할 수 있다면 어떤 일이 생길까? 보안 침해가 가능해진다. 이를 막기 위해 PCB는 반드시 보호된 메모리 영역에 있어야 한다.
 
 ---
 
@@ -102,59 +143,30 @@ PCB에는 PID, 권한, 메모리 한계, 스케줄링 우선순위 등이 들어
 
 > PCB must be kept in an area of memory protected from normal process access.
 
-PCB는 일반 프로세스 접근으로부터 보호된 메모리 영역에 보관되어야 한다.
+"PCB는 일반 프로세스가 접근할 수 없는, 보호된 메모리 영역에 보관되어야 한다."
 
-- **must be kept**: 강한 의무. 선택이 아니라 보안상 강제 사항.
-- **area of memory protected**: 보호된 메모리 영역. 보통 커널 영역(kernel space). 사용자 프로세스가 읽기/쓰기를 시도하면 OS가 거부하고 보통 SIGSEGV 같은 신호를 보냅니다.
-- **normal process access**: 일반 사용자 프로세스의 접근. 커널 자체나 권한 있는 시스템 콜은 예외.
+- **protected from normal process access**: OS 커널 모드에서만 접근 가능한 영역. 프로세스는 유저 모드로 실행되고, 커널 메모리에 직접 접근하려 하면 세그멘테이션 폴트(segmentation fault)로 강제 종료된다.
+
+프로세스가 자신의 PCB를 수정할 수 있다면 발생 가능한 보안 침해:
+- **PID 변조**: 다른 프로세스의 PID를 흉내내어 신호를 가로챌 수 있다.
+- **Privilege 필드 상승**: 일반 사용자 권한을 루트 권한으로 바꿔치기.
+- **스케줄링 우선순위 임의 변경**: 자신을 항상 highest priority로 설정해 CPU를 독점.
+
+커널만 PCB에 접근하게 격리함으로써 OS 프로세스 관리의 신뢰성이 보장된다.
 
 > In some operating systems the PCB is placed at the bottom of the process stack.
 
-일부 OS에서는 PCB가 프로세스 스택의 맨 아래에 배치된다.
+"일부 OS에서는 PCB를 프로세스 스택의 맨 아래에 배치한다."
 
-- **placed at the bottom of the process stack**: 스택의 맨 아래. 스택은 위에서 아래로 자라거나 그 반대인데, "맨 아래"는 일반 사용자 코드가 정상 사용 시 절대 도달 못 할 위치.
-- 스택 오버플로우가 일어나야 PCB 영역에 닿을 정도. 정상적인 함수 호출로는 결코 닿지 않습니다.
+- **Key Term — process stack**: 프로세스의 함수 콜 스택. PCB를 스택 맨 아래에 두면, 스택 오버플로우가 발생해 스택이 PCB 영역까지 침범해야만 PCB에 도달한다. 스택은 위에서 아래로 자라고, PCB는 최하단에 있으니 정상 동작으로는 절대 건드릴 수 없다.
 
 ---
 
 ## 종합
 
-PCB가 보호되어야 하는 보안 위협을 구체적으로:
+PCB를 보호된 메모리에 두는 것은 OS 보안의 기본 전제다. 프로세스는 자신의 PCB를 읽거나 쓸 수 없다 — 오직 OS 커널만 가능하다. 이 격리 덕분에 프로세스 간 독립성과 시스템 전체의 신뢰성이 유지된다. Node.js에서 `process.pid`를 읽을 수 있는 것은, Node.js 런타임이 커널에 시스템 콜을 날려 OS가 PCB에서 값을 꺼내 돌려주는 것이지, 프로세스가 PCB를 직접 읽는 것이 아니다.
 
-| 위협 | 시나리오 | 결과 |
-|---|---|---|
-| PID 변조 | 자기 PID를 다른 값으로 위장 | 프로세스 추적 불가, 로깅 우회 |
-| Process Privilege 상승 | 권한 비트를 root/admin으로 변경 | OS 전체 탈취 |
-| 우선순위 조작 | 자기 스케줄링 우선순위를 최대로 | CPU 독점, 다른 프로세스 starvation |
-| 메모리 한계 변경 | Memory Limit을 무한으로 | 시스템 메모리 점유 |
-| 부모 PID 위장 | 부모 프로세스 ID를 init으로 변경 | 종료 추적·시그널 흐름 교란 |
-
-JS/Node.js와의 연결: 사용자가 `process.pid = 1`처럼 PID를 바꿀 수 없는 게 이 보호 메커니즘의 결과입니다. JS에서 `process.xxx`를 통해 보이는 값은 사실 PCB의 사본(또는 커널이 내려준 일부)이라 수정해봐야 OS의 진짜 PCB는 변하지 않습니다. 권한이 있는 일부 변경(예: `process.chdir()`)은 시스템 콜을 통해 커널에게 부탁하는 형태로만 가능 — 직접 수정이 아니라.
-
-권한 분리 구조:
-
-```
-┌────────────────────────────────┐
-│       사용자 공간 (user)         │
-│   - JS 코드, 변수, 객체           │
-│   - process.pid (사본)           │
-└──────────────┬─────────────────┘
-               │ 시스템 콜 (보호 게이트)
-┌──────────────▼─────────────────┐
-│       커널 공간 (kernel)         │
-│   - PCB (진짜 본체)              │
-│   - process table               │
-│   - 메모리 관리, 스케줄러          │
-└────────────────────────────────┘
-```
-
-스택 맨 아래에 두는 이유: 메모리 레이아웃상 PCB를 스택 끝에 두면 (1) 사용자 코드가 정상 실행으로는 닿을 수 없고, (2) 스택 오버플로우가 발생하면 즉시 감지 가능. 일종의 "방어선 + 경보장치" 역할.
-
-이게 없으면 어떻게 되는가 — PCB 보호가 없다면: 프로세스 격리·보안·권한 시스템이 통째로 무너집니다. 악성 사용자 프로세스가 자기 권한을 root로 올리면 OS는 "이 프로세스는 root 권한이 있다"고 믿고 모든 자원을 허용. 멀티유저 시스템·컨테이너·샌드박스 모두 PCB 보호 위에 세워진 추상화.
-
-오개념 예방: "사용자가 `process.pid`를 보니 PCB를 본 것 아닌가?"는 부분적으로만 맞습니다. JS가 보는 건 PCB의 일부 필드의 사본 또는 시스템 콜로 가져온 값이지, PCB 메모리 자체에 직접 접근하는 게 아닙니다. 읽기는 시스템 콜로 허용, 쓰기는 거의 불가능 또는 매우 제한된 시스템 콜로만.
-
-AI Annotation 보충: 컨테이너 보안(Docker), 샌드박스(Chrome 탭), 세분화된 권한(SELinux)도 결국 PCB(또는 그에 준하는 커널 자료구조)에 신뢰성 있는 권한 정보가 박혀 있고, 그것을 사용자 프로세스가 못 건드린다는 가정 위에서 작동. PCB 보호는 현대 컴퓨팅 보안의 가장 밑단 토대.
+---
 
 ---
 
@@ -162,7 +174,7 @@ AI Annotation 보충: 컨테이너 보안(Docker), 샌드박스(Chrome 탭), 세
 
 ## 도입
 
-터미널에서 `cd /home/user`를 실행한 뒤 `ls`를 치면 그 디렉토리의 파일 목록이 나옵니다. "지금 어느 디렉토리에 있는지"라는 정보는 어딘가에 저장되어 있을 텐데, 그 자리가 바로 PCB. 프로세스마다 따로 가지는 속성이라 셸 A에서 cd해도 셸 B의 현재 디렉토리는 변하지 않는 이유가 여기 있습니다.
+`cd /home/user`를 입력하면 셸 프롬프트가 바뀐다. 이 "현재 위치"는 어딘가에 저장되어야 한다. 어디에? 바로 그 셸 프로세스의 PCB다.
 
 ---
 
@@ -170,46 +182,20 @@ AI Annotation 보충: 컨테이너 보안(Docker), 샌드박스(Chrome 탭), 세
 
 > The current working directory of a process is one of the properties that the kernel stores in the process's PCB.
 
-프로세스의 현재 작업 디렉토리는, 커널이 그 프로세스의 PCB에 저장하는 속성 중 하나다.
+"프로세스의 현재 작업 디렉토리는 커널이 프로세스 PCB에 저장하는 속성 중 하나다."
 
-- **current working directory (CWD)**: 프로세스가 현재 작업 중이라고 보는 디렉토리. 상대 경로 해석의 기준점.
-- **one of the properties**: 여러 PCB 속성 중 하나. PID·메모리 한계·열린 파일 등과 같은 위계.
-- **stores in the process's PCB**: 그 프로세스의 PCB에. 다른 프로세스의 PCB와는 격리되어 있어, 프로세스마다 자기만의 CWD를 가짐.
+- **current working directory**: 프로세스가 현재 작업 중인 디렉토리 경로. 상대 경로 해석의 기준점이다. `./app.js`를 실행할 때 "`.`이 어디냐"를 PCB에서 읽어온다.
+- **kernel stores**: OS 커널이 관리한다. 프로세스 자신이 변수에 저장하는 게 아니다.
+
+`cd /home/user`를 실행하면:
+1. 셸이 `chdir("/home/user")` 시스템 콜을 커널에 요청한다.
+2. 커널이 셸 프로세스의 PCB에 저장된 CWD 값을 `/home/user`로 갱신한다.
+3. 그 후 `./app.js` 같은 상대 경로를 쓰면 커널이 PCB의 CWD를 기준으로 절대 경로로 변환한다.
 
 ---
 
 ## 종합
 
-CWD가 PCB에 저장된다는 사실의 실질적 함의:
+현재 작업 디렉토리(CWD)는 프로세스마다 독립적으로 PCB에 저장된다. 그래서 터미널 창 A에서 `cd /tmp`를 해도 터미널 창 B의 경로는 바뀌지 않는다 — 두 셸은 별도의 프로세스이고, 각자 PCB에 자신의 CWD를 갖고 있기 때문이다.
 
-- **상대 경로의 기준점**: `fs.readFile('config.json')`처럼 상대 경로로 파일을 열면, OS는 그 프로세스의 PCB에서 CWD를 읽어 절대 경로로 변환합니다. 즉 같은 코드를 다른 디렉토리에서 실행하면 다른 파일을 엽니다.
-- **프로세스마다 독립**: 셸 A에서 `cd /tmp`를 해도 셸 B의 CWD는 변하지 않습니다. 각 셸 프로세스가 자기 PCB를 가지니까.
-- **자식 프로세스로 상속**: 새 프로세스를 띄우면 부모의 CWD가 기본값으로 복사됨. 그래서 셸에서 띄운 프로그램이 셸과 같은 CWD를 가집니다.
-
-JS/Node.js로 매핑:
-
-```js
-process.cwd();          // 현재 프로세스 PCB의 CWD를 읽어옴
-process.chdir('/tmp');  // 시스템 콜을 통해 PCB의 CWD를 변경
-
-fs.readFileSync('a.txt'); // 상대경로 → CWD + 'a.txt' 절대경로로 해석
-```
-
-`process.cwd()`가 반환하는 문자열이 사실상 PCB에 저장된 그 값. `process.chdir()`은 chdir 시스템 콜을 호출해 커널에게 "내 PCB의 CWD를 이걸로 바꿔줘"라고 부탁하는 셈.
-
-`cd`의 정체:
-
-| 무엇 | 어떻게 |
-|---|---|
-| `cd`는 외부 프로그램이 아닌 셸 빌트인 | 셸 자기 자신의 CWD를 바꿔야 하니, 자식 프로세스가 아닌 셸 안에서 처리해야 함 |
-| 자식 프로세스가 `cd` 했다면 | 그 자식의 CWD만 바뀌고 셸은 그대로 — 셸이 종료되면 자식도 사라지니 변경 효과 없음 |
-
-이 메커니즘 때문에 `cd`는 다른 명령(`ls`, `cp`)과 달리 셸 빌트인으로 구현되어 있습니다. 단순히 "어느 위치로 이동"이 아니라 "이 셸 프로세스의 PCB CWD를 바꾸라"는 동작.
-
-스크립트 안에서 `cd`의 함정: 셸 스크립트(`script.sh`) 안에서 `cd /tmp` 했더라도, 스크립트가 끝나면 부모 셸의 CWD는 안 바뀝니다. 스크립트는 자식 프로세스로 실행되니 자기 PCB만 변경하고 종료, 부모 PCB는 그대로. 이 덕분에 `bash script.sh` 후에도 원래 디렉토리에 그대로 있을 수 있는 것.
-
-이게 없으면 어떻게 되는가 — CWD가 PCB에 없다면: 모든 파일 접근은 절대 경로로만 해야 합니다. `fs.readFile('config.json')`이 안 되고 `fs.readFile('/home/user/project/config.json')`처럼 매번 풀 경로. 더 큰 문제는 한 시스템에 한 CWD만 있으면 셸 여러 개 동시 사용이 불가능 — 한 셸에서 cd하면 다른 셸도 같이 옮겨가는 비정상 동작.
-
-오개념 예방: "CWD는 환경변수 같은 거 아닌가"는 비슷하지만 다릅니다. 환경변수는 PCB의 별도 영역(environment block)에 저장되고 자식에게 복사되는 건 비슷하지만, CWD는 단일 문자열이고 시스템 콜(`chdir`)로만 변경 가능한 별개 필드. PWD라는 환경변수도 있지만 그건 셸이 사용자 편의를 위해 따로 관리하는 사본이고, 진짜 CWD는 PCB에 있습니다.
-
-AI Annotation 보충: `process.cwd()`가 반환하는 값과 `process.env.PWD`는 보통 같지만, 같은 게 아닙니다. PWD는 셸이 자기 환경변수에 자주 갱신하는 사본이고, `process.cwd()`는 커널 PCB의 진짜 CWD. 셸을 거치지 않고 띄운 프로세스에서는 PWD가 부정확할 수 있어요.
+Node.js의 `process.cwd()`가 반환하는 값이 정확히 이 PCB 속성이다. `process.chdir('/tmp')`를 호출하면 커널에 `chdir()` 시스템 콜이 날아가고 PCB의 CWD가 갱신된다.
