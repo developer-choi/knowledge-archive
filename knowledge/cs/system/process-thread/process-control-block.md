@@ -18,15 +18,11 @@ source: official
 The operating system holds most of this information about active processes in data structures called process control blocks.
 Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads in operating systems that support threads or child processes.
 
-— https://en.wikipedia.org/wiki/Process_(computing)
-
 #### Definition
 
 A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
-When a process is created (initialized or installed), the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. new, ready, running, waiting or terminated).
+When a process is created, the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. waiting).
 Since it is used to track process information, the PCB plays a key role in context switching.
-
-— https://en.wikipedia.org/wiki/Process_control_block
 
 #### Categories
 
@@ -36,21 +32,10 @@ Though the details of these structures are system-dependent, common elements fal
 - Process state
 - Process control
 
-— https://en.wikipedia.org/wiki/Process_control_block
-
-#### Process identification
-
-Process identification data include a unique identifier for the process (almost invariably an integer) and, in a multiuser-multitasking system, data such as the identifier of the parent process, user identifier, user group identifier, etc.
-The process id is particularly relevant since it is often used to cross-reference the tables defined above, e.g. showing which process is using which I/O devices, or memory areas.
-
-— https://en.wikipedia.org/wiki/Process_control_block
-
 #### Process state
 
 Process state data define the status of a process when it is suspended, allowing the OS to restart it later.
 This always includes the content of general-purpose CPU registers, the CPU process status word, stack and frame pointers, etc.
-
-— https://en.wikipedia.org/wiki/Process_control_block
 
 #### Process control
 
@@ -67,8 +52,6 @@ Process control information is used by the OS to manage the process itself. This
 - Memory Management Information – page table, memory limits, segment table;
 - Accounting Information – amount of CPU used for process execution, time limits, execution ID etc.;
 - I/O Status Information – list of I/O devices allocated to the process.
-
-— https://en.wikipedia.org/wiki/Process_control_block
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
