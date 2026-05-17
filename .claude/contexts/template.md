@@ -1,5 +1,6 @@
 ---
 tags: [keyword1, keyword2]
+source: official
 ---
 # Questions
 ## (Optional) Category 1
@@ -17,6 +18,10 @@ tags: [keyword1, keyword2]
 
 ### Official Answer
 Official document text or objective fact.
+
+(OA가 여러 단락이거나 카테고리로 묶일 때 — `####` H4 위계화 권장)
+#### Category Name
+More official text or fact.
 
 > #### Key Terms:
 > - **term**: 이 문맥에서 막히지 않을 최소 정의

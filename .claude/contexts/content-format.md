@@ -94,7 +94,8 @@ tags: [react, performance, concept]
 - **출처 표기는 Reference에만**: OA 본문(또는 H4 서브섹션 본문)에 인라인 `— URL` 표기를 두지 않는다. 모든 출처는 `### Reference` 섹션에 URL로 모은다. 다른 출처의 원문 단락을 통합할 때는 그 URL을 Reference에 추가한다.
 - **OA 내부 위계화 (권장)**: OA가 단락 3개 이상으로 통합되거나 명확한 카테고리로 묶이는 경우(예: "정의 / 구성요소 / 동작 방식"), `####` H4 헤딩으로 내부 위계를 표현한다. 사용자 가독성 우선. 단락 1~2개로 흐름이 자연스러우면 H4 없이 둔다.
 - **OA 길이 관리**: 한 단락이 6문장을 초과하면 문장 정리를 검토한다. OA 전체가 15문장을 초과하면 질문 분리를 검토한다. 테이블·코드블록·리스트는 문장 수에서 제외한다.
-- **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
+- **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다. 마이그·재편 시에도 영어 원문(Official 콘텐츠)을 삭제해서는 안 된다 — 형태가 바뀌더라도(OA 단락 통합, Official Annotation → OA 흡수 등) 원문 자체는 반드시 어딘가에 보존되어야 한다.
+- **OA 앞 한글 추가 금지**: `### Official Answer` 헤딩과 첫 번째 영어 원문 사이에, 또는 `#### H4` 서브섹션 헤딩과 영어 원문 사이에 AI-authored 한글 도입 문장(요약·설명·번역)을 삽입하지 않는다. OA 섹션은 영어 원문으로만 시작한다.
 - **원본 언어 유지 (번역 금지)**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
   - 허용 편집: 맞춤법, 조사, 문장 흐름, 전문 용어 정확화
   - **명백한 사실 오류 정정은 필수**: 위키피디아 수준의 확립된 지식(표준 수치·프로토콜 헤더 필드·레지스터 정의 등)과 충돌하거나 같은 섹션 내 자기모순이 있으면 `User Answer`/`User Annotation`/`AI Annotation`에 한해 정정한다. **`Official Answer`는 예외 없이 수정 금지**.
@@ -131,7 +132,7 @@ In computing, a process is the instance of a computer program that is being exec
 Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트 + `#### 헤딩`을 사용한다.
 
 - Annotation은 Answer(Official/AI/User)의 보충이다. Answer 없이 Annotation만 단독으로 존재하면, 해당 Annotation은 Answer로 승격시킨다.
-- 공식 출처의 보충은 Annotation으로 분리하지 않는다. 출처·신뢰도가 Official Answer와 동일하므로 OA 안에 단락으로 통합한다 (위 "OA 단락 통합" 참고).
+- **폐지 키 — Official Annotation**: `> #### Official Annotation:` 블록은 폐지되었다. 공식 출처의 보충은 Annotation으로 분리하지 않고 OA 본문에 단락으로 통합한다 (위 "OA 단락 통합" 참고). 출처·신뢰도가 Official Answer와 동일하므로 분리할 이유가 없다. digest/convert/explain 어떤 스킬도 이 키를 신규 생성하지 않는다.
 
 | Annotation 유형 | 형식 | 출처 | 용도 |
 |---|---|---|---|
@@ -198,13 +199,14 @@ Answer 하위에 추가할 수 있는 선택적 섹션이다.
 
 ## 6. 이미지 처리
 
-### Case 1: AI 답변 캡처
-Official Answer 섹션 내부에 인용 블록으로 추가:
+### Case 1: 다른 AI 답변 캡처
+다른 AI(예: ChatGPT, Gemini 등) 답변 이미지를 옮길 때는 AI Annotation 블록쿼트로 부착한다:
 ```markdown
 ### Official Answer
 [공식 문서 원문]
 
-> AI Annotation: [AI 캡처 이미지 내 텍스트를 여기에 옮김]
+> #### AI Annotation:
+> [AI 캡처 이미지 내 텍스트를 여기에 옮김]
 ```
 
 ### Case 2: 공식 문서 캡처 (다이어그램, 표)
