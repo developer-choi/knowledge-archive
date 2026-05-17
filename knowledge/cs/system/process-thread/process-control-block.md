@@ -20,50 +20,47 @@ source: official
 The operating system holds most of this information about active processes in data structures called process control blocks.
 Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads in operating systems that support threads or child processes.
 
-> #### Official Annotation:
-> A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
-> When a process is created (initialized or installed), the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. new, ready, running, waiting or terminated).
-> Since it is used to track process information, the PCB plays a key role in context switching.
-> — https://en.wikipedia.org/wiki/Process_control_block
+— https://en.wikipedia.org/wiki/Process_(computing)
 
-> #### Official Annotation:
-> In multitasking operating systems, the PCB stores data needed for correct and efficient process management.
-> Though the details of these structures are system-dependent, common elements fall in three main categories:
-> - Process identification
-> - Process state
-> - Process control
-> — https://en.wikipedia.org/wiki/Process_control_block
+A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
+When a process is created (initialized or installed), the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. new, ready, running, waiting or terminated).
+Since it is used to track process information, the PCB plays a key role in context switching.
 
-> #### Official Annotation:
-> Process identification data include a unique identifier for the process (almost invariably an integer) and, in a multiuser-multitasking system, data such as the identifier of the parent process, user identifier, user group identifier, etc.
-> The process id is particularly relevant since it is often used to cross-reference the tables defined above, e.g. showing which process is using which I/O devices, or memory areas.
-> — https://en.wikipedia.org/wiki/Process_control_block
+— https://en.wikipedia.org/wiki/Process_control_block
 
-> #### Official Annotation:
-> Process state data define the status of a process when it is suspended, allowing the OS to restart it later.
-> This always includes the content of general-purpose CPU registers, the CPU process status word, stack and frame pointers, etc.
-> — https://en.wikipedia.org/wiki/Process_control_block
+In multitasking operating systems, the PCB stores data needed for correct and efficient process management.
+Though the details of these structures are system-dependent, common elements fall in three main categories:
+- Process identification
+- Process state
+- Process control
 
-> #### Official Annotation:
-> Process control information is used by the OS to manage the process itself. This includes:
-> - Process scheduling state – The state of the process in terms of "ready", "suspended", etc., and other scheduling information as well, such as priority value, the amount of time elapsed since the process gained control of the CPU or since it was suspended.
-> - Process structuring information – the process's children id's, or the id's of other processes related to the current one in some functional way;
-> - Interprocess communication information – flags, signals and messages associated with the communication among independent processes;
-> - Process Privileges – allowed/disallowed access to system resources;
-> - Process State – new, ready, running, waiting, dead;
-> - Process Number (PID) – unique identification number for each process;
-> - Program Counter (PC) – a pointer to the address of the next instruction to be executed for this process;
-> - CPU Registers – register set where process needs to be stored for execution for running state;
-> - CPU Scheduling Information – information scheduling CPU time;
-> - Memory Management Information – page table, memory limits, segment table;
-> - Accounting Information – amount of CPU used for process execution, time limits, execution ID etc.;
-> - I/O Status Information – list of I/O devices allocated to the process.
-> — https://en.wikipedia.org/wiki/Process_control_block
+— https://en.wikipedia.org/wiki/Process_control_block
 
-> #### AI Annotation:
-> PCB = 프로세스 하나당 하나씩 존재하는 OS 내부 자료구조로, 코드·메모리·파일 디스크립터·권한·레지스터 상태를 모두 담고 있다.
-> 컨텍스트 스위치 시 PCB에서 상태를 저장/복원한다.
-> 스레드는 프로세스의 자원을 공유하되, 각 스레드마다 독립적인 프로세서 상태(레지스터, PC)를 가진다.
+Process identification data include a unique identifier for the process (almost invariably an integer) and, in a multiuser-multitasking system, data such as the identifier of the parent process, user identifier, user group identifier, etc.
+The process id is particularly relevant since it is often used to cross-reference the tables defined above, e.g. showing which process is using which I/O devices, or memory areas.
+
+— https://en.wikipedia.org/wiki/Process_control_block
+
+Process state data define the status of a process when it is suspended, allowing the OS to restart it later.
+This always includes the content of general-purpose CPU registers, the CPU process status word, stack and frame pointers, etc.
+
+— https://en.wikipedia.org/wiki/Process_control_block
+
+Process control information is used by the OS to manage the process itself. This includes:
+- Process scheduling state – The state of the process in terms of "ready", "suspended", etc., and other scheduling information as well, such as priority value, the amount of time elapsed since the process gained control of the CPU or since it was suspended.
+- Process structuring information – the process's children id's, or the id's of other processes related to the current one in some functional way;
+- Interprocess communication information – flags, signals and messages associated with the communication among independent processes;
+- Process Privileges – allowed/disallowed access to system resources;
+- Process State – new, ready, running, waiting, dead;
+- Process Number (PID) – unique identification number for each process;
+- Program Counter (PC) – a pointer to the address of the next instruction to be executed for this process;
+- CPU Registers – register set where process needs to be stored for execution for running state;
+- CPU Scheduling Information – information scheduling CPU time;
+- Memory Management Information – page table, memory limits, segment table;
+- Accounting Information – amount of CPU used for process execution, time limits, execution ID etc.;
+- I/O Status Information – list of I/O devices allocated to the process.
+
+— https://en.wikipedia.org/wiki/Process_control_block
 
 > #### User Annotation:
 > PCB는 프로세스가 생성될 때 같이 생성되고, 프로세스가 종료될 때 같이 소멸된다.
@@ -107,10 +104,6 @@ The kernel must stop the execution of the running process, copy out the values i
 > - **hardware registers**: CPU 내부의 초고속 저장 공간. 실행 중인 프로세스가 현재 쓰고 있는 값들(PC, 레지스터 등)이 담겨있다
 
 > #### AI Annotation:
-> 두 단계 요약:
-> 1. 현재 프로세스의 CPU 레지스터 값 전체 → 해당 프로세스의 PCB에 복사(저장)
-> 2. 새 프로세스의 PCB에서 레지스터 값 꺼내 → CPU 하드웨어 레지스터에 덮어씌움(복원)
->
 > `node app.js` 실행 중 OS 타임슬라이스가 만료되면 V8의 현재 PC·레지스터 값이 PCB에 저장되고, 다른 프로세스가 CPU를 받는다.
 > 저장 단계가 없으면 이전 프로세스의 실행 위치가 사라지고, 복원 단계가 없으면 새 프로세스가 엉뚱한 CPU 상태에서 시작된다.
 
