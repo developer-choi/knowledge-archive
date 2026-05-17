@@ -34,26 +34,16 @@ It uses encryption for secure communication over a computer network, and is wide
 In HTTPS, the communication protocol is encrypted using Transport Layer Security (TLS) or, formerly, Secure Sockets Layer (SSL).
 The protocol is therefore also referred to as HTTP over TLS, or HTTP over SSL.
 
-> #### Official Annotation:
-> HTTPS URLs begin with "https://" and use port 443 by default, whereas HTTP URLs begin with "http://" and use port 80 by default.
+HTTPS URLs begin with "https://" and use port 443 by default, whereas HTTP URLs begin with "http://" and use port 80 by default.
 
-> #### Official Annotation:
-> HTTPS (HyperText Transfer Protocol Secure) is an encrypted version of the HTTP protocol.
-> It uses TLS to encrypt all communication between a client and a server.
-> This secure connection allows clients to safely exchange sensitive data with a server, such as when performing banking activities or online shopping.
+HTTPS (HyperText Transfer Protocol Secure) is an encrypted version of the HTTP protocol.
+It uses TLS to encrypt all communication between a client and a server.
+This secure connection allows clients to safely exchange sensitive data with a server, such as when performing banking activities or online shopping.
 
-> #### Official Annotation:
-> Transport Layer Security (TLS), formerly known as Secure Sockets Layer (SSL), is a protocol used by applications to communicate securely across a network, preventing tampering with and eavesdropping on email, web browsing, messaging, and other protocols.
+Transport Layer Security (TLS), formerly known as Secure Sockets Layer (SSL), is a protocol used by applications to communicate securely across a network, preventing tampering with and eavesdropping on email, web browsing, messaging, and other protocols.
 
-> #### Official Annotation:
-> Secure Sockets Layer, or SSL, was the old standard security technology for creating an encrypted network link between a server and client, ensuring all data passed is private and secure.
-> The current version of SSL is version 3.0, released by Netscape in 1996, and has been superseded by the Transport Layer Security (TLS) protocol.
-
-> #### AI Annotation:
-> HTTPS는 새로운 프로토콜이 아니라 HTTP 위에 TLS 암호화 계층을 얹은 확장이다.
-> SSL은 TLS의 전신으로 현재는 보안 취약점 때문에 사용이 중단되었지만, "SSL 인증서"라는 이름이 관습적으로 혼용된다.
-> TLS는 웹 전용이 아니라 이메일, 메시징 등 다양한 프로토콜에서 범용적으로 사용되는 보안 프로토콜이다.
-> SSL 마지막 버전은 3.0(1996, Netscape). 이후 TLS 1.0 → 1.1 → 1.2 → 1.3으로 발전했다.
+Secure Sockets Layer, or SSL, was the old standard security technology for creating an encrypted network link between a server and client, ensuring all data passed is private and secure.
+The current version of SSL is version 3.0, released by Netscape in 1996, and has been superseded by the Transport Layer Security (TLS) protocol.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -86,21 +76,16 @@ HTTPS encrypts all message contents, including the HTTP headers and the request/
 The principal motivations for HTTPS are authentication of the accessed website and protection of the privacy and integrity of the exchanged data while it is in transit.
 It protects against man-in-the-middle attacks, and the bidirectional block cipher encryption of communications between a client and server protects the communications against eavesdropping and tampering.
 
-> #### Official Annotation:
-> This ensures reasonable protection from eavesdroppers and man-in-the-middle attacks, provided that adequate cipher suites are used and that the server certificate is verified and trusted.
-> HTTPS is designed to withstand such attacks and is considered secure against them (with the exception of HTTPS implementations that use deprecated versions of SSL).
+This ensures reasonable protection from eavesdroppers and man-in-the-middle attacks, provided that adequate cipher suites are used and that the server certificate is verified and trusted.
+HTTPS is designed to withstand such attacks and is considered secure against them (with the exception of HTTPS implementations that use deprecated versions of SSL).
 
-> #### Official Annotation:
-> All major browsers began removing support for TLS 1.0 and 1.1 in early 2020; you'll need to make sure your web server supports TLS 1.2 or 1.3 going forward.
+All major browsers began removing support for TLS 1.0 and 1.1 in early 2020; you'll need to make sure your web server supports TLS 1.2 or 1.3 going forward.
 
 > #### AI Annotation:
 > HTTPS의 3대 보안 목표:
 > - **Authentication(인증)**: 접속한 사이트가 진짜인지 확인 (피싱 방어)
 > - **Privacy(기밀성)**: 전송 중 데이터를 제3자가 엿볼 수 없도록
 > - **Integrity(무결성)**: 데이터가 전송 도중 변조되지 않았음을 보장
->
-> 단, 전제조건이 있다: 적절한 암호화 스위트를 사용하고, 서버 인증서가 검증·신뢰되어야 한다. 약한 암호화를 쓰거나 인증서 검증을 건너뛰면 HTTPS라도 안전하지 않다.
-> 2020년부터 TLS 1.0/1.1 지원이 제거되어, 최소 TLS 1.2가 필수다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -115,11 +100,10 @@ This was historically an expensive operation, which meant fully authenticated HT
 In 2016, a campaign by the Electronic Frontier Foundation with the support of web browser developers led to the protocol becoming more prevalent.
 HTTPS has since 2018 been used more often by web users than non-secure HTTP, primarily to protect page authenticity on all types of websites, secure accounts, and keep user communications, identity, and web browsing private.
 
-> #### Official Annotation:
-> To prepare a web server to accept HTTPS connections, the administrator must create a public key certificate for the web server.
-> This certificate must be signed by a trusted certificate authority for the web browser to accept it without warning.
-> Let's Encrypt, launched in April 2016, provides free and automated service that delivers basic SSL/TLS certificates to websites.
-> The majority of web hosts and cloud providers now leverage Let's Encrypt, providing free certificates to their customers.
+To prepare a web server to accept HTTPS connections, the administrator must create a public key certificate for the web server.
+This certificate must be signed by a trusted certificate authority for the web browser to accept it without warning.
+Let's Encrypt, launched in April 2016, provides free and automated service that delivers basic SSL/TLS certificates to websites.
+The majority of web hosts and cloud providers now leverage Let's Encrypt, providing free certificates to their customers.
 
 > #### AI Annotation:
 > trusted third party = CA(Certificate Authority, 인증 기관). CA가 서버의 디지털 인증서에 서명해야 브라우저가 신뢰한다.
@@ -154,15 +138,14 @@ In practice this means that even on a correctly configured web server, eavesdrop
 SSL/TLS is especially suited for HTTP, since it can provide some protection even if only one side of the communication is authenticated.
 This is the case with HTTP transactions over the Internet, where typically only the server is authenticated (by the client examining the server's certificate).
 
-> #### Official Annotation:
-> The system can also be used for client authentication in order to limit access to a web server to authorized users.
-> To do this, the site administrator typically creates a certificate for each user, which the user loads into their browser.
-> Normally, the certificate contains the name and e-mail address of the authorized user and is automatically checked by the server on each connection to verify the user's identity, potentially without even requiring a password.
+The system can also be used for client authentication in order to limit access to a web server to authorized users.
+To do this, the site administrator typically creates a certificate for each user, which the user loads into their browser.
+Normally, the certificate contains the name and e-mail address of the authorized user and is automatically checked by the server on each connection to verify the user's identity, potentially without even requiring a password.
 
 > #### AI Annotation:
 > 웹에서는 서버만 인증된다 — 브라우저가 서버의 인증서를 검사하여 신원을 확인한다.
 > 클라이언트(사용자)의 신원은 TLS 레벨이 아닌 애플리케이션 레벨(로그인, JWT 등)에서 처리한다.
-> 다만 위 Official Annotation처럼 클라이언트 인증서를 통한 mutual TLS(mTLS)도 가능하며, 마이크로서비스 간 통신에서 널리 쓰인다.
+> 다만 위 OA처럼 클라이언트 인증서를 통한 mutual TLS(mTLS)도 가능하며, 마이크로서비스 간 통신에서 널리 쓰인다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -228,9 +211,8 @@ Deploying HTTPS also allows the use of HTTP/2 and HTTP/3 (and their predecessors
 ### Official Answer
 It is recommended to use HTTP Strict Transport Security (HSTS) with HTTPS to protect users from man-in-the-middle attacks, especially SSL stripping.
 
-> #### Official Annotation:
-> This type of attack defeats the security provided by HTTPS by changing the https: link into an http: link, taking advantage of the fact that few Internet users actually type "https" into their browser interface: they get to a secure site by clicking on a link, and thus are fooled into thinking that they are using HTTPS when in fact they are using HTTP.
-> The attacker then communicates in clear with the client.
+This type of attack defeats the security provided by HTTPS by changing the https: link into an http: link, taking advantage of the fact that few Internet users actually type "https" into their browser interface: they get to a secure site by clicking on a link, and thus are fooled into thinking that they are using HTTPS when in fact they are using HTTP.
+The attacker then communicates in clear with the client.
 
 > #### AI Annotation:
 > SSL stripping: 공격자가 클라이언트와 서버 사이에서 HTTPS 링크를 HTTP로 바꿔치기하는 공격. 사용자는 HTTP로 접속하고 있다는 사실을 모른 채 평문으로 통신하게 된다.
@@ -262,10 +244,9 @@ X.509 certificates are used to authenticate the server (and sometimes the client
 An important property in this context is forward secrecy, which ensures that encrypted communications recorded in the past cannot be retrieved and decrypted should long-term secret keys or passwords be compromised in the future.
 Not all web servers provide forward secrecy.
 
-> #### Official Annotation:
-> Diffie–Hellman key exchange (DHE) and Elliptic-curve Diffie–Hellman key exchange (ECDHE) are in 2013 the only schemes known to have that property.
-> TLS 1.3, published in August 2018, dropped support for ciphers without forward secrecy.
-> As of July 2023, 99.6% of web servers surveyed support some form of forward secrecy, and 75.2% will use forward secrecy with most browsers.
+Diffie–Hellman key exchange (DHE) and Elliptic-curve Diffie–Hellman key exchange (ECDHE) are in 2013 the only schemes known to have that property.
+TLS 1.3, published in August 2018, dropped support for ciphers without forward secrecy.
+As of July 2023, 99.6% of web servers surveyed support some form of forward secrecy, and 75.2% will use forward secrecy with most browsers.
 
 > #### AI Annotation:
 > forward secrecy가 없으면: 공격자가 암호화된 트래픽을 녹화해두고, 나중에 서버 비밀키를 탈취하면 과거 통신을 전부 복호화할 수 있다.

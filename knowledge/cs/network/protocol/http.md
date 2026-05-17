@@ -48,11 +48,10 @@ source: official
 HTTP (Hypertext Transfer Protocol) is an application layer protocol in the Internet protocol suite for distributed, collaborative, hypermedia information systems.
 HTTP is the foundation of data communication for the World Wide Web, where hypertext documents include hyperlinks to other resources that the user can easily access, for example by a mouse click or by tapping the screen in a web browser.
 
-> #### Official Annotation:
-> HTTP is an application-layer protocol for transmitting hypermedia documents, such as HTML.
-> It was designed for communication between web browsers and web servers, but it can also be used for other purposes, such as machine-to-machine communication, programmatic access to APIs, and more.
-> HTTP is an extensible protocol that relies on concepts like resources and Uniform Resource Identifiers (URIs), a basic message structure, and client-server communication model.
-> New functionality can even be introduced by an agreement between a client and a server about a new header's semantics.
+HTTP is an application-layer protocol for transmitting hypermedia documents, such as HTML.
+It was designed for communication between web browsers and web servers, but it can also be used for other purposes, such as machine-to-machine communication, programmatic access to APIs, and more.
+HTTP is an extensible protocol that relies on concepts like resources and Uniform Resource Identifiers (URIs), a basic message structure, and client-server communication model.
+New functionality can even be introduced by an agreement between a client and a server about a new header's semantics.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
@@ -67,17 +66,14 @@ HTTP is the foundation of data communication for the World Wide Web, where hyper
 HTTP is a request-response protocol in the client-server model.
 A transaction starts with a client submitting a request to the server, the server attempts to satisfy the request and returns a response to the client that describes the disposition of the request and optionally contains a requested resource such as an HTML document or other content.
 
-> #### Official Annotation:
-> Clients and servers communicate by exchanging individual messages (as opposed to a stream of data).
-> The messages sent by the client are called requests and the messages sent by the server as an answer are called responses.
-> The browser is always the entity initiating the request.
-> It is never the server (though some mechanisms have been added over the years to simulate server-initiated messages).
+Clients and servers communicate by exchanging individual messages (as opposed to a stream of data).
+The messages sent by the client are called requests and the messages sent by the server as an answer are called responses.
+The browser is always the entity initiating the request.
+It is never the server (though some mechanisms have been added over the years to simulate server-initiated messages).
 
 > #### AI Annotation:
-> 클라이언트가 먼저 요청을 보내고, 서버가 응답하는 단방향 구조다.
-> 서버가 먼저 클라이언트에게 데이터를 밀어넣을 수 없으며, 이 한계를 극복하기 위해 WebSocket 같은 프로토콜이 등장했다.
 > "simulate server-initiated messages"의 예: Server-Sent Events(SSE), WebSocket, HTTP/2 Server Push.
-> HTTP는 연속적인 데이터 스트림이 아니라 독립된 메시지 단위로 교환된다. 이 메시지 기반 특성이 stateless 설계의 구조적 기반이다.
+> 이 메시지 기반 특성이 stateless 설계의 구조적 기반이다.
 > 응답에는 항상 처리 결과(disposition)가 담기지만, 본문(리소스)은 선택적이다 (예: 204 No Content, 304 Not Modified).
 
 ### Reference
@@ -94,9 +90,8 @@ High-traffic websites often benefit from web cache servers that deliver content 
 Web browsers cache previously accessed web resources and reuse them, whenever possible, to reduce network traffic.
 HTTP proxy servers at private network boundaries can facilitate communication for clients without a globally routable address, by relaying messages with external servers.
 
-> #### Official Annotation:
-> Those operating at the application layers are generally called proxies.
-> These can be transparent, forwarding on the requests they receive without altering them in any way, or non-transparent, in which case they will change the request in some way before passing it along to the server.
+Those operating at the application layers are generally called proxies.
+These can be transparent, forwarding on the requests they receive without altering them in any way, or non-transparent, in which case they will change the request in some way before passing it along to the server.
 
 > #### AI Annotation:
 > 대표적인 중간 노드: 웹 캐시 서버(CDN — Cloudflare, CloudFront 등)는 원본 서버 대신 콘텐츠를 전달하여 응답 시간을 줄이고, 프록시 서버는 공인 IP가 없는 사설 네트워크 클라이언트의 외부 통신을 중계한다.
@@ -220,13 +215,12 @@ HTTP/2 is supported by 71% of websites (34.1% HTTP/2 + 36.9% HTTP/3 with backwar
 HTTP/3 is used on 36.9% of websites and is supported by most web browsers, i.e. (at least partially) supported by 97% of users.
 HTTPS, the secure variant of HTTP, is used by more than 85% of websites.
 
-> #### Official Annotation:
-> As of June 2025, 71.2% of the Internet's 150,000 most popular websites have a secure implementation of HTTPS (up from 58.4% in December 2022).
-> However, despite TLS 1.3's release in 2018, adoption has been slow, with many still remaining on the older TLS 1.2 protocol.
-> — https://en.wikipedia.org/wiki/HTTPS
+As of June 2025, 71.2% of the Internet's 150,000 most popular websites have a secure implementation of HTTPS (up from 58.4% in December 2022).
+However, despite TLS 1.3's release in 2018, adoption has been slow, with many still remaining on the older TLS 1.2 protocol.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://en.wikipedia.org/wiki/HTTPS
 
 ---
 
@@ -252,9 +246,8 @@ HTTP presumes an underlying and reliable transport layer protocol.
 The standard choice of the underlying protocol prior to HTTP/3 is Transmission Control Protocol (TCP).
 HTTP/3 uses a different transport layer called QUIC, which provides reliability on top of the unreliable User Datagram Protocol (UDP).
 
-> #### Official Annotation:
-> A connection is controlled at the transport layer, and therefore fundamentally out of scope for HTTP.
-> HTTP doesn't require the underlying transport protocol to be connection-based; it only requires it to be reliable, or not lose messages (at minimum, presenting an error in such cases).
+A connection is controlled at the transport layer, and therefore fundamentally out of scope for HTTP.
+HTTP doesn't require the underlying transport protocol to be connection-based; it only requires it to be reliable, or not lose messages (at minimum, presenting an error in such cases).
 
 > #### AI Annotation:
 > HTTP 자체는 패킷 유실이나 순서 보장을 신경 쓰지 않는다 — 하위 전송 계층이 해줄 거라고 전제한다.
@@ -322,9 +315,8 @@ This is useful to resume an interrupted download (when a file is very large), wh
 As a stateless protocol, HTTP does not require the web server to retain information or status about each user for the duration of multiple requests.
 If a web application needs an application session, it implements it via HTTP cookies, hidden variables in a web form or another mechanism.
 
-> #### Official Annotation:
-> HTTP is stateless: there is no link between two requests being successively carried out on the same connection.
-> But while the core of HTTP itself is stateless, HTTP cookies allow the use of stateful sessions.
+HTTP is stateless: there is no link between two requests being successively carried out on the same connection.
+But while the core of HTTP itself is stateless, HTTP cookies allow the use of stateful sessions.
 
 > #### AI Annotation:
 > HTTP 자체는 상태를 유지하지 않으므로, 세션은 애플리케이션 레벨에서 쿠키, hidden 변수 등으로 구현한다.
@@ -379,10 +371,9 @@ A body is optional or, in other words, can be blank.
 Later versions, HTTP/2 and HTTP/3, use a binary protocol, where headers are encoded in a single HEADERS and zero or more CONTINUATION frames using HPACK (HTTP/2) or QPACK (HTTP/3), which both provide efficient header compression.
 The request or response line from HTTP/1 has also been replaced by several pseudo-header fields, each beginning with a colon (:).
 
-> #### Official Annotation:
-> HTTP is generally designed to be human-readable, even with the added complexity introduced in HTTP/2 by encapsulating HTTP messages into frames.
-> Even if only part of the original HTTP message is sent in this version of HTTP, the semantics of each message is unchanged and the client reconstitutes (virtually) the original HTTP/1.1 request.
-> It is therefore useful to comprehend HTTP/2 messages in the HTTP/1.1 format.
+HTTP is generally designed to be human-readable, even with the added complexity introduced in HTTP/2 by encapsulating HTTP messages into frames.
+Even if only part of the original HTTP message is sent in this version of HTTP, the semantics of each message is unchanged and the client reconstitutes (virtually) the original HTTP/1.1 request.
+It is therefore useful to comprehend HTTP/2 messages in the HTTP/1.1 format.
 
 > #### AI Annotation:
 > HTTP/1.1은 사람이 읽을 수 있는 ASCII 텍스트로 헤더를 전송한다.
@@ -421,13 +412,12 @@ The start line includes a method name, a request URI and the protocol version wi
 Request header fields allow the client to pass additional information beyond the request line, acting as request modifiers.
 In the HTTP/1.1 protocol, all header fields except Host are optional.
 
-> #### Official Annotation:
-> Requests consist of the following elements:
-> An HTTP method, usually a verb like GET, POST, or a noun like OPTIONS or HEAD that defines the operation the client wants to perform.
-> The path of the resource to fetch; the URL of the resource stripped from elements that are obvious from the context, for example without the protocol, the domain, or the TCP port.
-> The version of the HTTP protocol.
-> Optional headers that convey additional information for the servers.
-> A body, for some methods like POST, similar to those in responses, which contain the resource sent.
+Requests consist of the following elements:
+An HTTP method, usually a verb like GET, POST, or a noun like OPTIONS or HEAD that defines the operation the client wants to perform.
+The path of the resource to fetch; the URL of the resource stripped from elements that are obvious from the context, for example without the protocol, the domain, or the TCP port.
+The version of the HTTP protocol.
+Optional headers that convey additional information for the servers.
+A body, for some methods like POST, similar to those in responses, which contain the resource sent.
 
 > #### AI Annotation:
 > 요청 메시지 구조:
@@ -490,13 +480,12 @@ When Connection: close is sent, it means that the web server will close the TCP 
 When header Content-Length is missing from a response with a body, then this should be considered an error in HTTP/1.0 but it may not be an error in HTTP/1.1 if header Transfer-Encoding: chunked is present.
 Content-Encoding: gzip informs the client that the body is compressed per the gzip algorithm.
 
-> #### Official Annotation:
-> Responses consist of the following elements:
-> The version of the HTTP protocol they follow.
-> A status code, indicating if the request was successful or not, and why.
-> A status message, a non-authoritative short description of the status code.
-> HTTP headers, like those for requests.
-> Optionally, a body containing the fetched resource.
+Responses consist of the following elements:
+The version of the HTTP protocol they follow.
+A status code, indicating if the request was successful or not, and why.
+A status message, a non-authoritative short description of the status code.
+HTTP headers, like those for requests.
+Optionally, a body containing the fetched resource.
 
 > #### AI Annotation:
 > 응답 메시지 구조:
