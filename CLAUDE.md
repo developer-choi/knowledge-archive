@@ -12,6 +12,8 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 
 `explained/<rel>.md`는 `knowledge/<rel>.md`와 1:1 대응한다. 질문별 설명 섹션이 `\n\n---\n\n` 구분자로 이어붙여져 있고, 각 섹션은 H1(질문 제목)으로 시작한다.
 
+어느 스킬이 어떤 파일을 read/write하는지는 [`.claude/contexts/lifecycle.md`](.claude/contexts/lifecycle.md) 참고.
+
 ## 폴더 규칙
 
 ### 대주제 (이 콘텐츠가 KA에 속하는가)
