@@ -5,8 +5,6 @@ source: official
 
 # Questions
 - PCB(프로세스 제어 블록)란 무엇인가?
-  - OS 커널은 실행 중인 모든 프로세스의 PCB를 어디에 모아서 관리하는가?
-  - 컨텍스트 스위치 시 커널이 실제로 수행하는 두 단계 작업은?
   - PCB는 왜 프로세스 자신이 직접 읽거나 수정할 수 없는 보호된 메모리 영역에 보관되어야 하는가?
 - 터미널에서 `cd`를 실행하면 변경된 현재 디렉토리 경로는 OS가 어디에 보관하는가?
 
@@ -22,11 +20,15 @@ Any subset of the resources, typically at least the processor state, may be asso
 
 — https://en.wikipedia.org/wiki/Process_(computing)
 
+#### Definition
+
 A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
 When a process is created (initialized or installed), the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. new, ready, running, waiting or terminated).
 Since it is used to track process information, the PCB plays a key role in context switching.
 
 — https://en.wikipedia.org/wiki/Process_control_block
+
+#### Categories
 
 In multitasking operating systems, the PCB stores data needed for correct and efficient process management.
 Though the details of these structures are system-dependent, common elements fall in three main categories:
@@ -36,15 +38,21 @@ Though the details of these structures are system-dependent, common elements fal
 
 — https://en.wikipedia.org/wiki/Process_control_block
 
+#### Process identification
+
 Process identification data include a unique identifier for the process (almost invariably an integer) and, in a multiuser-multitasking system, data such as the identifier of the parent process, user identifier, user group identifier, etc.
 The process id is particularly relevant since it is often used to cross-reference the tables defined above, e.g. showing which process is using which I/O devices, or memory areas.
 
 — https://en.wikipedia.org/wiki/Process_control_block
 
+#### Process state
+
 Process state data define the status of a process when it is suspended, allowing the OS to restart it later.
 This always includes the content of general-purpose CPU registers, the CPU process status word, stack and frame pointers, etc.
 
 — https://en.wikipedia.org/wiki/Process_control_block
+
+#### Process control
 
 Process control information is used by the OS to manage the process itself. This includes:
 - Process scheduling state – The state of the process in terms of "ready", "suspended", etc., and other scheduling information as well, such as priority value, the amount of time elapsed since the process gained control of the CPU or since it was suspended.
@@ -62,52 +70,8 @@ Process control information is used by the OS to manage the process itself. This
 
 — https://en.wikipedia.org/wiki/Process_control_block
 
-> #### User Annotation:
-> PCB는 프로세스가 생성될 때 같이 생성되고, 프로세스가 종료될 때 같이 소멸된다.
-> 크게 다섯 개의 영역으로 구성된다:
-> - Process State: 프로세스 상태를 나타내는 영역.
-> - Program Counter: 프로세스가 다음에 실행할 명령어의 주소값. 인터럽트 발생 시 요청 작업 수행 후 기존 작업을 이어서 할 때 필요하다.
-> - CPU 레지스터: Accumulator, Index Register, Stack Register 등.
-> - Memory Limit.
-> - CPU 스케줄링 정보: 프로세스 우선순위, 스케줄링 큐에 대한 포인터 등.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
-- https://en.wikipedia.org/wiki/Process_control_block
-
----
-
-## OS 커널은 실행 중인 모든 프로세스의 PCB를 어디에 모아서 관리하는가?
-
-### Official Answer
-An operating system kernel stores PCBs in a process table.
-
-> #### Key Terms:
-> - **process table**: 커널이 모든 PCB를 담아두는 자료구조. 실행 중인 프로세스 전체를 조회할 때 사용
-
-> #### AI Annotation:
-> `ps aux` 명령이 출력하는 프로세스 목록이 사실상 process table을 읽은 결과다.
-> process table이 없으면 OS가 "지금 어떤 프로세스가 실행 중인가"를 한눈에 파악할 방법이 없다.
-
-### Reference
-- https://en.wikipedia.org/wiki/Process_control_block
-
----
-
-## 컨텍스트 스위치 시 커널이 실제로 수행하는 두 단계 작업은?
-
-### Official Answer
-During context switch, the running process is stopped and another process runs.
-The kernel must stop the execution of the running process, copy out the values in hardware registers to its PCB, and update the hardware registers with the values from the PCB of the new process.
-
-> #### Key Terms:
-> - **hardware registers**: CPU 내부의 초고속 저장 공간. 실행 중인 프로세스가 현재 쓰고 있는 값들(PC, 레지스터 등)이 담겨있다
-
-> #### AI Annotation:
-> `node app.js` 실행 중 OS 타임슬라이스가 만료되면 V8의 현재 PC·레지스터 값이 PCB에 저장되고, 다른 프로세스가 CPU를 받는다.
-> 저장 단계가 없으면 이전 프로세스의 실행 위치가 사라지고, 복원 단계가 없으면 새 프로세스가 엉뚱한 CPU 상태에서 시작된다.
-
-### Reference
 - https://en.wikipedia.org/wiki/Process_control_block
 
 ---
