@@ -24,11 +24,13 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 규칙 소스 전체를 대조하되, 다음 항목은 누락 없이 확인한다:
 
-- **Official Answer 언어**: Official Answer/Official Annotation 본문이 공식 문서 원문(대체로 영어)으로 유지되어 있는가. 한글 의역·요약으로 대체된 경우 위반.
+- **Official Answer 언어**: Official Answer 본문이 공식 문서 원문(대체로 영어)으로 유지되어 있는가. 한글 의역·요약으로 대체된 경우 위반.
+- **Official Annotation 잔재**: `> #### Official Annotation:` 블록이 남아 있으면 위반. 폐지된 키이며 모든 공식 보충은 Official Answer에 단락으로 통합되어야 한다.
 - **목차-본문 순서**: Questions 목차와 Answers 본문의 질문 순서가 1:1로 일치하는가.
 - **마커 정합성**: `[BACKLOG]` / `[UNVERIFIED]` 마커가 Questions 목록과 본문 헤딩 양쪽에 동일하게 붙어 있는가. 마커가 붙은 질문은 `### Official Answer` 본문이 비어 있는가 (채워져 있으면 마커 제거). 마커 없이 Official Answer가 비어 있는 경우 위반 (마커 추가 필요). 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 - **빈 섹션 검출**: `### Official Answer`, `### AI Answer`, `### User Answer`, `### Reference` 등의 헤딩 본문이 비어 있는 경우 위반 — 헤딩 자체를 삭제해야 한다. 정의는 [content-format.md](../../contexts/content-format.md) '작성 원칙'의 '빈 섹션 금지' 참고.
-- **동일 헤딩 중복**: 하나의 Q&A 내에서 `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` / `> #### AI Annotation:` / `> #### Official Annotation:` / `> #### User Annotation:` / `> #### Key Terms:` 중 동일 헤딩이 2개 이상 등장하면 위반. 내용을 합쳐 하나로 통합한다.
+- **동일 헤딩 중복**: 하나의 Q&A 내에서 `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` / `> #### AI Annotation:` / `> #### User Annotation:` / `> #### Key Terms:` 중 동일 헤딩이 2개 이상 등장하면 위반. 내용을 합쳐 하나로 통합한다.
+- **AI Annotation 중복**: OA(또는 Key Terms)에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI Annotation이 남아 있으면 위반. 정의는 [content-format.md](../../contexts/content-format.md)의 'AI Annotation 중복 금지' 참고. 새 비유·실생활 매핑·실무 통찰만 유지하고 중복 부분은 삭제한다.
 
 각 항목에서 위반 발견 시 아래 "## 검증 및 수정" 절차에 따라 처리한다.
 

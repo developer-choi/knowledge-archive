@@ -8,7 +8,7 @@
 
 - **Fact-First**: 객관적 사실만 Official Answer에 기록. 해석·보충은 `> OO Annotation:`으로 구분. (Official / AI / User)
 - **원문 보존**: 공식 문서 원문의 핵심 내용을 그대로 보존. 문장 간 연결이 어색하더라도 AI가 임의로 가공하지 않는다.
-- **Official Answer 언어**: Official Answer와 Official Annotation은 공식 문서 원문을 그대로 보존한다. 공식 출처가 영어이면 영어 원문을 유지하며, 한글 번역·요약·의역으로 대체하지 않는다. 그 외 편집·주석 성격(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
+- **Official Answer 언어**: Official Answer는 공식 문서 원문을 그대로 보존한다. 공식 출처가 영어이면 영어 원문을 유지하며, 한글 번역·요약·의역으로 대체하지 않는다. 그 외 편집·주석 성격(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
 - **출처 없으면 작업 중단**: 출처가 제공되지 않으면, 내용 작성 전에 출처 링크를 요청하고 대기한다.
 
 ---
@@ -90,6 +90,10 @@ tags: [react, performance, concept]
 
 ### 작성 원칙
 - **빈 섹션 금지**: 채울 본문이 없는 섹션 헤딩(`### Official Answer`, `### AI Answer`, `### User Answer`, `### Reference`, `> #### Key Terms:`, Annotation 등)은 만들지 않는다. 본문이 생기는 시점에 섹션을 추가한다. 섹션 본문을 비우면 마커 정합성 검증과 마커 사용 조건 판단이 무너진다.
+- **OA 단락 통합**: 같은 출처 또는 다른 공식 출처의 원문 단락 여러 개를 하나의 Official Answer 안에 단락으로 이어 붙여도 된다. 단락 사이는 빈 줄로 구분한다. 단락을 묶기 위한 추가 표현(접속사·요약 문장 등)을 AI가 임의로 만들지 않는다 — 원문을 그대로 이어 붙인다.
+- **OA 단락별 출처 표기**: 한 OA에 다른 출처의 단락이 섞이면 각 단락 끝에 `— URL` 형식으로 출처를 명시한다. 같은 출처의 단락만 있으면 단락별 표기를 생략하고 Reference 섹션에 URL을 둔다.
+- **OA 내부 위계화 (선택)**: OA가 명확한 카테고리로 묶이는 경우(예: "정의 / 구성요소 / 동작 방식") `####` H4 헤딩으로 내부 위계를 표현해도 된다. 강제는 아니다. 단락 흐름이 자연스러우면 H4를 두지 않는다.
+- **OA 길이 관리**: 한 단락이 6문장을 초과하면 문장 정리를 검토한다. OA 전체가 15문장을 초과하면 질문 분리를 검토한다. 테이블·코드블록·리스트는 문장 수에서 제외한다.
 - **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다.
 - **원본 언어 유지 (번역 금지)**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
   - 허용 편집: 맞춤법, 조사, 문장 흐름, 전문 용어 정확화
@@ -97,7 +101,7 @@ tags: [react, performance, concept]
   - 금지: 소스에 없는 새 사실 덧붙이기, 뉘앙스 변경, 근거 없는 주장
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
 - **출처-Answer 매핑**: Reference에 공식 출처 URL이 있고 Official Answer가 아직 비어 있는 상태(학습 진행 중)는 위반이 아니다. 단 이 경우 `### Official Answer` 빈 헤딩을 만들지 말고 `### Reference`만 둔다.
-- **동일 헤딩 중복 금지**: 하나의 Q&A 내에서 동일한 섹션 헤딩은 최대 1개만 허용한다. `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` 각각 최대 1개. `> #### AI Annotation:` / `> #### Official Annotation:` / `> #### User Annotation:` / `> #### Key Terms:` 각각 최대 1개. 중복 발생 시 내용을 합쳐 하나의 헤딩 아래 통합한다.
+- **동일 헤딩 중복 금지**: 하나의 Q&A 내에서 동일한 섹션 헤딩은 최대 1개만 허용한다. `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` 각각 최대 1개. `> #### AI Annotation:` / `> #### User Annotation:` / `> #### Key Terms:` 각각 최대 1개. 중복 발생 시 내용을 합쳐 하나의 헤딩 아래 통합한다.
 
 ### Key Terms
 
@@ -127,19 +131,18 @@ In computing, a process is the instance of a computer program that is being exec
 Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트 + `#### 헤딩`을 사용한다.
 
 - Annotation은 Answer(Official/AI/User)의 보충이다. Answer 없이 Annotation만 단독으로 존재하면, 해당 Annotation은 Answer로 승격시킨다.
+- 공식 출처의 보충은 Annotation으로 분리하지 않는다. 출처·신뢰도가 Official Answer와 동일하므로 OA 안에 단락으로 통합한다 (위 "OA 단락 통합" 참고).
 
 | Annotation 유형 | 형식 | 출처 | 용도 |
 |---|---|---|---|
-| Official Annotation | `> #### Official Annotation:` | 공식 문서 | Official Answer를 보충하는 공식 문서 원문. 같은 출처 또는 다른 공식 출처에서 가져온 부연 설명 |
 | AI Annotation | `> #### AI Annotation:` | AI 생성 | AI가 추가한 해설, 비유, 코드 예시 등 |
 | User Annotation | `> #### User Annotation:` | 사용자 작성 | 사용자의 메모, 경험 기반 보충 |
+
+**AI Annotation 중복 금지**: OA(또는 Key Terms)에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI Annotation은 삭제한다. 새로운 비유(특히 사용자 코드 흐름에 매핑된 JS/브라우저/Node.js 예), 실생활 매핑, 실무 통찰을 더할 때만 유지한다. 일부만 중복이면 중복 부분만 삭제하고 새 내용만 남긴다.
 
 ```markdown
 ### Official Answer
 A network is a group of communicating computers...
-
-> #### Official Annotation:
-> The CSSStyleDeclaration interface is the base class for...
 
 > #### AI Annotation:
 > 네트워크의 3요소는 Node, Link, Protocol입니다.
