@@ -22,18 +22,18 @@ known:
       stack:
       heap:
     PCB:
-    process composition:
-      program code:
-      system resources:
-      access permissions:
-      data structures:
-    process state:
-      waiting:
-      running:
-      blocked:
-    scheduling:
-      priority:
-      CPU time statistics:
+      process composition:
+        program code:
+        system resources:
+        access permissions:
+        data structures:
+      process state:
+        waiting:
+        running:
+        blocked:
+      scheduling:
+        priority:
+        CPU time statistics:
 
 unknown:
   OS:
