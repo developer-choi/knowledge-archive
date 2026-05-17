@@ -182,7 +182,7 @@ digest 모드 시작.
 
 새 질문을 만들기 전에, 현재 단락의 내용이 기존 Q&A의 답변을 보강할 수 있는지 검토한다.
 
-- **다른 출처의 Official 원문**이 기존 Official Answer와 같은 개념을 다른 표현·각도로 설명하면, 기존 OA에 단락으로 이어 붙이는 보충을 적극 제안한다. 단락 끝에 `— URL` 형식으로 출처를 표기한다 ([content-format.md](../../contexts/content-format.md)의 "OA 단락 통합" 참고).
+- **다른 출처의 Official 원문**이 기존 Official Answer와 같은 개념을 다른 표현·각도로 설명하면, 기존 OA에 단락으로 이어 붙이는 보충을 적극 제안한다. 새 출처 URL은 Reference 섹션에 추가한다 (OA 본문에 인라인 URL을 박지 않는다 — [content-format.md](../../contexts/content-format.md)의 "출처 표기는 Reference에만" 참고).
 - 기존 답변에 구체적 예시·안티패턴 등 비공식 보충이 필요하면 AI Annotation으로 제안한다. 단, OA에서 이미 다룬 내용을 단순 반복하는 AI Annotation은 만들지 않는다 (새 비유·실생활 매핑·실무 통찰만 유지).
 - 새 질문으로 만들 만큼 독립적이지 않지만, 기존 답변을 풍부하게 만드는 내용이 대상이다.
 - 보충 제안도 사용자 승인 후 즉시 저장한다.
