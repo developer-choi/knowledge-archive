@@ -56,7 +56,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
     .meta { color: #666; font-size: 0.9rem; margin-bottom: 40px; }
     .q { margin: 28px 0; }
     .q-label { font-weight: 600; margin-bottom: 6px; }
-    textarea { width: 100%; min-height: 72px; padding: 8px; font-size: 0.95rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
+    textarea { width: 100%; min-height: 216px; padding: 8px; font-size: 0.95rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
     button { margin-top: 28px; padding: 10px 28px; font-size: 1rem; background: #111; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
     button:hover { background: #333; }
     #output { display: none; margin-top: 28px; }
@@ -201,6 +201,17 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 
 | 오답 수 | 처리 |
 |---|---|
-| 0 | 시험 종료. 별도 안내 없이 완료 메시지만 출력 |
-| 1 | /review 진행 방식으로 채팅 핑퐁 전환. 해당 질문 1개를 직접 출제하고 답변 검증 |
+| 0 | 시험 종료. Phase 6으로 진행 |
+| 1 | /review 진행 방식으로 채팅 핑퐁 전환. 해당 질문 1개를 직접 출제하고 답변 검증. 통과 시 Phase 6으로 진행 |
 | ≥ 2 | 오답 문항만으로 Phase 1로 돌아가 새 시험 HTML 생성 |
+
+---
+
+## Phase 6: brain.yaml 업데이트
+
+시험이 완전히 종료(오답 0)되면 `.claude/contexts/brain.yaml`을 업데이트한다.
+
+1. brain.yaml을 Read한다.
+2. 이번 시험 파일의 주제 키워드 중 `unknown`에 있는 항목을 `known`으로 이동한다.
+3. brain.yaml에 없는 새 키워드가 등장했으면 적절한 위치에 `known`으로 추가한다.
+4. 저장한다.
