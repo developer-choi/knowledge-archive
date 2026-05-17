@@ -50,9 +50,13 @@ argument-hint: [PDF/MD 파일 경로]
 - **내부 Google Docs 링크**: Reference에서 제외 (외부 접근 불가)
 - **외부 하이퍼링크**(위키피디아/MDN/공식문서): `Reference`로 사용
 
-## AI Annotation 생성 정책
+## Annotation 생성 정책
 
-convert는 원칙적으로 AI Annotation을 새로 만들지 않는다. 사용자가 작성한 모든 한국어는 User Annotation 또는 User Answer로 분류한다. AI Annotation은 위 "AI 답변 캡처" 같이 사용자가 다른 AI로부터 받은 답변을 캡처한 경우에만 허용한다. OA 영어 원문의 한글 번역·요약·해설을 AI Annotation으로 만들지 않는다 (그 역할은 `/explain`의 `explained/`가 담당). 상세는 [content-format.md](../../contexts/content-format.md)의 "AI Annotation 작성 정책 — 한글 풀이 금지" 참고.
+convert는 원칙적으로 AI Annotation을 새로 만들지 않는다. 사용자가 작성한 모든 한국어는 User Annotation 또는 User Answer로 분류한다. AI Annotation은 위 "AI 답변 캡처" 같이 사용자가 다른 AI로부터 받은 답변을 캡처한 경우에만 허용한다. OA 영어 원문의 한글 번역·요약·해설을 어떤 Annotation으로도 만들지 않는다 (그 역할은 `/explain`의 `explained/`가 담당).
+
+**사용자 메모 중복 검토**: 사용자가 작성한 User Annotation/User Answer가 OA(또는 통합 후 OA 단락) 내용을 단순 반복하면 정리 제안을 사용자에게 보고한다. 자동 삭제하지 않는다.
+
+상세는 [content-format.md](../../contexts/content-format.md)의 "Annotation 작성 정책 — 한글 풀이 금지" 및 "Annotation 중복 금지" 참고.
 
 ## 드롭 대상
 

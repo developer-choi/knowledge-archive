@@ -30,7 +30,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 - **마커 정합성**: `[BACKLOG]` / `[UNVERIFIED]` 마커가 Questions 목록과 본문 헤딩 양쪽에 동일하게 붙어 있는가. 마커가 붙은 질문은 `### Official Answer` 본문이 비어 있는가 (채워져 있으면 마커 제거). 마커 없이 Official Answer가 비어 있는 경우 위반 (마커 추가 필요). 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 - **빈 섹션 검출**: `### Official Answer`, `### AI Answer`, `### User Answer`, `### Reference` 등의 헤딩 본문이 비어 있는 경우 위반 — 헤딩 자체를 삭제해야 한다. 정의는 [content-format.md](../../contexts/content-format.md) '작성 원칙'의 '빈 섹션 금지' 참고.
 - **동일 헤딩 중복**: 하나의 Q&A 내에서 `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` / `> #### AI Annotation:` / `> #### User Annotation:` / `> #### Key Terms:` 중 동일 헤딩이 2개 이상 등장하면 위반. 내용을 합쳐 하나로 통합한다.
-- **AI Annotation 중복**: OA(또는 Key Terms)에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI Annotation이 남아 있으면 위반. 정의는 [content-format.md](../../contexts/content-format.md)의 'AI Annotation 중복 금지' 참고. 새 비유·실생활 매핑·실무 통찰만 유지하고 중복 부분은 삭제한다.
+- **Annotation 중복**: OA(또는 Key Terms)에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI/User Annotation이 남아 있으면 위반. OA 영어 원문의 한글 번역·요약·풀이도 "단순 반복"으로 본다 (한글 해설은 explained 영역). 정의는 [content-format.md](../../contexts/content-format.md)의 'Annotation 작성 정책 — 한글 풀이 금지' 및 'Annotation 중복 금지' 참고. AI Annotation은 자동 삭제, User Annotation은 사용자에게 정리 확인 후 삭제.
 
 각 항목에서 위반 발견 시 아래 "## 검증 및 수정" 절차에 따라 처리한다.
 
