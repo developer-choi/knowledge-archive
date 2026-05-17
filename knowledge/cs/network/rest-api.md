@@ -177,10 +177,6 @@ RESTful APIs support this information exchange because they follow secure, relia
 API는 "다른 소프트웨어 시스템과 통신할 때 따라야 하는 규칙들"이라는 상위 개념이고, RESTful API는 그중에서도 안전·신뢰성·효율성을 갖춘 소프트웨어 통신 표준(HTTP, URI 등)을 따르는 API다.
 모든 RESTful API는 API지만, 모든 API가 RESTful은 아니다 — gRPC, GraphQL, RPC, WebSocket 기반 API 등도 모두 API에 속한다.
 
-> #### Official Annotation:
-> An application programming interface (API) defines the rules that you must follow to communicate with other software systems.
-> RESTful APIs support this information exchange because they follow secure, reliable, and efficient software communication standards.
-
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/
 
@@ -218,9 +214,6 @@ REST는 프로토콜이 아니라 아키텍처 스타일(설계 규칙의 모음
 HTTP는 프로토콜이고, REST는 그 위에서 따를 수 있는 스타일이다.
 즉 HTTP를 쓰면서 REST를 안 따를 수도 있고(예: SOAP-over-HTTP), 이론적으로 HTTP가 아닌 다른 프로토콜로 REST 스타일을 흉내낼 수도 있다.
 실무에서는 거의 항상 HTTP 위에서 REST를 구현하지만, 둘은 개념상 다른 층위라는 점이 면접 단골 포인트다.
-
-> #### Official Annotation:
-> Representational State Transfer (REST) is a software architecture that imposes conditions on how an API should work.
 
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/
@@ -530,9 +523,6 @@ The REST API request and response details vary slightly depending on how the API
 인증(authentication)은 "누구냐"를 확인하는 것 — 토큰이 유효한 사용자의 것이냐 같은 신원 확인.
 인가(authorization)는 "이 요청을 할 자격이 있냐"를 확인하는 것 — 그 사용자가 해당 리소스에 접근할 권한이 있냐 같은 권한 확인.
 실무에선 명확히 구분되는 두 절차이며, HTTP 상태 코드도 401 Unauthorized(인증 실패)와 403 Forbidden(인가 실패)으로 나뉜다.
-
-> #### Official Annotation:
-> The server authenticates the client and confirms that the client has the right to make that request.
 
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/

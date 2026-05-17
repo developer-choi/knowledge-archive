@@ -33,10 +33,9 @@ refresh does not affect the Data or Full Route Cache.
 ### Official Answer
 The rendered result will be reconciled on the client while preserving React state and browser state.
 
-> #### Official Annotation:
-> Refresh the current route.
-> Making a new request to the server, re-fetching data requests, and re-rendering Server Components.
-> The client will merge the updated React Server Component payload without losing unaffected client-side React (e.g. useState) or browser state (e.g. scroll position).
+Refresh the current route.
+Making a new request to the server, re-fetching data requests, and re-rendering Server Components.
+The client will merge the updated React Server Component payload without losing unaffected client-side React (e.g. useState) or browser state (e.g. scroll position).
 
 > #### Key Terms:
 > - **reconciled**: 새로 받은 결과를 기존 클라이언트 트리에 병합(diff)하는 과정

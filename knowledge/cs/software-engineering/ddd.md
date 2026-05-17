@@ -19,15 +19,14 @@ source: official
 Domain-driven design (DDD) is a software design approach that focuses on modeling software to match a domain according to input from that domain's experts.
 DDD is against the idea of having a single unified model; instead it divides a large system into bounded contexts, each of which have their own model.
 
-> #### Official Annotation:
-> Domain-driven design is predicated on the following goals:
-> placing the project's primary focus on the core domain and domain logic layer;
-> basing complex designs on a model of the domain;
-> initiating a creative collaboration between technical and domain experts to iteratively refine a conceptual model that addresses particular domain problems.
->
-> Software's developers build a domain model: a system of abstractions that describes selected aspects of a domain and can be used to solve problems related to that domain.
->
-> The term was coined by Eric Evans in his book of the same name published in 2003.
+Domain-driven design is predicated on the following goals:
+placing the project's primary focus on the core domain and domain logic layer;
+basing complex designs on a model of the domain;
+initiating a creative collaboration between technical and domain experts to iteratively refine a conceptual model that addresses particular domain problems.
+
+Software's developers build a domain model: a system of abstractions that describes selected aspects of a domain and can be used to solve problems related to that domain.
+
+The term was coined by Eric Evans in his book of the same name published in 2003.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Domain-driven_design
@@ -72,9 +71,8 @@ The aggregate root checks the consistency of changes in the aggregate.
 Drivers do not have to individually control each wheel of a car, for instance: they simply drive the car.
 In this context, a car is an aggregate of several other objects (the engine, the brakes, the headlights, etc.).
 
-> #### Official Annotation:
-> Models can also define events (something that happened in the past).
-> A domain event is an event that domain experts care about.
+Models can also define events (something that happened in the past).
+A domain event is an event that domain experts care about.
 
 > #### AI Annotation:
 > 외부에서 루트만 참조하도록 제한하는 이유: 내부 객체를 직접 수정하면 루트가 일관성 검사를 할 수 없게 된다.

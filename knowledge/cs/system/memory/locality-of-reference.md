@@ -33,8 +33,7 @@ Locality is a type of predictable behavior that occurs in computer systems.
 Temporal locality refers to the reuse of specific data and/or resources within a relatively small time duration.
 Temporal locality is a special case of spatial locality, namely when the prospective location is identical to the present location.
 
-> #### Official Annotation:
-> In this case it is common to make efforts to store a copy of the referenced data in faster memory storage, to reduce the latency of subsequent references.
+In this case it is common to make efforts to store a copy of the referenced data in faster memory storage, to reduce the latency of subsequent references.
 
 > #### AI Annotation:
 > for 루프의 카운터 변수 `i`는 매 반복마다 읽고 쓰므로 temporal locality가 매우 높은 대표적 예시다.
@@ -74,9 +73,8 @@ Sequential locality, a special case of spatial locality, occurs when data elemen
 A cache is a simple example of exploiting temporal locality, because it is a specially designed, faster but smaller memory area, generally used to keep recently referenced data and data near recently referenced data, which can lead to potential performance increases.
 Temporal locality plays a role on the lowest level, since results that are referenced very closely together can be kept in the machine registers.
 
-> #### Official Annotation:
-> Data elements are brought into cache one cache line at a time.
-> This means that spatial locality is again important: if one element is referenced, a few neighboring elements will also be brought into cache.
+Data elements are brought into cache one cache line at a time.
+This means that spatial locality is again important: if one element is referenced, a few neighboring elements will also be brought into cache.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Locality_of_reference

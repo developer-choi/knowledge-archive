@@ -76,15 +76,12 @@ In functional programming languages, function composition can be naturally expre
 ### Official Answer
 When a pure function is called with some given arguments, it will always return the same result, and cannot be affected by any mutable state or other side effects.
 
+Pure functions (or expressions) have no side effects (memory or I/O).
+
 > #### Key Terms:
 > - **pure function**: 결정적이고 부수효과가 없는 함수
 > - **mutable state**: 변경 가능한 외부 상태 (전역 변수, 외부 객체)
 > - **side effects**: 외부에 미치는 영향 (DOM 조작, 콘솔 출력, 네트워크, 파일 IO)
-
-> #### Official Annotation:
-> Pure functions (or expressions) have no side effects (memory or I/O).
->
-> 부수효과의 두 영역을 명시한 정의 — 메모리 영역(전역 변수·외부 객체 변경)과 I/O 영역(파일·네트워크·콘솔).
 
 > #### AI Annotation:
 > 두 조건을 정리하면:

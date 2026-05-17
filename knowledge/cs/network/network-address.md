@@ -52,9 +52,7 @@ IP Address를 Network Address라고 부른다.
 ### Official Answer
 IP addresses serve two main functions: network interface identification, and location addressing.
 
-> #### Official Annotation:
-> A MAC address is a unique identifier assigned to a network interface controller (NIC) for use as a network address in communications within a network segment.
-> — https://en.wikipedia.org/wiki/MAC_address
+A MAC address is a unique identifier assigned to a network interface controller (NIC) for use as a network address in communications within a network segment.
 
 > #### AI Annotation:
 > | | IP 주소 | MAC 주소 |
@@ -65,6 +63,7 @@ IP addresses serve two main functions: network interface identification, and loc
 
 ### Reference
 - https://en.wikipedia.org/wiki/IP_address
+- https://en.wikipedia.org/wiki/MAC_address
 
 ---
 
@@ -94,9 +93,8 @@ The host broadcasts a request containing the target node's IP address, and the n
 
 It is communicated within the boundaries of a single subnetwork and is never routed.
 
-> #### Official Annotation:
-> Typically, a network node maintains a lookup cache that associates IP and MAC addresses.
-> When a host receives an ARP response, it can cache the lookup for future messages addressed to the same IP address.
+Typically, a network node maintains a lookup cache that associates IP and MAC addresses.
+When a host receives an ARP response, it can cache the lookup for future messages addressed to the same IP address.
 
 > #### AI Annotation:
 > - **동작**: broadcast로 "이 IP 가진 장치 누구?" → 해당 장치가 자기 MAC으로 유니캐스트 응답
@@ -165,13 +163,12 @@ IP addresses are assigned to a host either dynamically as they join the network,
 Persistent configuration is also known as using a static IP address.
 In contrast, when a computer's IP address is assigned each time it restarts, this is known as using a dynamic IP address.
 
+In home networks, the ISP usually assigns a dynamic IP.
+If an ISP gave a home network an unchanging address, it is more likely to be abused by customers who host websites from home, or by hackers who can try the same IP address over and over until they breach a network.
+
 > #### AI Annotation:
 > - **Static IP**: 서버, 프린터, 라우터 등 주소가 바뀌면 안 되는 장치에 사용. 웹서버 IP가 매번 바뀌면 DNS가 따라가지 못한다.
 > - **Dynamic IP**: DHCP 서버가 자동 할당. 대부분의 일반 PC/스마트폰이 이 방식.
-
-> #### Official Annotation:
-> In home networks, the ISP usually assigns a dynamic IP.
-> If an ISP gave a home network an unchanging address, it is more likely to be abused by customers who host websites from home, or by hackers who can try the same IP address over and over until they breach a network.
 
 ### Reference
 - https://en.wikipedia.org/wiki/IP_address

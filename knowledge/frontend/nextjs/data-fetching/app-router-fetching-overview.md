@@ -22,12 +22,11 @@ publishable: false
 Fetch data and render in the same environment.
 This reduces both the back-and-forth communication between client and server, as well as the work on the main thread on the client.
 
+It's hard to give general advice on when it makes sense to pair React Query with Server Components and not.
+If you are just starting out with a new Server Components app, we suggest you start out with any tools for data fetching your framework provides you with and avoid bringing in React Query until you actually need it.
+
 > #### Key Terms:
 > - **main thread**: 브라우저에서 JS 실행·렌더링을 담당하는 단일 스레드. 여기 부하가 커지면 UI가 느려진다
-
-> #### Official Annotation:
-> It's hard to give general advice on when it makes sense to pair React Query with Server Components and not.
-> If you are just starting out with a new Server Components app, we suggest you start out with any tools for data fetching your framework provides you with and avoid bringing in React Query until you actually need it.
 
 > #### User Annotation:
 > Best = 가능한 FULL SSR 하면 이득이 있긴 함 (프레임워크 오피셜).

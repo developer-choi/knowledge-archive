@@ -30,8 +30,7 @@ A Content Delivery Network (CDN) is a distributed network of servers that cache 
 ### Official Answer
 The physical proximity to your users reduces round-trip time (RTT), while optimizations such as HTTP/2 or HTTP/3, caching, and compression allow the CDN to serve content more quickly than if it would be fetched from your origin server.
 
-> #### Official Annotation:
-> Utilizing a CDN can significantly improve your website's TTFB in some cases.
+Utilizing a CDN can significantly improve your website's TTFB in some cases.
 
 > #### Key Terms:
 > - **RTT**: Round-Trip Time. 요청을 보내고 응답을 받기까지 걸리는 왕복 시간

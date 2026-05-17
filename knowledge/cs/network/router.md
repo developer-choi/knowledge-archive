@@ -28,8 +28,7 @@ When a data packet comes in on a line, the router reads the network address info
 Then, using information in its routing table or routing policy, it directs the packet to the next network on its journey.
 A data packet is forwarded from one router to another through an internetwork until it reaches its destination node.
 
-> #### Official Annotation:
-> The most familiar type of IP routers are home and small office routers that forward IP packets between the home computers and the Internet.
+The most familiar type of IP routers are home and small office routers that forward IP packets between the home computers and the Internet.
 
 > #### AI Annotation:
 > 집에 있는 공유기(Wi-Fi 라우터)가 대표적인 라우터.
