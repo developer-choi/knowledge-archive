@@ -13,7 +13,6 @@ source: official
 - RESTful API란 무엇인가?
   - 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
 - REST(Representational State Transfer)란 무엇인가?
-  - [UNVERIFIED] REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
   - REST에서 "representation"이란 무엇이며, 리소스(resource) 자체와 어떻게 다른가?
 - REST 아키텍처가 따르는 핵심 원칙(제약)들은 무엇인가?
   - Uniform Interface 제약이란 무엇이며, 그 4가지 하위 제약은 각각 무엇인가?
@@ -200,19 +199,6 @@ You can easily implement and modify it, bringing visibility and cross-platform p
 > REST는 "프로토콜"이 아니라 "스타일"이라는 점이 핵심.
 > HTTP라는 프로토콜 위에서 REST 스타일을 따를 수도 있고, 안 따를 수도 있다.
 > REST의 존재 이유는 인터넷 규모의 분산 통신을 관리 가능하게 만들기 위한 제약 모음이라는 데 있다.
-
-### Reference
-- https://aws.amazon.com/what-is/restful-api/
-
----
-
-## [UNVERIFIED] REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
-
-### AI Answer
-REST는 프로토콜이 아니라 아키텍처 스타일(설계 규칙의 모음)이다.
-HTTP는 프로토콜이고, REST는 그 위에서 따를 수 있는 스타일이다.
-즉 HTTP를 쓰면서 REST를 안 따를 수도 있고(예: SOAP-over-HTTP), 이론적으로 HTTP가 아닌 다른 프로토콜로 REST 스타일을 흉내낼 수도 있다.
-실무에서는 거의 항상 HTTP 위에서 REST를 구현하지만, 둘은 개념상 다른 층위라는 점이 면접 단골 포인트다.
 
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/
