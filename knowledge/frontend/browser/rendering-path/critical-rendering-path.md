@@ -46,21 +46,20 @@ tags: [browser, performance, concept]
 The Critical Rendering Path is the sequence of steps the browser goes through to convert the HTML, CSS, and JavaScript into pixels on the screen.
 Optimizing the critical render path improves render performance.
 
-> #### Official Annotation:
-> The critical rendering path refers to the steps involved until the web page starts rendering in the browser.
-> To render pages, browsers need the HTML document itself as well as all the critical resources necessary for rendering that document.
-> The sequence of steps the browser takes before performing that initial render is known as the critical rendering path.
+The critical rendering path refers to the steps involved until the web page starts rendering in the browser.
+To render pages, browsers need the HTML document itself as well as all the critical resources necessary for rendering that document.
+The sequence of steps the browser takes before performing that initial render is known as the critical rendering path.
 
-> #### Official Annotation:
-> The steps of Critical rendering path:
-> - Constructing the Document Object Model (DOM) from the HTML.
-> - Constructing the CSS Object Model (CSSOM) from the CSS.
-> - Applying any JavaScript that alters the DOM or CSSOM.
-> - Constructing the render tree from the DOM and CSSOM.
-> - Perform style and layout operations on the page to see what elements fit where.
-> - Paint the pixels of the elements in memory.
-> - Composite the pixels if any of them overlap.
-> - Physically draw all the resulting pixels to screen.
+#### Steps of Critical Rendering Path
+
+- Constructing the Document Object Model (DOM) from the HTML.
+- Constructing the CSS Object Model (CSSOM) from the CSS.
+- Applying any JavaScript that alters the DOM or CSSOM.
+- Constructing the render tree from the DOM and CSSOM.
+- Perform style and layout operations on the page to see what elements fit where.
+- Paint the pixels of the elements in memory.
+- Composite the pixels if any of them overlap.
+- Physically draw all the resulting pixels to screen.
 
 > #### AI Annotation:
 > CRP는 브라우저가 HTML, CSS, JS를 화면 픽셀로 변환하는 일련의 단계다.
@@ -222,9 +221,8 @@ The CSS Object Model is a set of APIs allowing the manipulation of CSS from Java
 It is much like the DOM, but for the CSS rather than the HTML.
 It allows users to read and modify CSS style dynamically.
 
-> #### Official Annotation:
-> The CSSStyleDeclaration interface is the base class for objects that represent CSS declaration blocks with different supported sets of CSS style information:
-> CSSStyleProperties — CSS styles declared in stylesheet (CSSStyleRule.style), inline styles for an element such as HTMLElement, SVGElement, and MathMLElement, or the computed style for an element returned by Window.getComputedStyle().
+The CSSStyleDeclaration interface is the base class for objects that represent CSS declaration blocks with different supported sets of CSS style information:
+CSSStyleProperties — CSS styles declared in stylesheet (CSSStyleRule.style), inline styles for an element such as HTMLElement, SVGElement, and MathMLElement, or the computed style for an element returned by Window.getComputedStyle().
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model
@@ -327,10 +325,9 @@ The CSSOM and DOM trees created in the parsing step are combined into a render t
 The computed style tree, or render tree, construction starts with the root of the DOM tree, traversing each visible node.
 The render tree holds all the visible nodes with content and computed styles — matching up all the relevant styles to every visible node in the DOM tree, and determining, based on the CSS cascade, what the computed styles are for each node.
 
-> #### Official Annotation:
-> Rendering steps include style, layout, paint, and in some cases compositing.
-> The CSSOM and DOM trees created in the parsing step are combined into a render tree which is then used to compute the layout of every visible element, which is then painted to the screen.
-> In some cases, content can be promoted to its own layer and composited, improving performance by painting portions of the screen on the GPU instead of the CPU, freeing up the main thread.
+Rendering steps include style, layout, paint, and in some cases compositing.
+The CSSOM and DOM trees created in the parsing step are combined into a render tree which is then used to compute the layout of every visible element, which is then painted to the screen.
+In some cases, content can be promoted to its own layer and composited, improving performance by painting portions of the screen on the GPU instead of the CPU, freeing up the main thread.
 
 > #### AI Annotation:
 > 파싱 단계에서 만든 DOM과 CSSOM을 합쳐서 Render Tree를 만든다.
@@ -379,9 +376,8 @@ Subsequent recalculations of layout are called reflows.
 In our example, suppose the initial layout occurs before the image is returned.
 Since we didn't declare the dimensions of our image, there will be a reflow once the image dimensions are known.
 
-> #### Official Annotation:
-> A reflow sparks a repaint and a re-composite.
-> Had we defined the dimensions of our image, no reflow would have been necessary, and only the layer that needed to be repainted would be repainted, and composited if necessary.
+A reflow sparks a repaint and a re-composite.
+Had we defined the dimensions of our image, no reflow would have been necessary, and only the layer that needed to be repainted would be repainted, and composited if necessary.
 
 > #### AI Annotation:
 > 최초 계산이 Layout, 이후 재계산이 Reflow다.

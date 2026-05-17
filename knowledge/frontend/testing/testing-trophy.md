@@ -48,16 +48,12 @@ Static: Catch typos and type errors as you write the code.
 ### Official Answer
 Unit: Verify that individual, isolated parts work as expected.
 
-> #### Official Annotation:
-> The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
-> — Martin Fowler, "On the Diverse And Fantastical Shapes of Testing"
+The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
 
-> #### Official Annotation:
-> Unit testing is the process where you test the smallest functional unit of code.
-> A unit test is a block of code that verifies the accuracy of a smaller, isolated block of application code, typically a function or method.
-> Unit tests are typically the first set of tests that run during full system software testing.
-> They can be written as soon as any code is written and don't require any special tools to run.
-> — AWS, "What is Unit Testing"
+Unit testing is the process where you test the smallest functional unit of code.
+A unit test is a block of code that verifies the accuracy of a smaller, isolated block of application code, typically a function or method.
+Unit tests are typically the first set of tests that run during full system software testing.
+They can be written as soon as any code is written and don't require any special tools to run.
 
 > #### AI Annotation:
 > Testing Trophy에서 Static 바로 위에 위치한다.
@@ -100,10 +96,8 @@ In fact, as you go lower down the testing trophy, there are some things that are
 ### Official Answer
 Unit tests are incapable of ensuring that when you call into a dependency that you're calling it appropriately (though you can make assertions on how it's being called, you can't ensure that it's being called properly with a unit test).
 
-> #### Official Annotation:
-> It doesn't matter if your component `<A />` renders component `<B />` with props c and d if component `<B />` actually breaks if prop e is not supplied.
-> So while having some unit tests to verify these pieces work in isolation isn't a bad thing, it doesn't do you any good if you don't also verify that they work together properly.
-> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
+It doesn't matter if your component `<A />` renders component `<B />` with props c and d if component `<B />` actually breaks if prop e is not supplied.
+So while having some unit tests to verify these pieces work in isolation isn't a bad thing, it doesn't do you any good if you don't also verify that they work together properly.
 
 > #### AI Annotation:
 > 아니오.
@@ -112,6 +106,7 @@ Unit tests are incapable of ensuring that when you call into a dependency that y
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://kentcdodds.com/blog/write-tests
 
 ---
 
@@ -142,10 +137,8 @@ Integration: Verify that several units work together in harmony.
 
 The idea behind integration tests is to mock as little as possible.
 
-> #### Official Annotation:
-> Integration Testing involves testing how multiple units work together.
-> This can be a combination of components, hooks, and functions.
-> — Next.js, "Testing"
+Integration Testing involves testing how multiple units work together.
+This can be a combination of components, hooks, and functions.
 
 > #### AI Annotation:
 > Testing Trophy에서 가장 큰 비중을 차지한다.
@@ -188,10 +181,8 @@ I pretty much only mock:
 1. Network requests (using MSW)
 2. Components responsible for animation (because who wants to wait for that in your tests?)
 
-> #### Official Annotation:
-> When you mock something you're removing all confidence in the integration between what you're testing and what's being mocked.
-> You don't actually want to send emails or charge credit cards every test, but most of the time you can avoid mocking and you'll be better for it.
-> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
+When you mock something you're removing all confidence in the integration between what you're testing and what's being mocked.
+You don't actually want to send emails or charge credit cards every test, but most of the time you can avoid mocking and you'll be better for it.
 
 > #### AI Annotation:
 > 그 외에는 전부 실제 코드를 사용한다.
@@ -199,6 +190,7 @@ I pretty much only mock:
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://kentcdodds.com/blog/write-tests
 
 ---
 
@@ -388,11 +380,9 @@ The biggest and most important reason that I write tests is CONFIDENCE.
 I want to be confident that the code I'm writing for the future won't break the app that I have running in production today.
 So whatever I do, I want to make sure that the kinds of tests I write bring me the most confidence possible and I need to be cognizant of the trade-offs I'm making when testing.
 
-> #### Official Annotation:
-> Much better to catch a bug locally from the tests than getting a call at 2:00 in the morning and fix it then.
-> Often I find myself saving time when I put time in to write tests.
-> It may or may not take longer to implement what I'm building, but I (and others) will almost definitely save time maintaining it.
-> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
+Much better to catch a bug locally from the tests than getting a call at 2:00 in the morning and fix it then.
+Often I find myself saving time when I put time in to write tests.
+It may or may not take longer to implement what I'm building, but I (and others) will almost definitely save time maintaining it.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
@@ -416,9 +406,7 @@ You should very rarely have to change tests when you refactor code.
 > - **diminishing returns**: 투입 대비 산출이 줄어드는 수확 체감 현상. 커버리지가 일정 수준을 넘으면 테스트 1개당 얻는 자신감이 급감한다
 > - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
 
-> #### Official Annotation:
-> The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
-> — Kent C. Dodds, "How to Know What to Test"
+The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
 
 > #### User Annotation:
 > 이상적인 커버리지 수치는 회사 역량과 대상 코드의 중요도에 따라 달라진다.
@@ -462,9 +450,9 @@ But the code coverage report can sometimes help us identify use cases that we're
 
 > #### Key Terms:
 > - **Use Case Coverage**: 테스트가 커버하는 유스케이스의 비율. 자동 측정 도구가 없어 개발자가 직접 판단해야 한다
-> #### Official Annotation:
-> Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
-> Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".
+
+Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
+Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".
 
 > #### AI Annotation:
 > Code Coverage는 "어떤 라인이 실행되었는가"만 보여주고, "이 라인이 왜 중요한가"는 알려주지 않는다.

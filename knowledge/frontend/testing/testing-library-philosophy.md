@@ -39,8 +39,7 @@ The software is actually broken but the test passes (false positive) or the soft
 Tests which test implementation details can give you a false negative when you refactor your code.
 This leads to brittle and frustrating tests that seem to break anytime you so much as look at the code.
 
-> #### Official Annotation:
-> You may want to avoid the following implementation details: Internal state of a component, Internal methods of a component, Lifecycle methods of a component, Child components.
+You may want to avoid the following implementation details: Internal state of a component, Internal methods of a component, Lifecycle methods of a component, Child components.
 
 > #### AI Annotation:
 > implementation details에 의존하는 테스트는 기능이 동일한 리팩토링에도 깨진다.
@@ -153,9 +152,7 @@ It doesn't affect the rest of the system like the developer user.
 
 Writing tests that include implementation details is all downside and no upside.
 
-> #### Official Annotation:
-> You should very rarely have to change tests when you refactor code.
-> — Kent C. Dodds, "Write tests. Not too many. Mostly integration."
+You should very rarely have to change tests when you refactor code.
 
 > #### AI Annotation:
 > UI 코드의 사용자는 end user(컴포넌트와 상호작용하는 최종 사용자)와 developer user(컴포넌트를 렌더링하는 개발자) 두 명뿐이다.
@@ -180,10 +177,8 @@ So our test should typically only see/interact with the props that are passed, a
 > #### Key Terms:
 > - **implementation details**: 코드의 사용자(end user, developer)가 보지도, 쓰지도, 알지도 못하는 내부 구현
 
-> #### Official Annotation:
-> Here are a few aspects of React that people often think about testing which results in implementation details tests: Lifecycle methods, Element event handlers, Internal Component State.
-> Conversely, here are things that you should be testing because they concern your two users: User interactions (using userEvent), Changing props (using rerender), Context changes (using rerender), Subscription changes.
-> — Kent C. Dodds, "How to Know What to Test"
+Here are a few aspects of React that people often think about testing which results in implementation details tests: Lifecycle methods, Element event handlers, Internal Component State.
+Conversely, here are things that you should be testing because they concern your two users: User interactions (using userEvent), Changing props (using rerender), Context changes (using rerender), Subscription changes.
 
 ### Reference
 - https://kentcdodds.com/blog/testing-implementation-details
