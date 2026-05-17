@@ -120,14 +120,14 @@ On subsequent navigations, Client Components are rendered entirely on the client
 This means the Client Component JavaScript bundle is downloaded and parsed.
 Once the bundle is ready, React will use the RSC Payload to reconcile the Client and Server Component trees, and update the DOM.
 
-> #### Official Annotation (Client Router Cache):
-> Next.js has an in-memory client-side router cache that stores the RSC payload of route segments, split by layouts, loading states, and pages.
+Next.js has an in-memory client-side router cache that stores the RSC payload of route segments, split by layouts, loading states, and pages.
 
 > #### User Annotation:
 > layout, loading state, page 세 개를 하나의 RSC Payload에 저장한다는 의미가 아니라 각각 따로 저장한다는 의미다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/client-components#subsequent-navigations
+- https://nextjs.org/docs/app/building-your-application/caching#client-side-router-cache
 
 ---
 
