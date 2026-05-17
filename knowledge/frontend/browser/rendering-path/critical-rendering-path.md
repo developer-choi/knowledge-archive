@@ -61,9 +61,6 @@ The sequence of steps the browser takes before performing that initial render is
 - Composite the pixels if any of them overlap.
 - Physically draw all the resulting pixels to screen.
 
-> #### AI Annotation:
-> CRP는 브라우저가 HTML, CSS, JS를 화면 픽셀로 변환하는 일련의 단계다.
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
 - https://web.dev/learn/performance/understanding-the-critical-path
@@ -101,10 +98,6 @@ Therefore, browsers are very good at rendering pages progressively.
 > - **progressive rendering**: 가용한 리소스부터 점진적으로 화면을 그리는 방식
 > - **install phase / running phase**: 네이티브 앱의 설치 단계와 실행 단계 구분
 
-> #### User Annotation:
-> 앱처럼 phase가 2개로 명확히 나뉜 게 아니라서, 브라우저는 progressively하게 렌더링할 수밖에 없었음.
-> 그 고민의 결과가 지금 웹 브라우저들의 동작 방식 — DOM + CSSOM ⇒ Render Tree ⇒ ... 절차들임.
-
 ### Reference
 - https://web.dev/learn/performance/understanding-the-critical-path
 
@@ -120,10 +113,6 @@ On the other hand, if the browser waits for all resources to be available instea
 The browser needs to know what the minimum number of resources it should wait for in order to avoid presenting an obviously broken experience.
 On the other hand, the browser also shouldn't wait longer than necessary before presenting the user with some content.
 
-> #### User Annotation:
-> 너무 이르게 화면을 보여줘도, 너무 늦게 화면을 보여줘도 안 되므로,
-> "최소한 이 정도는 해야 화면에 보여줄 수 있다"라는 기준이 CRP다.
-
 ### Reference
 - https://web.dev/learn/performance/understanding-the-critical-path
 
@@ -134,9 +123,6 @@ On the other hand, the browser also shouldn't wait longer than necessary before 
 ### Official Answer
 This rendering process happens multiple times.
 The initial render invokes this process, but as more resources that affect the page's rendering become available, the browser will re-run this process.
-
-> #### User Annotation:
-> 한 번만 발생하는 게 아님 — 새 리소스가 도착할 때마다 다시 실행된다.
 
 ### Reference
 - https://web.dev/learn/performance/understanding-the-critical-path
@@ -400,10 +386,6 @@ Had we defined the dimensions of our image, no reflow would have been necessary,
 > #### Key Terms:
 > - **compositing**: 여러 레이어로 그려진 결과를 올바른 순서·위치로 합쳐 최종 화면을 만드는 단계
 > - **layer**: paint 결과를 분리해 GPU에서 별도로 다룰 수 있는 단위
-
-> #### User Annotation:
-> 성능 향상을 위해 별도 레이어로 나눴으니, 다시 합칠 때 올바른 순서로 합쳐야 한다.
-> 이미지에 가로/세로 크기를 지정하지 않으면 reflow → repaint → re-composite가 모두 발생하지만, 지정하면 reflow 없이 필요한 레이어만 repaint/re-composite된다.
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work#compositing

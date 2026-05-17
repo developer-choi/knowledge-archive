@@ -330,10 +330,6 @@ And that's what we're doing at every level of the testing trophy.
 > Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다.
 > Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
 
-> #### User Annotation:
-> 촘촘하게 테스트 해야하니까.
-> 비즈니스 로직 사이 사이를.
-
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
 
@@ -407,12 +403,6 @@ You should very rarely have to change tests when you refactor code.
 > - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
 
 The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
-
-> #### User Annotation:
-> 이상적인 커버리지 수치는 회사 역량과 대상 코드의 중요도에 따라 달라진다.
-> 규모가 작아 기능 구현이 벅찬 회사라면 테스트 도입 자체가 부담일 수 있고,
-> 인원이 충분한 대기업에서 금융 관련 서비스를 만든다면 커버리지를 최대한 높여야 한다.
-> 즉, 회사 역량이 뒷받침되어야 하고, 테스트 대상이 그만큼 중요한지에 따라 적정 수치가 달라진다.
 
 ### Reference
 - https://kentcdodds.com/blog/write-tests

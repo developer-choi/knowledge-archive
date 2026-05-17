@@ -61,7 +61,6 @@ Kernel scheduling is typically uniformly done preemptively or, less commonly, co
 At the user level a process such as a runtime system can itself schedule multiple threads of execution.
 If these do not share data, as in Erlang, they are usually analogously called processes, while if they share data they are usually called (user) threads, particularly if preemptively scheduled.
 
-Kernel threads do not own resources except for a stack, a copy of the registers including the program counter, and thread-local storage (if any), and are thus relatively cheap to create and destroy.
 As user thread implementations are typically entirely in userspace, context switching between user threads within the same process is extremely efficient because it does not require any interaction with the kernel at all.
 
 > #### AI Annotation:

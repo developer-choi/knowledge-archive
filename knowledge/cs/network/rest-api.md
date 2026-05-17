@@ -11,7 +11,7 @@ source: official
   - 웹 API에서 "리소스(resource)"는 무엇을 가리키며, 누가 그것을 제공하는가?
   - API는 단순히 데이터를 주고받는 통로인가? 조직이 DB를 직접 공개하지 않고 API 계층을 두는 이유는 무엇인가?
 - RESTful API란 무엇인가?
-  - [UNVERIFIED] 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
+  - 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
 - REST(Representational State Transfer)란 무엇인가?
   - [UNVERIFIED] REST는 프로토콜인가 아키텍처 스타일인가? HTTP와는 어떤 관계인가?
   - REST에서 "representation"이란 무엇이며, 리소스(resource) 자체와 어떻게 다른가?
@@ -30,7 +30,7 @@ source: official
   - RESTful API가 "기술 독립적(Independence)"이라는 말의 의미는?
 - RESTful API 호출 한 번은 어떤 단계들로 진행되는가?
   - REST API에서 "API documentation"이 필수인 이유는 무엇인가?
-  - [UNVERIFIED] REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
+  - REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
 
 ## REST 요청 구성요소
 - RESTful API 클라이언트 요청은 어떤 구성요소들을 포함하는가?
@@ -170,12 +170,11 @@ RESTful APIs support this information exchange because they follow secure, relia
 
 ---
 
-## [UNVERIFIED] 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
+## 모든 API가 RESTful API인가? RESTful API와 그냥 API는 어떻게 다른가?
 
-### AI Answer
-아니다.
-API는 "다른 소프트웨어 시스템과 통신할 때 따라야 하는 규칙들"이라는 상위 개념이고, RESTful API는 그중에서도 안전·신뢰성·효율성을 갖춘 소프트웨어 통신 표준(HTTP, URI 등)을 따르는 API다.
-모든 RESTful API는 API지만, 모든 API가 RESTful은 아니다 — gRPC, GraphQL, RPC, WebSocket 기반 API 등도 모두 API에 속한다.
+### Official Answer
+An application programming interface (API) defines the rules that you must follow to communicate with other software systems.
+RESTful APIs support this information exchange because they follow secure, reliable, and efficient software communication standards.
 
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/
@@ -517,12 +516,10 @@ The REST API request and response details vary slightly depending on how the API
 
 ---
 
-## [UNVERIFIED] REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
+## REST API 요청에서 "인증(authentication)"과 "인가(authorization)"는 어떻게 다른가?
 
-### AI Answer
-인증(authentication)은 "누구냐"를 확인하는 것 — 토큰이 유효한 사용자의 것이냐 같은 신원 확인.
-인가(authorization)는 "이 요청을 할 자격이 있냐"를 확인하는 것 — 그 사용자가 해당 리소스에 접근할 권한이 있냐 같은 권한 확인.
-실무에선 명확히 구분되는 두 절차이며, HTTP 상태 코드도 401 Unauthorized(인증 실패)와 403 Forbidden(인가 실패)으로 나뉜다.
+### Official Answer
+The server authenticates the client and confirms that the client has the right to make that request.
 
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/

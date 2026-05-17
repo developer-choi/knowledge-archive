@@ -28,9 +28,6 @@ For instance in a shell pipeline, the output of the first process needs to pass 
 >
 > `ls | grep .md`에서 `ls`의 stdout이 `grep`의 stdin으로 파이프로 연결되는 것이 IPC의 대표적 실례.
 
-> #### User Annotation:
-> 한 프로세스가 죽어도 다른 프로세스가 같이 망가지지 않는다. Chrome 탭 10개 중 1개에서 문제가 생겨도 나머지 9개는 계속 동작한다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 
@@ -44,10 +41,6 @@ It is usual to associate a single process with a main program, and child process
 > #### AI Annotation:
 > 메인 프로그램 = 부모 프로세스, 파생된 병렬 프로세스 = 자식 프로세스.
 > Node.js에서 `child_process.fork()`로 무거운 작업을 별도 프로세스에 위임하는 것이 이 패턴.
-
-> #### User Annotation:
-> 자식 프로세스는 부모 프로세스로부터 리소스 권한과 스케줄링 속성을 상속받는다.
-> 단, 부모가 가진 자원의 부분집합만을 사용하도록 제한된다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)

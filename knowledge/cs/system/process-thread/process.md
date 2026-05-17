@@ -99,13 +99,5 @@ Memory (typically some region of virtual memory); which includes the executable 
 > #### AI Annotation:
 > JS의 콜 스택(함수 호출 추적)과 힙(객체/배열 등 동적 데이터)이 바로 프로세스 메모리 영역에 해당한다.
 
-> #### User Annotation:
-> 프로세스는 메모리상의 특정 위치를 OS에게 할당받고, 내부적으로 메모리 크기를 동적으로 조절한다.
-> 네 영역으로 세분화하면:
-> - 텍스트 영역: 실제 실행 코드가 들어있다.
-> - 데이터 영역: 프로그램 실행부터 종료까지 지워지지 않는 데이터가 저장된다 (전역 변수 등).
-> - 스택: 매개변수, 지역변수 등 임시 데이터가 저장된다. 컴파일 시점에 메모리 크기가 결정되고 주소값은 가장 위에 할당된다.
-> - 힙: 프로그램 실행 시 동적으로 할당되는 영역 (= 런타임).
-
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
