@@ -19,22 +19,17 @@ The operating system keeps its processes separate and allocates the resources th
 For security and reliability, most modern operating systems prevent direct communication between independent processes, providing strictly mediated and controlled inter-process communication.
 The operating system may also provide mechanisms for inter-process communication to enable processes to interact in safe and predictable ways.
 
+When processes need to communicate with each other they must share parts of their address spaces or use other forms of inter-process communication (IPC).
+For instance in a shell pipeline, the output of the first process needs to pass to the second one, and so on.
+
 > #### AI Annotation:
 > deadlock = A가 B의 자원을 기다리고, B가 A의 자원을 기다려서 둘 다 영원히 멈추는 상태.
 > thrashing = 메모리 부족으로 페이지 교체가 과도하게 발생하여, 실제 작업보다 교체에 시간을 더 쓰는 상태.
-> 격리하되, 필요 시 IPC로 통제된 통신을 허용한다.
->
-> 프로세스끼리 직접 메모리를 들여다볼 수 없게 격리한다.
-> A 프로세스가 B의 메모리를 마음대로 읽으면 보안 사고 → OS가 중간에서 통제하는 IPC(파이프, 소켓, 공유 메모리 등)만 허용한다.
 >
 > `ls | grep .md`에서 `ls`의 stdout이 `grep`의 stdin으로 파이프로 연결되는 것이 IPC의 대표적 실례.
 
 > #### User Annotation:
 > 한 프로세스가 죽어도 다른 프로세스가 같이 망가지지 않는다. Chrome 탭 10개 중 1개에서 문제가 생겨도 나머지 9개는 계속 동작한다.
-
-> #### Official Annotation:
-> When processes need to communicate with each other they must share parts of their address spaces or use other forms of inter-process communication (IPC).
-> For instance in a shell pipeline, the output of the first process needs to pass to the second one, and so on.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)

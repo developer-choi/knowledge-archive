@@ -32,7 +32,6 @@ In many cases, a thread is a component of a process.
 
 > #### AI Annotation:
 > 프로세스 = 자원의 단위(메모리, 파일 핸들 등), 스레드 = 실행의 단위(CPU 스케줄링).
-> 하나의 프로세스 안에 스레드가 1개 이상 존재한다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -46,8 +45,7 @@ The multiple threads of a given process may be executed concurrently (via multit
 In particular, the threads of a process share its executable code and the values of its dynamically allocated variables and global variables at any given time.
 
 > #### AI Annotation:
-> 공유 = 코드 영역 + 힙(동적 할당) + 전역변수.
-> 독립 = 스택 + thread-local 변수.
+> 독립 영역 = 스택 + thread-local 변수 (OA에 명시 없음; 스택은 스레드마다 별도 콜 스택을 가짐).
 > JS의 Web Worker는 기본적으로 메모리를 공유하지 않아서 `SharedArrayBuffer`를 명시적으로 사용해야 하지만, 네이티브 스레드는 기본이 공유다.
 
 ### Reference
@@ -63,14 +61,11 @@ Kernel scheduling is typically uniformly done preemptively or, less commonly, co
 At the user level a process such as a runtime system can itself schedule multiple threads of execution.
 If these do not share data, as in Erlang, they are usually analogously called processes, while if they share data they are usually called (user) threads, particularly if preemptively scheduled.
 
-> #### AI Annotation:
-> 커널 스레드 = OS가 직접 스케줄링. 유저 스레드 = 런타임/라이브러리가 사용자 공간에서 스케줄링하며 커널은 존재를 모른다.
-> Node.js의 이벤트 루프, Go의 goroutine이 유저 수준 스케줄링의 예.
-> 데이터 공유 여부로 용어가 갈린다: 공유 O → 유저 스레드, 공유 X → 프로세스(Erlang 액터 모델).
+Kernel threads do not own resources except for a stack, a copy of the registers including the program counter, and thread-local storage (if any), and are thus relatively cheap to create and destroy.
+As user thread implementations are typically entirely in userspace, context switching between user threads within the same process is extremely efficient because it does not require any interaction with the kernel at all.
 
-> #### Official Annotation:
-> Kernel threads do not own resources except for a stack, a copy of the registers including the program counter, and thread-local storage (if any), and are thus relatively cheap to create and destroy.
-> As user thread implementations are typically entirely in userspace, context switching between user threads within the same process is extremely efficient because it does not require any interaction with the kernel at all.
+> #### AI Annotation:
+> Node.js의 이벤트 루프, Go의 goroutine이 유저 수준 스케줄링의 예.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -84,9 +79,7 @@ Kernel threads do not own resources except for a stack, a copy of the registers 
 Thread switching is also relatively cheap: it requires a context switch (saving and restoring registers and stack pointer), but does not change virtual memory and is thus cache-friendly (leaving TLB valid).
 
 > #### AI Annotation:
-> 커널 스레드의 소유물 = 스택 + 레지스터(PC 포함) + TLS. 나머지(메모리, 파일 핸들)는 프로세스 것을 공유.
 > 프로세스 생성 = 주소 공간·파일 디스크립터·PCB 전부 새로 할당해야 하므로 비쌈.
-> 스레드 생성 = 스택과 레지스터만 할당하면 되므로 저렴.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -149,9 +142,7 @@ OS/2 and Win32 used this approach from the start, while on Linux the GNU C Libra
 This approach is also used by Solaris, NetBSD, FreeBSD, macOS, and iOS.
 
 > #### AI Annotation:
-> 1:1 = 유저 스레드 1개당 커널 스레드 1개가 대응.
 > 단순하고, 멀티코어를 자연스럽게 활용 가능.
-> 현대 주요 OS(Linux, Windows, macOS, iOS)가 전부 이 모델을 사용한다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -164,10 +155,6 @@ This approach is also used by Solaris, NetBSD, FreeBSD, macOS, and iOS.
 An M:1 model implies that all application-level threads map to one kernel-level scheduled entity; the kernel has no knowledge of the application threads.
 One of the major drawbacks, however, is that it cannot benefit from the hardware acceleration on multithreaded processors or multi-processor computers: there is never more than one thread being scheduled at the same time.
 For example: If one of the threads needs to execute an I/O request, the whole process is blocked and the threading advantage cannot be used.
-
-> #### AI Annotation:
-> M개의 유저 스레드가 커널 스레드 1개에 매핑되므로, 코어가 아무리 많아도 한 번에 하나의 스레드만 실행된다.
-> I/O 블로킹 시 전체 프로세스가 멈추는 문제도 이 구조에서 발생한다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -184,7 +171,6 @@ However, this increases complexity and the likelihood of priority inversion, as 
 
 > #### AI Annotation:
 > Go의 goroutine이 M:N 모델의 대표 사례: 수천 개의 goroutine을 소수의 OS 스레드에 매핑.
-> 전환이 빠르지만, 유저 스케줄러와 커널 스케줄러 간 조율이 복잡하다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -250,9 +236,7 @@ In other words, a multithreaded program can easily have bugs which never manifes
 This can be alleviated by restricting inter-thread communications to certain well-defined patterns (such as message-passing).
 
 > #### AI Annotation:
-> 비결정적 = 실행할 때마다 스레드 실행 순서가 달라져서, 같은 입력에도 다른 결과가 나올 수 있다.
-> 메시지 패싱 = 공유 메모리 대신 메시지로 통신하여 race condition을 원천 차단.
-> Web Worker의 `postMessage`, Erlang의 액터 모델이 이 패턴.
+> Web Worker의 `postMessage`, Erlang의 액터 모델이 메시지 패싱 패턴의 실례.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -268,7 +252,6 @@ This effectively limits the parallelism on multiple core systems.
 It also limits performance for processor-bound threads (which require the processor), but doesn't effect I/O-bound or network-bound ones as much.
 
 > #### AI Annotation:
-> Python(CPython)이 대표적 예. 스레드가 여러 개여도 한 번에 하나만 파이썬 코드를 실행 가능.
 > Node.js도 싱글스레드이지만 GIL과는 다르다 — Node.js는 설계상 싱글스레드이고, CPython은 멀티스레드를 지원하되 GIL로 인해 사실상 싱글스레드처럼 동작한다는 차이.
 
 ### Reference
