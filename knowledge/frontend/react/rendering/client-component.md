@@ -45,9 +45,8 @@ It's placed at the top of a file, above imports, to define the cut-off point whe
 
 This means that by defining a `"use client"` in a file, all other modules imported into it, including child components, are considered part of the client bundle.
 
-> #### Official Annotation:
-> `"use client"` does not need to be defined in every file.
-> The Client module boundary only needs to be defined once, at the "entry point", for all modules imported into it to be considered a Client Component.
+`"use client"` does not need to be defined in every file.
+The Client module boundary only needs to be defined once, at the "entry point", for all modules imported into it to be considered a Client Component.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/client-components
@@ -107,10 +106,9 @@ The only responsibility `<ClientComponent>` has is to decide where children will
 With this approach, `<ClientComponent>` and `<ServerComponent>` are decoupled and can be rendered independently.
 In this case, the child `<ServerComponent>` can be rendered on the server, well before `<ClientComponent>` is rendered on the client.
 
-> #### Official Annotation:
-> This allows the passed prop to be rendered independently, in this case, on the server, well before the Client Component is rendered on the client.
->
-> The very same strategy of "lifting content up" has been used to avoid state changes in a parent component re-rendering an imported nested child component.
+This allows the passed prop to be rendered independently, in this case, on the server, well before the Client Component is rendered on the client.
+
+The very same strategy of "lifting content up" has been used to avoid state changes in a parent component re-rendering an imported nested child component.
 
 > #### User Annotation:
 > 즉, CC의 props로 전달될 SC는 독립적으로 미리 렌더링시켜놓고, 그것을 CC에 전달한다.
@@ -181,14 +179,13 @@ This means that values such as functions, Dates, etc, cannot be passed directly 
 Today, many components from npm packages that use client-only features do not yet have the directive.
 These third-party components will work as expected within your own Client Components since they have the `"use client"` directive, but they won't work within Server Components.
 
-> #### Official Annotation (For Library Authors):
-> In a similar fashion, library authors creating packages to be consumed by other developers can use the `"use client"` directive to mark client entry points of their package.
-> This allows users of the package to import package components directly into their Server Components without having to create a wrapping boundary.
->
-> You can optimize your package by using `'use client'` deeper in the tree, allowing the imported modules to be part of the Server Component.
->
-> It's worth noting some bundlers might strip out `"use client"` directives.
-> You can find an example of how to configure esbuild to include the `"use client"` directive in the React Wrap Balancer and Vercel Analytics repositories.
+In a similar fashion, library authors creating packages to be consumed by other developers can use the `"use client"` directive to mark client entry points of their package.
+This allows users of the package to import package components directly into their Server Components without having to create a wrapping boundary.
+
+You can optimize your package by using `'use client'` deeper in the tree, allowing the imported modules to be part of the Server Component.
+
+It's worth noting some bundlers might strip out `"use client"` directives.
+You can find an example of how to configure esbuild to include the `"use client"` directive in the React Wrap Balancer and Vercel Analytics repositories.
 
 ### Reference
 - https://nextjs.org/docs/getting-started/react-essentials

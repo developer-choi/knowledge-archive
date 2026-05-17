@@ -32,6 +32,11 @@ For example, you won't write commands like "disable the button", "enable the but
 Instead, you will describe the UI you want to see for the different visual states of your component ("initial state", "typing state", "success state"), and then trigger the state changes in response to user input.
 This is similar to how designers think about UI.
 
+In React, you don't directly manipulate the UI—meaning you don't enable, disable, show, or hide components directly.
+Instead, you declare what you want to show, and React figures out how to update the UI.
+Think of getting into a taxi and telling the driver where you want to go instead of telling them exactly where to turn.
+It's the driver's job to get you there, and they might even know some shortcuts you haven't considered!
+
 > #### Key Terms:
 > - **modify the UI from code directly**: DOM 노드를 직접 조작하는 것 (`element.style.display = 'none'` 같은)
 > - **commands**: "이걸 해라"라고 지시하는 명령문
@@ -39,14 +44,6 @@ This is similar to how designers think about UI.
 > - **visual states**: 컴포넌트가 취할 수 있는 화면 상태들 (initial / typing / success 등)
 > - **trigger**: state 변경을 유발
 > - **in response to**: ~에 반응하여
-
-> #### Official Annotation:
-> In React, you don't directly manipulate the UI—meaning you don't enable, disable, show, or hide components directly.
-> Instead, you declare what you want to show, and React figures out how to update the UI.
-> Think of getting into a taxi and telling the driver where you want to go instead of telling them exactly where to turn.
-> It's the driver's job to get you there, and they might even know some shortcuts you haven't considered!
->
-> 출처: https://react.dev/learn/reacting-to-input-with-state
 
 ### Reference
 - https://react.dev/learn/managing-state
@@ -85,19 +82,16 @@ To paraphrase Albert Einstein, "Make your state as simple as it can be—but no 
 React preserves a component's state for as long as it's being rendered at its position in the UI tree.
 If it gets removed, or a different component gets rendered at the same position, React discards its state.
 
+Notice how the moment you stop rendering the second counter, its state disappears completely.
+That's because when React removes a component, it destroys its state.
+When you tick "Render the second counter", a second `Counter` and its state are initialized from scratch (`score = 0`) and added to the DOM.
+
 > #### Key Terms:
 > - **preserves**: 보존 — 직전 값을 그대로 유지
 > - **position in the UI tree**: 트리에서의 자리 — 컴포넌트와 state를 매핑하는 키
 > - **removed**: 그 위치에서 더 이상 렌더되지 않음 (예: 조건부 렌더링이 false로 바뀜)
 > - **a different component gets rendered at the same position**: 위치는 그대로인데 컴포넌트 타입이 바뀜 (예: `<Counter />` → `<Spinner />`)
 > - **discards**: 버림 — 메모리에서 제거. 다시 렌더해도 복구 안 되고 처음부터 초기화
-
-> #### Official Annotation:
-> Notice how the moment you stop rendering the second counter, its state disappears completely.
-> That's because when React removes a component, it destroys its state.
-> When you tick "Render the second counter", a second `Counter` and its state are initialized from scratch (`score = 0`) and added to the DOM.
->
-> 출처: https://react.dev/learn/preserving-and-resetting-state
 
 ### Reference
 - https://react.dev/learn/preserving-and-resetting-state
@@ -255,27 +249,21 @@ Another paradox: `isEmpty` and `isTyping` can't be `true` at the same time.
 By making them separate state variables, you risk them going out of sync and causing bugs.
 Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
 
+A common example of redundant state is code like this:
+`function Message({ messageColor }) { const [color, setColor] = useState(messageColor); }`
+The problem is that if the parent component passes a different value of messageColor later (for example, 'red' instead of 'blue'), the color state variable would not be updated!
+The state is only initialized during the first render.
+This is why "mirroring" some prop in a state variable can lead to confusion.
+Instead, use the messageColor prop directly in your code. If you want to give it a shorter name, use a constant: `const color = messageColor;`
+
+"Mirroring" props into state only makes sense when you want to ignore all updates for a specific prop.
+By convention, start the prop name with initial or default to clarify that its new values are ignored:
+`function Message({ initialColor }) { const [color, setColor] = useState(initialColor); }`
+
 > #### Key Terms:
 > - **same information available in another state variable**: 이미 다른 state에서 도출 가능한 정보
 > - **going out of sync**: 짝으로 갱신해야 하는 state들이 한쪽만 갱신되어 불일치
 > - **remove `isEmpty` and instead check `answer.length === 0`**: state 변수를 제거하고 매 렌더 시 파생 표현식으로 계산. source of truth는 `answer` 하나
-
-> #### Official Annotation:
-> A common example of redundant state is code like this:
-> `function Message({ messageColor }) { const [color, setColor] = useState(messageColor); }`
-> The problem is that if the parent component passes a different value of messageColor later (for example, 'red' instead of 'blue'), the color state variable would not be updated!
-> The state is only initialized during the first render.
-> This is why "mirroring" some prop in a state variable can lead to confusion.
-> Instead, use the messageColor prop directly in your code. If you want to give it a shorter name, use a constant: `const color = messageColor;`
->
-> 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Don't mirror props in state)
-
-> #### Official Annotation:
-> "Mirroring" props into state only makes sense when you want to ignore all updates for a specific prop.
-> By convention, start the prop name with initial or default to clarify that its new values are ignored:
-> `function Message({ initialColor }) { const [color, setColor] = useState(initialColor); }`
->
-> 출처: https://react.dev/learn/choosing-the-state-structure (Deep Dive — Don't mirror props in state)
 
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
@@ -292,22 +280,19 @@ Instead of a tree-like structure where each place has an array of its child plac
 Then store a mapping from each place ID to the corresponding place.
 Now that the state is "flat" (also known as "normalized"), updating nested items becomes easier.
 
+In order to remove a place now, you only need to update two levels of state:
+the updated version of its parent place should exclude the removed ID from its childIds array, and
+the updated version of the root "table" object should include the updated version of the parent place.
+
+You can nest state as much as you like, but making it "flat" can solve numerous problems.
+It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
+
 > #### Key Terms:
 > - **all the way up from the part that changed**: 변경 지점부터 root까지 부모 사슬 전체 복사 (immutable 업데이트 원칙)
 > - **parent place chain**: 변경 노드 → 부모 → 조부모 → ... → root
 > - **verbose**: spread 연산이 층마다 반복되어 코드량 폭증
 > - **flat / normalized**: 트리 구조 대신 ID 참조 + ID→객체 lookup 테이블로 재구성. DB 정규화와 같은 사고
 > - **child place IDs**: 자식 객체를 직접 임베드하지 않고 ID 배열로 보관
-
-> #### Official Annotation:
-> In order to remove a place now, you only need to update two levels of state:
-> the updated version of its parent place should exclude the removed ID from its childIds array, and
-> the updated version of the root "table" object should include the updated version of the parent place.
->
-> You can nest state as much as you like, but making it "flat" can solve numerous problems.
-> It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
->
-> 출처: https://react.dev/learn/choosing-the-state-structure
 
 > #### AI Annotation:
 > 핵심 효과: 트리 깊이와 무관하게 update 비용이 항상 2단계 복사 — `O(depth)`가 `O(1)`로 떨어진다.

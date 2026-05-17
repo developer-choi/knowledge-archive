@@ -113,8 +113,8 @@ A feature is an interaction that provides real-life value to your app's users, t
 
 Specifically for entities/ui, it is primarily meant to reuse the same appearance across several pages in the app, and different business logic may be attached to it through props or slots.
 
-> #### Official Annotation: A crucial principle for using the Features layer effectively is: not everything needs to be a feature.
-> A good indicator that something needs to be a feature is the fact that it is reused on several pages.
+A crucial principle for using the Features layer effectively is: not everything needs to be a feature.
+A good indicator that something needs to be a feature is the fact that it is reused on several pages.
 
 > #### User Annotation:
 > - 엔티티는 명사, 개념, 데이터에 해당합니다. 따라서 데이터 타입, 타입을 가공하는 유틸리티, 데이터를 가져오는 GET API 호출 함수, 그리고 데이터를 단순히 보여주는 컴포넌트와 같은 코드들이 엔티티 레이어에 위치합니다.
@@ -187,10 +187,7 @@ For example, components, hooks, and types are bad segment names because they are
 
 - **api**: backend interactions: request functions, data types, mappers, etc. / for code that handles rendering and appearance
 - **model**: the data model: schemas, interfaces, stores, and business logic. / for storage and business logic
-- **lib**: library code that other modules on this slice need.
-> #### Official Annotation: This folder should not be treated as helpers or utilities.
-> Instead, every library in this folder should have one area of focus, for example, dates, colors, text manipulation, etc.
-> That area of focus should be documented in a README file.
+- **lib**: library code that other modules on this slice need. This folder should not be treated as helpers or utilities. Instead, every library in this folder should have one area of focus, for example, dates, colors, text manipulation, etc. That area of focus should be documented in a README file.
 
 > #### AI Annotation:
 > - `lib`를 잡동사니 유틸 폴더로 쓰면 `utils/`와 다를 바 없어진다.
@@ -215,8 +212,8 @@ This enables freedom in refactoring code inside a slice as long as the contract 
 The rest of the application must be protected from structural changes to the slice, like a refactoring.
 Only the necessary parts of the slice should be exposed.
 
-> #### Official Annotation: When they are in the same slice, always use relative imports and write the full import path.
-> When they are in different slices, always use absolute imports, for example, with an alias.
+When they are in the same slice, always use relative imports and write the full import path.
+When they are in different slices, always use absolute imports, for example, with an alias.
 
 > #### AI Annotation: 같은 슬라이스 내부에서 index 파일을 통해 import하면 순환 참조가 발생한다.
 > 예: `HomePage`가 `../`(index.js)에서 `loadUserStatistics`를 가져오면, index.js → HomePage → index.js 순환이 생긴다.

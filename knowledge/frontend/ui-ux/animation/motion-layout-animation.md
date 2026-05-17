@@ -25,9 +25,8 @@ publishable: false
 To enable layout animations on a motion component, simply add the layout prop.
 Any layout change that happens as a result of a React render will now be automatically animated.
 
-> #### Official Annotation:
-> A layout animation automatically animates an element's size and position when the layout changes, like reordering a list, toggling an accordion, or switching grid columns.
-> Instead of calculating start and end values yourself, add layout to a `<motion />` component and Motion handles it automatically using transforms.
+A layout animation automatically animates an element's size and position when the layout changes, like reordering a list, toggling an accordion, or switching grid columns.
+Instead of calculating start and end values yourself, add layout to a `<motion />` component and Motion handles it automatically using transforms.
 
 ### Reference
 - https://motion.dev/docs/react-layout-animations
@@ -54,9 +53,8 @@ Any layout change that happens as a result of a React render will now be automat
 ### Official Answer
 Layout animation can animate previously unanimatable CSS values, like switching justify-content between flex-start and flex-end.
 
-> #### Official Annotation:
-> Motion measures the layout change, then animates using CSS transform (translate + scale) instead of actually animating width and height.
-> Animating transforms can entirely avoid triggering paint.
+Motion measures the layout change, then animates using CSS transform (translate + scale) instead of actually animating width and height.
+Animating transforms can entirely avoid triggering paint.
 
 > #### AI Annotation:
 > CSS transition은 수치 보간(interpolate)이 가능한 값(opacity, width 등)에만 동작합니다.

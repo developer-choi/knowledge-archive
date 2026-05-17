@@ -131,11 +131,7 @@ return <motion.div style={{ x }} />
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
-
-> #### Official Annotation:
-> Source: https://motion.dev/docs/react-motion-value
->
-> Changes to the motion value will update the DOM without triggering a React re-render. Motion values can be updated multiple times but renders will be batched to the next animation frame.
+- https://motion.dev/docs/react-motion-value
 
 ---
 
@@ -287,30 +283,28 @@ Direct children must each have a unique key prop so `AnimatePresence` can track 
 ### Official Answer
 Owing to React limitations, the component being removed **must** be a **direct child** of `AnimatePresence` to enable this animation.
 
+Also make sure `AnimatePresence` is outside of the code that unmounts the element. If `AnimatePresence` itself unmounts, then it can't control exit animations!
+
+```jsx
+// ❌
+isVisible && (
+  <AnimatePresence>
+    <Component />
+  </AnimatePresence>
+)
+// ✅
+<AnimatePresence>
+  {isVisible && <Component />}
+</AnimatePresence>
+```
+
 > #### AI Annotation:
 > 직접 자식이어야 하는 이유는 `AnimatePresence`가 children 목록의 변화로 제거를 감지하는 방식이기 때문이다.
 > 손자 컴포넌트의 마운트/언마운트는 직접 추적하지 않는다.
 
-> #### Official Annotation:
-> Source: https://motion.dev/docs/react-animate-presence
->
-> Also make sure `AnimatePresence` is outside of the code that unmounts the element. If `AnimatePresence` itself unmounts, then it can't control exit animations!
->
-> ```jsx
-> // ❌
-> isVisible && (
->   <AnimatePresence>
->     <Component />
->   </AnimatePresence>
-> )
-> // ✅
-> <AnimatePresence>
->   {isVisible && <Component />}
-> </AnimatePresence>
-> ```
-
 ### Reference
 - https://motion.dev/docs/react-motion-component
+- https://motion.dev/docs/react-animate-presence
 
 ---
 
@@ -396,42 +390,40 @@ return (
 )
 ```
 
+Variants will flow down through `motion` components.
+
+```jsx
+const list = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+
+const item = {
+  visible: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, x: -100 },
+}
+
+return (
+  <motion.ul
+    initial="hidden"
+    whileInView="visible"
+    variants={list}
+  >
+    <motion.li variants={item} />
+    <motion.li variants={item} />
+    <motion.li variants={item} />
+  </motion.ul>
+)
+```
+
 > #### AI Annotation:
 > CSS 클래스처럼 애니메이션 상태를 이름으로 분리·재사용할 수 있다.
 > 각 variant 안에 개별 `transition`을 지정할 수 있어서, 상태마다 다른 전환 효과를 줄 수 있다.
 > 또한 부모 컴포넌트의 variant가 자식에게 전파되므로, orchestration(순차/동시 애니메이션 제어)에 핵심적이다.
 
-> #### Official Annotation:
-> Variants will flow down through `motion` components.
->
-> ```jsx
-> const list = {
->   visible: { opacity: 1 },
->   hidden: { opacity: 0 },
-> }
->
-> const item = {
->   visible: { opacity: 1, x: 0 },
->   hidden: { opacity: 0, x: -100 },
-> }
->
-> return (
->   <motion.ul
->     initial="hidden"
->     whileInView="visible"
->     variants={list}
->   >
->     <motion.li variants={item} />
->     <motion.li variants={item} />
->     <motion.li variants={item} />
->   </motion.ul>
-> )
-> ```
->
-> — https://motion.dev/docs/react-animation
-
 ### Reference
 - https://motion.dev/docs/react-motion-component
+- https://motion.dev/docs/react-animation
 
 ---
 

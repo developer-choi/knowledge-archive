@@ -62,10 +62,10 @@ To make cross-imports between entities in FSD, you can use a special public API 
 
 By making explicit connections between entities, we stay on top of inter-dependencies and maintain a decent level of domain separation.
 
-> #### Official Annotation: Cross-imports are a code smell: a warning sign that slices are becoming coupled.
-> Before reaching for @x, consider whether the boundaries should be merged instead.
-> Think of @x as an explicit gateway for unavoidable domain references—not a general-purpose reuse mechanism.
-> Overuse tends to lock entity boundaries together and makes refactoring more costly over time.
+Cross-imports are a code smell: a warning sign that slices are becoming coupled.
+Before reaching for @x, consider whether the boundaries should be merged instead.
+Think of @x as an explicit gateway for unavoidable domain references—not a general-purpose reuse mechanism.
+Overuse tends to lock entity boundaries together and makes refactoring more costly over time.
 
 > #### AI Annotation: 두 가지 해결책이 있다.
 > 1. **제네릭 파라미터**: `Song<ArtistType extends { id: string }>`처럼 타입 파라미터로 연결을 느슨하게 만든다. 상위 레이어에서 `Song<Artist>`로 조립한다.

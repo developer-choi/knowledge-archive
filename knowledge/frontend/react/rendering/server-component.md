@@ -134,11 +134,10 @@ To make the transition to Server Components easier, all components inside the Ap
 
 This allows you to automatically adopt them with no extra work, and achieve great performance out of the box.
 
-> #### Official Annotation:
-> Server Components are not interactive and therefore do not read from React state.
->
-> Server and Client Components can be combined in the same component tree.
-> All components are part of the Server Component unless defined or imported in a module that starts with the `"use client"` directive.
+Server Components are not interactive and therefore do not read from React state.
+
+Server and Client Components can be combined in the same component tree.
+All components are part of the Server Component unless defined or imported in a module that starts with the `"use client"` directive.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
