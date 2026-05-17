@@ -14,8 +14,28 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 ### 내용 분류
 - 영어 원문이 있으면 그대로 보존하여 Official Answer로 사용
 - **원문 합성 금지**: 여러 출처의 문장을 단어 단위로 짜깁기하여 새로운 문장을 만들지 않는다. 단, 서로 다른 출처의 원문 문장을 그대로 이어 붙이는 것은 허용한다.
-- 한글 메모는 Annotation으로 분류
+- **사용자가 직접 작성한 한글 메모**는 User Annotation으로 분류
 - **영어 원문 없이 한글만 제공된 경우**: User Answer로 작성. AI가 영어 Official Answer를 생성하지 않는다
+
+### 해설은 휘발, 저장하지 않는다
+
+대화형 모드의 line-by-line 해설은 학습 세션용으로 채팅에만 출력하고 knowledge/ 파일에 저장하지 않는다. **한글 line-by-line 해설은 `/explain` 스킬이 `explained/<rel>.md`에 담당**한다. digest가 해설 결과를 AI Annotation으로 저장하면 explained와 중복되고 knowledge/ 파일이 비대해진다.
+
+### AI Annotation 생성 정책
+
+AI Annotation은 **OA에 없는 새 가치**(새 비유·실생활 매핑·실무 통찰·외부 도구 매핑)만 담는다. 다음은 만들지 않는다:
+
+- OA 영어 원문의 한글 번역·요약·풀이 (→ explained 영역)
+- OA가 명시한 정의·예시·메커니즘의 단순 반복
+- "두 단계 요약", "핵심 정리" 같은 OA 재진술
+
+만들어도 되는 예:
+- "이게 없으면 어떤 문제가 생기는가" 통찰
+- `node app.js`, Chrome DevTools, Task Manager 같은 사용자 코드 흐름 매핑
+- 흔한 오개념 짚기
+- OA가 다루지 않는 특수 상황·엣지 케이스
+
+상세 규칙은 [content-format.md](../../contexts/content-format.md)의 "AI Annotation 작성 정책 — 한글 풀이 금지"·"AI Annotation 중복 금지" 참고.
 
 ### Frontmatter publishable
 

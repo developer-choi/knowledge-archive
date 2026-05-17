@@ -44,11 +44,15 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 이미지·링크 처리
 
-- **AI 답변 캡처**: 이미지 내 텍스트를 `AI Annotation`으로
+- **AI 답변 캡처**: 이미지 내 텍스트를 `AI Annotation`으로 (다른 AI에게 물어 캡처한 답변만 해당. 사용자가 직접 작성한 한국어는 User Annotation으로)
 - **공식 문서 캡처**(다이어그램, 표): 텍스트 설명으로 변환
 - **강의 슬라이드 스크린샷**: 변환하지 않음 (드롭)
 - **내부 Google Docs 링크**: Reference에서 제외 (외부 접근 불가)
 - **외부 하이퍼링크**(위키피디아/MDN/공식문서): `Reference`로 사용
+
+## AI Annotation 생성 정책
+
+convert는 원칙적으로 AI Annotation을 새로 만들지 않는다. 사용자가 작성한 모든 한국어는 User Annotation 또는 User Answer로 분류한다. AI Annotation은 위 "AI 답변 캡처" 같이 사용자가 다른 AI로부터 받은 답변을 캡처한 경우에만 허용한다. OA 영어 원문의 한글 번역·요약·해설을 AI Annotation으로 만들지 않는다 (그 역할은 `/explain`의 `explained/`가 담당). 상세는 [content-format.md](../../contexts/content-format.md)의 "AI Annotation 작성 정책 — 한글 풀이 금지" 참고.
 
 ## 드롭 대상
 

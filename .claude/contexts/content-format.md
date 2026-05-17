@@ -135,10 +135,12 @@ Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트 + `#### 
 
 | Annotation 유형 | 형식 | 출처 | 용도 |
 |---|---|---|---|
-| AI Annotation | `> #### AI Annotation:` | AI 생성 | AI가 추가한 해설, 비유, 코드 예시 등 |
-| User Annotation | `> #### User Annotation:` | 사용자 작성 | 사용자의 메모, 경험 기반 보충 |
+| AI Annotation | `> #### AI Annotation:` | AI 생성 | OA에 없는 **새 비유·실생활 매핑·실무 통찰·외부 도구 매핑**(예: Chrome DevTools, Node.js API). 한글 번역·요약·풀이는 만들지 않는다 |
+| User Annotation | `> #### User Annotation:` | 사용자 작성 | 사용자의 메모, 경험 기반 보충, 직접 작성한 한국어 노트 |
 
-**AI Annotation 중복 금지**: OA(또는 Key Terms)에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI Annotation은 삭제한다. 새로운 비유(특히 사용자 코드 흐름에 매핑된 JS/브라우저/Node.js 예), 실생활 매핑, 실무 통찰을 더할 때만 유지한다. 일부만 중복이면 중복 부분만 삭제하고 새 내용만 남긴다.
+**AI Annotation 작성 정책 — 한글 풀이 금지**: AI Annotation은 OA에 없는 **새 가치**(비유·통찰·매핑)만 담는다. OA 영어 원문을 한글로 번역·요약·해설하는 것은 만들지 않는다. **한글 line-by-line 해설은 `/explain` 스킬이 `explained/<rel>.md`에 담당**하므로, knowledge/ 파일에 이중으로 둘 필요가 없다. digest/convert 등 어떤 스킬도 한글 풀이 AI Annotation을 생성하지 않는다.
+
+**AI Annotation 중복 금지**: OA(또는 Key Terms)에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI Annotation은 삭제한다. 위 "한글 풀이 금지"와 함께 적용 — OA 원문의 다른 언어 풀이도 "단순 반복"으로 본다. 새 비유·매핑·통찰을 더할 때만 유지하고, 일부만 중복이면 중복 부분만 삭제한다.
 
 ```markdown
 ### Official Answer
