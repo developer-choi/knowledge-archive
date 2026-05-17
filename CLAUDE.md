@@ -6,6 +6,7 @@
 knowledge/   학습 Q&A 문서 (원본, 진실의 원천)
 explained/   /explain 스킬이 생성·저장하는 설명 캐시
 techniques/  도구·기법 학습 정리 (검색·참조용, Q&A 아님)
+archives/    학습 중 파생된 심층 보충 노트 (특정 Q&A와 1:1 대응 안 하는 깊은 탐구)
 scripts/     마이그레이션·검증·후보 추출 스크립트
 ```
 
@@ -45,6 +46,47 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 1. 답변한다.
 2. 답변 직후 "explained에 방금 물어본 내용 보충할까요?" 라고 묻는다.
 3. 사용자가 승인하면 해당 설명을 explained 파일의 관련 섹션에 보충한다.
+
+## brain.yaml
+
+`.claude/contexts/brain.yaml` — 사용자가 아는 것/모르는 것을 도메인별로 관리하는 파일.
+
+### 라이프사이클
+
+**읽기**
+- 세션 시작 시 반드시 Read한다. 설명할 때 `unknown` 항목이 등장하면 먼저 정의한 뒤 이어서 설명한다.
+
+**쓰기 (자동)**
+- `/pre-exit` 시점에 이번 세션에서 새로 등장한 키워드를 `unknown`에 추가하고, 설명 완료된 것은 `known`으로 이동한다.
+- exam 전 라운드 통과(오답 0) 시 해당 파일의 관련 키워드를 `unknown` → `known`으로 이동한다.
+
+**쓰기 (제안 후 승인)**
+- 설명 도중 brain.yaml에 없는 새 키워드가 등장하면 "brain.yaml에 추가할까요?"를 묻고 승인 시 추가한다.
+
+### 양식
+
+```yaml
+known:
+  도메인:
+    키워드:
+      하위키워드:   # 자식이 없으면 빈 값
+
+unknown:
+  도메인:
+    키워드:
+      하위키워드:
+```
+
+## 새 루트 폴더 추가 시 체크리스트
+
+새 루트 디렉토리(예: `archives/`)를 추가할 때 수정해야 할 파일:
+
+- `CLAUDE.md` — 디렉터리 구조 표에 추가
+- `.claude/contexts/directory-roles.md` — 역할 정의 추가
+- `.claude/contexts/list-candidates.md` — 스캔 대상 여부 명시 (외부 노출 포함/제외)
+- `list-candidates.mts` — 외부 노출 대상이면 스캔 로직 추가
+
+`archives/`는 외부 노출 제외 — `list-candidates.mts` 수정 불필요.
 
 ## knowledge 파일 구조 규칙
 

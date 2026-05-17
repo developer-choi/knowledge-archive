@@ -1,0 +1,30 @@
+known:
+  JavaScript:
+    variables:
+    functions:
+    classes:
+    async:
+      async/await:
+      event loop:
+    array:
+    object:
+  React / Next.js:
+    components:
+    hooks:
+    routing:
+  OS:
+    process vs program:
+    file descriptor:
+    driver:
+    memory layout:
+      text segment:
+      data segment:
+      stack:
+      heap:
+
+unknown:
+  OS:
+    socket:
+    pipe:
+    signal:
+    system call:
