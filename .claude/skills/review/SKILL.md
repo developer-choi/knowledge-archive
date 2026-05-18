@@ -24,9 +24,6 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 질문 마커에 따라 분기한다. 마커 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
 
-### `[BACKLOG]` 마커
-출제하지 않는다. 영구 스킵.
-
 ### `[UNVERIFIED]` 마커
 일반 질문과 동일하게 출제한다. Official Answer가 없으므로 AI가 자체 지식으로 채점한다. 시작 시 "이 질문은 공식 출처 미확보 상태입니다 — 자체 지식 기반 채점으로 진행합니다" 한 줄을 안내한다.
 

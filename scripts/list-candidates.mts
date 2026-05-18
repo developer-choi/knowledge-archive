@@ -193,11 +193,10 @@ function analyzeFile(absPath: string): Candidate {
     if (h.depth !== 2) continue;
     h2Total++;
 
-    // [TODO]/[UNVERIFIED]/[BACKLOG] 마커가 붙은 질문은 외부 노출 준비 안 됨 → 카운트 제외
+    // [TODO]/[UNVERIFIED] 마커가 붙은 질문은 외부 노출 준비 안 됨 → 카운트 제외
     if (
       h.text.startsWith('[TODO]') ||
-      h.text.startsWith('[UNVERIFIED]') ||
-      h.text.startsWith('[BACKLOG]')
+      h.text.startsWith('[UNVERIFIED]')
     ) {
       unfinishedCount++;
       continue;

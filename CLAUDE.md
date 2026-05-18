@@ -138,7 +138,7 @@ unknown:
 
 ### knowledge 본문 구조
 
-헤딩 위계나 `[TODO]`/`[UNVERIFIED]`/`[BACKLOG]` 마커 변경 시 `scripts/list-candidates.mts`(파싱)와 `/validate`(검증)를 함께 점검한다.
+헤딩 위계나 `[TODO]`/`[UNVERIFIED]` 마커 변경 시 `scripts/list-candidates.mts`(파싱)와 `/validate`(검증)를 함께 점검한다.
 
 ### list-candidates 출력 형식
 

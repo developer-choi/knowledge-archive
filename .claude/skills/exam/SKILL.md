@@ -12,7 +12,6 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 ### 마커 처리
 
-- `[BACKLOG]` 질문: 출제 제외
 - `[UNVERIFIED]` 질문: 출제 포함. 결과 HTML 해당 문항에 "공식 출처 미확보 — 자체 지식 기반 채점" 표기.
 - Official Answer 없는 질문: 출제 제외
 - 부모·자식 질문: 모두 별개 문항으로 출제

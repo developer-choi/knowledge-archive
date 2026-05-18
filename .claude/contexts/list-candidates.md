@@ -20,7 +20,7 @@
 | 필드 | 의미 |
 |------|------|
 | `slug`, `path`, `title`, `tags` | 파일 식별·메타 |
-| `questionCount`, `questions[]` | H2 질문 중 Official Answer 있고 마커(`[TODO]`/`[UNVERIFIED]`/`[BACKLOG]`) 없는 것 |
+| `questionCount`, `questions[]` | H2 질문 중 Official Answer 있고 마커(`[TODO]`/`[UNVERIFIED]`) 없는 것 |
 | `firstCommitDate`, `lastCommitDate` | git log 기반 |
 | `source` | frontmatter `source` (`official` / `google-doc` / `unverified`) |
 | `publishable` | frontmatter `publishable` (boolean) |
@@ -30,7 +30,7 @@
 
 - `publishable: false` → 즉시 skip (사용자 의도적 제외)
 - `# Answers` H1 없음 → skip
-- H2 질문 전부 `[TODO]`/`[UNVERIFIED]`/`[BACKLOG]` 마커 → skip
+- H2 질문 전부 `[TODO]`/`[UNVERIFIED]` 마커 → skip
 - 통과 질문이 4개 미만 → skip
 - 단, skip된 것도 baseMeta는 유지하여 reason 포함해 반환
 
