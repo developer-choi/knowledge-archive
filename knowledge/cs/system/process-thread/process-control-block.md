@@ -16,25 +16,23 @@ source: official
 
 ### Official Answer
 The operating system holds most of this information about active processes in data structures called process control blocks.
-Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads in operating systems that support threads or child processes.
+Any subset of the resources, typically at least the processor state, may be associated with each of the process' threads.
 
 #### Definition
 
 A process control block (PCB), also sometimes called a process descriptor, is a data structure used by a computer operating system to store all the information about a process.
-When a process is created, the operating system creates a corresponding process control block, which specifies and tracks the process state (i.e. waiting).
-Since it is used to track process information, the PCB plays a key role in context switching.
+When a process is created, the operating system creates a corresponding process control block.
 
 #### Categories
 
-In multitasking operating systems, the PCB stores data needed for correct and efficient process management.
-Though the details of these structures are system-dependent, common elements fall in three main categories:
+Common elements fall in three main categories:
 - Process identification
 - Process state
 - Process control
 
 #### Process state
 
-Process state data define the status of a process when it is suspended, allowing the OS to restart it later.
+Process state data allowing the OS to restart it later.
 This always includes the content of general-purpose CPU registers, the CPU process status word, stack and frame pointers, etc.
 
 #### Process control
