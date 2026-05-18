@@ -7,7 +7,6 @@ source: unverified
 - 처리량(Throughput)이란 무엇인가?
 - 대역폭(Bandwidth)과 처리량(Throughput)을 비교하라
 - 처리량이 낮아지는 원인은?
-- [BACKLOG] (번외) 왜 하필 번역이 '처리량'일까?
 - Latency(지연시간)란?
 
 ---
@@ -67,14 +66,6 @@ When taking various [protocol overheads](https://en.wikipedia.org/wiki/Protocol_
 ### Reference
 - https://en.wikipedia.org/wiki/Goodput
 - https://docs.google.com/document/d/1iGVkhRpG4RBhbpmI-AkHjRnOE8r7JyfyIxfjZH4UHCI/edit?tab=t.0#heading=h.oulolko7jpu0
-
----
-
-## [BACKLOG] (번외) 왜 하필 번역이 '처리량'일까?
-
-> #### AI Annotation: **어원 분석 (LBL)**
-> - **Through** (통과하여) + **Put** (놓다, 투입하다) = 시스템 내부의 과정을 거쳐 결과물로 변환되어 나온 총량.
-> - **Hardware View**: 데이터는 단순히 흐르는 것이 아니라, 장비(라우터 등)가 매 순간 **패킷 분석(Parsing), 경로 계산(Routing), 에러 검사(Checksum), 다시 포장해서 보냄(Forwarding)** 등의 작업을 수행해야 합니다. 이 모든 과정이 CPU와 메모리를 쓰는 '일(Work/Process)'이기에 '처리해서(Through) 내보낸 양(Put)'이라는 의미에서 **처리량**으로 번역된 것입니다.
 
 ---
 
