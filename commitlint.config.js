@@ -16,6 +16,9 @@ module.exports = {
         // knowledge/
         'knowledge',
         'explained',
+        'techniques',
+        'tips',
+        'archives',
         // scripts/
         'scripts',
         // 전체
