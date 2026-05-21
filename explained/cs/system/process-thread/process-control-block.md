@@ -113,17 +113,13 @@ CPU 레지스터
 주요 항목을 하나씩 풀면:
 
 - **Process scheduling state** (ready/suspended/etc. + 우선순위, CPU 점유 시간): 스케줄러가 "다음에 누구를 실행할지" 판단하는 근거.
-- **Process structuring information** (자식 PID 목록): `child_process.fork()`로 만든 자식들의 PID. 부모가 자식의 종료를 기다리거나(wait) 신호를 보낼 때 사용.
+- **CPU Scheduling Information**: 우선순위, CPU 타임 슬라이스 만료 여부.
+- **Accounting Information** (CPU 사용량, 실행 시간 등): 공정 스케줄러가 "얼마나 썼는지" 판단하는 통계.
 - **Interprocess communication information** (flags, signals, messages): `ls | grep .md`의 파이프처럼, 프로세스 간 메시지를 전달하기 위한 메타데이터.
 - **Process Privileges** (시스템 자원 접근 허용/거부): 이 프로세스가 네트워크 소켓을 열 수 있는지, 특정 파일을 읽을 수 있는지.
-- **Process State** (new, ready, running, waiting, dead): 스케줄러가 `ready` 상태인 프로세스들 중에서만 다음 실행자를 고른다.
-- **Process Number / PID**: 고유 식별 번호. Task Manager에서 보이는 숫자.
-- **Program Counter (PC)**: 다음에 실행할 명령어 주소. 컨텍스트 스위치 시 저장되고, 재개 시 복원된다.
-- **CPU Registers**: 실행 상태를 담은 레지스터 집합. for 루프의 `i` 값이 여기 있을 수 있다.
-- **CPU Scheduling Information**: 우선순위, CPU 타임 슬라이스 만료 여부.
 - **Memory Management Information** (page table, memory limits, segment table): 이 프로세스의 가상 주소 공간을 물리 메모리로 매핑하는 테이블.
-- **Accounting Information** (CPU 사용량, 실행 시간 등): 공정 스케줄러가 "얼마나 썼는지" 판단하는 통계.
 - **I/O Status Information** (할당된 I/O 장치 목록): 이 프로세스가 열어둔 파일, 소켓, 장치 목록.
+- 그 외 이제까지 배웠던 것들 (PC. PID, CPU Registers)
 
 ---
 
