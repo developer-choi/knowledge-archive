@@ -34,6 +34,8 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록을 확정한다.
 
+각 문항에 대해 `explained/<rel>.md`의 해당 섹션을 확인하여 fence 없는 코드블록(다이어그램)이 있는지 체크한다. 있으면 해당 문항을 "diagram_hint" 플래그로 표시 — 시험 HTML 생성 시 문항 위에 안내 문구가 박히고, 결과 HTML에는 그 다이어그램이 인라인으로 표시된다. 다이어그램 판별 기준은 [explanation-guide.md §4](../../contexts/explanation-guide.md) 참고.
+
 ### HTML 생성 및 오픈
 
 1. 아래 시험 HTML 구조로 파일을 생성한다.
@@ -55,6 +57,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
     .meta { color: #666; font-size: 0.9rem; margin-bottom: 40px; }
     .q { margin: 28px 0; }
     .q-label { font-weight: 600; margin-bottom: 6px; }
+    .diagram-hint { font-size: 0.85rem; color: #555; background: #fff8e1; padding: 6px 10px; margin-bottom: 8px; border-left: 3px solid #ffb300; border-radius: 3px; }
     textarea { width: 100%; min-height: 216px; padding: 8px; font-size: 0.95rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
     button { margin-top: 28px; padding: 10px 28px; font-size: 1rem; background: #111; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
     button:hover { background: #333; }
@@ -71,6 +74,8 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
   {각 문항 — 번호 1부터 순서대로 반복:}
   <div class="q">
     <div class="q-label">Q{번호}. {질문 제목}</div>
+    {diagram_hint 플래그가 있는 문항만:}
+    <div class="diagram-hint">이 질문은 그림으로도 표현할 수 있어요. 종이/태블릿/Excalidraw 등 편한 도구로 옆에 그려보세요.</div>
     <textarea id="q{번호}" placeholder="답변을 입력하세요..."></textarea>
   </div>
 
@@ -157,6 +162,9 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
     .user-ans { background: #f9f9f9; border-left: 3px solid #ccc; padding: 8px 12px; margin: 8px 0; font-size: 0.9rem; white-space: pre-wrap; }
     .reason { font-size: 0.9rem; color: #555; }
     .unverified-note { font-size: 0.8rem; color: #888; margin-bottom: 4px; }
+    .diagram-compare { margin-top: 12px; }
+    .diagram-compare p { font-size: 0.9rem; color: #444; margin-bottom: 6px; font-weight: 600; }
+    .diagram-compare pre { background: #f4f4f4; padding: 12px; font-size: 0.85rem; overflow-x: auto; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -173,6 +181,11 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
     <div class="user-ans">{사용자 답변 또는 "미응답"}</div>
     {✓가 아닌 경우:}
     <div class="reason">{판정 이유 1-2줄}</div>
+    {diagram_hint 플래그가 있는 문항만:}
+    <div class="diagram-compare">
+      <p>본인이 그린 그림과 비교해보세요:</p>
+      <pre>{explained 섹션의 다이어그램 코드블록 내용}</pre>
+    </div>
   </div>
 
   {결과 HTML 하단 — 다음 라운드 안내:}
