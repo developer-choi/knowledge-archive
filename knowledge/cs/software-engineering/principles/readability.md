@@ -5,16 +5,16 @@ publishable: false
 ---
 # Questions
 
-- 전통적인 `if (isLoading)` 로딩 처리의 문제점은?
-- Suspense는 어떻게 관심사 분리를 달성하는가?
-- Child.loading 패턴의 장점은 무엇인가?
-- 추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?
+- [UNVERIFIED] 전통적인 `if (isLoading)` 로딩 처리의 문제점은?
+- [UNVERIFIED] Suspense는 어떻게 관심사 분리를 달성하는가?
+- [UNVERIFIED] Child.loading 패턴의 장점은 무엇인가?
+- [UNVERIFIED] 추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?
 
 ---
 
 # Answers
 
-## 전통적인 `if (isLoading)` 로딩 처리의 문제점은?
+## [UNVERIFIED] 전통적인 `if (isLoading)` 로딩 처리의 문제점은?
 
 ### User Answer
 1. **방어적 코드 증가:** 데이터가 null일 가능성을 컴포넌트 내부 곳곳에서 체크해야 한다 (`user?.name`).  
@@ -23,7 +23,7 @@ publishable: false
 
 ---
 
-## Suspense는 어떻게 관심사 분리를 달성하는가?
+## [UNVERIFIED] Suspense는 어떻게 관심사 분리를 달성하는가?
 
 ### User Answer
 **성공 케이스에만 집중해서 UI를 작성하겠다라는 선언**이라고 정의한다.
@@ -40,7 +40,7 @@ Suspense를 사용하면 컴포넌트 내부에서는 데이터가 반드시 존
 
 ---
 
-## Child.loading 패턴의 장점은 무엇인가?
+## [UNVERIFIED] Child.loading 패턴의 장점은 무엇인가?
 
 ### User Answer
 일반적으로 Suspense를 사용할 때, 부모 컴포넌트가 `fallback={<Spinner />}`를 주입한다.
@@ -59,7 +59,7 @@ Suspense를 사용하면 컴포넌트 내부에서는 데이터가 반드시 존
 
 ---
 
-## 추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?
+## [UNVERIFIED] 추출(Extraction)이 해로운 이유와 추상화(Abstraction)가 이를 어떻게 해결하는가?
 
 ### User Answer
 "이 파일 하나만 보고 이 페이지가 어떤 페이지인지 파악할 수 있는가?"
