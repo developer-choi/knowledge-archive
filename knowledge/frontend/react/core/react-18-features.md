@@ -7,6 +7,7 @@ publishable: false
 - React 18의 hydration 에러 정책은 어떻게 엄격해졌는가?
 - React 18 Strict Mode의 새 동작(개발 모드 double-invoke)은 무엇이며 왜 도입되었는가?
 - useId는 어떤 문제를 해결하기 위한 훅인가?
+- React 18 Automatic Batching은 무엇이며, 이전 버전과 어떻게 다른가?
 
 ---
 
@@ -100,3 +101,17 @@ This solves an issue that already exists in React 17 and below, but it's even mo
 ### Reference
 - https://react.dev/blog/2022/03/29/react-v18
 - https://react.dev/reference/react/useId
+
+---
+
+## React 18 Automatic Batching은 무엇이며, 이전 버전과 어떻게 다른가?
+
+### User Answer
+setState, useReducer, store dispatch 모두 렌더링이 병합된다.
+
+마우스클릭 같은 이벤트 핸들러에서 setState, useReducer, dispatch 로직이 실행된다면, 모든 이벤트가 다 전달이 끝나고 나서 렌더링이 발생한다. (setState, useReducer, store dispatch가 실행되는 건 중간중간에 실행되는 거고, 렌더링 자체만 병합된다고 하는게 가장 정확하다.)
+
+React 18부터는 async, timeout 등 비동기 코드 내부에서도 병합됨.
+
+### Reference
+- https://react.dev/blog/2022/03/08/react-18-upgrade-guide#automatic-batching
