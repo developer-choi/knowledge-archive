@@ -23,6 +23,9 @@ PPR enables your Next.js server to immediately send prerendered content.
 > - **static and dynamic components**: 정적 컴포넌트와 동적 컴포넌트
 > - **prerendered content**: 미리 렌더링되어 즉시 응답 가능한 콘텐츠
 
+> #### User Annotation:
+> 렌더링 방식의 발전 흐름: CSR → SSR → Streaming → PPR. PPR이 차세대 렌더링 방식으로 위치한다.
+
 ### Review Note
 - 본 문서는 Next.js 14 기준 공식문서를 소스로 함.
 - Next.js 14 기준 experimental 기능.
