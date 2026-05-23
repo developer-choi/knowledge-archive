@@ -8,6 +8,8 @@ source: official
 - 순수 함수(pure function)는 어떤 두 조건을 만족해야 하는가?
 - 부수효과를 제한하면 어떤 실무적 이점이 있는가?
 - 순수 함수가 가진 어떤 구체적 성질이 컴파일러 최적화·병렬화를 가능하게 하는가?
+- FP와 OOP의 핵심 원칙을 각각 꼽는다면?
+- FP(함수 기반)와 OOP(클래스 기반)의 응집력·접근 제어 측면 차이는?
 
 ---
 
@@ -157,3 +159,29 @@ This means that pure functions have several useful properties, many of which can
 
 ### Reference
 - https://en.wikipedia.org/wiki/Functional_programming
+
+---
+
+## FP와 OOP의 핵심 원칙을 각각 꼽는다면?
+
+### User Answer
+- **FP**: Pure Function, Immutable
+- **OOP**: SOLID
+
+---
+
+## FP(함수 기반)와 OOP(클래스 기반)의 응집력·접근 제어 측면 차이는?
+
+### User Answer
+함수는 응집력에 약점이 있다.
+한 곳에서만 쓰는 함수도 외부에서 사용하려면 `export`해야 하는데, 그렇게 하면 자동완성 목록에 계속 노출되고 접근 제어는 `export` 여부 말고는 방법이 없다.
+
+클래스는 `private` / `protected` / `public` 접근 제어자를 통해 더 세밀한 접근 제한이 가능하고, 관련 메소드가 물리적으로 한 파일 안에 모이므로 응집력이 높다.
+
+그래서 FP와 OOP는 양자택일이 아니라 각 패러다임의 장점을 취해 함께 사용한다.
+
+> #### User Annotation:
+> 객체를 단 1개만 만들어 쓰는 상황이라도, 접근 제어만을 위해 클래스로 감싸는 선택이 가능하다.
+
+### Reference
+- https://tech.kakaopay.com/post/will-effect-system/
