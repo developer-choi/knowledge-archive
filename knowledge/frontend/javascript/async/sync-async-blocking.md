@@ -10,7 +10,6 @@ priority:
 - [UNVERIFIED] 블로킹/논블로킹과 동기/비동기는 어떤 관계인가?
 - [UNVERIFIED] Blocking + Sync 코드는 어떤 모습인가?
 - [UNVERIFIED] Non-blocking + Async 코드는 어떤 모습인가?
-- [UNVERIFIED] 프론트엔드에서 블로킹/논블로킹을 따지는 이유는 무엇인가?
 
 ---
 
@@ -121,16 +120,3 @@ work();
 
 ---
 
-## [UNVERIFIED] 프론트엔드에서 블로킹/논블로킹을 따지는 이유는 무엇인가?
-
-### User Answer
-브라우저가 블로킹 상태로 빠지지 않도록 하기 위함이다.
-
-브라우저에 엄청나게 오래 걸리는 작업을 시켜놓으면 그 작업을 처리하는 동안 사용자가 인터랙션을 할 수 없다.
-브라우저는 언제나 사용자와 상호작용할 수 있는 상태여야 한다.
-
-가장 빈번한 예시는 API 요청이다.
-API 요청을 보내놓고 그 사이에 기다리지 않고 계속 사용자와 상호작용을 하다가, API 응답이 오면 처리해 주고 다시 또 사용자와 상호작용을 할 수 있어야 한다.
-
-### Reference
-- https://nodejs.org/en/learn/asynchronous-work/overview-of-blocking-vs-non-blocking

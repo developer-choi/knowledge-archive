@@ -8,7 +8,6 @@ priority:
 - await 연산자란 무엇인가?
 - await는 실행 순서에 어떤 영향을 미치는가?
 - return await를 사용해야 하는가?
-- .catch()는 프로미스 함수의 동기 에러를 처리하는가?
 
 ---
 
@@ -71,11 +70,3 @@ Therefore, except for stylistic reasons, `return await` is **almost always prefe
 
 ---
 
-## .catch()는 프로미스 함수의 동기 에러를 처리하는가?
-
-### Official Answer
-If `promisedFunction()` throws an error synchronously, the error won't be caught by the `catch()` handler.
-In this case, the `try...catch` statement is necessary.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
