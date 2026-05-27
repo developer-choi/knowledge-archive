@@ -27,9 +27,6 @@ publishable: false
 ### Official Answer
 In a binary tree, each node can have a maximum of two children linked to it.
 
-> #### User Annotation:
-> 최대 2개.
-
 ### Reference
 - https://www.geeksforgeeks.org/dsa/binary-tree-data-structure/
 

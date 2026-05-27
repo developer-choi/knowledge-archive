@@ -76,6 +76,8 @@ Instead, we can stream a response as work is completed.
 >
 > Pages Router는 페이지 단위로 자동 코드 스플리팅을 지원했지만, App Router는 Suspense Boundary 단위로도 코드 스플리팅을 지원한다고 이해하면 된다 (오피셜은 아님).
 
+같은 nextjs.org caching 인용을 Next.js 렌더링 단계 관점에서 다루는 문서: [Next.js에서 렌더링 작업은 어떤 단위로 나뉘는가? → `nextjs-loading-sequence.md`](../../nextjs/rendering/nextjs-loading-sequence.md#nextjs에서-렌더링-작업은-어떤-단위로-나뉘는가)
+
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#1-react-rendering-on-the-server
 

@@ -98,9 +98,6 @@ Search, insert and delete are faster than array and linked list and slower than 
 
 When we need only search, insert and delete and do not need other operations, we prefer Hash Table over BST as a Hash Table supports these operations in O(1) time on average.
 
-> #### User Annotation:
-> insert, delete, search만 할거라면 Hash Table이 낫다.
-
 > #### AI Annotation:
 > 해시 테이블은 지원하지 않거나 비효율적이지만, BST는 효율적으로 지원하는 연산들:
 > 1. **정렬된 순회**: 모든 데이터를 정렬된 순서로 가져오는 기능 (해시 테이블은 불가능)

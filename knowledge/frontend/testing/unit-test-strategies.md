@@ -20,7 +20,7 @@ source: official
 - Are all paths through the code covered by the given inputs?
 
 **2. Boundary checks**
-- (Test typical, edge, and out-of-range inputs.)
+- For the given inputs, how does the system respond? How does it respond to typical inputs, edge cases, or invalid inputs?
 
 **3. Error handling**
 - When there are errors in inputs, how does the system respond? Is the user prompted for another input? Does the software crash?
@@ -39,7 +39,7 @@ source: official
 ## Unit test의 benefits는 무엇인가?
 
 ### Official Answer
-**1. Efficient bug discovery** — (Unit tests catch bugs before they reach production and detect regressions when code changes.)
+**1. Efficient bug discovery** — If there are any input, output, or logic-based errors within a code block, your unit tests help you catch them before the bugs reach production.
 
 **2. Documentation** — It's important to document code to know exactly what that code is supposed to be doing.
 That said, unit tests also act as a form of documentation.

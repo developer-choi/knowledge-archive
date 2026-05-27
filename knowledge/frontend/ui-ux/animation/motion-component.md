@@ -441,16 +441,10 @@ function onPan(event, info) {
 <motion.div onPan={onPan} />
 ```
 
-Pan and drag events are provided the origin `PointerEvent` as well as an object `info` that contains `x` and `y` point values for the following:
-- `point`: Relative to the device or page.
-- `delta`: Distance since the last event.
-- `offset`: Distance from the original event.
-- `velocity`: Current velocity of the pointer.
-
 > #### AI Annotation:
 > `drag`는 엘리먼트를 자동으로 이동시키지만, `onPan`은 이동 정보만 콜백으로 전달하는 저수준 API다.
 > "정보만 받고 뭘 할지는 내가 결정"하는 방식이므로, scale/opacity 같은 값을 직접 제어하는 커스텀 제스처에 적합하다.
-> `delta`는 매 프레임 미세한 이동량, `offset`은 최초부터 누적된 총 이동량이다.
+> 콜백 인자 구조(PointerEvent + info: point/delta/offset/velocity)는 [`motion-drag.md` → 드래그 이벤트 콜백에서 받을 수 있는 정보](motion-drag.md#motion-드래그-이벤트-콜백에서-받을-수-있는-정보는) 참조.
 
 > #### User Annotation:
 > `drag="y"`로 끌면 요소가 실제로 아래로 이동한다.

@@ -1,5 +1,5 @@
 ---
-tags: [storybook, design-system, frontend-workshop, ui-testing]
+tags: [storybook, design-system, testing, concept]
 source: official
 publishable: false
 ---

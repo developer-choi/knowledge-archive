@@ -23,8 +23,6 @@ New packages must not have uppercase letters in the name.
 The name ends up being part of a URL, an argument on the command line, and a folder name. Therefore, the name can't contain any non-URL-safe characters.
 
 > #### User Annotation:
-> - 대문자 금지.
-> - URL-safe 문자만 허용.
 > - `js`, `node` 같은 일반 명사는 자제 (검색 충돌 우려).
 
 ### Reference

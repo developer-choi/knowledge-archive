@@ -49,8 +49,6 @@ Static: Catch typos and type errors as you write the code.
 ### Official Answer
 Unit: Verify that individual, isolated parts work as expected.
 
-The key distinction is that the unit tests test my/our code in isolation while integration tests how our code works with code developed separately.
-
 Unit testing is the process where you test the smallest functional unit of code.
 A unit test is a block of code that verifies the accuracy of a smaller, isolated block of application code, typically a function or method.
 Unit tests are typically the first set of tests that run during full system software testing.

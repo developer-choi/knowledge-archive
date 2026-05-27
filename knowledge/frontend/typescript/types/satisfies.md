@@ -32,6 +32,8 @@ const palette: Record<Colors, string | RGB> = {
 const greenNormalized: any = palette.green.toUpperCase();
 ```
 
+### Reference
+- https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/
 
 ---
 ## `satisfies` 연산자는 어떻게 동작하는가?
@@ -40,6 +42,8 @@ The new satisfies operator lets us **validate that the type** of an expression m
 
 As an example, we could use satisfies to validate that all the properties of palette are **compatible** with string | number[].
 
+### Reference
+- https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/
 
 ---
 ## `satisfies`로 객체의 Key만 엄격하게 검사하려면 어떻게 쓰는가?
@@ -59,6 +63,8 @@ const favoriteColors = {
 const g: boolean = favoriteColors.green;
 ```
 
+### Reference
+- https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/
 
 ---
 ## `satisfies`로 객체의 value만 엄격하게 검사하려면 어떻게 쓰는가?
@@ -79,6 +85,8 @@ const redComponent = palette.red.at(0);
 const greenNormalized = palette.green.toUpperCase();
 ```
 
+### Reference
+- https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/
 
 ---
 ## [UNVERIFIED] Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?

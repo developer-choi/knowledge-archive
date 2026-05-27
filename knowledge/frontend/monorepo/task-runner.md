@@ -50,7 +50,7 @@ Turborepo의 미션을 라인 기술블로그 정리에서 인용하면, "모노
 - remote cache로 팀 전체가 빌드 결과 공유.
 
 ### Reference
-- https://engineering.linecorp.com/ko/blog/
+- https://engineering.linecorp.com/ko/blog/monorepo-with-turborepo/
 
 ---
 

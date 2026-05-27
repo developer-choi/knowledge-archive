@@ -65,10 +65,6 @@ As of npm v7, peerDependencies are installed by default.
 
 Trying to install another plugin with a conflicting requirement may cause an error if the tree cannot be resolved correctly.
 
-> #### User Annotation:
-> - npm v3~v6: peerDependencies 자동 설치 X. 호환되지 않는 버전이 트리에 있으면 경고만.
-> - npm v7+: 기본 자동 설치. 충돌이 트리로 해결되지 않으면 에러.
-
 ### Reference
 - https://docs.npmjs.com/cli/v11/configuring-npm/package-json#peerdependencies
 
@@ -82,12 +78,6 @@ For this reason, make sure your plugin requirement is as broad as possible, and 
 Assuming the host complies with semver, only changes in the host package's major version will break your plugin.
 Thus, if you've worked with every 1.x version of the host package, use "^1.0" or "1.x" to express this.
 If you depend on features introduced in 1.5.2, use "^1.5.2".
-
-> #### User Annotation:
-> - 호스트 패키지가 semver를 따른다고 가정.
-> - 호스트의 major 버전이 바뀔 때만 깨진다.
-> - 1.x 전부 호환이면 `"^1.0"` 또는 `"1.x"`.
-> - 1.5.2에서 도입된 기능에 의존하면 `"^1.5.2"`.
 
 ### Reference
 - https://docs.npmjs.com/cli/v11/configuring-npm/package-json#peerdependencies

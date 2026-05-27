@@ -93,10 +93,9 @@ We recommend using the Mock Service Worker (MSW) library to declaratively mock A
 
 **Step 2. Act** — The fireEvent method allows you to fire events to simulate user actions.
 
-**Step 3. Assert** — (테스트 결과가 기대와 일치하는지 단언한다.)
-
 > #### AI Annotation:
 > AAA는 Arrange-Act-Assert의 약자로, 테스트를 3단계로 구조화하는 패턴이다.
+> RTL은 Arrange·Act 단계의 API만 제공하고, Assert 단계는 RTL 자체 기능이 아니라 Jest의 `expect`로 검증한다.
 > RTL에서의 매핑은 다음과 같다.
 >
 > | 단계 | 역할 | RTL API |

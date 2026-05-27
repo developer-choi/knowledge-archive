@@ -30,7 +30,6 @@ An object provides a public interface to other code that wants to use it but mai
 > - **private, internal state**: 외부에서 접근 불가한 내부 데이터
 
 > #### User Annotation:
-> 객체는 필드(데이터)와 메소드(동작) 두 가지를 갖는다.
 > 예를 들어 Array 객체는 `length` 필드를 갖고, `push`/`remove` 같은 메소드가 실행되면 `length`에 반영된다.
 
 ### Reference
