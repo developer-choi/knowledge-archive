@@ -24,6 +24,8 @@ knowledge-archive에서 사용하는 태그 목록.
 - `testing`: 테스트 전략, 테스트 도구
 - `a11y`: 접근성 (Accessibility)
 - `seo`: 검색 엔진 최적화
+- `storybook`: Storybook 컴포넌트 워크샵·시각 테스트
+- `design-system`: 디자인 시스템, 컴포넌트 카탈로그
 
 ## 3. Language
 - `javascript`: ES6+, JS Engine
