@@ -1,5 +1,6 @@
 ---
 tags: [fsd, architecture, principle]
+source: official
 ---
 
 # Questions

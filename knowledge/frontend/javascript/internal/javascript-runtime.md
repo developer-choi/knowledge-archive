@@ -1,5 +1,6 @@
 ---
 tags: [javascript, concept]
+source: unverified
 ---
 # Questions
 - [UNVERIFIED] Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?

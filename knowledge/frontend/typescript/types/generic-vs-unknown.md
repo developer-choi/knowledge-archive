@@ -1,5 +1,6 @@
 ---
 tags: [typescript, comparison, concept]
+source: official
 ---
 # Questions
 - 제네릭이란 무엇이며 왜 사용하는가?

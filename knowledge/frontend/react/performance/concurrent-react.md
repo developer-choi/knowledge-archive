@@ -1,5 +1,6 @@
 ---
 tags: [react, performance, concept, history]
+source: official
 ---
 # Questions
 - [UNVERIFIED] Concurrent React란 무엇인가? (React v18 공식 발표)

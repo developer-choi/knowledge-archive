@@ -1,5 +1,6 @@
 ---
 tags: [testing, software-engineering, history, comparison]
+source: official
 ---
 # Questions
 - Test Pyramid, Testing Honeycomb, Testing Trophy는 각각 테스트 유형의 비중에 대해 어떤 주장을 하는가?

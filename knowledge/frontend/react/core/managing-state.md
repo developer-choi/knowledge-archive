@@ -1,5 +1,6 @@
 ---
 tags: [react, concept]
+source: official
 ---
 # Questions
 - React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?

@@ -1,5 +1,6 @@
 ---
 tags: [fsd, architecture, concept]
+source: official
 ---
 
 # Questions
