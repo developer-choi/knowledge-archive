@@ -46,8 +46,8 @@ Process control information is used by the OS to manage the process itself. This
 - Memory Management Information – page table, memory limits, segment table;
 - I/O Status Information – list of I/O devices allocated to the process.
 
-### User Annotation
-- 원래 저기에 더 있는데 이제까지 배웠던것들이라서 그냥 다 지움.
+> #### User Annotation:
+> 원래 저기에 더 있는데 이제까지 배웠던것들이라서 그냥 다 지움.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
