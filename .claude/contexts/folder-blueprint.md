@@ -9,20 +9,19 @@
 ### 1.1. Frontend & Web
 
 #### **Languages**
-- **`frontend/javascript/`**: `data-type-ds/`, `grammar/`, `internal/`, `async/`
+- **`frontend/javascript/`**: `data-type-ds/`, `grammar/`, `internal/`, `async/`, `module/`, `package-json/`
 - **`frontend/typescript/`**: `types/`, `generics/`
 
 #### **React & Next.js Ecosystem**
 - **`frontend/react/`**:
-    - `core/`: Basic, Logic
-    - `rendering/`: Rendering Process, Render Phase/Commit Phase
-    - `performance/`: R18, N14, Suspense, Concurrent Features
-    - `project-mgmt/`: Project Requirements, Package Mgmt, `package.json`
-    - `module/`: Monorepo, Bundler, Vite
+    - `core/`: Basic, Logic, Reconciliation, JSX, Children, Compound Components
+    - `rendering/`: Server/Client Component, RSC Payload, useLayoutEffect
+    - `performance/`: R18, Suspense, Concurrent Features, useDeferredValue, react-cache, Streaming
 - **`frontend/nextjs/`**:
-    - `routing/`: Pages Router, App Router, Layouts
-    - `caching/`: Caching Mechanism, Data Fetching
-    - `device/`: PC/Mobile Separation Strategies
+    - `routing/`: App Router, Prefetching
+    - `caching/`: Router Cache, Data Cache, Full Route Cache, Request Memoization, Router Refresh
+    - `data-fetching/`: App Router Data Fetching
+    - `rendering/`: SSR/SSG/CSR, Partial Prerendering, Streaming, Loading Sequence
 - **`frontend/form/`**:
     - `library/`: **RHF (React Hook Form)** (`useForm`, `register`, `controller`)
     - `elements/`: Checkbox, File Input, Mobile Keypad Handling
@@ -39,6 +38,22 @@
 #### **Browser & Web Standard**
 - **`frontend/browser/`**: `loading-process/`, `rendering-path/`, `devtools/`
 - **`frontend/standard/`**: `web-api/`, `webview/`, `seo/`, `accessibility/`
+
+#### **State & Data Fetching**
+- **`frontend/react-query/`**: TanStack Query (caching, refetch, SSR hydration, state manager 활용)
+
+#### **Architecture**
+- **`frontend/fsd/`**: Feature-Sliced Design (Motivation, Philosophy, Layers·Segments, Dependency Rules, Shared Logic)
+
+#### **Design System**
+- **`frontend/design-system/`**: Design System overview
+
+#### **Build & Tooling**
+- **`frontend/bundler/`**:
+    - `vite/`: Vite-specific architecture, config
+- **`frontend/monorepo/`**: Workspaces, Task Runner, Polyrepo vs Monorepo
+- **`frontend/package-manager/`**: npm·Yarn·pnpm, Yarn Berry
+- **`frontend/publishing/`**: Library Publishing, GitHub Packages
 
 ---
 
@@ -58,7 +73,7 @@
 
 #### **Software Engineering**
 - **`cs/software-engineering/`**: `principles/` (Cohesion, Coupling, Readability)
-- **`cs/design-pattern/`**: `singleton/`, `observer/`, `factory/`, `fsd/` (Architecture)
+- **`cs/design-pattern/`**: `singleton/`, `observer/`, `factory/` (Architecture)
 
 ---
 
