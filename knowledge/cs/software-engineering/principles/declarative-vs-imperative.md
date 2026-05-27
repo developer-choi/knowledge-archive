@@ -3,7 +3,7 @@ tags: [programming-paradigm, concept]
 source: official
 ---
 # Questions
-- 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
+- [UNVERIFIED] 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
 - imperative 방식으로 UI를 조작하는 코드는 폼 하나에서는 잘 작동한다. 여러 폼이 섞인 복잡한 시스템으로 규모가 커지면 어떤 문제가 생기는가?
 - declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
 
@@ -11,7 +11,7 @@ source: official
 
 # Answers
 
-## 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
+## [UNVERIFIED] 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
 
 ### User Answer
 - **명령형:** "버튼을 누르면 -> 모달을 연다 -> 데이터를 가져온다."
