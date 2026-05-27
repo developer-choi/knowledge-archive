@@ -124,8 +124,8 @@ In HTTP/1.1, instead a TCP connection can be reused to make multiple resource re
 HTTP/1.1 communications therefore experience less latency as the establishment of TCP connections presents considerable overhead, especially under high traffic conditions.
 
 > #### AI Annotation:
-> HTTP/1.0에서는 리소스 하나당 TCP 연결을 새로 맺었다. HTML 페이지에 이미지 10개가 있으면 TCP 연결을 11번 열었다 닫아야 한다.
-> HTTP/1.1의 keep-alive(persistent connection)로 연결을 재사용하면, TCP 3-way handshake 오버헤드를 줄이고 slow-start로 워밍업된 연결을 계속 쓸 수 있다.
+> 예: HTML 페이지에 이미지 10개가 있으면 HTTP/1.0에서는 TCP 연결을 11번 열었다 닫아야 했다.
+> HTTP/1.1 keep-alive는 TCP slow-start로 워밍업된 연결을 계속 쓸 수 있다는 부수 효과도 있다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
@@ -153,10 +153,6 @@ This optimization was never considered really safe because a few web servers and
 Because of this, only HEAD and some GET requests could be pipelined in a safe and idempotent mode.
 After many years of struggling with the problems introduced by enabling pipelining, this feature was first disabled and then removed from most browsers also because of the announced adoption of HTTP/2.
 
-> #### AI Annotation:
-> 파이프라이닝은 "응답을 기다리지 않고 요청을 연달아 보내기"라는 좋은 아이디어였지만, 현실의 프록시/서버 호환성 문제로 실패했다.
-> HTTP/2의 멀티플렉싱이 이 문제를 근본적으로 해결하면서 파이프라이닝은 역사 속으로 사라졌다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
 
@@ -181,11 +177,6 @@ a compressed binary representation of metadata (HTTP headers) instead of a textu
 a single TCP/IP (usually encrypted) connection per accessed server domain instead of 2 to 8 TCP/IP connections;
 one or more bidirectional streams per TCP/IP connection in which HTTP requests and responses are broken down and transmitted in small packets to almost solve the problem of the HOLB (head-of-line blocking);
 a push capability to allow server application to send data to clients whenever new data is available (without forcing clients to request periodically new data to server by using polling methods).
-
-> #### AI Annotation:
-> HTTP/1.1에서는 브라우저가 병렬성을 위해 같은 서버에 2~8개의 TCP 연결을 동시에 열었다.
-> HTTP/2는 하나의 TCP 연결 안에서 여러 스트림을 멀티플렉싱하므로 연결 하나로 충분하다.
-> 서버 푸시는 클라이언트가 polling 없이도 새 데이터를 받을 수 있게 해준다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
@@ -229,10 +220,6 @@ However, despite TLS 1.3's release in 2018, adoption has been slow, with many st
 ### Official Answer
 Like HTTP/2, it does not obsolete previous major versions of the protocol.
 HTTP/3 has lower latency for real-world web pages and loads faster than HTTP/2, in some cases over three times faster than HTTP/1.1, which is still commonly the only protocol enabled.
-
-> #### AI Annotation:
-> HTTP의 새 버전이 나와도 이전 버전은 폐기되지 않고 공존한다.
-> HTTP/3가 최대 3배 이상 빠름에도 불구하고, HTTP/1.1만 활성화된 서버가 아직 흔하다는 것이 현실이다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP

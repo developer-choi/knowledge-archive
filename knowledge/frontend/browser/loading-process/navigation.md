@@ -95,8 +95,6 @@ After the eight round trips to the server, the browser is finally able to make t
 >   │── HTTP Request ──────────────────────────→│  ← 드디어!
 >   │                                           │
 > ```
-> TCP handshake: SYN → SYN-ACK → ACK로 연결 파라미터를 협상한다.
-> TLS negotiation: 사용할 cipher 결정 + 서버 인증서 검증 + 보안 연결 수립.
 > 원본 다이어그램: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work/ssl.jpg
 
 ### Review Note

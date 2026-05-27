@@ -103,9 +103,6 @@ Safe methods are trivially idempotent, since they are intended to have no effect
 In contrast, the methods POST, CONNECT, and PATCH are not necessarily idempotent, and therefore sending an identical POST request multiple times may further modify the state of the server or have further effects, such as sending multiple emails.
 Note that whether or not a method is idempotent is not enforced by the protocol or web server.
 
-> #### AI Annotation:
-> 멱등 정리: GET/PUT/DELETE = 멱등 (여러 번 보내도 한 번과 같음), POST/PATCH = 비멱등 (중복 시 부작용).
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
 
