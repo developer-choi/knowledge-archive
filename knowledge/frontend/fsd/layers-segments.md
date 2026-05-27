@@ -173,28 +173,26 @@ Remember: the later you move code to the entities layer, the less dangerous your
 ## FSD에서 세그먼트란 무엇이며, 각 세그먼트의 역할은?
 ### Official Answer
 Their purpose is to group code by its technical nature.
-> #### AI Annotation:
-> - 개발에서 Technical Nature라는 표현은 코드를 바라보는 관점을 설명할 때 자주 사용됩니다.
->   - 도메인 성격 (**Domain Nature**): 이 코드가 사용자에게 어떤 기능을 제공하는가? (예: 주문하기, 장바구니 담기) -> 이는 FSD에서 **Slice**가 담당합니다.
->   - 기술적 성격 (**Technical Nature**): 이 코드가 소프트웨어 아키텍처 상에서 어떤 도구로 쓰이는가? (예: React 컴포넌트인가, Axios 함수인가, Redux 스토어인가) -> 이것이 바로 **Segment**가 담당하는 영역입니다.
 
 Make sure that the name of these segments describes the purpose of the content, not its essence.
 
 For example, components, hooks, and types are bad segment names because they aren't that helpful when you're looking for code.
 
 - **ui**: everything related to UI display: UI components, date formatters, styles, etc.
-> #### AI Annotation:
-> - 특정 UI를 표현하기 위해 보조적으로 사용되는 스타일 파일이나 포맷팅 함수도 여기에 포함됩니다.
-
 - **api**: backend interactions: request functions, data types, mappers, etc. / for code that handles rendering and appearance
 - **model**: the data model: schemas, interfaces, stores, and business logic. / for storage and business logic
 - **lib**: library code that other modules on this slice need. This folder should not be treated as helpers or utilities. Instead, every library in this folder should have one area of focus, for example, dates, colors, text manipulation, etc. That area of focus should be documented in a README file.
 
-> #### AI Annotation:
-> - `lib`를 잡동사니 유틸 폴더로 쓰면 `utils/`와 다를 바 없어진다.
-> - 팀 내에서 "이 라이브러리에 뭘 넣어도 되고 뭘 넣으면 안 되는지"를 명확히 해야 한다.
-
 - **config**: configuration files and feature flags. / for feature flags, environment variables and other forms of configuration
+
+> #### AI Annotation:
+> **Technical Nature 설명**: 개발에서 Technical Nature라는 표현은 코드를 바라보는 관점을 설명할 때 자주 사용된다.
+> - 도메인 성격(Domain Nature): 이 코드가 사용자에게 어떤 기능을 제공하는가? (예: 주문하기, 장바구니 담기) → FSD에서 Slice가 담당.
+> - 기술적 성격(Technical Nature): 이 코드가 소프트웨어 아키텍처 상에서 어떤 도구로 쓰이는가? (예: React 컴포넌트, Axios 함수, Redux 스토어) → Segment가 담당.
+>
+> **ui 세그먼트 보충**: 특정 UI를 표현하기 위해 보조적으로 사용되는 스타일 파일이나 포맷팅 함수도 ui 세그먼트에 포함된다.
+>
+> **lib 세그먼트 사용 가이드**: `lib`를 잡동사니 유틸 폴더로 쓰면 `utils/`와 다를 바 없어진다. 팀 내에서 "이 라이브러리에 뭘 넣어도 되고 뭘 넣으면 안 되는지"를 명확히 해야 한다.
 
 ---
 

@@ -59,8 +59,7 @@ They can be written as soon as any code is written and don't require any special
 > #### AI Annotation:
 > Testing Trophy에서 Static 바로 위에 위치한다.
 > 순수 함수 테스트가 가장 대표적이며, 컴포넌트를 단독으로(Provider 없이) 렌더링하는 것도 unit test에 해당한다.
-
-> #### AI Annotation:
+>
 > Kent는 "individual, isolated parts"로 정의하지만, Fowler는 "내/우리 코드 vs 별도 개발 코드"라는 조직적 색채를 남긴다.
 > 같은 개념을 다른 각도(기술적 격리 vs 조직적 경계)에서 본다.
 > 더 자세한 기원은 test-shapes-unit-vs-integration.md 참고.
@@ -83,8 +82,7 @@ In fact, as you go lower down the testing trophy, there are some things that are
 
 > #### AI Annotation:
 > 장점 — 빠르고(실행 코드가 적음), 비용이 낮고(작성·유지 간단), 실패 시 원인이 명확하다.
-
-> #### AI Annotation:
+>
 > 단점 — confidence coefficient가 낮고, 같은 커버리지를 위해 더 많은 테스트가 필요하며, 의존성 연동 문제는 구조적으로 잡을 수 없다.
 
 ### Reference
@@ -165,8 +163,7 @@ I pretty much only mock:
 > 장점 — 비용·속도와 자신감 사이의 최적 균형점.
 > unit보다 높은 confidence coefficient를 가지면서, E2E보다 빠르고 저렴하다.
 > mock을 최소화하므로 실제 동작에 가깝다.
-
-> #### AI Annotation:
+>
 > 단점 — unit보다는 느리고, 실패 시 원인 추적이 unit보다 어렵다.
 > 실제 백엔드 연동 문제는 잡을 수 없다.
 
@@ -239,8 +236,7 @@ End to End tests are pretty darn capable, but typically you'll run these in a no
 > #### AI Annotation:
 > 장점 — confidence coefficient가 가장 높다.
 > 프론트+백엔드 전체를 실제 사용자처럼 테스트하므로 가장 높은 자신감을 준다.
-
-> #### AI Annotation:
+>
 > 단점 — 가장 비싸고(CI 비용 + 유지보수), 가장 느리고(전체 앱 실행), 실패 시 원인 추적이 가장 어렵다.
 > 비프로덕션 환경에서 돌리므로 프로덕션 100% 보장은 아니다.
 

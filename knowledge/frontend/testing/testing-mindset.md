@@ -59,6 +59,5 @@ source: unverified
 
 > #### User Annotation:
 > 참고: validateIncludeString()이 내부적으로 validateString()을 호출하는 케이스 — validateString()에서 테스트하는 것을 validateIncludeString()에서 중복할 필요는 없고, 잘 전파되는지만 보면 된다. (https://github.com/developer-choi/react-playground/commit/585ed1fb6c3fd217441e402886c755d0c3f186d5)
-
-> #### User Annotation:
+>
 > 참고: calculateTotal() / calculateNumberTotal() — 자식인 calculateNumberTotal()만 테스트하려 했다가 부모 쪽 흐름을 놓칠 뻔한 사례. (https://github.com/developer-choi/react-playground/commit/54fddbfa65e823df90e7b3f0b662c06419b4bca7)

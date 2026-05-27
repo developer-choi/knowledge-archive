@@ -45,8 +45,7 @@ source: unverified
 >   - 메모리 힙(Memory Heap): 메모리 할당이 이루어지는 곳
 >   - 콜스택(Call Stack): 코드가 실행되면서 스택 프레임이 쌓이는 곳
 > - 단일 스레드는 데드락(deadlocks) 같은 상황을 신경 쓰지 않아도 된다는 장점이 있지만, 특정 코드 실행이 늦어지면 UI가 막히는 한계가 있다. 해결책은 비동기 콜백(asynchronous callbacks)이다.
-
-> #### User Annotation:
+>
 > setTimeout과 for문 예시:
 >
 > ```html

@@ -45,8 +45,7 @@ You may want to avoid the following implementation details: Internal state of a 
 > #### AI Annotation:
 > implementation details에 의존하는 테스트는 기능이 동일한 리팩토링에도 깨진다.
 > Testing Library는 `getByRole`, `getByText` 등 사용자의 인식 방식을 모방하는 쿼리를 제공하여 이 문제를 해결한다.
-
-> #### AI Annotation:
+>
 > 구현 세부사항 테스트의 false positive 예시 — `wrapper.instance().setOpenIndex(1)`로 state 변경을 검증하면 "버튼 클릭 → state 변경" 연결이 끊어져도 테스트가 통과한다.
 > 사용자 행동(클릭)이 아닌 내부 메서드를 직접 호출했기 때문이다.
 
