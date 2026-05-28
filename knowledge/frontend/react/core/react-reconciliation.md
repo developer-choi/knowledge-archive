@@ -2,7 +2,7 @@
 tags: [react, concept, performance]
 publishable: false
 source: google-doc
-priority:
+priority: 1
 ---
 # Questions
 

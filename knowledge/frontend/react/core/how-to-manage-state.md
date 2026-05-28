@@ -1,7 +1,7 @@
 ---
 tags: [react, concept]
 source: official
-priority:
+priority: 1
 ---
 # Questions
 - [UNVERIFIED] '상태관리 어떻게 하세요?'

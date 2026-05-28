@@ -1,7 +1,7 @@
 ---
 tags: [react, concept]
 source: official
-priority:
+priority: 1
 ---
 # Questions
 - React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?

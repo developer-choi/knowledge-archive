@@ -2,7 +2,7 @@
 tags: [network, security, browser, concept]
 source: google-doc
 publishable: false
-priority:
+priority: 1
 ---
 # Questions
 

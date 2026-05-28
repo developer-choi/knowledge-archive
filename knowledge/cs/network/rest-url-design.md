@@ -1,7 +1,7 @@
 ---
 tags: [network, architecture, concept]
 source: official
-priority:
+priority: 1
 ---
 
 # Questions
