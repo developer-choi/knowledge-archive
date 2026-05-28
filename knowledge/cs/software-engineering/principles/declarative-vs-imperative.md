@@ -4,6 +4,7 @@ source: official
 ---
 # Questions
 - [UNVERIFIED] 명령형 프로그래밍과 선언형 프로그래밍의 차이는?
+- React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
 - imperative 방식으로 UI를 조작하는 코드는 폼 하나에서는 잘 작동한다. 여러 폼이 섞인 복잡한 시스템으로 규모가 커지면 어떤 문제가 생기는가?
 - declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
 
@@ -20,6 +21,33 @@ source: official
 ### Reference
 - https://en.wikipedia.org/wiki/Declarative_programming
 - https://en.wikipedia.org/wiki/Imperative_programming
+
+---
+
+## React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
+
+### Official Answer
+With React, you won't modify the UI from code directly.
+For example, you won't write commands like "disable the button", "enable the button", "show the success message", etc.
+Instead, you will describe the UI you want to see for the different visual states of your component ("initial state", "typing state", "success state"), and then trigger the state changes in response to user input.
+This is similar to how designers think about UI.
+
+In React, you don't directly manipulate the UI—meaning you don't enable, disable, show, or hide components directly.
+Instead, you declare what you want to show, and React figures out how to update the UI.
+Think of getting into a taxi and telling the driver where you want to go instead of telling them exactly where to turn.
+It's the driver's job to get you there, and they might even know some shortcuts you haven't considered!
+
+> #### Key Terms:
+> - **modify the UI from code directly**: DOM 노드를 직접 조작하는 것 (`element.style.display = 'none'` 같은)
+> - **commands**: "이걸 해라"라고 지시하는 명령문
+> - **describe**: 원하는 UI의 모습을 묘사
+> - **visual states**: 컴포넌트가 취할 수 있는 화면 상태들 (initial / typing / success 등)
+> - **trigger**: state 변경을 유발
+> - **in response to**: ~에 반응하여
+
+### Reference
+- https://react.dev/learn/managing-state
+- https://react.dev/learn/reacting-to-input-with-state
 
 ---
 
