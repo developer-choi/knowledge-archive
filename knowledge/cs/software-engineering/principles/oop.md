@@ -2,6 +2,7 @@
 tags: [programming-paradigm, concept]
 source: google-doc
 publishable: false
+priority:
 ---
 # Questions
 - OOP란 무엇이며, 객체(Object)의 구성 요소는?

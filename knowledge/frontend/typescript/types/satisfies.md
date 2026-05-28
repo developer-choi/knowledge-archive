@@ -2,6 +2,7 @@
 tags: [typescript, concept]
 source: unverified
 publishable: false
+priority:
 ---
 # Questions
 - `satisfies` 연산자는 어떤 문제를 해결하기 위해 등장했는가?

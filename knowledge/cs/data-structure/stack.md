@@ -2,6 +2,7 @@
 tags: [data-structure, concept, principle]
 source: official
 publishable: false
+priority:
 ---
 
 # Questions

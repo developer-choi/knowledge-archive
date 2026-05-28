@@ -1,6 +1,7 @@
 ---
 tags: [state-mgmt, performance, concept]
 source: official
+priority:
 ---
 # Questions
 - React Query가 사용하는 캐싱 메커니즘은 무엇인가?

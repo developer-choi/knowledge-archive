@@ -1,6 +1,7 @@
 ---
 tags: [software-engineering, concept]
 source: official
+priority:
 ---
 # Questions
 - DDD(Domain-Driven Design)란 무엇인가?

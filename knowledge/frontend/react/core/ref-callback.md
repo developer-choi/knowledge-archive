@@ -1,6 +1,7 @@
 ---
 tags: [react, concept]
 source: official
+priority:
 ---
 # Questions
 - React에서 `<div ref={...}>` 자리에 ref 객체 대신 함수를 넘길 수 있다. 이 함수(ref callback)는 무엇이고, React가 언제 호출하는가?

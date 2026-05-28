@@ -2,6 +2,7 @@
 tags: [react, concept]
 publishable: false
 source: google-doc
+priority:
 ---
 # Questions
 - React Portal로 렌더링한 컴포넌트의 Rendering Tree는 어떻게 동작하는가?

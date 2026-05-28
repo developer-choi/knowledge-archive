@@ -2,6 +2,7 @@
 tags: [styling, browser, concept]
 source: official
 publishable: false
+priority:
 ---
 # Questions
 - 터치스크린에서 브라우저가 스크롤/줌 제스처를 독점 처리할 때, 앱이 커스텀 터치 동작(예: 캔버스 드래그)을 구현하려면 어떤 CSS 속성으로 제스처 처리 권한을 분배하는가?

@@ -1,6 +1,7 @@
 ---
 tags: [react, design-pattern, concept]
 source: official
+priority:
 ---
 # Questions
 - Compound Components 패턴이란 무엇이며, 어떤 문제를 해결하는가?

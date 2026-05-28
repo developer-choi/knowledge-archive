@@ -2,6 +2,7 @@
 tags: [react, principle, history]
 source: official
 publishable: false
+priority:
 ---
 # Questions
 - React 18에서 useEffect 타이밍은 어떻게 변경되었는가?

@@ -1,6 +1,7 @@
 ---
 tags: [javascript, concept]
 source: unverified
+priority:
 ---
 # Questions
 - [UNVERIFIED] 프로토타입 체이닝이란 무엇이고, 자바스크립트에서 어떻게 동작하는가?

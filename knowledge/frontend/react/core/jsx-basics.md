@@ -1,6 +1,7 @@
 ---
 tags: [react, concept]
 source: unverified
+priority:
 ---
 # Questions
 - JSX란 무엇이며, HTML과 어떻게 다른가?

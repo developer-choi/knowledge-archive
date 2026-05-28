@@ -24,6 +24,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 규칙 소스 전체를 대조하되, 다음 항목은 누락 없이 확인한다:
 
+- **priority 필드 존재**: frontmatter에 `priority:` 키가 있는가. 없으면 추가한다 (값은 비워둠).
 - **Official Answer 언어**: Official Answer 본문이 공식 문서 원문(대체로 영어)으로 유지되어 있는가. 한글 의역·요약으로 대체된 경우 위반.
 - **Official Annotation 잔재**: `> #### Official Annotation:` 블록이 남아 있으면 위반. 폐지된 키이며 모든 공식 보충은 Official Answer에 단락으로 통합되어야 한다.
 - **목차-본문 순서**: Questions 목차와 Answers 본문의 질문 순서가 1:1로 일치하는가.

@@ -1,6 +1,7 @@
 ---
 tags: [testing, concept]
 source: official
+priority:
 ---
 # Questions
 - 컴포넌트 테스트에서 implementation details를 테스트하면 어떤 문제가 생기는가? Testing Library는 이 문제를 어떻게 해결하는가?

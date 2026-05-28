@@ -1,6 +1,7 @@
 ---
 tags: [software-engineering, comparison]
 source: official
+priority:
 ---
 # Questions
 - Static test란 무엇인가?

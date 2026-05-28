@@ -1,6 +1,7 @@
 ---
 tags: [history, comparison, architecture]
 source: unverified
+priority:
 ---
 
 # Questions

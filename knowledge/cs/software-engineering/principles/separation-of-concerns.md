@@ -1,6 +1,7 @@
 ---
 tags: [software-engineering, architecture, principle]
 source: unverified
+priority:
 ---
 # Questions
 - 모든 layer 컴포넌트에서 hooks(useContext/useQuery/useSelector 등)를 직접 호출하면 책임 분리가 깨지는가?

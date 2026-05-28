@@ -1,6 +1,7 @@
 ---
 tags: [typescript, comparison]
 source: official
+priority:
 ---
 
 # Questions
