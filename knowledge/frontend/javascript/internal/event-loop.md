@@ -1,7 +1,7 @@
 ---
 tags: [javascript, browser, concept]
 source: official
-priority:
+priority: 1
 ---
 
 # Questions
