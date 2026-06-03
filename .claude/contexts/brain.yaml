@@ -12,6 +12,7 @@ known:
     components:
     hooks:
     routing:
+    hydration:
   OS:
     process vs program:
     file descriptor:
