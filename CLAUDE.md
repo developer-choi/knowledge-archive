@@ -8,10 +8,13 @@ explained/   /explain 스킬이 생성·저장하는 설명 캐시
 techniques/  도구·기법 학습 정리 (검색·참조용, Q&A 아님)
 tips/        짤막한 단편 필기 (알아두면 좋은데 외울 필요는 없는 것)
 archives/    학습 중 파생된 심층 보충 노트 (특정 Q&A와 1:1 대응 안 하는 깊은 탐구)
+assets/      explained 설명에 임베드되는 정적 자산 (데모 HTML·이미지 등, knowledge 경로 미러링)
 scripts/     마이그레이션·검증·후보 추출 스크립트
 ```
 
 `explained/<rel>.md`는 `knowledge/<rel>.md`와 1:1 대응한다. 질문별 설명 섹션이 `\n\n---\n\n` 구분자로 이어붙여져 있고, 각 섹션은 H1(질문 제목)으로 시작한다.
+
+`explained/`·`assets/`는 `knowledge/`(진실의 원천) 경로를 미러링하는 파생물이다. **원본을 이동·개명하면 대응 explained·assets도 같은 경로로 동반 이동**한다 — [`.claude/contexts/directory-roles.md`](.claude/contexts/directory-roles.md)의 "원본 이동 시 미러 동반 이동" 참고.
 
 어느 스킬이 어떤 파일을 read/write하는지는 [`.claude/contexts/lifecycle.md`](.claude/contexts/lifecycle.md) 참고.
 
@@ -96,7 +99,9 @@ unknown:
 - `.claude/contexts/list-candidates.md` — 스캔 대상 여부 명시 (외부 노출 포함/제외)
 - `list-candidates.mts` — 외부 노출 대상이면 스캔 로직 추가
 
-`archives/`는 외부 노출 제외 — `list-candidates.mts` 수정 불필요.
+`archives/`·`assets/`는 외부 노출 제외 — `list-candidates.mts` 수정 불필요.
+
+`knowledge/` 경로를 미러링하는 루트(`explained/`, `assets/`)를 추가할 때는 위 항목에 더해 `directory-roles.md`의 "원본 이동 시 미러 동반 이동" 목록에도 추가한다.
 
 ## knowledge 파일 구조 규칙
 

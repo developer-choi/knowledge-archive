@@ -45,6 +45,6 @@
 |------|------|
 | `knowledge/` 디렉토리명 변경 | 스크립트 즉시 깨짐 (하드코딩) |
 | `knowledge/` 안 서브 디렉토리 재배치 | 스크립트는 재귀 스캔이라 동작. `path` 필드 값만 바뀜. 다만 full-refresh 등 downstream에서 path 기반 분류 로직이 있으면 추가 점검 |
-| `knowledge/` 외부에 새 루트 디렉토리 (예: `techniques/`, `tips/`, `archives/`) | 스크립트는 그 글들 **스캔 안 함**. 외부 노출 후보에서 빠짐. 의도가 "외부 노출 안 함"이면 정합. 그렇지 않으면 스크립트도 수정 필요. `archives/`는 외부 노출 제외 — 수정 불필요 |
+| `knowledge/` 외부에 새 루트 디렉토리 (예: `techniques/`, `tips/`, `archives/`, `assets/`) | 스크립트는 그 글들 **스캔 안 함**. 외부 노출 후보에서 빠짐. 의도가 "외부 노출 안 함"이면 정합. 그렇지 않으면 스크립트도 수정 필요. `archives/`·`assets/`는 외부 노출 제외 — 수정 불필요 |
 | frontmatter 키 추가·변경 | `Candidate` 인터페이스 + AC `full-refresh` 받는 JSON 형식 함께 수정 |
 | 헤딩 위계·마커 변경 | 파싱 로직 + `/validate` 함께 수정 |
