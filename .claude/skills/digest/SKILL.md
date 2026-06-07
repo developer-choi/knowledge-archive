@@ -292,6 +292,7 @@ digest 모드 시작.
 2. **explained 생성**: 이번 세션에서 확정된 질문들을 `explained/<rel>.md`로 저장한다 (위 "해설은 knowledge에 저장하지 않고, OFF 시 explained로 보낸다" 참고). 세션 중 사용자 오해·재설명을 본문에 녹인다. 이미 있는 질문 섹션은 보존한다. 데모·이미지 등 자산을 만들었으면 `assets/<rel>/`에 두고 explained 본문에서 상대 경로로 링크한다.
 3. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
 4. 변경 파일을 **종류별로 분리 커밋**한다: knowledge Q&A는 `feat(knowledge): [주제] 위키피디아/MDN Q&A 추가 및 보충`, explained(+assets)는 `feat(explained): [주제] 해설 캐시 생성` 형식.
+5. **학습가치 판단 회고**: 이번 세션에 스킵/keep 판단이 뒤집힌 적(내가 넘긴 걸 사용자가 도로 달라 했거나, 해설·제안한 걸 불필요로 반려)이 있으면 `/pre-exit digest`를 제안한다. 그 번복 유형을 §4 「스킵 판단」 기준에 반영해 다음 세션 판단을 다듬기 위함이다. 번복이 없었으면 제안하지 않는다.
 
 ---
 
