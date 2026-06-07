@@ -82,19 +82,6 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 ## 약어
 - OA = Official Answer
 
-## 학습 출처 선호도
-
-사용자가 개념·용어·동작 방식을 질문하면 아래 순위로 출처를 탐색하여 답한다.
-
-- 1순위: Wikipedia — 개념 정의의 기본값. 항상 여기서 먼저 찾는다.
-- 2순위 (도메인별 공식 1차 소스):
-  - MDN — 웹 API, HTTP, 브라우저 동작
-  - man7.org — Linux 시스템 콜 (`fork`, `exec`, `wait` 등)
-  - RFC (datatracker.ietf.org) — 네트워크 프로토콜 원문 (HTTP, TCP 등)
-  - OSTEP (ostep.org) — OS 개념 (프로세스, 스케줄링, 메모리 관리 등)
-  - POSIX spec (pubs.opengroup.org) — 시스템 콜 표준 정의
-- 공식문서 원문(영어)을 Official Answer로 사용
-
 ## frontmatter `source` 키
 
 **파일이 어떤 맥락에서 만들어졌는가**를 나타낸다. Q&A별 출처 신뢰도가 아님 — 개별 신뢰도는 `[UNVERIFIED]` 마커 + `### Reference`가 담당한다. `scripts/list-candidates.mts`가 그대로 export하여 full-refresh dry-run에서 출처별 그룹화에 쓰인다.
