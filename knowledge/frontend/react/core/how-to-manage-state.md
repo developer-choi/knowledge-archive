@@ -37,12 +37,6 @@ priority: 1
 Simplicity is key: each piece of state is a "moving piece", and you want as few "moving pieces" as possible.
 More complexity leads to more bugs!
 
-> #### Key Terms:
-> - **Simplicity is key**: state 설계의 제1원칙 — 단순함이 핵심
-> - **moving piece**: 기계 부품 비유. state 변수 하나하나가 움직이는 부품이며, 서로 어긋날 수 있는 지점
-> - **as few moving pieces as possible**: 동기화·일관성 관리 대상이 곱셈으로 늘어나므로 개수 자체를 최소화
-> - **More complexity leads to more bugs**: state가 N개면 조합이 2^N으로 증가. 복잡도 자체가 버그 표면
-
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
 - https://react.dev/learn/choosing-the-state-structure
@@ -54,11 +48,6 @@ More complexity leads to more bugs!
 ### Official Answer
 But if some two state variables always change together, it might be a good idea to unify them into a single state variable.
 Then you won't forget to always keep them in sync.
-
-> #### Key Terms:
-> - **always change together**: 항상 같이 바뀌는 — 어느 이벤트에서든 둘 다 갱신되는 패턴
-> - **unify**: 통합. 한 객체/배열 state로 합침
-> - **forget to ... keep them in sync**: 동기화 실수의 원천 — `setX`만 호출하고 `setY` 빼먹음
 
 ### Reference
 - https://react.dev/learn/choosing-the-state-structure
@@ -73,14 +62,6 @@ For example, `isTyping` and `isSubmitting` can't both be `true`.
 A paradox usually means that the state is not constrained enough.
 There are four possible combinations of two booleans, but only three correspond to valid states.
 To remove the "impossible" state, you can combine these into a `status` that must be one of three values: `'typing'`, `'submitting'`, or `'success'`.
-
-> #### Key Terms:
-> - **paradox**: 논리적으로 동시에 성립할 수 없는 state 조합이 표현 가능한 상황
-> - **not constrained enough**: state 타입이 invalid 조합을 허용할 만큼 느슨함
-> - **four possible combinations / only three correspond to valid states**: 두 boolean = 4조합, 유효는 3개. 남는 1개가 "impossible" state
-> - **impossible state**: 현실 UI에 대응하지 않지만 메모리에는 표현 가능한 조합
-> - **combine these into a `status`**: boolean들을 enum(union 문자열) 하나로 합쳐 유효 값만 취할 수 있게 제약
-> - **leaves the door open**: 직접 만들지 않더라도 만들어질 가능성 자체가 열려있음
 
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
@@ -107,11 +88,6 @@ Instead, use the messageColor prop directly in your code. If you want to give it
 By convention, start the prop name with initial or default to clarify that its new values are ignored:
 `function Message({ initialColor }) { const [color, setColor] = useState(initialColor); }`
 
-> #### Key Terms:
-> - **same information available in another state variable**: 이미 다른 state에서 도출 가능한 정보
-> - **going out of sync**: 짝으로 갱신해야 하는 state들이 한쪽만 갱신되어 불일치
-> - **remove `isEmpty` and instead check `answer.length === 0`**: state 변수를 제거하고 매 렌더 시 파생 표현식으로 계산. source of truth는 `answer` 하나
-
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
 - https://react.dev/learn/choosing-the-state-structure
@@ -134,13 +110,6 @@ the updated version of the root "table" object should include the updated versio
 You can nest state as much as you like, but making it "flat" can solve numerous problems.
 It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
 
-> #### Key Terms:
-> - **all the way up from the part that changed**: 변경 지점부터 root까지 부모 사슬 전체 복사 (immutable 업데이트 원칙)
-> - **parent place chain**: 변경 노드 → 부모 → 조부모 → ... → root
-> - **verbose**: spread 연산이 층마다 반복되어 코드량 폭증
-> - **flat / normalized**: 트리 구조 대신 ID 참조 + ID→객체 lookup 테이블로 재구성. DB 정규화와 같은 사고
-> - **child place IDs**: 자식 객체를 직접 임베드하지 않고 ID 배열로 보관
-
 > #### AI Annotation:
 > 핵심 효과: 트리 깊이와 무관하게 update 비용이 항상 2단계 복사 — `O(depth)`가 `O(1)`로 떨어진다.
 > "DB 정규화"는 비유가 아니라 실제 같은 알고리즘 — 행(row) = 평면 객체, primary key = id, foreign key = childIds.
@@ -157,12 +126,6 @@ But passing props can become verbose and inconvenient when you need to pass some
 The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called "prop drilling".
 Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
 
-> #### Key Terms:
-> - **verbose**: 장황한 — 코드가 쓸데없이 길어진다
-> - **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들의 가장 가까운 공통 부모 (lifting state up의 도착지)
-> - **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들을 props가 단순 통과하며 내려가는 상황
-> - **no matter how deep**: 아무리 깊든 상관없이
-
 ### Reference
 - https://react.dev/learn/passing-data-deeply-with-context
 
@@ -178,13 +141,6 @@ Context lets the parent component make some information available to any compone
 React automatically re-renders all the children that use a particular context starting from the provider that receives a different value.
 The previous and the next values are compared with the `Object.is` comparison.
 Skipping re-renders with `memo` does not prevent the children receiving fresh context values.
-
-> #### Key Terms:
-> - **all the children that use a particular context**: 그 Provider 아래에서 같은 context를 `useContext`한 모든 자식 — 일부 필드만 읽어도 전부 대상
-> - **starting from the provider that receives a different value**: 트리거 시점은 Provider value가 달라진 그 순간부터
-> - **`Object.is` comparison**: 참조 비교. 객체/함수 리터럴을 매 렌더 새로 만들면 안의 값이 같아도 "달라짐"으로 판정
-> - **Skipping re-renders with `memo`**: `React.memo`로 자식을 감싸 props 변화 없으면 리렌더 스킵하는 최적화
-> - **does not prevent**: context 채널은 props 비교를 우회하므로 memo로 막을 수 없다
 
 ### Reference
 - https://react.dev/reference/react/useContext#caveats

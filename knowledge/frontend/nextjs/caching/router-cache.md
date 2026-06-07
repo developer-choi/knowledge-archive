@@ -31,11 +31,6 @@ This results in instant back/forward navigation, no full-page reload between nav
 
 This cache specifically applies to Server Components.
 
-> #### Key Terms:
-> - **RSC payload**: React Server Component 렌더링 결과의 바이너리 표현
-> - **route segments**: 라우트를 구성하는 segment 단위 (layout, loading, page 등)
-> - **partial rendering**: 변경된 segment만 렌더링하고 공통 layout은 재사용하는 방식
-
 > #### User Annotation:
 > layouts, loading states, pages 셋 다 RSC Payload 형태로 Router Cache에 저장된다.
 
@@ -51,9 +46,6 @@ This cache specifically applies to Server Components.
 
 ### Official Answer
 The cache is stored in the browser's temporary **memory**.
-
-> #### Key Terms:
-> - **temporary memory**: 브라우저가 세션 동안만 유지하는 임시 메모리. 영구 저장소가 아님
 
 > #### User Annotation:
 > 영구 저장소가 아니므로 새로고침하면 당연히 삭제된다.
@@ -74,11 +66,6 @@ The duration depends on how the resource was prefetched, and if the resource was
 
 This Router Cache is used to improve the navigation experience by storing previously visited routes and **prefetching future routes.**
 
-> #### Key Terms:
-> - **Session**: 사용자 세션 단위. 페이지 새로고침 시 초기화됨
-> - **Automatic Invalidation Period**: 일정 시간이 지나면 자동으로 캐시가 무효화되는 기간
-> - **prefetched**: `<Link>`나 `router.prefetch()`로 미리 가져온 상태
-
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#duration-3
 
@@ -98,11 +85,6 @@ Full Prefetching (`prefetch={true}` or `router.prefetch`):
 
 While a page refresh will clear **all cached segments**, the automatic invalidation period **only affects the individual segment** from the time it was prefetched.
 
-> #### Key Terms:
-> - **Default Prefetching**: `<Link>`의 prefetch prop을 지정하지 않거나 null로 둔 기본 동작
-> - **Full Prefetching**: `prefetch={true}` 또는 `router.prefetch()`로 명시한 prefetch
-> - **individual segment**: 라우트를 구성하는 개별 segment 단위
-
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#duration-3
 
@@ -117,11 +99,6 @@ There are two ways you can invalidate the Router Cache:
   - Revalidating data on-demand by path with (`revalidatePath`) or by cache tag with (`revalidateTag`).
   - Using `cookies.set` or `cookies.delete` invalidates the Router Cache to prevent routes that use cookies from becoming stale (e.g. authentication).
 - Calling `router.refresh` will invalidate the Router Cache and make a new request to the server for the current route.
-
-> #### Key Terms:
-> - **Server Action**: 서버에서 실행되며 클라이언트 라우트에 연결된 함수
-> - **revalidatePath / revalidateTag**: 경로 또는 태그 단위로 데이터를 재검증하는 API
-> - **router.refresh**: `useRouter` 훅이 제공하는 현재 라우트 강제 갱신 API
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#invalidation-1

@@ -27,9 +27,6 @@ This reduces both the back-and-forth communication between client and server, as
 It's hard to give general advice on when it makes sense to pair React Query with Server Components and not.
 If you are just starting out with a new Server Components app, we suggest you start out with any tools for data fetching your framework provides you with and avoid bringing in React Query until you actually need it.
 
-> #### Key Terms:
-> - **main thread**: 브라우저에서 JS 실행·렌더링을 담당하는 단일 스레드. 여기 부하가 커지면 UI가 느려진다
-
 > #### User Annotation:
 > Best = 가능한 FULL SSR 하면 이득이 있긴 함 (프레임워크 오피셜).
 > Worst = FULL CSR 하면 손해가 있긴 함.
@@ -77,11 +74,6 @@ You can combine the cache function, the preload pattern, and the server-only pac
 With this approach, you can eagerly fetch data, cache responses, and guarantee that this data fetching only happens on the server.
 The getUser.ts exports can be used by layouts, pages, or components to give them control over when a user's data is fetched.
 
-> #### Key Terms:
-> - **eagerly**: 실제로 필요해지기 전에 미리(적극적으로) 시작한다는 의미
-> - **parallel data fetching**: 여러 데이터 요청을 동시에 시작해 총 대기 시간을 줄이는 패턴
-> - **server-only**: 해당 모듈이 클라이언트 번들로 새지 않도록 보장하는 Next.js 패키지
-
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/data-fetching/patterns#preloading-data
 
@@ -103,11 +95,6 @@ Good rule of thumb:
 1. If you do use it, a good rule of thumb is to avoid queryClient.fetchQuery unless you need to catch errors.
 2. If you do use it, **don't render its result on the server** or **pass the result to another component, even a Client Component one.**
 
-> #### Key Terms:
-> - **revalidate**: 캐시된 데이터를 다시 가져와 최신 상태로 만드는 것
-> - **staleTime**: 데이터가 "신선하다"고 간주되는 시간. 이 시간이 지나면 refetch 후보가 됨
-> - **out of sync**: 서버와 클라이언트에 서로 다른 데이터가 남아 불일치하는 상태
-
 > #### User Annotation:
 > 정리하자면,
 > 1. fetchQuery의 결과를 다른 컴포넌트에 전달하지 않는다.
@@ -123,11 +110,6 @@ Good rule of thumb:
 
 ### Official Answer
 If the queries included in dehydration already exist in the queryCache, hydrate does not overwrite them and they will be silently discarded.
-
-> #### Key Terms:
-> - **dehydration**: 서버에서 준비한 쿼리 캐시를 직렬화해 클라이언트로 넘기는 과정
-> - **hydrate**: 클라이언트에서 그 직렬화된 데이터를 받아 queryCache에 주입하는 과정
-> - **queryCache**: React Query가 관리하는 클라이언트 측 캐시 저장소
 
 > #### User Annotation:
 > 이미 CC에 데이터가 있으면 SC가 다시 실행되더라도 데이터가 덮어씌워지지 않는다.

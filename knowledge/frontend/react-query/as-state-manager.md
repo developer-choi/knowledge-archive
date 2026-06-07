@@ -27,13 +27,6 @@ Yes, most of the time, we produce Promises via data fetching, so that's where it
 But it does more than just handling loading and error states for you.
 It is a proper, real, "global state manager".
 
-> #### Key Terms:
-> - **async state manager**: 비동기 작업의 결과(Promise)를 캐싱·공유·재요청까지 관리하는 도구. 데이터 페칭에 한정되지 않는다
-> - **Promise**: JS 비동기 결과를 표현하는 객체. resolve/reject로 완료 상태를 알린다
-> - **shines**: 가장 잘 발휘된다 (=빛난다). 페칭이 주된 use-case일 뿐 본질은 더 넓다는 뉘앙스
-> - **proper, real**: "본격적인, 진짜 의미의" — Redux/Zustand와 동급의 글로벌 상태 관리자라는 강조
-> - **global state manager**: 앱 전역에서 공유되는 상태를 관리하는 도구
-
 > #### AI Annotation:
 > queryFn이 Promise만 리턴하면 되므로, HTTP 요청뿐 아니라 IndexedDB 읽기·Web Worker 응답 등 어떤 비동기 작업이든 React Query로 관리할 수 있다.
 > "데이터 페칭 라이브러리"라는 통념은 use-case 중 하나일 뿐, 본질은 비동기 상태 관리자다.
@@ -47,9 +40,6 @@ It is a proper, real, "global state manager".
 
 ### Official Answer
 React Query will also deduplicate requests that would happen at the same time, so in the above scenario, even though two components request the same data, there will be only one network request.
-
-> #### Key Terms:
-> - **deduplicate**: 중복 제거. 첫 요청이 진행 중일 때 같은 키의 두 번째 호출은 새 fetch를 만들지 않고 기존 Promise에 합류한다
 
 > #### AI Annotation:
 > 같은 QueryClientProvider 아래에서 같은 QueryKey로 호출된 요청이 deduplication 대상이다.
@@ -70,12 +60,6 @@ If we display data on the screen that we fetch from an API, we only display a "s
 
 React Query provides the means to synchronize our view with the actual data owner - the backend.
 
-> #### Key Terms:
-> - **server state**: 진짜 주인이 backend(DB)인 상태. client state(폼 입력값, 모달 열림 여부)와 달리 frontend가 소유하지 않음
-> - **own**: 소유. frontend가 그 데이터의 진짜 주인인지 여부
-> - **snapshot**: 그 순간의 사진. 가져온 시각의 정지화면 — 백엔드는 그 사이에도 계속 변한다
-> - **synchronize**: 동기화. view를 backend와 같은 상태로 맞추는 일
-
 > #### AI Annotation:
 > client state는 frontend가 100% 소유하지만, server state는 빌려온 사본(snapshot)일 뿐이라 끊임없는 동기화가 필요하다.
 > staleTime, refetchOnWindowFocus 같은 옵션이 왜 그렇게 설계됐는지 이해하는 출발점.
@@ -92,11 +76,6 @@ The answer depends totally on our problem domain.
 If we fetch a Twitter post with all its likes and comments, it is likely outdated (stale) pretty fast.
 If we fetch exchange rates that update on a daily basis, well, our data is going to be quite accurate for some time even without refetching.
 
-> #### Key Terms:
-> - **problem domain**: 도메인. 데이터의 변화 빈도가 결정되는 비즈니스 영역
-> - **outdated (stale)**: 신선하지 않은. 캐시는 있지만 최신 보장이 없는 상태
-> - **accurate**: 정확한 (백엔드 현재 상태와 일치하는가)
-
 > #### AI Annotation:
 > stale 여부는 절대값이 아니라 도메인 의존이다 — 트위터 좋아요는 1초 뒤에도 stale, 환율은 하루 내내 fresh.
 > 그래서 React Query는 staleTime의 "정답"을 제시하지 않고 사용자가 도메인에 맞춰 설정하도록 둔다.
@@ -111,10 +90,6 @@ If we fetch exchange rates that update on a daily basis, well, our data is going
 ### Official Answer
 React Query provides the means to synchronize our view with the actual data owner - the backend.
 And by doing so, it errs on the side of updating often rather than not updating often enough.
-
-> #### Key Terms:
-> - **synchronize**: 동기화. view ↔ backend 상태 일치
-> - **errs on the side of**: ~쪽으로 일부러 치우친다 (의도된 편향)
 
 > #### AI Annotation:
 > "업데이트가 너무 많은" 실수가 "너무 적은" 실수보다 낫다는 디폴트 철학.
@@ -135,12 +110,6 @@ Two approaches to data fetching were pretty common before libraries like React Q
 
 Both of these approaches are pretty sub-optimal.
 The first one doesn't update our local cache often enough, while the second one potentially re-fetches too often, and also has a questionable ux because data is not there when we fetch for the second time.
-
-> #### Key Terms:
-> - **came to the rescue**: 구원하러 왔다. 기존 방식이 충분히 고통스러웠다는 뉘앙스
-> - **sub-optimal**: 차선의. 정답이 따로 있다는 함의
-> - **questionable ux**: UX가 의심스러운, 즉 사용자 경험이 좋지 않은
-> - **second time**: 두 번째 마운트 — 같은 데이터를 다시 보러 왔는데도 빈 상태(스피너)부터 시작
 
 > #### AI Annotation:
 > 두 안티패턴은 정반대 방향의 결함을 갖는다.
@@ -165,14 +134,6 @@ No, we have "downloaded" it, so we have it already, why should we?
 Maybe if we fire a POST request to the backend, it will be kind enough to give us the "latest" state back.
 If you want something more accurate, you can always reload your browser window…
 
-> #### Key Terms:
-> - **dispatch an action**: Redux 패턴. 컴포넌트가 직접 fetch를 호출하는 게 아니라 action을 보내 thunk/saga가 페칭을 트리거
-> - **on mount of the application**: 앱이 시작될 때 한 번 — 그 뒤엔 사용자가 새로고침하기 전까지 같은 데이터를 본다
-> - **global state manager**: Redux/Zustand 같은 앱 전역 상태 저장소
-> - **"downloaded"**: 따옴표가 붙은 이유는 비꼬는 톤 — "이미 받았으니 끝"이라는 잘못된 정신모델
-> - **POST request**: 서버에 변경을 요청하는 HTTP 메서드. 응답에 latest state가 묻어오길 기대하는 안티패턴
-> - **reload your browser window**: 사용자에게 책임을 떠넘기는 워크어라운드
-
 > #### AI Annotation:
 > 결함의 핵심: 백그라운드 동기화 메커니즘이 없으니 캐시가 점점 stale해지고, 다른 사용자가 만든 변경은 새로고침 전에는 절대 보이지 않는다.
 > POST 응답에 latest state가 묻어오는 것도 백엔드 협업 없이는 보장되지 않는 가정이다.
@@ -195,13 +156,6 @@ You know the drill: useEffect, empty dependency array (throw an eslint-disable a
 Of course, we now show a loading spinner every time the Dialog opens until we have the data.
 What else can we do, the local state is gone…
 
-> #### Key Terms:
-> - **just in time**: 필요할 때 그때그때 — lazy 페칭의 이점이 있어 보이지만 캐싱 없이 매번 새로 가져온다는 함정
-> - **You know the drill**: "다 알잖아, 그 패턴" — 클리셰 코드를 비꼬는 표현
-> - **empty dependency array**: `useEffect(() => {...}, [])`. mount 1회만 실행하려는 의도
-> - **eslint-disable**: ESLint 규칙을 끄는 주석. exhaustive-deps 경고를 입막음하는 안티패턴
-> - **the local state is gone**: 컴포넌트가 unmount되면 `useState`로 들고 있던 데이터가 사라진다 — 캐시 없는 local state의 본질적 한계
-
 > #### AI Annotation:
 > 결함의 핵심: 모달이 닫히면 데이터가 증발하므로, 다음에 모달을 열 때 같은 데이터를 이미 봤음에도 다시 fetch + 스피너부터 시작한다.
 > 캐싱 없이 useState만 쓰는 패턴은 "두 번째 마운트의 UX"를 항상 망친다.
@@ -217,15 +171,6 @@ What else can we do, the local state is gone…
 React Query is great at managing async state globally in your app, if you let it.
 Only turn off the refetch flags if you know that make sense for your use-case, and resist the urge to sync server data to a different state manager.
 Usually, customizing staleTime is all you need to get a great ux while also being in control of how often background updates happen.
-
-> #### Key Terms:
-> - **if you let it**: 그렇게 쓰게 두면. 우회·차단하지 말라는 조건절
-> - **turn off the refetch flags**: refetchOnMount/refetchOnWindowFocus 같은 플래그를 끔
-> - **make sense for your use-case**: use-case에 맞는다는 판단이 분명할 때
-> - **resist the urge**: 충동에 저항하라
-> - **sync server data to a different state manager**: server data를 Redux/Zustand 등 다른 상태 관리자로 다시 동기화
-> - **customizing staleTime**: staleTime 커스터마이즈
-> - **in control of**: 제어권을 가짐 — 빈도를 통제
 
 > #### AI Annotation:
 > 두 우회 모두 React Query가 자동으로 하려는 background refetch를 막아 라이브러리 핵심 가치를 무력화하는 안티패턴이다.

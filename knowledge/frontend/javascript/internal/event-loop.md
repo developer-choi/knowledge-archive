@@ -72,10 +72,6 @@ console.log(7);
 > Rendering never happens while the engine executes a task. It doesn't matter if the task takes a long time.
 > Changes to the DOM are painted only after the task is complete.
 
-> #### Key Terms:
-> - **task**: 이벤트 루프가 한 번에 실행하는 동기적 실행 단위.
-> - **rendering**: 브라우저가 DOM 변경 사항을 화면에 페인트하는 작업.
-
 ### User Answer
 일어나지 않는다.
 task가 실행되는 동안에는 아무리 그 안에서 렌더링하는 코드를 작성해도 실제로 렌더링이 일어나지 않고, 해당 task가 모두 끝나야 렌더링이 된다.

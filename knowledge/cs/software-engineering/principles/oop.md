@@ -25,11 +25,6 @@ Objects contain both functions (or methods) and data.
 
 An object provides a public interface to other code that wants to use it but maintains its own private, internal state; other parts of the system don't have to care about what is going on inside the object.
 
-> #### Key Terms:
-> - **modeling a system as a collection of objects**: 시스템을 객체들의 집합으로 표현하는 방식
-> - **public interface**: 외부에 노출된 메소드·프로퍼티 집합
-> - **private, internal state**: 외부에서 접근 불가한 내부 데이터
-
 > #### User Annotation:
 > 예를 들어 Array 객체는 `length` 필드를 갖고, `push`/`remove` 같은 메소드가 실행되면 `length`에 반영된다.
 
@@ -42,10 +37,6 @@ An object provides a public interface to other code that wants to use it but mai
 
 ### Official Answer
 On its own, a class doesn't do anything: it's a kind of template for creating concrete objects of that type.
-
-> #### Key Terms:
-> - **template**: 객체 생성을 위한 설계도
-> - **concrete objects**: 클래스로부터 실제로 만들어진 객체
 
 ### User Answer
 클래스는 그 자체로는 데이터(필드)도 없고 동작(메소드)도 할 수 없는 설계도다.

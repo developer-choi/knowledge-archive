@@ -28,10 +28,6 @@ If a cached result exists, it returns the result. If not, it calls fn with the a
 
 The only time fn is called is when there is a **cache miss**.
 
-> #### Key Terms:
-> - **cache hit**: 동일한 인자로 호출했을 때 캐시에 결과가 이미 존재해서 fn을 다시 호출하지 않는 상황
-> - **cache miss**: 캐시에 결과가 없어 fn을 새로 호출해야 하는 상황
-
 ### Reference
 - https://react.dev/reference/react/cache
 
@@ -56,10 +52,6 @@ If your arguments are not primitives (ex. objects, functions, arrays), ensure yo
 When calling a memoized function, React will look up the input arguments to see if a result is already cached.
 React will use **shallow equality** of the arguments to determine if there is a cache hit.
 - React will call **Object.is** on the input to verify if there is a cache hit.
-
-> #### Key Terms:
-> - **shallow equality**: 객체의 깊은 내부 값까지 비교하지 않고 참조(reference) 또는 최상위 값만 비교하는 방식
-> - **Object.is**: JavaScript 내장 동등 비교 함수. `===`와 거의 같지만 `NaN`/`-0` 처리가 다르다.
 
 ### Reference
 - https://react.dev/reference/react/cache

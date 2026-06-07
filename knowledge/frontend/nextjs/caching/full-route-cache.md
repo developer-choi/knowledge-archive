@@ -19,10 +19,6 @@ priority:
 By default, the Full Route Cache is **persistent**.
 This means that the render output is cached **across** user requests.
 
-> #### Key Terms:
-> - **persistent**: 영구적. 여러 요청 사이에 유지된다
-> - **render output**: HTML과 RSC payload로 구성된 라우트 렌더링 결과
-
 ### Review Note
 - 본 문서는 Next.js 14 기준 공식문서를 소스로 함.
 
@@ -39,10 +35,6 @@ There are two ways you can invalidate the Full Route Cache:
 - **Revalidating Data**: Revalidating the Data Cache, will in turn invalidate the Router Cache by re-rendering components on the server and caching the new render output.
 - **Redeploying**: Unlike the Data Cache, which persists across deployments, the Full Route Cache is cleared on new deployments.
 
-> #### Key Terms:
-> - **Revalidating Data**: Data Cache를 갱신하면 그에 의존하는 Full Route Cache도 자동으로 무효화됨
-> - **Redeploying**: 새 배포 시 Full Route Cache는 자동으로 비워짐
-
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#invalidation
 
@@ -52,10 +44,6 @@ There are two ways you can invalidate the Full Route Cache:
 
 ### Official Answer
 Unlike the Data Cache, which persists across deployments, the Full Route Cache is cleared on new deployments.
-
-> #### Key Terms:
-> - **persists across deployments**: Data Cache는 새 배포에도 유지된다
-> - **cleared on new deployments**: Full Route Cache는 새 배포 때마다 비워진다
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#invalidation

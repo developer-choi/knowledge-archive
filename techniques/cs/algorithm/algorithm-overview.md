@@ -34,9 +34,6 @@ A strategy to solve problems by dividing them into smaller subproblems, solving 
 
 It works on the principle of divide and conquer, breaking down the problem into smaller sub-problems.
 
-> #### Key Terms:
-> - **subproblems**: 원래 문제를 분할하여 생긴 더 작은 동일 구조의 문제
-
 > #### User Annotation:
 > Quick Sort로 예를 들면, 호출된 함수 시점 기준 그 아래에서 재귀로 호출 시 왼쪽 싹 정렬되고 오른쪽 싹 정렬되는 느낌임.
 

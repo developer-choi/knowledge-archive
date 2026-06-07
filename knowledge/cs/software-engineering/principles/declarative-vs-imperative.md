@@ -38,14 +38,6 @@ Instead, you declare what you want to show, and React figures out how to update 
 Think of getting into a taxi and telling the driver where you want to go instead of telling them exactly where to turn.
 It's the driver's job to get you there, and they might even know some shortcuts you haven't considered!
 
-> #### Key Terms:
-> - **modify the UI from code directly**: DOM 노드를 직접 조작하는 것 (`element.style.display = 'none'` 같은)
-> - **commands**: "이걸 해라"라고 지시하는 명령문
-> - **describe**: 원하는 UI의 모습을 묘사
-> - **visual states**: 컴포넌트가 취할 수 있는 화면 상태들 (initial / typing / success 등)
-> - **trigger**: state 변경을 유발
-> - **in response to**: ~에 반응하여
-
 ### Reference
 - https://react.dev/learn/managing-state
 - https://react.dev/learn/reacting-to-input-with-state
@@ -128,14 +120,6 @@ let successMessage = document.getElementById('success');
 form.onsubmit = handleFormSubmit;
 textarea.oninput = handleTextareaChange;
 ```
-
-> #### Key Terms:
-> - **isolated examples**: 폼 하나 같은 고립된 작은 예시
-> - **exponentially more difficult**: 요소 × 이벤트 × 상태 조합이 곱셈으로 늘어나 지수적으로 어려워진다
-> - **complex systems**: 여러 UI 요소·상호작용이 엮인 큰 시스템
-> - **carefully checking all existing code**: 새 요소 추가 시 기존 코드 전체를 일일이 재검토
-> - **introduced a bug**: 기존 흐름을 깨서 버그를 심음
-> - **forgetting to show or hide something**: `show` 호출 후 짝이 되는 `hide`를 빠뜨리는 전형적 imperative 버그
 
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state
@@ -234,13 +218,6 @@ export default function Form() {
   );
 }
 ```
-
-> #### Key Terms:
-> - **fragile**: 변경을 가했을 때 쉽게 깨지는 성격. 한 곳 고쳤더니 엉뚱한 다른 곳이 버그로 드러나거나, 새 기능 추가 시 기존 동작이 무너지는 코드
-> - **much less fragile**: 줄 수가 아니라 변경 충격에 버티는 정도가 핵심 지표. declarative의 진짜 이익
-> - **Expressing all interactions as state changes**: 모든 상호작용을 DOM 조작이 아닌 `setState` 호출(state 전환)로만 표현
-> - **introduce new visual states without breaking existing ones**: `status` enum에 값 추가 + 해당 분기 JSX만 추가하면 됨. 기존 state 관련 코드 0줄 수정
-> - **change what should be displayed in each state without changing the logic of the interaction itself**: 표시(JSX)와 상호작용 로직(setter)이 분리되어 JSX만 고쳐도 핸들러는 그대로. 역도 성립
 
 > #### AI Annotation:
 > imperative 구조는 이벤트 핸들러 안에 "뭘 보여줄지"와 "언제 보여줄지"가 한 덩어리로 박혀 있다 (`disable(button); show(spinner); hide(errorMessage);` 연속 호출).

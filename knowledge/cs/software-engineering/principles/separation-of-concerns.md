@@ -22,13 +22,6 @@ Does it make sense to split your Dashboard into a DashboardView and a DashboardC
 Also, probably not.
 So it's on us to know the tradeoffs and apply the right tool for the right job.
 
-> #### Key Terms:
-> - **tradeoffs**: X를 얻으려면 Y를 포기해야 하는 맞바꿈 관계
-> - **no free lunch**: 모든 면에서 좋기만 한 선택은 없다 — tradeoff가 어디에나 존재한다는 강한 일반화
-> - **Button component do data fetching**: 재사용 Button이 fetch까지 하는 안티패턴. Button이 특정 데이터에 묶이면 재사용성이 망가짐
-> - **DashboardView and DashboardContainer that passes data down**: 옛 smart-vs-dumb 패턴을 hooks 시대에도 강제 적용 — 이미 hook 직접 호출로 풀리는데 임의 분할
-> - **right tool for the right job**: 상황에 맞는 도구. 단일 규칙으로 환원 불가
-
 > #### AI Annotation:
 > **우려의 출발점 (책임 혼합 관점)**:
 > 전통적 SoC 시각에서는 한 컴포넌트가 "그리기"와 "데이터 가져오기" 두 책임을 동시에 지면 응집도가 낮아진다고 본다.

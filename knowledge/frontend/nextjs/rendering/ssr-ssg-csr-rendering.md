@@ -115,9 +115,6 @@ With Static Rendering, routes are rendered at build time, or in the background a
 
 Static rendering is useful when a route has data that is not personalized to the user and can be known at build time, such as a static blog post or a product page.
 
-> #### Key Terms:
-> - **data revalidation**: 캐시된 데이터를 특정 주기나 이벤트에 따라 다시 유효성 검사하고 갱신하는 과정
-
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components#server-rendering-strategies
 
@@ -130,9 +127,6 @@ With Dynamic Rendering, routes are rendered for each user at **request time.**
 
 Dynamic rendering is useful when a route has data that is **personalized** to the user or has information that can **only be known at request time**, such as **cookies** or the **URL's search params.**
 
-> #### Key Terms:
-> - **request time**: 사용자가 실제로 요청을 보내는 시점. 빌드 타임의 반대 개념
-
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components#server-rendering-strategies
 
@@ -144,9 +138,6 @@ Dynamic rendering is useful when a route has data that is **personalized** to th
 In most websites, routes are not fully static or fully dynamic - it's a spectrum. For example, you can have an e-commerce page that uses cached product data that's revalidated at an interval, but also has uncached, personalized customer data.
 
 In Next.js, you can have dynamically rendered routes that have both cached and uncached data. This is because the RSC Payload and data are cached separately. This allows you to opt into dynamic rendering without worrying about the performance impact of fetching all the data at request time.
-
-> #### Key Terms:
-> - **RSC Payload**: React Server Component 렌더링 결과의 직렬화된 표현. 데이터 캐시와 별도로 캐싱됨
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components#server-rendering-strategies
@@ -170,9 +161,6 @@ These APIs include:
 - unstable_noStore
 
 During rendering, if a Dynamic API or a fetch option of { cache: 'no-store' } is discovered, Next.js will switch to dynamically rendering the whole route.
-
-> #### Key Terms:
-> - **Dynamic APIs**: 런타임 요청 정보에 의존하는 API 집합. 사용 시 라우트 전체가 Dynamic Rendering으로 전환됨
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-apis
@@ -207,11 +195,6 @@ SSR이 CSR보다 느리다. SSR이 TTFB 되는 시점은 HTML 다 만들었을 �
 
 ### Official Answer
 Streaming is particularly beneficial when you want to prevent long data requests from blocking the page from rendering as it can reduce the Time To First Byte (TTFB) and First Contentful Paint (FCP). It also helps improve Time to Interactive (TTI), especially on slower devices.
-
-> #### Key Terms:
-> - **TTFB**: Time To First Byte. 브라우저가 첫 번째 응답 바이트를 받는 데 걸리는 시간
-> - **FCP**: First Contentful Paint. 첫 번째 콘텐츠가 화면에 그려지는 시점
-> - **TTI**: Time to Interactive. 페이지가 완전히 인터랙티브 가능해지는 시점
 
 ### Reference
 - https://web.dev/ttfb/

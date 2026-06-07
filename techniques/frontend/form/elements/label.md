@@ -20,14 +20,6 @@ Associating a `<label>` with a form control, such as `<input>` or `<textarea>` o
 - When a user clicks or touches/taps a label, the browser passes the focus to its associated input (the resulting event is also raised for the input).
   That increased hit area for focusing the input provides an advantage to anyone trying to activate it — including those using a touch-screen device.
 
-> #### Key Terms:
-> - **caption**: UI 항목에 붙는 설명 텍스트
-> - **form control**: 사용자 입력을 받는 요소 (`<input>`, `<textarea>`, `<select>` 등)
-> - **programmatically associated**: DOM 관계로 연결되어 보조 기술이 그 관계를 인식할 수 있는 상태
-> - **screen reader**: 시각 장애 사용자를 위해 화면 내용을 음성으로 읽어 주는 보조 기술
-> - **assistive technology**: 장애 사용자의 컴퓨터 사용을 돕는 소프트웨어·하드웨어 총칭
-> - **hit area**: 클릭·탭이 유효하게 먹히는 영역
-
 > #### AI Annotation:
 > 단순히 `<span>`으로 설명 텍스트를 그리는 것과 의미가 다르다.
 > `<label>`은 DOM 레벨에서 특정 컨트롤과 묶이기 때문에, 스크린리더는 입력 필드로 포커스가 가면 라벨 텍스트를 함께 읽어 준다.
@@ -61,11 +53,6 @@ Alternatively, you can nest the `<input>` directly inside the `<label>`, in whic
 
 > #### Official Annotation:
 > A `<label>` element can have both a `for` attribute and a contained control element, as long as the `for` attribute points to the contained control element.
-
-> #### Key Terms:
-> - **explicit association**: `for`/`id`로 두 요소를 명시적으로 연결하는 방식
-> - **implicit association**: `<label>` 안에 컨트롤을 중첩하여 암묵적으로 연결하는 방식
-> - **nest**: 한 요소를 다른 요소 안에 포함시키다
 
 > #### AI Annotation:
 > explicit은 라벨과 컨트롤이 형제 요소로 떨어져 있어도 연결이 유지되므로, 그리드·플렉스로 자유롭게 배치할 수 있다.

@@ -74,12 +74,6 @@ When it receives this information, it internally processes the employee's timesh
 
 You can think of a web API as a gateway between clients and resources on the web.
 
-> #### Key Terms:
-> - **interface**: 두 시스템 사이의 약속된 접점. 함수 시그니처처럼 양쪽이 합의한 입출력 규약
-> - **expose**: 외부에 공개한다. 모든 함수를 export하지 않는 것처럼, API는 공개된 표면만 가리킴
-> - **programmatically**: 사람이 클릭하는 방식이 아니라 코드가 코드를 호출하는 방식
-> - **gateway**: 통과 지점. 모든 요청이 거치는 한 점이라 인증·로깅·권한 검사를 중앙화할 수 있다
-
 > #### AI Annotation:
 > API는 "통신 규칙의 집합"이고, 개발자는 이 규칙을 의도적으로 노출(expose)해서 다른 코드가 자기 시스템을 호출할 수 있게 한다.
 > 핵심 비유는 "관문(gateway)" — 클라이언트가 자원에 직접 손대는 게 아니라 API라는 관문을 거치게 함으로써 보안과 제어를 중앙화한다.
@@ -115,10 +109,6 @@ Resources are the information that different applications provide to their clien
 Resources can be images, videos, text, numbers, or any type of data.
 The machine that gives the resource to the client is also called the server.
 
-> #### Key Terms:
-> - **resource**: REST의 핵심 추상화 단위. "사용자 1번", "주문 42번" 같은 개체
-> - **server**: 리소스를 제공하는 컴퓨터. REST 6대 제약 중 첫 번째인 Client-Server 분리에 대응
-
 > #### AI Annotation:
 > REST에서 URL의 본질은 "리소스의 주소"다.
 > 리소스가 JSON에 한정된다고 오해하기 쉬운데, 이미지·비디오·숫자 등 어떤 데이터든 리소스가 될 수 있다.
@@ -133,10 +123,6 @@ The machine that gives the resource to the client is also called the server.
 ### Official Answer
 Organizations use APIs to share resources and provide web services while maintaining security, control, and authentication.
 In addition, APIs help them to determine which clients get access to specific internal resources.
-
-> #### Key Terms:
-> - **security / control / authentication**: 보안 / 통제 / 인증. API가 단순 통로가 아니라 게이트 역할을 하는 핵심 이유
-> - **determine which clients**: 호출자에 따라 접근 가능한 리소스를 분기. 권한 분기는 API 계층에서 수행
 
 > #### AI Annotation:
 > API는 게이트(gateway)다 — DB를 그냥 공개하는 대신 좁은 표면으로만 통과시키고, 호출자에 따라 접근 가능한 리소스를 분기한다.
@@ -154,12 +140,6 @@ RESTful API is an interface that two computer systems use to exchange informatio
 Most business applications have to communicate with other internal and third-party applications to perform various tasks.
 For example, to generate monthly payslips, your internal accounts system has to share data with your customer's banking system to automate invoicing and communicate with an internal timesheet application.
 RESTful APIs support this information exchange because they follow secure, reliable, and efficient software communication standards.
-
-> #### Key Terms:
-> - **interface**: 두 시스템 사이의 약속된 접점
-> - **securely**: HTTPS·인증 토큰·권한 검증을 전제. 평문 전송이면 MITM 공격에 노출
-> - **secure / reliable / efficient**: 보안 / 안정성(예측 가능한 동작) / 효율(캐싱·메서드별 시맨틱)
-> - **standards**: HTTP, URI, JSON 같은 공개 표준. 회사마다 자체 규약을 만들지 않아도 된다
 
 > #### AI Annotation:
 > RESTful API는 그냥 API가 아니라 "REST 표준을 지키는" API다.
@@ -189,13 +169,6 @@ REST was initially created as a guideline to manage communication on a complex n
 You can use REST-based architecture to support high-performing and reliable communication at scale.
 You can easily implement and modify it, bringing visibility and cross-platform portability to any API system.
 
-> #### Key Terms:
-> - **software architecture**: 구현이 아니라 설계 규칙. 강제 명세가 아니라 가이드라인
-> - **imposes conditions**: 조건을 부과한다. 이 조건들이 곧 6대(또는 5대) 제약
-> - **at scale**: 사용자/요청이 많아져도 동작
-> - **visibility**: 중간 노드(프록시·로드밸런서)가 요청을 들여다볼 수 있음. self-descriptive 메시지 덕분
-> - **cross-platform portability**: 클라이언트 종류와 무관하게 동작 (브라우저·모바일·서버·CLI)
-
 > #### AI Annotation:
 > REST는 "프로토콜"이 아니라 "스타일"이라는 점이 핵심.
 > HTTP라는 프로토콜 위에서 REST 스타일을 따를 수도 있고, 안 따를 수도 있다.
@@ -212,10 +185,6 @@ You can easily implement and modify it, bringing visibility and cross-platform p
 The formatted resource is called a representation in REST.
 This format can be different from the internal representation of the resource on the server application.
 For example, the server can store data as text but send it in an HTML representation format.
-
-> #### Key Terms:
-> - **representation**: REST의 핵심 어휘. "리소스" 자체가 아니라 "리소스의 표현"
-> - **internal representation**: 서버가 내부적으로 데이터를 저장하는 형태(예: DB 행, 파일)
 
 > #### AI Annotation:
 > REST의 이름 자체("Representational State Transfer")에 들어갈 만큼 핵심 개념이다.
@@ -265,13 +234,6 @@ Uniform interface imposes four architectural constraints:
 - Clients receive information about how to process the representation further. The server achieves this by sending self-descriptive messages that contain metadata about how the client can best use them.
 - Clients receive information about all other related resources they need to complete a task. The server achieves this by sending hyperlinks in the representation so that clients can dynamically discover more resources.
 
-> #### Key Terms:
-> - **fundamental**: 근간. 4가지 하위 제약을 거느리는 가장 큰 원칙
-> - **representation**: 형식화된 리소스. 클라이언트에 전송되는 포맷팅된 형태
-> - **uniform resource identifier (URI)**: 리소스를 식별하는 고유 주소
-> - **self-descriptive messages**: 메시지 자체가 처리 방법 메타데이터를 담음 (예: Content-Type 헤더)
-> - **hyperlinks in the representation**: 응답에 다음 행동 링크가 포함됨 (HATEOAS)
-
 > #### AI Annotation:
 > 4가지 하위 제약을 한 줄로 요약하면: (1) URL로 리소스 식별, (2) 받은 표현만으로 수정·삭제 가능, (3) 메시지 자체가 자기 해석법을 담음, (4) 응답이 다음 행동 링크(HATEOAS)를 제공.
 > 실무에선 앞 3개까지만 지키는 경우가 대부분이고, HATEOAS는 거의 안 지킨다.
@@ -288,11 +250,6 @@ Uniform interface imposes four architectural constraints:
 In REST architecture, statelessness refers to a communication method in which the server completes every client request independently of all previous requests.
 Clients can request resources in any order, and every request is stateless or isolated from other requests.
 This REST API design constraint implies that the server can completely understand and fulfill the request every time.
-
-> #### Key Terms:
-> - **statelessness**: 서버가 이전 요청 맥락에 의존하지 않고 매 요청을 독립 처리
-> - **independently of all previous requests**: 이전 요청과 무관하게. 서버 메모리에 저장된 대화 맥락에 의존하지 않음
-> - **isolated**: 격리된. 다른 요청의 영향을 받지 않음
 
 > #### AI Annotation:
 > 핵심 함의: **요청 하나만 보면 그 요청을 처리하기에 충분해야 한다.**
@@ -312,10 +269,6 @@ Servers can also pass on requests to other servers.
 You can design your RESTful web service to run on several servers with multiple layers such as security, application, and business logic, working together to fulfill client requests.
 These layers remain invisible to the client.
 
-> #### Key Terms:
-> - **authorized intermediaries**: 인가된 중간 노드. 프록시·로드밸런서·CDN 등
-> - **invisible to the client**: 클라이언트에게는 보이지 않음. 서버 내부 구조를 몰라도 됨
-
 > #### AI Annotation:
 > 실무 예: 클라이언트는 `api.example.com`만 부르지만 그 뒤에 CDN → API Gateway → Auth 서비스 → 비즈니스 서비스 → DB 식의 다층 구조가 숨어 있을 수 있다.
 > 클라이언트는 이 구조를 몰라도 되고, 회사가 내부 구조를 바꿔도 클라이언트는 영향을 받지 않는다 — 그게 Layered System의 효용이다.
@@ -334,11 +287,6 @@ Every time you visit a new website page, the server must resend the same images.
 To avoid this, the client caches or stores these images after the first response and then uses the images directly from the cache.
 RESTful web services control caching by using API responses that define themselves as cacheable or noncacheable.
 
-> #### Key Terms:
-> - **caching**: 응답을 클라이언트나 중간 노드에 저장해 응답 시간을 줄이는 과정
-> - **intermediary**: 중간 노드. CDN·프록시 등
-> - **cacheable / noncacheable**: 응답 자체가 캐시 가능 여부를 자기 선언
-
 > #### AI Annotation:
 > 핵심은 **응답이 스스로 자기 캐싱 정책을 선언한다**는 점 — 이 자기-선언이 Cache-Control 헤더로 구현된다.
 > 클라이언트·CDN·프록시 어디서든 같은 메타데이터를 읽고 일관되게 캐시 정책을 적용할 수 있다.
@@ -355,10 +303,6 @@ RESTful web services control caching by using API responses that define themselv
 In REST architectural style, servers can temporarily extend or customize client functionality by transferring software programming code to the client.
 For example, when you fill a registration form on any website, your browser immediately highlights any mistakes you make, such as incorrect phone numbers.
 It can do this because of the code sent by the server.
-
-> #### Key Terms:
-> - **temporarily extend**: 일시적으로 확장. 영구적인 클라이언트 변경이 아님
-> - **transferring software programming code**: 코드 자체를 전송. 데이터가 아니라 실행 가능한 로직
 
 > #### AI Annotation:
 > 6대 제약 중 **유일하게 선택(optional)** 인 제약 — 안 지켜도 REST다.
@@ -406,12 +350,6 @@ Statelessness removes server load because the server does not have to retain pas
 Well-managed caching partially or completely eliminates some client-server interactions.
 All these features support scalability without causing communication bottlenecks that reduce performance.
 
-> #### Key Terms:
-> - **scale efficiently**: 사용자/요청이 늘어도 비례 이상의 비용 없이 감당
-> - **server load**: 메모리·세션 저장소·일관성 유지 비용. stateless면 이게 사라짐
-> - **partially or completely eliminates**: 304(부분 — 메타데이터만 교환) vs 캐시 히트(완전 — 서버 호출 자체 없음)
-> - **bottlenecks**: 한 점에 부하가 몰려 처리량이 거기서 막히는 현상
-
 > #### AI Annotation:
 > 서버를 stateless로 만들면 어떤 인스턴스가 받아도 동일하게 처리 가능하므로 수평 확장이 자유롭다.
 > 캐싱은 같은 응답이 반복될 때 서버 호출 자체를 없앨 수 있어, 트래픽 증가가 곧 서버 부하 증가가 되지 않게 한다.
@@ -430,11 +368,6 @@ Platform or technology changes at the server application do not affect the clien
 The ability to layer application functions increases flexibility even further.
 For example, developers can make changes to the database layer without rewriting the application logic.
 
-> #### Key Terms:
-> - **decouple**: 결합 끊기. A가 바뀌어도 B를 같이 바꾸지 않아도 됨
-> - **evolve independently**: 클라이언트 팀과 서버 팀이 따로 진화 가능
-> - **layer application functions**: 기능을 계층으로 분리. Layered System 제약의 결과
-
 > #### AI Annotation:
 > 예: 서버를 Java→Go로 다시 짜도 클라이언트는 같은 HTTP 요청만 보내면 된다.
 > Layered System 제약이 만들어내는 이점이 여기서 구체화 — DB를 PostgreSQL→MongoDB로 갈아도 API 응답 포맷만 같으면 클라이언트는 영향을 받지 않는다.
@@ -450,10 +383,6 @@ For example, developers can make changes to the database layer without rewriting
 REST APIs are independent of the technology used.
 You can write both client and server applications in various programming languages without affecting the API design.
 You can also change the underlying technology on either side without affecting the communication.
-
-> #### Key Terms:
-> - **independent of the technology used**: 사용된 구현 기술과 무관
-> - **underlying technology**: 내부 구현 기술 (언어·프레임워크·DB 등)
 
 > #### AI Annotation:
 > 이게 가능한 이유: REST는 HTTP·URI·표준 메시지 포맷이라는 인터페이스만 합의하고 구현 언어를 강제하지 않기 때문이다.
@@ -542,10 +471,6 @@ The URL specifies the path to the resource.
 A URL is similar to the website address that you enter into your browser to visit any webpage.
 The URL is also called the request endpoint and clearly specifies to the server what the client requires.
 
-> #### Key Terms:
-> - **Uniform Resource Locator (URL)**: 리소스로 가는 경로를 지정하는 주소
-> - **request endpoint**: URL을 부르는 또 다른 이름. "요청 종착점"
-
 > #### AI Annotation:
 > URL = endpoint = 리소스 식별자라는 어휘 정리가 핵심.
 > API 문서에서 자주 보는 단어이고, 정의가 흐릿하면 "endpoint를 친다"는 표현이 어색하게 들린다.
@@ -584,10 +509,6 @@ Clients use the DELETE request to remove the resource.
 A DELETE request can change the server state.
 However, if the user does not have appropriate authentication, the request fails.
 
-> #### Key Terms:
-> - **side effect**: 부작용. POST가 멱등하지 않다는 핵심 단어 — 같은 요청을 N번 보내면 N개가 생김
-> - **gives the same result**: 멱등(idempotent)의 정의 그대로 — AWS는 단어 자체는 안 쓰지만 정의를 풀어 설명
-
 > #### AI Annotation:
 > AWS 문서는 "idempotent"라는 단어를 안 쓰지만, POST와 PUT의 차이를 멱등성 정의 그대로 풀어 설명한다 — 멱등성 학습의 시작점.
 > 더 깊은 PUT vs PATCH 비교, Safe vs Idempotent 용어 구분은 별도 TODO에 보존(MDN 출처).
@@ -602,9 +523,6 @@ However, if the user does not have appropriate authentication, the request fails
 ### Official Answer
 Request headers are the metadata exchanged between the client and server.
 For instance, the request header indicates the format of the request and response, provides information about request status, and so on.
-
-> #### Key Terms:
-> - **metadata**: 데이터의 데이터. 본문이 아니라 본문을 어떻게 처리할지에 대한 정보
 
 > #### AI Annotation:
 > 본문(data)이 아니라 본문을 어떻게 처리할지에 대한 정보 — `Content-Type`, `Authorization` 같은 것이 대표적.
@@ -665,9 +583,6 @@ RESTful API has four common authentication methods:
 - API keys
 - OAuth
 
-> #### Key Terms:
-> - **establish trust**: 신뢰 형성. 매 요청마다 새로 검증하는 것이 stateless 원칙과 맞물림
-
 > #### AI Annotation:
 > 4가지 방식의 보안 강도는 대체로 Basic < API key < Bearer ≤ OAuth 순으로 올라간다.
 > Basic은 매 요청마다 비번 자체가 흘러다녀 가장 약하고, API key는 키 자체가 흘러 탈취 위험.
@@ -685,10 +600,6 @@ RESTful API has four common authentication methods:
 The term bearer authentication refers to the process of giving access control to the token bearer.
 The bearer token is typically an encrypted string of characters that the server generates in response to a login request.
 The client sends the token in the request headers to access resources.
-
-> #### Key Terms:
-> - **bearer**: "지참자". 토큰을 가진 사람이 곧 권한자라는 뜻
-> - **bearer token**: 서버가 로그인 응답으로 발급한 암호화된 문자열
 
 > #### AI Annotation:
 > 이름 그대로 "토큰만 가지고 있으면 누구든 권한자" — 그래서 토큰 탈취가 곧 계정 탈취가 된다.
@@ -708,9 +619,6 @@ In this approach, the server assigns a unique generated value to a first-time cl
 Whenever the client tries to access resources, it uses the unique API key to verify itself.
 API keys are less secure because the client has to transmit the key, which makes it vulnerable to network theft.
 
-> #### Key Terms:
-> - **vulnerable to network theft**: 네트워크 탈취에 취약. 매 요청마다 같은 키가 흘러다니므로 한 번 새면 끝
-
 > #### AI Annotation:
 > Bearer token처럼 만료가 없거나 길면 더 위험하다.
 > 그럼에도 API key가 자주 쓰이는 이유는 편의성, 서비스 간 통신, rate limit 키로의 활용 등 — 보안 외 목적이 많다.
@@ -726,10 +634,6 @@ API keys are less secure because the client has to transmit the key, which makes
 OAuth combines passwords and tokens for highly secure login access to any system.
 The server first requests a password and then asks for an additional token to complete the authorization process.
 It can check the token at any time and also over time with a specific scope and longevity.
-
-> #### Key Terms:
-> - **scope**: 그 토큰이 할 수 있는 일의 범위 (예: 읽기 전용, 특정 리소스만)
-> - **longevity**: 토큰의 유효 기간. 짧을수록 안전, 길수록 편리
 
 > #### AI Annotation:
 > OAuth가 다른 방식보다 정교한 이유는 scope·longevity라는 추가 차원 덕분.
@@ -773,9 +677,6 @@ The following are some common status codes:
 - 201: POST method success response
 - 400: Incorrect request that the server cannot process
 - 404: Resource not found
-
-> #### Key Terms:
-> - **status line**: HTTP 응답의 첫 줄. `HTTP/1.1 200 OK` 같은 형태 (코드 + 상태 텍스트)
 
 > #### AI Annotation:
 > 상태 코드 4개 클래스가 면접 1번 단골 — 2XX 성공, 3XX 리다이렉션, 4XX 클라이언트 에러, 5XX 서버 에러.

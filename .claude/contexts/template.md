@@ -23,9 +23,6 @@ Official document text or objective fact.
 #### Category Name
 More official text or fact.
 
-> #### Key Terms:
-> - **term**: 이 문맥에서 막히지 않을 최소 정의
-
 > #### AI Annotation:
 > (짧은 보충)
 

@@ -25,11 +25,6 @@ The `<Link>`'s default prefetching behavior (i.e. when the prefetch prop is left
 Only the shared layout, down the rendered "tree" of components until the first loading.js file, is prefetched and cached for 30s.
 This reduces the cost of fetching an entire dynamic route, and it means you can show an instant loading state for better visual feedback to users.
 
-> #### Key Terms:
-> - **shared layout**: 여러 페이지가 공유하는 layout.js
-> - **loading.js**: 라우트 세그먼트의 로딩 UI를 정의하는 파일. prefetch 경계를 결정함
-> - **instant loading state**: prefetch된 loading.js 덕분에 클릭 즉시 보여줄 수 있는 로딩 UI
-
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#2-prefetching
 
@@ -40,9 +35,6 @@ This reduces the cost of fetching an entire dynamic route, and it means you can 
 ### Official Answer
 You can disable prefetching by setting the prefetch prop to false.
 Alternatively, you can prefetch the full page data beyond the loading boundaries by setting the prefetch prop to true.
-
-> #### Key Terms:
-> - **loading boundaries**: loading.js 파일을 기준으로 한 prefetch 경계
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating#2-prefetching

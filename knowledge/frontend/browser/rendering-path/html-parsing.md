@@ -30,11 +30,6 @@ HTML parsing involves tokenization and tree construction.
 
 While the browser builds the DOM tree, this process occupies the main thread.
 
-> #### Key Terms:
-> - **DOM (Document Object Model)**: HTML 문서 구조를 메모리에 표현한 트리
-> - **tokenization**: 문자 스트림을 의미 있는 토큰 단위로 자르는 단계
-> - **tree construction**: 토큰들을 부모-자식 관계의 트리로 조립하는 단계
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
 
@@ -55,10 +50,6 @@ While the browser builds the DOM tree, this process occupies the main thread.
 
 ### Official Answer
 The CSSOM tree includes styles from the user agent style sheet.
-
-> #### Key Terms:
-> - **CSSOM (CSS Object Model)**: 브라우저가 CSS 규칙을 트리 형태로 변환해 메모리에 보관한 모델
-> - **user agent style sheet**: 브라우저가 기본으로 적용하는 내장 스타일시트
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
@@ -93,11 +84,6 @@ Since the parser can't continue past a parsing-blocking resource until it has be
 Some resources are deemed so critical that the browser pauses page rendering until it has dealt with them.
 CSS falls into this category by default.
 When a browser sees CSS—whether it's inline CSS in a `<style>` element, or an externally referenced resource specified by a `<link rel=stylesheet href="...">` element—the browser avoids rendering any more content until it has completed downloading and processing that CSS.
-
-> #### Key Terms:
-> - **parser-blocking**: HTML 파서의 진행을 막는 리소스 (기본적으로 JavaScript)
-> - **render-blocking**: 페이지 렌더링을 막는 리소스 (기본적으로 CSS)
-> - **async / defer**: 스크립트의 parser-blocking 동작을 해제하는 속성
 
 > #### AI Annotation:
 > Parser blocking은 HTML 파싱 자체를 멈추게 하므로 결국 그 뒤 콘텐츠의 렌더링도 막아 render blocking 효과를 동반한다.

@@ -30,12 +30,6 @@ Instead of a ref object (like the one returned by `useRef`), you may pass a func
 When the `<div>` DOM node is added to the screen, React will call your `ref` callback with the DOM `node` as the argument.
 When that `<div>` DOM node is removed, React will call your the cleanup function returned from the callback.
 
-> #### Key Terms:
-> - **ref object**: `useRef()`가 반환하는 `{ current: null }` 형태의 객체. React가 마운트 시 `.current`에 DOM을 채우고 언마운트 시 `null`로 비운다
-> - **ref attribute**: JSX 엘리먼트의 `ref` 속성. ref 객체 또는 ref callback을 받는다
-> - **added to the screen**: DOM 노드가 마운트되어 실제 화면에 attach되는 시점
-> - **cleanup function**: 콜백이 return하는 함수. detach 시점에 React가 호출한다
-
 > #### AI Annotation:
 > ref 객체가 "React가 알아서 `.current`를 채워주는 수동적인 그릇"이라면, ref callback은 "DOM이 붙거나 떨어질 때 React가 호출해주는 함수"다.
 > ref callback의 setup/cleanup 패턴은 `useEffect`와 동일한 형태 — setup 본문에서 작업하고, return으로 cleanup을 넘긴다.
@@ -54,12 +48,6 @@ When your component re-renders, the *previous* function will be called with `nul
 
 Unless you pass the same function reference for the `ref` callback on every render, the callback will get temporarily cleanup and re-create during every re-render of the component.
 
-> #### Key Terms:
-> - **different**: 참조 동등성 기준으로 다른 함수. 인라인 화살표 함수는 매 렌더마다 새 참조가 된다
-> - **same function reference**: 매 렌더마다 동일한 함수 참조. `useCallback`으로 감싸면 유지된다
-> - **temporarily cleanup and re-create**: 일시적으로 정리되었다가 다시 만들어진다 — 즉 detach 후 attach가 반복된다
-> - **previous / next**: 직전 렌더의 콜백 / 새 렌더의 콜백
-
 > #### AI Annotation:
 > 인라인 화살표 함수를 ref callback으로 쓰면 매 리렌더마다 detach+attach가 한 번씩 일어난다.
 > setup 본문이 가벼우면 무시할 수 있지만, 측정·구독·외부 라이브러리 인스턴스 생성처럼 무거운 작업이라면 매 렌더마다 떼고 붙이는 비용이 누적된다.
@@ -76,10 +64,6 @@ Unless you pass the same function reference for the `ref` callback on every rend
 React 19 added cleanup functions for `ref` callbacks.
 To support backwards compatibility, if a cleanup function is not returned from the `ref` callback, `node` will be called with `null` when the `ref` is detached.
 This behavior will be removed in a future version.
-
-> #### Key Terms:
-> - **backwards compatibility**: 하위 호환성. 새 버전에서도 옛 코드가 깨지지 않도록 유지하는 동작
-> - **detached**: DOM 노드가 화면에서 떨어진 상태. mount 반대 시점
 
 > #### AI Annotation:
 > React 18까지는 ref callback에서 cleanup을 return할 수 없어서, React가 detach 시점에 같은 콜백을 `null`을 인자로 다시 호출하는 방식이었다 (콜백 본문에서 `if (node) { ... } else { ...정리... }` 분기).

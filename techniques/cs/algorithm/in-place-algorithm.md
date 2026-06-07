@@ -27,9 +27,6 @@ What about QuickSort? Why is it called In-Place?
 QuickSort uses extra space for recursive function calls.
 It is called in-place according to broad definition as extra space required is not used to manipulate input, but only for recursive calls.
 
-> #### Key Terms:
-> - **constant space**: 입력 크기와 무관하게 항상 일정한 추가 메모리 공간. Auxiliary Space로는 O(1)로 표기.
-
 > #### User Annotation:
 > 원래 데이터가 저장된 메모리 공간 외에 추가로 메모리가 필요하지 않은 경우를 뜻한다 (보조 배열 변수 등).
 > **원본 배열을 직접 수정**하는 방식으로 구현한다.

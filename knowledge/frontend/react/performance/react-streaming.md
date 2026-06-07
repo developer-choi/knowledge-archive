@@ -26,10 +26,6 @@ Streaming is a **data transfer technique** that allows you to break down a route
 
 Streaming works well with React's component model, as each component can be considered a chunk.
 
-> #### Key Terms:
-> - **chunk**: 라우트를 쪼갠 작은 단위. React 컴포넌트 하나가 곧 하나의 chunk가 될 수 있다.
-> - **progressively**: 한 번에 전체를 보내는 것이 아니라 준비된 부분부터 점진적으로 전송하는 방식
-
 > #### User Annotation:
 > 가만 보니 정말로 컴포넌트 단위로 스트리밍하는 게 맞는 말이다.
 
@@ -67,11 +63,6 @@ This ensures dynamic components can begin rendering before client JavaScript has
 Streaming is particularly beneficial when you want to prevent long data requests from blocking the page from rendering as it can reduce the **Time To First Byte (TTFB)** and **First Contentful Paint (FCP)**.
 It also helps improve **Time to Interactive (TTI)**, especially on slower devices.
 
-> #### Key Terms:
-> - **TTFB (Time To First Byte)**: 서버 응답의 첫 바이트가 도착하기까지의 시간
-> - **FCP (First Contentful Paint)**: 화면에 첫 콘텐츠가 그려지는 시점
-> - **TTI (Time to Interactive)**: 페이지가 사용자 상호작용에 응답할 수 있게 되는 시점
-
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
 
@@ -98,9 +89,6 @@ export default function Posts() {
   )
 }
 ```
-
-> #### Key Terms:
-> - **Selective Hydration**: 모든 컴포넌트를 한 번에 hydrate 하지 않고, 사용자 상호작용 등 우선순위가 높은 컴포넌트부터 hydrate 하는 방식
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming

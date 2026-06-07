@@ -29,11 +29,6 @@ If we used this in React, displaying 1000 elements would require in the order of
 1. Two elements of different types will produce different trees.
 2. The developer can hint at which child elements may be stable across different renders with a key prop.
 
-> #### Key Terms:
-> - **reconciliation**: React가 변경 전후 두 React Element Tree를 비교하여 최소한의 DOM 업데이트를 결정하는 과정
-> - **heuristic O(n)**: 정확한 최소해(O(n³)) 대신 두 가정을 전제로 선형 시간에 동작하는 알고리즘
-> - **one billion comparisons**: 1000개 노드 기준 O(n³) = 10억 비교. 현실적으로 불가
-
 > #### User Annotation:
 > 변경된 부분만 "빠르게" 찾는 것. React는 이것을 "빠르게" 찾기 위해 2가지 가정을 했음.
 
@@ -51,12 +46,6 @@ Instead, React implements a heuristic O(n) algorithm based on two assumptions:
 2. The developer can hint at which child elements may be stable across different renders with a key prop.
 
 In practice, these assumptions are valid for almost all practical use cases.
-
-> #### Key Terms:
-> - **heuristic**: 정확한 최소해 대신 "대부분 맞는" 어림짐작으로 속도를 확보하는 방식
-> - **assumptions**: 알고리즘이 효율적으로 동작하기 위해 깔고 가는 전제. 깨지면 비효율 발생
-> - **stable across different renders**: 같은 항목이 렌더 간에 같은 식별자로 유지되는 성질
-> - **key prop**: 자식 엘리먼트의 안정적 식별자를 React에 알려주는 prop
 
 > #### AI Annotation:
 > 두 가정이 깨졌을 때 발생하는 비효율 예시:

@@ -22,10 +22,6 @@ Auxiliary Space is the **extra space** or **temporary space** used by an algorit
 The space complexity of an algorithm is the **total space** taken by the algorithm with respect to the input size.
 Space complexity includes both Auxiliary space and space used by input.
 
-> #### Key Terms:
-> - **Auxiliary Space**: 알고리즘이 실행 중 추가로 사용하는 임시 공간 (입력 제외)
-> - **Space Complexity**: 입력 공간 + Auxiliary Space를 합산한 총 공간
-
 > #### User Annotation:
 > 누군가 "Space Complexity"라고 말하는 순간, 그게 진짜 Space Complexity인지 Auxiliary Space인지 따져봐야 한다.
 > GeeksforGeeks에서도 혼용하는 경우가 있다.

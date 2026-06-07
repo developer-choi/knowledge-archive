@@ -22,15 +22,6 @@ priority:
 In computer science, functional programming is a programming paradigm where programs are constructed by applying and composing functions.
 It is a declarative programming paradigm in which function definitions are trees of expressions that map values to other values, rather than a sequence of imperative statements which update the running state of the program.
 
-> #### Key Terms:
-> - **paradigm**: 프로그래밍의 사고 틀 (객체지향, 함수형, 절차적 등 큰 갈래)
-> - **applying**: 함수에 인자를 넣어 값을 얻는 행위
-> - **composing**: 함수를 이어 붙여 새 함수를 만드는 것
-> - **declarative**: 무엇을 계산할지를 기술하는 방식 (cf. imperative는 단계 지시문 나열)
-> - **trees of expressions**: 표현식이 값으로 평가되는 트리 구조
-> - **map values to other values**: 입력값 → 출력값의 수학적 매핑
-> - **running state**: 프로그램이 실행 중 들고 있는 변수·메모리 상태
-
 > #### User Annotation:
 > FP와 OOP는 양자택일이 아니라 함께 쓴다.
 > JS는 두 패러다임을 함께 쓸 수 있는 multi-paradigm 언어이고, 실무에서도 두 스타일이 섞여서 등장한다.
@@ -46,12 +37,6 @@ It is a declarative programming paradigm in which function definitions are trees
 ### Official Answer
 Function composition is an act or mechanism to combine simple functions to build more complex ones.
 In functional programming languages, function composition can be naturally expressed as a higher-order function or operator.
-
-> #### Key Terms:
-> - **composition**: 두 함수를 이어 붙여 새 함수를 만드는 연산
-> - **act or mechanism**: 행위 또는 메커니즘 (개념과 구현 양쪽을 포괄)
-> - **higher-order function**: 다른 함수를 인자로 받거나 결과로 반환하는 함수
-> - **operator**: 언어 차원의 합성 기호 (Haskell의 `.`, F#의 `>>` 등)
 
 > #### AI Annotation:
 > 수학의 (g ∘ f)(x) = g(f(x))를 코드로 옮긴 것이다.
@@ -81,11 +66,6 @@ When a pure function is called with some given arguments, it will always return 
 
 Pure functions (or expressions) have no side effects (memory or I/O).
 
-> #### Key Terms:
-> - **pure function**: 결정적이고 부수효과가 없는 함수
-> - **mutable state**: 변경 가능한 외부 상태 (전역 변수, 외부 객체)
-> - **side effects**: 외부에 미치는 영향 (DOM 조작, 콘솔 출력, 네트워크, 파일 IO)
-
 > #### AI Annotation:
 > 두 조건을 정리하면:
 > 1. 같은 인자로 호출하면 **항상 같은 결과**를 반환한다 (결정성, referential transparency).
@@ -107,11 +87,6 @@ Pure functions (or expressions) have no side effects (memory or I/O).
 
 ### Official Answer
 Proponents of purely functional programming claim that by restricting side effects, programs can have fewer bugs, be easier to debug and test, and be more suited to formal verification.
-
-> #### Key Terms:
-> - **proponents**: 옹호자
-> - **restricting side effects**: 부수효과 제한
-> - **formal verification**: 프로그램의 정확성을 수학적으로 증명하는 기법 (Lean, Coq 등)
 
 > #### AI Annotation:
 > 같은 입력에 같은 출력이 보장되니 단위 테스트에서 mocking 없이 입출력 검증만으로 끝난다.
@@ -137,15 +112,6 @@ This means that pure functions have several useful properties, many of which can
 - If a pure function is called with arguments that cause no side-effects, the result is constant with respect to that argument list (sometimes called referential transparency or idempotence), i.e., calling the pure function again with the same arguments returns the same result. (This can enable caching optimizations such as memoization.)
 - If there is no data dependency between two pure expressions, their order can be reversed, or they can be performed in parallel and they cannot interfere with one another (in other terms, the evaluation of any pure expression is thread-safe).
 - If the entire language does not allow side-effects, then any evaluation strategy can be used; this gives the compiler freedom to reorder or combine the evaluation of expressions in a program (for example, using deforestation).
-
-> #### Key Terms:
-> - **referential transparency**: 식을 그 값으로 치환해도 의미가 변하지 않는 성질
-> - **idempotence**: 멱등성. 같은 호출이 같은 결과를 보장
-> - **memoization**: 한 번 계산한 결과를 키-값으로 저장해 재사용하는 캐싱 기법
-> - **data dependency**: 두 식 사이에 한쪽 결과가 다른 쪽 입력으로 쓰이는 의존 관계
-> - **thread-safe**: 여러 스레드가 동시에 접근해도 결과가 변하지 않음
-> - **evaluation strategy**: 인자를 언제 평가할지의 전략 (strict evaluation, lazy evaluation 등)
-> - **deforestation**: 중간 자료구조(예: 임시 배열)를 제거해 한 번에 처리하도록 만드는 컴파일러 최적화
 
 > #### AI Annotation:
 > 4가지 성질을 한 줄 요약:

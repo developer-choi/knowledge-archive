@@ -38,10 +38,6 @@ This library is built on top of DOM Testing Library which is where most of the l
 ### Official Answer
 So rather than dealing with instances of rendered React components, your tests will work with actual DOM nodes.
 
-> #### Key Terms:
-> - **instances**: React가 내부적으로 관리하는 컴포넌트 객체 (state, props를 가진 JS 객체)
-> - **DOM nodes**: 브라우저에 실제로 렌더된 HTML 요소
-
 > #### AI Annotation:
 > RTL은 컴포넌트 인스턴스의 내부 상태(state)나 메서드가 아니라, 실제 렌더된 DOM 노드를 대상으로 테스트한다.
 > 이는 "사용자가 보는 것"에 가까운 테스트를 작성하도록 유도한다.
@@ -56,9 +52,6 @@ So rather than dealing with instances of rendered React components, your tests w
 ### Official Answer
 We are making some trade-offs here because we're using a computer and often a simulated browser environment.
 
-> #### Key Terms:
-> - **simulated browser**: jsdom처럼 실제 브라우저가 아닌 JS로 구현된 가짜 브라우저 환경
-
 > #### AI Annotation:
 > 실제 브라우저가 아닌 jsdom 같은 simulated 환경에서 돌리므로, 레이아웃·페인트·실제 네트워크·브라우저별 quirk는 검증할 수 없다.
 > 이 한계를 감수하는 대신 테스트 속도와 CI 통합을 얻는다.
@@ -72,10 +65,6 @@ We are making some trade-offs here because we're using a computer and often a si
 
 ### Official Answer
 We recommend using the Mock Service Worker (MSW) library to declaratively mock API communication in your tests instead of stubbing window.fetch, or relying on third-party adapters.
-
-> #### Key Terms:
-> - **declaratively**: 어떻게가 아니라 무엇을 선언하는 방식 (HTTP 핸들러 정의)
-> - **stubbing**: 원래 함수를 가짜로 바꿔치기하는 방식
 
 > #### AI Annotation:
 > window.fetch를 stub하면 axios 같은 다른 HTTP 클라이언트를 쓸 때 깨지고, 네트워크 레벨이 아닌 함수 레벨에서 가로채므로 실제 요청 흐름과 달라진다.

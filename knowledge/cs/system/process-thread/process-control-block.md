@@ -59,9 +59,6 @@ Process control information is used by the OS to manage the process itself. This
 PCB must be kept in an area of memory protected from normal process access.
 In some operating systems the PCB is placed at the bottom of the process stack.
 
-> #### Key Terms:
-> - **process stack**: 프로세스의 함수 콜 스택. PCB를 스택 맨 아래에 두면 스택 오버플로우가 발생해야만 PCB 영역에 도달한다
-
 > #### AI Annotation:
 > 프로세스가 자신의 PCB를 수정할 수 있다면 PID 변조, 권한(Privilege) 필드 상승, 스케줄링 우선순위 임의 변경 같은 보안 침해가 가능해진다.
 > 커널만 PCB에 접근하게 격리함으로써 OS 프로세스 관리의 신뢰성을 보장한다.
@@ -75,9 +72,6 @@ In some operating systems the PCB is placed at the bottom of the process stack.
 
 ### Official Answer
 The current working directory of a process is one of the properties that the kernel stores in the process's PCB.
-
-> #### Key Terms:
-> - **current working directory**: 프로세스가 현재 작업 중인 디렉토리 경로. 상대 경로 해석의 기준점
 
 > #### AI Annotation:
 > Node.js의 `process.cwd()`가 반환하는 값이 정확히 이 PCB 속성이다.

@@ -47,9 +47,6 @@ External Sorting is when all the data that needs to be sorted need not to be pla
 External Sorting is used for the massive amount of data.
 For example Merge Sort can be used in external sorting as the whole array does not have to be present all the time in memory.
 
-> #### Key Terms:
-> - **auxiliary storage**: 보조 저장 장치 (디스크, SSD 등). 메모리에 올라가지 않은 데이터가 여기에 위치한다.
-
 > #### User Annotation:
 > 핵심은, 모든 데이터가 메모리에 안 올라가고 일부가 auxiliary storage에 들어간다는 점이다.
 

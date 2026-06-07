@@ -175,9 +175,6 @@ The end user will see/interact with what we render in the render method.
 The developer will see/interact with the props they pass to the component.
 So our test should typically only see/interact with the props that are passed, and the rendered output.
 
-> #### Key Terms:
-> - **implementation details**: 코드의 사용자(end user, developer)가 보지도, 쓰지도, 알지도 못하는 내부 구현
-
 Here are a few aspects of React that people often think about testing which results in implementation details tests: Lifecycle methods, Element event handlers, Internal Component State.
 Conversely, here are things that you should be testing because they concern your two users: User interactions (using userEvent), Changing props (using rerender), Context changes (using rerender), Subscription changes.
 
@@ -195,9 +192,6 @@ Try to narrow it down to a unit or a few units of code (When clicking the "check
 Look at that code and consider who the "users" are (The developer rendering the checkout form, the end user clicking on the button)
 Write down a list of instructions for that user to manually test that code to make sure it's not broken. (render the form with some fake data in the cart, click the checkout button, ensure the mocked /checkout API was called with the right data, respond with a fake successful response, make sure the success message is displayed).
 Turn that list of instructions into an automated test.
-
-> #### Key Terms:
-> - **untested codebase**: 아직 테스트가 없는 코드 영역. 전부 테스트하려 하지 말고 깨지면 가장 큰 피해를 주는 곳부터 시작
 
 > #### AI Annotation:
 > 이 프로세스의 핵심은 3단계(사용자 파악)에 있다.
@@ -217,9 +211,6 @@ When you think about the code itself, it's too easy and natural to start testing
 
 We write tests to be confident that our application will work when the user uses them.
 That being the case, what we test should map directly to enhancing our confidence.
-
-> #### Key Terms:
-> - **use cases**: 사용자가 소프트웨어를 통해 달성하려는 구체적 시나리오. 테스트의 판단 기준이 되어야 할 단위
 
 > #### AI Annotation:
 > 코드를 보면 if/else 분기, 내부 상태 등 구현 세부사항을 테스트하게 된다.
@@ -247,9 +238,6 @@ The E2E tests aren't going to give you 100% use case coverage (and you should no
 Once you have a few E2E tests in place, then you can start looking at writing some integration tests for some of the edge cases that you are missing in your E2E tests and unit tests for the more complex business logic that those features are using.
 From here it just becomes a matter of adding tests over time.
 Just don't bother with targeting a 100% code coverage report, it's not worth the time.
-
-> #### Key Terms:
-> - **happy path**: 대다수 사용자가 거치는 가장 일반적인 성공 시나리오. 테스트 시작점으로 가장 효율적
 
 > #### AI Annotation:
 > 위에서 아래로 내려가는 전략 — E2E로 happy path → integration으로 edge cases → unit으로 복잡한 비즈니스 로직.

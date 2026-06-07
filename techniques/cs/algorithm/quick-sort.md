@@ -21,9 +21,6 @@ publishable: false
 ### Official Answer
 QuickSort is a sorting algorithm that picks an element as a pivot and partitions the given array around the picked pivot by placing the pivot in its correct position in the sorted array.
 
-> #### Key Terms:
-> - **pivot**: 배열을 분할하는 기준이 되는 요소. pivot의 최종 위치가 정렬된 배열에서의 올바른 위치가 된다.
-
 ### Reference
 - https://www.geeksforgeeks.org/quick-sort-algorithm/
 
@@ -148,10 +145,6 @@ It is not a good choice for small data sets.
 It is not a stable sort.
 It is used almost everywhere where a stable sort is not needed.
 For stability, Merge Sort is typically used.
-
-> #### Key Terms:
-> - **cache-friendly**: 메모리 접근 패턴이 CPU 캐시를 효율적으로 활용하는 특성. 연속된 메모리 접근이 많을수록 캐시 히트율이 높아진다.
-> - **locality of reference**: 최근에 또는 인접하게 사용된 데이터가 다시 사용될 가능성이 높다는 원리.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/application-and-uses-of-quicksort/

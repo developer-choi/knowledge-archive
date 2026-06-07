@@ -30,7 +30,7 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 | `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (실시간 저장), `explained/<rel>.md` (OFF 시 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
 | `/explain` | `knowledge/<rel>.md`, `explained/<rel>.md` (캐시 hit 확인 + 발판 보정) | `explained/<rel>.md` (질문별 H1 섹션 추가·덮어쓰기) | "설명해줘", "이게 뭐야" 등 자동 |
 | `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
-| `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | 복습 중 Key Terms 추가 요청 시 `knowledge/` 일부 수정 | "복습하자", "면접 연습" 명시 |
+| `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | Read 전용 (기본) | "복습하자", "면접 연습" 명시 |
 | `/validate` | `knowledge/`, `explained/`, contexts 전반 | `knowledge/<rel>.md` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
 | `list-candidates` (npm) | `knowledge/` 하위 모든 `.md`, git log | stdout 또는 `--out` 경로에 Candidate[] JSON | CLI |
 
@@ -44,7 +44,7 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 
 ## Read 전용 스킬
 
-- `/review`: `knowledge/` + `explained/` Read만 (기본). 복습 중 사용자 요청 시 Key Terms 추가 가능.
+- `/review`: `knowledge/` + `explained/` Read만.
 - `/explain` 캐시 hit 시: `explained/` Read만 (재생성 X)
 
 ## 동기화 규칙

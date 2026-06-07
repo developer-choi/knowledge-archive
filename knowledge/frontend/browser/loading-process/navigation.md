@@ -29,10 +29,6 @@ It occurs whenever a user requests a page by entering a URL into the address bar
 One of the goals of web performance is to minimize the amount of time navigation takes to complete.
 In ideal conditions, this usually doesn't take too long, but latency and bandwidth are foes that can cause delays.
 
-> #### Key Terms:
-> - **latency**: 요청과 응답 사이의 지연 시간
-> - **bandwidth**: 단위 시간당 전송 가능한 데이터량
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
 
@@ -50,10 +46,6 @@ The browser and the server exchange data over your internet using TCP/IP.
 If the server approves the client's request, it sends a '200 OK' message along with the website's files, split into small chunks called data packets.
 
 The browser assembles the small chunks into a complete web page and displays it to you.
-
-> #### Key Terms:
-> - **DNS server**: 도메인 이름을 IP 주소로 변환해 주는 서버
-> - **data packets**: 네트워크 전송을 위해 분할된 작은 데이터 조각
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works
@@ -116,10 +108,6 @@ If you've never visited this site, a DNS lookup must happen.
 
 A DNS lookup returns an IP address, which is cached to speed up future requests.
 
-> #### Key Terms:
-> - **DNS lookup**: 도메인 이름을 IP 주소로 변환하는 조회 과정
-> - **IP address**: 서버를 식별하는 네트워크 주소
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
 
@@ -130,10 +118,6 @@ A DNS lookup returns an IP address, which is cached to speed up future requests.
 ### Official Answer
 When a resource is requested, the server may respond with a redirect, either with a permanent redirect (a 301 Moved Permanently response) or a temporary one (a 302 Found response).
 Redirects slow down page load speed because it requires the browser to make an additional HTTP request at the new location to retrieve the resource.
-
-> #### Key Terms:
-> - **301 Moved Permanently**: 영구 리다이렉트 응답
-> - **302 Found**: 임시 리다이렉트 응답
 
 ### Reference
 - https://web.dev/learn/performance/general-html-performance#minimize_redirects
@@ -146,10 +130,6 @@ Redirects slow down page load speed because it requires the browser to make an a
 Once the main thread is done painting the page, you would think we would be "all set."
 That isn't necessarily the case.
 If the load includes JavaScript, that was correctly deferred, and only executed after the onload event fires, the main thread might be busy, and not available for scrolling, touch, and other interactions.
-
-> #### Key Terms:
-> - **main thread**: 브라우저가 렌더링·스크립트 실행을 처리하는 단일 스레드
-> - **onload event**: 페이지의 모든 리소스 로드가 끝났을 때 발생하는 이벤트
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work

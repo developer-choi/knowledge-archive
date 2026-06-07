@@ -20,11 +20,6 @@ The first step in building a website that loads quickly is to receive a timely r
 Reducing the time spent on each step gives you a faster Time to First Byte (TTFB).
 While TTFB is not the sole metric you should focus on when it comes to how fast pages load, a high TTFB does make it challenging to reach the designated "good" thresholds for metrics such as Largest Contentful Paint (LCP) and First Contentful Paint (FCP).
 
-> #### Key Terms:
-> - **TTFB (Time to First Byte)**: 요청 후 첫 응답 바이트가 도착하기까지의 시간
-> - **LCP (Largest Contentful Paint)**: 뷰포트 내 가장 큰 콘텐츠가 그려지기까지의 시간
-> - **FCP (First Contentful Paint)**: 첫 콘텐츠 픽셀이 그려지기까지의 시간
-
 > #### User Annotation:
 > 웹페이지 성능개선 첫단추는 HTML 빨리 받는 것.
 > 이걸 빨리 못 받으면 이후 모든 절차가 전부 다 소용이 없음.
@@ -43,11 +38,6 @@ The most widely used compression algorithms are gzip and Brotli.
 Brotli results in about a 15% to 20% improvement over gzip.
 
 Getting compression right on your own is challenging, and it's often best to let a Content Delivery Network (CDN) to handle this for you.
-
-> #### Key Terms:
-> - **gzip**: 가장 널리 쓰이는 텍스트 압축 알고리즘
-> - **Brotli**: gzip보다 압축률이 높은 차세대 압축 알고리즘
-> - **CDN**: Content Delivery Network. 정적 자원 배포·압축을 대행해 주는 인프라
 
 ### Reference
 - https://web.dev/learn/performance/general-html-performance#compression

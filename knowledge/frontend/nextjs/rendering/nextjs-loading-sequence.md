@@ -32,10 +32,6 @@ Each chunk is rendered in two steps:
 
 This means we don't have to wait for everything to render before caching the work or sending a response. Instead, we can stream a response as work is completed.
 
-> #### Key Terms:
-> - **Suspense boundaries**: 비동기 렌더링 경계. 이 단위로 청크가 나뉘어 스트리밍됨
-> - **React Server Component Payload**: Server Component 렌더링 결과의 특수 직렬화 포맷. 스트리밍에 최적화되어 있음
-
 ### User Answer
 초기 로딩 시 Client Component으로도 HTML을 만든다. (서버에서 초기 HTML 생성 시 CC도 포함됨)
 
@@ -48,9 +44,6 @@ This means we don't have to wait for everything to render before caching the wor
 
 ### Official Answer
 The default behavior of Next.js is to cache the rendered result (React Server Component Payload and HTML) of a route on the server.
-
-> #### Key Terms:
-> - **Full Route Cache**: 서버에서 라우트별로 RSC Payload와 HTML을 함께 캐싱하는 메커니즘
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#full-route-cache
@@ -68,10 +61,6 @@ At request time, on the client:
 
 3. The JavaScript instructions are used to hydrate Client Components and make the application interactive.
 
-> #### Key Terms:
-> - **reconcile**: RSC Payload를 이용해 클라이언트 컴포넌트 트리와 서버 렌더링 결과를 병합하는 과정
-> - **hydrate**: 서버에서 만든 HTML에 JavaScript 이벤트 핸들러를 붙여 인터랙티브하게 만드는 과정
-
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#full-route-cache
 
@@ -82,10 +71,6 @@ At request time, on the client:
 ### Official Answer
 The React Server Component Payload is stored in the client-side Router Cache - a separate in-memory cache, split by individual route segment.
 This Router Cache is used to improve the navigation experience by storing previously visited routes and **prefetching future routes.**
-
-> #### Key Terms:
-> - **Router Cache**: 클라이언트 측 인메모리 캐시. RSC Payload를 라우트 세그먼트별로 분리해서 저장
-> - **prefetching**: 사용자가 방문하기 전 미리 라우트 데이터를 불러오는 것
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#full-route-cache
@@ -139,10 +124,6 @@ On the client, React renders Client Components and slots in the rendered result 
 - If any Server Components are nested inside a Client Component, their rendered content will be placed correctly within the Client Component.
 - Client Components are pre-rendered **on the server** and hydrated **on the client**.
 - This HTML is then **progressively enhanced** in the browser, allowing the client to take over the application and add interactivity, by asynchronously loading the Next.js and React client-side runtime.
-
-> #### Key Terms:
-> - **selective hydration**: 페이지 전체가 아니라 부분적으로 순차 hydration. App Router + React Suspense에서 가능
-> - **progressively enhanced**: 서버에서 만든 정적 HTML에 클라이언트 런타임이 점진적으로 기능을 추가하는 방식
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#full-route-cache

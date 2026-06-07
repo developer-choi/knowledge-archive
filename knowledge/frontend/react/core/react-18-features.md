@@ -21,10 +21,6 @@ priority:
 React now always synchronously flushes effect functions if the update was triggered during a discrete user input event such as a click or a keydown event.
 Previously, the behavior wasn't always predictable or consistent.
 
-> #### Key Terms:
-> - **synchronously flushes**: 큐에 쌓아두지 않고 즉시 동기적으로 실행해 비움
-> - **discrete user input event**: click, keydown처럼 한 번씩 명확히 발생하는 사용자 입력 이벤트
-
 ### Reference
 - https://react.dev/blog/2022/03/08/react-18-upgrade-guide
 
@@ -37,11 +33,6 @@ Hydration mismatches due to missing or extra text content are now treated like e
 React will no longer attempt to "patch up" individual nodes by inserting or deleting a node on the client in an attempt to match the server markup, and will revert to client rendering up to the closest <Suspense> boundary in the tree.
 
 This ensures the hydrated tree is consistent and avoids potential privacy and security holes that can be caused by hydration mismatches.
-
-> #### Key Terms:
-> - **hydration mismatch**: 서버가 보낸 HTML과 클라이언트가 렌더한 결과가 일치하지 않는 상황
-> - **patch up**: 불일치하는 노드를 삽입·삭제하여 억지로 맞추는 보정
-> - **Suspense boundary**: 가장 가까운 상위 `<Suspense>` 경계
 
 ### Reference
 - https://react.dev/blog/2022/03/08/react-18-upgrade-guide
@@ -60,11 +51,6 @@ Most effects will work without any changes, but some effects assume they are onl
 
 To help surface these issues, React 18 introduces a new development-only check to Strict Mode.
 This new check will automatically unmount and remount every component, whenever a component mounts for the first time, restoring the previous state on the second mount.
-
-> #### Key Terms:
-> - **preserving state**: 컴포넌트의 state를 유지한 채로
-> - **resilient**: 마운트/파괴가 여러 번 일어나도 정상 동작하는 견고함
-> - **development-only check**: 개발 모드에서만 동작하는 검사
 
 > #### AI Annotation:
 > 변경 전 (mount 1회) 시퀀스:
@@ -94,11 +80,6 @@ This new check will automatically unmount and remount every component, whenever 
 useId is a new hook for generating unique IDs on both the client and server, while avoiding hydration mismatches.
 It is primarily useful for component libraries integrating with accessibility APIs that require unique IDs.
 This solves an issue that already exists in React 17 and below, but it's even more important in React 18 because of how the new streaming server renderer delivers HTML out-of-order.
-
-> #### Key Terms:
-> - **unique IDs**: 클라이언트와 서버 양쪽에서 동일하게 보장되어야 하는 고유 식별자
-> - **accessibility APIs**: aria-labelledby 같이 ID 참조가 필요한 접근성 속성
-> - **out-of-order**: 정해진 순서대로가 아니라, 준비되는 대로 임의의 순서로 전달되는 방식
 
 ### Reference
 - https://react.dev/blog/2022/03/29/react-v18

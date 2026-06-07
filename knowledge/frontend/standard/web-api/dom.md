@@ -16,12 +16,6 @@ priority:
 The DOM is an object representation of the HTML elements.
 It acts as a bridge between your code and the user interface, and has a tree-like structure with parent and child relationships.
 
-> #### Key Terms:
-> - **HTML elements**: HTML 문서를 구성하는 태그 단위 요소.
-> - **representation**: 어떤 대상을 다른 형태로 나타낸 표현물.
-> - **interface**: 두 시스템(JS와 HTML) 사이를 잇는 연결 지점.
-> - **user interface**: 사용자가 화면에서 보고 상호작용하는 영역.
-
 ### User Answer
 DOM은 Document Object Model의 약자다.
 D는 HTML 문서, O는 JS Object, M은 "나타내다"를 의미한다.

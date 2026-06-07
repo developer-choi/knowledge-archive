@@ -52,9 +52,5 @@ But browsers don't understand JSX out of the box,
 so you'll need a JavaScript compiler, such as a Babel,
 to transform your JSX code into regular JavaScript.
 
-> #### Key Terms:
-> - **out of the box**: 별도의 설정이나 추가 도구 없이, 기본 상태 그대로
-> - **compiler**: 한 언어로 작성된 코드를 다른 언어(여기서는 일반 JavaScript)로 변환하는 도구
-
 ### Reference
 - React 공식 문서 (URL_UNKNOWN)

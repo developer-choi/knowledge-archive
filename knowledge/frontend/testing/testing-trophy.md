@@ -116,9 +116,6 @@ The unit test needs to run in isolation.
 Other system data, such as databases, objects, or network communication, might be required for the code's functionality.
 If that's the case, you should use data stubs instead.
 
-> #### Key Terms:
-> - **data stubs**: 실제 외부 데이터 대신 사용하는 가짜(고정) 데이터
-
 > #### AI Annotation:
 > Unit test는 isolation이 핵심이므로, DB·네트워크·외부 객체 같은 외부 의존성은 그대로 사용할 수 없다.
 > 대신 data stub(고정된 가짜 데이터)으로 대체하여 테스트 대상 코드만 격리해 검증한다.
@@ -394,10 +391,6 @@ You may also find yourself testing implementation details just so you can make s
 You really want to avoid testing implementation details because it doesn't give you very much confidence that your application is working and it slows you down when refactoring.
 You should very rarely have to change tests when you refactor code.
 
-> #### Key Terms:
-> - **diminishing returns**: 투입 대비 산출이 줄어드는 수확 체감 현상. 커버리지가 일정 수준을 넘으면 테스트 1개당 얻는 자신감이 급감한다
-> - **code coverage**: 테스트가 실행하는 코드의 비율. 높을수록 좋다는 직관과 달리, 과도한 추구는 역효과를 낳는다
-
 The code coverage report in this case helps give us an idea that tests are needed, but it does NOT tell us what's important about this function, nor does it tell us the use cases this function supports which is the most important consideration we keep in mind as we write tests.
 
 ### Reference
@@ -433,9 +426,6 @@ What use cases are these lines of code supporting, and what tests can I add to s
 Unfortunately, there's no such thing as an automated "Use Case Coverage Report."
 We have to make that up ourselves.
 But the code coverage report can sometimes help us identify use cases that we're not covering.
-
-> #### Key Terms:
-> - **Use Case Coverage**: 테스트가 커버하는 유스케이스의 비율. 자동 측정 도구가 없어 개발자가 직접 판단해야 한다
 
 Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
 Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".

@@ -26,11 +26,6 @@ Components can create similar but different UIs through props passed from parent
 
 Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.
 
-> #### Key Terms:
-> - **props**: 부모 컴포넌트가 자식 컴포넌트에 전달하는 임의의 입력 값
-> - **elements**: 화면에 무엇이 나타나야 하는지 설명하는 React 객체 (컴포넌트의 반환값)
-> - **isolation**: 각 조각을 독립적으로 분리해 사고할 수 있는 상태
-
 > #### User Annotation:
 > props로 화면에 보여줘야 하는 내용을 받아 출력하는 컴포넌트 예시:
 > ```
@@ -117,11 +112,6 @@ When converting between these two elements, React knows to only modify the color
 
 After handling the DOM node, React then recurses on the children.
 
-> #### Key Terms:
-> - **underlying DOM node**: React 엘리먼트(VDOM) 뒤에 있는 실제 브라우저 DOM 노드
-> - **attributes**: `className`, `title` 같은 HTML 속성
-> - **recurses on the children**: 같은 diff 절차를 자식 트리에 그대로 적용
-
 > #### AI Annotation:
 > 노드를 유지한다는 건 focus, scroll 위치, 입력값 같은 DOM 자체의 상태가 보존된다는 뜻이다.
 > 만약 매번 새 DOM 노드를 만들었다면 input에 글자 치다가 부모 state 바뀔 때마다 focus가 풀리고 입력이 끊긴다.
@@ -138,10 +128,6 @@ When a component updates, the instance stays the same, so that state is maintain
 React updates the props of the underlying component instance to match the new element, and calls UNSAFE_componentWillReceiveProps(), UNSAFE_componentWillUpdate() and componentDidUpdate() on the underlying instance.
 
 Next, the render() method is called and the diff algorithm recurses on the previous result and the new result.
-
-> #### Key Terms:
-> - **instance**: 컴포넌트의 실체. 클래스면 `this`가 가리키는 객체, 함수 컴포넌트면 React 내부 fiber에 묶인 hook 상태의 묶음
-> - **maintained across renders**: 렌더가 다시 일어나도 보존됨
 
 > #### AI Annotation:
 > "왜 useState 값이 다음 렌더에서도 살아있는가"의 답이 여기 있다 — 인스턴스가 같기 때문.
@@ -177,12 +163,6 @@ For example, converting between these two trees works poorly:
 
 React will mutate every child instead of realizing it can keep the `<li>Duke</li>` and `<li>Villanova</li>` subtrees intact.
 This inefficiency can be a problem.
-
-> #### Key Terms:
-> - **iterates over both lists at the same time**: 두 리스트를 인덱스 0부터 짝지어 동시에 순회 — 위치 기반 매칭
-> - **mutation**: DOM에 가할 변경 명령 (속성 변경, 추가, 제거)
-> - **naively**: key 없이 순진하게 위치 기반으로만 매칭하는 구현
-> - **intact**: 그대로 유지된 상태
 
 > #### AI Annotation:
 > 인덱스 0이 `Duke → Connecticut`, 인덱스 1이 `Villanova → Duke`, 인덱스 2는 새로 추가된 `Villanova`로 보여서 실제로는 단순 prepend인데도 모든 자식이 mutate된다.

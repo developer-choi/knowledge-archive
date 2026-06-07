@@ -92,10 +92,6 @@ However, for web pages and web apps, the lines between these two phases are much
 
 Therefore, browsers are very good at rendering pages progressively.
 
-> #### Key Terms:
-> - **progressive rendering**: 가용한 리소스부터 점진적으로 화면을 그리는 방식
-> - **install phase / running phase**: 네이티브 앱의 설치 단계와 실행 단계 구분
-
 ### Reference
 - https://web.dev/learn/performance/understanding-the-critical-path
 
@@ -347,10 +343,6 @@ When sections of the document are drawn in different layers, overlapping each ot
 As the page continues to load assets, reflows can happen.
 A reflow sparks a repaint and a re-composite.
 Had we defined the dimensions of our image, no reflow would have been necessary, and only the layer that needed to be repainted would be repainted, and composited if necessary.
-
-> #### Key Terms:
-> - **compositing**: 여러 레이어로 그려진 결과를 올바른 순서·위치로 합쳐 최종 화면을 만드는 단계
-> - **layer**: paint 결과를 분리해 GPU에서 별도로 다룰 수 있는 단위
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work#compositing

@@ -34,10 +34,6 @@ If children suspends while rendering, the Suspense boundary will switch to rende
 An alternate UI to render in place of the actual UI if it has not finished loading.
 If fallback suspends while rendering, it will activate the closest parent Suspense boundary.
 
-> #### Key Terms:
-> - **fallback**: 실제 UI가 로딩되지 않았을 때 대신 보여주는 대체 UI
-> - **boundary**: Suspense가 감싸는 경계. suspend된 children에 대한 fallback 처리 단위
-
 ### Reference
 - https://react.dev/reference/react/Suspense
 
