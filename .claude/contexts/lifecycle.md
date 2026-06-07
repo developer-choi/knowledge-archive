@@ -22,22 +22,15 @@ knowledge/  ──/validate ──►  양식 위반 수정
 knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refresh)
 ```
 
-**브레인 사이클**
-
-```
-/exam (전체 통과)  ──►  brain.yaml (unknown → known)
-/pre-exit          ──►  brain.yaml (새 키워드 등록)
-```
-
 ## 스킬·스크립트 입출력
 
 | 도구 | Read | Write | 트리거 |
 |------|------|------|------|
 | `/convert` | 사용자가 제공한 PDF·MD 외부 문서 | `knowledge/<rel>.md` · `techniques/<rel>.md` · `tips/` (신규 또는 기존 병합) | "변환해줘", 파일 경로 명시 |
 | `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (실시간 저장), `explained/<rel>.md` (OFF 시 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
-| `/explain` | `knowledge/<rel>.md`, `explained/<rel>.md` (캐시 hit 확인), `brain.yaml` (unknown 사전 정의) | `explained/<rel>.md` (질문별 H1 섹션 추가·덮어쓰기) | "설명해줘", "이게 뭐야" 등 자동 |
-| `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과), `brain.yaml` (전체 통과 시 unknown → known) | "시험", "/exam" 명시 |
-| `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | 기본 없음. 복습 중 Key Terms 추가 요청 시 `knowledge/` 일부 수정 | "복습하자", "면접 연습" 명시 |
+| `/explain` | `knowledge/<rel>.md`, `explained/<rel>.md` (캐시 hit 확인 + 발판 보정) | `explained/<rel>.md` (질문별 H1 섹션 추가·덮어쓰기) | "설명해줘", "이게 뭐야" 등 자동 |
+| `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
+| `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | 복습 중 Key Terms 추가 요청 시 `knowledge/` 일부 수정 | "복습하자", "면접 연습" 명시 |
 | `/validate` | `knowledge/`, `explained/`, contexts 전반 | `knowledge/<rel>.md` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
 | `list-candidates` (npm) | `knowledge/` 하위 모든 `.md`, git log | stdout 또는 `--out` 경로에 Candidate[] JSON | CLI |
 
@@ -46,7 +39,6 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 - `knowledge/`: `/convert`, `/digest` (생성·추가) · `/validate`, `/review` (수정)
 - `explained/`: `/explain` (생성·갱신) · `/digest` OFF (세션 확정 질문 생성, 기존 섹션 보존) · `/validate` (고아 삭제)
 - `assets/`: `/digest`·`/explain` (explained에 임베드할 데모·이미지)
-- `brain.yaml`: `/exam` (Phase 6 전체 통과 시) · `/pre-exit` (세션 종료 시)
 - `$env:TEMP/*.html`: `/exam` (시험지·결과)
 - 외부 JSON: `list-candidates`
 
@@ -69,10 +61,6 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 
 상세 매핑은 `CLAUDE.md`의 "변경 시 동기화" 섹션 참고.
 
-## brain.yaml 라이프사이클
+## explained/ 트리 = 학습자 모델
 
-`CLAUDE.md`의 "brain.yaml" 섹션 참고. 짧게:
-- 세션 시작: Read (unknown 항목 사전 정의용)
-- `/pre-exit`: Write (새 키워드 unknown 등록, 설명 완료된 것 known 이동)
-- `/exam` 전 라운드 통과: Write (해당 키워드 unknown → known)
-- 설명 중 미정의 키워드 발견: 사용자 승인 후 Write
+별도 데이터 파일(아는 것/모르는 것 저장소) 없이, `explained/` 트리 자체가 학습자가 아는 것의 창고다. 어떤 개념이 explained 섹션(H1 헤딩)으로 존재하면 학습자가 한 번 이상 설명을 받은(=어렴풋이 아는) 것으로 본다. 학습 스킬은 설명 생성 전 explained 트리를 훑어 발판 높이를 보정한다 — [explanation-guide.md §0](explanation-guide.md) 참고. 막혀서 못 푼 항목은 KA가 아니라 AC 백로그로 정리되므로 KA에는 "모르는 것" 저장소가 필요 없다.
