@@ -1,6 +1,6 @@
 ---
-description: 공식문서를 단락별로 읽으며 한글 해설하고, 기억할 내용을 Q&A로 만들어 knowledge 문서에 저장한다. 두 가지 모드가 있다. (1) 대화형 학습 모드: "/digest ON [URL]"로 시작하고 "/digest OFF"로 종료. 사용자가 공식문서 URL을 주며 "같이 공부하자", "이거 읽으면서 정리하자", "digest", "해설해줘" 등을 말하면 이 모드. (2) 즉시 저장 모드: 사용자가 공식문서 원문, 한글 메모, 출처 URL을 제공하며 "필기해줘", "기록해둬", "정리해줘", "메모", "저장해줘" 등을 말하면 이 모드. 기존 knowledge 문서의 [UNVERIFIED] 미완성 질문을 채우는 경우에도 사용한다. 사용자가 학습 내용을 언급하면서 출처 URL이나 영어 원문 인용이 포함되어 있다면 거의 확실히 이 스킬이 필요하다. 단, PDF/구글문서 변환은 convert 스킬이, 복습/면접 모드는 review 스킬이 담당한다.
-argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
+description: 공식문서를 단락별로 읽으며 한글 해설하고, 기억할 내용을 Q&A로 만들어 knowledge 문서에 저장한다. "/digest ON [URL]"로 시작하고 "/digest OFF"로 종료. 사용자가 공식문서 URL을 주며 "같이 공부하자", "이거 읽으면서 정리하자", "digest", "해설해줘" 등을 말하면 이 스킬. 단, PDF/구글문서 변환은 convert 스킬이, 복습/면접 모드는 review 스킬이 담당한다.
+argument-hint: ON [출처 URL] 또는 OFF
 ---
 
 # Digest
@@ -108,7 +108,7 @@ OA는 단락 여러 개로 구성될 수 있다 ([content-format.md](../../conte
 
 ---
 
-## 모드 1: 대화형 학습 (ON/OFF)
+## 대화형 학습 (ON/OFF)
 
 ### ON — 모드 시작
 
@@ -296,18 +296,3 @@ digest 모드 시작.
 2. **explained 생성**: 이번 세션에서 확정된 질문들을 `explained/<rel>.md`로 저장한다 (위 "해설은 knowledge에 저장하지 않고, OFF 시 explained로 보낸다" 참고). 세션 중 사용자 오해·재설명을 본문에 녹인다. 이미 있는 질문 섹션은 보존한다. 데모·이미지 등 자산을 만들었으면 `assets/<rel>/`에 두고 explained 본문에서 상대 경로로 링크한다.
 3. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
 4. **학습가치 판단 회고**: 이번 세션에 스킵/keep 판단이 뒤집힌 적(내가 넘긴 걸 사용자가 도로 달라 했거나, 해설·제안한 걸 불필요로 반려)이 있으면 `/pre-exit digest`를 제안한다. 그 번복 유형을 §4 「스킵 판단」 기준에 반영해 다음 세션 판단을 다듬기 위함이다. 번복이 없었으면 제안하지 않는다.
-
----
-
-## 모드 2: 즉시 저장
-
-사용자가 학습 내용을 "필기해줘", "기록해줘" 등과 함께 제공하면, 해설 없이 바로 Q&A를 만들어 저장한다.
-
-### 작업 순서
-
-1. [production-guide.md](../../contexts/production-guide.md)의 **Before** 읽기
-2. 내용 파악: 공통 규칙(내용 분류, 범위 제한) 적용
-3. 기존 미완성 질문 매칭: 공통 규칙 적용
-4. Q&A 작성: [content-format.md](../../contexts/content-format.md)에 따라 작성
-5. [production-guide.md](../../contexts/production-guide.md)의 **After** 실행
-6. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행
