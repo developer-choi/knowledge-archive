@@ -24,7 +24,6 @@ Where the JavaScript engine waits for tasks, executes them and then sleeps, wait
 
 > #### User Annotation:
 > JS 엔진 중 대표적인 게 V8이고, 고급언어를 기계어로 변환함.
-> 작업을 기다리고 쉬고 그다음 작업 기다리고, 대부분의 시간동안 아무것도 안하다가 작업이 있을 때만 일한대요.
 
 ### Reference
 - https://en.wikipedia.org/wiki/JavaScript_engine
@@ -46,8 +45,7 @@ When the engine browser is done with the script, it handles mousemove event, the
 > - 그 상태에서 새로운 작업이 추가된다 = 큐에 들어간다
 > - JS 엔진이 쉬고있다 = 콜스택이 비어있다 = 이벤트루프가 큐에있던거 콜스택으로 넣어준다 (근데 큐라서 FIFO)
 >
-> V8 용어로는 이걸 macrotask queue라고 한다네요.
-> (MDN에서는 event queue라고 부르던데)
+> 이 큐를 MDN에서는 event queue라고 부르던데.
 >
 > 크게 3가지 작업으로 분류함:
 > 1. 현재 처리중인 작업 (callstack에 있음)
