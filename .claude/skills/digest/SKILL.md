@@ -17,9 +17,13 @@ argument-hint: ON [출처 URL] 또는 OFF 또는 [필기할 내용]
 - **사용자가 직접 작성한 한글 메모**는 User Annotation으로 분류
 - **영어 원문 없이 한글만 제공된 경우**: User Answer로 작성. AI가 영어 Official Answer를 생성하지 않는다
 
-### 해설은 휘발, 저장하지 않는다
+### 해설은 knowledge에 저장하지 않고, OFF 시 explained로 보낸다
 
-대화형 모드의 line-by-line 해설은 학습 세션용으로 채팅에만 출력하고 knowledge/ 파일에 저장하지 않는다. **한글 line-by-line 해설은 `/explain` 스킬이 `explained/<rel>.md`에 담당**한다. digest가 해설 결과를 AI Annotation으로 저장하면 explained와 중복되고 knowledge/ 파일이 비대해진다.
+대화형 모드의 line-by-line 해설을 **knowledge/ 파일에 저장하지 않는다** — AI Annotation으로 박으면 explained와 중복되고 knowledge/가 비대해진다.
+
+대신 **OFF 시점에 확정된 질문 전체를 `explained/<rel>.md`로 저장**한다. `/explain`과 **동일 양식**(`# <질문>` H1 + `## 도입` / `## 본문` / `## 종합`, H2 사이 `---`)을 쓰고, 세션 중 사용자가 헷갈려서 풀어준 **오해·재설명도 본문에 녹여 포함**한다 (`/explain`이 재설명을 본문에 녹이는 방식과 통일 — 별도 `## 오해 교정` 섹션을 만들지 않는다). 이로써 digest 세션에서만 드러난 사용자 오해가 휘발되지 않고 학습 캐시로 남는다.
+
+소유권: 해당 질문 섹션이 `explained/<rel>.md`에 **이미 있으면 덮어쓰지 않는다** (먼저 만든 쪽 보존). 이후 `/explain`을 돌려도 캐시 hit으로 digest가 만든 섹션을 보존한다 ([explain SKILL](../explain/SKILL.md)의 "캐시 동작" 참고).
 
 ### AI Annotation 생성 정책
 
@@ -279,8 +283,9 @@ digest 모드 시작.
 모드를 종료한다. 승인된 질문은 이미 파일에 저장되어 있으므로 아래 절차만 수행한다.
 
 1. 이번 세션에서 변경한 knowledge 파일 목록과 요약(새 질문 N건, 보충 N건)을 보고한다
-2. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
-3. 변경된 knowledge 파일을 커밋한다. 커밋 메시지 형식: `feat(knowledge): [주제] 위키피디아/MDN Q&A 추가 및 보충`
+2. **explained 생성**: 이번 세션에서 확정된 질문들을 `explained/<rel>.md`로 저장한다 (위 "해설은 knowledge에 저장하지 않고, OFF 시 explained로 보낸다" 참고). 세션 중 사용자 오해·재설명을 본문에 녹인다. 이미 있는 질문 섹션은 보존한다. 데모·이미지 등 자산을 만들었으면 `assets/<rel>/`에 두고 explained 본문에서 상대 경로로 링크한다.
+3. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
+4. 변경 파일을 **종류별로 분리 커밋**한다: knowledge Q&A는 `feat(knowledge): [주제] 위키피디아/MDN Q&A 추가 및 보충`, explained(+assets)는 `feat(explained): [주제] 해설 캐시 생성` 형식.
 
 ---
 
