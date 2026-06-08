@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margin Collapsing 데모</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 0 auto; padding: 24px; color: #222; line-height: 1.5; }
+  h1 { font-size: 22px; }
+  h2 { font-size: 17px; margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 6px; }
+  .row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .col { flex: 1; min-width: 260px; }
+  .col > h3 { font-size: 14px; margin: 0 0 8px; }
+  .note { font-size: 13px; color: #666; }
+  /* 측정용 외곽 — 실제 차지하는 공간(파란 영역)을 눈으로 보기 위함 */
+  .stage { background: #e8f0fe; border: 1px dashed #4285f4; }
+  .ruler { font-size: 12px; color: #4285f4; font-weight: 600; }
+  /* 박스 */
+  .box { background: #ffd54f; padding: 0; text-align: center; }
+  .box.b1 { background: #ffd54f; }
+  .box.b2 { background: #ff8a65; }
+  /* 케이스 1: 인접 형제 */
+  .c1 .box1 { margin-bottom: 30px; }
+  .c1 .box2 { margin-top: 20px; }
+  /* 케이스 2: 부모-자식 */
+  .c2 .parent { background: #c8e6c9; margin-top: 30px; }
+  .c2 .parent.fixed { border-top: 3px solid #2e7d32; } /* collapse 차단 */
+  .c2 .child { background: #ffd54f; margin-top: 50px; }
+  /* 케이스 3: 빈 블록 */
+  .c3 .empty { margin-top: 30px; margin-bottom: 20px; background: #b39ddb; }
+  .marker { background:#90caf9; }
+  /* 음수 마진 */
+  .nm .box1 { margin-bottom: 30px; }
+  .nm .box2 { margin-top: -10px; }
+  .na .box1 { margin-bottom: -10px; }
+  .na .box2 { margin-top: -30px; }
+</style>
+</head>
+<body>
+<h1>Margin Collapsing 눈으로 보기</h1>
+<p class="note">파란 점선 영역 = 실제 차지하는 공간. 두 마진이 <b>합(50px)이 아니라 max(30px)</b>로 합쳐지는지 비교하세요.</p>
+
+<h2>① 인접 형제 (adjacent siblings)</h2>
+<div class="row c1">
+  <div class="col">
+    <h3>collapse 발생 (box1 margin-bottom:30 + box2 margin-top:20)</h3>
+    <div class="stage">
+      <div class="box b1 box1">box1</div>
+      <div class="box b2 box2">box2</div>
+    </div>
+    <p class="ruler">→ 두 박스 사이 간격: <b>30px</b> (30+20=50 아님)</p>
+  </div>
+</div>
+
+<h2>② 부모-자식 (분리 콘텐츠 없음)</h2>
+<div class="row c2">
+  <div class="col">
+    <h3>collapse 발생: 부모 mt:30 + 자식 mt:50</h3>
+    <div class="marker">기준 형제</div>
+    <div class="parent">
+      <div class="child">child (margin-top:50px)</div>
+    </div>
+    <p class="ruler">→ 둘이 합쳐져 <b>max(30,50)=50</b> 하나만 적용. 기준 형제와 부모 사이 간격 = 50px (30+50=80 아님)</p>
+  </div>
+  <div class="col">
+    <h3>차단: 부모에 border-top 추가</h3>
+    <div class="marker">기준 형제</div>
+    <div class="parent fixed">
+      <div class="child">child (margin-top:50px)</div>
+    </div>
+    <p class="ruler">→ border-top이 둘을 분리. 부모 mt:30(기준↔부모) + 자식 mt:50(border↔child) <b>따로</b> 적용</p>
+  </div>
+</div>
+
+<h2>③ 빈 블록 (empty block)</h2>
+<div class="row c3">
+  <div class="col">
+    <h3>빈 보라 블록: margin-top:30 + margin-bottom:20</h3>
+    <div class="stage">
+      <div class="marker">위 형제</div>
+      <div class="empty"></div>
+      <div class="marker">아래 형제</div>
+    </div>
+    <p class="ruler">→ 위아래 형제 사이 간격: <b>30px</b> (30+20=50 아님). 빈 블록의 자기 위·아래 마진이 합쳐짐</p>
+  </div>
+</div>
+
+<h2>음수 마진 규칙</h2>
+<div class="row">
+  <div class="col nm">
+    <h3>양수+음수 섞임 (mb:30 + mt:-10)</h3>
+    <div class="stage">
+      <div class="box b1 box1">box1</div>
+      <div class="box b2 box2">box2</div>
+    </div>
+    <p class="ruler">→ 가장 큰 양수 + 절댓값이 가장 큰 음수 = 30 + (-10) = <b>20px</b> 간격</p>
+  </div>
+  <div class="col na">
+    <h3>모두 음수 (mb:-10 + mt:-30)</h3>
+    <div class="stage">
+      <div class="box b1 box1">box1</div>
+      <div class="box b2 box2">box2</div>
+    </div>
+    <p class="ruler">→ 둘 중 절댓값이 더 큰 음수(<b>-30px</b>)가 적용</p>
+  </div>
+</div>
+</body>
+</html>
