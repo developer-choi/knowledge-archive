@@ -116,4 +116,4 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 
 ### convert 스킬 절차
 
-`.claude/skills/convert/SKILL.md` 변경 시 AC `doc-router`가 참조하는 절차도 함께 점검한다.
+`local/skills/convert/SKILL.md` 변경 시 AC `doc-router`가 참조하는 절차도 함께 점검한다.

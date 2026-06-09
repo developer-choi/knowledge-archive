@@ -5,7 +5,7 @@ module.exports = {
       2,
       'always',
       [
-        // .claude/skills/
+        // local/skills/
         'add-note',
         'convert',
         'digest',

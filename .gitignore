@@ -1,6 +1,8 @@
 .idea/
 .claude/settings.json
 .claude/settings.local.json
+# 로컬 스킬 배포 산출물 (소스는 local/skills/)
+.claude/skills/
 node_modules
 coverage
 .agents/
