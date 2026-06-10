@@ -1,11 +1,9 @@
 .idea/
-.claude/settings.json
-.claude/settings.local.json
-# 로컬 스킬 배포 산출물 (소스는 local/skills/)
-.claude/skills/
+# Claude/Codex 배포 산출물 (소스는 local/, 트래킹 안 함)
+.claude/
+.agents/
 node_modules
 coverage
-.agents/
 AGENTS.md
 nul
 GEMINI.md

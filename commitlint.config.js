@@ -11,7 +11,7 @@ module.exports = {
         'digest',
         'review',
         'skill',
-        // .claude/contexts/
+        // local/contexts/
         'contexts',
         // knowledge/
         'knowledge',

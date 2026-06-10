@@ -55,7 +55,7 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 
 ### contexts → 양식 위반 검출
 
-`.claude/contexts/` (양식·규칙) 변경 시 `/validate` 전체 재실행으로 기존 `knowledge/`가 새 규칙을 위반하는지 점검한다.
+`local/contexts/` (양식·규칙) 변경 시 `/validate` 전체 재실행으로 기존 `knowledge/`가 새 규칙을 위반하는지 점검한다.
 
 ### 영향 범위 점검
 

@@ -14,9 +14,9 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 
 `explained/<rel>.md`는 `knowledge/<rel>.md`와 1:1 대응한다. 질문별 설명 섹션이 `\n\n---\n\n` 구분자로 이어붙여져 있고, 각 섹션은 H1(질문 제목)으로 시작한다.
 
-`explained/`·`assets/`는 `knowledge/`(진실의 원천) 경로를 미러링하는 파생물이다. **원본을 이동·개명하면 대응 explained·assets도 같은 경로로 동반 이동**한다 — [`.claude/contexts/directory-roles.md`](.claude/contexts/directory-roles.md)의 "원본 이동 시 미러 동반 이동" 참고.
+`explained/`·`assets/`는 `knowledge/`(진실의 원천) 경로를 미러링하는 파생물이다. **원본을 이동·개명하면 대응 explained·assets도 같은 경로로 동반 이동**한다 — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)의 "원본 이동 시 미러 동반 이동" 참고.
 
-어느 스킬이 어떤 파일을 read/write하는지는 [`.claude/contexts/lifecycle.md`](.claude/contexts/lifecycle.md) 참고.
+어느 스킬이 어떤 파일을 read/write하는지는 [`local/contexts/lifecycle.md`](local/contexts/lifecycle.md) 참고.
 
 ## 폴더 규칙
 
@@ -26,15 +26,15 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 
 ### 소주제 (KA 안에서 어디로)
 
-- **역할 디렉토리** (knowledge/ vs techniques/ vs explained/) — [`.claude/contexts/directory-roles.md`](.claude/contexts/directory-roles.md)
-- **도메인 트리** (frontend/, cs/, infra/, …) — [`.claude/contexts/folder-blueprint.md`](.claude/contexts/folder-blueprint.md)
-- **파일명·검색** — [`.claude/contexts/file-placement.md`](.claude/contexts/file-placement.md)
+- **역할 디렉토리** (knowledge/ vs techniques/ vs explained/) — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)
+- **도메인 트리** (frontend/, cs/, infra/, …) — [`local/contexts/folder-blueprint.md`](local/contexts/folder-blueprint.md)
+- **파일명·검색** — [`local/contexts/file-placement.md`](local/contexts/file-placement.md)
 
 ## npm 스크립트
 
 | 명령 | 역할 |
 |------|------|
-| `npm run list-candidates` | `knowledge/` 스캔 → AC `full-refresh`에 전달할 후보 JSON 출력. 입출력·skip 규칙·폴더구조 변경 영향범위는 [`.claude/contexts/list-candidates.md`](.claude/contexts/list-candidates.md) |
+| `npm run list-candidates` | `knowledge/` 스캔 → AC `full-refresh`에 전달할 후보 JSON 출력. 입출력·skip 규칙·폴더구조 변경 영향범위는 [`local/contexts/list-candidates.md`](local/contexts/list-candidates.md) |
 | `npm run merge-explained` | `explained/<rel>/<slug>.md` 파일들을 `explained/<rel>.md` 단일 파일로 통합. `--dry-run`(기본) / `--apply` 플래그 사용 |
 | `npm run verify-merge` | 통합 후 각 섹션이 원본 파일과 바이트 동일한지 검증 |
 
@@ -65,8 +65,8 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 새 루트 디렉토리(예: `archives/`)를 추가할 때 수정해야 할 파일:
 
 - `CLAUDE.md` — 디렉터리 구조 표에 추가
-- `.claude/contexts/directory-roles.md` — 역할 정의 추가
-- `.claude/contexts/list-candidates.md` — 스캔 대상 여부 명시 (외부 노출 포함/제외)
+- `local/contexts/directory-roles.md` — 역할 정의 추가
+- `local/contexts/list-candidates.md` — 스캔 대상 여부 명시 (외부 노출 포함/제외)
 - `list-candidates.mts` — 외부 노출 대상이면 스캔 로직 추가
 
 `archives/`·`assets/`는 외부 노출 제외 — `list-candidates.mts` 수정 불필요.
@@ -86,7 +86,7 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 
 **파일이 어떤 맥락에서 만들어졌는가**를 나타낸다. Q&A별 출처 신뢰도가 아님 — 개별 신뢰도는 `[UNVERIFIED]` 마커 + `### Reference`가 담당한다. `scripts/list-candidates.mts`가 그대로 export하여 full-refresh dry-run에서 출처별 그룹화에 쓰인다.
 
-상세 규칙은 `.claude/contexts/content-format.md`의 `source` 섹션 참고.
+상세 규칙은 `local/contexts/content-format.md`의 `source` 섹션 참고.
 
 | 값 | 의미 |
 |----|------|
@@ -100,7 +100,7 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 
 ### contexts (양식·규칙)
 
-`.claude/contexts/` 변경 시 `knowledge/` 전체를 `/validate`로 재검증하고, AC `full-refresh`·`doc-router`가 KA 양식을 참조하니 함께 점검한다.
+`local/contexts/` 변경 시 `knowledge/` 전체를 `/validate`로 재검증하고, AC `full-refresh`·`doc-router`가 KA 양식을 참조하니 함께 점검한다.
 
 ### knowledge frontmatter
 
