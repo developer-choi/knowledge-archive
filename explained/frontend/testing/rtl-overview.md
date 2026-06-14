@@ -1,87 +1,3 @@
-# React Testing Library와 DOM Testing Library의 관계는?
-
-## 도입
-
-React Testing Library(RTL)는 독립적으로 만들어진 라이브러리가 아니다. 테스트 쿼리의 핵심 로직은 DOM Testing Library에 있고, RTL은 그 위에 React 전용 API(`render` 등)를 얇게 얹은 구조다. 레이어를 이해하면 `getByRole`, `getByText` 같은 쿼리가 왜 React 전용이 아닌지 명확해진다.
-
----
-
-## 본문
-
-> React Testing Library builds on top of DOM Testing Library by adding APIs for working with React components.
-
-"React Testing Library는 DOM Testing Library 위에 React 컴포넌트 작업을 위한 API를 추가하여 구축된다."
-
-- **builds on top of**: 기반 라이브러리를 그대로 사용하면서 위에 레이어를 추가하는 구조. RTL은 DOM Testing Library를 대체하는 게 아니라 감싼다.
-
-> It provides light utility functions on top of react-dom and react-dom/test-utils, in a way that encourages better testing practices.
-
-"react-dom과 react-dom/test-utils 위에 가벼운 유틸리티 함수를 제공하며, 더 나은 테스트 관행을 유도하는 방식으로 설계되어 있다."
-
-- **light utility functions**: 무거운 추상화 없이 최소한의 함수만 제공한다. RTL이 의도적으로 얇은 이유 — 두꺼운 API가 많아질수록 구현 세부사항을 테스트하고 싶어지기 때문이다.
-- **encourages**: 강제하지 않고 유도한다. RTL은 올바른 방향을 열어두되, 잘못된 방향도 막지 않는다.
-
-> This library is built on top of DOM Testing Library which is where most of the logic behind the queries is.
-
-"이 라이브러리는 DOM Testing Library 위에 구축되어 있으며, 쿼리 뒤의 로직 대부분은 DOM Testing Library에 있다."
-
-- **most of the logic behind the queries**: `getByRole`, `getByText`, `findByLabelText` 같은 쿼리의 실제 탐색 알고리즘은 DOM Testing Library가 구현한다. RTL은 이를 React용으로 연결할 뿐이다.
-
-```
-DOM Testing Library          (쿼리 로직: getByRole, getByText, ...)
-        ↑
-React Testing Library        (React 전용: render, screen, act, ...)
-        ↑
-사용자 테스트 코드
-```
-
----
-
-## 종합
-
-RTL을 쓰면 쿼리 API를 React가 없는 환경에도 재사용할 수 있는 이유가 이 레이어 구조 때문이다. `getByRole`이 React 내부 상태를 모르고 DOM 노드만 보는 것도 이 때문이다. RTL 없이 `react-dom/test-utils`만 쓰면 컴포넌트 인스턴스를 직접 조작하는 유혹에 빠지기 쉬운데, RTL은 그 API를 감춰 DOM 기반 테스트를 자연스럽게 유도한다. QA가 마우스로 클릭하듯 DOM 노드를 찾아 상호작용하는 것이 RTL이 지향하는 테스트 방식이다.
-
----
-
----
-
-# RTL은 컴포넌트의 무엇을 대상으로 테스트하는가?
-
-## 도입
-
-RTL 이전에는 컴포넌트 인스턴스(React가 내부적으로 관리하는 JS 객체)를 직접 건드려 state나 메서드를 확인하는 테스트가 일반적이었다. RTL은 그 방식을 거부하고, 실제 브라우저에 렌더된 DOM 노드를 대상으로 삼는다.
-
----
-
-## 본문
-
-> So rather than dealing with instances of rendered React components, your tests will work with actual DOM nodes.
-
-"렌더된 React 컴포넌트의 인스턴스를 다루는 대신, 테스트는 실제 DOM 노드와 함께 동작한다."
-
-- **instances of rendered React components**: React가 내부적으로 생성하는 컴포넌트 객체. `state`, `setState`, 라이프사이클 메서드 등이 여기 달려 있다. 이것을 직접 조작하면 사용자가 실제로 보는 것과 다른 레이어를 테스트하게 된다.
-- **actual DOM nodes**: `document.querySelector`로 찾을 수 있는 실제 HTML 요소들. 사용자가 브라우저에서 보는 것, 스크린리더가 읽는 것이 바로 이 노드다.
-
-```ts
-// 인스턴스 방식 (RTL이 지양하는 방식)
-wrapper.instance().setState({ open: true });
-expect(wrapper.state('open')).toBe(true);
-
-// DOM 방식 (RTL이 지향하는 방식)
-await userEvent.click(screen.getByRole('button', { name: '열기' }));
-expect(screen.getByRole('dialog')).toBeInTheDocument();
-```
-
----
-
-## 종합
-
-인스턴스를 테스트하면 "React 내부 상태가 올바른가"를 검증한다. DOM 노드를 테스트하면 "사용자가 보는 화면이 올바른가"를 검증한다. 둘은 대부분 같은 결과를 가리키지만, 리팩토링할 때 차이가 드러난다. 상태 관리 방식을 `useState`에서 `useReducer`로 바꿔도 DOM 결과가 같다면 RTL 테스트는 통과하고, 인스턴스 기반 테스트는 깨진다.
-
----
-
----
-
 # RTL의 trade-offs는 무엇이며 simulated browser 환경의 한계는 무엇인가?
 
 ## 도입
@@ -113,44 +29,6 @@ jsdom에서 테스트할 수 없는 것들:
 ## 종합
 
 jsdom의 한계는 RTL의 결함이 아니라 의식적으로 선택한 트레이드오프다. 로직·상태·사용자 흐름 검증에는 jsdom으로 충분하고 훨씬 빠르다. 시각적 정확도가 중요한 영역은 Playwright/Cypress 같은 실제 브라우저 기반 E2E로 보완한다. 두 도구를 조합하는 것이 실무 전략이다.
-
----
-
----
-
-# 테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?
-
-## 도입
-
-네트워크 요청을 테스트에서 제어할 때 가장 손쉬운 방법은 `window.fetch`를 가짜 함수로 교체하는 것이다. 그러나 이 방식은 구현 세부사항에 의존하기 때문에 HTTP 클라이언트를 바꾸거나 환경이 달라지면 테스트가 깨진다. MSW는 네트워크 레벨에서 요청을 가로채 이 문제를 피한다.
-
----
-
-## 본문
-
-> We recommend using the Mock Service Worker (MSW) library to declaratively mock API communication in your tests instead of stubbing window.fetch, or relying on third-party adapters.
-
-"우리는 window.fetch를 stub하거나 서드파티 어댑터에 의존하는 대신, MSW 라이브러리를 사용하여 테스트에서 API 통신을 선언적으로 모킹할 것을 권장한다."
-
-- **declaratively**: 어떻게(how) 가로채는지가 아니라 무엇을(what) 응답할지만 선언한다. `http.get('/api/user', () => HttpResponse.json({ name: 'Kim' }))`처럼 핸들러만 정의하면 된다.
-- **stubbing**: 원래 함수를 가짜 구현으로 바꿔치기하는 기법. `window.fetch = jest.fn()`이 전형적인 예. 구현 세부사항에 직접 결합된다.
-
-```
-window.fetch stubbing
-  → axios로 교체하면 테스트 전부 깨짐
-  → 함수 레벨에서 가로채 — 실제 요청 흐름과 다름
-
-MSW
-  → Service Worker / Node 인터셉터로 네트워크 레벨 가로채기
-  → fetch든 axios든 상관없음
-  → 브라우저 개발 환경과 Jest 환경 모두 동일한 핸들러 재사용
-```
-
----
-
-## 종합
-
-`window.fetch`를 stub하면 테스트가 구현 세부사항(어떤 HTTP 함수를 쓰는가)에 종속된다. MSW는 HTTP 핸들러를 선언해두면 RTL 테스트와 실제 브라우저 개발 환경 모두에서 재사용할 수 있다. `axios`를 `ky`로 교체해도, 서버 URL을 바꿔도 핸들러만 수정하면 된다. 네트워크를 가장 현실에 가깝게 시뮬레이션하면서도 실제 서버 의존성을 제거하는 최선책이다.
 
 ---
 
@@ -210,3 +88,52 @@ Assert   결과 검증                 expect + getByRole 등
 ## 종합
 
 AAA 패턴은 테스트 파일을 처음 보는 팀원이 "무엇을 테스트하는가"를 빠르게 파악하게 해준다. RTL의 API가 이 패턴에 자연스럽게 매핑되는 것은 우연이 아니다 — "사용자처럼 테스트하라"는 철학이 Arrange(준비), Act(사용자 행동), Assert(결과 확인)라는 사용자 시나리오 구조와 정확히 일치하기 때문이다. `fireEvent` 대신 `userEvent`를 쓰면 실제 브라우저의 이벤트 시퀀스(포커스 → keydown → input → keyup)를 재현해 Act 단계의 현실성을 높일 수 있다.
+
+---
+
+---
+
+# React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?
+
+## 도입
+
+React 앱은 컴포넌트 트리 구조다. 리프 컴포넌트만 테스트할지, 상위 컴포넌트를 테스트할지, 아니면 페이지 단위로 테스트할지에 대한 질문은 실무에서 자주 등장한다. Testing Library는 "컴포넌트 단위"가 아닌 "사용자 기능 단위"로 생각하라고 유도한다.
+
+---
+
+## 본문
+
+> Following the guiding principle of this library, it is useful to break down how tests are organized around how the user experiences and interacts with application functionality rather than around specific components themselves.
+
+"이 라이브러리의 가이딩 원칙을 따르면, 특정 컴포넌트 자체가 아니라 사용자가 애플리케이션 기능을 경험하고 상호작용하는 방식을 중심으로 테스트를 구성하는 것이 유용하다."
+
+> In some cases, for example for reusable component libraries, it might be useful to include developers in the list of users to test for and test each of the reusable components individually.
+
+"재사용 가능한 컴포넌트 라이브러리의 경우처럼, 개발자를 테스트 대상 사용자에 포함하고 각 재사용 컴포넌트를 개별적으로 테스트하는 것이 유용할 수 있다."
+
+> Other times, the specific break down of a component tree is just an implementation detail and testing every component within that tree individually can cause issues.
+
+"다른 경우에는, 특정 컴포넌트 트리의 분해 방식이 그냥 구현 세부사항이고, 트리 내 모든 컴포넌트를 개별적으로 테스트하면 문제가 생길 수 있다."
+
+> In practice this means that it is often preferable to test high enough up the component tree to simulate realistic user interactions.
+
+"실제로 이는 현실적인 사용자 상호작용을 시뮬레이션할 수 있을 만큼 충분히 높은 레벨에서 테스트하는 것이 종종 바람직하다는 뜻이다."
+
+```
+앱 컴포넌트 트리 예시
+
+Page (테스트 권장 레벨 — 실제 사용자 시나리오 포함)
+ ├── Header
+ ├── CheckoutForm (이 컴포넌트만 단독 테스트하면 Header 연동 누락)
+ │   ├── CartItems
+ │   └── PaymentInput
+ └── Footer
+
+재사용 Button 컴포넌트 (개발자가 사용자 — 개별 테스트 적합)
+```
+
+---
+
+## 종합
+
+컴포넌트 단위로 쪼개서 모두 테스트하면 각 컴포넌트는 동작하지만 연결이 깨질 수 있다. `CartItems`가 정상이고 `PaymentInput`이 정상이어도, `CheckoutForm`에서 데이터가 잘못 연결되면 사용자는 결제에 실패한다. 반면 `CheckoutForm` 전체를 렌더해 "장바구니 담기 → 결제 버튼 클릭 → 완료 메시지"를 테스트하면 연결까지 검증된다. 단, Button처럼 독립적으로 소비되는 재사용 컴포넌트는 developer user가 사용자이므로 개별 테스트가 합리적이다.

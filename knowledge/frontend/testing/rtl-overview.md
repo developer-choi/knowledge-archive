@@ -4,48 +4,13 @@ source: official
 priority:
 ---
 # Questions
-- React Testing Library와 DOM Testing Library의 관계는?
-- RTL은 컴포넌트의 무엇을 대상으로 테스트하는가?
 - RTL의 trade-offs는 무엇이며 simulated browser 환경의 한계는 무엇인가?
-- 테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?
 - AAA 패턴이란 무엇이며 각 단계에서 RTL은 어떤 API를 제공하는가?
+- React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?
 
 ---
 
 # Answers
-
-## React Testing Library와 DOM Testing Library의 관계는?
-
-### Official Answer
-React Testing Library builds on top of DOM Testing Library by adding APIs for working with React components.
-
-It provides light utility functions on top of react-dom and react-dom/test-utils, in a way that encourages better testing practices.
-
-This library is built on top of DOM Testing Library which is where most of the logic behind the queries is.
-
-> #### AI Annotation:
-> RTL은 DOM Testing Library를 래핑하여 React 컴포넌트 전용 API(render 등)를 추가한 얇은 층이다.
-> 쿼리(getByRole, getByText 등)의 핵심 로직은 DOM Testing Library에 있다.
-
-### Reference
-- https://github.com/testing-library/react-testing-library
-- https://testing-library.com/docs/dom-testing-library/intro
-
----
-
-## RTL은 컴포넌트의 무엇을 대상으로 테스트하는가?
-
-### Official Answer
-So rather than dealing with instances of rendered React components, your tests will work with actual DOM nodes.
-
-> #### AI Annotation:
-> RTL은 컴포넌트 인스턴스의 내부 상태(state)나 메서드가 아니라, 실제 렌더된 DOM 노드를 대상으로 테스트한다.
-> 이는 "사용자가 보는 것"에 가까운 테스트를 작성하도록 유도한다.
-
-### Reference
-- https://github.com/testing-library/react-testing-library
-
----
 
 ## RTL의 trade-offs는 무엇이며 simulated browser 환경의 한계는 무엇인가?
 
@@ -58,21 +23,6 @@ We are making some trade-offs here because we're using a computer and often a si
 
 ### Reference
 - https://github.com/testing-library/react-testing-library
-
----
-
-## 테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?
-
-### Official Answer
-We recommend using the Mock Service Worker (MSW) library to declaratively mock API communication in your tests instead of stubbing window.fetch, or relying on third-party adapters.
-
-> #### AI Annotation:
-> window.fetch를 stub하면 axios 같은 다른 HTTP 클라이언트를 쓸 때 깨지고, 네트워크 레벨이 아닌 함수 레벨에서 가로채므로 실제 요청 흐름과 달라진다.
-> MSW는 Service Worker로 네트워크 레벨에서 가로채므로 선언적이고, 클라이언트 구현에 독립적이다.
-
-### Reference
-- https://github.com/testing-library/react-testing-library
-- https://github.com/mswjs/msw
 
 ---
 
@@ -97,4 +47,19 @@ We recommend using the Mock Service Worker (MSW) library to declaratively mock A
 ### Reference
 - https://testing-library.com/docs/react-testing-library/api#render
 - https://testing-library.com/docs/dom-testing-library/api-events
+- https://testing-library.com/docs/react-testing-library/faq
+
+---
+
+## React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?
+
+### Official Answer
+Following the guiding principle of this library, it is useful to break down how tests are organized around how the user experiences and interacts with application functionality rather than around specific components themselves.
+In some cases, for example for reusable component libraries, it might be useful to include developers in the list of users to test for and test each of the reusable components individually.
+Other times, the specific break down of a component tree is just an implementation detail and testing every component within that tree individually can cause issues (see https://kentcdodds.com/blog/avoid-the-test-user).
+
+In practice this means that it is often preferable to test high enough up the component tree to simulate realistic user interactions.
+The question of whether it is worth additionally testing at a higher or lower level on top of this comes down to a question of tradeoffs and what will provide enough value for the cost (see https://kentcdodds.com/blog/unit-vs-integration-vs-e2e-tests on more info on different levels of testing).
+
+### Reference
 - https://testing-library.com/docs/react-testing-library/faq
