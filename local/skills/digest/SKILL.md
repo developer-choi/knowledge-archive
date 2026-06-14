@@ -15,7 +15,7 @@ argument-hint: ON [출처 URL] 또는 OFF
 - 영어 원문이 있으면 그대로 보존하여 Official Answer로 사용
 - **원문 합성 금지**: 여러 출처의 문장을 단어 단위로 짜깁기하여 새로운 문장을 만들지 않는다. 단, 서로 다른 출처의 원문 문장을 그대로 이어 붙이는 것은 허용한다.
 - **사용자가 직접 작성한 한글 메모**는 User Answer로 분류
-- **영어 원문 없이 한글만 제공된 경우**: User Answer로 작성. AI가 영어 Official Answer를 생성하지 않는다
+- **영어 원문 없이 한글만 제공된 경우**: User Answer로 작성한다 (AI의 OA 신규 생성 금지 — [content-format.md](../../contexts/content-format.md) 참고).
 
 ### 해설은 knowledge에 저장하지 않고, OFF 시 explained로 보낸다
 

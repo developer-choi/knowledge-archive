@@ -10,7 +10,7 @@ argument-hint: [PDF/MD 파일 경로]
 ## 원칙
 
 - **원문만 변환**: convert는 사용자가 작성한 원문을 Q&A 형식으로 재배치하는 작업이다. AI가 외부 지식을 검색·주입하지 않는다.
-- **Official Answer 신규 생성 금지**: AI가 Wikipedia/MDN 등에서 영문 원문을 WebFetch/WebSearch하여 `Official Answer`를 새로 구성하지 않는다. convert의 출력은 기본적으로 User Answer로만 구성된다.
+- **Official Answer 신규 생성 금지**: convert의 출력은 기본적으로 User Answer로만 구성된다. AI가 OA를 새로 구성하지 않는 공통 원칙은 [content-format.md](../../contexts/content-format.md)의 "AI의 OA 신규 생성 금지" 참고.
 - **사용자 필기에 없는 Q 추가 금지**: 사용자 필기에 등장하지 않는 개념·질문을 AI 판단으로 새로 만들지 않는다.
 - **변환 거부 조건**: 사실이 아니거나, 출처 불명확하거나, 회사 특정 정보는 변환을 거부한다.
 - **저작권 주의**: Getty Images 등 외부 이미지는 텍스트 설명으로 대체.
