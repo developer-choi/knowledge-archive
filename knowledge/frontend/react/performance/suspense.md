@@ -88,10 +88,12 @@ They include:
 - Lazy-loading component code with `lazy`
 - Reading the value of a cached Promise with `use`
 
-> #### User Annotation:
-> 위 목록에 추가로 두 가지가 더 있다.
-> - (async) server component 안에서 `await`해서 데이터를 가져오는 경우
-> - `useSuspenseQuery()`
+### User Answer
+위 목록에 추가로 두 가지가 더 있다.
+
+- (async) server component 안에서 `await`해서 데이터를 가져오는 경우
+
+- `useSuspenseQuery()`
 
 ### Reference
 - https://react.dev/reference/react/Suspense
@@ -124,10 +126,12 @@ Suspense **does not detect** when data is fetched inside an Effect or event hand
 
 With this change, displaying the Biography **doesn't need to "wait"** for the Albums to load.
 
-> #### User Annotation:
-> Albums가 suspend 되더라도 그 위 `<Suspense>`가 fallback이 됨.
-> 1. 바깥 Suspense가 Suspend 되려면 그 안의 컴포넌트들 중 하나 이상이 Suspend 되어야 하는데,
-> 2. `<Suspense>`가 어떻게 Suspend 될 수 있겠음. 불가능함.
+### User Answer
+Albums가 suspend 되더라도 그 위 `<Suspense>`가 fallback이 됨.
+
+1. 바깥 Suspense가 Suspend 되려면 그 안의 컴포넌트들 중 하나 이상이 Suspend 되어야 하는데,
+
+2. `<Suspense>`가 어떻게 Suspend 될 수 있겠음. 불가능함.
 
 ### Reference
 - https://react.dev/reference/react/Suspense
@@ -190,10 +194,12 @@ For any Client Components, hydration can happen concurrently with RSCs streaming
 
 If the user attempts to interact with a certain component, that component will be prioritized over the others.
 
-> #### User Annotation:
-> Suspense = 기다리는 동안 로딩을 보여주고 다 불러오면 children으로 대체하는 기능.
-> Streaming = 한 번에 다 보여주는 게 아니라 점진적으로 보여주는 기능.
-> Streaming 기능을 구현하려면 Suspense를 사용해야 한다.
+### User Answer
+Suspense = 기다리는 동안 로딩을 보여주고 다 불러오면 children으로 대체하는 기능.
+
+Streaming = 한 번에 다 보여주는 게 아니라 점진적으로 보여주는 기능.
+
+Streaming 기능을 구현하려면 Suspense를 사용해야 한다.
 
 ### Reference
 - https://react.dev/reference/react/Suspense
@@ -235,9 +241,10 @@ return (
 As in previous versions of React, you can also use Suspense for code splitting on the client with React.lazy.
 But our vision for Suspense has always been about much more than loading code — the goal is to extend support for Suspense so that eventually, the same declarative Suspense fallback can handle **any asynchronous operation (loading code, data, images, etc).**
 
-> #### User Annotation:
-> Suspense 자체는 Code Splitting을 해주는 기능이 아니다.
-> React.lazy()와 함께 쓰면 dynamic component 로딩 동안 fallback을 보여줄 수 있어 code splitting과 같이 활용할 수 있을 뿐이다.
+### User Answer
+Suspense 자체는 Code Splitting을 해주는 기능이 아니다.
+
+React.lazy()와 함께 쓰면 dynamic component 로딩 동안 fallback을 보여줄 수 있어 code splitting과 같이 활용할 수 있을 뿐이다.
 
 ### Reference
 - https://react.dev/reference/react/Suspense

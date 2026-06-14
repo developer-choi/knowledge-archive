@@ -37,7 +37,7 @@ const total = prices
   .reduce((sum, p) => sum + p, 0);
 ```
 
-User Annotation이 짚듯, FP와 OOP는 양자택일이 아니다. JS는 두 패러다임을 모두 지원하며, React 컴포넌트(클래스/함수), Redux reducer, Array methods(`map`, `filter`, `reduce`) 모두 FP 개념을 담고 있다.
+FP와 OOP는 양자택일이 아니다. JS는 두 패러다임을 모두 지원하며, React 컴포넌트(클래스/함수), Redux reducer, Array methods(`map`, `filter`, `reduce`) 모두 FP 개념을 담고 있다.
 
 ---
 
@@ -190,7 +190,7 @@ function updateOrderStatus(order, newStatus) {
 // 부수효과(db, logger)는 호출자에서 처리
 ```
 
-User Annotation이 짚듯, 이는 Fast Fail 원칙과 같은 방향이다 — 함수가 컨트롤할 수 있는 영역을 좁혀가면서 에러 가능성을 줄인다.
+이는 Fast Fail 원칙과 같은 방향이다 — 함수가 컨트롤할 수 있는 영역을 좁혀가면서 에러 가능성을 줄인다.
 
 ---
 

@@ -110,10 +110,6 @@ the updated version of the root "table" object should include the updated versio
 You can nest state as much as you like, but making it "flat" can solve numerous problems.
 It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
 
-> #### AI Annotation:
-> 핵심 효과: 트리 깊이와 무관하게 update 비용이 항상 2단계 복사 — `O(depth)`가 `O(1)`로 떨어진다.
-> "DB 정규화"는 비유가 아니라 실제 같은 알고리즘 — 행(row) = 평면 객체, primary key = id, foreign key = childIds.
-
 ### Reference
 - https://react.dev/learn/choosing-the-state-structure
 

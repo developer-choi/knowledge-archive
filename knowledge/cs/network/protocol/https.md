@@ -61,11 +61,6 @@ HTTP operates at the highest layer of the TCP/IP model—the application layer; 
 Strictly speaking, HTTPS is not a separate protocol, but refers to the use of ordinary HTTP over an encrypted SSL/TLS connection.
 HTTPS encrypts all message contents, including the HTTP headers and the request/response data.
 
-> #### AI Annotation:
-> TCP/IP 모델에는 별도의 보안 계층이 없으므로, TLS는 Application Layer 내부에서 HTTP 아래 sublayer로 동작한다.
-> 전송 전에 HTTP 메시지를 암호화하고, 수신 시 복호화하는 래핑 역할을 한다.
-> HTTP 자체의 요청/응답 구조는 변하지 않으며, 아래 채널만 암호화된다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -81,12 +76,6 @@ This ensures reasonable protection from eavesdroppers and man-in-the-middle atta
 HTTPS is designed to withstand such attacks and is considered secure against them (with the exception of HTTPS implementations that use deprecated versions of SSL).
 
 All major browsers began removing support for TLS 1.0 and 1.1 in early 2020; you'll need to make sure your web server supports TLS 1.2 or 1.3 going forward.
-
-> #### AI Annotation:
-> HTTPS의 3대 보안 목표:
-> - **Authentication(인증)**: 접속한 사이트가 진짜인지 확인 (피싱 방어)
-> - **Privacy(기밀성)**: 전송 중 데이터를 제3자가 엿볼 수 없도록
-> - **Integrity(무결성)**: 데이터가 전송 도중 변조되지 않았음을 보장
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -106,10 +95,6 @@ This certificate must be signed by a trusted certificate authority for the web b
 Let's Encrypt, launched in April 2016, provides free and automated service that delivers basic SSL/TLS certificates to websites.
 The majority of web hosts and cloud providers now leverage Let's Encrypt, providing free certificates to their customers.
 
-> #### AI Annotation:
-> trusted third party = CA(Certificate Authority, 인증 기관). CA가 서버의 디지털 인증서에 서명해야 브라우저가 신뢰한다.
-> 2016년 Let's Encrypt(무료 인증서 발급 서비스) 정식 출시로 비용 장벽이 사라졌고, 2018년 Chrome이 HTTP 사이트에 "Not Secure" 경고를 표시하면서 HTTPS가 웹의 기본이 되었다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -122,11 +107,6 @@ Because HTTPS piggybacks HTTP entirely on top of TLS, the entirety of the underl
 This includes the request's URL, query parameters, headers, and cookies (which often contain identifying information about the user).
 However, because website addresses and port numbers are necessarily part of the underlying TCP/IP protocols, HTTPS cannot protect their disclosure.
 In practice this means that even on a correctly configured web server, eavesdroppers can infer the IP address and port number of the web server, and sometimes even the domain name (e.g. www.example.org, but not the rest of the URL) that a user is communicating with, along with the amount of data transferred and the duration of the communication, though not the content of the communication.
-
-> #### AI Annotation:
-> 암호화되는 것: URL 경로, 쿼리 파라미터, 헤더, 쿠키 — HTTP 프로토콜 전체.
-> 보호하지 못하는 것: IP 주소, 포트 번호, 도메인명(SNI에서 평문 전송), 전송량, 통신 시간.
-> 비유: 편지 내용은 봉인되지만 봉투의 주소는 보인다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -142,11 +122,6 @@ This is the case with HTTP transactions over the Internet, where typically only 
 The system can also be used for client authentication in order to limit access to a web server to authorized users.
 To do this, the site administrator typically creates a certificate for each user, which the user loads into their browser.
 Normally, the certificate contains the name and e-mail address of the authorized user and is automatically checked by the server on each connection to verify the user's identity, potentially without even requiring a password.
-
-> #### AI Annotation:
-> 웹에서는 서버만 인증된다 — 브라우저가 서버의 인증서를 검사하여 신원을 확인한다.
-> 클라이언트(사용자)의 신원은 TLS 레벨이 아닌 애플리케이션 레벨(로그인, JWT 등)에서 처리한다.
-> 다만 위 OA처럼 클라이언트 인증서를 통한 mutual TLS(mTLS)도 가능하며, 마이크로서비스 간 통신에서 널리 쓰인다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -166,11 +141,6 @@ The website provides a valid certificate, which means it was signed by a trusted
 The certificate correctly identifies the website (e.g., when the browser visits "https://example.com", the received certificate is properly for "example.com" and not some other entity).
 The user trusts that the protocol's encryption layer (SSL/TLS) is sufficiently secure against eavesdroppers.
 
-> #### AI Annotation:
-> 신뢰 체인: 기기 무결성 → 브라우저 구현 → CA 신뢰 → 인증서 유효성 → 도메인 일치 → TLS 강도.
-> 이 중 하나라도 깨지면 HTTPS 연결 전체의 신뢰가 무너진다.
-> 실제 사례: 2011년 DigiNotar CA가 해킹당해 가짜 google.com 인증서가 발급된 사건 — 조건 3(CA 신뢰)이 깨진 케이스.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -184,10 +154,6 @@ Insecure networks, such as public Wi-Fi access points, allow anyone on the same 
 Additionally, some free-to-use and paid WLAN networks have been observed tampering with webpages by engaging in packet injection in order to serve their own ads on other websites.
 This practice can be exploited maliciously in many ways, such as by injecting malware onto webpages and stealing users' private information.
 
-> #### AI Annotation:
-> 공용 와이파이에서 HTTP 사이트에 로그인하면 비밀번호가 평문으로 날아간다.
-> 패킷 인젝션은 광고 삽입뿐 아니라 멀웨어 주입까지 가능하게 만든다 — HTTPS면 변조를 감지하여 차단한다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -197,10 +163,6 @@ This practice can be exploited maliciously in many ways, such as by injecting ma
 
 ### Official Answer
 Deploying HTTPS also allows the use of HTTP/2 and HTTP/3 (and their predecessors SPDY and QUIC), which are new HTTP versions designed to reduce page load times, size, and latency.
-
-> #### AI Annotation:
-> 브라우저들은 HTTP/2, HTTP/3를 HTTPS 연결에서만 지원한다.
-> 즉 HTTPS는 보안의 문제만이 아니라 멀티플렉싱, 헤더 압축, 서버 푸시 등 성능 최적화를 사용하기 위한 전제조건이다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -215,10 +177,6 @@ It is recommended to use HTTP Strict Transport Security (HSTS) with HTTPS to pro
 This type of attack defeats the security provided by HTTPS by changing the https: link into an http: link, taking advantage of the fact that few Internet users actually type "https" into their browser interface: they get to a secure site by clicking on a link, and thus are fooled into thinking that they are using HTTPS when in fact they are using HTTP.
 The attacker then communicates in clear with the client.
 
-> #### AI Annotation:
-> SSL stripping: 공격자가 클라이언트와 서버 사이에서 HTTPS 링크를 HTTP로 바꿔치기하는 공격. 사용자는 HTTP로 접속하고 있다는 사실을 모른 채 평문으로 통신하게 된다.
-> HSTS는 서버가 브라우저에 "이 사이트는 앞으로 HTTPS로만 접속하라"고 알려주는 메커니즘이다. 한 번 설정되면 브라우저가 HTTP 접속 자체를 거부하므로 SSL stripping이 불가능해진다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -229,10 +187,6 @@ The attacker then communicates in clear with the client.
 ### Official Answer
 The security of HTTPS is that of the underlying TLS, which typically uses long-term public and private keys to generate a short-term session key, which is then used to encrypt the data flow between the client and the server.
 X.509 certificates are used to authenticate the server (and sometimes the client as well).
-
-> #### AI Annotation:
-> 비대칭 키(공개/비밀 키, 느림)로 대칭 세션 키(빠름)를 안전하게 교환하고, 이후 데이터 암호화는 세션 키로 수행하는 하이브리드 방식이다.
-> X.509 인증서는 서버의 공개 키가 진짜인지 CA가 보증하는 역할을 한다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -249,11 +203,6 @@ Diffie–Hellman key exchange (DHE) and Elliptic-curve Diffie–Hellman key exch
 TLS 1.3, published in August 2018, dropped support for ciphers without forward secrecy.
 As of July 2023, 99.6% of web servers surveyed support some form of forward secrecy, and 75.2% will use forward secrecy with most browsers.
 
-> #### AI Annotation:
-> forward secrecy가 없으면: 공격자가 암호화된 트래픽을 녹화해두고, 나중에 서버 비밀키를 탈취하면 과거 통신을 전부 복호화할 수 있다.
-> forward secrecy가 있으면: 매 세션마다 고유한 일회성 키를 생성하므로, 장기 키가 유출되어도 과거 세션 키를 역추적할 수 없다.
-> TLS 1.3은 FS 없는 cipher를 아예 제거하여, TLS 1.3을 사용하면 FS가 자동으로 보장된다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -266,10 +215,6 @@ For HTTPS to be effective, a site must be completely hosted over HTTPS.
 If some of the site's contents are loaded over HTTP (scripts or images, for example), or if only a certain page that contains sensitive information, such as a log-in page, is loaded over HTTPS while the rest of the site is loaded over plain HTTP, the user will be vulnerable to attacks and surveillance.
 Additionally, cookies on a site served through HTTPS must have the secure attribute enabled.
 On a site that has sensitive information on it, the user and the session will get exposed every time that site is accessed with HTTP instead of HTTPS.
-
-> #### AI Annotation:
-> Mixed content 문제: 스크립트가 HTTP로 로드되면 공격자가 스크립트를 변조하여 HTTPS 페이지의 데이터를 탈취할 수 있다.
-> 쿠키의 `Secure` 속성이 없으면 HTTP 연결에서도 쿠키가 전송되어, HTTPS로 보호한 세션 정보가 평문으로 노출된다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
@@ -284,11 +229,6 @@ The browser sends the certificate's serial number to the certificate authority o
 The CA may also issue a CRL to tell people that these certificates are revoked.
 CRLs are no longer required by the CA/Browser forum, nevertheless, they are still widely used by the CAs.
 
-> #### AI Annotation:
-> OCSP: 인증서 시리얼 번호를 CA에 보내 실시간으로 1건씩 유효 여부를 조회하는 프로토콜.
-> CRL(Certificate Revocation List): CA가 발행하는 폐지된 인증서 목록으로, 전체를 한 번에 다운로드하는 방식.
-> 실무에서는 두 방식이 병행되며, OCSP Stapling으로 서버가 미리 OCSP 응답을 캐시하여 성능 부담을 줄이기도 한다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS
 
@@ -300,11 +240,6 @@ CRLs are no longer required by the CA/Browser forum, nevertheless, they are stil
 Because TLS operates at a protocol level below that of HTTP and has no knowledge of the higher-level protocols, TLS servers can only strictly present one certificate for a particular address and port combination.
 In the past, this meant that it was not feasible to use name-based virtual hosting with HTTPS.
 A solution called Server Name Indication (SNI) exists, which sends the hostname to the server before encrypting the connection, although older browsers do not support this extension.
-
-> #### AI Annotation:
-> TLS 핸드셰이크는 HTTP 요청보다 먼저 일어나므로, 서버는 클라이언트가 어떤 도메인에 접속하려는지 알 수 없다.
-> SNI는 TLS ClientHello 메시지에 호스트명을 평문으로 포함시켜 서버가 올바른 인증서를 선택하게 한다.
-> 이것이 HTTPS에서도 도메인명이 보호되지 않는 근본적 이유다 — 암호화 전에 호스트명을 보내야 하기 때문이다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTPS

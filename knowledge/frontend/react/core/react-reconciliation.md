@@ -29,8 +29,8 @@ If we used this in React, displaying 1000 elements would require in the order of
 1. Two elements of different types will produce different trees.
 2. The developer can hint at which child elements may be stable across different renders with a key prop.
 
-> #### User Annotation:
-> 변경된 부분만 "빠르게" 찾는 것. React는 이것을 "빠르게" 찾기 위해 2가지 가정을 했음.
+### User Answer
+변경된 부분만 "빠르게" 찾는 것. React는 이것을 "빠르게" 찾기 위해 2가지 가정을 했음.
 
 ### Reference
 - https://reactjs.org/docs/reconciliation.html
@@ -46,11 +46,6 @@ Instead, React implements a heuristic O(n) algorithm based on two assumptions:
 2. The developer can hint at which child elements may be stable across different renders with a key prop.
 
 In practice, these assumptions are valid for almost all practical use cases.
-
-> #### AI Annotation:
-> 두 가정이 깨졌을 때 발생하는 비효율 예시:
-> - 가정 1 위반: 같은 내용을 보여주는데 부모 태그를 `<div>` ↔ `<span>`으로 바꾸면, React는 다른 트리로 보고 전부 unmount → remount → state 손실.
-> - 가정 2 위반: `key={Math.random()}` 같이 매 렌더마다 바뀌는 key를 쓰면, 같은 항목인데도 React가 다른 항목으로 인식해 재생성.
 
 ### Reference
 - https://legacy.reactjs.org/docs/reconciliation.html

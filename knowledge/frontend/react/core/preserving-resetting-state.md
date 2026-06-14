@@ -35,10 +35,6 @@ When you give a component state, you might think the state "lives" inside the co
 But the state is actually held inside React.
 React associates each piece of state it's holding with the correct component by where that component sits in the render tree.
 
-> #### AI Annotation:
-> 이 멘탈 모델 정정이 중요한 실무적 이유: 컴포넌트 함수는 매 렌더마다 새로 호출되어 로컬 변수도 새로 만들어진다. 그런데도 `useState`로 선언한 값이 직전 값을 기억하는 건, React가 트리 위치를 키로 직전 state를 다시 꽂아주기 때문.
-> "위치가 식별자"라는 사고를 잡아두면 이후 동작들이 한 줄로 설명된다 — 형제 카운터 격리(위치가 다름), 조건부 렌더링 시 state 소실(위치가 비워짐), key/타입 변경 시 reset(같은 위치라도 식별자가 달라짐).
-
 ### Reference
 - https://react.dev/learn/preserving-and-resetting-state
 

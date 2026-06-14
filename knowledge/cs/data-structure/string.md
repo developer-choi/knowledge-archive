@@ -33,11 +33,11 @@ A string is a sequence of characters.
 Strings are typically immutable in most of the programming languages like Java, Python and JavaScript.
 In Python, Java and JavaScript, strings are immutable.
 
-> #### User Annotation:
-> name = 'Another' 하더라도, 기존 'Hello'가 저장된 메모리 주소로 접근해서 저 값으로 바꾸는게 아님.
-> array = [1,2,3,4,5] 하는거랑 똑같이 동작함.
-> 문자열에 특정 문자를 insert / delete 하는것도, 기존 문자열을 수정하는 게 아니라 새로운 문자열을 생성하는 것임.
-> (원문: "This operation usually involves creating a new string without the specified character.")
+### User Answer
+name = 'Another' 하더라도, 기존 'Hello'가 저장된 메모리 주소로 접근해서 저 값으로 바꾸는게 아님.
+array = [1,2,3,4,5] 하는거랑 똑같이 동작함.
+문자열에 특정 문자를 insert / delete 하는것도, 기존 문자열을 수정하는 게 아니라 새로운 문자열을 생성하는 것임.
+(원문: "This operation usually involves creating a new string without the specified character.")
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/introduction-to-strings-data-structure-and-algorithm-tutorials/
@@ -75,9 +75,9 @@ Linked List는 이게 안됨.
 ### Official Answer
 The length of a string refers to the total number of characters present in it, including letters, digits, spaces, and special characters.
 
-> #### User Annotation:
-> C언어의 strlen()은 문자열의 끝을 알리는 \0을 만날 때까지 문자를 하나하나 세기 때문에 O(N)의 시간이 걸린다.
-> 반면, JavaScript, Java, Python 등 현대 언어들은 문자열 객체 내부에 '길이' 값을 별도로 저장하고 있으므로 .length에 접근하는 것은 O(1)(상수 시간)이다.
+### User Answer
+C언어의 strlen()은 문자열의 끝을 알리는 \0을 만날 때까지 문자를 하나하나 세기 때문에 O(N)의 시간이 걸린다.
+반면, JavaScript, Java, Python 등 현대 언어들은 문자열 객체 내부에 '길이' 값을 별도로 저장하고 있으므로 .length에 접근하는 것은 O(1)(상수 시간)이다.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/introduction-to-strings-data-structure-and-algorithm-tutorials/

@@ -31,9 +31,6 @@ priority:
 A thread is the smallest sequence of programmed instructions that can be managed independently by a scheduler.
 In many cases, a thread is a component of a process.
 
-> #### AI Annotation:
-> 프로세스 = 자원의 단위(메모리, 파일 핸들 등), 스레드 = 실행의 단위(CPU 스케줄링).
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -44,10 +41,6 @@ In many cases, a thread is a component of a process.
 ### Official Answer
 The multiple threads of a given process may be executed concurrently (via multithreading capabilities), sharing resources such as memory, while different processes do not share these resources.
 In particular, the threads of a process share its executable code and the values of its dynamically allocated variables and global variables at any given time.
-
-> #### AI Annotation:
-> 독립 영역 = 스택 + thread-local 변수 (OA에 명시 없음; 스택은 스레드마다 별도 콜 스택을 가짐).
-> JS의 Web Worker는 기본적으로 메모리를 공유하지 않아서 `SharedArrayBuffer`를 명시적으로 사용해야 하지만, 네이티브 스레드는 기본이 공유다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -64,9 +57,6 @@ If these do not share data, as in Erlang, they are usually analogously called pr
 
 As user thread implementations are typically entirely in userspace, context switching between user threads within the same process is extremely efficient because it does not require any interaction with the kernel at all.
 
-> #### AI Annotation:
-> Node.js의 이벤트 루프, Go의 goroutine이 유저 수준 스케줄링의 예.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -77,9 +67,6 @@ As user thread implementations are typically entirely in userspace, context swit
 ### Official Answer
 Kernel threads do not own resources except for a stack, a copy of the registers including the program counter, and thread-local storage (if any), and are thus relatively cheap to create and destroy.
 Thread switching is also relatively cheap: it requires a context switch (saving and restoring registers and stack pointer), but does not change virtual memory and is thus cache-friendly (leaving TLB valid).
-
-> #### AI Annotation:
-> 프로세스 생성 = 주소 공간·파일 디스크립터·PCB 전부 새로 할당해야 하므로 비쌈.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -94,11 +81,6 @@ If a user thread or a fiber performs a system call that blocks, the other user t
 A common solution to this problem (used, in particular, by many green threads implementations) is providing an I/O API that implements an interface that blocks the calling thread, rather than the entire process, by using non-blocking I/O internally, and scheduling another user thread or fiber while the I/O operation is in progress.
 Alternatively, the program can be written to avoid the use of synchronous I/O or other blocking system calls (in particular, using non-blocking I/O, including lambda continuations and/or async/await primitives).
 
-> #### AI Annotation:
-> 커널은 유저 스레드의 존재를 모르기 때문에, 하나가 블로킹 시스템 콜을 하면 커널 입장에서 프로세스 전체를 블로킹시킨다.
-> Node.js는 libuv를 통해 내부적으로 논블로킹 I/O를 사용하고, I/O 완료를 기다리는 동안 이벤트 루프가 다른 콜백을 처리한다.
-> `async/await`도 같은 원리의 문법적 추상화.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -110,11 +92,6 @@ Alternatively, the program can be written to avoid the use of synchronous I/O or
 A process is a heavyweight unit of kernel scheduling, as creating, destroying, and switching processes is relatively expensive.
 Processes are typically preemptively multitasked, and process switching is relatively expensive, beyond basic cost of context switching, due to issues such as cache flushing (in particular, process switching changes virtual memory addressing, causing invalidation and thus flushing of an untagged translation lookaside buffer (TLB), notably on x86).
 
-> #### AI Annotation:
-> TLB = 가상 주소 → 물리 주소 변환을 캐싱하는 하드웨어 캐시.
-> 프로세스 전환 = 집을 옮기는 것(주소 공간 바뀜 → TLB 전체 무효화).
-> 스레드 전환 = 같은 집에서 방만 바꾸는 것(주소 공간 유지 → TLB 유효).
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -124,10 +101,6 @@ Processes are typically preemptively multitasked, and process switching is relat
 
 ### Official Answer
 Thread crashes a process: due to threads sharing the same address space, an illegal operation performed by a thread can crash the entire process; therefore, one misbehaving thread can disrupt the processing of all the other threads in the application.
-
-> #### AI Annotation:
-> Chrome의 멀티프로세스 아키텍처 — 탭마다 별도 프로세스이므로 한 탭이 크래시해도 다른 탭에 영향 없음.
-> 스레드의 공유 모델(빠르고 가벼움)과 프로세스의 격리 모델(안전함) 사이의 트레이드오프.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -140,9 +113,6 @@ Thread crashes a process: due to threads sharing the same address space, an ille
 Threads created by the user in a 1:1 correspondence with schedulable entities in the kernel are the simplest possible threading implementation.
 OS/2 and Win32 used this approach from the start, while on Linux the GNU C Library implements this approach (via the NPTL or older LinuxThreads).
 This approach is also used by Solaris, NetBSD, FreeBSD, macOS, and iOS.
-
-> #### AI Annotation:
-> 단순하고, 멀티코어를 자연스럽게 활용 가능.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -169,9 +139,6 @@ This is a compromise between kernel-level ("1:1") and user-level ("N:1") threadi
 In the M:N implementation, the threading library is responsible for scheduling user threads on the available schedulable entities; this makes context switching of threads very fast, as it avoids system calls.
 However, this increases complexity and the likelihood of priority inversion, as well as suboptimal scheduling without extensive (and expensive) coordination between the userland scheduler and the kernel scheduler.
 
-> #### AI Annotation:
-> Go의 goroutine이 M:N 모델의 대표 사례: 수천 개의 goroutine을 소수의 OS 스레드에 매핑.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -184,10 +151,6 @@ When shared between threads, however, even simple data structures become prone t
 Bugs caused by race conditions can be very difficult to reproduce and isolate.
 To prevent this, threading application programming interfaces (APIs) offer synchronization primitives such as mutexes to lock data structures against concurrent access.
 
-> #### AI Annotation:
-> `count++`조차 read → increment → write 3단계라 중간에 다른 스레드가 끼면 값이 꼬인다.
-> JS는 싱글스레드라 기본적으로 이 문제가 없지만, SharedArrayBuffer + Worker 사용 시 `Atomics` API로 동기화가 필요하다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -199,10 +162,6 @@ To prevent this, threading application programming interfaces (APIs) offer synch
 A popular programming pattern involving threads is that of thread pools where a set number of threads are created at startup that then wait for a task to be assigned.
 When a new task arrives, it wakes up, completes the task and goes back to waiting.
 This avoids the relatively expensive thread creation and destruction functions for every task performed and takes thread management out of the application developer's hand and leaves it to a library or the operating system that is better suited to optimize thread management.
-
-> #### AI Annotation:
-> Node.js의 libuv가 기본 4개의 스레드 풀로 fs, DNS, 암호화 등 블로킹 작업을 처리한다.
-> `UV_THREADPOOL_SIZE` 환경변수로 조정 가능.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -217,12 +176,6 @@ In a one-thread program, if the main execution thread blocks on a long-running t
 By moving such long-running tasks to a worker thread that runs concurrently with the main execution thread, it is possible for the application to remain responsive to user input while executing tasks in the background.
 On the other hand, in most cases multithreading is not the only way to keep a program responsive, with non-blocking I/O and/or Unix signals being available for obtaining similar results.
 
-> #### AI Annotation:
-> 브라우저에서 CPU 집약 작업 → Web Worker로 분리.
-> I/O 집약 작업 → `fetch`/`async-await`로 논블로킹 처리.
-> 둘 다 메인 스레드 블로킹을 피하는 방법이지만 메커니즘이 다르다.
-> Node.js가 싱글스레드이면서도 응답성이 좋은 이유 — 논블로킹 I/O + 이벤트 루프.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
 
@@ -234,9 +187,6 @@ On the other hand, in most cases multithreading is not the only way to keep a pr
 Being untestable: In general, multithreaded programs are non-deterministic, and as a result, are untestable.
 In other words, a multithreaded program can easily have bugs which never manifest on a test system, manifesting only in production.
 This can be alleviated by restricting inter-thread communications to certain well-defined patterns (such as message-passing).
-
-> #### AI Annotation:
-> Web Worker의 `postMessage`, Erlang의 액터 모델이 메시지 패싱 패턴의 실례.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)
@@ -250,9 +200,6 @@ A few interpreted programming languages have implementations (e.g., Ruby MRI for
 The GIL is a mutual exclusion lock held by the interpreter that can prevent the interpreter from simultaneously interpreting the application's code on two or more threads at once.
 This effectively limits the parallelism on multiple core systems.
 It also limits performance for processor-bound threads (which require the processor), but doesn't effect I/O-bound or network-bound ones as much.
-
-> #### AI Annotation:
-> Node.js도 싱글스레드이지만 GIL과는 다르다 — Node.js는 설계상 싱글스레드이고, CPython은 멀티스레드를 지원하되 GIL로 인해 사실상 싱글스레드처럼 동작한다는 차이.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Thread_(computing)

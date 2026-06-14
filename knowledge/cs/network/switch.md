@@ -58,13 +58,5 @@ A forwarding information base (FIB), also known as a forwarding table or MAC (ad
 FIBs are optimized for fast lookup of destination addresses and can improve performance of forwarding compared to using the routing information base (RIB) directly.
 The RIB is optimized for efficient updating by routing protocols and other control plane methods, and contain the full set of routes learned by the router.
 
-> #### AI Annotation:
-> | | 라우터 라우팅 테이블 (RIB) | 스위치 MAC 주소 테이블 (FIB) |
-> |---|---|---|
-> | **계층** | L3 (IP) | L2 (MAC) |
-> | **매핑** | 목적지 IP → 다음 홉/출력 인터페이스 | MAC 주소 → 포트 |
-> | **구축 방식** | 라우팅 프로토콜(OSPF, BGP) 또는 정적 설정 | 트래픽의 source MAC을 관찰하여 자동 학습 |
-> | **FIB 관계** | 별도 FIB로 복제하여 포워딩 성능 최적화 | 테이블 자체가 곧 FIB |
-
 ### Reference
 - https://en.wikipedia.org/wiki/Forwarding_information_base

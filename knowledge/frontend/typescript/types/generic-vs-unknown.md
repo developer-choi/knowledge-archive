@@ -22,14 +22,6 @@ This allows users to consume these components and use their own types.
 
 This allows us to traffic that type information in one side of the function and out the other.
 
-> #### AI Annotation:
-> 다음과 같이 타입별로 함수를 여러 개 만들지 않기 위해 사용합니다.
-> ```typescript
-> converter(value: number): number
-> converter(value: string): string
-> converter(value: boolean): boolean
-> ```
-
 Let’s say that we’ve actually intended this function to work on arrays of Type rather than Type directly.
 
 Since we’re working with arrays, the .length member should be available.
@@ -51,10 +43,12 @@ function loggingIdentity<Type>(arg: Type[]): Type[] {
 }
 ```
 
-> #### User Annotation:
-> - 제네릭은 아무 타입이나 다 받기위해 쓰는것 외에도,
-> - 최소조건을 설정할 때 쓸 수 있다. (최소한 배열 형태여야 한다 등)
-> - (extends 문법으로도 이걸 달성가능)
+### User Answer
+- 제네릭은 아무 타입이나 다 받기위해 쓰는것 외에도,
+
+- 최소조건을 설정할 때 쓸 수 있다. (최소한 배열 형태여야 한다 등)
+
+- (extends 문법으로도 이걸 달성가능)
 
 ### Reference
 - https://www.typescriptlang.org/docs/handbook/2/generics.html

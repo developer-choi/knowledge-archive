@@ -41,10 +41,6 @@ These aspects of domain-driven design aim to foster a common language shared by 
 The ubiquitous language is used in the domain model and for describing system requirements.
 Ubiquitous language is one of the pillars of DDD together with strategic design and tactical design.
 
-> #### AI Annotation:
-> 코드의 클래스명, 메서드명뿐 아니라 기획서, 회의, 요구사항 문서까지 모두 같은 용어를 쓰는 것이 목표다.
-> 예: 대출 심사 시스템이라면 코드에 `LoanApplication`, `acceptOffer()` 같은 이름을 쓰고, 기획서에서도 "대출 신청", "오퍼 승인"이라는 동일한 용어를 사용한다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Domain-driven_design
 
@@ -75,10 +71,6 @@ In this context, a car is an aggregate of several other objects (the engine, the
 Models can also define events (something that happened in the past).
 A domain event is an event that domain experts care about.
 
-> #### AI Annotation:
-> 외부에서 루트만 참조하도록 제한하는 이유: 내부 객체를 직접 수정하면 루트가 일관성 검사를 할 수 없게 된다.
-> 모든 변경을 루트를 통해서만 수행해야 비즈니스 규칙 위반을 방지할 수 있다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Domain-driven_design
 
@@ -89,10 +81,6 @@ A domain event is an event that domain experts care about.
 ### Official Answer
 Critics of domain-driven design argue that developers must typically implement a great deal of isolation and encapsulation to maintain the model as a pure and helpful construct.
 While domain-driven design provides benefits such as maintainability, Microsoft recommends it only for complex domains where the model provides clear benefits in formulating a common understanding of the domain.
-
-> #### AI Annotation:
-> 답은 아니다.
-> 단순한 CRUD 앱에 DDD를 적용하면, 도메인 모델을 인프라(DB, HTTP)로부터 격리하는 보일러플레이트 비용이 얻는 이점보다 크다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Domain-driven_design

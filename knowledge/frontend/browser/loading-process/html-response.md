@@ -20,9 +20,9 @@ The first step in building a website that loads quickly is to receive a timely r
 Reducing the time spent on each step gives you a faster Time to First Byte (TTFB).
 While TTFB is not the sole metric you should focus on when it comes to how fast pages load, a high TTFB does make it challenging to reach the designated "good" thresholds for metrics such as Largest Contentful Paint (LCP) and First Contentful Paint (FCP).
 
-> #### User Annotation:
-> 웹페이지 성능개선 첫단추는 HTML 빨리 받는 것.
-> 이걸 빨리 못 받으면 이후 모든 절차가 전부 다 소용이 없음.
+### User Answer
+웹페이지 성능개선 첫단추는 HTML 빨리 받는 것.
+이걸 빨리 못 받으면 이후 모든 절차가 전부 다 소용이 없음.
 
 ### Reference
 - https://web.dev/learn/performance/general-html-performance

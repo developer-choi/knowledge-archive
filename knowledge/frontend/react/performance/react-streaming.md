@@ -26,8 +26,8 @@ Streaming is a **data transfer technique** that allows you to break down a route
 
 Streaming works well with React's component model, as each component can be considered a chunk.
 
-> #### User Annotation:
-> 가만 보니 정말로 컴포넌트 단위로 스트리밍하는 게 맞는 말이다.
+### User Answer
+가만 보니 정말로 컴포넌트 단위로 스트리밍하는 게 맞는 말이다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
@@ -44,13 +44,16 @@ This allows the user to see and interact with parts of the page without waiting 
 To prevent client to server waterfalls, dynamic components begin streaming from the server in parallel while serving the initial prerender.
 This ensures dynamic components can begin rendering before client JavaScript has been loaded in the browser.
 
-> #### User Annotation:
-> SSR에서 API 여러 개 호출할 때 하나라도 느리면 전체 페이지 로딩이 느려지는 문제를 해결한다.
-> Server Side에서 API를 호출하는데도 불구하고
-> 1. 나머지 로딩이 완료된 부분이 화면에 보이게 되고,
-> 2. 상호작용까지 가능하다.
->
-> 또 하나, 메인 컨텐츠는 SSR, 서브 컨텐츠는 CSR을 하던 구조에서 CSR 입장에서는 SSR이 완료되어야 호출을 시작할 수 있었는데, 이제는 처음부터 가능하다.
+### User Answer
+SSR에서 API 여러 개 호출할 때 하나라도 느리면 전체 페이지 로딩이 느려지는 문제를 해결한다.
+
+Server Side에서 API를 호출하는데도 불구하고
+
+1. 나머지 로딩이 완료된 부분이 화면에 보이게 되고,
+
+2. 상호작용까지 가능하다.
+
+또 하나, 메인 컨텐츠는 SSR, 서브 컨텐츠는 CSR을 하던 구조에서 CSR 입장에서는 SSR이 완료되어야 호출을 시작할 수 있었는데, 이제는 처음부터 가능하다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
@@ -116,10 +119,12 @@ Since streaming is server-rendered, it **does not impact SEO**.
 
 You can use the Rich Results Test tool from Google to see how your page appears to Google's web crawlers and view the serialized HTML.
 
-> #### User Annotation:
-> SEO에 영향을 안 준다는 거지, SEO를 못한다는 소리가 아니다.
-> 당연히 streaming으로 100만 년 걸리는 컨텐츠를 로딩하고 있으면 구글봇이 못 보는 것은 똑같다.
-> 그래서 구글봇이 우리 화면을 어떻게 보는지 Rich Results Test로 확인하라는 안내가 있는 것이다.
+### User Answer
+SEO에 영향을 안 준다는 거지, SEO를 못한다는 소리가 아니다.
+
+당연히 streaming으로 100만 년 걸리는 컨텐츠를 로딩하고 있으면 구글봇이 못 보는 것은 똑같다.
+
+그래서 구글봇이 우리 화면을 어떻게 보는지 Rich Results Test로 확인하라는 안내가 있는 것이다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming
@@ -132,8 +137,8 @@ You can use the Rich Results Test tool from Google to see how your page appears 
 Next.js will wait for data fetching inside `generateMetadata` to complete before streaming UI to the client.
 This guarantees the first part of a streamed response includes `<head>` tags.
 
-> #### User Annotation:
-> 이거 때문에 `generateMetadata()` 쓰면 페이지 로딩 자체가 블로킹된다.
+### User Answer
+이거 때문에 `generateMetadata()` 쓰면 페이지 로딩 자체가 블로킹된다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming

@@ -36,9 +36,6 @@ Temporal locality is a special case of spatial locality, namely when the prospec
 
 In this case it is common to make efforts to store a copy of the referenced data in faster memory storage, to reduce the latency of subsequent references.
 
-> #### AI Annotation:
-> for 루프의 카운터 변수 `i`는 매 반복마다 읽고 쓰므로 temporal locality가 매우 높은 대표적 예시다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Locality_of_reference
 
@@ -48,10 +45,6 @@ In this case it is common to make efforts to store a copy of the referenced data
 
 ### Official Answer
 Spatial locality (also termed data locality) refers to the use of data elements within relatively close storage locations.
-
-> #### AI Annotation:
-> 배열 순회 시 `arr[0]`을 읽으면 `arr[1]`, `arr[2]`도 곧 읽을 가능성이 높다.
-> CPU는 이를 이용해 cache line 단위(보통 64바이트)로 인접 데이터를 함께 가져온다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Locality_of_reference

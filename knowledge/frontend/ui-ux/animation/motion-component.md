@@ -65,11 +65,6 @@ But you also gain access to powerful animation APIs like the `animate`, `layout`
 />
 ```
 
-> #### AI Annotation:
-> 선언적 API가 핵심이다.
-> "어떻게 애니메이션할지"가 아니라 "어떤 상태가 되어야 하는지"만 기술하면 Motion이 알아서 보간한다.
-> 기존 HTML 엘리먼트의 drop-in replacement이므로, `<div>`를 `<motion.div>`로 바꾸기만 하면 애니메이션 기능이 추가된다.
-
 ### Reference
 - https://motion.dev/docs/react-motion-component
 
@@ -96,40 +91,58 @@ useEffect(() => {
 return <motion.div style={{ x }} />
 ```
 
-> #### AI Annotation:
-> 일반적으로 React에서 애니메이션하려면 `setState`로 값을 바꾸고 → 리렌더하고 → DOM에 반영하는 사이클을 매 프레임 반복해야 한다.
-> Motion은 이 경로를 건너뛰고 DOM을 직접 조작한다.
-> `useMotionValue`는 React state 바깥에서 값을 관리하므로, `x.set(100)`을 호출해도 컴포넌트가 리렌더되지 않는다.
+### User Answer
+`useMotionValue`는 `useState`와 역할이 같다 — 값을 저장하고 변경을 추적한다.
 
-> #### User Annotation:
-> `useMotionValue`는 `useState`와 역할이 같다 — 값을 저장하고 변경을 추적한다.
-> 차이는 값이 바뀔 때 리렌더가 발생하느냐 뿐이다.
-> `animate()`는 내부적으로 `.set()`을 매 프레임(~16ms)마다 호출해서 값을 조금씩 바꾸는 것이다:
-> ```
-> 0ms:   pan.set(0)
-> 16ms:  pan.set(0.05)
-> 32ms:  pan.set(0.12)
-> ...
-> 300ms: pan.set(1)
-> ```
-> FullScreenOverlay에서 드래그 중 `pan`, `dimOpacity`, `dragScale`, `dragRadius` 4개 값이 매 프레임 바뀌는데, `useState`로 하면 초당 240번 리렌더가 발생한다.
->
-> 연습 예제 — 버튼으로 명령형 animate() 호출:
-> ```tsx
-> const opacity = useMotionValue(0);
->
-> return (
->   <>
->     <motion.div style={{ width: 200, height: 200, background: '#3366ff', opacity }} />
->     <button onClick={() => animate(opacity, 1, { type: 'tween', duration: 0.3, ease: 'easeOut' })}>
->       fadeIn
->     </button>
->     <button onClick={() => animate(opacity, 0, { type: 'tween', duration: 0.3, ease: 'easeOut' })}>
->       fadeOut
->     </button>
->   </>
-> );
-> ```
+차이는 값이 바뀔 때 리렌더가 발생하느냐 뿐이다.
+
+`animate()`는 내부적으로 `.set()`을 매 프레임(~16ms)마다 호출해서 값을 조금씩 바꾸는 것이다:
+
+```
+
+0ms:   pan.set(0)
+
+16ms:  pan.set(0.05)
+
+32ms:  pan.set(0.12)
+
+...
+
+300ms: pan.set(1)
+
+```
+
+FullScreenOverlay에서 드래그 중 `pan`, `dimOpacity`, `dragScale`, `dragRadius` 4개 값이 매 프레임 바뀌는데, `useState`로 하면 초당 240번 리렌더가 발생한다.
+
+연습 예제 — 버튼으로 명령형 animate() 호출:
+
+```tsx
+
+const opacity = useMotionValue(0);
+
+return (
+
+  <>
+
+    <motion.div style={{ width: 200, height: 200, background: '#3366ff', opacity }} />
+
+    <button onClick={() => animate(opacity, 1, { type: 'tween', duration: 0.3, ease: 'easeOut' })}>
+
+      fadeIn
+
+    </button>
+
+    <button onClick={() => animate(opacity, 0, { type: 'tween', duration: 0.3, ease: 'easeOut' })}>
+
+      fadeOut
+
+    </button>
+
+  </>
+
+);
+
+```
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
@@ -150,41 +163,58 @@ But you also gain access to powerful animation APIs like the `animate`, `layout`
 />
 ```
 
-> #### AI Annotation:
-> 일반 CSS에서는 `transform: translateX(100px) rotate(45deg)`를 하나의 문자열로 합성해야 한다.
-> motion의 style은 `x`, `rotate`, `scale` 같은 transform 속성을 독립적으로 제어할 수 있다.
-> 또한 `useMotionValue`로 생성한 motion value를 style에 직접 전달하면 리렌더 없이 값이 업데이트된다.
+### User Answer
+`style={{ y }}`는 MotionValue를 DOM에 **바인딩**하는 것이다. "미러링"(양방향 동기화)이 아니라 단방향 파이프라인:
 
-> #### User Annotation:
-> `style={{ y }}`는 MotionValue를 DOM에 **바인딩**하는 것이다. "미러링"(양방향 동기화)이 아니라 단방향 파이프라인:
-> ```
-> drag="y" ──.set()──→ y (MotionValue) ──style={{ y }}──→ DOM
-> ```
-> `drag="y"`가 드래그할 때 y MotionValue에 `.set()`을 호출하고, `style={{ y }}`가 그 값을 DOM에 반영한다.
-> `style={{ y }}`가 없으면 motion이 내부적으로 자체 값을 만들어서 쓰고, 우리는 그 값에 접근할 수 없다.
->
-> 연습 예제 — drag가 MotionValue에 .set()하고 style이 DOM에 반영하는 과정 체감:
-> ```tsx
-> const y = useMotionValue(0);
->
-> const handleDragEnd = () => {
->   if (y.get() > 150) {
->     animate(y, 300, { type: 'tween', duration: 0.3 });   // dismiss
->   } else {
->     animate(y, 0, { type: 'spring', stiffness: 400, damping: 40 }); // snap-back
->   }
-> };
->
-> return (
->   <motion.div
->     drag="y"
->     dragConstraints={{ top: 0, bottom: 300 }}
->     dragElastic={0}
->     onDragEnd={handleDragEnd}
->     style={{ width: 200, height: 200, background: '#cc3333', cursor: 'grab', y }}
->   />
-> );
-> ```
+```
+
+drag="y" ──.set()──→ y (MotionValue) ──style={{ y }}──→ DOM
+
+```
+
+`drag="y"`가 드래그할 때 y MotionValue에 `.set()`을 호출하고, `style={{ y }}`가 그 값을 DOM에 반영한다.
+
+`style={{ y }}`가 없으면 motion이 내부적으로 자체 값을 만들어서 쓰고, 우리는 그 값에 접근할 수 없다.
+
+연습 예제 — drag가 MotionValue에 .set()하고 style이 DOM에 반영하는 과정 체감:
+
+```tsx
+
+const y = useMotionValue(0);
+
+const handleDragEnd = () => {
+
+  if (y.get() > 150) {
+
+    animate(y, 300, { type: 'tween', duration: 0.3 });   // dismiss
+
+  } else {
+
+    animate(y, 0, { type: 'spring', stiffness: 400, damping: 40 }); // snap-back
+
+  }
+
+};
+
+return (
+
+  <motion.div
+
+    drag="y"
+
+    dragConstraints={{ top: 0, bottom: 300 }}
+
+    dragElastic={0}
+
+    onDragEnd={handleDragEnd}
+
+    style={{ width: 200, height: 200, background: '#cc3333', cursor: 'grab', y }}
+
+  />
+
+);
+
+```
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
@@ -201,10 +231,6 @@ But you also gain access to powerful animation APIs like the `animate`, `layout`
 <motion.div initial={false} animate={{ x: 100 }} />
 ```
 
-> #### AI Annotation:
-> `initial={false}`를 설정하면 진입 애니메이션을 건너뛰고 `animate` 값을 초기 상태로 사용한다.
-> 서버에서 이미 `translateX(100px)`가 적용된 HTML이 나오므로, 클라이언트 hydration 후 깜빡임(flash)이 없다.
-
 ### Reference
 - https://motion.dev/docs/react-motion-component
 
@@ -219,10 +245,6 @@ But you also gain access to powerful animation APIs like the `animate`, `layout`
 
 `exit` — A target to animate to when a component is removed from the tree.
 Can be set either as an animation target, or variant.
-
-> #### AI Annotation:
-> 마운트 시 `initial` 상태에서 `animate` 상태로 전환되고, `animate` 값이 변경되면 자동으로 이전 값에서 새 값으로 애니메이션된다.
-> 언마운트 시에는 `exit`에 정의된 상태로 애니메이션한 뒤 DOM에서 제거된다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
@@ -270,11 +292,6 @@ Or when children in a list are added/removed:
 
 Direct children must each have a unique key prop so `AnimatePresence` can track their presence in the tree.
 
-> #### AI Annotation:
-> React는 컴포넌트가 unmount되면 즉시 DOM에서 제거한다.
-> AnimatePresence는 이 동작을 가로채서 exit 애니메이션이 끝날 때까지 DOM 제거를 지연시킨다.
-> 세 가지 감지 패턴 — (1) 조건부 렌더링(`show && <Modal />`), (2) key 변경(슬라이더/탭 전환), (3) 리스트 아이템 추가/제거 — 은 모두 React 트리에서 직접 자식이 사라지는 것을 감지하는 방식이다.
-
 ### Reference
 - https://motion.dev/docs/react-animate-presence
 
@@ -299,10 +316,6 @@ isVisible && (
   {isVisible && <Component />}
 </AnimatePresence>
 ```
-
-> #### AI Annotation:
-> 직접 자식이어야 하는 이유는 `AnimatePresence`가 children 목록의 변화로 제거를 감지하는 방식이기 때문이다.
-> 손자 컴포넌트의 마운트/언마운트는 직접 추적하지 않는다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
@@ -329,11 +342,6 @@ export const Slideshow = ({ image }) => (
 )
 ```
 
-> #### AI Annotation:
-> key가 바뀌면 React는 기존 컴포넌트를 파괴하고 새로 만든다.
-> AnimatePresence가 이를 감지해서 기존 이미지는 exit(왼쪽으로 퇴장), 새 이미지는 initial→animate(오른쪽에서 등장)을 동시에 실행한다.
-> 이미지 슬라이더, 탭 전환, 스텝 폼 등 "한 번에 하나만 보여주는" UI에서 key만 바꾸면 진입/퇴장 애니메이션이 자동으로 동작하는 패턴이다.
-
 ### Reference
 - https://motion.dev/docs/react-animate-presence
 
@@ -357,13 +365,6 @@ export const Slideshow = ({ image }) => (
   ))}
 </AnimatePresence>
 ```
-
-> #### AI Annotation:
-> - **sync** (기본값): 진입과 퇴장이 동시. 레이아웃 충돌은 `position: absolute` 등으로 직접 해결해야 한다.
-> - **wait**: 퇴장이 완전히 끝난 뒤 진입 시작. 탭 전환, 스텝 폼 등 한 번에 하나만 보여주는 UI에 적합. exit에 `easeIn`, enter에 `easeOut`을 쓰면 전체적으로 `easeInOut` 효과.
-> - **popLayout**: 퇴장 요소가 레이아웃에서 즉시 빠져서 나머지가 바로 리플로우된다.
->   리스트에서 아이템 삭제 시 빈 자리가 즉시 채워지면서 퇴장 애니메이션도 동시 진행.
->   `layout` prop과 함께 쓰면 리플로우도 애니메이션된다.
 
 ### Reference
 - https://motion.dev/docs/react-animate-presence
@@ -418,11 +419,6 @@ return (
 )
 ```
 
-> #### AI Annotation:
-> CSS 클래스처럼 애니메이션 상태를 이름으로 분리·재사용할 수 있다.
-> 각 variant 안에 개별 `transition`을 지정할 수 있어서, 상태마다 다른 전환 효과를 줄 수 있다.
-> 또한 부모 컴포넌트의 variant가 자식에게 전파되므로, orchestration(순차/동시 애니메이션 제어)에 핵심적이다.
-
 ### Reference
 - https://motion.dev/docs/react-motion-component
 - https://motion.dev/docs/react-animation
@@ -442,63 +438,100 @@ function onPan(event, info) {
 <motion.div onPan={onPan} />
 ```
 
-> #### AI Annotation:
-> `drag`는 엘리먼트를 자동으로 이동시키지만, `onPan`은 이동 정보만 콜백으로 전달하는 저수준 API다.
-> "정보만 받고 뭘 할지는 내가 결정"하는 방식이므로, scale/opacity 같은 값을 직접 제어하는 커스텀 제스처에 적합하다.
-> 콜백 인자 구조(PointerEvent + info: point/delta/offset/velocity)는 [`motion-drag.md` → 드래그 이벤트 콜백에서 받을 수 있는 정보](motion-drag.md#motion-드래그-이벤트-콜백에서-받을-수-있는-정보는) 참조.
+### User Answer
+`drag="y"`로 끌면 요소가 실제로 아래로 이동한다.
 
-> #### User Annotation:
-> `drag="y"`로 끌면 요소가 실제로 아래로 이동한다.
-> `onPan`으로 끌면 요소는 제자리인데 scale이 줄어들고 borderRadius가 커진다.
-> FullScreenOverlay가 `drag` 대신 `onPan`을 쓴 이유: **위치 이동이 목적이 아니라 scale/borderRadius 변환이 목적**이기 때문이다.
-> ```tsx
-> // onPan: 이벤트만 받고, 시각 변화는 직접 구현
-> const handlePan = (_: PointerEvent, info: PanInfo) => {
->   const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
->   pan.set(progress);               // 여기서 직접 값을 설정
->   dimOpacity.set(0.5 * (1 - progress));
-> };
->
-> // 조건부 snap-back
-> const handlePanEnd = (_: PointerEvent, info: PanInfo) => {
->   if (info.velocity.y > 800 || info.offset.y > 80) {
->     onClose();                      // dismiss
->   } else {
->     animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 }); // snap-back
->   }
-> };
-> ```
->
-> 연습 예제 — drag vs onPan 차이를 나란히 체감:
-> ```tsx
-> {/* drag: 요소가 실제로 이동 */}
-> <motion.div
->   drag="y"
->   dragConstraints={{ top: 0, bottom: 200 }}
->   whileDrag={{ background: '#cc3333' }}
->   style={{ width: 200, height: 200, background: '#3366ff', cursor: 'grab' }}
-> />
->
-> {/* onPan: 요소는 제자리, scale/borderRadius/dim만 변함 */}
-> const pan = useMotionValue(0);
-> const scale = useTransform(pan, [0, 1], [1, 0.8], { clamp: true });
-> const borderRadius = useTransform(pan, [0, 1], [0, 48], { clamp: true });
-> const dimOpacity = useMotionValue(0.5);
->
-> <motion.div style={{ position: 'absolute', inset: 0, background: '#000', opacity: dimOpacity }} />
-> <motion.div
->   onPan={(_, info) => {
->     const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
->     pan.set(progress);
->     dimOpacity.set(0.5 * (1 - progress));
->   }}
->   onPanEnd={(_, info) => {
->     if (info.velocity.y > 800 || info.offset.y > 80) { /* dismiss */ }
->     else { animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 }); }
->   }}
->   style={{ width: '100%', height: 300, background: '#fff', scale, borderRadius, touchAction: 'none' }}
-> />
-> ```
+`onPan`으로 끌면 요소는 제자리인데 scale이 줄어들고 borderRadius가 커진다.
+
+FullScreenOverlay가 `drag` 대신 `onPan`을 쓴 이유: **위치 이동이 목적이 아니라 scale/borderRadius 변환이 목적**이기 때문이다.
+
+```tsx
+
+// onPan: 이벤트만 받고, 시각 변화는 직접 구현
+
+const handlePan = (_: PointerEvent, info: PanInfo) => {
+
+  const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
+
+  pan.set(progress);               // 여기서 직접 값을 설정
+
+  dimOpacity.set(0.5 * (1 - progress));
+
+};
+
+// 조건부 snap-back
+
+const handlePanEnd = (_: PointerEvent, info: PanInfo) => {
+
+  if (info.velocity.y > 800 || info.offset.y > 80) {
+
+    onClose();                      // dismiss
+
+  } else {
+
+    animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 }); // snap-back
+
+  }
+
+};
+
+```
+
+연습 예제 — drag vs onPan 차이를 나란히 체감:
+
+```tsx
+
+{/* drag: 요소가 실제로 이동 */}
+
+<motion.div
+
+  drag="y"
+
+  dragConstraints={{ top: 0, bottom: 200 }}
+
+  whileDrag={{ background: '#cc3333' }}
+
+  style={{ width: 200, height: 200, background: '#3366ff', cursor: 'grab' }}
+
+/>
+
+{/* onPan: 요소는 제자리, scale/borderRadius/dim만 변함 */}
+
+const pan = useMotionValue(0);
+
+const scale = useTransform(pan, [0, 1], [1, 0.8], { clamp: true });
+
+const borderRadius = useTransform(pan, [0, 1], [0, 48], { clamp: true });
+
+const dimOpacity = useMotionValue(0.5);
+
+<motion.div style={{ position: 'absolute', inset: 0, background: '#000', opacity: dimOpacity }} />
+
+<motion.div
+
+  onPan={(_, info) => {
+
+    const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
+
+    pan.set(progress);
+
+    dimOpacity.set(0.5 * (1 - progress));
+
+  }}
+
+  onPanEnd={(_, info) => {
+
+    if (info.velocity.y > 800 || info.offset.y > 80) { /* dismiss */ }
+
+    else { animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 }); }
+
+  }}
+
+  style={{ width: '100%', height: 300, background: '#fff', scale, borderRadius, touchAction: 'none' }}
+
+/>
+
+```
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
@@ -509,9 +542,6 @@ function onPan(event, info) {
 
 ### Official Answer
 For pan gestures to work correctly with touch input, the element needs touch scrolling to be disabled on either x/y or both axis with the `touch-action` CSS rule.
-
-> #### AI Annotation:
-> `touch-action` 메커니즘과 framer-motion 사례는 [`touch-action.md`](../gestures/touch-action.md) 참조.
 
 ### Reference
 - https://motion.dev/docs/react-motion-component
@@ -532,11 +562,6 @@ It's also possible to animate `width` and `height` in to/out of `"auto"`.
 
 If animating `height: auto` while also animating `display` in to/out of `"none"`, replace this with `visibility` `"hidden"` as elements with `display: none` can't be measured.
 
-> #### AI Annotation:
-> CSS에서 `height: auto`로의 transition은 불가능하다 — `auto`가 계산되기 전에는 숫자 값이 없어서 보간할 수 없기 때문이다.
-> Motion은 내부적으로 실제 높이를 측정한 뒤 그 값으로 애니메이션한다.
-> 단, `display: none`인 엘리먼트는 레이아웃에서 완전히 빠져서 측정이 불가능하므로, `visibility: hidden`으로 대체해야 한다.
-
 ### Reference
 - https://motion.dev/docs/react-animation
 
@@ -548,36 +573,52 @@ If animating `height: auto` while also animating `display` in to/out of `"none"`
 By default, Motion will create appropriate transitions for snappy animations based on the type of value being animated.
 For instance, physical properties like `x` or `scale` are animated with spring physics, whereas values like `opacity` or `color` are animated with duration-based easing curves.
 
-> #### AI Annotation:
-> 위치/크기 변화는 실제 물체처럼 spring으로, 시각적 속성(투명도, 색상)은 부드러운 easing으로 자동 매핑한다.
-> `transition: { type: 'tween' }`을 명시하는 건 이 기본 spring을 오버라이드하기 위함이다.
+### User Answer
+FullScreenOverlay에서의 사용 판단:
 
-> #### User Annotation:
-> FullScreenOverlay에서의 사용 판단:
-> ```tsx
-> // 열기/닫기: tween — 매번 동일한 0.3초, 예측 가능한 UI 전환
-> animate={{ scale: 1, transition: { type: 'tween', duration: 0.3, ease: 'easeOut' } }}
->
-> // snap-back: spring — 드래그 속도를 이어받아 자연스러운 복귀
-> animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 })
-> ```
-> 열기/닫기에 spring을 쓰면 바운스가 생겨 UI가 불안정해 보이고, snap-back에 tween을 쓰면 어떤 속도로 놓든 동일한 속도로 복귀해서 부자연스럽다.
->
-> 연습 예제 — tween과 spring 차이를 나란히 체감:
-> ```tsx
-> {/* spring: stiffness/damping이 있으면 duration 무시됨 */}
-> <motion.div
->   style={{ width: 100, height: 100, background: 'red' }}
->   animate={{ x: 100 }}
->   transition={{ type: 'spring', stiffness: 400, damping: 40 }}
-> />
-> {/* tween: 정확히 3초 동안 이동 */}
-> <motion.div
->   style={{ width: 100, height: 100, background: 'blue' }}
->   animate={{ x: 100 }}
->   transition={{ type: 'tween', duration: 3, ease: 'easeOut' }}
-> />
-> ```
+```tsx
+
+// 열기/닫기: tween — 매번 동일한 0.3초, 예측 가능한 UI 전환
+
+animate={{ scale: 1, transition: { type: 'tween', duration: 0.3, ease: 'easeOut' } }}
+
+// snap-back: spring — 드래그 속도를 이어받아 자연스러운 복귀
+
+animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 })
+
+```
+
+열기/닫기에 spring을 쓰면 바운스가 생겨 UI가 불안정해 보이고, snap-back에 tween을 쓰면 어떤 속도로 놓든 동일한 속도로 복귀해서 부자연스럽다.
+
+연습 예제 — tween과 spring 차이를 나란히 체감:
+
+```tsx
+
+{/* spring: stiffness/damping이 있으면 duration 무시됨 */}
+
+<motion.div
+
+  style={{ width: 100, height: 100, background: 'red' }}
+
+  animate={{ x: 100 }}
+
+  transition={{ type: 'spring', stiffness: 400, damping: 40 }}
+
+/>
+
+{/* tween: 정확히 3초 동안 이동 */}
+
+<motion.div
+
+  style={{ width: 100, height: 100, background: 'blue' }}
+
+  animate={{ x: 100 }}
+
+  transition={{ type: 'tween', duration: 3, ease: 'easeOut' }}
+
+/>
+
+```
 
 ### Reference
 - https://motion.dev/docs/react-animation
@@ -597,11 +638,6 @@ When a gesture starts, it animates to the values defined in `while-`, and then w
   whileInView={{ opacity: 1 }}
 />
 ```
-
-> #### AI Annotation:
-> `while-` props는 단방향이 아니라 양방향 애니메이션이다.
-> 제스처가 시작되면 `while-` 값으로, 끝나면 `initial` 또는 `animate` 값으로 자동 복귀한다.
-> 별도의 "복귀 애니메이션"을 작성할 필요가 없다.
 
 ### Reference
 - https://motion.dev/docs/react-animation
@@ -628,11 +664,6 @@ export function MyComponent() {
 
 Motion values can be created with the useMotionValue hook. The string or number passed to useMotionValue will act as its initial state.
 
-> #### AI Annotation:
-> motion value는 React state 바깥에서 동작하는 "애니메이션 전용 시그널"이다.
-> `useState`처럼 값을 저장하고 변경을 추적하지만, 값이 바뀌어도 React 리렌더를 일으키지 않고 Motion의 자체 렌더러로 DOM을 직접 업데이트한다.
-> `<motion.div animate={{ x: 100 }} />`처럼 선언적으로 쓰면 내부에서 motion value가 자동 생성되지만, 여러 컴포넌트 간 값 공유나 `useTransform` 체이닝이 필요하면 `useMotionValue`로 직접 생성해야 한다.
-
 ### Reference
 - https://motion.dev/docs/react-motion-value
 
@@ -655,12 +686,6 @@ A motion value can hold any string or number. We can read it with the get method
 x.get() // 100
 ```
 
-> #### AI Annotation:
-> `set()`은 값을 바꾸고 DOM을 업데이트하되 React 리렌더는 건너뛴다.
-> 한 프레임 안에 여러 번 `set()`해도 DOM 반영은 다음 `requestAnimationFrame`에 한 번만(배치 처리).
-> `get()`은 현재 값을 동기적으로 읽는다.
-> 이벤트 핸들러나 `useTransform` 콜백 안에서 현재 값을 꺼낼 때 사용한다.
-
 ### Reference
 - https://motion.dev/docs/react-motion-value
 
@@ -680,12 +705,6 @@ const x = useSpring(0)
 x.jump(10)
 x.getVelocity() // 0
 ```
-
-> #### AI Annotation:
-> `set()`은 값을 바꾸되 물리 상태(속도, 스프링 연결)를 유지한다.
-> `useSpring`으로 연결된 값에 `set()`을 호출하면 스프링이 따라오면서 바운스된다.
-> `jump()`은 "순간이동"이다 — 속도를 0으로 리셋하고, 진행 중 애니메이션을 종료하고, 연결된 스프링도 무시한다.
-> 초기 위치로 리셋하거나 화면 전환 시 이전 애니메이션 상태를 깨끗이 정리할 때 사용한다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-value
@@ -710,11 +729,6 @@ const unsubscribe = x.on("change", latest => console.log(latest))
 ```
 
 When calling `on` inside a React component, it should be wrapped with a `useEffect` hook, or instead use the `useMotionValueEvent` hook.
-
-> #### AI Annotation:
-> `on()`은 구독 해제 함수를 반환하는 패턴이다.
-> React 컴포넌트 안에서 `on()`을 `useEffect` 없이 쓰면 매 렌더마다 리스너가 누적되어 메모리 누수가 발생한다.
-> `useMotionValueEvent`는 이 cleanup을 자동 처리해주므로, 컴포넌트 안에서는 `useMotionValueEvent`를 쓰는 것이 안전하다.
 
 ### Reference
 - https://motion.dev/docs/react-motion-value
@@ -743,58 +757,84 @@ const doubledX = useTransform(() => x.get() * 2)
 const color = useTransform(x, [0, 100], ["#f00", "#00f"])
 ```
 
-> #### AI Annotation:
-> motion value의 "파생 값"을 만드는 훅이다.
-> 스프레드시트에서 셀 A1에 값을 넣고, B1에 `=A1*2` 수식을 거는 것과 같다 — 원본이 바뀌면 파생도 자동 갱신된다.
-> transform 함수 방식은 자유로운 JS 연산이 가능하고, value mapping 방식은 입력 범위→출력 범위를 선언적으로 매핑한다.
-> React state를 거치지 않으므로 리렌더가 발생하지 않는다.
+### User Answer
+`useTransform`의 파생값은 `.set()` 하지 않는다.
 
-> #### User Annotation:
-> `useTransform`의 파생값은 `.set()` 하지 않는다.
-> 원본 MotionValue만 `.set()`하면 파생값은 자동 계산된다.
->
-> `useTransform`이 없으면 안 되는 핵심 이유: 원본 값이 **여러 곳에서 바뀔 때** 직접 계산 방식은 모든 변경 지점에서 파생값을 따로 관리해야 한다.
-> ```tsx
-> // useTransform 없이 직접 계산하면:
-> // 1. 드래그 중 — 직접 계산
-> pan.set(progress);
-> scale.set(1 - progress * 0.2);
-> borderRadius.set(progress * 48);
->
-> // 2. snap-back — animate를 3개 따로 돌려야 함
-> animate(pan, 0, ...);
-> animate(scale, 1, ...);          // 따로
-> animate(borderRadius, 0, ...);   // 따로
->
-> // useTransform을 쓰면:
-> const scale = useTransform(pan, [0, 1], [1, 0.8]);
-> const borderRadius = useTransform(pan, [0, 1], [0, 48]);
-> // pan만 바꾸면 나머지가 자동으로 따라온다.
-> animate(pan, 0, ...);  // scale, borderRadius 자동 복귀
-> ```
->
-> 전체 데이터 흐름:
-> ```
-> pan.set() or animate(pan) → useTransform(pan → scale, borderRadius) → style={{ scale, borderRadius }} → DOM 반영
->        값 변경                       자동 계산                                   DOM 반영
-> ```
->
-> 연습 예제 — 드래그 방향에 따라 scale/borderRadius/color가 실시간 매핑:
-> ```tsx
-> const x = useMotionValue(0);
-> const scale = useTransform(x, [-200, 0, 200], [0.5, 1, 0.5]);
-> const borderRadius = useTransform(x, [-200, 0, 200], [48, 0, 48]);
-> const background = useTransform(x, [-200, 0, 200], ['#ff0000', '#3366ff', '#00cc00']);
->
-> return (
->   <motion.div
->     drag="x"
->     dragConstraints={{ left: 0, right: 0 }}
->     dragElastic={0.5}
->     style={{ width: 200, height: 200, background, scale, borderRadius, x, cursor: 'grab' }}
->   />
-> );
-> ```
+원본 MotionValue만 `.set()`하면 파생값은 자동 계산된다.
+
+`useTransform`이 없으면 안 되는 핵심 이유: 원본 값이 **여러 곳에서 바뀔 때** 직접 계산 방식은 모든 변경 지점에서 파생값을 따로 관리해야 한다.
+
+```tsx
+
+// useTransform 없이 직접 계산하면:
+
+// 1. 드래그 중 — 직접 계산
+
+pan.set(progress);
+
+scale.set(1 - progress * 0.2);
+
+borderRadius.set(progress * 48);
+
+// 2. snap-back — animate를 3개 따로 돌려야 함
+
+animate(pan, 0, ...);
+
+animate(scale, 1, ...);          // 따로
+
+animate(borderRadius, 0, ...);   // 따로
+
+// useTransform을 쓰면:
+
+const scale = useTransform(pan, [0, 1], [1, 0.8]);
+
+const borderRadius = useTransform(pan, [0, 1], [0, 48]);
+
+// pan만 바꾸면 나머지가 자동으로 따라온다.
+
+animate(pan, 0, ...);  // scale, borderRadius 자동 복귀
+
+```
+
+전체 데이터 흐름:
+
+```
+
+pan.set() or animate(pan) → useTransform(pan → scale, borderRadius) → style={{ scale, borderRadius }} → DOM 반영
+
+       값 변경                       자동 계산                                   DOM 반영
+
+```
+
+연습 예제 — 드래그 방향에 따라 scale/borderRadius/color가 실시간 매핑:
+
+```tsx
+
+const x = useMotionValue(0);
+
+const scale = useTransform(x, [-200, 0, 200], [0.5, 1, 0.5]);
+
+const borderRadius = useTransform(x, [-200, 0, 200], [48, 0, 48]);
+
+const background = useTransform(x, [-200, 0, 200], ['#ff0000', '#3366ff', '#00cc00']);
+
+return (
+
+  <motion.div
+
+    drag="x"
+
+    dragConstraints={{ left: 0, right: 0 }}
+
+    dragElastic={0.5}
+
+    style={{ width: 200, height: 200, background, scale, borderRadius, x, cursor: 'grab' }}
+
+  />
+
+);
+
+```
 
 ### Reference
 - https://motion.dev/docs/react-use-transform
@@ -805,10 +845,6 @@ const color = useTransform(x, [0, 100], ["#f00", "#00f"])
 
 ### Official Answer
 The input range must always be a series of increasing or decreasing numbers.
-
-> #### AI Annotation:
-> 보간 알고리즘이 "현재 입력이 어느 구간에 있는가"를 판단해야 하는데, `[-100, 100, 0]`처럼 정렬되지 않으면 구간이 모호해진다.
-> 이 제약을 모르면 비정렬 input을 넣고 예상치 못한 보간 결과를 디버깅하게 된다.
 
 ### Reference
 - https://motion.dev/docs/react-use-transform
@@ -830,10 +866,6 @@ const rotate = useTransform(
   { clamp: false }
 )
 ```
-
-> #### AI Annotation:
-> 기본값은 `clamp: true`로, 입력이 범위를 벗어나면 출력이 범위 끝 값에서 멈춘다.
-> 스크롤 기반 무한 회전이나 패럴랙스처럼 범위 밖에서도 비례 매핑이 필요한 패턴에서 `clamp: false`를 사용한다.
 
 ### Reference
 - https://motion.dev/docs/react-use-transform
@@ -883,12 +915,6 @@ return (
 
 Because Radix expects all its children to be rendered at all times, when we're conditionally rendering children like this, setting `forceMount` to true allows our enter/exit animations to work correctly.
 
-> #### AI Annotation:
-> Radix + Motion exit 애니메이션 통합의 3단계:
-> 1. **`asChild`로 motion 컴포넌트 주입** — Radix가 자체 DOM 대신 motion 컴포넌트를 사용하게 한다
-> 2. **상태 끌어올리기** (`open`/`onOpenChange`) — Radix의 내부 상태를 `useState`로 외부에 노출하여 `{isOpen && ...}` 조건부 렌더링을 가능하게 한다
-> 3. **`forceMount`** — Radix Portal이 자체적으로 자식을 언마운트하는 것을 막아, AnimatePresence가 exit 타이밍을 제어할 수 있게 한다
-
 ### Reference
 - https://motion.dev/docs/radix
 
@@ -923,12 +949,6 @@ const transition = {
 />
 ```
 
-> #### AI Annotation:
-> transition을 설정할 수 있는 3곳:
-> 1. **컴포넌트 `transition` prop** — 해당 컴포넌트의 모든 애니메이션에 기본 적용
-> 2. **개별 애니메이션 prop 안** (`whileHover`, `whileTap`, `exit` 등) — 해당 애니메이션 발동 시에만 적용되며, 컴포넌트 레벨 transition을 오버라이드
-> 3. **`animate()` 함수의 세 번째 인자** — 명령형 애니메이션에서 사용
-
 ### Reference
 - https://motion.dev/docs/react-transitions
 
@@ -952,12 +972,6 @@ Inertia animations decelerate a value based on its initial velocity, usually use
 />
 ```
 
-> #### AI Annotation:
-> - **tween**: "3초 동안 A→B로 가라" — 끝나는 시간이 보장되는 시간 기반 애니메이션. CSS transition과 같은 개념.
-> - **spring**: "스프링으로 A→B로 가라" — 물리 시뮬레이션 기반. 끝나는 시간은 물리 계산에 따라 다름.
-> - **inertia**: "현재 속도로 미끄러지다 멈춰라" — 드래그를 놓은 뒤 관성으로 감속하는 애니메이션.
-> Motion이 `type`을 명시하지 않으면 값 타입에 따라 자동 선택한다 (물리 속성은 spring, 시각 속성은 tween).
-
 ### Reference
 - https://motion.dev/docs/react-transitions
 
@@ -969,10 +983,6 @@ Inertia animations decelerate a value based on its initial velocity, usually use
 Physics-based spring animations are set via `stiffness`, `damping` and `mass`, and these incorporate the velocity of any existing gestures or animations for natural feedback.
 
 Duration-based spring animations are set via a `duration` and `bounce`. These don't incorporate velocity but are easier to understand.
-
-> #### AI Annotation:
-> 물리 기반은 드래그를 놓는 순간의 속도가 spring에 전달되어 관성 있는 복귀가 된다. duration 기반은 속도를 무시하지만 "0.5초 동안 바운스 0.3으로" 같은 직관적 설정이 가능.
-> 드래그 snap-back처럼 제스처 속도가 중요한 곳에는 물리 기반, 단순 진입/전환 애니메이션에는 duration 기반을 선택한다.
 
 ### Reference
 - https://motion.dev/docs/react-transitions
@@ -999,12 +1009,6 @@ dragTransition={{ modifyTarget: target => Math.round(target / 50) * 50 }}
 `bounceStiffness` (default: `500`): When `min` or `max` is set, this affects the stiffness of the bounce spring. Higher values will create more sudden movement.
 
 `bounceDamping` (default: `10`): When `min` or `max` is set, this affects the damping of the bounce spring. Set to `0`, spring will oscillate indefinitely.
-
-> #### AI Annotation:
-> inertia는 tween/spring과 근본적으로 다르다 — 목표값을 직접 지정하지 않고, **현재 속도에서 자연스럽게 감속하여 멈추는** 방식이다.
-> 대표적 사용처는 `dragTransition` prop으로, 드래그를 놓은 뒤 관성으로 미끄러지는 동작이 바로 inertia다.
-> `modifyTarget`으로 자동 계산된 정지 위치를 가로채 50px 단위 그리드 등으로 반올림하면 snap-to-grid가 된다.
-> `min`/`max`는 "벽"처럼 동작하여 값이 경계에 부딪히면 `bounceStiffness`/`bounceDamping`으로 제어되는 스프링 바운스가 발생한다.
 
 ### Reference
 - https://motion.dev/docs/react-transitions

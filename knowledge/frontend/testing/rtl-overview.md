@@ -17,10 +17,6 @@ priority:
 ### Official Answer
 We are making some trade-offs here because we're using a computer and often a simulated browser environment.
 
-> #### AI Annotation:
-> 실제 브라우저가 아닌 jsdom 같은 simulated 환경에서 돌리므로, 레이아웃·페인트·실제 네트워크·브라우저별 quirk는 검증할 수 없다.
-> 이 한계를 감수하는 대신 테스트 속도와 CI 통합을 얻는다.
-
 ### Reference
 - https://github.com/testing-library/react-testing-library
 
@@ -32,17 +28,6 @@ We are making some trade-offs here because we're using a computer and often a si
 **Step 1. Arrange** — The render method renders a React element into the DOM.
 
 **Step 2. Act** — The fireEvent method allows you to fire events to simulate user actions.
-
-> #### AI Annotation:
-> AAA는 Arrange-Act-Assert의 약자로, 테스트를 3단계로 구조화하는 패턴이다.
-> RTL은 Arrange·Act 단계의 API만 제공하고, Assert 단계는 RTL 자체 기능이 아니라 Jest의 `expect`로 검증한다.
-> RTL에서의 매핑은 다음과 같다.
->
-> | 단계 | 역할 | RTL API |
-> |---|---|---|
-> | Arrange | 테스트 대상 준비·렌더 | `render` |
-> | Act | 사용자 동작 시뮬레이션 | `fireEvent` (또는 `@testing-library/user-event`) |
-> | Assert | 결과 검증 | `expect` (Jest) + RTL 쿼리 (`getByRole` 등) |
 
 ### Reference
 - https://testing-library.com/docs/react-testing-library/api#render

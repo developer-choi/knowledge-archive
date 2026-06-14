@@ -54,8 +54,8 @@ Memoization only applies to the **React Component tree**, this means:
 - It applies to `fetch` requests in `generateMetadata`, `generateStaticParams`, Layouts, Pages, and other Server Components.
 - It doesn't apply to `fetch` requests in Route Handlers as they are not a part of the React component tree.
 
-> #### User Annotation:
-> generateMetadata()와 generateStaticParams()까지 memoization이 적용되는 점은 의외다.
+### User Answer
+generateMetadata()와 generateStaticParams()까지 memoization이 적용되는 점은 의외다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#request-memoization

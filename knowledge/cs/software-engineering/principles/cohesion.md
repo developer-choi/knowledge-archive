@@ -33,8 +33,8 @@ Related methods are in the same source file or otherwise grouped together; for e
 ### Official Answer
 High cohesion is associated with several desirable software traits including robustness, reliability, reusability, and understandability.
 
-> #### User Annotation:
-> 기획 바뀌어서 여기수정 저기수정 안해도 됨.
+### User Answer
+기획 바뀌어서 여기수정 저기수정 안해도 됨.
 
 ### Reference
 - https://en.wikipedia.org/wiki/Cohesion_(computer_science)
@@ -46,21 +46,21 @@ High cohesion is associated with several desirable software traits including rob
 #### Coincidental cohesion (worst)
 Coincidental cohesion is when parts of a module are grouped arbitrarily.
 
-The only relationship between the parts is that they have been grouped together (e.g., a “Utilities” class).
+The only relationship between the parts is that they have been grouped together (e.g., a "Utilities" class).
 
 #### Logical cohesion
 Logical cohesion is when parts of a module are grouped because they are logically categorized to do the same thing even though they are different by nature (e.g., grouping all mouse and keyboard input handling routines or bundling all models, views, and controllers in separate folders in an [MVC pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)).
 
-> #### User Annotation:
-> **Coincidental cohesion Examples:**
-> - 하나의 static class 안에 온갖 메소드 다 집어넣기
-> - 하나의 `utils.ts` / `common.ts`에 온갖 함수 다 집어넣기
->
-> **Logical cohesion Examples:**
-> - hooks
-> - components
-> - types
-> - styles
+### User Answer
+**Coincidental cohesion Examples:**
+- 하나의 static class 안에 온갖 메소드 다 집어넣기
+- 하나의 `utils.ts` / `common.ts`에 온갖 함수 다 집어넣기
+
+**Logical cohesion Examples:**
+- hooks
+- components
+- types
+- styles
 
 ### Reference
 - https://en.wikipedia.org/wiki/Cohesion_(computer_science)

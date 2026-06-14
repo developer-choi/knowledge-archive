@@ -29,11 +29,10 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 - **Official Annotation 잔재**: `> #### Official Annotation:` 블록이 남아 있으면 위반. 폐지된 키이며 모든 공식 보충은 Official Answer에 단락으로 통합되어야 한다.
 - **목차-본문 순서**: Questions 목차와 Answers 본문의 질문 순서가 1:1로 일치하는가.
 - **마커 정합성**: `[UNVERIFIED]` 마커가 Questions 목록과 본문 헤딩 양쪽에 동일하게 붙어 있는가. 마커가 붙은 질문은 `### Official Answer` 본문이 비어 있는가 (채워져 있으면 마커 제거). 마커 없이 Official Answer가 비어 있는 경우 위반 (마커 추가 필요). 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고.
-- **빈 섹션 검출**: `### Official Answer`, `### AI Answer`, `### User Answer`, `### Reference` 등의 헤딩 본문이 비어 있는 경우 위반 — 헤딩 자체를 삭제해야 한다. 정의는 [content-format.md](../../contexts/content-format.md) '작성 원칙'의 '빈 섹션 금지' 참고.
-- **동일 헤딩 중복**: 하나의 Q&A 내에서 `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` / `> #### AI Annotation:` / `> #### User Annotation:` 중 동일 헤딩이 2개 이상 등장하면 위반. 내용을 합쳐 하나로 통합한다.
-- **Annotation 중복**: OA에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 AI/User Annotation이 남아 있으면 위반. OA 영어 원문의 한글 번역·요약·풀이도 "단순 반복"으로 본다 (한글 해설은 explained 영역). 정의는 [content-format.md](../../contexts/content-format.md)의 'Annotation 작성 정책 — 한글 풀이 금지' 및 'Annotation 중복 금지' 참고. AI Annotation은 자동 삭제, User Annotation은 사용자에게 정리 확인 후 삭제.
+- **빈 섹션 검출**: `### Official Answer`, `### Additional Answer`, `### User Answer`, `### Reference` 등의 헤딩 본문이 비어 있는 경우 위반 — 헤딩 자체를 삭제해야 한다. 정의는 [content-format.md](../../contexts/content-format.md) '작성 원칙'의 '빈 섹션 금지' 참고.
+- **동일 헤딩 중복**: 하나의 Q&A 내에서 `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference` 중 동일 헤딩이 2개 이상 등장하면 위반. 내용을 합쳐 하나로 통합한다.
 - **인라인 출처 표기**: OA 본문(또는 H4 서브섹션 본문)에 `— URL` 형태의 인라인 출처가 있으면 위반. 해당 URL을 `### Reference`로 이동하고 인라인 표기를 제거한다.
-- **OA 앞 한글 삽입**: `### Official Answer` 또는 `#### H4` 헤딩 직후 첫 번째 본문 줄이 한글 문장이면 위반 (AI-authored 한글 도입 문장). OA 섹션은 영어 원문으로만 시작한다. 해당 한글을 삭제하거나 AI Annotation으로 이동.
+- **OA 앞 한글 삽입**: `### Official Answer` 또는 `#### H4` 헤딩 직후 첫 번째 본문 줄이 한글 문장이면 위반 (AI-authored 한글 도입 문장). OA 섹션은 영어 원문으로만 시작한다. 해당 한글을 삭제한다.
 - **영어 원문 보존**: 과거 Official Annotation 또는 OA 본문이 있던 Q에서 영어 원문이 사라졌으면 위반 (마이그 중 삭제 사고). 원문을 OA로 복원하거나 Reference로 추적한다.
 - **OA 길이**: 한 OA 단락이 6문장을 초과하거나 OA 전체가 15문장을 초과하면 정리·분리를 사용자에게 제안한다. 테이블·코드블록·리스트는 문장 수 제외.
 

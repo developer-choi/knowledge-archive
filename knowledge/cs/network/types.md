@@ -34,11 +34,11 @@ Everything like web surfing becomes possible because computers can exchange data
 LAN is a Local area network.
 When classified by scale, it refers to small-scale networks such as homes, offices, and schools.
 
-> #### User Annotation:
-> LAN은 사설망을 구축해 연결함. 다른 네트워크에서는 접근이 제한됨.
->
-> ISP (Internet Service Provider) = 인터넷에 접속하는 수단을 제공. KT, SK같은거.
-> 인터넷 공유기 = LAN을 구성하기위해 필요한 장비. 공유기를 중심으로 사설망을 구성하고 다양한 기기를 연결할 수 있음.
+### User Answer
+LAN은 사설망을 구축해 연결함. 다른 네트워크에서는 접근이 제한됨.
+
+ISP (Internet Service Provider) = 인터넷에 접속하는 수단을 제공. KT, SK같은거.
+인터넷 공유기 = LAN을 구성하기위해 필요한 장비. 공유기를 중심으로 사설망을 구성하고 다양한 기기를 연결할 수 있음.
 
 ### Reference
 - 네트워크 기초 교재 (URL_UNKNOWN)

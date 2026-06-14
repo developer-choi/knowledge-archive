@@ -53,8 +53,8 @@ In the SSR guide, we noted that you could get rid of the boilerplate of having `
 
 As you can see, it's perfectly fine to use `<HydrationBoundary>` in multiple places, and create and dehydrate multiple queryClient for prefetching.
 
-> #### User Annotation:
-> Pages Router SSR에서만 보일러플레이트 제거가 가능했나? — 확인 필요.
+### User Answer
+Pages Router SSR에서만 보일러플레이트 제거가 가능했나? — 확인 필요.
 
 ### Reference
 - https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr
@@ -86,8 +86,8 @@ This will lead to any failed queries being retried on the client and that the se
 
 If you for some reason want to include failed queries in the dehydrated state to avoid retries, you can use the option `shouldDehydrateQuery` to override the default function and implement your own logic.
 
-> #### User Annotation:
-> 기본 설정으로는 성공한 쿼리만 dehydrate 되고 Client에서 다시 리패칭하는 구조로 동작함을 확인했다.
+### User Answer
+기본 설정으로는 성공한 쿼리만 dehydrate 되고 Client에서 다시 리패칭하는 구조로 동작함을 확인했다.
 
 ### Reference
 - https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr

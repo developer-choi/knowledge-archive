@@ -27,10 +27,6 @@ Yes, most of the time, we produce Promises via data fetching, so that's where it
 But it does more than just handling loading and error states for you.
 It is a proper, real, "global state manager".
 
-> #### AI Annotation:
-> queryFn이 Promise만 리턴하면 되므로, HTTP 요청뿐 아니라 IndexedDB 읽기·Web Worker 응답 등 어떤 비동기 작업이든 React Query로 관리할 수 있다.
-> "데이터 페칭 라이브러리"라는 통념은 use-case 중 하나일 뿐, 본질은 비동기 상태 관리자다.
-
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
 
@@ -40,11 +36,6 @@ It is a proper, real, "global state manager".
 
 ### Official Answer
 React Query will also deduplicate requests that would happen at the same time, so in the above scenario, even though two components request the same data, there will be only one network request.
-
-> #### AI Annotation:
-> 같은 QueryClientProvider 아래에서 같은 QueryKey로 호출된 요청이 deduplication 대상이다.
-> 이게 없으면 컴포넌트 N개가 동시에 마운트될 때 N번 fetch가 날아가서 백엔드 부담 + 응답 race가 발생한다.
-> 단 deduplication은 같은 시점에 in-flight인 요청만 합친다 — 시간 간격을 두고 연달아 마운트되는 케이스(mounts in short succession, 다른 render cycle)에서는 별도 fetch가 발생한다.
 
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
@@ -60,10 +51,6 @@ If we display data on the screen that we fetch from an API, we only display a "s
 
 React Query provides the means to synchronize our view with the actual data owner - the backend.
 
-> #### AI Annotation:
-> client state는 frontend가 100% 소유하지만, server state는 빌려온 사본(snapshot)일 뿐이라 끊임없는 동기화가 필요하다.
-> staleTime, refetchOnWindowFocus 같은 옵션이 왜 그렇게 설계됐는지 이해하는 출발점.
-
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
 
@@ -76,10 +63,6 @@ The answer depends totally on our problem domain.
 If we fetch a Twitter post with all its likes and comments, it is likely outdated (stale) pretty fast.
 If we fetch exchange rates that update on a daily basis, well, our data is going to be quite accurate for some time even without refetching.
 
-> #### AI Annotation:
-> stale 여부는 절대값이 아니라 도메인 의존이다 — 트위터 좋아요는 1초 뒤에도 stale, 환율은 하루 내내 fresh.
-> 그래서 React Query는 staleTime의 "정답"을 제시하지 않고 사용자가 도메인에 맞춰 설정하도록 둔다.
-
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
 
@@ -90,10 +73,6 @@ If we fetch exchange rates that update on a daily basis, well, our data is going
 ### Official Answer
 React Query provides the means to synchronize our view with the actual data owner - the backend.
 And by doing so, it errs on the side of updating often rather than not updating often enough.
-
-> #### AI Annotation:
-> "업데이트가 너무 많은" 실수가 "너무 적은" 실수보다 낫다는 디폴트 철학.
-> 사용자는 잠깐의 background refetch보다 stale 데이터(잘못된 좋아요 수)에 훨씬 민감하기 때문 — refetchOnMount, refetchOnWindowFocus 같은 옵션이 디폴트로 켜져 있는 이유다.
 
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
@@ -111,12 +90,6 @@ Two approaches to data fetching were pretty common before libraries like React Q
 Both of these approaches are pretty sub-optimal.
 The first one doesn't update our local cache often enough, while the second one potentially re-fetches too often, and also has a questionable ux because data is not there when we fetch for the second time.
 
-> #### AI Annotation:
-> 두 안티패턴은 정반대 방향의 결함을 갖는다.
-> - 첫 번째 = 갱신 부족(stale 캐시)
-> - 두 번째 = 갱신 과다(매번 fetch) + 매번 빈 상태로 시작
-> React Query는 "캐시는 유지하되 자동으로 동기화"라는 제3의 길로 둘을 모두 회피한다.
-
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
 
@@ -133,10 +106,6 @@ Do we refetch that data?
 No, we have "downloaded" it, so we have it already, why should we?
 Maybe if we fire a POST request to the backend, it will be kind enough to give us the "latest" state back.
 If you want something more accurate, you can always reload your browser window…
-
-> #### AI Annotation:
-> 결함의 핵심: 백그라운드 동기화 메커니즘이 없으니 캐시가 점점 stale해지고, 다른 사용자가 만든 변경은 새로고침 전에는 절대 보이지 않는다.
-> POST 응답에 latest state가 묻어오는 것도 백엔드 협업 없이는 보장되지 않는 가정이다.
 
 ### Review Note
 - OA가 8문장으로 길다.
@@ -156,10 +125,6 @@ You know the drill: useEffect, empty dependency array (throw an eslint-disable a
 Of course, we now show a loading spinner every time the Dialog opens until we have the data.
 What else can we do, the local state is gone…
 
-> #### AI Annotation:
-> 결함의 핵심: 모달이 닫히면 데이터가 증발하므로, 다음에 모달을 열 때 같은 데이터를 이미 봤음에도 다시 fetch + 스피너부터 시작한다.
-> 캐싱 없이 useState만 쓰는 패턴은 "두 번째 마운트의 UX"를 항상 망친다.
-
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager
 
@@ -171,11 +136,6 @@ What else can we do, the local state is gone…
 React Query is great at managing async state globally in your app, if you let it.
 Only turn off the refetch flags if you know that make sense for your use-case, and resist the urge to sync server data to a different state manager.
 Usually, customizing staleTime is all you need to get a great ux while also being in control of how often background updates happen.
-
-> #### AI Annotation:
-> 두 우회 모두 React Query가 자동으로 하려는 background refetch를 막아 라이브러리 핵심 가치를 무력화하는 안티패턴이다.
-> server data를 다른 store로 sync하면 두 store의 일관성 관리 부담이 추가되고, React Query의 refetch가 갱신해도 다른 store는 stale인 채 남는다.
-> 정공법은 staleTime 커스터마이즈 — fresh 윈도우 안에서는 네트워크 0번이고 윈도우 밖에서는 자동 refetch가 살아 있어 UX(자동 최신화)와 제어(빈도 통제) 양쪽을 챙긴다.
 
 ### Reference
 - https://tkdodo.eu/blog/react-query-as-a-state-manager

@@ -26,10 +26,6 @@ A client may not understand each status code that a server reports but it must u
 4XX client error: The request cannot be fulfilled due to an issue that the client might be able to control.
 5XX server error: The server failed to fulfill an apparently valid request.
 
-> #### AI Annotation:
-> 모르는 상태 코드를 받으면 첫 자릿수(클래스)로 판단한다. 예: 알 수 없는 `499`를 받으면 `400`(Client Error)으로 처리.
-> 상태 코드는 기계가 읽는 것이고, 사유 구문(Bad Request 등)은 사람이 읽는 것이다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
 

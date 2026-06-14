@@ -41,10 +41,6 @@ And the trade-off we're always making when we do that is now our tests don't res
 But we do it because we solve real problems we had with that approach.
 And that's what we're doing at every level of the testing trophy.
 
-> #### AI Annotation:
-> Pyramid는 비용·속도만 고려해서 unit을 가장 많이 쓰라 했지만, 자신감(confidence)이라는 세 번째 축을 무시했다.
-> Trophy는 비용·속도·자신감 세 축의 균형을 고려하여 Integration에 가장 큰 비중을 둔다.
-
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
 
@@ -55,10 +51,6 @@ And that's what we're doing at every level of the testing trophy.
 ### Official Answer
 Almost all of my open source projects have 100% code coverage.
 This is because most of my open source projects are smaller libraries and tools that are reusable in many different situations (a breakage could lead to a serious problem in a lot of consuming projects) and they're relatively easy to get 100% code coverage on anyway.
-
-> #### AI Annotation:
-> 100% 커버리지가 합리적인 조건 2가지: (1) 깨지면 다수 소비 프로젝트에 심각한 영향 (높은 파급력), (2) 작은 라이브러리라 100% 달성이 쉬움 (낮은 비용).
-> 애플리케이션 코드에서 이 두 조건을 동시에 만족하기는 어렵다.
 
 ### Reference
 - https://kentcdodds.com/blog/write-tests
@@ -80,10 +72,6 @@ But the code coverage report can sometimes help us identify use cases that we're
 
 Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
 Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".
-
-> #### AI Annotation:
-> Code Coverage는 "어떤 라인이 실행되었는가"만 보여주고, "이 라인이 왜 중요한가"는 알려주지 않는다.
-> 커버리지 리포트는 유스케이스 발견의 보조 도구로만 쓰고, 진짜 판단 기준은 Use Case Coverage다.
 
 ### Reference
 - https://kentcdodds.com/blog/how-to-know-what-to-test

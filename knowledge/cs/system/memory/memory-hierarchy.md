@@ -24,9 +24,6 @@ A program will achieve greater performance if it uses memory while it is cached 
 Modern machines tend to read blocks of lower memory into the next level of the memory hierarchy.
 If this displaces used memory, the operating system tries to predict which data will be accessed least (or latest) and move it down the memory hierarchy.
 
-> #### AI Annotation:
-> Register → L1 → L2 → L3 → RAM → Disk → Remote 순으로 계층이 구성된다. 위로 갈수록 빠르고 작고, 아래로 갈수록 느리고 크다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Locality_of_reference
 

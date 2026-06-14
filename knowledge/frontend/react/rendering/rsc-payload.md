@@ -23,12 +23,16 @@ priority:
 ### Official Answer
 The React Server Component Payload is a compact binary representation of the rendered React Server Components.
 
-> #### User Annotation:
-> RSC Payload는 UI를 그리는 데 필요하며 다음 4가지 속성을 가진다:
-> 1. SC 렌더링 결과물
-> 2. optimized for streaming
-> 3. special data format
-> 4. compact binary representation
+### User Answer
+RSC Payload는 UI를 그리는 데 필요하며 다음 4가지 속성을 가진다:
+
+1. SC 렌더링 결과물
+
+2. optimized for streaming
+
+3. special data format
+
+4. compact binary representation
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
@@ -45,11 +49,14 @@ The React Server Component Payload contains:
 3. References to their JavaScript files
 4. Any props passed from a Server Component to a Client Component
 
-> #### User Annotation:
-> 1. **SC 결과물**: RSC Payload 안에는 SC 결과물이 들어있다.
-> 2. **Placeholder**: CC가 어디에 렌더링돼야 하는지에 대한 Placeholder가 들어있다.
-> 3. **Reference**: CC의 JavaScript 파일에 대한 참조가 들어있다.
-> 4. **Props**: SC에서 CC로 전달한 Props가 RSC Payload 안에 들어있다.
+### User Answer
+1. **SC 결과물**: RSC Payload 안에는 SC 결과물이 들어있다.
+
+2. **Placeholder**: CC가 어디에 렌더링돼야 하는지에 대한 Placeholder가 들어있다.
+
+3. **Reference**: CC의 JavaScript 파일에 대한 참조가 들어있다.
+
+4. **Props**: SC에서 CC로 전달한 Props가 RSC Payload 안에 들어있다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
@@ -69,15 +76,16 @@ Each chunk is rendered in two steps:
 This means we don't have to wait for everything to render before caching the work or sending a response.
 Instead, we can stream a response as work is completed.
 
-> #### User Annotation:
-> 1. route segment마다 1개의 chunk
-> 2. Suspense Boundary마다 1개의 chunk로 분리된다.
->
-> "route segment마다 여러 개의 chunk로 split된다"는 해석은 잘못된 해석이다.
->
-> Pages Router는 페이지 단위로 자동 코드 스플리팅을 지원했지만, App Router는 Suspense Boundary 단위로도 코드 스플리팅을 지원한다고 이해하면 된다 (오피셜은 아님).
-
 같은 nextjs.org caching 인용을 Next.js 렌더링 단계 관점에서 다루는 문서: [Next.js에서 렌더링 작업은 어떤 단위로 나뉘는가? → `nextjs-loading-sequence.md`](../../nextjs/rendering/nextjs-loading-sequence.md#nextjs에서-렌더링-작업은-어떤-단위로-나뉘는가)
+
+### User Answer
+1. route segment마다 1개의 chunk
+
+2. Suspense Boundary마다 1개의 chunk로 분리된다.
+
+"route segment마다 여러 개의 chunk로 split된다"는 해석은 잘못된 해석이다.
+
+Pages Router는 페이지 단위로 자동 코드 스플리팅을 지원했지만, App Router는 Suspense Boundary 단위로도 코드 스플리팅을 지원한다고 이해하면 된다 (오피셜은 아님).
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#1-react-rendering-on-the-server
@@ -90,8 +98,8 @@ Instead, we can stream a response as work is completed.
 This means we don't have to wait for everything to render before caching the work or sending a response.
 Instead, we can stream a response as work is completed.
 
-> #### User Annotation:
-> RSC Payload 형태여야만 Streaming이 가능하다.
+### User Answer
+RSC Payload 형태여야만 Streaming이 가능하다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/caching#1-react-rendering-on-the-server
@@ -105,12 +113,14 @@ React renders Server Components into a special data format called the React Serv
 
 The React Server Components Payload is used to reconcile the Client and Server Component trees, and update the DOM.
 
-> #### User Annotation:
-> RSC Payload는 reconcile에 사용된다:
-> 1. 현재 화면(Client)과
-> 2. SC 렌더링 결과물 두 개를 서로 비교해서 달라진 부분만 바꾼다.
->
-> 같은 흐름을 Client Component 관점에서 본 전체 절차(서버 HTML preview, hydration까지)는 [client-component.md](./client-component.md#client-component는-full-page-load에서-어떻게-렌더링되는가) 참조.
+### User Answer
+RSC Payload는 reconcile에 사용된다:
+
+1. 현재 화면(Client)과
+
+2. SC 렌더링 결과물 두 개를 서로 비교해서 달라진 부분만 바꾼다.
+
+같은 흐름을 Client Component 관점에서 본 전체 절차(서버 HTML preview, hydration까지)는 [client-component.md](./client-component.md#client-component는-full-page-load에서-어떻게-렌더링되는가) 참조.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/client-components#full-page-load
@@ -126,8 +136,8 @@ Once the bundle is ready, React will use the RSC Payload to reconcile the Client
 
 Next.js has an in-memory client-side router cache that stores the RSC payload of route segments, split by layouts, loading states, and pages.
 
-> #### User Annotation:
-> layout, loading state, page 세 개를 하나의 RSC Payload에 저장한다는 의미가 아니라 각각 따로 저장한다는 의미다.
+### User Answer
+layout, loading state, page 세 개를 하나의 RSC Payload에 저장한다는 의미가 아니라 각각 따로 저장한다는 의미다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/client-components#subsequent-navigations
@@ -145,12 +155,14 @@ In Next.js, you can have dynamically rendered routes that have both cached and u
 This is because the RSC Payload and data are cached separately.
 This allows you to opt into dynamic rendering without worrying about the performance impact of fetching all the data at request time.
 
-> #### User Annotation:
-> Pages Router 시절에는 페이지에 UI와 Data가 합쳐진 상태였다 — 따로 따로 캐싱이 되지 않았다.
-> 다른 페이지에 갔다 돌아오면 `getServerSideProps()` 실행부터 UI 그리기까지 전부 다 처음부터 새로 해야 했다.
->
-> App Router에서는 UI(RSC Payload) 따로, Data Cache도 API별로 따로 따로 캐싱이 가능하다.
-> 그래서 UI는 그대로 쓰면서 데이터만 최신화하는 식의 운영이 가능해진다.
+### User Answer
+Pages Router 시절에는 페이지에 UI와 Data가 합쳐진 상태였다 — 따로 따로 캐싱이 되지 않았다.
+
+다른 페이지에 갔다 돌아오면 `getServerSideProps()` 실행부터 UI 그리기까지 전부 다 처음부터 새로 해야 했다.
+
+App Router에서는 UI(RSC Payload) 따로, Data Cache도 API별로 따로 따로 캐싱이 가능하다.
+
+그래서 UI는 그대로 쓰면서 데이터만 최신화하는 식의 운영이 가능해진다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components#dynamic-rendering

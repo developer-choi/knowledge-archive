@@ -23,8 +23,8 @@ The name can't start with a dot or an underscore.
 New packages must not have uppercase letters in the name.
 The name ends up being part of a URL, an argument on the command line, and a folder name. Therefore, the name can't contain any non-URL-safe characters.
 
-> #### User Annotation:
-> - `js`, `node` 같은 일반 명사는 자제 (검색 충돌 우려).
+### User Answer
+- `js`, `node` 같은 일반 명사는 자제 (검색 충돌 우려).
 
 ### Reference
 - https://docs.npmjs.com/cli/v11/configuring-npm/package-json#name
@@ -36,8 +36,8 @@ The name ends up being part of a URL, an argument on the command line, and a fol
 ### Official Answer
 If you set "private": true in your package.json, then npm will refuse to publish it.
 
-> #### User Annotation:
-> 사적 저장소나 모노레포 내부 패키지에서 실수 발행을 막기 위해 자주 쓴다.
+### User Answer
+사적 저장소나 모노레포 내부 패키지에서 실수 발행을 막기 위해 자주 쓴다.
 
 ### Reference
 - https://docs.npmjs.com/cli/v11/configuring-npm/package-json#private
@@ -50,8 +50,8 @@ If you set "private": true in your package.json, then npm will refuse to publish
 This is a set of config values that will be used at publish-time.
 It's especially handy if you want to set the tag, registry or access, so that you can ensure that a given package is not tagged with "latest", published to the global public registry or that a scoped module is private by default.
 
-> #### User Annotation:
-> 내부 레지스트리(GitHub Packages 등)로 게시 대상을 강제할 때 사용한다.
+### User Answer
+내부 레지스트리(GitHub Packages 등)로 게시 대상을 강제할 때 사용한다.
 
 ### Reference
 - https://docs.npmjs.com/cli/v11/configuring-npm/package-json#publishconfig

@@ -21,12 +21,12 @@ priority:
 Partial Prerendering (PPR) enables you to combine static and dynamic components together in the same route.
 PPR enables your Next.js server to immediately send prerendered content.
 
-> #### User Annotation:
-> 렌더링 방식의 발전 흐름: CSR → SSR → Streaming → PPR. PPR이 차세대 렌더링 방식으로 위치한다.
-
 ### Review Note
 - 본 문서는 Next.js 14 기준 공식문서를 소스로 함.
 - Next.js 14 기준 experimental 기능.
+
+### User Answer
+렌더링 방식의 발전 흐름: CSR → SSR → Streaming → PPR. PPR이 차세대 렌더링 방식으로 위치한다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering
@@ -51,9 +51,10 @@ PPR enables your Next.js server to immediately send prerendered content.
 To prevent client to server waterfalls, dynamic components begin streaming from the server **in parallel** while serving the initial prerender.
 This ensures dynamic components can begin rendering before client JavaScript has been loaded in the browser.
 
-> #### User Annotation:
-> Static Content가 렌더링이 완료되기 전까지 기다리지 않고, 동적·정적 컨텐츠를 동시에 만들기 시작한다.
-> Dynamic contents = Streaming, Static contents = prerender.
+### User Answer
+Static Content가 렌더링이 완료되기 전까지 기다리지 않고, 동적·정적 컨텐츠를 동시에 만들기 시작한다.
+
+Dynamic contents = Streaming, Static contents = prerender.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/partial-prerendering

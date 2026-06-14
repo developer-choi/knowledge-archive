@@ -23,12 +23,6 @@ The operating system may also provide mechanisms for inter-process communication
 When processes need to communicate with each other they must share parts of their address spaces or use other forms of inter-process communication (IPC).
 For instance in a shell pipeline, the output of the first process needs to pass to the second one, and so on.
 
-> #### AI Annotation:
-> deadlock = A가 B의 자원을 기다리고, B가 A의 자원을 기다려서 둘 다 영원히 멈추는 상태.
-> thrashing = 메모리 부족으로 페이지 교체가 과도하게 발생하여, 실제 작업보다 교체에 시간을 더 쓰는 상태.
->
-> `ls | grep .md`에서 `ls`의 stdout이 `grep`의 stdin으로 파이프로 연결되는 것이 IPC의 대표적 실례.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 
@@ -39,15 +33,10 @@ For instance in a shell pipeline, the output of the first process needs to pass 
 ### Official Answer
 It is usual to associate a single process with a main program, and child processes with any spin-off, parallel processes.
 
-> #### AI Annotation:
-> 메인 프로그램 = 부모 프로세스, 파생된 병렬 프로세스 = 자식 프로세스.
-> Node.js에서 `child_process.fork()`로 무거운 작업을 별도 프로세스에 위임하는 것이 이 패턴.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 
 ---
-
 
 ## 프로세스의 상태 전이(lifecycle) 전체 흐름과 각 상태의 의미는?
 
@@ -60,17 +49,6 @@ If a process in the "running" state needs to wait for a resource (wait for user 
 The process state is changed back to "waiting" when the process no longer needs to wait (in a blocked state).
 Once the process finishes execution, or is terminated by the operating system, it is no longer needed.
 The process is removed instantly or is moved to the "terminated" state.
-
-> #### AI Annotation:
-> 상태 전이 흐름:
-> ```
-> created → waiting → running → terminated
->                ↑        ↓
->                └─ blocked ←┘
-> ```
-> waiting = CPU 차례를 기다리는 준비 완료 상태 (= ready).
-> blocked = I/O 등 외부 자원을 기다리는 상태 (아직 준비 안 됨).
-> blocked에서 자원을 확보하면 running이 아니라 waiting으로 돌아가서 다시 스케줄러의 선택을 기다린다.
 
 ### Review Note
 - Official Answer가 8문장으로 긴 편이지만, 상태 전이 흐름을 순서대로 설명하는 연결된 내용이라 분리하면 오히려 흐름이 끊김

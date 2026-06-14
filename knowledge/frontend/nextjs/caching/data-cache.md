@@ -26,12 +26,12 @@ priority:
 Next.js has a built-in Data Cache that **persists** the result of data fetches across incoming **server requests** and **deployments**.
 This is possible because Next.js extends the native `fetch` API to allow each request on the server to set its own persistent caching semantics.
 
-> #### User Annotation:
-> Request Memoization은 Server Memory에, Data Cache는 영구저장장치에 JSON 형태로 저장된다.
-> Data Cache가 메모리에 저장됐다간 OOME(Out Of Memory Error)가 발생할 위험이 있기 때문이다.
-
 ### Review Note
 - 본 문서는 Next.js 14 기준 공식문서를 소스로 함.
+
+### User Answer
+Request Memoization은 Server Memory에, Data Cache는 영구저장장치에 JSON 형태로 저장된다.
+Data Cache가 메모리에 저장됐다간 OOME(Out Of Memory Error)가 발생할 위험이 있기 때문이다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#data-cache
@@ -57,9 +57,9 @@ This is possible because Next.js extends the native `fetch` API to allow each re
 ### Official Answer
 In Next.js, the `cache` option indicates how a server-side request will interact with the server's Data Cache.
 
-> #### User Annotation:
-> Data Cache는 서버사이드 한정이다.
-> 클라이언트에서 fetch()를 호출할 때 cache 옵션은 Next.js Data Cache가 아니라 브라우저 HTTP 캐시에 영향을 준다.
+### User Answer
+Data Cache는 서버사이드 한정이다.
+클라이언트에서 fetch()를 호출할 때 cache 옵션은 Next.js Data Cache가 아니라 브라우저 HTTP 캐시에 영향을 준다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#data-cache
@@ -117,10 +117,9 @@ Pages Router는 페이지 **전체를** SSG 하는 것만 가능했다.
 - 데이터는 종류별로 분리해서 캐싱이 가능하다 (단, API 종류에 종속됨).
 - UI도 따로 캐싱이 가능하다 (당연히 static rendering에 한해).
 
-> #### User Annotation:
-> Pages Router에서 React Query 등으로 클라이언트에서 캐싱하는 방법은 근본적으로 브라우저별 저장이라 한계가 있다.
-> 천만 명이 같은 페이지에 접근하면 천만 번 API를 호출한 뒤 각자 캐싱된다.
-> 모든 유저에게 동일하게 노출되는 데이터라면 서버 사이드 캐시가 훨씬 유리하다.
+Pages Router에서 React Query 등으로 클라이언트에서 캐싱하는 방법은 근본적으로 브라우저별 저장이라 한계가 있다.
+천만 명이 같은 페이지에 접근하면 천만 번 API를 호출한 뒤 각자 캐싱된다.
+모든 유저에게 동일하게 노출되는 데이터라면 서버 사이드 캐시가 훨씬 유리하다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#data-cache

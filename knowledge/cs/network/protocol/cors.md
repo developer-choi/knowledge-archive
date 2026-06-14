@@ -112,8 +112,7 @@ XMLHttpRequest / Axios (`withCredentials`: `undefined` / `false` / `true`):
 - `false`: 인증 정보를 헤더에 담지 않는다.
 - `true`: 인증 정보를 헤더에 담는다. 단, 서버에서 `Access-Control-Allow-Credentials: true`로 응답해야 한다.
 
-> #### User Annotation:
-> Axios의 옵션 키 이름은 `withCredentials`이지 `credentials`가 아님에 주의.
+Axios의 옵션 키 이름은 `withCredentials`이지 `credentials`가 아님에 주의.
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials

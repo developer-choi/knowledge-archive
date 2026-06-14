@@ -319,7 +319,7 @@ REST의 5가지 원칙 (AWS 기준):
 - Cacheability
 - Code on Demand
 
-> (AI Annotation) AWS는 5가지로 소개하지만 Fielding 원전은 Client-Server를 추가해 6가지로 정의한다. AWS가 "some of the principles"라고 쓴 이유는 Client-Server가 워낙 자명해 일부 입문 문서에서 생략되기 때문이다. 6가지 중 **Code on Demand만 선택(optional)**이고 나머지는 필수다. 면접에서는 6가지로 답하는 게 안전하다.
+> AWS는 5가지로 소개하지만 Fielding 원전은 Client-Server를 추가해 6가지로 정의한다. AWS가 "some of the principles"라고 쓴 이유는 Client-Server가 워낙 자명해 일부 입문 문서에서 생략되기 때문이다. 6가지 중 **Code on Demand만 선택(optional)**이고 나머지는 필수다. 면접에서는 6가지로 답하는 게 안전하다.
 
 ```
 REST 6대 제약 (Fielding 원전 기준)

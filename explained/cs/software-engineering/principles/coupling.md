@@ -23,7 +23,7 @@
 - **simple and stable interface**: 인터페이스가 단순하면 변경 충격이 작고, 안정적이면 내부 구현이 바뀌어도 호출 측이 수정할 필요가 없다. React 컴포넌트 props가 이 인터페이스에 해당한다 — props 형식이 안정적이면 내부 구현을 바꿔도 사용하는 쪽이 안전하다.
 - **internal implementation**: 모듈 내부의 변수명, 로직 흐름, 데이터 구조. 이것을 외부가 알아야 한다면 결합도가 높다.
 
-AI Annotation이 짚듯, "A를 고쳤는데 전혀 상관없어 보이는 B에서 에러가 난다면" 두 모듈은 강하게 결합된 상태다.
+"A를 고쳤는데 전혀 상관없어 보이는 B에서 에러가 난다면" 두 모듈은 강하게 결합된 상태다.
 
 ```
 낮은 결합도 (바람직)               높은 결합도 (위험)
@@ -58,21 +58,21 @@ B 내부 변경 → A 영향 없음          B 내부 변경 → A도 깨짐
 
 "Content 결합도 — 한 모듈이 다른 모듈의 코드를 직접 사용할 때 발생한다. 예: 분기문. 이는 정보 은닉이라는 기본 소프트웨어 설계 개념을 위반한다."
 
-- **uses the code of another module**: 다른 모듈의 내부 구현 코드를 직접 참조하거나 수정하는 것. User Annotation이 짚듯, 다른 모듈의 private field를 직접 수정하는 것이 전형적 사례다.
+- **uses the code of another module**: 다른 모듈의 내부 구현 코드를 직접 참조하거나 수정하는 것. 다른 모듈의 private field를 직접 수정하는 것이 전형적 사례다.
 - **information hiding**: 모듈 내부는 외부에서 보이지 않아야 한다는 원칙. Content coupling은 이 원칙을 정면으로 위반한다.
 
 > Common coupling — Common coupling is said to occur when several modules have access to the same global data. But it can lead to uncontrolled error propagation and unforeseen side-effects when changes are made.
 
 "Common 결합도 — 여러 모듈이 동일한 전역 데이터에 접근할 때 발생한다. 변경 시 통제되지 않는 오류 전파와 예상치 못한 부수효과를 초래할 수 있다."
 
-- **global data**: 전역 변수, 전역 상태. User Annotation이 짚듯, Redux를 남발해서 수많은 모듈들이 읽고 쓰다 보니 이 데이터가 어디서 어떻게 변경되는지 흐름을 파악하기 어려운 상황이 Common coupling의 실무 사례다.
+- **global data**: 전역 변수, 전역 상태. Redux를 남발해서 수많은 모듈들이 읽고 쓰다 보니 이 데이터가 어디서 어떻게 변경되는지 흐름을 파악하기 어려운 상황이 Common coupling의 실무 사례다.
 - **uncontrolled error propagation**: 한 모듈에서 전역 데이터를 잘못 수정하면 그것을 읽는 다른 모든 모듈이 영향받는다.
 
 > External coupling — External coupling occurs when two modules share an externally imposed data format, communication protocol, or device interface.
 
 "External 결합도 — 두 모듈이 외부에서 부과된 데이터 형식, 통신 프로토콜, 기기 인터페이스를 공유할 때 발생한다."
 
-User Annotation이 짚듯, 여러 컴포넌트가 API에서 응답하는 데이터를 직접 의존하는 경우가 External coupling의 실무 사례다. API 응답 스키마가 바뀌면 그것을 직접 의존하는 모든 컴포넌트를 고쳐야 한다.
+여러 컴포넌트가 API에서 응답하는 데이터를 직접 의존하는 경우가 External coupling의 실무 사례다. API 응답 스키마가 바뀌면 그것을 직접 의존하는 모든 컴포넌트를 고쳐야 한다.
 
 > Control coupling — Control coupling is one module controlling the flow of another, by passing it information on what to do (e.g., passing a what-to-do flag).
 

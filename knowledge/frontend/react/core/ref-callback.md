@@ -30,10 +30,6 @@ Instead of a ref object (like the one returned by `useRef`), you may pass a func
 When the `<div>` DOM node is added to the screen, React will call your `ref` callback with the DOM `node` as the argument.
 When that `<div>` DOM node is removed, React will call your the cleanup function returned from the callback.
 
-> #### AI Annotation:
-> ref 객체가 "React가 알아서 `.current`를 채워주는 수동적인 그릇"이라면, ref callback은 "DOM이 붙거나 떨어질 때 React가 호출해주는 함수"다.
-> ref callback의 setup/cleanup 패턴은 `useEffect`와 동일한 형태 — setup 본문에서 작업하고, return으로 cleanup을 넘긴다.
-
 ### Reference
 - https://react.dev/reference/react-dom/components/common#ref-callback
 
@@ -48,11 +44,6 @@ When your component re-renders, the *previous* function will be called with `nul
 
 Unless you pass the same function reference for the `ref` callback on every render, the callback will get temporarily cleanup and re-create during every re-render of the component.
 
-> #### AI Annotation:
-> 인라인 화살표 함수를 ref callback으로 쓰면 매 리렌더마다 detach+attach가 한 번씩 일어난다.
-> setup 본문이 가벼우면 무시할 수 있지만, 측정·구독·외부 라이브러리 인스턴스 생성처럼 무거운 작업이라면 매 렌더마다 떼고 붙이는 비용이 누적된다.
-> 안정적으로 유지하려면 `useCallback`으로 함수 참조를 고정해야 한다.
-
 ### Reference
 - https://react.dev/reference/react-dom/components/common#ref-callback
 
@@ -64,11 +55,6 @@ Unless you pass the same function reference for the `ref` callback on every rend
 React 19 added cleanup functions for `ref` callbacks.
 To support backwards compatibility, if a cleanup function is not returned from the `ref` callback, `node` will be called with `null` when the `ref` is detached.
 This behavior will be removed in a future version.
-
-> #### AI Annotation:
-> React 18까지는 ref callback에서 cleanup을 return할 수 없어서, React가 detach 시점에 같은 콜백을 `null`을 인자로 다시 호출하는 방식이었다 (콜백 본문에서 `if (node) { ... } else { ...정리... }` 분기).
-> React 19부터는 `useEffect`처럼 cleanup을 return하는 방식이 정식으로 들어왔고, return을 안 하면 옛 방식으로 fallback해준다.
-> 이 fallback은 미래에 사라질 예정 — 지금부터 cleanup을 명시적으로 return하는 게 안전하다.
 
 ### Reference
 - https://react.dev/reference/react-dom/components/common#ref-callback

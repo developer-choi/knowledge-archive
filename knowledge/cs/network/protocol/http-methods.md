@@ -49,10 +49,6 @@ A distinction from POST is that the client specifies the target location on the 
 PATCH: The request is to modify a resource according to its partial state in the request.
 Compared to PUT, this can save bandwidth by sending only part of a resource's representation instead of all of it.
 
-> #### AI Annotation:
-> PUT vs POST: PUT은 클라이언트가 리소스의 대상 URI를 지정한다 (`PUT /users/123`). POST는 서버가 위치를 결정한다 (`POST /users` → 서버가 ID 할당).
-> PUT vs PATCH: PUT은 리소스 전체를 교체한다. 이름만 바꾸고 싶어도 전체 데이터를 보내야 한다. PATCH는 변경된 필드만 보내면 된다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
 
@@ -115,9 +111,6 @@ Note that whether or not a method is idempotent is not enforced by the protocol 
 In some cases this is the desired effect, but in other cases it may occur accidentally.
 A user might, for example, inadvertently send multiple POST requests by clicking a button again if they were not given clear feedback that the first click was being processed.
 While web browsers may show alert dialog boxes to warn users in some cases where reloading a page may re-submit a POST request, it is generally up to the web application to handle cases where a POST request should not be submitted more than once.
-
-> #### AI Annotation:
-> FE 실무에서 직접 겪는 문제: 버튼 연타로 POST 중복 전송 → 중복 주문, 이메일 다중 발송. 로딩 인디케이터나 버튼 비활성화로 방지해야 하며, 이는 웹 애플리케이션의 책임이다.
 
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP

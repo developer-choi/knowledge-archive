@@ -22,10 +22,6 @@ Writing tests that include implementation details is all downside and no upside.
 
 You should very rarely have to change tests when you refactor code.
 
-> #### AI Annotation:
-> UI 코드의 사용자는 end user(컴포넌트와 상호작용하는 최종 사용자)와 developer user(컴포넌트를 렌더링하는 개발자) 두 명뿐이다.
-> 구현 상세를 테스트하면 제3의 testing user가 생기는데, 이 사용자는 돈을 내지도, 시스템에 영향을 주지도 않는다.
-
 ### Reference
 - https://kentcdodds.com/blog/avoid-the-test-user
 - https://kentcdodds.com/blog/write-tests

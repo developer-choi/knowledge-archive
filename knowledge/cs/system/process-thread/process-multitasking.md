@@ -20,9 +20,6 @@ Each CPU (core) executes a single process at a time.
 In time-sharing systems, context switches are performed rapidly, which makes it seem like multiple processes are being executed simultaneously on the same processor.
 This seemingly-simultaneous execution of multiple processes is called concurrency.
 
-> #### AI Annotation:
-> concurrency(동시성) — 빠른 전환으로 동시에 실행되는 것처럼 보이는 것. 물리적 동시 실행인 parallelism(병렬성)과 구분된다.
-
 ### Reference
 - https://en.wikipedia.org/wiki/Process_(computing)
 

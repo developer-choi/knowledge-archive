@@ -51,8 +51,8 @@ During that re-render, deferredText still has its previous value, so SlowList is
 
 Without memo, it would have to re-render anyway, defeating the point of the optimization.
 
-> #### User Annotation:
-> - 렌더링이 두번씩 발생하니까 memo()를 감싸서 props가 바뀌지 않았을 때 리렌더링이 되지않게 할 수 있습니다.
+### User Answer
+- 렌더링이 두번씩 발생하니까 memo()를 감싸서 props가 바뀌지 않았을 때 리렌더링이 되지않게 할 수 있습니다.
 
 ### Reference
 - https://react.dev/reference/react/useDeferredValue#deferring-re-rendering-for-a-part-of-the-ui

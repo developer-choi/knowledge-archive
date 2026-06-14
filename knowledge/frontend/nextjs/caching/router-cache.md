@@ -31,11 +31,11 @@ This results in instant back/forward navigation, no full-page reload between nav
 
 This cache specifically applies to Server Components.
 
-> #### User Annotation:
-> layouts, loading states, pages 셋 다 RSC Payload 형태로 Router Cache에 저장된다.
-
 ### Review Note
 - 본 문서는 Next.js 14 기준 공식문서를 소스로 함.
+
+### User Answer
+layouts, loading states, pages 셋 다 RSC Payload 형태로 Router Cache에 저장된다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#router-cache
@@ -47,8 +47,8 @@ This cache specifically applies to Server Components.
 ### Official Answer
 The cache is stored in the browser's temporary **memory**.
 
-> #### User Annotation:
-> 영구 저장소가 아니므로 새로고침하면 당연히 삭제된다.
+### User Answer
+영구 저장소가 아니므로 새로고침하면 당연히 삭제된다.
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#router-cache

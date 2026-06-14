@@ -20,8 +20,8 @@ priority:
 ### Official Answer
 One reason to use trees might be because you want to store information that naturally forms a hierarchy.
 
-> #### User Annotation:
-> 예: File System, HTML
+### User Answer
+예: File System, HTML
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/
@@ -67,9 +67,9 @@ Visit nodes level by level.
 - **Subtree**: Any node of the tree along with its descendant.
 - **Edge**: A connection between two nodes.
 
-> #### User Annotation:
-> Subtree = 트리의 어떤 노드든 그 노드의 자손들을 포함하는 것을 서브트리라고 함. (즉, 특정 노드를 루트로 하는 모든 하위 노드의 집합)
-> Edge = 노드와 노드 사이를 연결하는 선
+### User Answer
+Subtree = 트리의 어떤 노드든 그 노드의 자손들을 포함하는 것을 서브트리라고 함. (즉, 특정 노드를 루트로 하는 모든 하위 노드의 집합)
+Edge = 노드와 노드 사이를 연결하는 선
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/introduction-to-tree-data-structure/

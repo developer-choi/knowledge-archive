@@ -21,12 +21,12 @@ priority:
 A Stack is a linear data structure that follows a particular order in which the operations are performed.
 The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 
-> #### User Annotation:
-> LIFO의 특징은, Stack은 push() pop() 1쌍 반복하면 변화가 없음.
-> 1 넣고 1 빼면 기존과 똑같음.
->
-> Fixed Size / Dynamic Size 2개가 있고 특징은 Queue의 그것과 동일함.
-> Array 기반 Stack은 모든 동작이 O(1). 유일한 단점은 Fixed Size라는 것.
+### User Answer
+LIFO의 특징은, Stack은 push() pop() 1쌍 반복하면 변화가 없음.
+1 넣고 1 빼면 기존과 똑같음.
+
+Fixed Size / Dynamic Size 2개가 있고 특징은 Queue의 그것과 동일함.
+Array 기반 Stack은 모든 동작이 O(1). 유일한 단점은 Fixed Size라는 것.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/stack-data-structure/
@@ -40,12 +40,11 @@ The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 1. 기준이 되는 값 보다 **왼쪽 / 오른쪽**에 어떤 조건을 만족하는 값을 찾거나, 반대로 그 값이 어떤 조건을 만족하는지 따져야하는데,
 2. 그 값의 위치가 기준값과 가장 **가까운지** 여부를 따지는 케이스에서 활용이 가능하다.
 
-> #### User Annotation:
-> 예시 1: 괄호 쌍 체크 — "{ [ ( ) ] }" 에서 ) 기준 가장 왼쪽으로 가까운 값이 (인지를 따지는 것.
-> 포인트는 **가장 가까운**임.
-> "( { [ ) ] }" 에서 가장 가까운거랑 상관이 없었다면 이래도 통과되는 거니까.
->
-> 예시 2: 가장 가까운 작은 수 찾기 — [0, 1, 6, 2] 에서 2 기준 왼쪽에서 2보다 작은값은 0, 1 두 개 다 인데, 이중에 2와 더 **가까운**건 0이 아니라 1임.
+예시 1: 괄호 쌍 체크 — "{ [ ( ) ] }" 에서 ) 기준 가장 왼쪽으로 가까운 값이 (인지를 따지는 것.
+포인트는 **가장 가까운**임.
+"( { [ ) ] }" 에서 가장 가까운거랑 상관이 없었다면 이래도 통과되는 거니까.
+
+예시 2: 가장 가까운 작은 수 찾기 — [0, 1, 6, 2] 에서 2 기준 왼쪽에서 2보다 작은값은 0, 1 두 개 다 인데, 이중에 2와 더 **가까운**건 0이 아니라 1임.
 
 ### Reference
 - https://www.geeksforgeeks.org/check-for-balanced-parentheses-in-an-expression/
@@ -88,11 +87,10 @@ The order may be LIFO(Last In First Out) or FILO(First In Last Out).
 **결론**: 총 push 횟수 = n, 총 pop 횟수 <= n.
 총 연산 횟수는 n_push + n_pop <= n + n = 2n = O(n).
 
-> #### User Annotation:
-> 브루트 포스로 구현했다면 O(n^2)였음.
-> 0번 인덱스에서 좌측 뒤지고, 1번 인덱스에서 좌측 뒤지고, n번 인덱스에서 좌측 뒤져야 했으니까.
-> 하지만 Stack은 순회할 때 후보가 될 수 있는 것만 저장해나가기 때문에, 전부 다 뒤질 필요가 없어짐.
-> 왼쪽을 다 뒤져서 O(n^2)를 하는게 아니라, 처음에 순회할 때부터 후보 데이터들을 잘 저장해놓으면서 순회하고, 왼쪽과 비교하는게 아니라 **후보들과 비교를 하는 것.**
+브루트 포스로 구현했다면 O(n^2)였음.
+0번 인덱스에서 좌측 뒤지고, 1번 인덱스에서 좌측 뒤지고, n번 인덱스에서 좌측 뒤져야 했으니까.
+하지만 Stack은 순회할 때 후보가 될 수 있는 것만 저장해나가기 때문에, 전부 다 뒤질 필요가 없어짐.
+왼쪽을 다 뒤져서 O(n^2)를 하는게 아니라, 처음에 순회할 때부터 후보 데이터들을 잘 저장해놓으면서 순회하고, 왼쪽과 비교하는게 아니라 **후보들과 비교를 하는 것.**
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/find-the-nearest-smaller-numbers-on-left-side-in-an-array/

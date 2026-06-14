@@ -16,29 +16,42 @@ priority:
 ### Official Answer
 JSX looks like HTML, but it can also write powerful features of Javascript.
 
-> #### User Annotation:
-> JSX는 HTML과 비슷한 모양이지만, 다음과 같이 JavaScript의 강력한 기능들을 함께 활용할 수 있다.
->
-> 함수 호출과 변수 값을 그대로 쓸 수 있다:
-> ```
-> <div>{getValue()}</div>
-> <div>{someVariable}</div>
-> ```
->
-> 조건부로 활용할 수 있다:
-> ```
-> <div>{isVisible ? <Foo/> : <Bar/>}</div>
-> ```
->
-> Attribute에도 JS 표현식을 쓸 수 있다:
-> ```
-> <div className={someClassName}>...</div>
-> ```
->
-> 자식 요소도 동적으로 구성할 수 있다:
-> ```
-> <div>{children}</div>
-> ```
+### User Answer
+JSX는 HTML과 비슷한 모양이지만, 다음과 같이 JavaScript의 강력한 기능들을 함께 활용할 수 있다.
+
+함수 호출과 변수 값을 그대로 쓸 수 있다:
+
+```
+
+<div>{getValue()}</div>
+
+<div>{someVariable}</div>
+
+```
+
+조건부로 활용할 수 있다:
+
+```
+
+<div>{isVisible ? <Foo/> : <Bar/>}</div>
+
+```
+
+Attribute에도 JS 표현식을 쓸 수 있다:
+
+```
+
+<div className={someClassName}>...</div>
+
+```
+
+자식 요소도 동적으로 구성할 수 있다:
+
+```
+
+<div>{children}</div>
+
+```
 
 ### Reference
 - React 공식 문서 (URL_UNKNOWN)

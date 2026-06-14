@@ -96,11 +96,11 @@ If there is a .gitignore file, and .npmignore is missing, .gitignore's contents 
 ### Official Answer
 "exports" prevents any other entry points besides those defined in "exports".
 
-> #### User Annotation:
-> - `exports` 필드가 없으면 빌드 결과물의 모든 파일이 import 가능해진다.
->   - 예: 실제로 `exports` 필드를 삭제했을 때, dist 디렉토리의 `common.module.scss`, `first-thing.css`, `first-thing.js`, `first-thing.umd.cjs`, `index.d.ts`, `vite.svg` 등 모든 파일이 외부에서 import 가능했다.
-> - viteStaticCopy 플러그인처럼 정적 파일을 빌드 결과물에 함께 포함시키는 경우, 그 파일들을 일일이 `exports`에 등록하기 번거롭다.
->   → 정적 파일 노출을 자유롭게 두고 싶으면 `exports` 미설정이 편할 수 있다.
+### User Answer
+- `exports` 필드가 없으면 빌드 결과물의 모든 파일이 import 가능해진다.
+  - 예: 실제로 `exports` 필드를 삭제했을 때, dist 디렉토리의 `common.module.scss`, `first-thing.css`, `first-thing.js`, `first-thing.umd.cjs`, `index.d.ts`, `vite.svg` 등 모든 파일이 외부에서 import 가능했다.
+- viteStaticCopy 플러그인처럼 정적 파일을 빌드 결과물에 함께 포함시키는 경우, 그 파일들을 일일이 `exports`에 등록하기 번거롭다.
+  → 정적 파일 노출을 자유롭게 두고 싶으면 `exports` 미설정이 편할 수 있다.
 
 ### Reference
 - https://nodejs.org/api/packages.html#package-entry-points
@@ -115,16 +115,16 @@ That is, if your package is named foo, and a user installs it, and then does req
 
 This should be a module relative to the root of your package folder.
 
-> #### User Annotation:
-> - 예: `"main": "dist/index.js"`라면, package.json이 있는 폴더 안에 `dist/` 폴더가 있고 그 안에 `index.js`가 있어야 한다.
-> - 명시하지 않으면 기본적으로 프로젝트 최상위의 `index.js`가 사용된다.
-> - Babel 같은 트랜스파일러나 Webpack 같은 번들러를 쓸 경우, 소스 파일 대신 빌드 결과물 디렉토리 안의 파일을 `main`으로 지정해야 한다.
->
-> ```json
-> {
->   "main": "build/index.js"
-> }
-> ```
+### User Answer
+- 예: `"main": "dist/index.js"`라면, package.json이 있는 폴더 안에 `dist/` 폴더가 있고 그 안에 `index.js`가 있어야 한다.
+- 명시하지 않으면 기본적으로 프로젝트 최상위의 `index.js`가 사용된다.
+- Babel 같은 트랜스파일러나 Webpack 같은 번들러를 쓸 경우, 소스 파일 대신 빌드 결과물 디렉토리 안의 파일을 `main`으로 지정해야 한다.
+
+```json
+{
+  "main": "build/index.js"
+}
+```
 
 ### Reference
 - https://docs.npmjs.com/cli/v11/configuring-npm/package-json#main

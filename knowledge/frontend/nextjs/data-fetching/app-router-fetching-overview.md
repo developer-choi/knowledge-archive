@@ -27,12 +27,14 @@ This reduces both the back-and-forth communication between client and server, as
 It's hard to give general advice on when it makes sense to pair React Query with Server Components and not.
 If you are just starting out with a new Server Components app, we suggest you start out with any tools for data fetching your framework provides you with and avoid bringing in React Query until you actually need it.
 
-> #### User Annotation:
-> Best = 가능한 FULL SSR 하면 이득이 있긴 함 (프레임워크 오피셜).
-> Worst = FULL CSR 하면 손해가 있긴 함.
->
-> Next.js 공식문서에서, 특별한 이유를 찾기 전까지는 Server Side 패칭을 우선으로 검토하라 했을 정도.
-> RQ 공식문서에서도, 특별한 이유 없으면 RQ 쓰지 말라 그랬음.
+### User Answer
+Best = 가능한 FULL SSR 하면 이득이 있긴 함 (프레임워크 오피셜).
+
+Worst = FULL CSR 하면 손해가 있긴 함.
+
+Next.js 공식문서에서, 특별한 이유를 찾기 전까지는 Server Side 패칭을 우선으로 검토하라 했을 정도.
+
+RQ 공식문서에서도, 특별한 이유 없으면 RQ 쓰지 말라 그랬음.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating
@@ -51,8 +53,7 @@ SSR보다는 Streaming이 상위 호환이다.
 
 즉, 페이지 전체가 서버에서 준비될 때까지 기다리게 만들지 말고, Suspense로 경계를 나눠서 먼저 준비되는 부분부터 점진적으로 내려보내야 한다.
 
-> #### User Annotation:
-> 참고: https://github.com/developer-choi/test-playground/commit/c4bcc1b20bdf900e65952d35d5bf8e51f702977f
+참고: https://github.com/developer-choi/test-playground/commit/c4bcc1b20bdf900e65952d35d5bf8e51f702977f
 
 ---
 
@@ -95,11 +96,14 @@ Good rule of thumb:
 1. If you do use it, a good rule of thumb is to avoid queryClient.fetchQuery unless you need to catch errors.
 2. If you do use it, **don't render its result on the server** or **pass the result to another component, even a Client Component one.**
 
-> #### User Annotation:
-> 정리하자면,
-> 1. fetchQuery의 결과를 다른 컴포넌트에 전달하지 않는다.
-> 2. SC에서는 prefetch만 하는 식으로 호출하는 것만 한다.
-> 3. 만약 SC에서 fetchQuery를 해야 한다면 그건 오직 에러 잡아서 처리하는 용도로만 쓴다.
+### User Answer
+정리하자면,
+
+1. fetchQuery의 결과를 다른 컴포넌트에 전달하지 않는다.
+
+2. SC에서는 prefetch만 하는 식으로 호출하는 것만 한다.
+
+3. 만약 SC에서 fetchQuery를 해야 한다면 그건 오직 에러 잡아서 처리하는 용도로만 쓴다.
 
 ### Reference
 - https://tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#data-ownership-and-revalidation
@@ -111,15 +115,18 @@ Good rule of thumb:
 ### Official Answer
 If the queries included in dehydration already exist in the queryCache, hydrate does not overwrite them and they will be silently discarded.
 
-> #### User Annotation:
-> 이미 CC에 데이터가 있으면 SC가 다시 실행되더라도 데이터가 덮어씌워지지 않는다.
-> 즉, 라이브러리 제작자 생각은 CC가 더 최신일 거라고 판단한 것이고, 이게 납득은 간다.
->
-> 내가 구현했던 케이스는 다른 페이지 갔다가 돌아온 케이스(리스트 → 상세 → 돌아오기)밖에 없어서 무조건 Server Side Cache가 Client Side Cache보다 최신이지만,
-> 다른 상황(Server Component가 최신화되는 다른 경우의 수)은 내가 모르니까.
-> (revalidateTag도 SC 리렌더링을 유발함)
->
-> 참고: https://github.com/developer-choi/react-playground/commit/be17e3ffe71bb4f0e62bf1c5319278fa3cb9f674
+### User Answer
+이미 CC에 데이터가 있으면 SC가 다시 실행되더라도 데이터가 덮어씌워지지 않는다.
+
+즉, 라이브러리 제작자 생각은 CC가 더 최신일 거라고 판단한 것이고, 이게 납득은 간다.
+
+내가 구현했던 케이스는 다른 페이지 갔다가 돌아온 케이스(리스트 → 상세 → 돌아오기)밖에 없어서 무조건 Server Side Cache가 Client Side Cache보다 최신이지만,
+
+다른 상황(Server Component가 최신화되는 다른 경우의 수)은 내가 모르니까.
+
+(revalidateTag도 SC 리렌더링을 유발함)
+
+참고: https://github.com/developer-choi/react-playground/commit/be17e3ffe71bb4f0e62bf1c5319278fa3cb9f674
 
 ### Reference
 - https://tanstack.com/query/v4/docs/framework/react/reference/hydration#limitations-1

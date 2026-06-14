@@ -52,23 +52,6 @@ Most effects will work without any changes, but some effects assume they are onl
 To help surface these issues, React 18 introduces a new development-only check to Strict Mode.
 This new check will automatically unmount and remount every component, whenever a component mounts for the first time, restoring the previous state on the second mount.
 
-> #### AI Annotation:
-> 변경 전 (mount 1회) 시퀀스:
-> - React mounts the component.
->   - Layout effects are created.
->   - Effects are created.
->
-> React 18 Strict Mode (개발 모드, double-invoke) 시퀀스:
-> - React mounts the component.
->   - Layout effects are created.
->   - Effects are created.
-> - React simulates unmounting the component.
->   - Layout effects are destroyed.
->   - Effects are destroyed.
-> - React simulates mounting the component with the previous state.
->   - Layout effects are created.
->   - Effects are created.
-
 ### Reference
 - https://react.dev/blog/2022/03/29/react-v18
 

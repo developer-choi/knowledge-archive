@@ -44,9 +44,6 @@ Full pages or large parts of a page in nested routing.
 
 If a UI block on a page is not reused, it's perfectly fine to keep it inside the page slice.
 
-> #### User Annotation:
-> - Entry Points.
-
 #### Widgets
 Large self-contained chunks of functionality or UI, usually delivering an entire use case.
 
@@ -58,6 +55,9 @@ Business entities that the project works with, like user or product.
 
 #### Shared
 Reusable functionality, especially when it's detached from the specifics of the project/business, though not necessarily.
+
+### User Answer
+- Entry Points.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
@@ -75,15 +75,6 @@ If a block of UI makes up most of the interesting content on a page, and is neve
 
 > **Tip**: If you're using a nested routing system (like the router of Remix), it may be helpful to use the Widgets layer in the same way as a flat routing system would use the Pages layer — to create full router blocks, complete with related data fetching, loading states, and error boundaries.
 
-> #### AI Annotation:
-> - **사용해야 할 때 (Use Case)**:
->   1. 여러 페이지에서 재사용되는 거대한 UI 블록 (예: 헤더, 푸터, 댓글 섹션).
->   2. 한 페이지 내에서도 서로 독립적인 큰 덩어리들이 여러 개 있을 때.
-> - **피해야 할 때 (Avoid)**:
->   - 특정 페이지의 메인 콘텐츠 그 자체이면서 재사용되지 않는 경우. 이럴 땐 굳이 위젯으로 분리하지 말고 `pages` 레이어에 직접 작성하는 것이 좋습니다.
-> - **중첩 라우팅 활용 팁**:
->   - Remix나 Next.js의 중첩 라우팅을 쓸 때는 Widget을 마치 '미니 페이지'처럼 활용할 수 있습니다. 데이터 로딩(fetch), 로딩 상태, 에러 처리까지 포함된 완전한 블록으로 만들어 라우터에 끼워 넣는 방식입니다.
-
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
 - https://feature-sliced.design/docs/reference/layers
@@ -98,10 +89,6 @@ Between Shared and Pages there are three other layers: Entities, Features, and W
 Some projects may have something in those layers that they need in a large reusable block, and that means we can't put that reusable block in Shared, or else it would be importing from upper layers, which is prohibited.
 That's where the Widgets layer comes in.
 It is located above Shared, Entities, and Features, so it can use them all.
-
-> #### AI Annotation: 판단 기준은 "이 UI 블록이 Entities나 Features의 코드를 필요로 하는가?"이다.
-> 필요하면 Widgets, 필요 없으면 Shared.
-> 예: 단순 로고+네비게이션 헤더 → Shared, 유저 아바타(`entities/user`)를 포함하는 헤더 → Widgets.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/tutorial
@@ -118,10 +105,12 @@ Specifically for entities/ui, it is primarily meant to reuse the same appearance
 A crucial principle for using the Features layer effectively is: not everything needs to be a feature.
 A good indicator that something needs to be a feature is the fact that it is reused on several pages.
 
-> #### User Annotation:
-> - 엔티티는 명사, 개념, 데이터에 해당합니다. 따라서 데이터 타입, 타입을 가공하는 유틸리티, 데이터를 가져오는 GET API 호출 함수, 그리고 데이터를 단순히 보여주는 컴포넌트와 같은 코드들이 엔티티 레이어에 위치합니다.
-> - **엔티티의 UI는 '수동적'이어야 합니다.** 예를 들어 유저 카드 UI는 유저 정보를 보여주기만 해야 하며, '팔로우'나 '차단' 같은 구체적인 비즈니스 동작(Feature)은 포함하지 않고 상위 레이어에서 props나 slots를 통해 주입받아야 합니다.
-> - 피처는 동사, 액션, 기능에 해당합니다. 따라서 실제 기능이 포함된 컴포넌트나 Hooks, 그리고 GET 이외의 API 호출 함수 등이 피처 레이어에 위치합니다.
+### User Answer
+- 엔티티는 명사, 개념, 데이터에 해당합니다. 따라서 데이터 타입, 타입을 가공하는 유틸리티, 데이터를 가져오는 GET API 호출 함수, 그리고 데이터를 단순히 보여주는 컴포넌트와 같은 코드들이 엔티티 레이어에 위치합니다.
+
+- **엔티티의 UI는 '수동적'이어야 합니다.** 예를 들어 유저 카드 UI는 유저 정보를 보여주기만 해야 하며, '팔로우'나 '차단' 같은 구체적인 비즈니스 동작(Feature)은 포함하지 않고 상위 레이어에서 props나 slots를 통해 주입받아야 합니다.
+
+- 피처는 동사, 액션, 기능에 해당합니다. 따라서 실제 기능이 포함된 컴포넌트나 Hooks, 그리고 GET 이외의 API 호출 함수 등이 피처 레이어에 위치합니다.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/overview
@@ -139,11 +128,6 @@ Bad - when the feature does not answer the question "What is the business value 
 There can be no "map-office" feature.
 But booking-meeting-on-the-map, search-for-an-employee, change-of-workplace - yes.
 
-> #### AI Annotation: feature의 크기가 아니라 목적이 판단 기준이다.
-> "이 feature는 사용자에게 어떤 비즈니스 가치를 주는가?"에 답할 수 없으면 경계가 잘못된 것이다.
-> "map-office"는 영역/도메인이지 기능이 아니다.
-> 반면 "booking-meeting-on-the-map"은 사용자가 달성하려는 구체적 목표이므로 feature가 될 수 있다.
-
 ### Reference
 - https://feature-sliced.design/docs/about/understanding/needs-driven
 
@@ -158,9 +142,6 @@ It doesn't break FSD in any way, on the contrary, it simplifies the architecture
 FSD 2.1 encourages deferred decomposition of slices instead of preemptive, and this approach also extends to entities layer.
 
 Remember: the later you move code to the entities layer, the less dangerous your potential refactors will be — code in Entities may affect functionality of any slice on higher layers.
-
-> #### AI Annotation: 일단 페이지나 Feature의 model 세그먼트에 코드를 놓고, 여러 슬라이스에서 실제로 공유될 때 Entities로 추출한다.
-> thin client(백엔드에 대부분 위임하는 앱)라면 Entities가 불필요할 가능성이 높다.
 
 ### Reference
 - https://feature-sliced.design/docs/guides/issues/excessive-entities
@@ -186,15 +167,6 @@ For example, components, hooks, and types are bad segment names because they are
 
 - **config**: configuration files and feature flags. / for feature flags, environment variables and other forms of configuration
 
-> #### AI Annotation:
-> **Technical Nature 설명**: 개발에서 Technical Nature라는 표현은 코드를 바라보는 관점을 설명할 때 자주 사용된다.
-> - 도메인 성격(Domain Nature): 이 코드가 사용자에게 어떤 기능을 제공하는가? (예: 주문하기, 장바구니 담기) → FSD에서 Slice가 담당.
-> - 기술적 성격(Technical Nature): 이 코드가 소프트웨어 아키텍처 상에서 어떤 도구로 쓰이는가? (예: React 컴포넌트, Axios 함수, Redux 스토어) → Segment가 담당.
->
-> **ui 세그먼트 보충**: 특정 UI를 표현하기 위해 보조적으로 사용되는 스타일 파일이나 포맷팅 함수도 ui 세그먼트에 포함된다.
->
-> **lib 세그먼트 사용 가이드**: `lib`를 잡동사니 유틸 폴더로 쓰면 `utils/`와 다를 바 없어진다. 팀 내에서 "이 라이브러리에 뭘 넣어도 되고 뭘 넣으면 안 되는지"를 명확히 해야 한다.
-
 ---
 
 ## FSD 슬라이스에서 Public API의 역할과 리팩토링 지원 방식은?
@@ -215,12 +187,8 @@ Only the necessary parts of the slice should be exposed.
 When they are in the same slice, always use relative imports and write the full import path.
 When they are in different slices, always use absolute imports, for example, with an alias.
 
-> #### AI Annotation: 같은 슬라이스 내부에서 index 파일을 통해 import하면 순환 참조가 발생한다.
-> 예: `HomePage`가 `../`(index.js)에서 `loadUserStatistics`를 가져오면, index.js → HomePage → index.js 순환이 생긴다.
-> 내부에서는 상대 경로로 직접 import하고, 외부에서만 Public API를 사용하면 순환 참조를 원천 차단할 수 있다.
-
-> #### User Annotation:
-> 슬라이스나 세그먼트에서, 외부에 공개할 모듈만 따로 선택하기 위한 방법입니다.
+### User Answer
+슬라이스나 세그먼트에서, 외부에 공개할 모듈만 따로 선택하기 위한 방법입니다.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/tutorial
@@ -234,10 +202,6 @@ When they are in different slices, always use absolute imports, for example, wit
 For the Shared layer that has no slices, it's usually more convenient to define a separate public API for each segment as opposed to defining one single index of everything in Shared.
 This keeps imports from Shared naturally organized by intent.
 For other layers that have slices, the opposite is true — it's usually more practical to define one index per slice and let the slice decide its own set of segments that is unknown to the outside world because other layers usually have a lot less exports.
-
-> #### AI Annotation: Shared는 export가 많으므로 `shared/ui/index`, `shared/api/index`처럼 세그먼트별로 Public API를 분리한다.
-> 도메인 레이어는 슬라이스 단위로 하나의 index를 두어 내부 세그먼트 구조를 캡슐화한다.
-> 번들 크기가 문제되면 `shared/ui/button/index`, `shared/ui/text-field/index`처럼 컴포넌트별로 더 세분화할 수도 있다.
 
 ### Reference
 - https://feature-sliced.design/docs/get-started/tutorial

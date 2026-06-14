@@ -8,7 +8,7 @@
 
 - **Fact-First**: 객관적 사실만 Official Answer에 기록. 해석·보충은 `> OO Annotation:`으로 구분. (Official / AI / User)
 - **원문 보존**: 공식 문서 원문의 핵심 내용을 그대로 보존. 문장 간 연결이 어색하더라도 AI가 임의로 가공하지 않는다.
-- **Official Answer 언어**: Official Answer는 공식 문서 원문을 그대로 보존한다. 공식 출처가 영어이면 영어 원문을 유지하며, 한글 번역·요약·의역으로 대체하지 않는다. 그 외 편집·주석 성격(Questions, AI Annotation, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
+- **Official Answer 언어**: Official Answer는 공식 문서 원문을 그대로 보존한다. 공식 출처가 영어이면 영어 원문을 유지하며, 한글 번역·요약·의역으로 대체하지 않는다. 그 외 편집·주석 성격(Questions, Additional Answer, Review Note, Frequent Mistakes 등)은 한글로 작성한다.
 - **출처 없으면 작업 중단**: 출처가 제공되지 않으면, 내용 작성 전에 출처 링크를 요청하고 대기한다.
 - **비속어 금지**: 문서(헤딩·본문·해설 등 모든 부분)에 욕설·비속어를 쓰지 않는다. 채팅 설명에서 사용자가 비속어를 썼거나 AI가 강조용으로 썼더라도, 파일(knowledge·explained 등)에는 옮기지 않는다. 강조는 일반 어휘로 한다.
 
@@ -101,51 +101,24 @@ knowledge/ 문서의 면접 대비 우선순위.
 | 섹션 | 출처 | 용도 |
 |---|---|---|
 | `### Official Answer` | 공식 문서 | 검증된 사실. 확보 가능하면 반드시 포함 |
-| `### AI Answer` | AI 생성 | 공식 출처를 아직 찾지 못한 경우의 답변 |
+| `### Additional Answer` | OA 없는 답변 | 공식 출처 미확보 or OA에 없는 보충 — 면접 답변 수준 암기 필요 |
 | `### User Answer` | 사용자 작성 | 사용자의 해석, 경험 기반 답변 |
 
 ### 작성 원칙
-- **빈 섹션 금지**: 채울 본문이 없는 섹션 헤딩(`### Official Answer`, `### AI Answer`, `### User Answer`, `### Reference`, Annotation 등)은 만들지 않는다. 본문이 생기는 시점에 섹션을 추가한다. 섹션 본문을 비우면 마커 정합성 검증과 마커 사용 조건 판단이 무너진다.
+- **빈 섹션 금지**: 채울 본문이 없는 섹션 헤딩(`### Official Answer`, `### Additional Answer`, `### User Answer`, `### Reference` 등)은 만들지 않는다. 본문이 생기는 시점에 섹션을 추가한다. 섹션 본문을 비우면 마커 정합성 검증과 마커 사용 조건 판단이 무너진다.
 - **OA 단락 통합**: 같은 출처 또는 다른 공식 출처의 원문 단락 여러 개를 하나의 Official Answer 안에 단락으로 이어 붙여도 된다. 단락 사이는 빈 줄로 구분한다. 단락을 묶기 위한 추가 표현(접속사·요약 문장 등)을 AI가 임의로 만들지 않는다 — 원문을 그대로 이어 붙인다.
 - **출처 표기는 Reference에만**: OA 본문(또는 H4 서브섹션 본문)에 인라인 `— URL` 표기를 두지 않는다. 모든 출처는 `### Reference` 섹션에 URL로 모은다. 다른 출처의 원문 단락을 통합할 때는 그 URL을 Reference에 추가한다.
 - **OA 내부 위계화 (권장)**: OA가 단락 3개 이상으로 통합되거나 명확한 카테고리로 묶이는 경우(예: "정의 / 구성요소 / 동작 방식"), `####` H4 헤딩으로 내부 위계를 표현한다. 사용자 가독성 우선. 단락 1~2개로 흐름이 자연스러우면 H4 없이 둔다.
 - **OA 길이 관리**: 한 단락이 6문장을 초과하면 문장 정리를 검토한다. OA 전체가 15문장을 초과하면 질문 분리를 검토한다. 테이블·코드블록·리스트는 문장 수에서 제외한다.
 - **원문 보존**: 공식 문서 원문은 절대 수정하지 않는다. 마이그·재편 시에도 영어 원문(Official 콘텐츠)을 삭제해서는 안 된다 — 형태가 바뀌더라도(OA 단락 통합, Official Annotation → OA 흡수 등) 원문 자체는 반드시 어딘가에 보존되어야 한다.
 - **OA 앞 한글 추가 금지**: `### Official Answer` 헤딩과 첫 번째 영어 원문 사이에, 또는 `#### H4` 서브섹션 헤딩과 영어 원문 사이에 AI-authored 한글 도입 문장(요약·설명·번역)을 삽입하지 않는다. OA 섹션은 영어 원문으로만 시작한다.
-- **원본 언어 유지 (번역 금지)**: User Answer/User Annotation이 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
+- **원본 언어 유지 (번역 금지)**: User Answer가 한글이면 한글 그대로 작성한다. 이 규칙은 User 섹션에만 적용되며, Official 섹션에는 적용되지 않는다.
   - 허용 편집: 맞춤법, 조사, 문장 흐름, 전문 용어 정확화
-  - **명백한 사실 오류 정정은 필수**: 위키피디아 수준의 확립된 지식(표준 수치·프로토콜 헤더 필드·레지스터 정의 등)과 충돌하거나 같은 섹션 내 자기모순이 있으면 `User Answer`/`User Annotation`/`AI Annotation`에 한해 정정한다. **`Official Answer`는 예외 없이 수정 금지**.
+  - **명백한 사실 오류 정정은 필수**: 위키피디아 수준의 확립된 지식(표준 수치·프로토콜 헤더 필드·레지스터 정의 등)과 충돌하거나 같은 섹션 내 자기모순이 있으면 `User Answer`/`Additional Answer`에 한해 정정한다. **`Official Answer`는 예외 없이 수정 금지**.
   - 금지: 소스에 없는 새 사실 덧붙이기, 뉘앙스 변경, 근거 없는 주장
 - **출처 명확성**: Official Answer는 반드시 Reference에 출처를 명시.
 - **출처-Answer 매핑**: Reference에 공식 출처 URL이 있고 Official Answer가 아직 비어 있는 상태(학습 진행 중)는 위반이 아니다. 단 이 경우 `### Official Answer` 빈 헤딩을 만들지 말고 `### Reference`만 둔다.
-- **동일 헤딩 중복 금지**: 하나의 Q&A 내에서 동일한 섹션 헤딩은 최대 1개만 허용한다. `### Official Answer` / `### AI Answer` / `### User Answer` / `### Reference` 각각 최대 1개. `> #### AI Annotation:` / `> #### User Annotation:` 각각 최대 1개. 중복 발생 시 내용을 합쳐 하나의 헤딩 아래 통합한다.
-
-### Annotation
-
-Answer 내부에 짧은 보충 설명을 추가할 때 `>` 블록쿼트 + `#### 헤딩`을 사용한다.
-
-- Annotation은 Answer(Official/AI/User)의 보충이다. Answer 없이 Annotation만 단독으로 존재하면, 해당 Annotation은 Answer로 승격시킨다.
-- **폐지 키 — Official Annotation**: `> #### Official Annotation:` 블록은 폐지되었다. 공식 출처의 보충은 Annotation으로 분리하지 않고 OA 본문에 단락으로 통합한다 (위 "OA 단락 통합" 참고). 출처·신뢰도가 Official Answer와 동일하므로 분리할 이유가 없다. digest/convert/explain 어떤 스킬도 이 키를 신규 생성하지 않는다.
-
-| Annotation 유형 | 형식 | 출처 | 용도 |
-|---|---|---|---|
-| AI Annotation | `> #### AI Annotation:` | AI 생성 | OA에 없는 **새 비유·실생활 매핑·실무 통찰·외부 도구 매핑**(예: Chrome DevTools, Node.js API) |
-| User Annotation | `> #### User Annotation:` | 사용자 작성 | 사용자의 **새 메모·경험·통찰**(OA에 없는 다른 시각, 학습 중 떠오른 비유 등) |
-
-**Annotation 작성 정책 — 한글 풀이 금지**: AI Annotation도 User Annotation도 OA 영어 원문의 한글 번역·요약·풀이로 채우지 않는다. **한글 line-by-line 해설은 `/explain` 스킬이 `explained/<rel>.md`에 담당**하므로, knowledge/ 파일에 이중으로 둘 필요가 없다. digest/convert 등 어떤 스킬도 한글 풀이 Annotation을 생성하지 않는다. 사용자가 직접 한글 풀이를 적었으면 마이그·검증 시 정리를 제안한다.
-
-**Annotation 중복 금지**: OA에서 이미 다룬 정의·예시·메커니즘을 단순 반복하는 Annotation은 삭제한다. AI·User 모두 적용. 위 "한글 풀이 금지"와 함께 적용 — OA 원문의 다른 언어 풀이도 "단순 반복"으로 본다. 새 비유·매핑·통찰·시각을 더할 때만 유지하고, 일부만 중복이면 중복 부분만 삭제한다. User Annotation은 자동 삭제하지 않고 사용자에게 정리를 확인받는다 (사용자가 직접 작성한 메모이므로).
-
-```markdown
-### Official Answer
-A network is a group of communicating computers...
-
-> #### AI Annotation:
-> 네트워크의 3요소는 Node, Link, Protocol입니다.
-
-> #### User Annotation:
-> Protocol이 HTTPS 같은거 말하는거임
-```
+- **동일 헤딩 중복 금지**: 하나의 Q&A 내에서 동일한 섹션 헤딩은 최대 1개만 허용한다. `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference` 각각 최대 1개. 중복 발생 시 내용을 합쳐 하나의 헤딩 아래 통합한다.
 
 ---
 
@@ -193,14 +166,9 @@ Answer 하위에 추가할 수 있는 선택적 섹션이다.
 ## 6. 이미지 처리
 
 ### Case 1: 다른 AI 답변 캡처
-다른 AI(예: ChatGPT, Gemini 등) 답변 이미지를 옮길 때는 AI Annotation 블록쿼트로 부착한다:
-```markdown
-### Official Answer
-[공식 문서 원문]
-
-> #### AI Annotation:
-> [AI 캡처 이미지 내 텍스트를 여기에 옮김]
-```
+다른 AI(예: ChatGPT, Gemini 등) 답변 이미지를 옮길 때는 내용의 성격에 따라 처리한다:
+- 면접 답변 수준 암기가 필요한 내용 → `### Additional Answer`로 추가
+- 보조 컨텍스트 수준 → dropped (필요하면 /explain 세션에서 explained/에 다룸)
 
 ### Case 2: 공식 문서 캡처 (다이어그램, 표)
 - 이미지가 핵심 정보를 담고 있으면 텍스트로 변환

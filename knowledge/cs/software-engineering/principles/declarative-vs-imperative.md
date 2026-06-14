@@ -219,16 +219,5 @@ export default function Form() {
 }
 ```
 
-> #### AI Annotation:
-> imperative 구조는 이벤트 핸들러 안에 "뭘 보여줄지"와 "언제 보여줄지"가 한 덩어리로 박혀 있다 (`disable(button); show(spinner); hide(errorMessage);` 연속 호출).
-> declarative 구조는 두 레이어가 분리된다 — 이벤트 핸들러는 `setStatus('submitting')`만, JSX는 `{status === 'submitting' && <Spinner />}`만 담당.
-> 이 분리 덕분에 한쪽 수정이 다른 쪽으로 번지지 않는다 ("change isolation").
->
-> 예: 기존 `typing → submitting → success/error` 플로우에 `verifying` 단계를 중간에 삽입하는 요구가 왔을 때,
-> - imperative: `handleFormSubmit` 내부 명령 순서 재계산, HTML에 요소 추가, finally에 `hide(verifyingMessage)` 추가, 빠뜨리면 UI가 이상한 상태로 고정 — 수정 포인트 7개 이상이 코드 곳곳에 흩어짐.
-> - declarative: `status` enum에 `'verifying'` 추가, JSX에 조건부 한 줄 추가, `handleSubmit`에 `setStatus('verifying')` 한 줄 추가. 기존 다른 상태 로직은 건드리지 않음.
->
-> 초기 코드 길이는 늘어나도 변경 비용이 선형에 가깝게 유지되는 게 "less fragile"의 실무적 의미.
-
 ### Reference
 - https://react.dev/learn/reacting-to-input-with-state

@@ -37,8 +37,7 @@ SC가 제공하는 장점은 다음과 같다 (각 항목은 follow-up Q에서 O
 - 백엔드 데이터 직접 접근
 - 보안 (민감 정보를 서버에 보존)
 
-> #### User Annotation:
-> CC 위주로 쓰게 되면 위 장점을 모두 누릴 수 없게 된다.
+CC 위주로 쓰게 되면 위 장점을 모두 누릴 수 없게 된다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
@@ -58,8 +57,8 @@ With Server Components, the initial page load is faster, and the client-side Jav
 If you start with an app composed entirely of Client Components, moving non-interactive pieces of your UI to Server Components can reduce the amount of client-side JavaScript needed.
 This is beneficial for users with slower internet.
 
-> #### User Annotation:
-> JS 번들 크기가 감소하면 Hydration 비용도 함께 줄어든다.
+### User Answer
+JS 번들 크기가 감소하면 Hydration 비용도 함께 줄어든다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
@@ -74,8 +73,8 @@ On the server, we can generate HTML to allow users to view the page immediately,
 Data for the entire page must be fetched from the server before any components can be shown.
 The only way around this is to fetch data client-side in a `useEffect()` hook, which has a longer roundtrip than server-side fetches and happens only after the component is rendered and hydrated.
 
-> #### User Annotation:
-> Client에서 데이터 패칭하는 JS 코드를 다운받아서 API를 호출하는 것보다, 그것을 Server Component로 옮기면 더 빠른 시점에 API가 호출될 수 있다.
+### User Answer
+Client에서 데이터 패칭하는 JS 코드를 다운받아서 API를 호출하는 것보다, 그것을 Server Component로 옮기면 더 빠른 시점에 API가 호출될 수 있다.
 
 ### Reference
 - https://vercel.com/blog/understanding-react-server-components#what-did-server-side-rendering-and-react-suspense-solve
@@ -88,16 +87,20 @@ The only way around this is to fetch data client-side in a `useEffect()` hook, w
 1. Perform multiple data fetches with single round-trip instead of multiple individual requests on the client.
 2. Depending on your region, data fetching can also happen closer to your data source, reducing latency and improving performance.
 
-> #### User Annotation:
-> 기존: Client에서 따로 따로 호출
-> - Client → API Server (요청 1)
-> - Client → API Server (요청 2)
-> - Client → API Server (요청 3)
->
-> SC 도입 후: 한번만 호출
-> - Client → Front Server → API Server (한 번의 round-trip)
->
-> 그리고 서버에서 다른 서버로 요청할 때에는 물리적인 거리도 더 가깝다 (프론트 서버에서 API 서버가 더 가깝다).
+### User Answer
+기존: Client에서 따로 따로 호출
+
+- Client → API Server (요청 1)
+
+- Client → API Server (요청 2)
+
+- Client → API Server (요청 3)
+
+SC 도입 후: 한번만 호출
+
+- Client → Front Server → API Server (한 번의 round-trip)
+
+그리고 서버에서 다른 서버로 요청할 때에는 물리적인 거리도 더 가깝다 (프론트 서버에서 API 서버가 더 가깝다).
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
@@ -198,14 +201,16 @@ At first glance, it appears that `getData` works on both the server and the clie
 But because the environment variable `API_KEY` is not prefixed with `NEXT_PUBLIC`, it's a private variable that can only be accessed on the server.
 Next.js replaces private environment variables with the empty string in client code to prevent leaking secure information.
 
-> #### User Annotation:
-> 그래서 저 코드는 Client Side에서 동작하지 않는다.
-> 의도하지 않은 동작이 없도록 하기 위해 `server-only` 패키지가 있다.
-> 빌드 타임에서 에러를 내준다고 한다.
->
-> 증명: https://github.com/developer-choi/test-playground/commit/45967fd3b8ca1244699da5839f60a901c8621889
->
-> 잘 모르는 사람이 "어 왜 빈 문자열이야!" 하는 경우가 있을 수 있으니 경고가 나오는 게 합리적이다.
+### User Answer
+그래서 저 코드는 Client Side에서 동작하지 않는다.
+
+의도하지 않은 동작이 없도록 하기 위해 `server-only` 패키지가 있다.
+
+빌드 타임에서 에러를 내준다고 한다.
+
+증명: https://github.com/developer-choi/test-playground/commit/45967fd3b8ca1244699da5839f60a901c8621889
+
+잘 모르는 사람이 "어 왜 빈 문자열이야!" 하는 경우가 있을 수 있으니 경고가 나오는 게 합리적이다.
 
 ### Reference
 - https://nextjs.org/docs/app/building-your-application/rendering/server-components
@@ -249,8 +254,8 @@ Put another way, the server, far more powerful and physically closer to your dat
 When an RSC needs to be re-rendered, due to state change, it refreshes on the server and seamlessly merges into the existing DOM without a hard refresh.
 As a result, the client state is preserved even as parts of the view are updated from the server.
 
-> #### User Annotation:
-> "When an RSC needs to be re-rendered"는 아마 Server Action을 가리키는 것으로 보인다.
+### User Answer
+"When an RSC needs to be re-rendered"는 아마 Server Action을 가리키는 것으로 보인다.
 
 ### Reference
 - https://vercel.com/blog/understanding-react-server-components

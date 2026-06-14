@@ -25,10 +25,12 @@ React guarantees that the code inside `useLayoutEffect` and any state updates sc
 This lets you render the tooltip, measure it, and re-render the tooltip again without the user noticing the first extra render.
 In other words, `useLayoutEffect` blocks the browser from painting.
 
-> #### User Annotation:
-> DOM에 반영한다고 하면 좀 말이 안맞고 Paint 하기 전이라고 하는게 맞음.
-> 순서는 DOM + CSSOM > Render Tree > Layout > Paint니까.
-> 결국 Paint가 안되면 사용자눈에 안보임.
+### User Answer
+DOM에 반영한다고 하면 좀 말이 안맞고 Paint 하기 전이라고 하는게 맞음.
+
+순서는 DOM + CSSOM > Render Tree > Layout > Paint니까.
+
+결국 Paint가 안되면 사용자눈에 안보임.
 
 ### Reference
 - https://react.dev/reference/react/useLayoutEffect
@@ -38,7 +40,7 @@ In other words, `useLayoutEffect` blocks the browser from painting.
 
 ## [UNVERIFIED] `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
 
-### AI Answer
+### Additional Answer
 No. `setState`는 호출 즉시 상태를 변경하지 않는다.
 React 내부 큐에 "나중에 처리해줘"라고 예약(schedule)하는 것이다.
 
@@ -56,7 +58,7 @@ useLayoutEffect(() => {
 
 ## [UNVERIFIED] `useLayoutEffect`가 관여할 때 React commit부터 브라우저 paint까지의 실행 순서는?
 
-### AI Answer
+### Additional Answer
 
 ```
 React Commit (DOM 반영 완료)

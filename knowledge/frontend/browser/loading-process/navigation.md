@@ -62,34 +62,6 @@ This handshake, or rather the TLS negotiation, determines which cipher will be u
 This requires five more round trips to the server before the request for content is actually sent.
 After the eight round trips to the server, the browser is finally able to make the request.
 
-> #### AI Annotation:
-> 전체 흐름 (DNS는 별도 서버이므로 웹 서버와의 8왕복에서 제외):
-> ```
-> Client                                     Server
->   │                                           │
->   │   ①  DNS lookup (별도 DNS 서버)            │
->   │                                           │
->   │── ② SYN ─────────────────────────────────→│
->   │                                           │  TCP
->   │←──────────────────────────── ③ SYN-ACK ───│  3-way
->   │                                           │  handshake
->   │── ④ ACK ─────────────────────────────────→│
->   │                                           │
->   │── ⑤ ClientHello ─────────────────────────→│
->   │                                           │
->   │←──────────── ⑥ ServerHello + Certificate ─│  TLS
->   │                                           │  negotiation
->   │── ⑦ ClientKey ───────────────────────────→│
->   │                                           │
->   │←──────────────────────────── ⑧ Finished ──│
->   │                                           │
->   │── ⑨ Finished ────────────────────────────→│
->   │                                           │
->   │── HTTP Request ──────────────────────────→│  ← 드디어!
->   │                                           │
-> ```
-> 원본 다이어그램: https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work/ssl.jpg
-
 ### Review Note
 - 각 단계별 정확한 round-trip 횟수는 중요하지 않음
 - 각 단계(DNS, TCP, TLS)에서 어떤 작업이 수행되는지 설명할 수 있는가가 핵심
@@ -138,7 +110,7 @@ If the load includes JavaScript, that was correctly deferred, and only executed 
 
 ## [UNVERIFIED] 브라우저 캐싱은 네비게이션 과정의 어떤 단계를 건너뛰게 하나?
 
-### AI Answer
+### Additional Answer
 HTTP 캐시에 리소스가 있으면 DNS lookup, TCP handshake, TLS negotiation, HTTP 요청/응답 등 네트워크 단계 전체를 건너뛸 수 있다.
 DNS 캐시만 있는 경우는 DNS lookup만 건너뛴다.
 캐싱 수준에 따라 건너뛰는 단계의 범위가 달라진다.

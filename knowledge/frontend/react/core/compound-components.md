@@ -102,10 +102,6 @@ function useToggleContext() {
 }
 ```
 
-> #### AI Annotation:
-> Context의 기본값이 없으면 useContext가 undefined를 반환하므로, 자식 컴포넌트가 상태에 접근할 수 없어 조용히 깨진다.
-> 커스텀 훅에서 context가 falsy이면 명시적 에러를 던져서, 개발 시 원인을 즉시 파악할 수 있게 하는 DX 패턴이다.
-
 ### Reference
 - https://kentcdodds.com/blog/compound-components-with-react-hooks
 
@@ -122,10 +118,6 @@ return (
     </ToggleContext.Provider>
 )
 ```
-
-> #### AI Annotation:
-> Provider의 value에 `{ on, toggle }` 같은 객체를 매번 새로 만들면, 부모가 re-render될 때마다 참조가 바뀌어 모든 Consumer가 불필요하게 re-render된다.
-> useMemo로 의존값(`on`)이 바뀔 때만 새 객체를 생성하면, 실제 상태 변화가 있을 때만 자식이 re-render된다.
 
 ### Reference
 - https://kentcdodds.com/blog/compound-components-with-react-hooks

@@ -50,8 +50,8 @@ Unlike arrays, nodes of linked lists are not stored in contiguous memory locatio
 In a circular linked list, each node has a reference to the next node in the sequence.
 Although it doesn't have a direct reference to the previous node like a doubly linked list, we can still find the previous node by traversing the list.
 
-> #### User Annotation:
-> **Singly Linked List (SLL)**: head 포인터 하나만 있고 노드도 한쪽방향만 가리키는 케이스.
+### User Answer
+**Singly Linked List (SLL)**: head 포인터 하나만 있고 노드도 한쪽방향만 가리키는 케이스.
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/linked-list-data-structure/
@@ -65,9 +65,9 @@ Although it doesn't have a direct reference to the previous node like a doubly l
 ### Official Answer
 Easy insertion and deletion of nodes: The presence of pointers to both the previous and next nodes makes it easy to insert or delete nodes from the list, without having to traverse the entire list.
 
-> #### User Annotation:
-> 삭제해야할 노드의 주소값을 알 경우 O(1)로 삭제가능.
-> Singly Linked List는 직전노드알아야되서 O(n).
+### User Answer
+삭제해야할 노드의 주소값을 알 경우 O(1)로 삭제가능.
+Singly Linked List는 직전노드알아야되서 O(n).
 
 ### Reference
 - https://www.geeksforgeeks.org/dsa/doubly-linked-list/

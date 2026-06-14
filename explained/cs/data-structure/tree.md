@@ -15,7 +15,7 @@
 - **hierarchy**: 부모-자식 관계가 재귀적으로 반복되는 구조. 루트가 하나 있고, 각 노드는 0개 이상의 자식을 가진다.
 - **naturally forms**: 억지로 트리에 끼워 맞추는 것이 아니라, 데이터 자체가 이미 계층 구조를 가지고 있다는 의미다.
 
-User Annotation 예시:
+예시:
 - **File System**: `/Users/alice/Documents/project/app.js` — 폴더 안에 폴더가 있는 계층 구조. DOM 트리를 생각해도 된다.
 - **HTML**: `<html>` → `<body>` → `<div>` → `<p>` — 브라우저가 파싱하면 DOM 트리가 된다.
 

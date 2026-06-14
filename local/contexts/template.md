@@ -23,14 +23,8 @@ Official document text or objective fact.
 #### Category Name
 More official text or fact.
 
-> #### AI Annotation:
-> (짧은 보충)
-
-> #### User Annotation:
-> (짧은 보충)
-
-### AI Answer
-(공식 출처를 아직 찾지 못한 경우, AI 생성 답변)
+### Additional Answer
+(공식 출처 미확보 or OA에 없는 보충 — 면접 답변 수준 암기 필요)
 
 ### User Answer
 (사용자의 해석, 경험 기반 답변)

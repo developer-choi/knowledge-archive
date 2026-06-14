@@ -26,8 +26,7 @@ ESM은 ECMAScript 표준 모듈 시스템이다.
 브라우저가 네이티브로 이해할 수 있는 형식이라는 점이 다른 모듈 시스템(CJS, AMD 등)과의 가장 큰 차이다.
 TypeScript는 표준이 아니므로 브라우저가 직접 이해하지 못하지만, ESM은 표준이라 브라우저가 그대로 실행할 수 있다.
 
-> #### User Annotation:
-> Vite가 dev 모드에서 별도 번들링 없이 소스를 ESM으로 그대로 서빙할 수 있는 것도 이 때문이다.
+Vite가 dev 모드에서 별도 번들링 없이 소스를 ESM으로 그대로 서빙할 수 있는 것도 이 때문이다.
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
