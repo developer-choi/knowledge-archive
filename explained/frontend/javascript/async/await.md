@@ -48,8 +48,6 @@ async function main() {
 
 ---
 
----
-
 # await는 실행 순서에 어떤 영향을 미치는가?
 
 ## 도입
@@ -109,8 +107,6 @@ foo("Second") → "Second start"
 
 ---
 
----
-
 # return await를 사용해야 하는가?
 
 ## 도입
@@ -163,46 +159,3 @@ async function getUser(id) {
 `return await`의 성능 불이익은 현대 V8에서는 사실상 없다. 반면 이점은 실질적이다 — `try/catch` 안에서 거부를 잡을 수 있고, 에러 스택 트레이스에 현재 함수 이름이 남는다. 특별한 이유가 없다면 `async` 함수에서 Promise를 반환할 때 `return await`를 쓰는 것이 안전하다.
 
 ---
-
----
-
-# .catch()는 프로미스 함수의 동기 에러를 처리하는가?
-
-## 도입
-
-`.catch()`는 Promise 체인에서 거부를 처리하는 메서드다. 하지만 함수가 Promise를 반환하기 전에 동기적으로 throw하면 `.catch()`가 그것을 잡지 못한다. Promise가 아직 만들어지지도 않았기 때문이다.
-
----
-
-## 본문
-
-> If `promisedFunction()` throws an error synchronously, the error won't be caught by the `catch()` handler.
-> In this case, the `try...catch` statement is necessary.
-
-"promisedFunction()이 동기적으로 에러를 throw하면 그 에러는 catch() 핸들러로 잡히지 않는다. 이 경우에는 try...catch 문이 필요하다."
-
-- **throws synchronously**: Promise 생성자 외부, 즉 `.then()`/`.catch()` 체인이 붙기 전에 throw되는 에러. 이 시점엔 아직 Promise 객체 자체가 없으므로 Promise 거부 경로로 흘러가지 않는다.
-- **won't be caught by catch()**: `.catch()`는 Promise 체인 내부의 거부만 처리할 수 있다. 체인 밖의 동기 예외는 별도의 `try/catch`가 필요하다.
-
-```js
-function mayThrowSync() {
-  throw new Error("동기 에러"); // Promise 반환 전에 throw
-  return fetch('/api');
-}
-
-// .catch()로는 잡히지 않는다
-mayThrowSync().catch(e => console.error(e)); // TypeError: mayThrowSync is not a function 또는 에러 전파
-
-// try/catch가 필요하다
-try {
-  await mayThrowSync();
-} catch (e) {
-  console.error(e); // "동기 에러" — 여기서 잡힌다
-}
-```
-
----
-
-## 종합
-
-비동기 함수라고 해서 모든 에러가 자동으로 Promise 거부로 변환되지는 않는다. `async` 키워드가 붙은 함수는 내부 throw를 rejected Promise로 변환해주지만, 일반 함수가 Promise를 반환하기 전에 throw하면 `.catch()`는 무력하다. `await` + `try/catch` 패턴을 쓰면 동기 에러와 비동기 거부를 동일한 코드 경로로 처리할 수 있어서 일관된 에러 핸들링이 가능하다.

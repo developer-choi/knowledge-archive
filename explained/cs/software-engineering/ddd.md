@@ -50,8 +50,6 @@ DDD가 없으면 코드의 클래스명·메서드명이 비즈니스 언어와 
 
 ---
 
----
-
 # DDD에서 Ubiquitous Language란 무엇인가?
 
 ## 도입
@@ -88,8 +86,6 @@ Bounded Context마다 코드와 기획서, 회의 모두 같은 단어를 쓰도
 ## 종합
 
 Ubiquitous Language가 없으면 기획자가 "오퍼 승인"이라고 하는데 코드에는 `updateStatus(true)`만 있어서, 새 팀원이 코드로 비즈니스를 추론하기 어려워진다. React 컴포넌트 관점으로 보면 `<LoanApplicationForm>`, `<OfferAcceptButton>` 같은 이름이 Ubiquitous Language를 따른 것이고, `<FormStep3>`, `<ConfirmButton>` 같은 이름은 그렇지 않은 것이다. 언어 통일이 리팩토링보다 먼저다 — 이름이 맞아야 설계도 맞아간다.
-
----
 
 ---
 
@@ -152,8 +148,6 @@ Entity vs Value Object
 
 ---
 
----
-
 # DDD에서 Aggregate란 무엇이며, 왜 외부에서 루트만 참조하도록 제한하는가?
 
 ## 도입
@@ -212,8 +206,6 @@ Aggregate 접근 규칙
 ## 종합
 
 Redux에서 `store.dispatch(action)`를 통해서만 상태를 바꾸고 `store.state.todos[0].done = true`처럼 직접 수정하지 못하게 하는 패턴이 Aggregate Root 제약과 구조적으로 같다. 직접 수정을 허용하면 어떤 코드가 어디서 상태를 바꿨는지 추적하기 어려워지고, 불변 규칙(예: 완료된 주문에 항목 추가 불가)을 강제할 지점이 사라진다. Aggregate는 일관성 경계이고, 루트는 그 경계의 게이트키퍼다.
-
----
 
 ---
 

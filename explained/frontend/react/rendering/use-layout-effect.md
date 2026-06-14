@@ -74,8 +74,6 @@ function Tooltip({ text, anchor }) {
 
 ---
 
----
-
 # [UNVERIFIED] `useLayoutEffect` 안에서 `setState`를 호출하면 즉시 실행되는가?
 
 ## 도입
@@ -120,8 +118,6 @@ paint 시작
 ## 종합
 
 `useLayoutEffect` 안에서의 `setState`는 일반 `setState`와 같은 비동기 예약 방식으로 동작한다. 다만 `useLayoutEffect`가 paint를 차단하므로, 예약된 상태 업데이트와 그로 인한 재렌더링까지 모두 paint 전에 처리된다. 사용자 관점에서는 중간 상태가 보이지 않는다.
-
----
 
 ---
 
@@ -174,8 +170,6 @@ DOM 측정 → 깜빡임 없음     DOM 측정 → 깜빡임 가능
 ## 종합
 
 실행 순서를 알면 도구 선택 기준이 명확해진다. DOM을 측정하고 그 결과로 UI를 즉시 조정해야 한다면 `useLayoutEffect`가 필요하다. paint 이후에 실행해도 되는 부수 효과(데이터 패칭, 이벤트 리스너 등록, 로깅 등)는 paint를 차단하지 않는 `useEffect`를 써야 한다. `useLayoutEffect`를 남용하면 paint가 계속 차단되어 UI가 뚝뚝 끊기는 느낌을 준다.
-
----
 
 ---
 

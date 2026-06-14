@@ -45,8 +45,6 @@ Static 레이어가 없으면 unit test에서야 타입 오류를 발견한다. 
 
 ---
 
----
-
 # Snapshot Testing이란 무엇이며 Unit/Integration/E2E와 어떤 관계인가?
 
 ## 도입

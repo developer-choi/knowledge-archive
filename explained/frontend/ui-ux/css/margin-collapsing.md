@@ -28,7 +28,6 @@ margin collapsing에서 실제 일어나는 일은 "두 마진(30px, 20px)이 **
 세 가지 발생 경우와 실제 픽셀이 어떻게 줄어드는지는 데모로 직접 볼 수 있다: [margin collapsing 데모](../../../../assets/frontend/ui-ux/css/margin-collapsing-demo.html)
 
 ---
-
 # margin collapsing이 일어나는 세 가지 경우는 각각 어떤 상황인가?
 
 ## 도입

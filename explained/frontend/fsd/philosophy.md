@@ -54,8 +54,6 @@ features/
 
 ---
 
----
-
 # FSD에서 'components'나 'hooks' 같은 이름을 피해야 하는 이유는?
 
 ## 도입
@@ -100,8 +98,6 @@ features/
 
 ---
 
----
-
 # 도메인이란 무엇인가?
 
 ## 도입
@@ -138,8 +134,6 @@ features/add-to-cart, features/checkout, features/refund
 ## 종합
 
 도메인은 소프트웨어가 해결하려는 현실 세계 문제의 언어다. FSD에서 슬라이스 이름이 도메인 개념(user, product, order)을 따르는 이유가 여기 있다. 기술 용어(component, hook, store)로 슬라이스를 만들면 "이 코드가 어떤 현실 문제를 다루는가"라는 질문에 답할 수 없게 된다. 도메인 개념을 이해하면 슬라이스 경계가 어디에 그어져야 하는지 자연스럽게 알 수 있다.
-
----
 
 ---
 

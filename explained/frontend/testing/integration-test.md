@@ -37,8 +37,6 @@ Integration test는 Testing Trophy에서 가장 높은 ROI(투자 대비 효과)
 
 ---
 
----
-
 # Integration test의 장점과 단점은?
 
 > The size of these forms of testing on the trophy is relative to the amount of focus you should give them when testing your applications (in general).

@@ -25,8 +25,6 @@ React 18 이전에는 click이나 keydown 같은 사용자 이벤트에서 state
 
 ---
 
----
-
 # React 18의 hydration 에러 정책은 어떻게 엄격해졌는가?
 
 ## 도입
@@ -55,8 +53,6 @@ SSR(서버 사이드 렌더링)에서 hydration은 서버가 보낸 HTML에 Reac
 ## 종합
 
 React 17의 "조용히 패치" 정책은 불일치를 개발자가 눈치채기 어렵게 했다. React 18은 mismatch를 에러로 격상해 조기에 발견하게 하고, 패치 대신 Suspense 경계 단위로 클라이언트 렌더링을 수행한다. 실무에서는 hydration mismatch 에러를 보면 원인 코드에 `suppressHydrationWarning` 또는 `useEffect`로 브라우저 전용 분기를 처리해야 한다.
-
----
 
 ---
 
@@ -111,8 +107,6 @@ double-invoke 실행 순서:
 ## 종합
 
 `useEffect` 안에서 이벤트 리스너를 추가하고 cleanup에서 제거하면 double-invoke에서도 문제없다. 하지만 cleanup 없이 리스너를 추가하면 두 번째 마운트에서 리스너가 두 개가 된다. Strict Mode double-invoke는 이런 cleanup 누락을 개발 단계에서 조기에 발견하게 해주는 도구다. `useEffect`에서 cleanup을 항상 return하는 습관이 이 검사를 통과하는 조건이다.
-
----
 
 ---
 

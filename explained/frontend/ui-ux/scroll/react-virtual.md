@@ -25,8 +25,6 @@ TanStack Virtual은 대용량 리스트를 화면에 보이는 항목만 DOM에 
 
 ---
 
----
-
 # React 19에서 @tanstack/react-virtual 사용 시 스크롤할 때 "flushSync was called from inside a lifecycle method" 경고가 발생한다. 원인과 해결 방법은?
 
 ## 도입
@@ -60,8 +58,6 @@ TanStack Virtual은 스크롤 중 가상 아이템 위치를 정확히 동기화
 
 ---
 
----
-
 # useFlushSync를 false로 설정하면 어떤 trade-off가 있는가?
 
 ## 도입
@@ -89,8 +85,6 @@ TanStack Virtual은 스크롤 중 가상 아이템 위치를 정확히 동기화
 ## 종합
 
 성능이 중요한 저사양 기기나 React 19 경고를 없애고 싶은 환경에서는 `false`가 실용적이다. 반대로 금융 데이터 테이블처럼 스크롤 중에도 정확한 위치가 보장되어야 하는 리스트라면 `true`를 유지한다. React 19에서도 기능적으로는 `true`가 정상 동작하므로, 경고만 거슬린다면 `false`로 전환하고 실제 스크롤 체감을 확인하는 것으로 판단하면 된다.
-
----
 
 ---
 
@@ -125,8 +119,6 @@ count: 10000, estimateSize: () => 50
 
 ---
 
----
-
 # @tanstack/virtual의 estimateSize 옵션은 무엇인가?
 
 ## 도입
@@ -152,8 +144,6 @@ virtualizer는 DOM을 그리기 전에 각 아이템이 얼마나 큰지 미리 
 
 ---
 
----
-
 # 아이템 높이가 제각각인 리스트에서 estimateSize에 작은 값을 넣으면 어떤 문제가 생기는가?
 
 ## 도입
@@ -176,8 +166,6 @@ virtualizer는 DOM을 그리기 전에 각 아이템이 얼마나 큰지 미리 
 ## 종합
 
 `estimateSize`를 너무 작게 잡으면 초기 스크롤 시 UI가 껄끄럽다. 아이템 컨텐츠를 모르는 상태에서 안전한 전략은 평균 크기의 1.5배 정도를 초기값으로 설정하고 `measureElement`에게 실측을 맡기는 것이다. DevTools Performance 탭에서 Layout 이벤트가 스크롤 중 자주 발생한다면 `estimateSize` 추정이 너무 작아 반복 교정이 일어나는 신호일 수 있다.
-
----
 
 ---
 
@@ -212,8 +200,6 @@ overscan: 5          → 위 5 + 화면 N + 아래 5 = N+10개 DOM 요소
 
 ---
 
----
-
 # @tanstack/virtual의 getVirtualItems()는 무엇을 반환하는가?
 
 ## 도입
@@ -243,8 +229,6 @@ count: 10000
 ## 종합
 
 `getVirtualItems()`는 virtualizer의 핵심 출력이다. 이 배열을 `.map()`으로 순회하며 각 `VirtualItem`의 `start`와 `size`를 CSS에 매핑하는 것이 가상 리스트 구현의 전부다. 스크롤하면 배열이 바뀌고, 바뀐 배열로 리렌더링이 일어나며, 화면에 보이는 아이템이 교체된다.
-
----
 
 ---
 
@@ -297,8 +281,6 @@ count: 10000
 
 ---
 
----
-
 # VirtualItem의 size는 언제 추정값이고 언제 실측값인가?
 
 ## 도입
@@ -335,8 +317,6 @@ count: 10000
 
 ---
 
----
-
 # @tanstack/virtual의 getTotalSize()는 무엇을 반환하며, 동적 측정 시 어떻게 변하는가?
 
 ## 도입
@@ -366,8 +346,6 @@ virtualizer가 스크롤바를 올바르게 표시하려면 전체 리스트의 
 ## 종합
 
 `getTotalSize()`가 반환하는 값이 스크롤 가능한 총 높이다. 이 값이 실제 아이템 합산 높이와 다르면 스크롤바가 어색하게 움직인다. 동적 측정이 진행될수록 이 값이 실측 기반으로 수렴하므로, 스크롤을 내려갈수록 스크롤바 위치가 미세하게 보정되는 것이 정상이다.
-
----
 
 ---
 

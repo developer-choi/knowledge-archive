@@ -36,8 +36,6 @@ node_modules/@myorg/ui/
 
 ---
 
----
-
 # [UNVERIFIED] 라이브러리에서 react를 peer dependency로 두는 이유는?
 
 ## 도입

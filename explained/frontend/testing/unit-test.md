@@ -26,8 +26,6 @@ test('30% 할인 계산', () => {
 
 ---
 
----
-
 # Unit testing strategies 3가지는 무엇인가?
 
 > **1. Logic checks** — Does the system perform the right calculations and follow the right path through the code given a correct, expected input. Are all paths through the code covered by the given inputs?

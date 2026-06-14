@@ -46,8 +46,6 @@ HTTP 캐싱의 핵심 이득은 두 가지다. 첫째, fresh 상태에서는 네
 
 ---
 
----
-
 # [UNVERIFIED] Cache-Control의 주요 디렉티브(max-age, no-cache, no-store, public/private)는 각각 무엇을 지시하는가?
 
 ## 도입
@@ -97,8 +95,6 @@ private    — 브라우저에만 캐시
 ## 종합
 
 프론트엔드에서 가장 많이 만나는 패턴은 `Cache-Control: public, max-age=31536000, immutable`(빌드된 JS/CSS — 해시 파일명이 바뀌므로 1년 캐시)과 `Cache-Control: no-cache`(HTML index 파일 — 항상 최신 확인 필요)의 조합이다. `no-cache`와 `no-store`를 혼동하면 민감 데이터가 CDN에 캐시되거나, 반대로 정적 자산이 매번 서버를 거쳐 성능이 저하되는 문제가 발생한다.
-
----
 
 ---
 
@@ -154,8 +150,6 @@ If-Modified-Since: Mon, ...
 ## 종합
 
 ETag가 더 정밀하므로 서버가 두 헤더를 모두 보내면 클라이언트는 ETag(`If-None-Match`)를 우선 사용한다. Last-Modified는 ETag를 지원하지 않는 구형 서버와의 호환성을 위해 병행 전송된다. Express나 Next.js 같은 서버 프레임워크는 정적 파일에 ETag를 자동으로 생성해준다.
-
----
 
 ---
 
@@ -226,8 +220,6 @@ If-None-Match:
 ## 종합
 
 304 응답의 핵심 가치는 "본문 없이 캐시를 갱신한다"는 것이다. 대용량 이미지나 JS 번들을 매번 다시 받지 않아도 최신 상태를 유지할 수 있다. DevTools Network 탭에서 상태 코드 `304`가 보이면 조건부 요청이 작동한 것이다. `fetch()` 기반 API 호출에서는 브라우저가 자동으로 조건부 헤더를 붙여주므로, 서버가 ETag를 설정해두기만 하면 캐싱이 자동으로 동작한다.
-
----
 
 ---
 

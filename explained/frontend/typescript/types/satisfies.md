@@ -44,8 +44,6 @@ palette2.green.toUpperCase(); // OK (green은 string으로 추론) ✓
 
 ---
 
----
-
 # `satisfies` 연산자는 어떻게 동작하는가?
 
 ## 도입
@@ -100,8 +98,6 @@ satisfies Record<Colors, string | RGB> → palette.green 타입 = string (추론
 
 ---
 
----
-
 # `satisfies`로 객체의 Key만 엄격하게 검사하려면 어떻게 쓰는가?
 
 ## 도입
@@ -139,8 +135,6 @@ const r: string = favoriteColors.red;     // red는 string으로 추론
 ## 종합
 
 `satisfies Record<Colors, unknown>`은 "키는 Colors 집합에서만, 값은 뭐든"이라는 선언이다. 어노테이션으로 `: Record<Colors, unknown>`을 쓰면 값 타입이 모두 `unknown`으로 넓어져 구체적 추론값을 잃는다. `satisfies`를 쓰면 키 제약은 강제하면서 각 값의 추론된 구체적 타입(`boolean`, `string`)은 그대로 사용할 수 있다.
-
----
 
 ---
 
@@ -184,9 +178,7 @@ const greenNormalized = palette.green.toUpperCase(); // green은 string
 
 ---
 
----
-
-# Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?
+# [UNVERIFIED] Type Annotation, assertion(`as`), `satisfies`는 각각 어떻게 다른가?
 
 ## 도입
 
@@ -236,9 +228,7 @@ satisfies Type   ✓          ✓           낮음 (권장)
 
 ---
 
----
-
-# 왜 `satisfies`를 `as`보다 우선 검토해야 하는가?
+# [UNVERIFIED] 왜 `satisfies`를 `as`보다 우선 검토해야 하는가?
 
 ## 도입
 

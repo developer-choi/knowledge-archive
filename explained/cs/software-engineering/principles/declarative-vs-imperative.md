@@ -55,8 +55,6 @@ async function handleFormSubmit(e) {
 
 ---
 
----
-
 # declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
 
 ## 도입

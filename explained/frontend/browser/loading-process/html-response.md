@@ -37,8 +37,6 @@ DevTools Network 탭에서 첫 번째 요청의 "Waiting for server response(TTF
 
 ---
 
----
-
 # HTML/JS/CSS/SVG 같은 텍스트 응답의 전송 크기를 줄이는 일반적인 방법은?
 
 ## 도입
@@ -74,8 +72,6 @@ DevTools Network 탭에서 첫 번째 요청의 "Waiting for server response(TTF
 ## 종합
 
 DevTools Network 탭에서 리소스를 클릭하면 "Content-Encoding: br" 또는 "Content-Encoding: gzip" 헤더로 어떤 압축이 적용됐는지 확인할 수 있다. 같은 파일도 압축 여부에 따라 전송 크기가 수 배 차이날 수 있다. Vercel이나 Netlify를 쓰면 Brotli가 자동 적용되므로, CDN 활용만으로도 이 단계는 해결된다.
-
----
 
 ---
 

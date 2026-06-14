@@ -35,8 +35,6 @@
 
 ---
 
----
-
 # 대역폭(Bandwidth)과 처리량(Throughput)을 비교하라
 
 ## 도입
@@ -74,8 +72,6 @@ Throughput (실제 사용량)
 ## 종합
 
 Bandwidth는 물리 매체나 계약 스펙이 정하는 상한선이고, Throughput은 그 상한선 안에서 실제로 달성된 값이다. 인터넷 속도 테스트(fast.com, speedtest.net)에서 측정하는 것이 Throughput이다. Bandwidth가 높다고 Throughput이 항상 높지는 않으며, 그 차이를 만드는 원인이 다음 질문의 주제다.
-
----
 
 ---
 
@@ -118,8 +114,6 @@ Bandwidth (물리 최대)
 ## 종합
 
 처리량이 낮을 때 원인을 찾으려면 계층별로 체크해야 한다. 물리 매체에서 시작해 장비 처리 능력, 네트워크 혼잡, 프로토콜 오버헤드까지 각 층이 모두 잠재적 병목이다. DevTools Network 탭에서 "Content Download" 시간이 예상보다 길면 goodput 문제이고, "Waiting (TTFB)"가 길면 서버·라우팅 문제일 가능성이 높다.
-
----
 
 ---
 

@@ -40,8 +40,6 @@
 
 ---
 
----
-
 # `private: true`는 어떤 효과가 있는가?
 
 ## 도입
@@ -77,8 +75,6 @@
 ## 종합
 
 `"private": true`는 모노레포 루트나 앱 프로젝트의 표준 설정이다. Turborepo, Nx 같은 모노레포 도구도 앱 패키지에 자동으로 이 값을 넣는다. 개인 레지스트리(GitHub Packages, Verdaccio)에 배포하더라도 실수로 공개 레지스트리에 올리는 것을 막기 위해 `private: true`를 권고한다.
-
----
 
 ---
 
@@ -118,8 +114,6 @@
 ## 종합
 
 `publishConfig`는 CI 파이프라인에서 특히 유용하다. 개발자 로컬에서는 `.npmrc`로 레지스트리를 설정해도, `publishConfig`를 `package.json`에 명시해두면 CI 환경에서도 항상 의도한 레지스트리에 배포된다. 실수로 내부 패키지가 공개 레지스트리에 올라가는 것을 `private: true`와 `publishConfig.registry`로 이중으로 방어하는 것이 일반적인 보안 관행이다.
-
----
 
 ---
 
@@ -167,8 +161,6 @@ import fs from 'fs'; // SyntaxError — ESM 불가
 ## 종합
 
 `type: "module"`은 프로젝트 전체의 `.js` 파일을 ESM으로 전환한다. 기존 CJS 코드가 있다면 `.cjs` 확장자로 바꾸거나, `type`을 설정하지 않고 ESM 파일만 `.mjs`로 쓰는 방법도 있다. 새 Node.js 프로젝트나 라이브러리를 만들 때 `"type": "module"`을 설정하는 것이 ESM-first 접근이다.
-
----
 
 ---
 

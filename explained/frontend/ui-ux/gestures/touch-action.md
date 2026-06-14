@@ -1,11 +1,10 @@
-# 터치스크린에서 브라우저가 스크롤/줌 제스처를 독점 처리할 때, 앱이 커스텀 터치 동작을 구현하려면 어떤 CSS 속성으로 제스처 처리 권한을 분배하는가?
+# 터치스크린에서 브라우저가 스크롤/줌 제스처를 독점 처리할 때, 앱이 커스텀 터치 동작(예: 캔버스 드래그)을 구현하려면 어떤 CSS 속성으로 제스처 처리 권한을 분배하는가?
 
 ## 도입
 
 브라우저는 스크롤·핀치줌 같은 터치 제스처를 기본적으로 독점 처리한다. 앱이 canvas 드래그처럼 커스텀 제스처를 구현하려면, 브라우저에게 어떤 제스처를 넘겨줄지 명시해야 한다. 이를 제어하는 CSS 속성이 `touch-action`이다.
 
 ---
-
 ## 본문
 
 > The touch-action CSS property sets how an element's region can be manipulated by a touchscreen user (for example, by zooming features built into the browser).
@@ -27,15 +26,11 @@ touch-action: pan-x  → 가로 스크롤은 브라우저, 나머지는 JS
 ```
 
 ---
-
 ## 종합
 
 Framer Motion의 `drag="y"`가 실작동하려면 드래그 대상 요소에 `touch-action: none`이 필요하다. 자식 요소에 `touch-action: auto`나 `pan-y`가 남아 있으면 브라우저가 터치를 네이티브 스크롤로 인식하고, `pointercancel`을 발생시켜 Motion이 드래그를 중단한다. `onDragEnd` 닫기 로직이 임계값에 도달하기 전에 끊기는 현상은 이 `pointercancel`이 원인이다. DevTools Network 탭이 아니라 DevTools Events 탭(이벤트 리스너 패널)에서 `pointercancel` 리스너를 추적하면 발생 시점을 확인할 수 있다.
 
 ---
-
----
-
 # touch-action 값은 터치된 요소와 조상 요소 사이에서 어떻게 결정되는가?
 
 ## 도입
@@ -43,7 +38,6 @@ Framer Motion의 `drag="y"`가 실작동하려면 드래그 대상 요소에 `to
 `touch-action`은 단순히 터치된 요소 하나에만 적용되는 것이 아니다. 브라우저는 조상 요소까지 올라가며 값의 교집합을 계산한다. 단, 이 계산이 무한히 위로 올라가지는 않는다는 핵심 제한이 있다.
 
 ---
-
 ## 본문
 
 > When a gesture is started, the browser intersects the touch-action values of the touched element and its ancestors, up to the one that implements the gesture (in other words, the first containing scrolling element). This means that in practice, touch-action is typically applied only to top-level elements which have some custom behavior, without needing to specify touch-action explicitly on any of that element's descendants.
@@ -66,7 +60,6 @@ ScrollArea 안  → ScrollArea에서 멈춤        auto → 터치 스크롤 동
 ```
 
 ---
-
 ## 종합
 
 "최상위에 `touch-action: none`을 걸면 자식 스크롤이 막힌다"는 직관은 틀렸다. `overflow: auto`인 자식 요소가 있으면 그 안의 터치는 해당 요소에서 교집합 계산이 멈추므로, 스크롤이 정상 동작한다. 바텀시트처럼 드래그 닫기와 내부 스크롤이 공존하는 구조에서, 최상위 컨테이너에 `touch-action: none`을 걸고 내부 스크롤 영역은 `overflow: auto`로 두는 것만으로 두 동작이 분리된다. 부수 효과로 `touch-action: none`이 걸린 빈 영역에서 아래로 당기면 pull-to-refresh도 발동하지 않는다.

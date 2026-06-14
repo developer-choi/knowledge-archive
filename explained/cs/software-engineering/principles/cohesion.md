@@ -43,8 +43,6 @@ FSD(Feature Slice Design)에서 하나의 feature 슬라이스 폴더 안에 컴
 
 ---
 
----
-
 # 높은 응집도가 왜 바람직한가?
 
 ## 도입
@@ -71,8 +69,6 @@ FSD(Feature Slice Design)에서 하나의 feature 슬라이스 폴더 안에 컴
 ## 종합
 
 응집도가 낮으면 네 속성이 반대로 작동한다. 한 모듈이 여러 이유로 변경되면(robustness 저하), 변경마다 다른 책임에 버그가 생기고(reliability 저하), 관련 없는 것이 묶여 있어 일부만 꺼내 쓸 수 없고(reusability 저하), 파일을 열었을 때 무엇을 하는 곳인지 파악하기 어렵다(understandability 저하). ESLint 규칙 파일 하나가 린팅 규칙만 담고 있는 것, Redux slice가 하나의 도메인 상태만 관리하는 것이 모두 이 네 속성을 지키기 위한 선택이다.
-
----
 
 ---
 

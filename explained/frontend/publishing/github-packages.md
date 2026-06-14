@@ -24,8 +24,6 @@ GitHub Packages의 핵심 가치는 "소스 코드와 패키지를 같은 플랫
 
 ---
 
----
-
 # [UNVERIFIED] GitHub Packages가 일반 패키지 레지스트리와 차별화되는 가치는?
 
 ## 도입
@@ -64,8 +62,6 @@ GitHub Repository
 ## 종합
 
 GitHub Packages의 가장 큰 장점은 설정 복잡도가 낮다는 것이다. 이미 GitHub에서 소스 코드를 관리하고 GitHub Actions로 CI를 돌린다면, 패키지 레지스트리를 GitHub Packages로 통일하면 별도 인프라 없이 private 패키지를 배포할 수 있다.
-
----
 
 ---
 

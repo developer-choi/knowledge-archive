@@ -1,314 +1,3 @@
-# React에서 "UI를 코드로 직접 조작하지 않는다"는 말은 구체적으로 어떤 의미인가?
-
-## 도입
-
-jQuery 시절에는 버튼을 클릭하면 `button.disabled = true`, `successMsg.style.display = 'block'` 처럼 DOM을 직접 조작했다. React는 이 방식을 쓰지 않는다. 대신 "어떤 상태에서 UI가 어떤 모습이어야 하는가"를 선언하고, 상태 변경만 트리거한다. DOM 조작은 React가 대신한다.
-
----
-
-## 본문
-
-> With React, you won't modify the UI from code directly.
-> For example, you won't write commands like "disable the button", "enable the button", "show the success message", etc.
-
-"React에서는 코드로 UI를 직접 수정하지 않는다. '버튼을 비활성화해라', '버튼을 활성화해라', '성공 메시지를 보여줘라' 같은 명령을 작성하지 않는다."
-
-- **modify the UI from code directly**: `element.style.display = 'none'`이나 `button.disabled = true` 같은 명령형 DOM 조작.
-- **commands**: 현재 DOM을 어떻게 바꿀지 지시하는 명령문.
-
-> Instead, you will describe the UI you want to see for the different visual states of your component ("initial state", "typing state", "success state"), and then trigger the state changes in response to user input.
-
-"대신, 컴포넌트의 서로 다른 시각적 상태(초기, 입력 중, 성공 등)에서 보고 싶은 UI를 묘사하고, 사용자 입력에 반응하여 state 변화를 트리거한다."
-
-- **describe**: JSX로 각 상태에서 UI가 어떻게 보여야 하는지 선언.
-- **visual states**: 컴포넌트가 취할 수 있는 화면 상태들. 미리 정의해두면 "어떤 상태에서 어떤 UI"가 명확해진다.
-- **trigger**: state setter(`setStatus`)를 호출하는 것. DOM을 직접 건드리지 않는다.
-- **in response to**: 이벤트 핸들러 안에서 — 사용자가 무언가를 했을 때 반응하여.
-
-> In React, you don't directly manipulate the UI—meaning you don't enable, disable, show, or hide components directly.
-> Instead, you declare what you want to show, and React figures out how to update the UI.
-
-"React에서는 UI를 직접 조작하지 않는다 — 컴포넌트를 직접 활성화·비활성화·보이기·숨기기를 하지 않는다. 대신 보여줄 것을 선언하면, React가 UI를 어떻게 업데이트할지 알아낸다."
-
-- **declare what you want to show**: `status === 'success' ? <Success /> : <Form />`처럼 조건에 따른 UI를 JSX로 선언.
-
----
-
-## 종합
-
-명령형(jQuery 방식)은 현재 DOM 상태를 알고 있어야 다음 명령을 만들 수 있다. 상태가 복잡해질수록 "지금 버튼이 disabled인지"를 파악하고 반전시키는 코드가 늘어나며 버그가 생긴다. React의 선언형은 "status가 'success'면 이 UI, 'typing'이면 저 UI"처럼 상태별 UI를 미리 정의하고 상태만 바꾼다. DOM 반영은 React가 전담하므로 개발자는 "어떤 상태에서 뭘 보여줄지"에만 집중할 수 있다.
-
----
-
----
-
-# React state 구조 설계 원칙들의 공통 목표는 무엇이며, 왜 DB 정규화에 비유되는가?
-
-## 도입
-
-React 공식문서는 state 설계 원칙 5가지(Group, Avoid contradictions, Avoid redundant, Avoid duplication, Avoid deeply nested)를 소개한다. 이 원칙들은 제각각 다른 문제를 다루는 것처럼 보이지만, 한 가지 공통 목표에서 파생된다.
-
----
-
-## 본문
-
-> The goal behind these principles is to make state easy to update without introducing mistakes.
-> Removing redundant and duplicate data from state helps ensure that all its pieces stay in sync.
-
-"이 원칙들의 목표는 실수 없이 state를 쉽게 업데이트하는 것이다. state에서 중복·불필요한 데이터를 제거하면 모든 조각이 동기화 상태를 유지하는 데 도움이 된다."
-
-- **easy to update without introducing mistakes**: 5원칙의 공통 목표 — "실수 없이"와 "쉽게" 둘 다 충족.
-- **stay in sync**: 여러 state 조각이 일관성을 유지한 상태. 중복·불필요한 state가 있으면 한쪽만 갱신하는 실수가 생긴다.
-
-> This is similar to how a database engineer might want to "normalize" the database structure to reduce the chance of bugs.
-
-"이는 버그 가능성을 줄이기 위해 DB 구조를 정규화하려는 데이터베이스 엔지니어의 접근과 유사하다."
-
-- **normalize**: DB 정규화 — 데이터를 중복 없이 분해하여 한 곳만 수정해도 모든 참조가 갱신되도록 하는 설계 원칙. 같은 데이터가 두 곳에 있으면 동기화 부담이 생기지만, 한 곳에만 두면 동기화할 것이 없어 동기화 실수도 사라진다.
-
-> To paraphrase Albert Einstein, "Make your state as simple as it can be—but no simpler."
-
-"알버트 아인슈타인의 말을 빌리자면, '가능한 한 단순하게 state를 만들어라 — 그러나 그 이상 단순화하지 마라.'"
-
-- **as simple as it can be—but no simpler**: 두 변수를 무리하게 합쳐서 의미가 모호해지면 안 된다는 단서. 표현력을 잃지 않는 선까지만 단순화하라는 것.
-
----
-
-## 종합
-
-5원칙 모두 "동기화 부담을 없앤다"는 하나의 원리에서 파생된다. state가 두 곳에 있으면 둘 다 갱신해야 하고, 하나를 빠뜨리면 버그가 된다. 한 곳에만 두면 갱신할 곳이 하나이므로 동기화 실수가 원천 차단된다. DB에서 같은 고객 이름을 여러 테이블에 직접 저장하지 않고 customer_id로 참조하는 것과 정확히 같은 사고방식이다.
-
----
-
----
-
-# React는 어떤 기준으로 컴포넌트의 state를 보존하고 어떤 경우 버리는가?
-
-## 도입
-
-같은 컴포넌트를 조건부 렌더링으로 껐다 켰을 때, 또는 같은 위치에 다른 컴포넌트를 렌더링했을 때 state가 어떻게 되는지 헷갈리는 경우가 많다. React의 판단 기준은 "UI 트리에서의 위치"다.
-
----
-
-## 본문
-
-> React preserves a component's state for as long as it's being rendered at its position in the UI tree.
-> If it gets removed, or a different component gets rendered at the same position, React discards its state.
-
-"React는 컴포넌트가 UI 트리의 해당 위치에 렌더링되는 동안 state를 보존한다. 컴포넌트가 제거되거나 같은 위치에 다른 컴포넌트가 렌더링되면 React는 state를 버린다."
-
-- **preserves**: 직전 값을 그대로 유지.
-- **position in the UI tree**: 트리에서의 자리. 컴포넌트와 state를 매핑하는 키. JSX 위치가 아니라 렌더 결과 트리에서의 좌표다.
-- **removed**: 조건부 렌더링이 false로 바뀌어 그 위치에 아무것도 렌더되지 않는 상태.
-- **a different component gets rendered at the same position**: 같은 위치인데 타입이 바뀜 — `<Counter />` → `<Spinner />`.
-- **discards**: 메모리에서 제거. 다시 렌더해도 복구되지 않고 처음부터 초기화된다.
-
-```jsx
-// 위치가 유지되면 state 보존
-{showCounter && <Counter />}  // false → true: state 초기화됨 (위치가 비워졌다가 새로 채워짐)
-
-// 위치는 같지만 타입 변경 → state 버림
-{isFancy ? <Counter isFancy={true} /> : <Counter isFancy={false} />}
-// → 이 경우 동일 타입이므로 state 보존됨
-```
-
----
-
-## 종합
-
-React는 트리 위치를 key로 삼아 state를 관리한다. 같은 위치에 같은 타입 컴포넌트가 있으면 state가 보존되고, 위치가 비워지거나 타입이 바뀌면 state가 버려진다. 조건부 렌더링으로 컴포넌트를 숨겼다가 보이게 했을 때 입력값이 사라지는 이유가 바로 이것이다. 숨기면 트리에서 제거(state 버림) → 다시 보이면 새 위치에 마운트(state 초기화).
-
----
-
----
-
-# 컴포넌트 함수는 매 렌더마다 새로 호출되는데, `useState`로 만든 값이 직전 값을 기억하는 메커니즘은 무엇인가?
-
-## 도입
-
-`useState`를 처음 접하면 "컴포넌트 함수가 매 렌더마다 실행되는데 어떻게 이전 값을 기억하지?"라는 의문이 생긴다. 함수 안 지역 변수는 매 호출마다 새로 만들어지는데, `useState`는 왜 다른가.
-
----
-
-## 본문
-
-> When you give a component state, you might think the state "lives" inside the component.
-> But the state is actually held inside React.
-
-"컴포넌트에 state를 부여하면 state가 컴포넌트 '안에 산다'고 생각할 수 있다. 하지만 state는 실제로 React 내부에 보관된다."
-
-- **lives inside the component**: 흔한 잘못된 멘탈 모델. `useState`가 컴포넌트 함수 본문에 있으니 거기 산다고 착각하기 쉽다.
-- **held inside React**: 실제 저장소는 React 내부 fiber 구조. 컴포넌트 함수가 매 렌더마다 새로 호출되어도 React가 보관하는 값은 유지된다.
-
-> React associates each piece of state it's holding with the correct component by where that component sits in the render tree.
-
-"React는 보유하고 있는 각 state 조각을 렌더 트리에서 컴포넌트가 위치한 곳을 기준으로 올바른 컴포넌트와 연결한다."
-
-- **associates ... by where ... sits**: 위치를 key로 매핑. 컴포넌트 정의가 같아도 트리 위치가 다르면 별개의 state.
-- **render tree**: 화면에 실제로 그려진 컴포넌트 인스턴스 트리. 같은 JSX를 두 군데 꽂으면 트리 위치가 두 곳 → 두 개의 독립적인 state.
-
-```jsx
-// 같은 Counter 컴포넌트지만 위치가 다름 → state 독립
-<Counter />   // 위치 A → state A
-<Counter />   // 위치 B → state B
-// A의 count를 올려도 B는 그대로
-```
-
----
-
-## 종합
-
-컴포넌트 함수는 매 렌더마다 새로 호출되어 로컬 변수도 새로 만들어진다. 그런데도 `useState`로 선언한 값이 직전 값을 기억하는 건, React가 트리 위치를 key로 직전 state를 다시 꽂아주기 때문이다. "위치가 식별자"라는 사고를 잡아두면 이후 동작들이 한 줄로 설명된다 — 형제 카운터 격리(위치가 다름), 조건부 렌더링 시 state 소실(위치가 비워짐), key/타입 변경 시 reset(같은 위치라도 식별자가 달라짐).
-
----
-
----
-
-# `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
-
-## 도입
-
-`key`는 리스트에만 쓰는 prop이라고 생각하기 쉽다. 하지만 `key`의 본질은 리스트가 아니라 "React에게 이 컴포넌트의 식별자를 명시적으로 알려주는 것"이다. 따라서 어떤 컴포넌트에도 쓸 수 있다.
-
----
-
-## 본문
-
-> Keys aren't just for lists!
-> You can use keys to make React distinguish between any components.
-
-"key는 리스트에만 쓰는 것이 아니다! 임의의 컴포넌트를 구분하기 위해 key를 쓸 수 있다."
-
-> By default, React uses order within the parent to discern between components.
-> Specifying a key tells React to use the key itself as part of the position, instead of their order within the parent.
-
-"기본적으로 React는 부모 내 순번으로 컴포넌트를 구분한다. key를 지정하면 React가 부모 내 순번 대신 key 자체를 위치의 일부로 사용하도록 지시한다."
-
-- **order within the parent**: key가 없을 때 기본 식별 방식. 첫 번째 자식은 인덱스 0, 두 번째는 인덱스 1.
-- **as part of the position**: key가 위치 식별자에 합쳐진다. 같은 JSX 자리라도 key가 다르면 React는 다른 좌표로 취급한다.
-
-```jsx
-// 같은 JSX 자리인데 key가 달라서 별개 인스턴스로 취급됨
-<Counter key="playerA" />
-<Counter key="playerB" />
-// playerA와 playerB는 절대 state를 공유하지 않는다
-```
-
-> This is why, even though you render them in the same place in JSX, React sees them as two different counters, and so they will never share state.
-
-"그래서 JSX에서 같은 위치에 렌더링해도 React는 두 개의 다른 카운터로 보고, state를 절대 공유하지 않는다."
-
-- **never share state**: key가 다르면 별개 인스턴스 — 한쪽 state를 바꿔도 다른 쪽에 영향 없음.
-
-리스트 외에 실무에서 쓰는 대표적인 사례:
-
-```jsx
-// 사용자가 바뀔 때 폼을 완전히 리셋하고 싶을 때
-<ProfileForm key={userId} />
-// userId가 바뀌면 key가 바뀌므로 이전 state가 파괴되고 새로 마운트됨
-```
-
----
-
-## 종합
-
-`key`는 리스트 렌더링의 경고를 없애기 위한 도구가 아니라, React에게 "이 컴포넌트의 식별자"를 명시적으로 전달하는 수단이다. key가 같으면 같은 인스턴스(state 보존), key가 다르면 다른 인스턴스(state 초기화). 이 속성 덕분에 리스트 외에도 "특정 값이 바뀔 때 컴포넌트를 완전히 초기화하고 싶다"는 시나리오에서 유용하게 쓸 수 있다.
-
----
-
----
-
-# `key`는 전역으로 유일해야 하는가?
-
-## 도입
-
-`key`가 고유해야 한다는 말을 들으면 UUID처럼 앱 전체에서 유일한 값이어야 하나 싶은 생각이 든다. 그렇지 않다.
-
----
-
-## 본문
-
-> Remember that keys are not globally unique.
-> They only specify the position within the parent.
-
-"key는 전역으로 유일할 필요가 없다. key는 부모 내에서의 위치만 지정한다."
-
-- **not globally unique**: 다른 부모 아래의 key와 겹쳐도 된다. React는 각 부모 컨텍스트 안에서만 key를 비교한다.
-- **position within the parent**: key가 의미를 갖는 범위는 같은 부모 아래 형제들 사이뿐이다.
-
-```jsx
-<ul>
-  <li key="a">항목 A</li>  {/* 이 컨텍스트에서의 "a" */}
-  <li key="b">항목 B</li>
-</ul>
-<ul>
-  <li key="a">항목 A'</li> {/* 다른 부모의 "a" — 충돌 없음 */}
-  <li key="b">항목 B'</li>
-</ul>
-```
-
----
-
-## 종합
-
-key의 유일성 범위는 같은 부모 아래 형제들 사이다. 서로 다른 부모 아래에 있는 자식들은 key가 같아도 전혀 문제없다. 따라서 리스트 렌더링 시 배열 아이템의 고유 필드(id, slug 등)를 key로 쓰면 충분하고, 앱 전체를 통틀어 고유한 값을 만들 필요는 없다.
-
----
-
----
-
-# Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
-
-## 도입
-
-React에서 데이터를 아래로 내려주는 기본 방법은 props다. 하지만 컴포넌트 계층이 깊어지면 데이터를 쓰지도 않는 중간 컴포넌트들을 통과시켜야 하는 상황이 생긴다. 이것이 prop drilling이고, Context는 이 문제의 해결책이다.
-
----
-
-## 본문
-
-> But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop.
-
-"하지만 트리 깊숙이 props를 내려야 하거나, 많은 컴포넌트가 같은 prop을 필요로 하면 props 전달이 장황하고 불편해진다."
-
-- **verbose**: 장황한. 중간 컴포넌트들이 직접 쓰지 않는 prop을 받아서 아래로 넘기는 코드가 계속 반복된다.
-
-> The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called "prop drilling".
-
-"데이터가 필요한 컴포넌트들의 가장 가까운 공통 조상이 데이터를 쓰는 컴포넌트들과 멀리 떨어져 있을 수 있고, state를 그렇게 높이 올리면 'prop drilling'이라는 상황이 생긴다."
-
-- **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들이 공유하는 가장 가까운 부모. state를 이 레벨까지 올려야 한다.
-- **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들이 props를 단순 통과시키며 내려가는 상황.
-
-> Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
-
-"Context를 쓰면 부모 컴포넌트가 트리 아래 어떤 컴포넌트에도 — 아무리 깊어도 — props를 명시적으로 내려주지 않고 정보를 제공할 수 있다."
-
-- **no matter how deep**: 계층이 아무리 깊어도 Context를 구독한 컴포넌트라면 바로 읽을 수 있다.
-
-```
-prop drilling (Context 없음):
-App → Layout → Sidebar → Menu → MenuItem (useTheme 필요)
-       ↓props   ↓props    ↓props  ↓props  →  theme 사용
-
-Context 있음:
-App (ThemeProvider)
-  └─ Layout                           (theme prop 불필요)
-       └─ Sidebar                     (theme prop 불필요)
-            └─ Menu                   (theme prop 불필요)
-                 └─ MenuItem          useContext(ThemeContext) → theme 직접 읽음
-```
-
----
-
-## 종합
-
-Context는 prop drilling 문제의 해결책이지만, 자주 바뀌는 값에 쓰면 해당 Context를 구독하는 모든 컴포넌트가 리렌더된다는 점에 주의해야 한다. 테마, 언어, 로그인 사용자처럼 거의 바뀌지 않는 전역 값에 적합하고, 빠르게 바뀌는 값은 외부 store(Zustand, Jotai 등)를 고려하는 것이 낫다.
-
----
-
----
-
 # [UNVERIFIED] '상태관리 어떻게 하세요?'
 
 ## 도입
@@ -347,8 +36,6 @@ step 4: 특화 상태는 별도 분리
 
 ---
 
----
-
 # 그럼 불필요한 상태가 어떤 게 있나요?
 
 ## 도입
@@ -373,8 +60,6 @@ state를 "화면과 관련 있고 바뀔 수 있는 값"으로 정의하면 stat
 ## 종합
 
 "필요한 state인가?"를 판단하는 빠른 체크리스트: 렌더 중 다른 state나 props에서 계산할 수 있으면 state가 아니다. 항상 같이 바뀌는 두 state 변수는 하나로 합칠 수 있다. 두 boolean state 조합 중 유효하지 않은 경우가 있으면 enum(union 타입) 하나로 통합한다. 중첩이 깊어 업데이트하기 불편하면 flat 구조로 정규화한다.
-
----
 
 ---
 
@@ -413,8 +98,6 @@ const [position, setPosition] = useState({ x: 0, y: 0 });
 ## 종합
 
 항상 함께 바뀌는 state는 하나로 묶으면 동기화 실수를 구조적으로 막을 수 있다. `setPosition` 하나만 호출하면 x와 y가 항상 함께 갱신된다 — `setY`를 빠뜨릴 가능성 자체가 없어진다. 단, 관련 없는 값을 억지로 묶으면 반대로 부분 갱신이 어려워지니 "항상 같이 바뀌는가"를 기준으로 판단한다.
-
----
 
 ---
 
@@ -461,8 +144,6 @@ const [status, setStatus] = useState<Status>('typing');
 ## 종합
 
 두 boolean을 쓰면 4가지 조합 중 3가지만 유효하고 1가지는 불가능한 조합이다. enum(`status`)으로 바꾸면 타입 시스템이 유효하지 않은 조합을 컴파일 시점에 차단한다. TypeScript의 유니언 타입과 조합하면 특히 강력하다 — `status`를 `'submitting'`으로 설정하면서 동시에 `'typing'`이 되는 코드 자체를 작성할 수 없게 된다.
-
----
 
 ---
 
@@ -524,8 +205,6 @@ state에 두지 말아야 할 값의 유형은 두 가지다. 첫째, 다른 sta
 
 ---
 
----
-
 # 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
 
 ## 도입
@@ -581,6 +260,54 @@ const placeById = {
 
 ---
 
+# Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
+
+## 도입
+
+React에서 데이터를 아래로 내려주는 기본 방법은 props다. 하지만 컴포넌트 계층이 깊어지면 데이터를 쓰지도 않는 중간 컴포넌트들을 통과시켜야 하는 상황이 생긴다. 이것이 prop drilling이고, Context는 이 문제의 해결책이다.
+
+---
+
+## 본문
+
+> But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop.
+
+"하지만 트리 깊숙이 props를 내려야 하거나, 많은 컴포넌트가 같은 prop을 필요로 하면 props 전달이 장황하고 불편해진다."
+
+- **verbose**: 장황한. 중간 컴포넌트들이 직접 쓰지 않는 prop을 받아서 아래로 넘기는 코드가 계속 반복된다.
+
+> The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called "prop drilling".
+
+"데이터가 필요한 컴포넌트들의 가장 가까운 공통 조상이 데이터를 쓰는 컴포넌트들과 멀리 떨어져 있을 수 있고, state를 그렇게 높이 올리면 'prop drilling'이라는 상황이 생긴다."
+
+- **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들이 공유하는 가장 가까운 부모. state를 이 레벨까지 올려야 한다.
+- **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들이 props를 단순 통과시키며 내려가는 상황.
+
+> Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
+
+"Context를 쓰면 부모 컴포넌트가 트리 아래 어떤 컴포넌트에도 — 아무리 깊어도 — props를 명시적으로 내려주지 않고 정보를 제공할 수 있다."
+
+- **no matter how deep**: 계층이 아무리 깊어도 Context를 구독한 컴포넌트라면 바로 읽을 수 있다.
+
+```
+prop drilling (Context 없음):
+App → Layout → Sidebar → Menu → MenuItem (useTheme 필요)
+       ↓props   ↓props    ↓props  ↓props  →  theme 사용
+
+Context 있음:
+App (ThemeProvider)
+  └─ Layout                           (theme prop 불필요)
+       └─ Sidebar                     (theme prop 불필요)
+            └─ Menu                   (theme prop 불필요)
+                 └─ MenuItem          useContext(ThemeContext) → theme 직접 읽음
+```
+
+---
+
+## 종합
+
+Context는 prop drilling 문제의 해결책이지만, 자주 바뀌는 값에 쓰면 해당 Context를 구독하는 모든 컴포넌트가 리렌더된다는 점에 주의해야 한다. 테마, 언어, 로그인 사용자처럼 거의 바뀌지 않는 전역 값에 적합하고, 빠르게 바뀌는 값은 외부 store(Zustand, Jotai 등)를 고려하는 것이 낫다.
+
 ---
 
 # [UNVERIFIED] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
@@ -621,8 +348,6 @@ Context와 외부 store의 분기 기준은 단 하나 — 변경 빈도다. Con
 
 ---
 
----
-
 # Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
 
 ## 도입
@@ -657,8 +382,6 @@ Context는 편리하지만 렌더링 특성을 이해하지 않으면 예상치 
 ## 종합
 
 Context는 구독자 전체를 한 번에 업데이트하는 broadcast 채널이다. 자주 바뀌는 값(마우스 위치, 스크롤 위치, 실시간 데이터)을 Context에 넣으면 구독하는 컴포넌트 수에 비례해 리렌더가 폭발적으로 늘어난다. 이런 경우 외부 store(Zustand, Jotai)를 고려한다 — 셀렉터로 필요한 슬라이스만 구독할 수 있어 불필요한 리렌더를 줄일 수 있다.
-
----
 
 ---
 
@@ -714,8 +437,6 @@ useEffect(() => {
 ## 종합
 
 서버 상태의 핵심 특성은 "캐시"라는 점이다 — 클라이언트에 있는 값은 항상 서버 원본의 스냅샷이며 언제든 stale이 될 수 있다. `useState`는 캐싱·stale 관리·자동 refetch·중복 제거를 지원하지 않아 서버 상태를 다루기에 맞지 않는다. React Query는 이 문제들을 전담하는 레이어를 제공하고, 클라이언트 상태 store가 진짜 클라이언트 UI 상태에만 집중할 수 있게 해준다.
-
----
 
 ---
 

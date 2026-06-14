@@ -38,8 +38,6 @@ app/
 
 ---
 
----
-
 # `<Link>`의 `prefetch` prop을 true/false로 설정하면 각각 어떻게 동작하는가?
 
 ## 도입
@@ -71,8 +69,6 @@ prefetch={false}       prefetch 비활성화 (클릭 시점에 요청)
 ## 종합
 
 `prefetch={true}`는 중요한 핵심 페이지(대시보드 홈, 핵심 1뎁스 페이지 등)에 선택적으로 적용할 때 효과적이다. 뷰포트에 들어오는 모든 `<Link>`에 `prefetch={true}`를 쓰면 과도한 prefetch 요청이 발생한다. `prefetch={false}`는 긴 리스트에서 각 항목이 링크인 경우, 마우스가 지나치기만 해도 prefetch가 발생하는 문제를 방지할 때 유용하다.
-
----
 
 ---
 
@@ -112,8 +108,6 @@ Pages Router → App Router 전환의 핵심 변화는 "hover 기반"에서 "뷰
 
 ---
 
----
-
 # [UNVERIFIED] Pages Router에 있던 hover prefetching이 App Router에서 빠졌을 때, 왜 직접 구현해야 한다고 판단했는가?
 
 ## 도입
@@ -148,8 +142,6 @@ UX 최적화의 기준선은 "사용자가 체감할 수 있는가"다. 200ms는
 
 ---
 
----
-
 # [UNVERIFIED] hover prefetching을 prefetch prop 값에 따라 어떻게 다르게 적용해야 하는가?
 
 ## 도입
@@ -179,8 +171,6 @@ true                hover 추가 X
 ## 종합
 
 이 규칙의 기준은 "Pages Router가 원래 어떻게 동작했는가"다. Pages Router 제작 당시 설계자들이 정한 기본 동작을 App Router 환경에 이식하는 것이 목표이므로, 그 스펙을 흉내낸다. 결과적으로 `prefetch` 미지정일 때만 hover prefetching이 붙고, 명시적으로 값을 지정한 경우에는 hover를 추가하지 않는다. 명시적 설정은 이미 의도가 담긴 것이므로 hover로 개입하지 않는다.
-
----
 
 ---
 
@@ -217,8 +207,6 @@ hover prefetching이 켜져 있으면: 30개 prefetch 요청 동시 발화
 ## 종합
 
 `prefetch={false}`는 "이 링크는 prefetch를 원하지 않는다"는 명시적 의도다. hover prefetching은 그 의도를 뒤집는 예외 경로가 되어서는 안 된다. prop 설정과 hover 동작이 서로 다른 결과를 낸다면 예측 불가능한 동작이 된다. hover는 `prefetch` prop의 의도를 그대로 따르는 것이 올바른 설계다.
-
----
 
 ---
 
