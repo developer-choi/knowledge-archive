@@ -26,8 +26,16 @@ A client may not understand each status code that a server reports but it must u
 4XX client error: The request cannot be fulfilled due to an issue that the client might be able to control.
 5XX server error: The server failed to fulfill an apparently valid request.
 
+The following are some common status codes:
+
+- 200: Generic success response
+- 201: POST method success response
+- 400: Incorrect request that the server cannot process
+- 404: Resource not found
+
 ### Reference
 - https://en.wikipedia.org/wiki/HTTP
+- https://aws.amazon.com/what-is/restful-api/
 
 ---
 

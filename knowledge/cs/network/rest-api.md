@@ -18,7 +18,7 @@ priority: 1
 - REST 아키텍처가 따르는 핵심 원칙(제약)들은 무엇인가?
   - Uniform Interface 제약이란 무엇이며, 그 4가지 하위 제약은 각각 무엇인가?
   - Statelessness 제약은 무엇이며 어떤 이점을 주는가?
-  - Layered System 제약은 어떤 효용을 주며 클라이언트에게 어떻게 보이는가?
+  - Layered System 제약은 어떤 효용을 주며, 클라이언트에게 어떻게 보이는가?
   - RESTful 웹 서비스의 캐싱(Cacheability)은 어떻게 통제되는가?
   - Code on Demand 제약은 다른 제약들과 어떻게 다른가? 실무 예시는?
   - [UNVERIFIED] Client-Server 제약이란 무엇이며 왜 6대 제약 중 가장 자명한 것으로 취급되는가?
@@ -35,7 +35,6 @@ priority: 1
 ## REST 요청 구성요소
 - RESTful API 클라이언트 요청은 어떤 구성요소들을 포함하는가?
   - REST API에서 리소스를 식별하는 방법은? "request endpoint"라는 표현은 무엇을 가리키는가?
-  - HTTP 메서드는 클라이언트의 무엇을 표현하는가? RESTful API에서 흔히 쓰는 4가지 메서드(GET/POST/PUT/DELETE)는 각각 어떤 동작을 의미하는가?
   - HTTP 요청 헤더(headers)란 무엇이며 어떤 역할을 하는가?
   - REST API 요청에서 본문(data)은 어떤 메서드와 함께 사용되는가?
   - RESTful API 요청 파라미터의 3가지 종류(path / query / cookie)는 각각 어떤 역할을 하는가?
@@ -48,7 +47,6 @@ priority: 1
 
 ## REST 응답 구성요소
 - RESTful API 서버 응답은 어떤 구성요소들을 포함하는가?
-  - HTTP 응답 상태 코드는 어떤 클래스(2XX/3XX/4XX/5XX)로 나뉘며, 각각은 무엇을 의미하는가? 자주 보는 코드 몇 개를 예로 들면?
   - REST 응답 헤더에는 어떤 종류의 정보가 담기는가?
 
 ## 관련 주제
@@ -383,40 +381,6 @@ The URL is also called the request endpoint and clearly specifies to the server 
 
 ---
 
-## HTTP 메서드는 클라이언트의 무엇을 표현하는가? RESTful API에서 흔히 쓰는 4가지 메서드(GET/POST/PUT/DELETE)는 각각 어떤 동작을 의미하는가?
-
-### Official Answer
-Developers often implement RESTful APIs by using the Hypertext Transfer Protocol (HTTP).
-An HTTP method tells the server what it needs to do to the resource.
-The following are four common HTTP methods:
-
-**GET**
-
-Clients use GET to access resources that are located at the specified URL on the server.
-They can cache GET requests and send parameters in the RESTful API request to instruct the server to filter data before sending.
-
-**POST**
-
-Clients use POST to send data to the server.
-They include the data representation with the request.
-Sending the same POST request multiple times has the side effect of creating the same resource multiple times.
-
-**PUT**
-
-Clients use PUT to update existing resources on the server.
-Unlike POST, sending the same PUT request multiple times in a RESTful web service gives the same result.
-
-**DELETE**
-
-Clients use the DELETE request to remove the resource.
-A DELETE request can change the server state.
-However, if the user does not have appropriate authentication, the request fails.
-
-### Reference
-- https://aws.amazon.com/what-is/restful-api/
-
----
-
 ## HTTP 요청 헤더(headers)란 무엇이며 어떤 역할을 하는가?
 
 ### Official Answer
@@ -517,25 +481,6 @@ REST principles require the server response to contain the following main compon
 - Status line
 - Message body
 - Headers
-
-### Reference
-- https://aws.amazon.com/what-is/restful-api/
-
----
-
-## HTTP 응답 상태 코드는 어떤 클래스(2XX/3XX/4XX/5XX)로 나뉘며, 각각은 무엇을 의미하는가? 자주 보는 코드 몇 개를 예로 들면?
-
-### Official Answer
-The status line contains a three-digit status code that communicates request success or failure.
-For instance, 2XX codes indicate success, but 4XX and 5XX codes indicate errors.
-3XX codes indicate URL redirection.
-
-The following are some common status codes:
-
-- 200: Generic success response
-- 201: POST method success response
-- 400: Incorrect request that the server cannot process
-- 404: Resource not found
 
 ### Reference
 - https://aws.amazon.com/what-is/restful-api/
