@@ -1,18 +1,6 @@
 # LLM(거대 언어 모델)이란 무엇인가?
 
-## 도입
-
-요즘 ChatGPT, Claude 같은 도구를 한 번쯤 써봤을 것이다. 이런 챗봇들이 사람 말을 알아듣고 글을 써내는 그 밑바탕에 깔린 기술이 바로 **LLM(Large Language Model, 거대 언어 모델)**이다. 이름을 그대로 풀면 "큰 언어 모델"인데, 무엇이 크고 무엇이 모델인지 하나씩 뜯어보면 정의가 또렷해진다.
-
----
-
-## 본문
-
-LLM의 공식 정의는 이렇다:
-
 > A large language model (LLM) is a neural network trained on a vast amount of text for natural language processing tasks, especially language generation.
-
-문장을 조각내 보자.
 
 ### neural network (신경망)
 

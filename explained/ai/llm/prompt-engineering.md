@@ -1,14 +1,8 @@
 # 프롬프트 엔지니어링이란 무엇인가?
 
-## 도입
-
-AI 모델은 "입력을 어떻게 쓰느냐"에 따라 출력 품질이 크게 달라진다. 프롬프트 엔지니어링은 그 입력을 잘 쓰는 기술이다.
-
-## 본문
-
 > Prompt engineering is the process of structuring natural language inputs (known as prompts) to produce specified outputs.
 
-AI 모델에서 원하는 출력을 얻기 위해 자연어 입력(프롬프트)을 체계적으로 설계하는 과정이다.
+자연어 입력을 체계적으로 설계하는 과정이다.
 
 - **structuring**: 단순히 텍스트를 쓰는 게 아니라, 모델이 의도한 방향으로 이해하도록 형태·맥락·순서를 설계한다는 뜻. "엔지니어링"이라는 단어를 쓴 이유이기도 하다.
 - **prompts**: 모델에 보내는 입력 텍스트의 총칭. 단순 질문뿐 아니라 지시문·예시·배경 설명 등 다양한 형태를 포함한다.
@@ -21,12 +15,6 @@ AI 모델에서 원하는 출력을 얻기 위해 자연어 입력(프롬프트)
 ---
 
 # 효과적인 프롬프트 엔지니어링을 위해 이해해야 하는 것은 무엇인가?
-
-## 도입
-
-프롬프트를 그냥 쓰는 것과 잘 쓰는 것의 차이는 모델이 언어를 어떻게 처리하는지 이해하는 데서 온다. 이 이해 위에 구체적인 기법들이 쌓인다.
-
-## 본문
 
 > Effective prompt engineering involves understanding how a model interprets language, and may include techniques such as few-shot prompting, chain-of-thought prompting, and role assignment.
 
