@@ -1,5 +1,5 @@
 ---
-description: 공식문서를 단락별로 읽으며 한글 해설하고, 기억할 내용을 Q&A로 만들어 knowledge 문서에 저장한다. "/digest ON [URL]"로 시작하고 "/digest OFF"로 종료. 사용자가 공식문서 URL을 주며 "같이 공부하자", "이거 읽으면서 정리하자", "digest", "해설해줘" 등을 말하면 이 스킬. 단, PDF/구글문서 변환은 convert 스킬이, 복습/면접 모드는 review 스킬이 담당한다.
+disable-model-invocation: true
 argument-hint: ON [출처 URL] 또는 OFF
 ---
 

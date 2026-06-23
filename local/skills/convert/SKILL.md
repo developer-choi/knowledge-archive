@@ -1,5 +1,5 @@
 ---
-description: 구글 문서나 외부 문서(PDF/MD)를 KA 소주제(knowledge/·techniques/·tips/)에 맞춰 변환한다. 사용자가 PDF 파일을 주거나, 구글 문서를 export 했다고 말하거나, "변환해줘", "convert", "이 문서 KA로 옮겨줘" 등을 요청하면 이 스킬을 사용한다. 파일 경로(.pdf, .md)가 포함된 변환 요청이라면 거의 확실히 이 스킬이 필요하다. 단, 사용자가 직접 학습 내용을 텍스트로 타이핑하거나 공식문서를 읽으며 학습하는 경우는 digest 스킬이 담당한다.
+disable-model-invocation: true
 argument-hint: [PDF/MD 파일 경로]
 ---
 

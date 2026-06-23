@@ -1,5 +1,5 @@
 ---
-description: knowledge/ 문서의 Q&A를 HTML 시험지로 생성하여 브라우저에서 한 번에 풀고, 일괄 채점 후 결과 HTML을 보여준다. 틀린 문항은 다시 HTML 시험지로 반복한다. 사용자가 "시험", "한번에 풀고싶어", "exam", "배치로 테스트", "/exam" 등 일괄 방식 지식 검증을 요청하면 이 스킬을 사용한다. 한 문항씩 주고받는 /review 방식이 아닌 전체 일괄 제출 방식을 원할 때 반드시 사용한다.
+disable-model-invocation: true
 argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 ---
 

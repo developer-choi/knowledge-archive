@@ -11,7 +11,8 @@
     "prepare": "husky",
     "list-candidates": "tsx scripts/list-candidates.mts",
     "merge-explained": "tsx scripts/merge-explained.mts",
-    "verify-merge": "tsx scripts/verify-merge.mts"
+    "verify-merge": "tsx scripts/verify-merge.mts",
+    "validate-lint": "tsx scripts/validate-lint.mts"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
