@@ -1,0 +1,39 @@
+{
+  "groups": [
+    {
+      "name": "knowledge ↔ explained ↔ assets 경로 미러",
+      "files": [
+        "knowledge/**",
+        "explained/**",
+        "assets/**"
+      ],
+      "note": "knowledge/<상대경로>.md를 추가·이동·개명·편집하면 같은 상대경로의 explained/<상대경로>.md(설명)와 assets/<상대경로>(자산)도 동반 갱신/이동해야 한다. 정확한 짝은 '편집한 파일과 같은 상대경로'의 explained·assets 파일이다 — 직접 열어 확인한다. (/validate가 사후 탐지하지만 이건 편집시점 리마인더.)"
+    },
+    {
+      "name": "list-candidates 스캔 인터페이스",
+      "files": [
+        "scripts/list-candidates.mts",
+        "local/contexts/list-candidates.md",
+        "CLAUDE.md"
+      ],
+      "note": "frontmatter 키(tags/source/publishable)·헤딩 위계·[UNVERIFIED] 마커·스캔 대상 폴더를 바꾸면 셋이 같이 움직인다: 파싱 로직(mts) ↔ 스캔 규칙 명세(list-candidates.md) ↔ 정책(CLAUDE.md). Candidate 인터페이스 변경은 AC full-refresh가 받는 JSON에도 영향."
+    },
+    {
+      "name": "tags 규칙 ↔ 공식 태그 목록",
+      "files": [
+        "local/contexts/content-format.md",
+        "local/contexts/tags.md"
+      ],
+      "note": "tags.md에 태그를 추가·개명·제거하면 content-format.md의 태그 규칙·예시를, 반대로 규칙을 바꾸면 tags.md를 함께 점검한다 (content-format가 tags.md를 공식 목록으로 참조)."
+    },
+    {
+      "name": "문서 구조 룰 ↔ validate 린터",
+      "files": [
+        "local/contexts/document-structure.md",
+        "local/contexts/content-format.md",
+        "scripts/validate-lint.mts"
+      ],
+      "note": "validate-lint.mts의 각 체크(K2~K8 등)는 document-structure·content-format의 규칙을 단일 출처로 인용한다. 룰 본문을 바꾸면 린터 구현을, 린터 체크를 추가·변경하면 룰 문서를 함께 맞춘다."
+    }
+  ]
+}
