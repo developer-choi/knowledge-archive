@@ -5,19 +5,19 @@ argument-hint: [PDF/MD 파일 경로]
 
 # 외부 문서 변환
 
-구글 문서 등 외부 필기를 KA 소주제(knowledge/·techniques/·tips/)에 맞춰 변환한다. 소주제 정의는 [directory-roles.md](../../contexts/directory-roles.md) 참고.
+구글 문서 등 외부 필기를 KA 소주제(knowledge/·techniques/·tips/)에 맞춰 변환한다. 소주제 정의는 [directory-roles.md](../local/contexts/directory-roles.md) 참고.
 
 ## 원칙
 
 - **원문만 변환**: convert는 사용자가 작성한 원문을 Q&A 형식으로 재배치하는 작업이다. AI가 외부 지식을 검색·주입하지 않는다.
-- **Official Answer 신규 생성 금지**: convert의 출력은 기본적으로 User Answer로만 구성된다. AI가 OA를 새로 구성하지 않는 공통 원칙은 [content-format.md](../../contexts/content-format.md)의 "AI의 OA 신규 생성 금지" 참고.
+- **Official Answer 신규 생성 금지**: convert의 출력은 기본적으로 User Answer로만 구성된다. AI가 OA를 새로 구성하지 않는 공통 원칙은 [content-format.md](../local/contexts/content-format.md)의 "AI의 OA 신규 생성 금지" 참고.
 - **사용자 필기에 없는 Q 추가 금지**: 사용자 필기에 등장하지 않는 개념·질문을 AI 판단으로 새로 만들지 않는다.
 - **변환 거부 조건**: 사실이 아니거나, 출처 불명확하거나, 회사 특정 정보는 변환을 거부한다.
 - **저작권 주의**: Getty Images 등 외부 이미지는 텍스트 설명으로 대체.
 
 ## 소주제 결정
 
-변환 시작 전, 자료 성격으로 출력 소주제(knowledge/·techniques/·tips/)를 결정한다. 결정 기준은 [directory-roles.md](../../contexts/directory-roles.md)에 위임한다.
+변환 시작 전, 자료 성격으로 출력 소주제(knowledge/·techniques/·tips/)를 결정한다. 결정 기준은 [directory-roles.md](../local/contexts/directory-roles.md)에 위임한다.
 
 소주제별 처리 절차:
 
@@ -36,7 +36,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 1. **(a) 사용자 필기의 설명이 검증 가능한 일반 CS 내용 또는 경험·해석**
    → `User Answer`로 배치
-   → 한국어 다듬기 허용 범위는 [content-format.md](../../contexts/content-format.md)의 "작성 원칙" 참고
+   → 한국어 다듬기 허용 범위는 [content-format.md](../local/contexts/content-format.md)의 "작성 원칙" 참고
 2. **(b) 사실 검증 불가 또는 원문에 내용이 부족함**
    → drop 후보로 보고
 
@@ -80,7 +80,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 ### Step 1. Before
 
-[production-guide.md](../../contexts/production-guide.md)의 **Before** 읽기.
+[production-guide.md](../local/contexts/production-guide.md)의 **Before** 읽기.
 
 구글 문서는 PDF + MD 두 형식을 대조 읽기한다. 파일이 없으면 export 요청 후 대기.
 
@@ -93,15 +93,15 @@ argument-hint: [PDF/MD 파일 경로]
 
 ### Step 3. 판정 & 매핑
 
-[content-format.md](../../contexts/content-format.md)를 읽고, 위 "내용 판정 (2단계)"에 따라 각 Q&A의 섹션을 결정한다. 기존 knowledge 파일이 있으면 "기존 knowledge 병합" 규칙 적용.
+[content-format.md](../local/contexts/content-format.md)를 읽고, 위 "내용 판정 (2단계)"에 따라 각 Q&A의 섹션을 결정한다. 기존 knowledge 파일이 있으면 "기존 knowledge 병합" 규칙 적용.
 
 ### Step 4. 링크 보완 (사용자 대기)
 
-PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우, [content-format.md](../../contexts/content-format.md)의 **URL 불명확 시** 규칙을 적용하고 사용자에게 확인을 요청한 뒤 대기한다.
+PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우, [content-format.md](../local/contexts/content-format.md)의 **URL 불명확 시** 규칙을 적용하고 사용자에게 확인을 요청한 뒤 대기한다.
 
 ### Step 5. After
 
-[production-guide.md](../../contexts/production-guide.md)의 **After** 실행.
+[production-guide.md](../local/contexts/production-guide.md)의 **After** 실행.
 
 추가 검증:
 - Step 2에서 사용자가 확정한 큐레이션 결정이 반영되었는가?
@@ -114,7 +114,7 @@ PDF에서 하이퍼링크 텍스트만 보이고 URL을 알 수 없는 경우, [
 
 ### Step 6. 스킬 종료 시
 
-[production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행.
+[production-guide.md](../local/contexts/production-guide.md)의 **스킬 종료 시** 실행.
 
 ---
 
