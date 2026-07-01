@@ -5,7 +5,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 # HTML 일괄 시험 (exam)
 
-[`knowledge/`](../local/contexts/directory-roles.md) 문서 Q&A를 HTML 시험지로 출력하고 일괄 채점한다.
+[`knowledge/`](../../contexts/directory-roles.md) 문서 Q&A를 HTML 시험지로 출력하고 일괄 채점한다.
 마커 처리·해설 기준·explained 캐시 규칙은 /review·/explain·/digest와 동일하게 적용한다.
 
 ## 공통 규칙
@@ -34,7 +34,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록을 확정한다.
 
-각 문항에 대해 `explained/<rel>.md`의 해당 섹션을 확인하여 fence 없는 코드블록(다이어그램)이 있는지 체크한다. 있으면 해당 문항을 "diagram_hint" 플래그로 표시 — 시험 HTML 생성 시 문항 위에 안내 문구가 박히고, 결과 HTML에는 그 다이어그램이 인라인으로 표시된다. 다이어그램 판별 기준은 [explanation-guide.md §4](../local/contexts/explanation-guide.md) 참고.
+각 문항에 대해 `explained/<rel>.md`의 해당 섹션을 확인하여 fence 없는 코드블록(다이어그램)이 있는지 체크한다. 있으면 해당 문항을 "diagram_hint" 플래그로 표시 — 시험 HTML 생성 시 문항 위에 안내 문구가 박히고, 결과 HTML에는 그 다이어그램이 인라인으로 표시된다. 다이어그램 판별 기준은 [explanation-guide.md §4](../../contexts/explanation-guide.md) 참고.
 
 ### HTML 생성 및 오픈
 

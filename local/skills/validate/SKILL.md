@@ -5,7 +5,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 # KA 문서 검증
 
-[`knowledge/`](../local/contexts/directory-roles.md)·`explained/` 하위 문서가 KA 규칙을 준수하는지 검증하고, 위반을 수정한다.
+[`knowledge/`](../../contexts/directory-roles.md)·`explained/` 하위 문서가 KA 규칙을 준수하는지 검증하고, 위반을 수정한다.
 
 검증은 두 층으로 나뉜다. **결정론 체크**(grep·구조 판정)는 린터 스크립트가 전수 처리하고, **판단 체크**(의미 이해 필요)는 LLM이 본다.
 
@@ -15,12 +15,12 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 | 규칙 | 파일 |
 |------|------|
-| 문서 구조 | [document-structure.md](../local/contexts/document-structure.md) |
-| 콘텐츠 포맷 | [content-format.md](../local/contexts/content-format.md) |
-| 파일 배치 | [file-placement.md](../local/contexts/file-placement.md) |
-| 태그 목록 | [tags.md](../local/contexts/tags.md) |
-| 템플릿 | [template.md](../local/contexts/template.md) |
-| 폴더 구조 | [folder-blueprint.md](../local/contexts/folder-blueprint.md) |
+| 문서 구조 | [document-structure.md](../../contexts/document-structure.md) |
+| 콘텐츠 포맷 | [content-format.md](../../contexts/content-format.md) |
+| 파일 배치 | [file-placement.md](../../contexts/file-placement.md) |
+| 태그 목록 | [tags.md](../../contexts/tags.md) |
+| 템플릿 | [template.md](../../contexts/template.md) |
+| 폴더 구조 | [folder-blueprint.md](../../contexts/folder-blueprint.md) |
 
 ## 결정론 체크 — 린터 스크립트
 
@@ -49,7 +49,7 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
   - 전용 문서 판별: `knowledge/` 폴더 구조와 파일명 기준. 서브에이전트로 병렬 검증 시 각 에이전트에게 전체 파일 경로 목록을 전달한다.
 - **Reference 보완**: Official Answer가 영어 원문이고 Reference가 비어 있거나 `URL_UNKNOWN`이면, WebFetch로 출처 URL을 탐색하여 채운다.
 
-`priority`는 검출 대상이 아니다 — AI가 추가하지 않으며, 키가 없어도 위반이 아니고, 채워져 있으면 보존한다 ([content-format.md](../local/contexts/content-format.md)의 priority 참고).
+`priority`는 검출 대상이 아니다 — AI가 추가하지 않으며, 키가 없어도 위반이 아니고, 채워져 있으면 보존한다 ([content-format.md](../../contexts/content-format.md)의 priority 참고).
 
 ## 검증 및 수정
 
