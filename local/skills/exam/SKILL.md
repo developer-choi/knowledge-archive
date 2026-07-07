@@ -39,9 +39,9 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 ### HTML 생성 및 오픈
 
 1. 아래 시험 HTML 구조로 파일을 생성한다.
-2. `$env:TEMP\ka-exam-<slug>.html` 에 UTF-8로 저장한다. `<slug>`는 knowledge 파일 상대 경로를 `-`로 연결한 값 (예: `cs-system-process-thread-process`)
+2. `$env:TEMP\ka-exam-<slug>.html` 에 **BOM 없는 UTF-8**로 저장한다(BOM이 섞이면 한글이 깨진다). `<slug>`는 knowledge 파일 상대 경로를 `-`로 연결한 값 (예: `cs-system-process-thread-process`)
 3. PowerShell `Start-Process "<경로>"` 로 기본 브라우저에서 오픈한다.
-4. 사용자에게 안내: "브라우저에서 시험지를 열었습니다. 답변 작성 후 **제출** 버튼을 누르고, 나타나는 텍스트를 복사해서 여기에 붙여넣으세요."
+4. 사용자에게 안내: "브라우저에서 시험지를 열었습니다. 답변 작성 후 **제출** 버튼을 누르고 **클립보드 복사**를 누른 뒤, 여기에 **done**이라고 말하세요."
 
 ### 시험 HTML 구조
 
@@ -82,7 +82,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
   <button onclick="collect()">제출</button>
 
   <div id="output">
-    <p>아래 전체를 복사해서 Claude에 붙여넣으세요:</p>
+    <p>클립보드 복사를 누른 뒤 Claude에 <strong>done</strong>이라고 말하세요:</p>
     <textarea id="result" readonly></textarea>
     <br><button id="copy-btn" onclick="copyAll()">클립보드 복사</button>
   </div>
@@ -90,11 +90,12 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
   <script>
     const qIds = [{콤마로 구분된 문자열 배열: 'q1', 'q2', ...}];
     function collect() {
-      const parts = qIds.map((id, i) => {
-        const v = document.getElementById(id).value.trim();
-        return 'Q' + (i + 1) + ':\n' + (v || '(미응답)');
-      });
-      document.getElementById('result').value = parts.join('\n\n---\n\n');
+      const payload = {
+        __skill: "exam",
+        ts: Date.now(),
+        answers: qIds.map(id => document.getElementById(id).value.trim())
+      };
+      document.getElementById('result').value = JSON.stringify(payload);
       document.getElementById('output').style.display = 'block';
       document.getElementById('result').select();
     }
@@ -112,13 +113,16 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 
 ---
 
-## Phase 2: 답변 파싱
+## Phase 2: 답변 회수
 
-사용자가 붙여넣은 텍스트를 `Q{번호}:` 헤더와 `---` 구분자 기준으로 파싱하여 각 문항의 답변 텍스트를 추출한다.
+사용자가 "done"이라고 말하면 PowerShell `Get-Clipboard -Raw`로 클립보드를 읽어 `JSON.parse`한다. 파싱한 객체에서 각 문항의 답변을 추출한다.
+
+- 페이로드 형태: `{ __skill: "exam", ts: <ms>, answers: [<Q1 답변>, <Q2 답변>, ...] }`. `answers` 배열의 인덱스가 문항 순서(0-based)와 대응한다.
+- **신선도 검증**: `__skill === "exam"`이 아니거나, JSON 파싱이 실패하거나, `ts`가 현재 시각 대비 지나치게 오래됐으면(다른 세션·이전 회차의 잔여 클립보드) 채점하지 않고 "클립보드 복사를 다시 눌러줘"라고 안내한다.
 
 ### 스킵 마커 처리
 
-답변 텍스트가 `(스킵)` 또는 `(생략)`(단독 혹은 앞뒤 공백 포함)이면 해당 문항을 **스킵**으로 분류한다.
+답변 원소가 `(스킵)` 또는 `(생략)`(단독 혹은 앞뒤 공백 포함)이면 해당 문항을 **스킵**으로 분류한다.
 
 - 채점하지 않는다. 결과 HTML에 판정 없이 "스킵" 표시만 한다.
 - 점수 분모에도 포함하지 않는다.
@@ -140,7 +144,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 
 ## Phase 4: 결과 HTML 생성
 
-채점 완료 후 결과 HTML을 생성하여 `$env:TEMP\ka-exam-<slug>-result.html` 에 UTF-8로 저장하고 브라우저에서 오픈한다.
+채점 완료 후 결과 HTML을 생성하여 `$env:TEMP\ka-exam-<slug>-result.html` 에 **BOM 없는 UTF-8**로 저장하고 브라우저에서 오픈한다.
 
 ### 결과 HTML 구조
 
