@@ -305,14 +305,28 @@ function lintKnowledge(rel: string, src: string): Finding[] {
           }
         }
       }
-      // W1 OA length
-      const oaText = meaningful(oa.body)
-        .filter((l) => !/^\s*[-*|]/.test(l.text)) // drop list/table rows
-        .map((l) => l.text)
-        .join(' ');
-      const paras = oaText.split(/\n\s*\n/);
+      // W1 OA length — split into paragraphs on blank lines first (content-format "단락 사이는 빈 줄로 구분"),
+      // since joining all lines with a space before splitting on `\n\s*\n` never finds a match.
+      const paraGroups: Line[][] = [];
+      let currentPara: Line[] = [];
+      for (const l of oa.body) {
+        if (/^---\s*$/.test(l.text.trim())) continue; // section separator, not paragraph content
+        if (l.text.trim() === '') {
+          if (currentPara.length) paraGroups.push(currentPara);
+          currentPara = [];
+        } else {
+          currentPara.push(l);
+        }
+      }
+      if (currentPara.length) paraGroups.push(currentPara);
+
       let total = 0;
-      for (const p of paras) {
+      for (const group of paraGroups) {
+        const p = group
+          .filter((l) => !l.inFence) // drop code blocks
+          .filter((l) => !/^\s*([-*|]|\d+\.)\s/.test(l.text)) // drop list/table rows (bulleted or numbered)
+          .map((l) => l.text)
+          .join(' ');
         const sentences = (p.match(/[.!?。](\s|$)/g) ?? []).length;
         total += sentences;
         if (sentences > 6) add(oa.line, 'W1', `OA 단락 ${sentences}문장 (>6) — 정리 검토`, 'warn');
