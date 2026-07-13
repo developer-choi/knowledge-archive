@@ -64,7 +64,7 @@ Snapshot Testing 동작 방식
 
 첫 실행  → 스냅샷 파일 생성 (컴포넌트 HTML 저장)
 이후 실행 → 현재 렌더 결과와 저장된 스냅샷 비교
-변화 발생 → 테스트 실패 → 의도적 변경이면 jest --updateSnapshot
+변화 발생 → 테스트 실패 → 의도적 변경이면 vitest -u
 ```
 
 Snapshot은 Unit/Integration/E2E 중 어느 레벨에서도 사용할 수 있다. "범위"가 아닌 "검증 방식"의 차이다.

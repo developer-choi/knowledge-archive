@@ -11,7 +11,7 @@
 
 "Unit test는 보통 의존성이 없거나 의존성을 mock하는(수천 줄의 코드를 몇 줄로 효과적으로 교체하는) 작은 것을 테스트한다."
 
-- **mock those dependencies**: 실제 DB, API, 외부 라이브러리 대신 가짜 구현을 넣는다. `jest.fn()`, `jest.mock()` 등으로 실제 코드를 몇 줄짜리 가짜로 교체한다.
+- **mock those dependencies**: 실제 DB, API, 외부 라이브러리 대신 가짜 구현을 넣는다. `vi.fn()`, `vi.mock()` 등으로 실제 코드를 몇 줄짜리 가짜로 교체한다.
 
 ```ts
 // unit test 예시 — 순수 함수
