@@ -1,143 +1,132 @@
-# Unit test에서 dependency가 있을 때 어떻게 처리하는가?
+# 테스트에서 왜 mocking이 필요한가?
 
-## 도입
-
-unit test는 격리가 핵심이므로 외부 의존성을 그대로 사용할 수 없다. DB, 네트워크, 외부 객체가 필요한 코드를 unit test하려면 대체재가 필요하다.
-
----
 ## 본문
 
 > When a block of code requires other parts of the system to run, you can't use a unit test with that external data. The unit test needs to run in isolation.
 
-"코드 블록이 실행하기 위해 시스템의 다른 부분이 필요하면, 외부 데이터와 함께 unit test를 사용할 수 없다. Unit test는 격리된 상태로 실행되어야 한다."
+unit test의 정의상 그 코드만 격리해서 돌려야 하는데, 진짜 external data를 그대로 쓰면 바깥 시스템이 테스트에 딸려 들어와 격리가 성립하지 않는다. 그래서 바깥을 가짜로 대체(mock)해, 외부를 끊어낸 채 그 코드만 순수하게 돌릴 수 있게 만드는 것 — 이것이 mocking을 하는 이유다.
 
-> Other system data, such as databases, objects, or network communication, might be required for the code's functionality. If that's the case, you should use data stubs instead.
+Vitest 문서는 여기에 더 구체적인 이유 둘을 든다.
 
-"데이터베이스, 객체, 네트워크 통신 같은 다른 시스템 데이터가 코드 기능에 필요할 수 있다. 그런 경우 data stub을 대신 사용해야 한다."
+> There are several reasons you might want to do this: maybe the real function makes network requests that would slow down your tests,
 
-- **data stubs**: 실제 외부 데이터 대신 사용하는 가짜(고정) 데이터. mock과 비슷하지만, stub은 미리 정해진 값을 반환하는 데 집중한다.
+"이렇게 하고 싶은 데는 여러 이유가 있다. 진짜 함수가 네트워크 요청을 해서 테스트를 느리게 만들 수도 있고,
 
-```ts
-// DB를 사용하는 함수를 unit test할 때
-const mockUserRepository = {
-  findById: jest.fn().mockResolvedValue({ id: 1, name: 'Kim' })
-};
+> or maybe you need to simulate an error that's hard to trigger with real code.
 
-// 실제 DB 연결 없이 테스트
-const user = await getUser(1, mockUserRepository);
-expect(user.name).toBe('Kim');
-```
+진짜 코드로는 일으키기 어려운 에러 상황을 흉내 내야 할 수도 있다."
+
+- **simulate an error that's hard to trigger with real code**: 진짜 코드로는 일부러 일으키기 힘든 실패(서버 500, 타임아웃, 연결 끊김 등)를, 가짜 함수에 "이번엔 에러를 던져라"라고 설정해 마음대로 재현할 수 있다. 정상 경로뿐 아니라 에러 경로까지 검사하려면 이 통제가 필요하다.
 
 ---
 ## 종합
 
-data stub은 실제 외부 시스템 대신 예측 가능한 고정 데이터를 제공해 테스트를 빠르고 안정적으로 만든다. CI 환경에서 DB 없이도 실행할 수 있어 setup 비용이 낮다. 단, stub이 실제 DB의 동작과 다르면 false positive가 발생할 수 있다 — stub은 개발자가 만든 가짜이므로 실제 시스템의 edge case를 놓칠 수 있다. 이 간극을 좁히는 방법이 integration test에서 실제 DB나 MSW를 사용하는 것이다.
+진짜 외부를 그대로 쓰면 두 가지가 걸린다.
+
+1. 그 코드만 따로 돌린다는 unit test의 격리가 깨지고
+2. 실제 네트워크·DB를 오가느라 느리고 비용이 들며 남의 서버 상태에 따라 결과가 불안정해진다.
+
+바깥을 가짜로 대체하면 이 외부 변수를 제거하고 오직 테스트 대상 코드의 동작만 순수하게 검증할 수 있다. 덧붙여, 진짜로는 일으키기 힘든 에러 상황도 가짜로 자유롭게 재현할 수 있어 실패 경로까지 검사할 수 있다.
 
 ---
-# Unit test에서 의존성을 mock하고 호출 assertion이 통과하면, 실제 연동도 정상이라고 볼 수 있는가?
+# 테스트에서 mock 함수를 쓰면 무엇을 할 수 있게 되는가?
+
+## 본문
+
+테스트 대상 코드는 보통 혼자 돌지 않고 다른 함수·모듈을 불러 쓴다. 이렇게 그 코드가 돌아가려고 기대는 상대를 **의존성(dependency)**이라 한다 — 사용자 목록을 받아오는 `fetchUsers`, DB에서 값을 읽는 함수, 결제 API를 호출하는 함수 같은 것이 그 코드의 의존성이다. 이 의존성을 진짜 대신 mock(가짜)으로 바꿔 끼우면, 내가 만든 가짜이기 때문에 진짜로는 못 하던 세 가지를 할 수 있게 된다 — **돌려줄 값을 내가 정하고, 어떻게 불렸는지 들여다보고, 진짜 부작용은 안 일어나게 막는 것**이다.
+
+> Mock functions let you control what a dependency returns, observe how it was called, and isolate the code under test from side effects.
+
+"mock 함수는 의존성이 무엇을 반환할지 통제하고, 그것이 어떻게 호출되었는지 관찰하며, 테스트 대상 코드를 부작용으로부터 격리하게 해준다."
+
+- **반환값을 내가 정한다**: 진짜 함수는 자기 로직대로 값을 돌려주지만, 가짜 함수는 "이번엔 이 값을 돌려줘"라고 미리 정할 수 있다. 그래서 빈 목록·특정 사용자·실패 응답 같은 검사하고 싶은 상황을 원하는 대로 세팅한다.
+- **어떻게 불렸는지 들여다본다**: 가짜 함수는 몇 번·어떤 인자로 불렸는지 스스로 기록해둔다. 그 기록을 꺼내 "이 함수가 이런 인자로 불렸는가"를 검증한다.
+- **진짜 부작용을 막는다**: 부작용(side effect)이란 값을 돌려주는 것 말고 바깥세상에 일으키는 실제 변화 — 이메일 발송·DB 쓰기·결제 같은 것이다. 가짜를 끼우면 이런 변화가 안 일어나, 테스트 대상만 흔적 없이 순수하게 돌릴 수 있다.
+
+---
+# 같은 가짜 함수를 여러 테스트에서 재사용할 때, 왜 매 테스트마다 mock을 정리해줘야 하는가?
 
 ## 도입
 
-mock을 사용하면 의존성을 가짜로 교체하므로 실제 의존성이 어떻게 동작하는지는 테스트에서 알 수 없다. 이 한계가 unit test의 근본적인 blind spot이다.
+진짜 함수 대신 끼워 넣는 가짜 함수(mock)에는 눈에 잘 안 보이는 특징이 하나 있다. 이 가짜 함수는 자기가 **몇 번 불렸는지, 매번 어떤 인자로 불렸는지**를 스스로 적어두는 작은 수첩(호출 일지, diary)을 안에 갖고 있다. 테스트에서 "이 함수가 1번 불렸는가", "이런 인자로 불렸는가"를 확인할 수 있는 것도 이 수첩 덕분이다. 이 수첩에 쌓인 기록이 곧 mock의 상태(state)다. 문제는 같은 가짜 함수를 여러 테스트가 공유할 때 이 수첩이 저절로 비워지지 않는다는 데서 생긴다.
 
 ---
 ## 본문
 
-> Unit tests are incapable of ensuring that when you call into a dependency that you're calling it appropriately (though you can make assertions on how it's being called, you can't ensure that it's being called properly with a unit test).
+> Always remember to clear or restore mocks before or after each test run to undo mock state changes between runs!
 
-"Unit test는 의존성을 호출할 때 적절하게 호출하고 있는지 보장할 수 없다 (호출 방식에 대해 assertion할 수는 있지만, unit test로는 올바르게 호출하고 있다는 것을 보장할 수 없다)."
+"각 테스트 실행 전이나 후에 mock을 clear 또는 restore 하여, 실행 사이에 누적된 mock 상태 변화를 되돌리는 것을 항상 기억하라!"
 
-- **incapable of ensuring**: 구조적으로 불가능하다는 뜻. 노력의 문제가 아니라 mock의 본질적 한계다.
-- **calling it appropriately**: 올바른 인자를 올바른 형태로 전달하는 것. mock은 어떤 인자를 받아도 가짜 응답만 돌려주므로 인자의 정확성은 알 수 없다.
+- **clear**: mock이 적어둔 수첩의 기록만 지우는 것. 몇 번 불렸는지·어떤 인자였는지 같은 호출 이력을 0으로 되돌린다. 가짜 함수 자체는 그대로 두고 기록만 비운다.
+- **restore**: 가짜로 바꿔치기했던 자리를 원래의 진짜 함수로 되돌리는 것. 기록을 지우는 데서 더 나아가, 가짜를 걷어내고 원본을 복구한다.
+- **state changes between runs**: 실행(run) 사이에 누적된 상태 변화. 한 테스트를 돌리면 수첩에 기록이 쌓이는데(state change), 이 변화가 다음 실행으로 넘어가 남아 있는 것을 가리킨다.
 
-> It doesn't matter if your component `<A />` renders component `<B />` with props c and d if component `<B />` actually breaks if prop e is not supplied.
-
-"`<B />` 컴포넌트가 prop e가 없으면 실제로 깨지는데, `<A />`가 `<B />`를 c와 d props로 렌더링한다는 것은 의미가 없다."
+해결방법은 매 테스트 전이나 후에 이 수첩을 비워주는 것이다. 보통 `beforeEach` 같은 훅에 정리 코드를 넣어 테스트마다 자동으로 초기화한다.
 
 ```ts
-// unit test — mock으로 A를 테스트
-jest.mock('./B', () => () => <div>mocked B</div>);
-render(<A />);
-// A가 B를 렌더링한다는 것은 확인 — 통과
-// 하지만 B가 실제로 받아야 하는 prop e가 없는 것은 잡지 못함
+import { beforeEach, vi } from 'vitest';
+
+// 각 테스트가 시작되기 전마다 mock의 수첩을 비운다
+beforeEach(() => {
+  vi.clearAllMocks(); // 호출 기록을 0으로 → 앞 테스트의 흔적 제거
+});
 ```
 
----
-## 종합
-
-아니다. mock은 가짜 구현이므로, 실제 의존성이 내가 넘기는 인자를 올바르게 처리하는지는 알 수 없다. `api.createUser({name: 'Kim'})`을 호출했다고 assertion하더라도, 실제 API가 `username` 필드를 기대한다면 unit test는 이를 잡지 못한다. 이 blind spot을 채우는 것이 integration test의 역할이다 — mock을 최소화하여 실제 의존성 간 연동을 검증한다.
+여기서 mock의 호출 수첩은 "테스트가 남기는 상태"의 한 사례일 뿐이다. **테스트가 남긴 상태를 매 테스트마다 리셋해 서로 간섭하지 않게 한다**는 일반 원리 — mock뿐 아니라 공유 배열·전역 변수 등 모든 상태에 적용되는 — 와 그 근거(플레이키 테스트)는 [`./vitest/lifecycle-hooks.md`](./vitest/lifecycle-hooks.md)의 「한 파일의 테스트들이 매번 상태를 리셋하지 않으면 어떤 문제가 생기며, 훅이 이를 어떻게 해결하는가?」가 다룬다. 이 문서는 그 원리를 mock에 적용해, mock의 상태를 되돌리는 구체적 수단에 집중한다.
 
 ---
-# Integration test에서 mock하는 것과 하지 않는 것의 기준은?
+# mocking의 단점(비용)은 무엇인가?
 
-## 도입
-
-Integration test에서 mock을 최소화하라고 하지만, 어디까지 mock하고 어디서 멈출지 기준이 필요하다. 기준은 단순하다 — mock하면 해당 연결에 대한 자신감을 잃는다.
-
----
 ## 본문
-
-> I pretty much only mock: 1. Network requests (using MSW) 2. Components responsible for animation (because who wants to wait for that in your tests?)
-
-"나는 거의: 1. 네트워크 요청 (MSW 사용) 2. 애니메이션 담당 컴포넌트 (테스트에서 그걸 기다리고 싶은 사람이 있겠는가?)만 mock한다."
 
 > When you mock something you're removing all confidence in the integration between what you're testing and what's being mocked.
 
-"무언가를 mock하면 테스트하는 것과 mock되는 것 사이의 통합에 대한 모든 자신감을 제거하는 것이다."
+"무언가를 mock하면, 테스트하는 대상과 mock되는 대상 사이의 연동에 대한 모든 확신을 제거하는 것이다."
 
-- **removing all confidence**: mock이 잘못 설정되어 있어도 테스트는 통과한다. 실제 의존성과 mock이 맞지 않으면 아무 보장이 없다.
+- **removing all confidence**: mock을 끼운 그 연결에 대해서는 테스트가 아무것도 보증하지 못한다는 뜻. mock이 실제 의존성과 어긋나게 설정돼 있어도 테스트는 그대로 통과한다. 즉 그 지점의 실제 연동 검증력이 0이 된다.
 
-> You don't actually want to send emails or charge credit cards every test, but most of the time you can avoid mocking and you'll be better for it.
+예를 들어 로그인 폼을 테스트한다고 하자.
 
-"모든 테스트마다 실제로 이메일을 보내거나 신용카드를 청구하고 싶지는 않지만, 대부분의 경우 mock을 피할 수 있고 그게 더 낫다."
+```ts
+// 앱 코드
+async function login(email, pw) {
+  return fetch('/api/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password: pw }),
+  }).then(r => r.json());
+}
 
+// ❌ login 함수 자체를 통째로 mock
+vi.mock('./login', () => ({
+  login: vi.fn().mockResolvedValue({ token: 'abc' }),
+}));
 ```
-mock 판단 기준
 
-mock해야 함
-  ✓ 실제 실행이 부작용(이메일 발송, 결제, 서드파티 API 호출)을 만들 때
-  ✓ 테스트 속도에 심각한 영향 (애니메이션, 긴 타임아웃)
+`login`을 통째로 가짜로 바꾸면, 실제로 어떤 URL·바디가 서버로 나가는지 아무도 검증하지 않는다. `body`에서 email을 빠뜨리거나 필드명을 잘못 보내는 버그가 있어도 mock은 내가 정해둔 `{ token: 'abc' }`만 돌려주므로 테스트는 초록불이고, 프로덕션에서는 그 잘못된 요청이 진짜 서버로 날아가 로그인이 실패한다.
 
-mock하지 않아야 함
-  ✗ 단순히 설정이 귀찮아서
-  ✗ "어차피 unit test에서 검증했으니까"
-  ✗ 자식 컴포넌트가 복잡해 보여서
-```
+즉 **mock으로 테스트가 통과해도 프로덕션에서 동작한다는 보장은 없다** — mock이 테스트 대상과 진짜 의존성 사이의 실제 연결을 끊어버리기(sever) 때문이다. 그래서 mock은 "얼마나 적게 하느냐"보다 **어디서 끊느냐**가 중요하고, 잃는 확신의 양은 끊는 지점이 안쪽일수록 커진다. 이 원리를 네트워크 mocking에 적용한 구체적 사례 — 함수 통째 → `fetch` → 네트워크 경계로 끊는 지점을 옮길 때 무엇을 잃고 지키는지, '요청 조립 이음새(seam)'가 무엇인지 — 는 [`./msw/philosophy.md`](./msw/philosophy.md)의 「테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?」가 캐논으로 다룬다.
 
 ---
 ## 종합
 
-mock은 자신감을 잃는 거래다. 네트워크를 mock하면 백엔드와의 실제 연동을 포기하는 대신 빠른 실행을 얻는다. 애니메이션을 mock하면 시각적 검증을 포기하는 대신 시간을 절약한다. 이 두 가지 외에는 mock을 추가할수록 테스트가 실제에서 멀어진다. "mock하면 무엇을 잃는가"를 질문하면 기준이 명확해진다.
+mock은 그 연결에 대한 확신을 0으로 만드는 거래다 — 그래서 mock으로 통과해도 진짜에서 동작한다는 보장이 없고, 잃는 정도는 **어디서 끊느냐**에 달렸다.
 
 ---
-# 테스트에서 API를 mock할 때 왜 window.fetch stubbing 대신 MSW를 권장하는가?
+# 그렇다면 언제 mocking을 해야 하는가?
 
-## 도입
-
-네트워크 요청을 테스트에서 제어할 때 가장 손쉬운 방법은 `window.fetch`를 가짜 함수로 교체하는 것이다. 그러나 이 방식은 구현 세부사항에 의존하기 때문에 HTTP 클라이언트를 바꾸거나 환경이 달라지면 테스트가 깨진다. MSW는 네트워크 레벨에서 요청을 가로채 이 문제를 피한다.
-
----
 ## 본문
 
-> We recommend using the Mock Service Worker (MSW) library to declaratively mock API communication in your tests instead of stubbing window.fetch, or relying on third-party adapters.
+> Prefer real implementations when they're fast and reliable. If a dependency is a simple in-memory data structure or a pure function, there's no reason to mock it. The closer your tests are to real usage, the more confidence they give you. Only reach for mocks when the real thing is slow, flaky, or has side effects you can't control in a test.
 
-"우리는 window.fetch를 stub하거나 서드파티 어댑터에 의존하는 대신, MSW 라이브러리를 사용하여 테스트에서 API 통신을 선언적으로 모킹할 것을 권장한다."
+"빠르고 믿을 만하면 진짜 구현을 선호하라. 의존성이 단순한 메모리 내 자료구조나 순수 함수면 mock할 이유가 없다. 테스트가 실제 사용에 가까울수록 더 큰 확신을 준다. 진짜가 느리거나, 불안정(flaky)하거나, 테스트에서 통제할 수 없는 부작용을 낼 때만 mock을 꺼내라."
 
-- **declaratively**: 어떻게(how) 가로채는지가 아니라 무엇을(what) 응답할지만 선언한다. `http.get('/api/user', () => HttpResponse.json({ name: 'Kim' }))`처럼 핸들러만 정의하면 된다.
-- **stubbing**: 원래 함수를 가짜 구현으로 바꿔치기하는 기법. `window.fetch = jest.fn()`이 전형적인 예. 구현 세부사항에 직접 결합된다.
+아래 셋 중 하나에 걸릴 때만 예외적으로 mock한다.
 
-```
-window.fetch stubbing
-  → axios로 교체하면 테스트 전부 깨짐
-  → 함수 레벨에서 가로채 — 실제 요청 흐름과 다름
+- **slow(느림)**: 네트워크·DB·파일처럼 실제로 부르면 밀리초가 초가 되는 것. (Kent의 애니메이션·타임아웃과 같은 축)
+- **flaky(불안정)**: 될 때도 안 될 때도 하는 것 — 현재 시각·난수처럼 실행마다 값이 달라져 결과가 흔들리는 의존성. Kent 목록엔 없던 축으로, "예측 불가능"을 mock으로 고정한다.
+- **side effects you can't control(통제 불가 부작용)**: 이메일 발송·결제처럼 진짜로 실행되면 곤란한 실제 변화. (Kent의 부작용과 같은 축)
 
-MSW
-  → Service Worker / Node 인터셉터로 네트워크 레벨 가로채기
-  → fetch든 axios든 상관없음
-  → 브라우저 개발 환경과 Jest 환경 모두 동일한 핸들러 재사용
-```
+거꾸로, **메모리 내 자료구조나 순수 함수는 mock하지 않는다** — 빠르고 결정적이라 가짜로 바꿀 이유가 없고, 진짜를 그대로 써야 테스트가 실제 사용에 가까워져 확신이 커지기 때문이다.
 
----
-## 종합
+단, "느리면 mock"과 "빠르자고 mock을 늘리지 마라"는 모순이 아니라 **시간의 크기** 문제다. 테스트당 몇 밀리초 아끼려고 mock을 끼우는 건 그 몇 ms와 실제 연동 확신을 맞바꾸는 나쁜 거래다 — 50ms×1000=50초라 해도, mock을 덜 하면 필요한 테스트 수 자체가 줄어 결국 손해다. 반면 네트워크·애니메이션처럼 초 단위로 느려지거나 결과를 기다려야 하는 건 크기가 달라 mock이 정당하다. 즉 mock을 부르는 건 '느림' 자체가 아니라 **감당 못 할 만큼 느림**이다. (테스트를 빠르게 하려고 자식 컴포넌트를 통째로 가짜로 대체하는 shallow rendering이 이 나쁜 거래의 대표 사례 — 확신을 통째로 팔아 속도를 산다.)
 
-`window.fetch`를 stub하면 테스트가 구현 세부사항(어떤 HTTP 함수를 쓰는가)에 종속된다. MSW는 HTTP 핸들러를 선언해두면 RTL 테스트와 실제 브라우저 개발 환경 모두에서 재사용할 수 있다. `axios`를 `ky`로 교체해도, 서버 URL을 바꿔도 핸들러만 수정하면 된다. 네트워크를 가장 현실에 가깝게 시뮬레이션하면서도 실제 서버 의존성을 제거하는 최선책이다.
