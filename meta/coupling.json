@@ -31,9 +31,10 @@
       "files": [
         "local/contexts/document-structure.md",
         "local/contexts/content-format.md",
+        "local/skills/validate/SKILL.md",
         "scripts/validate-lint.mts"
       ],
-      "note": "validate-lint.mts의 각 체크(K2~K8 등)는 document-structure·content-format의 규칙을 단일 출처로 인용한다. 룰 본문을 바꾸면 린터 구현을, 린터 체크를 추가·변경하면 룰 문서를 함께 맞춘다."
+      "note": "validate-lint.mts의 각 체크는 단일 출처 룰을 인용한다 — K2~K8은 document-structure·content-format을, E1~E3(explained 커버리지·고아 섹션·고아 파일)은 validate/SKILL.md를, E4(구분자 중복)는 document-structure를 인용한다. 룰 본문(문서·스킬)을 바꾸면 린터 구현을, 린터 체크를 추가·변경하면 대응 룰 출처와 validate/SKILL.md의 '린터가 보는 항목' 목록·수정 정책 표를 함께 맞춘다."
     }
   ]
 }
