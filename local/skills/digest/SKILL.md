@@ -340,5 +340,21 @@ digest 모드 시작.
    - 각 질문에 대해 `# <질문>` H1 + `## 도입` / `## 본문` / `## 종합` 양식으로 explained 섹션 작성
    - 이미 있는 섹션은 덮어쓰지 않고 보존
    - 데모·이미지 자산은 `assets/<rel>/`에서 explained 본문으로 상대 경로 링크
-3. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
-4. **학습가치 판단 회고**: 이번 세션에 스킵/keep 판단이 뒤집힌 적(내가 넘긴 걸 사용자가 도로 달라 했거나, 해설·제안한 걸 불필요로 반려)이 있으면 `/pre-exit digest`를 제안한다. 그 번복 유형을 §4 「스킵 판단」 기준에 반영해 다음 세션 판단을 다듬기 위함이다. 번복이 없었으면 제안하지 않는다.
+3. **소스 충실도 검증 — 별도 에이전트 위임 (explained 생성과 독립)**: explained 생성 에이전트가 자기 근거를 자가채점하지 않도록, 2와 **별개의** 검증 에이전트에 위임한다. 위반은 사용자에게 경고로 보고하고, 수정 여부는 사용자가 판단한다.
+
+   **대상**: 이번 세션 diff에서 **추가·수정**된 Q&A 중 `source: official`이고 Reference URL이 있는 것. 신규 질문뿐 아니라 기존 OA를 수정·보충한 질문도 포함한다 (수정도 개작일 수 있다).
+
+   **축 ① — OA↔Reference 대조** ([content-format.md](../../contexts/content-format.md) §0 「원문 보존」·§3 「`Official Answer`는 예외 없이 수정 금지」, 위 「내용 분류」의 원문 합성 금지):
+   - 각 Q&A의 Reference URL(들)을 WebFetch로 가져와, OA의 각 영어 문장이 원문에 **verbatim substring**으로 존재하는지 대조한다.
+   - 매칭은 **문장 단위**다 — 서로 다른 출처·위치의 원문 문장을 그대로 이어 붙이는 것은 허용 정책이므로, 블록·단락 단위로 대조하면 정상 이어붙임이 오검출된다.
+   - 어느 Reference 원문에서도 못 찾은 문장은 **"원문 불일치" 경고**로 보고한다 (개작·합성·환각 후보).
+
+   **축 ② — explained §1 포맷** ([explanation-guide.md](../../contexts/explanation-guide.md) §1 — 본문은 원문 조각 `>` 블록쿼트 인용 → 한글 의역 → 영단어 해설):
+   - 그 Q&A의 `explained/<rel>.md` 대응 섹션 본문에 대응 OA의 영어 원문이 `>` 블록쿼트로 인용됐는지 확인한다. 원문 fetch 불필요 — knowledge OA와 explained 본문만 대조한다.
+   - official-source Q&A인데 explained 섹션에 영어 블록쿼트가 **0개**면(한글 요약·의역만 있으면) **"§1 미준수" 경고**로 보고한다.
+
+   **verdict 규칙 (환각 방지)**:
+   - "일치" verdict마다 매칭된 소스 원문 문장을 **인용**한다 — 인용 없는 "verified"는 무효.
+   - Reference를 fetch할 수 없으면(paywall·JS 렌더·dead link) silent pass 하지 않고 **"검증불가"** verdict로 분리 보고한다.
+4. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행 (분할 경고 등)
+5. **학습가치 판단 회고**: 이번 세션에 스킵/keep 판단이 뒤집힌 적(내가 넘긴 걸 사용자가 도로 달라 했거나, 해설·제안한 걸 불필요로 반려)이 있으면 `/pre-exit digest`를 제안한다. 그 번복 유형을 §4 「스킵 판단」 기준에 반영해 다음 세션 판단을 다듬기 위함이다. 번복이 없었으면 제안하지 않는다.
