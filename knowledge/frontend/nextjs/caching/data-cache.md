@@ -11,7 +11,6 @@ priority:
 - Data Cache는 클라이언트 사이드에서도 작동하는가?
 - `fetch()`의 `cache` 옵션 기본값(auto no cache), `no-store`, `force-cache`는 각각 어떻게 동작하는가?
 - 한 페이지 안에서 cached data와 uncached data를 혼합할 수 있는가?
-- [UNVERIFIED] Pages Router의 SSG 대비 App Router의 Data Cache가 개선한 부분은?
 - Data Cache를 revalidate 하면 Full Route Cache는? 반대는?
 - Route Handler에서 Data Cache를 revalidate 하면 Router Cache는?
 - 한 페이지에서 fetch 요청 중 하나라도 cached가 아니면 라우트 전체는?
@@ -97,32 +96,6 @@ Other `fetch` requests that do not opt out of caching will still be cached in th
 
 ### Reference
 - https://nextjs.org/docs/14/app/building-your-application/caching#opting-out
-
----
-
-## [UNVERIFIED] Pages Router의 SSG 대비 App Router의 Data Cache가 개선한 부분은?
-
-### User Answer
-Pages Router는 페이지 **전체를** SSG 하는 것만 가능했다.
-데이터를 Server Side에서 캐시하려면, UI와 함께 캐싱되는 SSG 외에는 방법이 없었다.
-
-- UI 따로, Data 따로 캐싱이 불가능했다.
-- UI / Data 둘 다 부분적으로 캐싱하는 것도 불가능했다 (페이지 일부 영역만 캐싱하는 것이 불가능).
-- 한 페이지에서 상단 영역은 SSG, 하단 영역은 SSR 같은 구성을 만들 수 없었다.
-
-하지만 App Router에서는 다음이 가능하다.
-
-- UI만 따로 캐싱이 된다.
-- 데이터도 따로 Data Cache로 캐싱이 가능하다.
-- 데이터는 종류별로 분리해서 캐싱이 가능하다 (단, API 종류에 종속됨).
-- UI도 따로 캐싱이 가능하다 (당연히 static rendering에 한해).
-
-Pages Router에서 React Query 등으로 클라이언트에서 캐싱하는 방법은 근본적으로 브라우저별 저장이라 한계가 있다.
-천만 명이 같은 페이지에 접근하면 천만 번 API를 호출한 뒤 각자 캐싱된다.
-모든 유저에게 동일하게 노출되는 데이터라면 서버 사이드 캐시가 훨씬 유리하다.
-
-### Reference
-- https://nextjs.org/docs/14/app/building-your-application/caching#data-cache
 
 ---
 

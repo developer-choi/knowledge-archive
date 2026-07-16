@@ -9,7 +9,6 @@ priority:
   - FSD에서 'components'나 'hooks' 같은 이름을 피해야 하는 이유는?
   - [응집도란 무엇이며, 높이기 위한 모범 사례는? → `cohesion.md`](../../cs/software-engineering/principles/cohesion.md#응집도cohesion란-무엇인가)
   - [결합도란 무엇이며, 코드베이스에서 어떻게 측정하는가? → `coupling.md`](../../cs/software-engineering/principles/coupling.md#결합도coupling란-무엇인가)
-- [UNVERIFIED] App과 Shared 레이어는 왜 슬라이스 레벨을 건너뛰는가?
 - 도메인이란 무엇인가?
 - FSD 공식 문서가 "변경에 최적화하지 말고, 삭제에 최적화하라"고 말하는 이유는 무엇인가?
 
@@ -58,19 +57,6 @@ Instead, use names that directly reflect the domain they represent.
 - https://feature-sliced.design/docs/guides/issues/desegmented
 - https://feature-sliced.design/docs/get-started/tutorial
 - https://feature-sliced.design/docs/guides/examples/types
-
----
-
-## [UNVERIFIED] App과 Shared 레이어는 왜 슬라이스 레벨을 건너뛰는가?
-
-### Additional Answer
-앱 전체에 걸쳐 쓰이거나, 비즈니스 색깔이 전혀 없는 전역적인(Global) 성격을 가집니다.
-여기에 슬라이스를 만들면 오히려 구조가 너무 파편화되어 찾기가 더 힘들어집니다. (예: `shared/button/ui` 보다 `shared/ui/button`이 관리하기 훨씬 편함)
-
-나머지 레이어는 비즈니스 로직을 담고있기 때문에, 도메인 기준으로 한번 나눠야합니다.
-
-### Reference
-- https://feature-sliced.design/docs/get-started/overview
 
 ---
 

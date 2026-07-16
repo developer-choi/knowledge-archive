@@ -16,7 +16,6 @@ priority:
   - AnimatePresence의 `mode` prop은 진입/퇴장 순서를 어떻게 제어하며, `"sync"`, `"wait"`, `"popLayout"` 각각 언제 쓰는가?
 - motion의 `variants`란 무엇이며 어떤 이점이 있는가?
 - motion의 `onPan`은 `drag` prop과 어떻게 다른가?
-- motion의 pan 제스처가 터치 환경에서 올바르게 동작하려면 어떤 CSS 설정이 필요한가?
 - CSS에서 `height: auto`로의 transition이 불가능한 문제를 Motion은 어떻게 해결하는가?
 - Motion이 `transition`을 명시하지 않아도 자연스러운 애니메이션을 만드는 이유는?
 - motion의 `while-` gesture props는 제스처가 끝나면 어떻게 되는가?
@@ -532,16 +531,6 @@ const dimOpacity = useMotionValue(0.5);
 />
 
 ```
-
-### Reference
-- https://motion.dev/docs/react-motion-component
-
----
-
-## motion의 pan 제스처가 터치 환경에서 올바르게 동작하려면 어떤 CSS 설정이 필요한가?
-
-### Official Answer
-For pan gestures to work correctly with touch input, the element needs touch scrolling to be disabled on either x/y or both axis with the `touch-action` CSS rule.
 
 ### Reference
 - https://motion.dev/docs/react-motion-component

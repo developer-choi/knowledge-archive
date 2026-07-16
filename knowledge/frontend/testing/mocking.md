@@ -8,7 +8,6 @@ priority:
 - 테스트에서 mock 함수를 쓰면 무엇을 할 수 있게 되는가?
 - 같은 가짜 함수를 여러 테스트에서 재사용할 때, 왜 매 테스트마다 mock을 정리해줘야 하는가?
 - mocking의 단점(비용)은 무엇인가?
-  - [UNVERIFIED] 실제 의존성이 바뀌었는데 mock은 그대로일 때 어떤 문제가 생기는가?
   - 그렇다면 언제 mocking을 해야 하는가?
 
 ---
@@ -61,10 +60,6 @@ Mocking severs the real-world connection between what you're testing and what yo
 ### Reference
 - https://kentcdodds.com/blog/the-merits-of-mocking
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
-
----
-
-## [UNVERIFIED] 실제 의존성이 바뀌었는데 mock은 그대로일 때 어떤 문제가 생기는가?
 
 ---
 

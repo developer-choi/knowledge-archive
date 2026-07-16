@@ -5,52 +5,11 @@ priority: 1
 ---
 
 # Questions
-- JavaScript 엔진이란 무엇인가?
-- 이벤트 루프는 어떤 문제를 어떻게 해결하는가?
 - [UNVERIFIED] Macrotask와 Microtask는 각각 무엇인가?
 - [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
 - task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
 ---
 # Answers
-
-## JavaScript 엔진이란 무엇인가?
-
-### Official Answer
-A JavaScript engine is a software component that executes JavaScript code.
-
-The JavaScript engine does nothing most of the time, it only runs if a script/handler/event activates.
-
-Where the JavaScript engine waits for tasks, executes them and then sleeps, waiting for more tasks.
-
-### User Answer
-JS 엔진 중 대표적인 게 V8이고, 고급언어를 기계어로 변환함.
-
-### Reference
-- https://en.wikipedia.org/wiki/JavaScript_engine
-- https://javascript.info/event-loop
-
-## 이벤트 루프는 어떤 문제를 어떻게 해결하는가?
-
-### Official Answer
-It may happen that a task comes while the engine is busy, then it's enqueued.
-The tasks form a queue, so-called "macrotask queue" (v8 term).
-
-Tasks from the queue are processed on "first come – first served" basis.
-When the engine browser is done with the script, it handles mousemove event, then setTimeout handler, and so on.
-
-### User Answer
-작업의 순서를 결정하는 방식으로 해결합니다.
-
-- JS 엔진이 일하고 있다 = 콜스택에 무언가 있다.
-- 그 상태에서 새로운 작업이 추가된다 = 큐에 들어간다
-- JS 엔진이 쉬고있다 = 콜스택이 비어있다 = 이벤트루프가 큐에있던거 콜스택으로 넣어준다 (근데 큐라서 FIFO)
-
-이 큐를 MDN에서는 event queue라고 부르던데.
-
-크게 3가지 작업으로 분류함:
-1. 현재 처리중인 작업 (callstack에 있음)
-2. Microtask queue에 있는 작업
-3. Macrotask queue에 있는 작업
 
 ## [UNVERIFIED] Macrotask와 Microtask는 각각 무엇인가?
 
