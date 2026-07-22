@@ -6,7 +6,6 @@ priority:
 # Questions
 - RTL의 trade-offs는 무엇이며 simulated browser 환경의 한계는 무엇인가?
 - AAA 패턴이란 무엇이며 각 단계에서 RTL은 어떤 API를 제공하는가?
-- React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?
 
 ---
 

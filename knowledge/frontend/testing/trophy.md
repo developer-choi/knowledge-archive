@@ -5,8 +5,6 @@ priority:
 ---
 # Questions
 - Testing Pyramid 대신 Testing Trophy를 쓰는 이유는?
-- 100% 코드 커버리지가 적절한 경우는 언제인가?
-- 코드 커버리지 리포트에서 테스트가 없는 라인을 발견했을 때, 어떤 질문을 던져야 하는가?
 
 ---
 
@@ -43,35 +41,3 @@ And that's what we're doing at every level of the testing trophy.
 
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
-
----
-
-## 100% 코드 커버리지가 적절한 경우는 언제인가?
-
-### Official Answer
-Almost all of my open source projects have 100% code coverage.
-This is because most of my open source projects are smaller libraries and tools that are reusable in many different situations (a breakage could lead to a serious problem in a lot of consuming projects) and they're relatively easy to get 100% code coverage on anyway.
-
-### Reference
-- https://kentcdodds.com/blog/write-tests
-
----
-
-## 코드 커버리지 리포트에서 테스트가 없는 라인을 발견했을 때, 어떤 질문을 던져야 하는가?
-
-### Official Answer
-When you look at a code coverage report and note the lines that are missing tests, don't think about the ifs/elses, loops, or lifecycles.
-Instead ask yourself:
-
-What use cases are these lines of code supporting, and what tests can I add to support those use cases?
-
-"Use Case Coverage" tells us how many of the use cases our tests support.
-Unfortunately, there's no such thing as an automated "Use Case Coverage Report."
-We have to make that up ourselves.
-But the code coverage report can sometimes help us identify use cases that we're not covering.
-
-Sometimes, our code coverage report indicates 100% code coverage, but not 100% use case coverage.
-Code coverage is not a perfect metric, but it can be a useful tool in identifying what parts of our codebase are missing "use case coverage".
-
-### Reference
-- https://kentcdodds.com/blog/how-to-know-what-to-test
