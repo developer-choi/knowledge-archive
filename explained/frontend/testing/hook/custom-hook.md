@@ -100,7 +100,7 @@ setup() 헬퍼
 
 ## 도입
 
-이 질문의 핵심은 `renderHook`이라는 API를 맥락 없이 단독으로 외우는 게 아니라, **문제가 해결책을 낳고 그 해결책이 다시 다음 문제를 낳는 흐름**을 이해하는 데 있다. 지금까지의 내용을 되짚으면 이미 그 흐름의 앞부분이 지나갔다. 그 끝에서 `renderHook`이 자연스럽게 나타난다. (`renderHook`의 API 사용법 자체 — `result.current`, `initialProps`, `rerender` — 는 형제 문서 `knowledge/frontend/testing/hook-testing.md`가 다루니 여기서는 "왜 존재하는가"만 본다.)
+이 질문의 핵심은 `renderHook`이라는 API를 맥락 없이 단독으로 외우는 게 아니라, **문제가 해결책을 낳고 그 해결책이 다시 다음 문제를 낳는 흐름**을 이해하는 데 있다. 지금까지의 내용을 되짚으면 이미 그 흐름의 앞부분이 지나갔다. 그 끝에서 `renderHook`이 자연스럽게 나타난다. (`renderHook`의 API 사용법 자체 — `result.current`, `initialProps`, `rerender` — 는 형제 문서 `knowledge/frontend/testing/hook/render-hook.md`가 다루니 여기서는 "왜 존재하는가"만 본다.)
 
 ---
 

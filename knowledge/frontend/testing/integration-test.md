@@ -32,7 +32,5 @@ This can be a combination of components, hooks, and functions.
 ### Official Answer
 The size of these forms of testing on the trophy is relative to the amount of focus you should give them when testing your applications (in general).
 
-The idea behind integration tests is to mock as little as possible.
-
 ### Reference
 - https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests

@@ -125,13 +125,13 @@ beforeEach(() => {
 
 이 "상태 누수"의 가장 흔한 실제 사례가 **mock(가짜 함수)**이다. mock은 자기가 몇 번·어떤 인자로 불렸는지를 스스로 적어두는 "호출 수첩"을 상태로 갖는데, 이 수첩도 위의 공유 배열과 똑같이 리셋하지 않으면 다음 테스트로 새어 든다. 그래서 mock 역시 `beforeEach`/`afterEach`에서 매 테스트마다 비워, 각 테스트가 깨끗한 상태에서 출발하게 한다.
 
-즉 여기서 다루는 "테스트가 남긴 상태를 매 테스트마다 리셋한다"는 원리는 공유 배열에만 국한되지 않고 mock의 호출 기록에도 똑같이 적용된다. mock의 수첩을 되돌리는 구체적 수단(`mockClear`/`mockReset`/`mockRestore`, 전역 `restoreMocks` 설정 등)은 이 원리를 mock에 적용한 것으로, [`../mocking.md`](../mocking.md)와 [`../mock-functions.md`](../mock-functions.md)에서 다룬다.
+즉 여기서 다루는 "테스트가 남긴 상태를 매 테스트마다 리셋한다"는 원리는 공유 배열에만 국한되지 않고 mock의 호출 기록에도 똑같이 적용된다. mock의 수첩을 되돌리는 구체적 수단(`mockClear`/`mockReset`/`mockRestore`, 전역 `restoreMocks` 설정 등)은 이 원리를 mock에 적용한 것으로, [`../mocking/overview.md`](../mocking/overview.md)와 [`../mocking/mock-functions.md`](../mocking/mock-functions.md)에서 다룬다.
 
 ---
 
 ## 종합
 
-상태를 리셋하지 않으면 한 테스트가 건드린 공유 상태가 다음 테스트로 새어 나가, 실행 순서에 따라 됐다 안 됐다 하는 플레이키 테스트가 된다. `beforeEach`/`afterEach`로 매 테스트마다 상태를 초기화·정리하면 각 테스트가 독립적으로 돌아 이 문제가 사라진다. 이 원리는 공유 배열뿐 아니라 mock의 호출 기록 등 "테스트가 남기는 모든 상태"에 똑같이 적용되며, mock에 대한 구체적 리셋 수단은 `mocking.md`·`mock-functions.md`가 다룬다.
+상태를 리셋하지 않으면 한 테스트가 건드린 공유 상태가 다음 테스트로 새어 나가, 실행 순서에 따라 됐다 안 됐다 하는 플레이키 테스트가 된다. `beforeEach`/`afterEach`로 매 테스트마다 상태를 초기화·정리하면 각 테스트가 독립적으로 돌아 이 문제가 사라진다. 이 원리는 공유 배열뿐 아니라 mock의 호출 기록 등 "테스트가 남기는 모든 상태"에 똑같이 적용되며, mock에 대한 구체적 리셋 수단은 `mocking/overview.md`·`mocking/mock-functions.md`가 다룬다.
 
 ---
 

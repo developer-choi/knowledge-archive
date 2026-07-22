@@ -43,10 +43,6 @@ Integration test는 Testing Trophy에서 가장 높은 ROI(투자 대비 효과)
 
 "Trophy에서 각 테스트 형태의 크기는 일반적으로 애플리케이션을 테스트할 때 집중해야 하는 양에 비례한다."
 
-> The idea behind integration tests is to mock as little as possible.
-
-"Integration test의 핵심 아이디어는 가능한 한 적게 mock하는 것이다."
-
 ```
 Integration test 장단점
 
