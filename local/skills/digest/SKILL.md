@@ -210,7 +210,7 @@ digest 모드 시작.
 - 보충 제안도 사용자 승인 후 즉시 저장한다.
 - **기존 OA에 in-session 보충하면 대응 explained도 즉시 동기화한다.** explained 생성은 OFF 시 신규 질문만 배치 처리하므로, 기존 질문의 OA에 단락을 append하면 그 질문의 explained 섹션이 옛 내용에 머문다(knowledge↔explained drift). 해당 explained 섹션이 이미 있으면 보충과 같은 시점에 함께 갱신한다. (도구화 후보 — `backlog/projects/knowledge-archive/active/explained/oa-explained-drift-hook.md`)
   - ❌ (사례) `mocking.md` "언제 mocking" OA에 Vitest 판별 기준을 append한 뒤 explained 미갱신 → 사용자: "니가 실수한건 explained 하고 해".
-  - ✅ 교정: OA append 직후 `explained/frontend/testing/mocking.md`의 해당 섹션에 동기화.
+  - ✅ 교정: OA append 직후 `explained/frontend/testing/mocking/overview.md`의 해당 섹션에 동기화.
 
 #### 4. 질문 제안
 
