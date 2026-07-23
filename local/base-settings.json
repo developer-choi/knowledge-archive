@@ -1,0 +1,9 @@
+{
+  "hooks": [
+    {
+      "file": "enforce-digest-coverage.mjs",
+      "event": "Stop",
+      "msg": "Checking digest coverage..."
+    }
+  ]
+}
