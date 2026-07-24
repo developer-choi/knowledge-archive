@@ -8,14 +8,12 @@ KA 레포는 학습 콘텐츠를 생성·소비하는 사이클이 명확히 분
 
 ```
 외부 PDF/MD       ──/convert──►  knowledge/  또는 techniques/  또는 tips/
-공식문서 URL      ──/digest───►  knowledge/  (+ OFF 시 explained/<rel>)
-knowledge/<rel>   ──/explain──►  explained/<rel>
+공식문서 URL      ──/digest───►  knowledge/  + OFF 시 explained/<rel>
 ```
 
 **Read 사이클 (knowledge 소비)**
 
 ```
-knowledge/  ──/explain  ──►  개념 해설 (+ explained/ 캐시)
 knowledge/  ──/review   ──►  면접 검증 (1:1 핑퐁)
 knowledge/  ──/exam     ──►  HTML 시험지 → 채점 결과
 knowledge/  ──/validate ──►  양식 위반 수정
@@ -28,7 +26,6 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 |------|------|------|------|
 | `/convert` | 사용자가 제공한 PDF·MD 외부 문서 | `knowledge/<rel>.md` · `techniques/<rel>.md` · `tips/` (신규 또는 기존 병합) | "변환해줘", 파일 경로 명시 |
 | `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (실시간 저장), `explained/<rel>.md` (OFF 시 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
-| `/explain` | `knowledge/<rel>.md`, `explained/<rel>.md` (캐시 hit 확인 + 발판 보정) | `explained/<rel>.md` (질문별 H1 섹션 추가·덮어쓰기) | "설명해줘", "이게 뭐야" 등 자동 |
 | `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
 | `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | Read 전용 (기본) | "복습하자", "면접 연습" 명시 |
 | `/validate` | `knowledge/`, `explained/`, contexts 전반 | `knowledge/<rel>.md` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
@@ -37,21 +34,23 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 ## Write 대상별 정리
 
 - `knowledge/`: `/convert`, `/digest` (생성·추가) · `/validate`, `/review` (수정)
-- `explained/`: `/explain` (생성·갱신) · `/digest` OFF (세션 확정 질문 생성, 기존 섹션 보존) · `/validate` (고아 삭제)
-- `assets/`: `/digest`·`/explain` (explained에 임베드할 데모·이미지)
+- `explained/`: `/digest` OFF (세션 확정 질문 생성, 기존 섹션 보존) · `/validate` (고아 삭제)
+- `assets/`: `/digest` (explained에 임베드할 데모·이미지)
 - `$env:TEMP/*.html`: `/exam` (시험지·결과)
 - 외부 JSON: `list-candidates`
 
 ## Read 전용 스킬
 
 - `/review`: `knowledge/` + `explained/` Read만.
-- `/explain` 캐시 hit 시: `explained/` Read만 (재생성 X)
+- `/exam`: `knowledge/` Read만 (산출물은 임시 HTML).
 
 ## 동기화 규칙
 
 ### knowledge → explained
 
-`knowledge/<rel>.md`가 변경되면 1:1 대응 `explained/<rel>.md`도 outdated가 된다. **자동 재생성은 없으며**, 사용자가 `/explain <path>`를 명시 호출해야 갱신된다. 마이그·재편 후에는 명시 트리거로 일괄 재생성 필요.
+`knowledge/`와 `explained/`는 같은 폴더 경로·같은 파일명·같은 질문을 갖는 한 쌍이다. 이 셋트는 `validate-lint`의 E1·E2·E3·E5·E6가 강제하며, pre-commit 훅이 커밋 시점에 발동한다 ([validate SKILL](../skills/validate/SKILL.md)의 「knowledge↔explained 셋트 규칙」).
+
+`knowledge/<rel>.md`의 **내용**이 바뀌면 대응 explained는 outdated가 되지만 이건 린터가 못 잡는다 — 질문 제목이 그대로면 통과한다. **자동 재생성은 없으며** `/digest`로 그 파일을 다시 다뤄야 갱신된다.
 
 ### contexts → 양식 위반 검출
 

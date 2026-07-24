@@ -21,9 +21,9 @@ argument-hint: ON [출처 URL] 또는 OFF
 
 대화형 모드의 line-by-line 해설을 **knowledge/ 파일에 저장하지 않는다** — 비유·통찰 등 보조 내용은 explained/에 담당하며 knowledge/에 중복 보관하지 않는다.
 
-대신 **OFF 시점에 확정된 질문 전체를 `explained/<rel>.md`로 저장**한다. `/explain`과 **동일 양식**(`# <질문>` H1 + `## 도입` / `## 본문` / `## 종합`, H2 사이 `---`)을 쓰고, 세션 중 사용자가 헷갈려서 풀어준 **오해·재설명도 본문에 녹여 포함**한다 (`/explain`이 재설명을 본문에 녹이는 방식과 통일 — 별도 `## 오해 교정` 섹션을 만들지 않는다). 이로써 digest 세션에서만 드러난 사용자 오해가 휘발되지 않고 학습 캐시로 남는다.
+대신 **OFF 시점에 확정된 질문 전체를 `explained/<rel>.md`로 저장**한다. **explained 공통 양식**(`# <질문>` H1 + `## 도입` / `## 본문` / `## 종합`, H2 사이 `---`)을 쓰고, 세션 중 사용자가 헷갈려서 풀어준 **오해·재설명도 본문에 녹여 포함**한다 (별도 `## 오해 교정` 섹션을 만들지 않고 본문에 녹인다). 이로써 digest 세션에서만 드러난 사용자 오해가 휘발되지 않고 학습 캐시로 남는다.
 
-소유권: 해당 질문 섹션이 `explained/<rel>.md`에 **이미 있으면 덮어쓰지 않는다** (먼저 만든 쪽 보존). 이후 `/explain`을 돌려도 캐시 hit으로 digest가 만든 섹션을 보존한다 ([explain SKILL](../explain/SKILL.md)의 "캐시 동작" 참고).
+소유권: 해당 질문 섹션이 `explained/<rel>.md`에 **이미 있으면 덮어쓰지 않는다** (먼저 만든 쪽 보존). 저장 위치·섹션 순서·소유권 규칙은 [explanation-guide.md](../../contexts/explanation-guide.md) §6 참고.
 
 ### Frontmatter publishable
 
@@ -40,7 +40,7 @@ argument-hint: ON [출처 URL] 또는 OFF
 2. 이미지의 구조를 **텍스트 다이어그램**(ASCII art, 코드블록)으로 변환하여 OFF 시 생성하는 explained/ 섹션에 삽입한다
 3. 원본 이미지 URL은 explained/ 섹션 하단에 `원본 다이어그램: [URL]` 형태로 기록한다
 
-이렇게 하면 review/explain 시 이미지를 매번 fetch하지 않고 텍스트로 바로 설명할 수 있다.
+이렇게 하면 복습 시 이미지를 매번 fetch하지 않고 텍스트로 바로 설명할 수 있다.
 
 ### 범위 제한
 사용자가 제공한 내용의 범위 내에서만 Q&A를 작성한다. 출처 URL을 방문하여 사용자가 언급하지 않은 추가 내용을 가져오지 않는다.
@@ -334,7 +334,7 @@ digest 모드 시작.
    - 확정된 질문 목록 (OA 원문 포함)
    - 질문별 사용자 오해·막힌 지점·재설명 내용 — 세션 맥락 표현 없이 **사실만** 요약 (예: "사용자가 collapse와 collision의 차이를 혼동했다. collapse는 여럿이 하나로 줄어드는 것이고 collision은 둘이 부딪혀도 둘이 유지된다는 점을 재설명했다")
    - 데모·이미지 등 생성한 자산 경로 (있으면)
-   - 적용 규칙: [explanation-guide.md](../../contexts/explanation-guide.md), [explain SKILL](../explain/SKILL.md)의 캐시 동작
+   - 적용 규칙: [explanation-guide.md](../../contexts/explanation-guide.md) (§6 저장 위치·섹션 순서·소유권 포함)
 
    **에이전트 지시:**
    - 각 질문에 대해 `# <질문>` H1 + `## 도입` / `## 본문` / `## 종합` 양식으로 explained 섹션 작성

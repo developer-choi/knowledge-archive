@@ -44,7 +44,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 이미지·링크 처리
 
-- **AI 답변 캡처**: 다른 AI(ChatGPT, Gemini 등) 답변 이미지 내 텍스트는 면접 답변 수준이면 `### Additional Answer`로, 보조 컨텍스트 수준이면 dropped (필요하면 /explain 세션에서 explained/에 다룸)
+- **AI 답변 캡처**: 다른 AI(ChatGPT, Gemini 등) 답변 이미지 내 텍스트는 면접 답변 수준이면 `### Additional Answer`로, 보조 컨텍스트 수준이면 dropped (필요하면 `/digest` 세션에서 explained/에 다룸)
 - **공식 문서 캡처**(다이어그램, 표): 텍스트 설명으로 변환
 - **강의 슬라이드 스크린샷**: 변환하지 않음 (드롭)
 - **내부 Google Docs 링크**: Reference에서 제외 (외부 접근 불가)
@@ -52,7 +52,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 콘텐츠 분류 정책
 
-사용자가 작성한 한국어는 User Answer로 분류한다. OA 영어 원문의 한글 번역·요약·해설은 만들지 않는다 (그 역할은 `/explain`의 `explained/`가 담당).
+사용자가 작성한 한국어는 User Answer로 분류한다. OA 영어 원문의 한글 번역·요약·해설은 만들지 않는다 (그 역할은 `explained/`가 담당).
 
 **사용자 메모 중복 검토**: 사용자가 작성한 User Answer가 OA(또는 통합 후 OA 단락) 내용을 단순 반복하면 정리 제안을 사용자에게 보고한다. 자동 삭제하지 않는다.
 

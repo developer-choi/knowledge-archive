@@ -6,7 +6,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 # HTML 일괄 시험 (exam)
 
 [`knowledge/`](../../contexts/directory-roles.md) 문서 Q&A를 HTML 시험지로 출력하고 일괄 채점한다.
-마커 처리·해설 기준·explained 캐시 규칙은 /review·/explain·/digest와 동일하게 적용한다.
+마커 처리·해설 기준·explained 캐시 규칙은 `/review`·`/digest`와 동일하게 적용한다.
 
 ## 공통 규칙
 

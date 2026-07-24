@@ -169,7 +169,7 @@ Answer 하위에 추가할 수 있는 선택적 섹션이다.
 ### Case 1: 다른 AI 답변 캡처
 다른 AI(예: ChatGPT, Gemini 등) 답변 이미지를 옮길 때는 내용의 성격에 따라 처리한다:
 - 면접 답변 수준 암기가 필요한 내용 → `### Additional Answer`로 추가
-- 보조 컨텍스트 수준 → dropped (필요하면 /explain 세션에서 explained/에 다룸)
+- 보조 컨텍스트 수준 → dropped (필요하면 `/digest` 세션에서 explained/에 다룸)
 
 ### Case 2: 공식 문서 캡처 (다이어그램, 표)
 - 이미지가 핵심 정보를 담고 있으면 텍스트로 변환
