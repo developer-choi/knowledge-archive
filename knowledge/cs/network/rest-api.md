@@ -51,11 +51,7 @@ priority: 1
 ## 관련 주제
 - [HTTP 메서드 · 멱등성 · safe → `protocol/http-methods.md`](protocol/http-methods.md)
 - [HTTP 상태 코드 → `protocol/http-status-codes.md`](protocol/http-status-codes.md)
-- [HTTP 캐싱 → `protocol/http-caching.md`](protocol/http-caching.md)
-- [JWT · stateless 인증 → `jwt.md`](jwt.md)
 - [REST URL 설계 · API 버저닝 → `rest-url-design.md`](rest-url-design.md)
-- [HATEOAS · Richardson Maturity Model → `hateoas.md`](hateoas.md)
-- [REST 대안(GraphQL, gRPC) → `rest-alternatives.md`](rest-alternatives.md)
 
 ---
 

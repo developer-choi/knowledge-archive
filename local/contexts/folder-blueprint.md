@@ -43,12 +43,11 @@
 - **`frontend/react-query/`**: TanStack Query (caching, refetch, SSR hydration, state manager 활용)
 
 #### **Architecture**
-- **`frontend/fsd/`**: Feature-Sliced Design (Motivation, Philosophy, Layers·Segments, Dependency Rules, Shared Logic)
+- **`frontend/fsd/`**: Feature-Sliced Design (Motivation, Philosophy, Layers·Segments, Dependency Rules)
 
 #### **Build & Tooling**
 - **`frontend/bundler/`**:
-    - `vite/`: Vite-specific architecture, config
-- **`frontend/publishing/`**: Library Publishing, GitHub Packages
+    - `vite/`: Vite-specific architecture
 
 ---
 
@@ -64,7 +63,7 @@
 - **`cs/algorithm/`**: `search/`, `sort/`, `recursion/`, `dp/`
 
 #### **OS & System**
-- **`cs/system/`**: `os/`, `process-thread/`, `memory/`
+- **`cs/system/`**: `process-thread/`, `memory/`
 
 #### **Software Engineering**
 - **`cs/software-engineering/`**: `principles/` (Cohesion, Coupling, Readability)

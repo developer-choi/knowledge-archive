@@ -69,7 +69,7 @@ argument-hint: [PDF/MD 파일 경로]
 
 ## 기존 Q&A 파일 병합 (knowledge/·techniques/)
 
-신규 변환 시작 전에 같은 개념을 다루는 기존 Q&A가 있는지 `Glob`/`Grep`으로 검색한다 (예: `'use client'` 관련은 `react/rendering/`, `publishing/`, `bundler/` 등 여러 디렉토리).
+신규 변환 시작 전에 같은 개념을 다루는 기존 Q&A가 있는지 `Glob`/`Grep`으로 검색한다 (예: `'use client'` 관련은 `react/rendering/`, `nextjs/rendering/`, `bundler/` 등 여러 디렉토리).
 
 기존 파일과 주제가 겹치는 경우:
 - 기존 Official Answer는 보존. 신규 입력의 한국어는 `User Answer`로만 추가
