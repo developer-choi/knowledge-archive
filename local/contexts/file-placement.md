@@ -17,7 +17,7 @@
 한 폴더는 **같은 주제**의 파일들을 담는다. 같은 하위 주제(도구·라이브러리·세부 개념 등) 파일이 **2개 이상** 모이면 그 하위 주제로 자식 폴더를 만든다. 파일이 하나뿐이면 부모 폴더에 flat하게 둔다 — 단일 파일에 폴더를 씌우지 않는다.
 
 - 나중에 2번째 파일이 생기면 그때 폴더로 접고, 짝꿍 explained·assets 미러도 같은 경로로 함께 옮긴다 ([directory-roles.md](directory-roles.md)「원본 이동 시 미러 동반 이동」).
-- 기존에 만들어진 단일 파일 폴더(예: `vitest/`, `storybook/`)는 소급 정리 대상이 아니다 — 이 규칙은 앞으로의 배치에 적용한다.
+- 기존에 만들어진 단일 파일 폴더(예: `testing/vitest/`, `ui-ux/gestures/`)는 소급 정리 대상이 아니다 — 이 규칙은 앞으로의 배치에 적용한다.
 
 선례: `cs/software-engineering/ddd.md`(부모에 flat) + `cs/software-engineering/principles/**`(원칙 문서 2개 이상이라 폴더).
 
