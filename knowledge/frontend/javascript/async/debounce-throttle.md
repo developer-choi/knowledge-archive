@@ -1,7 +1,7 @@
 ---
 tags: [javascript, performance]
 source: unverified
-priority:
+priority: 1
 ---
 
 # Questions

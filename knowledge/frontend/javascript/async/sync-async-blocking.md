@@ -1,7 +1,7 @@
 ---
 tags: [javascript, concept]
 source: official
-priority:
+priority: 1
 ---
 
 # Questions

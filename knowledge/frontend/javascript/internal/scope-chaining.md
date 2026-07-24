@@ -1,7 +1,7 @@
 ---
 tags: [javascript, concept]
 source: unverified
-priority:
+priority: 1
 ---
 # Questions
 - [UNVERIFIED] Q1. global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
