@@ -5,21 +5,76 @@ priority: 1
 ---
 
 # Questions
-- [UNVERIFIED] Macrotask와 Microtask는 각각 무엇인가?
+- 이벤트 루프란 무엇이고 왜 필요한가?
+- 이벤트 루프는 내부적으로 job을 어떻게 꺼내 실행하며, 하나의 job은 언제 완료로 간주되는가?
+- macrotask와 microtask는 각각 무엇이며, 어떻게 다른가?
+- 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
 - [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
 - task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
 ---
 # Answers
 
-## [UNVERIFIED] Macrotask와 Microtask는 각각 무엇인가?
+## 이벤트 루프란 무엇이고 왜 필요한가?
 
-### User Answer
-Macrotask는 일반적으로 `setTimeout`으로 만든 작업을 말한다.
-Microtask는 일반적으로 `Promise`로 만든 작업을 말한다.
+### Official Answer
+> An agent is a thread, which means the interpreter can only process one statement at a time. But if the code needs to perform asynchronous action, then we cannot progress unless that action is completed. However, it would be detrimental to user experience if that halts the whole program—the nature of JavaScript as a web scripting language requires it to be never blocking. Therefore, the code that handles the completion of that asynchronous action is defined as a callback. This callback defines a job, which gets placed into a job queue—or, in HTML terminology, an event loop—once the action is completed.
 
-이벤트 루프는 한 틱(tick)에 다음과 같이 동작한다.
-- Microtask Queue: 큐가 완전히 비워질 때까지 계속 꺼내 실행한다. 실행 도중 새로운 Microtask가 추가되면 그것까지 포함하여 큐가 0이 될 때까지 멈추지 않는다.
-- Macrotask Queue: 한 틱에 딱 하나만 꺼내 실행한 뒤, 다시 이벤트 루프의 제어권이 루프로 돌아간다.
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#job_queue_and_event_loop
+
+---
+
+## 이벤트 루프는 내부적으로 job을 어떻게 꺼내 실행하며, 하나의 job은 언제 완료로 간주되는가?
+
+### Official Answer
+> Every time, the agent pulls a job from the queue and executes it. When the job is executed, it may create more jobs, which are added to the end of the queue. Jobs can also be added via the completion of asynchronous platform mechanisms, such as timers, I/O, and events. A job is considered completed when the stack is empty; then, the next job is pulled from the queue.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#job_queue_and_event_loop
+
+---
+
+## macrotask와 microtask는 각각 무엇이며, 어떻게 다른가?
+
+### Official Answer
+> A timeout or interval created with setTimeout() or setInterval() is reached, causing the corresponding callback to be added to the task queue.
+>
+> JavaScript promises and the Mutation Observer API both use the microtask queue to run their callbacks, but there are other times when the ability to defer work until the current event loop pass is wrapping up is helpful.
+>
+> Jobs might not be pulled with uniform priority—for example, HTML event loops split jobs into two categories: tasks and microtasks. Microtasks have higher priority and the microtask queue is drained first before the task queue is pulled.
+>
+> Each time a task exits, the event loop checks to see if the task is returning control to other JavaScript code. If not, it runs all of the microtasks in the microtask queue. The microtask queue is, then, processed multiple times per iteration of the event loop, including after handling events and other callbacks.
+>
+> If a microtask adds more microtasks to the queue by calling queueMicrotask(), those newly-added microtasks execute before the next task is run. That's because the event loop will keep calling microtasks until there are none left in the queue, even if more keep getting added.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#job_queue_and_event_loop
+- https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide
+
+## 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
+
+```js
+const promise = Promise.resolve();
+let i = 0;
+promise.then(() => {
+  i += 1;
+  console.log(i);
+});
+promise.then(() => {
+  i += 1;
+  console.log(i);
+});
+```
+
+### Official Answer
+> Each job is processed completely before any other job is processed. This offers some nice properties when reasoning about your program, including the fact that whenever a function runs, it cannot be preempted and will run entirely before any other code runs (and can modify data the function manipulates).
+>
+> In this example, we create an already-resolved promise, which means any callback attached to it will be immediately scheduled as jobs. The two callbacks seem to cause a race condition, but actually, the output is fully predictable: `1` and `2` will be logged in order. This is because each job runs to completion before the next one is executed, so the overall order is always `i += 1; console.log(i); i += 1; console.log(i);` and never `i += 1; i += 1; console.log(i); console.log(i);`.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#run-to-completion
+
+---
 
 ## [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
 
