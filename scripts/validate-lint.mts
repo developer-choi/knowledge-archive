@@ -226,6 +226,15 @@ function lintKnowledge(rel: string, src: string): Finding[] {
   f.push(...lintFences(rel, lines));
   const doc = parseKnowledge(lines);
 
+  // E5 missing pair: knowledge/<rel>.md must have explained/<rel>.md. knowledge↔explained is a
+  // set — same folder path, same filename, same questions. E1~E3 only fire when the explained
+  // file exists (the walk starts from explained/), so a knowledge doc with no pair at all slips
+  // through silently; this check closes that direction.
+  const relNoRoot = rel.replace(/^knowledge\//, '');
+  if (!fs.existsSync(path.join(EXPLAINED_DIR, relNoRoot))) {
+    add(0, 'E5', `대응 explained/${relNoRoot} 없음 (셋트 미성립 — /digest로 해설 생성 필요)`);
+  }
+
   // K1 Official Annotation residue
   for (const l of lines) {
     if (!l.inFence && /^>\s*####\s*Official Annotation:/.test(l.text)) {
@@ -411,7 +420,20 @@ function lintExplained(rel: string, src: string): Finding[] {
   }
   // E1 coverage: each knowledge own-question present as explained H1
   for (const t of kTitles) {
-    if (!eSet.has(t)) add(0, 'E1', `커버리지 누락: "${t}" (explained에 H1 없음 — /explain 필요)`);
+    if (!eSet.has(t)) add(0, 'E1', `커버리지 누락: "${t}" (explained에 H1 없음 — /digest로 해설 생성 필요)`);
+  }
+
+  // E6 order: shared questions must appear in the same sequence on both sides. explained is what
+  // the user actually reads when reviewing, so its section order is the learning order — it must
+  // not drift from the knowledge question order. Compare only titles present on both sides so
+  // that E1/E2 (missing/orphan) stay the sole reporters of their own problems.
+  const kShared = kTitles.filter((t) => eSet.has(t));
+  const eShared = h1s.filter((h) => kSet.has(h.title));
+  for (let i = 0; i < kShared.length; i++) {
+    if (eShared[i] && eShared[i].title !== kShared[i]) {
+      add(eShared[i].line, 'E6', `질문 순서 불일치: knowledge ${i + 1}번째는 "${kShared[i]}"`);
+      break; // one shift misaligns everything after it — reporting the first is enough
+    }
   }
 
   return f;
@@ -434,13 +456,23 @@ function relPosix(abs: string): string {
   return path.relative(KA_ROOT, abs).split(path.sep).join('/');
 }
 
-function changedFiles(baseRef: string): string[] {
-  const out = execSync(`git diff --name-only ${baseRef}..HEAD`, { cwd: KA_ROOT, encoding: 'utf8' });
+function gitPaths(args: string): string[] {
+  const out = execSync(`git ${args}`, { cwd: KA_ROOT, encoding: 'utf8' });
   return out
     .split(/\r?\n/)
     .filter((p) => /^(knowledge|explained)\/.*\.md$/.test(p))
     .map((p) => path.join(KA_ROOT, p))
     .filter((p) => fs.existsSync(p));
+}
+
+function changedFiles(baseRef: string): string[] {
+  return gitPaths(`diff --name-only ${baseRef}..HEAD`);
+}
+
+// files staged for the current commit — what the pre-commit hook gates on. Scoping to the staged
+// set (not the whole repo) keeps pre-existing violations elsewhere from blocking unrelated commits.
+function stagedFiles(): string[] {
+  return gitPaths('diff --cached --name-only --diff-filter=ACMR');
 }
 
 // ---------- main ----------
@@ -450,7 +482,9 @@ const asJson = argv.includes('--json');
 const changedIdx = argv.indexOf('--changed');
 let targets: string[];
 
-if (changedIdx >= 0) {
+if (argv.includes('--staged')) {
+  targets = stagedFiles();
+} else if (changedIdx >= 0) {
   const ref = argv[changedIdx + 1];
   if (!ref) {
     console.error('--changed requires a <baseRef> argument');

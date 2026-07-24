@@ -34,7 +34,21 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 - 경로 지정 가능 (`knowledge/cs` 등). 회차 변경분만 보려면 `--changed <baseRef>` (그 ref..HEAD diff).
 - hard violation 있으면 exit 1, warning(제안성)만이면 exit 0.
 
-린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 앞 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, explained 커버리지·고아 섹션·고아 파일·구분자 중복, (warning) OA 길이.
+린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 앞 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, knowledge↔explained 셋트(커버리지·고아 섹션·고아 파일·짝 부재·질문 순서), 구분자 중복, (warning) OA 길이.
+
+### knowledge↔explained 셋트 규칙
+
+`knowledge/<rel>.md`와 `explained/<rel>.md`는 **같은 폴더 경로 · 같은 파일명 · 같은 질문**을 갖는 한 쌍이다. 린터가 다섯 방향에서 강제한다.
+
+| 체크 | 위반 |
+|------|------|
+| E1 | knowledge 질문이 explained에 H1으로 없음 |
+| E2 | explained H1이 knowledge Questions에 없음 |
+| E3 | explained 파일에 대응 knowledge 파일이 없음 |
+| E5 | knowledge 파일에 대응 explained 파일이 없음 |
+| E6 | 양쪽에 공통으로 있는 질문의 순서가 다름 |
+
+다섯 모두 error다 — 위반이 있으면 커밋이 거부된다. explained는 복습에 직접 읽는 산출물이므로 섹션 순서가 곧 학습 순서이며, 그래서 E6도 차단 대상이다.
 
 ## 판단 체크 — LLM
 
@@ -62,8 +76,10 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 
 | 위반 | 조치 |
 |------|------|
-| explained 커버리지 누락 (explained 존재 + 일부 질문 누락) | 자동 수정 불가 — `/explain [파일]`로 해당 질문 설명 후 저장. 누락 목록만 보고. |
-| explained 고아 섹션 | 사용자 확인 후 섹션 삭제 |
-| explained 고아 파일 | 사용자 확인 후 파일 삭제 |
+| E1 커버리지 누락 (explained 존재 + 일부 질문 누락) | 자동 수정 불가 — `/digest`로 해당 파일을 다뤄 해설 생성. 누락 목록만 보고. **knowledge 질문을 지워서 맞추지 않는다.** |
+| E5 짝 부재 (explained 파일 자체가 없음) | 자동 수정 불가 — `/digest`로 해설 생성. 목록만 보고. |
+| E2 고아 섹션 | 사용자 확인 후 섹션 삭제 |
+| E3 고아 파일 | 사용자 확인 후 파일 삭제 |
+| E6 순서 불일치 | explained 섹션 순서를 knowledge 질문 순서에 맞춰 재배치 (knowledge가 기준) |
 
 그 외 결정론 위반(빈 섹션·중복 헤딩·인라인 출처·구분자 중복·마커·펜스 등)은 승인 후 직접 수정한다.
