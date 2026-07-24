@@ -91,15 +91,28 @@ function coverageReport(sourceText, outputText, opts = {}) {
   const outSet = buildNgramSet(normalizeTokens(outputText), n);
 
   const missingSegments = [];
+  let contentSegs = 0; // 검사 대상(content) 세그먼트 수.
+  let anyCovered = false; // 그중 하나라도 조금이라도 인용됐나.
   for (const seg of segments) {
     if (!isContentSegment(seg, minTokens)) continue;
     const tokens = normalizeTokens(seg);
     const grams = ngrams(tokens, n);
     if (grams.length === 0) continue;
+    contentSegs += 1;
     let hit = 0;
     for (const g of grams) if (outSet.has(g)) hit += 1;
     const coverage = hit / grams.length;
+    if (coverage > 0) anyCovered = true;
     if (coverage < segThreshold) missingSegments.push({ text: seg, coverage });
+  }
+
+  // 오탐 ① 조기검사 가드: 검사할 content 세그먼트가 있는데 단 하나도 인용되지 않았다면
+  // (전 세그먼트 0% 커버리지) 해설이 아직 화면에 다 써지기 전에 훅이 트랜스크립트를 읽은
+  // 조기 검사로 본다. 응답은 위→아래로 선형으로 써지므로, 도입만 flush되고 영어 블록쿼트가
+  // 아직 안 써진 순간에 전량 0%가 나온다. 진짜 타깃(일부만 해설하고 나머지 미룸)은 항상
+  // 일부 문장을 인용하므로 전량 0%가 될 수 없다 → 전량 0%는 "미완성 출력" 신호이므로 block하지 않는다.
+  if (contentSegs > 0 && !anyCovered) {
+    return { missingSegments: [], blocked: false, incomplete: true };
   }
 
   return { missingSegments, blocked: missingSegments.length > 0 };

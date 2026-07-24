@@ -7,6 +7,7 @@
 // 이 파일은 local/hooks/의 원본이며 sync:local-system이 repo-local .claude/hooks/로 배포한다.
 // 산출물(.claude/hooks/)을 직접 수정하지 말 것. block-ac-sync.mjs처럼 self-contained I/O.
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import { coverageReport } from "./digest-coverage-core.mjs";
 
@@ -87,6 +88,20 @@ function isDigestActive(msgs) {
   return state;
 }
 
+// 오탐 ②: 아래 메시지들은 영어가 우세해 isContentPaste에 걸리지만 "붙여넣은 원문"이 아니다.
+// source 후보에서 배제한다.
+// - Stop hook feedback: 이 훅이 낸 block 사유가 다음 턴의 user 메시지로 주입되는데, 그 안에
+//   플래그된 영어 스니펫이 박혀 있어 그대로 검사하면 자기 피드백을 원문으로 오인한다.
+// - /compact 요약: 세션 압축 요약("This session is being continued …")도 영어 우세로 오분류된다.
+// stop_hook_active 가드가 같은 턴 재block은 막지만, source 선정 자체를 여기서 정화한다.
+function isHookOrSystemMessage(text) {
+  const t = text.trimStart();
+  return (
+    t.startsWith("Stop hook feedback:") ||
+    t.startsWith("This session is being continued from a previous conversation")
+  );
+}
+
 // 콘텐츠 붙여넣기인가: 영어 단어가 충분하고 영어가 한글보다 우세. "다음"/"OFF"/한글 지시는 탈락.
 function isContentPaste(text) {
   const stripped = text.replace(/<[^>]+>/g, " ");
@@ -122,6 +137,7 @@ function main() {
   if (lastUserIdx === -1) return;
 
   const source = msgs[lastUserIdx].text;
+  if (isHookOrSystemMessage(source)) return; // 오탐 ②: 훅 피드백·compact 요약은 원문 아님
   if (!isContentPaste(source)) return; // 지시·제어 턴은 검사 안 함(메타 턴 오탐 완화)
 
   const output = msgs
@@ -145,5 +161,11 @@ function main() {
   process.stdout.write(JSON.stringify({ decision: "block", reason }));
 }
 
-main();
-process.exit(0);
+// 직접 실행일 때만 훅을 돌린다. import(유닛테스트)로 들어올 땐 main·exit를 발동하지 않는다
+// — top-level process.exit(0)가 테스트 프로세스를 죽이는 것을 막는다.
+if (process.argv[1] && fileURLToPath(import.meta.url) === fs.realpathSync(process.argv[1])) {
+  main();
+  process.exit(0);
+}
+
+export { isHookOrSystemMessage, isContentPaste, digestControl, isDigestActive };
