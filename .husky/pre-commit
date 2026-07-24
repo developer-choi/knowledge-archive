@@ -1,0 +1,3 @@
+# knowledge↔explained 셋트 검증 — 스테이징된 문서만 검사한다.
+# 위반(error)이 있으면 커밋을 거부한다. 규칙은 local/skills/validate/SKILL.md 참고.
+npm run --silent validate-lint -- --staged

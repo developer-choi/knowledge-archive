@@ -8,7 +8,7 @@
   },
   "private": true,
   "scripts": {
-    "prepare": "git config core.hooksPath .githooks",
+    "prepare": "husky",
     "list-candidates": "tsx scripts/list-candidates.mts",
     "merge-explained": "tsx scripts/merge-explained.mts",
     "verify-merge": "tsx scripts/verify-merge.mts",
@@ -19,6 +19,7 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@types/node": "^22.10.5",
     "gray-matter": "^4.0.3",
+    "husky": "^9.1.7",
     "mdast-util-to-string": "^4.0.0",
     "remark-parse": "^11.0.0",
     "tsx": "^4.19.2",

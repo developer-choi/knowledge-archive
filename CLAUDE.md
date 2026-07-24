@@ -36,6 +36,9 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 | `npm run list-candidates` | `knowledge/` 스캔 → AC `full-refresh`에 전달할 후보 JSON 출력. 입출력·skip 규칙·폴더구조 변경 영향범위는 [`local/contexts/list-candidates.md`](local/contexts/list-candidates.md) |
 | `npm run merge-explained` | `explained/<rel>/<slug>.md` 파일들을 `explained/<rel>.md` 단일 파일로 통합. `--dry-run`(기본) / `--apply` 플래그 사용 |
 | `npm run verify-merge` | 통합 후 각 섹션이 원본 파일과 바이트 동일한지 검증 |
+| `npm run validate-lint` | `knowledge/`·`explained/` 양식·셋트 검증. `--staged`(스테이징분만)·`--changed <ref>`·`--json` 지원. 체크 목록은 [`local/skills/validate/SKILL.md`](local/skills/validate/SKILL.md) |
+
+`.husky/pre-commit`이 커밋 때마다 `validate-lint --staged`를 실행한다. knowledge↔explained 셋트가 깨지면 커밋이 거부된다.
 
 ## explained/ 마이그레이션 절차
 
