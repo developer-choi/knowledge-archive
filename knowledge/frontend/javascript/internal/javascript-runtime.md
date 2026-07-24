@@ -4,9 +4,22 @@ source: unverified
 priority: 1
 ---
 # Questions
+- JavaScript 코드가 실행되려면 어떤 두 소프트웨어가 협력해야 하며, 각각 무엇을 담당하는가?
 - [UNVERIFIED] Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
 ---
 # Answers
+## JavaScript 코드가 실행되려면 어떤 두 소프트웨어가 협력해야 하며, 각각 무엇을 담당하는가?
+
+### Official Answer
+> JavaScript execution requires the cooperation of two pieces of software: the JavaScript engine and the host environment.
+>
+> The JavaScript engine implements the ECMAScript (JavaScript) language, providing the core functionality. It takes source code, parses it, and executes it. However, in order to interact with the outside world, such as to produce any meaningful output, to interface with external resources, or to implement security- or performance-related mechanisms, we need additional environment-specific mechanisms provided by the host environment. For example, the HTML DOM is the host environment when JavaScript is executed in a web browser. Node.js is another host environment that allows JavaScript to be run on the server side.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model
+
+---
+
 ## [UNVERIFIED] Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
 
 ### User Answer
