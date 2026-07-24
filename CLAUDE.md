@@ -27,8 +27,7 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 ### 소주제 (KA 안에서 어디로)
 
 - **역할 디렉토리** (knowledge/ vs techniques/ vs explained/) — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)
-- **도메인 트리** (frontend/, cs/, infra/, …) — [`local/contexts/folder-blueprint.md`](local/contexts/folder-blueprint.md)
-- **파일명·검색** — [`local/contexts/file-placement.md`](local/contexts/file-placement.md)
+- **도메인 폴더·파일명·검색** — [`local/contexts/file-placement.md`](local/contexts/file-placement.md)
 
 ## npm 스크립트
 

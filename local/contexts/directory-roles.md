@@ -1,6 +1,6 @@
 # 디렉토리 역할
 
-KA는 같은 도메인 트리에 대해 여러 **역할 디렉토리**를 둔다. 한 글이 어느 디렉토리에 들어가는지는 그 글의 **자료 성격**(양식·내용·휘발성)으로 결정한다. **활용 방식이 아니다** — 같은 글도 여러 스킬이 다양하게 활용할 수 있고, 글 위치에 활용 라벨을 박지 않는다. 도메인 분기는 별도 차원이며 [folder-blueprint.md](folder-blueprint.md) 참고.
+KA는 같은 도메인 트리에 대해 여러 **역할 디렉토리**를 둔다. 한 글이 어느 디렉토리에 들어가는지는 그 글의 **자료 성격**(양식·내용·휘발성)으로 결정한다. **활용 방식이 아니다** — 같은 글도 여러 스킬이 다양하게 활용할 수 있고, 글 위치에 활용 라벨을 박지 않는다. 도메인 분기는 별도 차원이며 [file-placement.md](file-placement.md) 참고.
 
 ## 본질
 
@@ -86,7 +86,7 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 - `tips/cs/algorithm/...`
 - `explained/cs/algorithm/...`
 
-도메인 트리는 [folder-blueprint.md](folder-blueprint.md)를 따른다. 글의 최종 위치 = 역할 / 도메인 / 파일명. 파일명 규칙은 [file-placement.md](file-placement.md) 참고.
+글의 최종 위치 = 역할 / 도메인 / 파일명. 도메인 폴더와 파일명 규칙은 [file-placement.md](file-placement.md) 참고.
 
 ## 원본 이동 시 미러 동반 이동
 
@@ -104,7 +104,7 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
    - "외워서 설명" → knowledge/
    - "한 주제 묶어 정리한 도구·기법" → techniques/
    - "한 포인트 짤막한 단편 필기" → tips/
-3. 결정 후 [folder-blueprint.md](folder-blueprint.md)·[file-placement.md](file-placement.md)로 도메인·파일명 정한다.
+3. 결정 후 [file-placement.md](file-placement.md)로 도메인·파일명 정한다.
 
 ## OA(Official Answer)는 활용 라벨이 아니다
 

@@ -20,7 +20,6 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 | 파일 배치 | [file-placement.md](../../contexts/file-placement.md) |
 | 태그 목록 | [tags.md](../../contexts/tags.md) |
 | 템플릿 | [template.md](../../contexts/template.md) |
-| 폴더 구조 | [folder-blueprint.md](../../contexts/folder-blueprint.md) |
 
 ## 결정론 체크 — 린터 스크립트
 

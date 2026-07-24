@@ -6,14 +6,11 @@
 
 ## 1. 폴더 선택
 
-### 참고 자료
-- [폴더 구조도](folder-blueprint.md)
-
 ### 선정 기준
-- [폴더 구조도](folder-blueprint.md)를 참고하여 적절한 폴더 선택
+- 기존 트리를 직접 훑어(`ls`·`Glob`) 같은 주제를 다루는 폴더가 이미 있는지 먼저 확인한다. 별도의 폴더 구조 문서는 두지 않는다 — 실물 트리가 유일한 근거다
 - 계층 구조를 준수하여 정확한 위치 결정
   - 예: React Hooks → `knowledge/frontend/react/core/`
-  - 예: HTTP Protocol → `knowledge/cs/network/protocols/`
+  - 예: HTTP Protocol → `knowledge/cs/network/protocol/`
 
 ### 폴더 = 같은 주제 파일 모음
 
