@@ -7,6 +7,7 @@ priority:
 - implementation details를 테스트하면 왜 all downside, no upside인가?
 - Unit test 하나에 assert를 여러 개 두면 어떤 문제가 생기는가?
 - React Testing Library에서 컴포넌트 트리의 어느 레벨을 테스트해야 하나?
+- 테스트에서 false positive와 false negative는 각각 무엇을 의미하는가?
 
 ---
 
@@ -53,3 +54,13 @@ The question of whether it is worth additionally testing at a higher or lower le
 
 ### Reference
 - https://testing-library.com/docs/react-testing-library/faq
+
+---
+
+## 테스트에서 false positive와 false negative는 각각 무엇을 의미하는가?
+
+### Official Answer
+The test is: "does the software work". If the test passes, then that means the test came back "positive" (found working software). If it does not, that means the test comes back "negative" (did not find working software). The term "False" refers to when the test came back with an incorrect result, meaning the software is actually broken but the test passes (false positive) or the software is actually working but the test fails (false negative).
+
+### Reference
+- https://kentcdodds.com/blog/testing-implementation-details
