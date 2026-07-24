@@ -6,7 +6,10 @@ priority:
 # Questions
 - E2E test란 무엇인가?
 - E2E test의 장점과 단점은?
-- E2E로 모든 edge case를 잡으면 가장 확실한 거 아닌가?
+- E2E 테스트는 왜 실패 원인을 추적하기 어려운가?
+- E2E 테스트를 잔뜩 짜놨는데, 툭하면 실패하고, 실패하면 원인이 어디인지 찾는 데만 한참 걸리고, 하나가 깨지면 뒤따라 여러 개가 같이 깨지고, 고치는 데도 시간이 오래 걸린다. 게다가 워낙 다양한 이유로 실패해서 결과를 신뢰하기도 어렵다. 이렇게 단점이 많은데도, 그럼에도 왜 E2E를 써야 하나?
+- 그럼 버그를 빠르게 고치게 해 주는 테스트란 어떤 것인가?
+- E2E 테스트는 어떤 경우에 작성해야 하는가?
 
 ---
 
@@ -42,13 +45,49 @@ End to End tests are pretty darn capable, but typically you'll run these in a no
 
 ---
 
-## E2E로 모든 edge case를 잡으면 가장 확실한 거 아닌가?
+## E2E 테스트는 왜 실패 원인을 추적하기 어려운가?
 
 ### Official Answer
-At the top of the testing trophy, if you try to use an E2E test to check that typing in a certain field and clicking the submit button for an edge case in the integration between the form and the URL generator, you're doing a lot of setup work by running the entire application (backend included).
-That might be more suitable for an integration test.
-If you try to use an integration test to hit an edge case for the coupon code calculator, you're likely doing a fair amount of work in your setup function to make sure you can render the components that use the coupon code calculator and you could cover that edge case better in a unit test.
-If you try to use a unit test to verify what happens when you call your add function with a string instead of a number you could be much better served using a static type checking tool like TypeScript.
+Finding the root cause for a failing end-to-end test is painful and can take a long time.
+And even if a test finds a bug, that bug could be anywhere in the product.
 
 ### Reference
-- https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+
+---
+
+## E2E 테스트를 잔뜩 짜놨는데, 툭하면 실패하고, 실패하면 원인이 어디인지 찾는 데만 한참 걸리고, 하나가 깨지면 뒤따라 여러 개가 같이 깨지고, 고치는 데도 시간이 오래 걸린다. 게다가 워낙 다양한 이유로 실패해서 결과를 신뢰하기도 어렵다. 이렇게 단점이 많은데도, 그럼에도 왜 E2E를 써야 하나?
+
+### Official Answer
+A failing test does not directly benefit the user.
+A bug fix directly benefits the user.
+But in that entire process, from failing test to bug fix, value is only added at the very last step.
+Thus, to evaluate any testing strategy, you cannot just evaluate how it finds bugs. You also must evaluate how it enables developers to fix (and even prevent) bugs.
+
+### Reference
+- https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+
+---
+
+## 그럼 버그를 빠르게 고치게 해 주는 테스트란 어떤 것인가?
+
+### Official Answer
+Tests create a feedback loop that informs the developer whether the product is working or not. The ideal feedback loop has several properties:
+
+- **It's fast.** No developer wants to wait hours or days to find out if their change works. Sometimes the change does not work - nobody is perfect - and the feedback loop needs to run multiple times. A faster feedback loop leads to faster fixes. If the loop is fast enough, developers may even run tests before checking in a change.
+- **It's reliable.** No developer wants to spend hours debugging a test, only to find out it was a flaky test. Flaky tests reduce the developer's trust in the test, and as a result flaky tests are often ignored, even when they find real product issues.
+- **It isolates failures.** To fix a bug, developers need to find the specific lines of code causing the bug. When a product contains millions of lines of codes, and the bug could be anywhere, it's like trying to find a needle in a haystack.
+
+### Reference
+- https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+
+---
+
+## E2E 테스트는 어떤 경우에 작성해야 하는가?
+
+### Official Answer
+If two units do not integrate properly, why write an end-to-end test when you can write a much smaller, more focused integration test that will detect the same bug?
+Even with both unit tests and integration tests, you probably still will want a small number of end-to-end tests to verify the system as a whole.
+
+### Reference
+- https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
