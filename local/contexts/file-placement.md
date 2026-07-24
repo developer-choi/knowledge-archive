@@ -22,7 +22,7 @@
 - 나중에 2번째 파일이 생기면 그때 폴더로 접고, 짝꿍 explained·assets 미러도 같은 경로로 함께 옮긴다 ([directory-roles.md](directory-roles.md)「원본 이동 시 미러 동반 이동」).
 - 기존에 만들어진 단일 파일 폴더(예: `vitest/`, `storybook/`)는 소급 정리 대상이 아니다 — 이 규칙은 앞으로의 배치에 적용한다.
 
-선례: `bundler/overview.md`(개념 부모) + `bundler/vite/**`(vite 문서 2개 이상이라 폴더).
+선례: `cs/software-engineering/ddd.md`(부모에 flat) + `cs/software-engineering/principles/**`(원칙 문서 2개 이상이라 폴더).
 
 ---
 

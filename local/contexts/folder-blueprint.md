@@ -9,7 +9,7 @@
 ### 1.1. Frontend & Web
 
 #### **Languages**
-- **`frontend/javascript/`**: `data-type-ds/`, `grammar/`, `internal/`, `async/`, `module/`, `package-json/`
+- **`frontend/javascript/`**: `data-type-ds/`, `grammar/`, `internal/`, `async/`, `package-json/`
 - **`frontend/typescript/`**: `types/`, `generics/`
 
 #### **React & Next.js Ecosystem**
@@ -45,14 +45,9 @@
 #### **Architecture**
 - **`frontend/fsd/`**: Feature-Sliced Design (Motivation, Philosophy, Layers·Segments, Dependency Rules, Shared Logic)
 
-#### **Design System**
-- **`frontend/design-system/`**: Design System overview
-
 #### **Build & Tooling**
 - **`frontend/bundler/`**:
     - `vite/`: Vite-specific architecture, config
-- **`frontend/monorepo/`**: Workspaces, Task Runner, Polyrepo vs Monorepo
-- **`frontend/package-manager/`**: npm·Yarn·pnpm, Yarn Berry
 - **`frontend/publishing/`**: Library Publishing, GitHub Packages
 
 ---
