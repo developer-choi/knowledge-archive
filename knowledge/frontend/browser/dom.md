@@ -1,7 +1,7 @@
 ---
 tags: [browser, concept]
 source: unverified
-priority:
+priority: 2
 ---
 
 # Questions

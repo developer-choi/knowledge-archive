@@ -1,7 +1,7 @@
 ---
 tags: [testing, concept]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - implementation details를 테스트하면 왜 all downside, no upside인가?

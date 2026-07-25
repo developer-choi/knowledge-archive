@@ -1,7 +1,7 @@
 ---
 tags: [software-engineering, comparison]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - Testing Pyramid 대신 Testing Trophy를 쓰는 이유는?

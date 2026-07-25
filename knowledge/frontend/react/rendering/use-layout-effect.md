@@ -1,7 +1,7 @@
 ---
 tags: [react, browser, concept]
 source: official
-priority: 1
+priority: 2
 ---
 
 # Questions

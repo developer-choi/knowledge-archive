@@ -1,7 +1,7 @@
 ---
 tags: [software-engineering, architecture, principle]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - 응집도(Cohesion)란 무엇인가?

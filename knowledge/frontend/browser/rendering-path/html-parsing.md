@@ -1,7 +1,7 @@
 ---
 tags: [browser, principle]
 source: official
-priority:
+priority: 1
 ---
 
 # Questions

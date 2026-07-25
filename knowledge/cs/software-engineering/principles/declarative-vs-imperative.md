@@ -1,7 +1,7 @@
 ---
 tags: [programming-paradigm, concept]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - imperative 방식으로 UI를 조작하는 코드는 폼 하나에서는 잘 작동한다. 여러 폼이 섞인 복잡한 시스템으로 규모가 커지면 어떤 문제가 생기는가?

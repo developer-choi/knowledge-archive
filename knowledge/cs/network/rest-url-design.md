@@ -1,7 +1,7 @@
 ---
 tags: [network, architecture, concept]
 source: official
-priority: 1
+priority:
 ---
 
 # Questions
@@ -21,7 +21,7 @@ priority: 1
 ### Reference
 - https://en.wikipedia.org/wiki/REST
 
----
+--- 
 
 ## [UNVERIFIED] 검색 엔드포인트는 `/users/search?q=` 와 `/users?q=` 중 무엇이 더 RESTful한가?
 

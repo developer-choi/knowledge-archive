@@ -2,6 +2,7 @@
 tags: [testing, network]
 source: official
 publishable: true
+priority: 2
 ---
 # Questions
 - MSW(Mock Service Worker)란 무엇이며, 어떤 일을 하는가?

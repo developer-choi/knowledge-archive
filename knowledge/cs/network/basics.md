@@ -1,7 +1,7 @@
 ---
 tags: [network, concept, protocol]
 source: official
-priority:
+priority: 2
 ---
 
 # Questions

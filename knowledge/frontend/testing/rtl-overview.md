@@ -1,7 +1,7 @@
 ---
 tags: [testing, react, concept]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - RTL의 trade-offs는 무엇이며 simulated browser 환경의 한계는 무엇인가?

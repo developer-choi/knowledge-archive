@@ -1,7 +1,7 @@
 ---
 tags: [testing, concept]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - 테스트에서 왜 mocking이 필요한가?

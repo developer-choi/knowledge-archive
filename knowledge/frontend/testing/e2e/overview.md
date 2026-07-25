@@ -1,7 +1,7 @@
 ---
 tags: [testing, concept]
 source: official
-priority:
+priority: 2
 ---
 # Questions
 - E2E test란 무엇인가?

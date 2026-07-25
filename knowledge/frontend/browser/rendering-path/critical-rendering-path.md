@@ -1,7 +1,7 @@
 ---
 tags: [browser, performance, concept]
 source: official
-priority:
+priority: 1
 ---
 
 # Questions

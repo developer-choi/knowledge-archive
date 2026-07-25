@@ -1,7 +1,7 @@
 ---
 tags: [network, concept]
 source: unverified
-priority:
+priority: 2
 ---
 
 # Questions
