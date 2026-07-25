@@ -1,131 +1,117 @@
-# imperative 방식으로 UI를 조작하는 코드는 폼 하나에서는 잘 작동한다. 여러 폼이 섞인 복잡한 시스템으로 규모가 커지면 어떤 문제가 생기는가?
-
-## 도입
-
-명령형(imperative) 코드는 "어떻게 할지"를 단계별로 지시한다. DOM 요소를 직접 찾아 `show()`, `hide()`, `enable()`, `disable()`을 순서대로 호출하는 방식이다. 폼 하나일 때는 흐름이 눈에 보이지만, 폼이 여러 개로 늘어나면 이벤트·상태·UI 조합이 곱셈으로 증가한다.
-
----
+# React가 선언적(declarative)이라는 것은 무엇을 뜻하는가?
 
 ## 본문
 
-> Manipulating the UI imperatively works well enough for isolated examples, but it gets exponentially more difficult to manage in more complex systems.
+> React is declarative: you tell React what to render, and React will figure out how best to display it to your user.
 
-"UI를 명령형으로 조작하는 것은 고립된 예시에서는 충분히 잘 작동하지만, 더 복잡한 시스템에서는 관리가 지수적으로 어려워진다."
+"React는 선언적이다 — 개발자는 React에게 무엇을 렌더할지 말하고, React가 그것을 사용자에게 어떻게 보여줄지를 알아서 정한다."
 
-- **isolated examples**: 폼 하나, 버튼 하나 같은 고립된 작은 예시. 다른 UI 요소와 상호작용하지 않는 단독 단위.
-- **exponentially more difficult**: 요소 수 × 이벤트 수 × 상태 수의 조합이 곱셈으로 늘어난다. 폼 2개가 되면 처리해야 할 경우의 수가 2배가 아니라 그보다 훨씬 많아진다.
+- **declarative**: 원하는 결과를 진술하고 그것을 이루는 절차는 맡기는 방식.
+- **what to render**: 개발자의 몫. 지금 상태라면 화면에 무엇이 있어야 하는지를 JSX로 진술한다.
+- **how best to display**: React의 몫. 어떤 DOM 노드를 만들고 지우고 고칠지, 어떤 순서로 반영할지를 정한다. `best`가 붙은 것은 여러 갱신을 모아 처리하거나 급한 것을 먼저 반영하는 등의 판단까지 React가 한다는 뜻이다.
 
-> Imagine updating a page full of different forms like this one. Adding a new UI element or a new interaction would require carefully checking all existing code to make sure you haven't introduced a bug (for example, forgetting to show or hide something).
+> React provides a declarative way to manipulate the UI.
+> Instead of manipulating individual pieces of the UI directly, you describe the different states that your component can be in, and switch between them in response to the user input.
+> This is similar to how designers think about the UI.
 
-"이런 폼들로 가득한 페이지를 업데이트하는 상황을 상상해보라. 새 UI 요소나 새 상호작용을 추가하면, 버그를 심지 않았는지 확인하기 위해 기존 코드 전체를 주의 깊게 점검해야 한다. 예: 무언가를 show하거나 hide하는 것을 빠뜨리는 경우."
+"React는 UI를 다루는 선언적인 방법을 제공한다. UI 조각을 하나하나 직접 조작하는 대신, 컴포넌트가 놓일 수 있는 여러 상태를 서술해두고 사용자 입력에 반응해 그 상태들 사이를 오간다. 이것은 디자이너가 UI를 생각하는 방식과 비슷하다."
 
-- **carefully checking all existing code**: 새 요소 하나를 추가할 때 기존 코드 전체를 다시 읽어야 한다. 코드가 늘어날수록 이 비용도 선형이 아니라 지수적으로 커진다.
-- **introduced a bug**: 기존 흐름을 깨서 버그를 심는 것. 명령형에서는 새 이벤트 핸들러를 추가할 때 기존 핸들러 안에 그것이 영향을 줄 `show`/`hide` 호출이 있는지 모두 확인해야 한다.
-- **forgetting to show or hide something**: 명령형의 전형적 버그. `show(spinner)` 호출 후 에러 경로에서 `hide(spinner)`를 빠뜨리면 에러 후 스피너가 영원히 남는다.
+- **individual pieces of the UI**: 스피너 하나, 버튼 하나, 오류 문구 하나 같은 개별 화면 조각. 명령형에서는 이 조각들을 각각 붙잡고 고친다.
+- **describe the different states**: 화면이 놓일 수 있는 상태를 미리 나열하는 것. 폼이라면 빈 상태·입력 중·제출 중·성공·오류처럼 목록으로 적힌다.
+- **switch between them**: 개발자가 하는 일은 조각을 고치는 게 아니라 나열해둔 상태 중 어느 것으로 갈지 고르는 일뿐이다.
+- **how designers think about the UI**: 디자이너는 시안을 만들 때 "이 버튼을 비활성화하는 절차"를 그리지 않고 빈 화면·로딩 화면·성공 화면을 각각 한 장씩 그린다. 상태별로 화면을 그려두고 그 사이를 오간다는 점에서 사고 방식이 같다.
 
-아래 imperative 코드를 보면 `handleFormSubmit` 하나가 `disable`, `show`, `hide`, `enable`을 직접 관리한다. 여기에 새 상태 `'verifying'`을 추가하려면 `finally` 블록, HTML, `handleTextareaChange` 등 여러 곳을 동시에 수정해야 한다.
+> In React, you don't directly manipulate the UI—meaning you don't enable, disable, show, or hide components directly.
+> Instead, you declare what you want to show, and React figures out how to update the UI.
 
-```js
-async function handleFormSubmit(e) {
-  e.preventDefault();
-  disable(textarea);
-  disable(button);
-  show(loadingMessage);
-  hide(errorMessage);
-  try {
-    await submitForm(textarea.value);
-    show(successMessage);
-    hide(form);
-  } catch (err) {
-    show(errorMessage);
-    errorMessage.textContent = err.message;
-  } finally {
-    hide(loadingMessage);   // ← 빠뜨리면 로딩 메시지가 영원히 표시
-    enable(textarea);
-    enable(button);
-  }
-}
+"React에서는 UI를 직접 조작하지 않는다 — 컴포넌트를 직접 활성화하거나 비활성화하거나 보이거나 감추지 않는다는 뜻이다. 대신 무엇을 보여줄지 선언하고, UI를 어떻게 갱신할지는 React가 알아낸다."
+
+- **enable, disable, show, or hide**: 순수 DOM 조작에서 손으로 부르던 네 가지 동작. React를 쓰면 이 호출들이 코드에서 사라지고 `disabled={...}`·`{조건 && <X />}` 같은 진술로 바뀐다.
+- **declare what you want to show**: 결과만 적는다. "버튼을 비활성화하라"가 아니라 "제출 중일 때 이 버튼은 비활성 상태다"라고 적는 것이다.
+- **figures out how**: 방법(how)의 소유권이 개발자에서 React로 넘어간다는 것이 선언형의 핵심이다. 이게 없으면 화면 조각마다 갱신 누락을 개발자가 직접 관리해야 한다.
+
+> Declarative programming means describing the UI for each visual state rather than micromanaging the UI (imperative).
+
+"선언형 프로그래밍이란 UI를 시시콜콜 관리하는(명령형) 대신 각 visual state마다 UI를 서술하는 것을 뜻한다."
+
+- **visual state**: 화면이 눈에 보이는 모습 기준으로 구분한 상태. 빈 상태, 입력 중, 제출 중, 성공, 오류 각각이 하나의 visual state다.
+- **micromanaging**: 조각 하나하나의 표시 여부와 활성 여부를 개발자가 일일이 챙기는 것. 이 단어가 부정적으로 쓰인 이유는, 챙길 조각이 늘어날수록 빠뜨린 하나가 곧 버그가 되기 때문이다.
+
+```
+명령형                              선언형 (React)
+──────────────────────             ──────────────────────
+show(spinner)                      {isLoading && <Spinner />}
+hide(errorMessage)                 {error && <Error msg={error} />}
+disable(button)                    <button disabled={isLoading}>
+  ↑ 화면을 바꾸는 절차를 나열         ↑ 지금 상태에서의 화면 모습을 진술
+```
+
+```
+visual state를 나열하고 그 사이를 오가는 그림
+
+  빈 상태 ──입력──▶ 입력 중 ──제출──▶ 제출 중 ──성공──▶ 성공
+                     ▲                    │
+                     └──────실패──────────┘ (오류 문구 표시)
+
+  개발자가 적는 것: 각 칸의 화면 모습 + 어떤 입력에 어느 칸으로 가는지
+  React가 하는 것 : 칸이 바뀔 때 DOM을 어떻게 고칠지
 ```
 
 ---
 
 ## 종합
 
-이벤트 핸들러 안에 "무엇을 보여줄지"와 "언제 보여줄지"가 한 덩어리로 박혀 있는 것이 imperative 구조의 핵심 문제다. 폼 하나일 때는 이 덩어리가 한 곳에 있어서 파악이 쉽지만, 폼이 5개가 되면 덩어리 5개가 서로 영향을 주고받는다. 새 UI 요소를 추가할 때마다 "이 핸들러가 저 요소도 건드려야 하는가?"를 모든 핸들러에서 확인해야 한다. 변경 비용이 코드 크기에 비례해 선형이 아니라 지수적으로 늘어난다.
+선언형이라는 말은 개발자가 DOM 조작 절차에서 손을 뗀다는 뜻이다. `enable`·`disable`·`show`·`hide`를 직접 부르는 일이 없어지고, 대신 화면이 놓일 수 있는 상태를 나열한 뒤 "이 상태에서는 이런 화면"만 적는다. 화면을 어떤 순서로 고칠지는 React가 정한다.
+
+상태를 나열해두고 그 사이를 오간다는 구조는 디자이너의 작업 방식과 겹친다. 시안이 빈 화면·로딩 화면·성공 화면으로 나뉘어 오듯, 코드도 같은 단위로 쪼개진다. 그래서 시안과 코드가 같은 칸을 공유하게 되고, "이 상태 시안이 빠졌다"가 곧 "이 분기가 빠졌다"로 대응된다.
+
+이 분담이 뒤에 이어지는 이야기의 출발점이 된다. 절차를 React가 쥐고 있으므로 렌더를 미루거나 다시 실행하는 최적화가 가능해지고, 그 대가로 개발자는 렌더 중에 화면을 직접 건드리지 않기로 약속한다.
 
 ---
 
-# declarative 버전의 폼은 imperative 버전보다 코드 줄 수가 더 길다. 그럼에도 이 코드가 "less fragile"하다고 불리는 이유는 무엇이며, 새로운 visual state를 추가하거나 기존 state의 표시 방식을 바꿀 때 imperative와 어떻게 다른가?
-
-## 도입
-
-"less fragile"은 코드 줄 수가 적다는 뜻이 아니다. 변경을 가했을 때 기존 동작이 얼마나 안전하게 유지되는가의 척도다. React의 선언형(declarative) 접근은 UI 상태를 state로 표현하고 JSX가 그 state를 읽도록 분리해서, 한쪽 수정이 다른 쪽으로 번지지 않게 한다.
-
----
+# 명령형(imperative)으로 UI를 만든다는 것은 무엇을 하는 것인가?
 
 ## 본문
 
-> Although this code is longer than the original imperative example, it is much less fragile.
+> In imperative programming, the above corresponds directly to how you implement interaction.
+> You have to write the exact instructions to manipulate the UI depending on what just happened.
 
-"이 코드는 원래 명령형 예시보다 길지만, 훨씬 덜 깨지기 쉽다."
+"명령형 프로그래밍에서는 위 서술이 상호작용을 구현하는 방식에 그대로 대응한다. 방금 무슨 일이 일어났는지에 따라 UI를 조작하는 정확한 지시를 직접 작성해야 한다."
 
-- **fragile**: 변경을 가했을 때 쉽게 깨지는 성격. 한 곳 고쳤더니 엉뚱한 다른 곳에서 버그가 나거나, 새 기능 추가 시 기존 동작이 무너지는 코드.
-- **much less fragile**: 줄 수가 아니라 변경 충격에 버티는 정도가 핵심 지표. 초기 코드가 길어도 변경 비용이 선형에 가깝게 유지되는 게 "less fragile"의 실무 의미다.
+- **the above corresponds directly**: 말로 적은 시나리오가 곧 구현 코드의 모양이 된다는 뜻이다. "버튼을 비활성화한다"라는 문장이 `disable(button)` 한 줄로 그대로 옮겨진다.
+- **exact instructions**: 어림잡은 결과 진술이 아니라 하나도 빠뜨리면 안 되는 정확한 명령 목록. 켜는 명령을 적었으면 끄는 명령도 개발자가 직접 적어야 한다.
+- **depending on what just happened**: 지시가 사건(제출, 성공, 실패, 입력 변경)마다 따로 필요하다. 사건이 늘어나면 지시 목록도 함께 늘어난다.
 
-> Expressing all interactions as state changes lets you later introduce new visual states without breaking existing ones.
+이 방식의 실제 모습은 다음 질문에 실린 순수 DOM 구현 코드에서 볼 수 있다. 제출 순간에는 `disable(textarea)`로 입력창을 잠그고 `show(loadingMessage)`로 로딩 표시를 띄우고 `hide(errorMessage)`로 이전 오류를 지운다. 화면 조각마다 켜고 끄는 호출이 하나씩 손으로 적혀 있다는 것이 이 코드의 특징이다.
 
-"모든 상호작용을 state 변화로 표현하면 나중에 기존 state를 깨지 않고 새 visual state를 도입할 수 있다."
+> It's called imperative because you have to "command" each element, from the spinner to the button, telling the computer how to update the UI.
 
-- **Expressing all interactions as state changes**: 모든 상호작용을 DOM 조작이 아닌 `setState` 호출(state 전환)로만 표현. `disable(button)` 대신 `setStatus('submitting')`.
-- **introduce new visual states without breaking existing ones**: `status` enum에 값 추가 + 해당 분기 JSX만 추가하면 된다. 기존 state 관련 코드는 0줄 수정.
+"이것이 명령형이라 불리는 이유는 스피너부터 버튼까지 각 요소에게 하나하나 '명령'해야 하기 때문이다 — UI를 어떻게 갱신할지를 컴퓨터에게 일러주는 것이다."
 
-> It also lets you change what should be displayed in each state without changing the logic of the interaction itself.
-
-"또한 상호작용 로직 자체를 바꾸지 않고 각 state에서 무엇을 표시할지를 바꿀 수 있다."
-
-- **change what should be displayed**: JSX(렌더 결과)만 수정.
-- **without changing the logic of the interaction itself**: setter를 호출하는 이벤트 핸들러 로직은 그대로 둔다. 표시와 로직이 분리되어 있어 한쪽만 수정할 수 있다.
-
-```jsx
-// Declarative: 이벤트 핸들러는 state만 바꾼다
-async function handleSubmit(e) {
-  e.preventDefault();
-  setStatus('submitting');   // ← "무엇을 할지"가 아니라 "어떤 state인지"만 선언
-  try {
-    await submitForm(answer);
-    setStatus('success');
-  } catch (err) {
-    setStatus('typing');
-    setError(err);
-  }
-}
-
-// JSX는 state를 읽어 표시를 결정한다
-<textarea disabled={status === 'submitting'} />
-<button disabled={answer.length === 0 || status === 'submitting'}>
-{error !== null && <p>{error.message}</p>}
-```
-
-새 상태 `'verifying'`를 추가할 때 declarative와 imperative의 차이:
+- **command**: 명령형(imperative)이라는 이름의 유래. 영어 문법에서 imperative는 명령문을 가리키는 말이고, `disable(button)`·`show(spinner)`처럼 동사로 시작하는 호출이 정확히 명령문의 모양이다.
+- **each element, from the spinner to the button**: 명령의 대상이 화면 전체가 아니라 개별 요소라는 점. 요소가 여섯 개면 챙길 명령도 여섯 갈래로 갈라진다.
+- **how to update the UI**: 컴퓨터에게 건네는 것이 결과가 아니라 방법이라는 점이 선언형과 갈리는 지점이다. 선언형이 "이 상태의 화면은 이렇다"를 넘긴다면, 명령형은 "이 요소를 이렇게 바꿔라"를 넘긴다.
 
 ```
-imperative 변경 포인트:
-  handleFormSubmit 내부 명령 순서 재계산
-  HTML에 verifyingMessage 요소 추가
-  show(verifyingMessage) 추가
-  finally에 hide(verifyingMessage) 추가
-  handleTextareaChange에서도 영향 여부 확인
-  → 수정 포인트 7개 이상, 코드 곳곳에 흩어짐
+같은 시나리오, 두 가지 전달 방식
 
-declarative 변경 포인트:
-  status enum에 'verifying' 추가
-  JSX에 조건부 한 줄 추가: {status === 'verifying' && <VerifyingUI />}
-  handleSubmit에 setStatus('verifying') 한 줄 추가
-  → 수정 포인트 3개, 기존 다른 state 로직은 건드리지 않음
+명령형: 요소마다 방법을 지시
+  제출됨 → disable(textarea) → disable(button) → show(loadingMessage) → hide(errorMessage)
+  성공됨 → show(successMessage) → hide(form) → hide(loadingMessage) → enable(...)
+           ↑ 켠 것을 끄는 명령까지 개발자가 짝을 맞춰 적어야 함
+
+선언형: 상태를 지정하고 결과를 진술
+  제출됨 → status = 'submitting'
+  성공됨 → status = 'success'
+           ↑ 각 status에서의 화면 모습은 따로 한 번만 적어둠
 ```
 
 ---
 
 ## 종합
 
-imperative 구조는 이벤트 핸들러 안에 "뭘 보여줄지"와 "언제 보여줄지"가 한 덩어리다. declarative 구조는 두 레이어가 분리된다 — 핸들러는 `setStatus()`만, JSX는 `{status === '...' && ...}`만 담당한다. 이 분리가 "change isolation"을 만든다. 초기 코드가 길어져도 변경할 때마다 수정 범위가 예측 가능하고, 기존 동작을 건드리지 않고 새 상태를 추가할 수 있다. React 자체가 이 declarative 모델 위에 세워진 라이브러리다 — `useState`가 있는 이유가 바로 "모든 상호작용을 state 변화로 표현하라"는 원칙을 강제하기 위해서다.
+명령형으로 UI를 만든다는 것은, 말로 적은 동작 시나리오를 요소별 호출 목록으로 옮겨 적는 일이다. "제출하면 버튼이 잠긴다"가 `disable(button)`이 되고, "성공하면 폼이 사라진다"가 `hide(form)`이 된다. 시나리오와 코드가 한 줄씩 대응하기 때문에 처음 읽기에는 오히려 직관적이다.
+
+문제는 명령의 짝을 개발자가 전부 기억해야 한다는 데 있다. 켠 것은 끄고, 감춘 것은 다시 보이고, 새 사건이 생기면 기존 사건들의 명령 목록까지 다시 훑어야 한다. 이게 없으면 어떻게 되는지는 눈에 잘 보인다 — 성공 경로에서 `hide(loadingMessage)`를 빠뜨리면 스피너가 화면에 영원히 남는다.
+
+이름이 "명령형"인 이유도 여기 있다. 컴퓨터에게 넘기는 것이 도달하고 싶은 결과가 아니라 거기까지 가는 방법이고, 그 방법을 스피너부터 버튼까지 요소 하나하나에 대고 말해야 하기 때문이다.

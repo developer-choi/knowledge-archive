@@ -1,8 +1,8 @@
-# [UNVERIFIED] '상태관리 어떻게 하세요?'
+# [UNVERIFIED] 상태관리 어떻게 하세요?
 
 ## 도입
 
-"상태관리를 어떻게 하세요?"라는 질문은 단계적으로 접근할 수 있다. 상태를 추가하기 전에 먼저 필요 없는 state를 제거하고, 그 다음 범위(로컬 vs 전역)와 특성(변경 빈도, 서버 vs 클라이언트)에 따라 도구를 선택한다.
+"상태관리를 어떻게 하세요?"라는 질문은 단계적으로 접근할 수 있다. 상태를 추가하기 전에 먼저 필요 없는 state를 제거하고, 그 다음 범위(로컬 vs 전역)와 특성(트리 위치별 값 차이, 서버 vs 클라이언트)에 따라 도구를 선택한다.
 
 ---
 
@@ -19,9 +19,9 @@ step 1: 불필요한 state 제거
 step 2: 로컬 상태 → useState
   → 한 컴포넌트 안에서만 쓰는 값
 
-step 3: 전역 상태 → 변경 빈도로 갈라치기
-  → 거의 안 바뀜 (테마/언어/로그인 유저): Context
-  → 자주 바뀜 (장바구니/필터/UI 상태): 외부 store (Zustand, Jotai 등)
+step 3: 전역 상태 → Context는 통로, store는 보관소 (대체재가 아님)
+  → 서브트리마다 값이 달라야 함: Context (중첩 provider 국소 override)
+  → 리렌더 번짐·보일러플레이트가 걸림: 외부 store (Zustand, Jotai 등)
 
 step 4: 특화 상태는 별도 분리
   → 서버 상태 (fetch 결과, 캐시, loading/error): React Query / TanStack Query
@@ -32,15 +32,17 @@ step 4: 특화 상태는 별도 분리
 
 ## 종합
 
-상태관리의 핵심은 "이 값이 정말 state여야 하는가?"를 먼저 물은 뒤, 범위와 특성에 맞는 도구를 선택하는 것이다. Context는 거의 안 바뀌는 전역 값에, 외부 store는 자주 바뀌는 값에, React Query는 서버 상태의 캐싱·동기화를 전담한다. 모든 것을 하나의 도구로 해결하려 하지 말고 각 상태의 특성에 맞는 도구를 고르는 것이 실무 관점의 답이다.
+상태관리의 핵심은 "이 값이 정말 state여야 하는가?"를 먼저 물은 뒤, 범위와 특성에 맞는 도구를 선택하는 것이다. Context는 값을 나르는 통로라 서브트리마다 다른 값을 내려보내야 할 때 대체 수단이 없고, 외부 store는 구독 단위를 좁혀 리렌더를 줄이며, React Query는 서버 상태의 캐싱·동기화를 전담한다. 모든 것을 하나의 도구로 해결하려 하지 말고 각 상태의 특성에 맞는 도구를 고르는 것이 실무 관점의 답이다.
 
 ---
 
-# 그럼 불필요한 상태가 어떤 게 있나요?
+# 불필요한 state가 뭐가 있을까요?
 
 ## 도입
 
-state를 "화면과 관련 있고 바뀔 수 있는 값"으로 정의하면 state 변수가 늘어나기 쉽다. React 공식문서는 state 변수 자체를 "움직이는 부품(moving piece)"으로 보고, 개수를 최소화하는 것이 설계 원칙의 핵심이라고 말한다.
+state를 "화면과 관련 있고 바뀔 수 있는 값"으로 정의하면 state 변수가 금방 늘어난다. 공식 문서는 state 변수 하나하나를 "움직이는 부품(moving piece)"으로 보고, 부품 수를 줄이는 것을 설계의 출발점으로 삼는다.
+
+걷어낼 대상은 네 종류다 — 항상 같이 바뀌는 값, 불가능한 조합을 만들어내는 값, 다른 값에서 계산할 수 있는 값, props를 복사해둔 값. 넷 다 뿌리가 같다. 같은 정보가 두 군데에 적혀 있으면 어긋날 수 있고, 어긋나는 순간이 버그다.
 
 ---
 
@@ -55,23 +57,9 @@ state를 "화면과 관련 있고 바뀔 수 있는 값"으로 정의하면 stat
 - **as few moving pieces as possible**: state가 N개면 동기화 관리 대상이 N개다. 복잡도가 커질수록 버그 표면이 늘어난다.
 - **More complexity leads to more bugs**: state 2개는 4가지 조합, 3개는 8가지 조합이 가능하다. 대부분 유효하지 않은 조합을 방어하는 코드가 필요하게 된다.
 
----
+### 항상 같이 바뀌는 두 값
 
-## 종합
-
-"필요한 state인가?"를 판단하는 빠른 체크리스트: 렌더 중 다른 state나 props에서 계산할 수 있으면 state가 아니다. 항상 같이 바뀌는 두 state 변수는 하나로 합칠 수 있다. 두 boolean state 조합 중 유효하지 않은 경우가 있으면 enum(union 타입) 하나로 통합한다. 중첩이 깊어 업데이트하기 불편하면 flat 구조로 정규화한다.
-
----
-
-# Group related state 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
-
-## 도입
-
-마우스 좌표처럼 항상 함께 바뀌는 값을 `x`, `y` 두 state 변수로 나눠 관리하면, 이벤트 핸들러에서 둘 다 갱신해야 한다는 것을 항상 기억해야 한다. 하나를 빠뜨리는 순간 버그가 된다.
-
----
-
-## 본문
+마우스 좌표처럼 언제나 함께 갱신되는 값을 `x`, `y` 두 변수로 나눠두면, 이벤트 핸들러에서 둘 다 갱신해야 한다는 것을 사람이 계속 기억해야 한다. 하나를 빠뜨리는 순간 버그가 된다.
 
 > But if some two state variables always change together, it might be a good idea to unify them into a single state variable.
 > Then you won't forget to always keep them in sync.
@@ -86,30 +74,16 @@ state를 "화면과 관련 있고 바뀔 수 있는 값"으로 정의하면 stat
 // Before (둘 다 갱신해야 한다는 것을 기억해야 함)
 const [x, setX] = useState(0);
 const [y, setY] = useState(0);
-// 핸들러에서 setX, setY 둘 다 호출
 
 // After (하나만 갱신)
 const [position, setPosition] = useState({ x: 0, y: 0 });
-// 핸들러에서 setPosition({ x: e.clientX, y: e.clientY })
 ```
 
----
+합치고 나면 `setPosition` 하나만 호출하면 되므로 `setY`를 빠뜨릴 가능성 자체가 사라진다. 반대로 관련 없는 값을 억지로 묶으면 부분 갱신이 번거로워지니, 기준은 언제나 "항상 같이 바뀌는가"다.
 
-## 종합
+### 불가능한 조합을 만들어내는 값
 
-항상 함께 바뀌는 state는 하나로 묶으면 동기화 실수를 구조적으로 막을 수 있다. `setPosition` 하나만 호출하면 x와 y가 항상 함께 갱신된다 — `setY`를 빠뜨릴 가능성 자체가 없어진다. 단, 관련 없는 값을 억지로 묶으면 반대로 부분 갱신이 어려워지니 "항상 같이 바뀌는가"를 기준으로 판단한다.
-
----
-
-# Avoid contradictions 원칙을 안 지키면 어떤 문제가 생기며 어떻게 해결하는가?
-
-## 도입
-
-`isTyping`과 `isSubmitting` 두 boolean state를 쓰면 `isTyping=true, isSubmitting=true` 조합이 메모리에서 표현 가능하다. 하지만 "타이핑 중이면서 제출 중"이라는 UI 상태는 실제로 없다. 이 "불가능한 state"가 표현 가능해지는 순간 버그가 생길 여지가 생긴다.
-
----
-
-## 본문
+`isTyping`과 `isSubmitting` 두 boolean을 두면 `(true, true)` 조합이 메모리에서 표현 가능하다. 하지만 "타이핑 중이면서 제출 중"인 UI는 실제로 없다.
 
 > Does this state cause a paradox?
 > For example, `isTyping` and `isSubmitting` can't both be `true`.
@@ -117,7 +91,7 @@ const [position, setPosition] = useState({ x: 0, y: 0 });
 
 "이 state가 역설을 만드는가? 예를 들어 `isTyping`과 `isSubmitting`은 둘 다 `true`일 수 없다. 역설은 보통 state가 충분히 제약되지 않았다는 것을 의미한다."
 
-- **paradox**: 논리적으로 동시에 성립할 수 없는 state 조합이 메모리에서 표현 가능한 상황.
+- **paradox**: 논리적으로 동시에 성립할 수 없는 조합이 메모리에서 표현 가능한 상황.
 - **not constrained enough**: state 타입이 유효하지 않은 조합을 허용할 만큼 느슨하다.
 
 > There are four possible combinations of two booleans, but only three correspond to valid states.
@@ -127,7 +101,7 @@ const [position, setPosition] = useState({ x: 0, y: 0 });
 
 - **four possible combinations**: `(false,false)`, `(true,false)`, `(false,true)`, `(true,true)` — 4가지.
 - **impossible state**: `(true,true)` — 현실 UI에는 없지만 메모리에서는 표현 가능하다.
-- **combine these into a `status`**: union 타입 enum으로 바꾸면 유효한 값만 취할 수 있다.
+- **combine these into a `status`**: union 타입으로 바꾸면 유효한 값만 취할 수 있다.
 
 ```tsx
 // Before (불가능한 조합이 가능함)
@@ -139,41 +113,46 @@ type Status = 'typing' | 'submitting' | 'success';
 const [status, setStatus] = useState<Status>('typing');
 ```
 
----
+핵심은 사람이 지켜야 하던 규칙이 표현 불가능성으로 바뀐다는 점이다. `status`를 `'submitting'`으로 두면서 동시에 `'typing'`이 되게 하는 코드는 애초에 쓸 수가 없다.
 
-## 종합
+### 다른 값에서 계산할 수 있는 값
 
-두 boolean을 쓰면 4가지 조합 중 3가지만 유효하고 1가지는 불가능한 조합이다. enum(`status`)으로 바꾸면 타입 시스템이 유효하지 않은 조합을 컴파일 시점에 차단한다. TypeScript의 유니언 타입과 조합하면 특히 강력하다 — `status`를 `'submitting'`으로 설정하면서 동시에 `'typing'`이 되는 코드 자체를 작성할 수 없게 된다.
-
----
-
-# state에 두지 말아야 할 값들은 어떤 종류가 있으며, 각각 무엇이 문제고 어떻게 해결하는가?
-
-## 도입
-
-state 변수를 추가할 때마다 "이미 있는 state나 props에서 계산할 수 있지 않나?"를 먼저 물어야 한다. 파생 가능한 값을 별도 state로 두면 두 값을 항상 동기화해야 하고, 동기화 실수가 버그가 된다.
-
----
-
-## 본문
+state를 추가할 때마다 "이미 있는 값에서 계산할 수 있지 않나?"를 먼저 물어야 한다. 계산 가능한 값을 따로 저장하면 원본과 사본을 항상 맞춰줘야 한다.
 
 > Is the same information available in another state variable already?
-> Another paradox: `isEmpty` and `isTyping` can't be `true` at the same time.
 > By making them separate state variables, you risk them going out of sync and causing bugs.
 > Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
 
-"`isEmpty`와 `isTyping`은 동시에 `true`일 수 없다. 별도 state 변수로 만들면 동기화가 어긋날 위험이 있다. `isEmpty`를 제거하고 `answer.length === 0`으로 체크하면 된다."
+"같은 정보가 이미 다른 state 변수에 있는가? 별도 state 변수로 만들면 동기화가 어긋날 위험이 있다. `isEmpty`를 제거하고 `answer.length === 0`으로 체크하면 된다."
 
 - **same information available in another state variable**: 이미 다른 state에서 도출 가능한 정보.
 - **going out of sync**: `setAnswer`만 호출하고 `setIsEmpty`를 빠뜨리면 둘이 엇갈린다.
-- **check `answer.length === 0`**: source of truth는 `answer` 하나. 렌더마다 계산하면 동기화할 필요 자체가 없다.
+- **check `answer.length === 0`**: 정답은 `answer` 하나. 렌더마다 계산하면 동기화할 필요 자체가 없다.
 
-props를 state에 미러링하는 흔한 실수:
+같은 물음을 뒤집은 형태도 있다.
+
+> Can you get the same information from the inverse of another state variable?
+> `isError` is not needed because you can check `error !== null` instead.
+
+"다른 state 변수를 뒤집어서 같은 정보를 얻을 수 있는가? `isError`는 필요 없다 — 대신 `error !== null`을 확인하면 되기 때문이다."
+
+- **inverse**: 뒤집어 본 값. "`error`에 값이 들어 있는가"를 뒤집으면 곧 "오류가 없는 상태인가"가 되므로, 오류 여부라는 정보가 `error` 하나에 이미 다 들어 있다.
+- **check `error !== null` instead**: 저장 대신 계산. 렌더할 때마다 `error`에서 읽어내므로 두 값이 어긋날 여지가 없다.
+
+이게 없으면 어떻게 되는지는 조합을 세어 보면 보인다. `error`에 메시지가 들어 있는데 `isError`는 `false`인 조합이 만들어질 수 있고, 그러면 오류 메시지는 떠 있는데 화면은 오류 상태가 아닌 모습이 된다. `setError`만 부르고 `setIsError`를 빠뜨린 한 줄이 곧 그 화면이다.
+
+### props를 복사해둔 값
+
+앞의 셋이 state끼리의 중복이라면, 이건 props와 state 사이의 중복이다.
 
 > The problem is that if the parent component passes a different value of messageColor later (for example, 'red' instead of 'blue'), the color state variable would not be updated!
 > The state is only initialized during the first render.
+> This is why "mirroring" some prop in a state variable can lead to confusion.
 
-"부모가 나중에 다른 `messageColor` 값을 넘겨도 `color` state는 업데이트되지 않는다. state는 첫 렌더에서만 초기화된다."
+"부모가 나중에 다른 `messageColor` 값을 넘겨도 `color` state는 업데이트되지 않는다. state는 첫 렌더에서만 초기화된다. 그래서 prop을 state 변수에 '미러링'하면 혼란을 부를 수 있다."
+
+- **only initialized during the first render**: 초기값 인자는 첫 렌더에서 한 번만 쓰인다. 이후 렌더에서 다른 값을 넣어도 무시된다.
+- **mirroring**: props를 state에 그대로 복사해두는 것. 원본은 부모에 있는데 사본이 자식에 따로 생기는 셈이다.
 
 ```jsx
 // 잘못된 패턴 — props를 state에 미러링
@@ -188,200 +167,212 @@ function Message({ messageColor }) {
 }
 ```
 
-props 미러링이 유효한 경우는 단 하나 — 초기값 이후의 변경을 무시하고 싶을 때:
+#### 미러링이 정당한 유일한 경우
+
+> "Mirroring" props into state only makes sense when you want to ignore all updates for a specific prop.
+> By convention, start the prop name with initial or default to clarify that its new values are ignored.
+
+"props를 state로 미러링하는 것은 특정 prop의 모든 업데이트를 무시하고 싶을 때만 말이 된다. 관례상 새 값이 무시된다는 것을 분명히 하려고 prop 이름을 initial이나 default로 시작한다."
 
 ```jsx
 function Message({ initialColor }) {
   const [color, setColor] = useState(initialColor);
-  // initialColor 변경은 의도적으로 무시. 컨벤션상 이름에 initial/default를 붙인다.
+  // initialColor 변경은 의도적으로 무시
 }
 ```
 
+즉 "업데이트가 반영되지 않는다"는 성질이 버그가 아니라 원하는 동작일 때만 쓰고, 그 의도를 이름으로 알린다.
+
 ---
 
 ## 종합
 
-state에 두지 말아야 할 값의 유형은 두 가지다. 첫째, 다른 state나 props에서 계산할 수 있는 파생 값 — 렌더마다 계산하면 되므로 별도 state 불필요. 둘째, props를 그대로 복사한 값 — 부모가 props를 바꿔도 state는 첫 렌더 값 그대로 고정된다. source of truth를 한 곳으로 줄이는 것이 핵심이다.
+불필요한 state를 걷어낼 때 던지는 물음은 넷이다.
+
+```
+물음 1  항상 같이 바뀌는가?                x, y                → position 하나로
+물음 2  이 state가 모순을 만드는가?          isTyping+isSubmitting → status 하나로
+물음 3  같은 정보가 다른 값에 이미 있는가?    isEmpty / isError    → answer.length === 0 / error !== null
+물음 4  props를 그대로 복사했는가?          color = messageColor → prop 직접 사용
+```
+
+물음 1은 흩어진 것을 묶는 쪽이고, 2~4는 중복을 지우는 쪽이다. 방향은 반대지만 목적은 같다 — 하나의 정보에 정답이 놓인 자리를 하나로 만드는 것. 정답이 둘이 되는 순간 그 둘을 맞춰주는 동기화 코드가 필요해지고, 그 코드를 한 번 빠뜨린 것이 곧 버그다.
+
+판단이 어려울 때 기준은 "저장할 것인가 계산할 것인가"다. 렌더 도중 다른 값에서 만들어낼 수 있으면 state가 아니라 그냥 변수다. 출처 예제의 폼은 이 정리를 거쳐 state 변수가 7개에서 `answer`·`error`·`status` 3개로 줄어든다.
 
 ---
 
-# 깊이 중첩된 state를 업데이트할 때 무엇이 문제고 어떻게 해결하는가?
+# 두 컴포넌트의 state가 항상 함께 바뀌어야 한다면, 그 state는 어디에 두는가?
+
+> Sometimes, you want the state of two components to always change together.
+> To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props.
+
+"때로는 두 컴포넌트의 state가 항상 함께 바뀌기를 원한다. 그러려면 두 컴포넌트 모두에서 state를 제거하고, 가장 가까운 공통 부모로 옮긴 뒤, props로 다시 내려보낸다."
+
+- **always change together**: 한쪽이 열리면 다른 쪽은 반드시 닫혀야 하는 것처럼, 두 값이 언제나 한 번에 같이 정해지는 관계.
+- **remove state from both of them**: 옮기기 전에 먼저 지운다. 자식에 state를 남겨둔 채 부모에도 같은 정보를 만들면 정답이 두 군데가 되어 어긋난다.
+- **closest common parent**: 두 자식을 모두 자손으로 갖는 조상 중 가장 아래에 있는 것. 더 위로 올려도 동작은 하지만, 값을 쓰지도 않는 중간 컴포넌트들이 props를 통과시키는 prop drilling이 그만큼 길어진다.
+- **lifting state up**: 값을 위로 옮기는 게 아니라 **소유권**을 위로 옮기는 것이다. 자식은 그 값을 여전히 쓰지만, 이제 props로 빌려 쓴다.
+
+---
+
+# 전역 상태가 필요할 때, 외부 store 대신 Context를 써야 하는 경우는 언제인가?
 
 ## 도입
 
-React state는 불변 업데이트를 원칙으로 한다. 중첩된 객체를 업데이트하려면 변경 지점부터 root까지 부모 체인 전체를 복사해야 한다. 트리가 깊을수록 spread 연산이 층마다 쌓이고 코드가 폭발적으로 길어진다.
+"전역 상태니까 store, 지역 상태니까 useState"로 나누면 Context가 갈 자리가 없어 보인다. 그런데 store를 이미 쓰고 있는 프로젝트에서도 Context를 걷어낼 수 없는 자리가 남는다. 그 자리는 성능이나 규모가 아니라, 값이 트리의 어느 위치에서 읽히느냐에 따라 달라져야 하는가로 갈린다.
 
 ---
 
 ## 본문
 
-> Updating nested state involves making copies of objects all the way up from the part that changed.
-> If the state is too nested to update easily, consider making it "flat".
+### 둘은 애초에 같은 종류의 물건이 아니다
 
-"중첩된 state를 업데이트하면 변경 지점부터 위쪽까지 모든 객체의 복사본을 만들어야 한다. state가 너무 중첩되어 업데이트하기 어려우면 'flat'하게 만드는 것을 고려하라."
+비교를 시작하기 전에 짚을 전제가 있다. Redux 공식 FAQ가 둘의 차이를 이렇게 정리한다.
 
-- **all the way up from the part that changed**: 변경 노드 → 부모 → 조부모 → root까지 전체 복사. 불변 업데이트의 대가.
+> Context, on the other hand, does not hold any state. It is only a conduit for the data. To express changes in data you need to rely on the state of a parent component.
 
-> Instead of a tree-like structure where each place has an array of its child places, you can have each place hold an array of its child place IDs.
-> Then store a mapping from each place ID to the corresponding place.
-> Now that the state is "flat" (also known as "normalized"), updating nested items becomes easier.
+반면 Context는 어떤 상태도 보관하지 않는다. 데이터가 지나가는 통로일 뿐이다. 데이터의 변화를 표현하려면 부모 컴포넌트의 state에 의존해야 한다.
 
-"각 장소가 자식 장소 배열을 직접 포함하는 트리 구조 대신, 각 장소가 자식 장소 ID 배열을 갖게 한다. 그리고 각 ID에서 대응하는 장소로의 매핑을 저장한다. 이제 state가 'flat'(정규화라고도 함)해지면 중첩된 항목 업데이트가 쉬워진다."
+- **conduit**: 전선이나 물이 지나가는 관. 안에 무엇을 담아두는 그릇이 아니라 지나가게 해주는 길이다
+- **does not hold any state**: 값을 들고 있지 않는다. 그래서 Context 자체는 "상태 관리 도구"가 아니다
 
-- **all the way up from the part that changed**: `O(depth)` 복사 비용 → flat하면 `O(1)` 수준으로 줄어든다.
-- **child place IDs**: 자식 객체를 직접 임베드하지 않고 ID 배열로 보관. lookup 테이블은 별도.
-- **flat / normalized**: 트리 구조 대신 ID 참조 + ID→객체 lookup 테이블. DB 정규화와 동일한 사고.
+같은 FAQ는 Redux도 내부적으로 Context를 쓴다고 밝힌다. 즉 둘은 경쟁 관계가 아니라 층이 다르다. 실제 대립은 이렇게 놓아야 정확하다.
 
-```js
-// Before (깊은 중첩)
-const places = {
-  id: 'root',
-  title: 'Root',
-  childPlaces: [
-    { id: 'a', title: 'A', childPlaces: [ ... ] },
-    ...
-  ]
-};
-
-// After (flat)
-const placeById = {
-  root: { id: 'root', title: 'Root', childIds: ['a', 'b'] },
-  a:    { id: 'a',    title: 'A',    childIds: ['a1', 'a2'] },
-  b:    { id: 'b',    title: 'B',    childIds: [] },
-};
-// 어떤 항목을 업데이트해도 placeById[id]만 교체하면 됨
 ```
+"Context를 쓸까 store를 쓸까"  (X)  ← 층이 달라서 비교가 성립하지 않음
+
+"상태를 React 안에 둘까 밖에 둘까"  (O)
+  React state + Context   → 값은 React가 들고, Context가 아래로 나름
+  React 밖의 store        → 값은 store가 들고, 컴포넌트가 구독함
+                            (store 인스턴스를 꽂아주는 데 Context를 쓰기도 함)
+```
+
+### 대체 수단이 없는 자리 — 서브트리마다 다른 값
+
+React 공식 문서가 Context의 용처를 열거하면서 든 예다.
+
+> Some apps also let you operate multiple accounts at the same time (e.g. to leave a comment as a different user).
+
+어떤 앱은 여러 계정을 동시에 다루게 해준다. 예를 들면 다른 사용자로 댓글을 남기는 경우다.
+
+> In those cases, it can be convenient to wrap a part of the UI into a nested provider with a different current account value.
+
+그런 경우에는 UI의 일부를 다른 현재 계정 값을 가진 중첩 provider로 감싸는 것이 편리하다.
+
+- **nested provider**: 이미 위에 provider가 있는데 그 안쪽에 또 하나를 두는 것
+- **a part of the UI**: 화면 전체가 아니라 일부. 이 "일부만 다르게"가 핵심이다
+
+```
+<AccountContext value={나}>
+  <Timeline />          ← 여기서 읽으면 "나"
+  <AccountContext value={부계정}>
+    <CommentBox />      ← 여기서 읽으면 "부계정"
+  </AccountContext>
+</AccountContext>
+```
+
+같은 화면에 두 값이 동시에 살아 있고, 어느 값을 읽을지는 컴포넌트가 트리의 어디에 놓였는지가 정한다. store는 모듈 하나에 값 하나라 이 그림을 그대로 만들 수 없다. 인스턴스를 두 개 만드는 방법이 남는데, 그러면 "이 컴포넌트는 어느 인스턴스를 봐야 하는가"를 알려줄 수단이 필요하고 결국 Context로 돌아온다.
+
+### store 진영도 같은 자리를 인정한다
+
+이건 React 쪽 주장만이 아니다. Zustand 문서가 자기 store를 설명하면서 같은 말을 한다.
+
+> The store created with `create` doesn't require context providers.
+
+`create`로 만든 store는 context provider를 필요로 하지 않는다.
+
+> In some cases, you may want to use contexts for dependency injection or if you want to initialize your store with props from a component.
+
+어떤 경우에는 의존성 주입을 위해, 또는 컴포넌트의 props로 store를 초기화하고 싶을 때 context를 쓰고 싶을 수 있다.
+
+- **dependency injection**: 쓸 물건을 안에서 직접 만들지 않고 밖에서 넣어주는 방식. 여기서는 "어느 store 인스턴스를 쓸지"를 밖에서 꽂아주는 것
+- **initialize your store with props**: store의 초기값을 컴포넌트가 받은 props로 정하는 것. 화면마다 다른 초기값이 필요하면 모듈 전역 store로는 안 된다
+
+양쪽 문서가 각자의 언어로 같은 경계를 그린다. "트리 위치에 따라 달라져야 하는 값"과 "인스턴스를 골라 꽂는 일"은 Context의 몫이다.
 
 ---
 
 ## 종합
 
-중첩 state 업데이트는 트리 깊이에 비례해 복사 비용이 선형으로 늘어난다. flat 구조로 정규화하면 어떤 노드를 업데이트해도 그 노드 하나만 교체하면 된다 — 부모 체인 복사가 필요 없다. 이는 DB의 외래키 참조와 정확히 같은 원리이며, React의 불변 업데이트와 결합하면 특히 효과가 크다.
+Context와 store를 성능으로 비교하면 답이 안 나온다. 층이 다르기 때문이다. Context는 값을 나르는 통로이고 store는 값을 보관하는 그릇이라, 실제 선택지는 "React state + Context"와 "React 밖의 store" 둘이다.
+
+그중 Context를 써야만 하는 자리는 한 가지 성질로 요약된다. 같은 값이 트리 위치에 따라 달라져야 할 때다. 다중 계정, 테마를 일부 영역만 뒤집기, 같은 컴포넌트를 서로 다른 초기값으로 여러 벌 띄우기가 모두 여기 해당한다. store는 모듈 하나에 값 하나라서 이 요구를 직접 만족시키지 못하고, 인스턴스를 나눠도 그 인스턴스를 꽂아주는 일에 다시 Context가 필요하다.
+
+그래서 이 항목은 취향 문제가 아니다. 위 성질이 있으면 Context가 사실상 유일한 수단이고, 없으면 이 근거만으로는 Context를 골라야 할 이유가 되지 않는다.
 
 ---
 
-# Context API는 어떤 문제를 해결하며 언제 사용하는가? prop drilling과의 관계는?
+# 반대로 Context 대신 외부 store(Zustand/Jotai/Redux)를 쓰는 것이 이득인 경우는 언제인가?
 
 ## 도입
 
-React에서 데이터를 아래로 내려주는 기본 방법은 props다. 하지만 컴포넌트 계층이 깊어지면 데이터를 쓰지도 않는 중간 컴포넌트들을 통과시켜야 하는 상황이 생긴다. 이것이 prop drilling이고, Context는 이 문제의 해결책이다.
+앞 항목이 "store로는 안 되는 자리"를 봤다면 이번은 반대 방향이다. Context로도 돌아가긴 하는데 store로 옮기면 나아지는 자리가 있다. 이득은 두 갈래로 갈리는데, 하나는 리렌더 비용이고 하나는 코드 분량이다.
 
 ---
 
 ## 본문
 
-> But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop.
+### store 쪽이 내세우는 세 가지
 
-"하지만 트리 깊숙이 props를 내려야 하거나, 많은 컴포넌트가 같은 prop을 필요로 하면 props 전달이 장황하고 불편해진다."
+Zustand 문서가 Context 대비 이점을 직접 열거한다.
 
-- **verbose**: 장황한. 중간 컴포넌트들이 직접 쓰지 않는 prop을 받아서 아래로 넘기는 코드가 계속 반복된다.
+> Why zustand over context?
+> - Less boilerplate
+> - Renders components only on changes
+> - Centralized, action-based state management
 
-> The nearest common ancestor could be far removed from the components that need data, and lifting state up that high can lead to a situation called "prop drilling".
+왜 context 대신 zustand인가?
+- 보일러플레이트가 적다
+- 바뀔 때만 컴포넌트를 렌더한다
+- 액션 기반으로 한곳에 모인 상태 관리
 
-"데이터가 필요한 컴포넌트들의 가장 가까운 공통 조상이 데이터를 쓰는 컴포넌트들과 멀리 떨어져 있을 수 있고, state를 그렇게 높이 올리면 'prop drilling'이라는 상황이 생긴다."
+- **boilerplate**: 기능과 상관없이 매번 똑같이 되풀이해 써야 하는 코드. 여기서는 context 객체 만들기, provider로 감싸기, 값 조립하기가 그것이다
+- **only on changes**: 바뀔 때만. 바꿔 말하면 Context는 안 바뀐 것에도 렌더가 번진다는 뜻이다
+- **action-based**: 값을 아무 데서나 직접 고치는 대신, 정해진 동작을 호출해 바꾸는 방식
 
-- **nearest common ancestor**: 데이터를 필요로 하는 컴포넌트들이 공유하는 가장 가까운 부모. state를 이 레벨까지 올려야 한다.
-- **prop drilling**: 데이터를 쓰지 않는 중간 컴포넌트들이 props를 단순 통과시키며 내려가는 상황.
+### 리렌더 축은 Context 쪽 성질에서 나온다
 
-> Context lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
+"바뀔 때만 렌더한다"가 이점이 되는 이유는 Context가 그 반대이기 때문이다. 그 메커니즘은 별도 질문에서 다룬다.
 
-"Context를 쓰면 부모 컴포넌트가 트리 아래 어떤 컴포넌트에도 — 아무리 깊어도 — props를 명시적으로 내려주지 않고 정보를 제공할 수 있다."
+- [context의 단점은 무엇인가? → `context-api.md`](context-api.md#context의-단점은-무엇인가)
 
-- **no matter how deep**: 계층이 아무리 깊어도 Context를 구독한 컴포넌트라면 바로 읽을 수 있다.
+요점만 옮기면, Context는 값을 통째로 비교하므로 객체를 담았을 때 그 안의 필드 하나만 바뀌어도 그 Context를 읽는 컴포넌트가 전부 다시 그려진다. 내가 안 쓰는 필드가 바뀌어도 마찬가지이고, `memo`로도 막히지 않는다. store는 여기서 구독 단위를 좁힌다. Zustand라면 `useStore(s => s.count)`처럼 필요한 조각만 지정하고, 그 조각이 그대로면 렌더를 건너뛴다.
+
+주의할 것은 이 이점이 규모를 타는 이점이라는 점이다. React 공식 문서는 같은 상황을 두고 작은 앱에서는 문제가 되지 않으며, 커지면 `useMemo`·`useCallback`으로 다듬는 최적화라고 설명한다. 즉 "Context를 쓰면 느려진다"가 아니라 "규모가 커지면 손이 더 간다"에 가깝다.
+
+### 보일러플레이트 축 — provider가 쌓이는 문제
+
+"보일러플레이트가 적다"는 한 줄만으로는 뭐가 문제인지 잡히지 않는다. Jotai 문서가 그 증상을 구체적으로 적어둔다.
+
+> Provider hell: It's likely that your root component has many context providers, which is technically okay, and sometimes desirable to provide context in different subtree.
+
+provider 지옥: 루트 컴포넌트가 많은 context provider를 갖게 되기 쉽다. 기술적으로는 괜찮고, 서로 다른 서브트리에 context를 제공하려면 오히려 바람직할 때도 있다.
+
+> Dynamic addition/deletion: Adding a new context at runtime is not very nice, because you need to add a new provider and its children will be re-mounted.
+
+동적 추가·삭제: 런타임에 새 context를 추가하는 것은 그리 좋지 않다. 새 provider를 추가해야 하고 그 자식들이 다시 마운트되기 때문이다.
+
+- **Provider hell**: provider가 겹겹이 쌓여 루트가 계단처럼 되는 상태를 가리키는 별명
+- **re-mounted**: 컴포넌트가 지워졌다가 다시 생기는 것. 그 안의 state가 초기화되므로 화면이 튄다
 
 ```
-prop drilling (Context 없음):
-App → Layout → Sidebar → Menu → MenuItem (useTheme 필요)
-       ↓props   ↓props    ↓props  ↓props  →  theme 사용
-
-Context 있음:
-App (ThemeProvider)
-  └─ Layout                           (theme prop 불필요)
-       └─ Sidebar                     (theme prop 불필요)
-            └─ Menu                   (theme prop 불필요)
-                 └─ MenuItem          useContext(ThemeContext) → theme 직접 읽음
+<ThemeProvider>
+  <AuthProvider>
+    <CartProvider>
+      <FilterProvider>
+        <App />          ← 전역 값이 늘 때마다 계단이 한 칸씩 깊어진다
 ```
+
+store를 쓰면 이 계단이 생기지 않는다. 값을 쓰는 컴포넌트가 직접 store를 부르므로 트리 어디에도 감싸는 층을 만들 필요가 없다. 대신 잃는 것이 있는데, 그게 앞 항목에서 본 "서브트리마다 다른 값"이다. 계단은 위치에 따라 값을 갈아 끼우는 능력의 대가이기도 하다.
 
 ---
 
 ## 종합
 
-Context는 prop drilling 문제의 해결책이지만, 자주 바뀌는 값에 쓰면 해당 Context를 구독하는 모든 컴포넌트가 리렌더된다는 점에 주의해야 한다. 테마, 언어, 로그인 사용자처럼 거의 바뀌지 않는 전역 값에 적합하고, 빠르게 바뀌는 값은 외부 store(Zustand, Jotai 등)를 고려하는 것이 낫다.
+store로 옮겨서 얻는 이득은 두 가지다. 구독 단위를 좁혀 안 쓰는 값의 변화에 렌더가 번지지 않게 하는 것, 그리고 provider 계단과 그에 딸린 되풀이 코드를 없애는 것이다.
 
----
-
-# [UNVERIFIED] 전역 상태에서 Context와 외부 store(Zustand/Jotai/Redux)는 어떤 기준으로 갈라쓰나요?
-
-## 도입
-
-전역 상태가 필요할 때 Context와 Zustand·Jotai·Redux 같은 외부 store 중 무엇을 선택할지 헷갈리기 쉽다. 둘 다 컴포넌트 트리 어디서든 값을 꺼내 쓸 수 있지만, 리렌더 특성과 구독 방식이 근본적으로 다르다.
-
----
-
-## 본문
-
-**핵심 기준: 값이 얼마나 자주 바뀌는가**
-
-Context는 Provider value가 바뀌는 순간 그 Context를 `useContext`한 모든 컴포넌트를 리렌더한다. selector가 없기 때문에 객체 안의 특정 필드 하나만 읽어도 객체 전체가 바뀌면 구독 컴포넌트 전부가 재렌더된다. 반면 외부 store는 selector 단위 구독을 지원한다. Zustand라면 `useStore(s => s.count)`처럼 원하는 슬라이스만 구독할 수 있고, 해당 슬라이스가 바뀌지 않으면 컴포넌트가 리렌더되지 않는다.
-
-**변경 빈도별 도구 선택**
-
-- Context가 적합한 경우: 거의 안 바뀌는 전역 값 — 테마(다크/라이트), 언어(locale), 로그인 사용자 정보. 리렌더가 자주 발생하지 않으므로 Context의 broadcast 특성이 문제가 되지 않는다. 의존성도 적고 별도 라이브러리 설치가 필요 없어 오버헤드가 낮다.
-- 외부 store가 적합한 경우: 자주 바뀌는 전역 값 — 장바구니, 검색 필터, UI 상태(열린 패널, 선택된 탭 등). Context를 쓰면 해당 값을 구독하지 않는 컴포넌트까지 리렌더 대상이 되어 성능 문제가 생길 수 있다.
-
-**비교 메커니즘 차이**
-
-Context는 `Object.is`로 value를 통으로 비교한다. 객체를 value로 쓸 경우 `{ count, setCount }` 같은 리터럴을 매 렌더마다 새로 만들면 내용이 같아도 "달라짐"으로 판정되어 불필요한 리렌더가 발생한다. 이를 막으려면 `useMemo`·`useCallback`으로 참조를 안정화해야 한다. 외부 store는 selector 반환값을 `Object.is`로 비교하므로, 구독한 슬라이스가 실제로 변경되었을 때만 리렌더가 발생한다.
-
-**실무 기준 요약**
-
-```
-거의 안 바뀜 (테마 / 언어 / 로그인 유저) → Context
-자주 바뀜   (장바구니 / 필터 / UI 상태)   → 외부 store (Zustand, Jotai 등)
-```
-
----
-
-## 종합
-
-Context와 외부 store의 분기 기준은 단 하나 — 변경 빈도다. Context는 의존성 없이 바로 쓸 수 있는 간결함이 장점이지만 selector가 없어 자주 바뀌는 값에 쓰면 리렌더가 광범위하게 퍼진다. 외부 store는 selector 단위 구독으로 불필요한 리렌더를 차단할 수 있어 자주 바뀌는 값에 적합하다. "이 값이 얼마나 자주 바뀌는가?"를 먼저 물은 뒤 도구를 고른다.
-
----
-
-# Context로 자주 바뀌는 값을 다루면 어떤 렌더링 이슈가 생기는가?
-
-## 도입
-
-Context는 편리하지만 렌더링 특성을 이해하지 않으면 예상치 못한 성능 문제가 생긴다. Provider value가 바뀌면 그 Context를 구독하는 모든 컴포넌트가 리렌더된다 — `memo`로도 막을 수 없다.
-
----
-
-## 본문
-
-> React automatically re-renders all the children that use a particular context starting from the provider that receives a different value.
-
-"React는 특정 context를 사용하는 모든 자식 컴포넌트를 Provider가 다른 값을 받는 순간부터 자동으로 리렌더한다."
-
-- **all the children that use a particular context**: 그 Provider 아래에서 해당 context를 `useContext`한 컴포넌트 전부. 일부 필드만 읽어도 전부 리렌더 대상이다.
-
-> The previous and the next values are compared with the `Object.is` comparison.
-
-"이전 값과 새 값은 `Object.is` 비교로 판단한다."
-
-- **`Object.is` comparison**: 참조 비교. 객체 리터럴 `{ on, toggle }`을 매 렌더마다 새로 만들면 안의 값이 같아도 "달라짐"으로 판정된다. 이것이 앞선 `useMemo`가 필요한 이유다.
-
-> Skipping re-renders with `memo` does not prevent the children receiving fresh context values.
-
-"`memo`로 리렌더를 스킵하는 것이 자식이 최신 context 값을 받는 것을 막지는 못한다."
-
-- **Skipping re-renders with `memo`**: `React.memo`로 props 변화 없으면 리렌더를 스킵하는 최적화.
-- **does not prevent**: context 채널은 props 비교를 우회한다. `memo`로 감싸도 context가 바뀌면 리렌더된다.
-
----
-
-## 종합
-
-Context는 구독자 전체를 한 번에 업데이트하는 broadcast 채널이다. 자주 바뀌는 값(마우스 위치, 스크롤 위치, 실시간 데이터)을 Context에 넣으면 구독하는 컴포넌트 수에 비례해 리렌더가 폭발적으로 늘어난다. 이런 경우 외부 store(Zustand, Jotai)를 고려한다 — 셀렉터로 필요한 슬라이스만 구독할 수 있어 불필요한 리렌더를 줄일 수 있다.
+다만 근거의 무게는 솔직하게 매겨두는 편이 낫다. 리렌더 쪽은 React 공식 문서가 메커니즘까지 진술하는 사실이고, 보일러플레이트 쪽은 라이브러리들이 자기 문서에서 내세우는 주장이라 성격이 다르다. 그리고 React 공식 문서는 같은 리렌더 현상을 작은 앱에서는 문제가 아니라고 못박는다. 그러니 "전역이면 store"가 아니라, 렌더가 실제로 번져서 손해가 보이거나 provider 계단이 관리하기 버거워졌을 때 옮기는 순서가 소스와 맞는다.
 
 ---
 

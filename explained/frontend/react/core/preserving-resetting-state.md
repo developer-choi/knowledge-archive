@@ -68,6 +68,21 @@ React는 트리 위치를 key로 삼아 state를 관리한다. 같은 위치에 
 // A의 count를 올려도 B는 그대로
 ```
 
+### 같은 사실을 다른 페이지가 비유로 말한 대목
+
+state 스냅샷을 다루는 페이지에도 같은 내용이 나온다. 이쪽은 "선반"이라는 비유를 써서 왜 함수가 끝나도 값이 남는지를 곧장 그려준다.
+
+> As a component's memory, state is not like a regular variable that disappears after your function returns. State actually "lives" in React itself—as if on a shelf!—outside of your function. When React calls your component, it gives you a snapshot of the state for that particular render.
+
+"컴포넌트의 기억으로서 state는 함수가 반환되면 사라지는 보통의 변수와 다르다. state는 실제로 함수 바깥, React 자체에 산다. 선반 위에 놓인 것처럼. React가 컴포넌트를 호출할 때, 그 렌더에 해당하는 state의 스냅샷을 건네준다."
+
+- **memory**: 기억. 컴포넌트가 렌더와 렌더 사이에 무언가를 담아두는 자리를 가리킨다.
+- **disappears after your function returns**: 함수가 반환되면 사라진다. 지역 변수의 운명이고, state가 다른 지점이 여기다.
+- **as if on a shelf**: 선반 위에 놓인 것처럼. 함수 바깥의 별도 보관소에 값이 얹혀 있고, 함수는 호출될 때마다 그것을 받아 쓴다는 그림이다.
+- **snapshot for that particular render**: 그 렌더에 한정된 사본. 보관소의 값이 그대로 넘어오는 게 아니라, 그 렌더 동안 고정된 사본을 받는다.
+
+이 비유가 답의 뒷부분을 채운다. 값이 어디 있는지는 "React 안"이고, 어느 컴포넌트 것인지 가려내는 기준은 앞에서 본 렌더 트리에서의 위치다.
+
 ---
 
 ## 종합
@@ -78,18 +93,7 @@ React는 트리 위치를 key로 삼아 state를 관리한다. 같은 위치에 
 
 # `key` prop은 React가 컴포넌트의 동일성을 판단할 때 구체적으로 어떻게 작용하는가? 리스트 렌더링 외에도 쓸 수 있는가?
 
-## 도입
-
-`key`는 리스트에만 쓰는 prop이라고 생각하기 쉽다. 하지만 `key`의 본질은 리스트가 아니라 "React에게 이 컴포넌트의 식별자를 명시적으로 알려주는 것"이다. 따라서 어떤 컴포넌트에도 쓸 수 있다.
-
----
-
 ## 본문
-
-> Keys aren't just for lists!
-> You can use keys to make React distinguish between any components.
-
-"key는 리스트에만 쓰는 것이 아니다! 임의의 컴포넌트를 구분하기 위해 key를 쓸 수 있다."
 
 > By default, React uses order within the parent to discern between components.
 > Specifying a key tells React to use the key itself as part of the position, instead of their order within the parent.
@@ -125,42 +129,3 @@ React는 트리 위치를 key로 삼아 state를 관리한다. 같은 위치에 
 ## 종합
 
 `key`는 리스트 렌더링의 경고를 없애기 위한 도구가 아니라, React에게 "이 컴포넌트의 식별자"를 명시적으로 전달하는 수단이다. key가 같으면 같은 인스턴스(state 보존), key가 다르면 다른 인스턴스(state 초기화). 이 속성 덕분에 리스트 외에도 "특정 값이 바뀔 때 컴포넌트를 완전히 초기화하고 싶다"는 시나리오에서 유용하게 쓸 수 있다.
-
----
-
-# `key`는 전역으로 유일해야 하는가?
-
-## 도입
-
-`key`가 고유해야 한다는 말을 들으면 UUID처럼 앱 전체에서 유일한 값이어야 하나 싶은 생각이 든다. 그렇지 않다.
-
----
-
-## 본문
-
-> Remember that keys are not globally unique.
-> They only specify the position within the parent.
-
-"key는 전역으로 유일할 필요가 없다. key는 부모 내에서의 위치만 지정한다."
-
-- **not globally unique**: 다른 부모 아래의 key와 겹쳐도 된다. React는 각 부모 컨텍스트 안에서만 key를 비교한다.
-- **position within the parent**: key가 의미를 갖는 범위는 같은 부모 아래 형제들 사이뿐이다.
-
-```jsx
-<ul>
-  <li key="a">항목 A</li>  {/* 이 컨텍스트에서의 "a" */}
-  <li key="b">항목 B</li>
-</ul>
-<ul>
-  <li key="a">항목 A'</li> {/* 다른 부모의 "a" — 충돌 없음 */}
-  <li key="b">항목 B'</li>
-</ul>
-```
-
----
-
-## 종합
-
-key의 유일성 범위는 같은 부모 아래 형제들 사이다. 서로 다른 부모 아래에 있는 자식들은 key가 같아도 전혀 문제없다. 따라서 리스트 렌더링 시 배열 아이템의 고유 필드(id, slug 등)를 key로 쓰면 충분하고, 앱 전체를 통틀어 고유한 값을 만들 필요는 없다.
-
----
