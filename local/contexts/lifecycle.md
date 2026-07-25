@@ -25,7 +25,7 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 | 도구 | Read | Write | 트리거 |
 |------|------|------|------|
 | `/convert` | 사용자가 제공한 PDF·MD 외부 문서 | `knowledge/<rel>.md` · `techniques/<rel>.md` · `tips/` (신규 또는 기존 병합) | "변환해줘", 파일 경로 명시 |
-| `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (실시간 저장), `explained/<rel>.md` (OFF 시 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
+| `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (OFF 1단계에서 저장), `explained/<rel>.md` (OFF 2단계에서 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
 | `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
 | `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | Read 전용 (기본) | "복습하자", "면접 연습" 명시 |
 | `/validate` | `knowledge/`, `explained/`, contexts 전반 | `knowledge/<rel>.md` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
@@ -34,7 +34,7 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 ## Write 대상별 정리
 
 - `knowledge/`: `/convert`, `/digest` (생성·추가) · `/validate`, `/review` (수정)
-- `explained/`: `/digest` OFF (세션 확정 질문 생성, 기존 섹션 보존) · `/validate` (고아 삭제)
+- `explained/`: `/digest` OFF 2단계 (세션 확정 질문 생성, 기존 섹션 보존) · `/validate` (고아 삭제)
 - `assets/`: `/digest` (explained에 임베드할 데모·이미지)
 - `$env:TEMP/*.html`: `/exam` (시험지·결과)
 - 외부 JSON: `list-candidates`
