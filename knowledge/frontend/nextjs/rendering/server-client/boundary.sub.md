@@ -9,6 +9,7 @@ publishable: false
 - `server-only` 패키지는 왜 필요한가?
   - `client-only` 패키지는 무엇을 표시하는가?
   - `server-only`·`client-only`를 반드시 설치해야 하는가?
+- `"use server"`는 Server Component를 선언하는 지시어인가?
 
 ---
 
@@ -70,3 +71,14 @@ Next.js handles `server-only` and `client-only` imports internally to provide cl
 
 ### Reference
 - https://nextjs.org/docs/app/getting-started/server-and-client-components
+
+---
+
+## `"use server"`는 Server Component를 선언하는 지시어인가?
+
+### Official Answer
+A common misunderstanding is that Server Components are denoted by `"use server"`, but there is no directive for Server Components.
+The `"use server"` directive is used for Server Functions.
+
+### Reference
+- https://nextjs.org/docs/14/app/building-your-application/rendering/server-components

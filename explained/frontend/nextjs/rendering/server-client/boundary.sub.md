@@ -154,3 +154,35 @@ NPM 패키지 본체 → 사용되지 않음 (설치는 린트 대응용)
 ## 종합
 
 설치가 필요한 것은 Next.js 때문이 아니라 검사 도구 때문이다. Next.js는 `import 'server-only'`라는 구문 자체를 신호로 읽어 잘못된 쪽에서 쓰였는지 판정하므로, 패키지가 없어도 의도한 보호가 그대로 동작한다. 린트 규칙이 "선언되지 않은 의존성"이라고 걸고넘어질 때만 설치해 두면 된다.
+
+
+---
+
+# `"use server"`는 Server Component를 선언하는 지시어인가?
+
+## 도입
+
+`"use client"`가 Client Component를 선언하는 것처럼, `"use server"`가 Server Component를 선언한다고 오해하기 쉽다. 하지만 두 지시어의 역할은 비대칭이다.
+
+---
+## 본문
+
+> A common misunderstanding is that Server Components are denoted by `"use server"`, but there is no directive for Server Components. The `"use server"` directive is used for Server Functions.
+
+"`"use server"`가 Server Component를 나타낸다는 것은 흔한 오해지만, Server Component를 위한 지시어는 없다. `"use server"` 지시어는 Server Function에 사용된다."
+
+- **no directive for Server Components**: SC는 App Router에서 기본값이다. 명시적으로 선언할 필요가 없고, 선언할 방법도 없다.
+- **Server Functions**: `"use server"`는 서버에서 실행되는 함수(Server Action)를 선언한다. 클라이언트에서 호출할 수 있지만 서버에서 실행되는 함수다.
+
+```
+지시어 역할 정리
+
+"use client"    Client Component 선언 (파일 또는 함수 단위)
+"use server"    Server Function(Action) 선언 (파일 또는 함수 단위)
+(없음)          기본값 = Server Component
+```
+
+---
+## 종합
+
+SC와 Server Action은 모두 서버에서 실행되지만 성격이 다르다. SC는 UI 트리를 반환하는 컴포넌트이고, Server Action은 클라이언트에서 트리거할 수 있는 서버 사이드 함수다. `"use server"`는 Server Action을 위한 것이다 — SC를 선언하는 지시어가 필요하다면, 그냥 `"use client"`를 제거하면 된다.

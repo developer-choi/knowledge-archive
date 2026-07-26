@@ -130,6 +130,100 @@ SC 결과물:
 
 ---
 
+# 왜 HTML로 바로 만들지 않고 RSC Payload를 거치는가?
+
+## 도입
+
+SSR이라면 SC를 바로 HTML로 변환하면 되지 않는가? 왜 RSC Payload라는 중간 형식을 만드는가?
+
+---
+## 본문
+
+> This means we don't have to wait for everything to render before caching the work or sending a response. Instead, we can stream a response as work is completed.
+
+"이는 캐싱 작업이나 응답 전송 전에 모든 것이 렌더링될 때까지 기다릴 필요가 없다는 것을 의미한다. 대신, 작업이 완료되는 대로 응답을 스트리밍할 수 있다."
+
+RSC Payload가 필요한 핵심 이유는 두 가지다.
+
+첫째, **Streaming 지원**. HTML은 완성된 문서 구조를 전제로 한다. 반면 RSC Payload는 덩어리 단위로 전송 가능한 구조다. 각 덩어리가 준비될 때마다 독립적으로 전달할 수 있다.
+
+둘째, **클라이언트에서의 대조**. HTML만 있으면 React가 기존 DOM과 새 화면을 비교할 수 없다. RSC Payload는 React 컴포넌트 트리 구조를 담고 있어 클라이언트 React가 기존 DOM을 파괴하지 않고 차이만 패치할 수 있다.
+
+```
+HTML만 사용할 경우의 문제점
+  Streaming 불가 → 전체 완성 대기
+  화면 이동 시 DOM 전체 교체 → 클라이언트 state 손실
+
+RSC Payload 사용
+  Streaming 가능 → 덩어리 준비 즉시 전송
+  대조 → 기존 DOM 유지하며 차이만 적용
+  클라이언트 state(입력값, 스크롤 위치 등) 보존
+```
+
+---
+## 종합
+
+RSC Payload는 "서버에서 계산된 React 트리를 클라이언트 React가 이해할 수 있는 형태로 전달"하는 중간 포맷이다. HTML은 렌더링의 최종 출력이지만, RSC Payload는 렌더링에 필요한 구조 정보를 담아 클라이언트 React가 스마트하게 DOM을 업데이트할 수 있게 한다. 이 중간 형식 없이는 Streaming도, 대조도, 클라이언트 state 보존도 불가능하다.
+
+---
+
+# RSC Payload와 데이터가 따로 캐시되면 무엇이 가능해지는가?
+
+## 도입
+
+한 페이지를 통째로 "정적이냐 동적이냐"로 가르면, 개인화된 정보 한 줄 때문에 페이지 전체를 매번 새로 만들어야 한다. Next.js는 화면(RSC Payload)과 데이터를 서로 다른 캐시에 넣어 이 양자택일을 없앴다.
+
+---
+
+## 본문
+
+> In most websites, routes are not fully static or fully dynamic - it's a spectrum. For example, you can have an e-commerce page that uses cached product data that's revalidated at an interval, but also has uncached, personalized customer data.
+
+"대부분의 웹사이트에서 라우트는 완전히 정적이거나 완전히 동적이지 않다 — 그것은 스펙트럼이다. 예를 들어, 일정 주기로 재검증되는 캐시된 상품 데이터와 캐시되지 않은 개인화된 고객 데이터를 모두 가진 이커머스 페이지를 가질 수 있다."
+
+- **spectrum**: 정적/동적이 두 칸짜리 스위치가 아니라 눈금이 여럿인 자라는 뜻.
+
+> In Next.js, you can have dynamically rendered routes that have both cached and uncached data. This is because the RSC Payload and data are cached separately.
+
+"Next.js에서는 캐시된 데이터와 캐시되지 않은 데이터를 모두 가진 동적으로 렌더링되는 라우트를 가질 수 있다. 이는 RSC Payload와 데이터가 별도로 캐시되기 때문이다."
+
+- **cached separately**: 화면(RSC Payload)과 데이터가 각자의 캐시에 들어간다. 화면은 캐시에서 꺼내 쓰면서 특정 데이터만 새로 받아오는 조합이 성립한다.
+
+> This allows you to opt into dynamic rendering without worrying about the performance impact of fetching all the data at request time.
+
+"이를 통해 요청 시마다 모든 데이터를 패칭하는 성능 영향을 걱정하지 않고 동적 렌더링을 선택할 수 있다."
+
+```
+Pages Router (묶인 캐시)
+  getServerSideProps() 결과 = UI + Data → 한 덩어리
+  재방문 시: 전부 처음부터 다시 실행
+
+App Router (분리된 캐시)
+  RSC Payload (UI) ← 별도 캐시
+  데이터 1 ← 별도 캐시 (예: 1시간 갱신)
+  데이터 2 ← 캐시 없음 (매 요청마다 새로)
+
+  → UI는 캐시에서, 데이터 2만 새로 받아 조합
+```
+
+### 사용자 답변 — Pages Router와 무엇이 달라졌나
+
+Pages Router 시절에는 페이지에 UI와 Data가 합쳐진 상태였다 — 따로 따로 캐싱이 되지 않았다.
+
+다른 페이지에 갔다 돌아오면 `getServerSideProps()` 실행부터 UI 그리기까지 전부 다 처음부터 새로 해야 했다.
+
+App Router에서는 UI(RSC Payload) 따로, Data Cache도 API별로 따로 따로 캐싱이 가능하다.
+
+그래서 UI는 그대로 쓰면서 데이터만 최신화하는 식의 운영이 가능해진다.
+
+---
+
+## 종합
+
+RSC Payload가 가져온 핵심 변화는 화면과 데이터의 캐시 독립성이다. 이 분리가 없으면 개인화된 항목 하나 때문에 페이지 전체가 매 요청 새로 만들어진다. 분리가 있으면 "동적 라우트"라고 이름 붙은 페이지도 대부분의 재료를 캐시에서 꺼내 쓴다 — 동적이라는 말이 곧 느리다는 뜻이 아닌 이유다.
+
+---
+
 # 첫 로드에서 HTML·RSC Payload·JavaScript는 각각 어디에 쓰이는가?
 
 ## 도입
@@ -178,43 +272,6 @@ HTML이 있는데 RSC Payload도 필요한 이유는 역할이 다르기 때문�
 
 ---
 
-# Hydration이란 무엇인가?
-
-## 도입
-
-앞 질문에서 첫 로드의 마지막 단계로 나온 것이 이것이다. 서버가 보낸 HTML은 보이기만 하고 눌리지 않는 상태인데, 이것을 눌리는 화면으로 바꾸는 절차를 React가 hydration이라 부른다.
-
----
-## 본문
-
-> Hydration is React's process for attaching event handlers to the DOM, to make the static HTML interactive.
-
-"hydration은 정적 HTML을 눌리는 상태로 만들기 위해 DOM에 이벤트 핸들러를 붙이는 React의 절차다."
-
-- **attaching**: 새로 만드는 게 아니라 갖다 붙인다는 뜻이다. 이 단어 하나가 hydration의 핵심이다. 이미 화면에 있는 요소를 그대로 두고, 거기에 핸들러만 연결한다.
-- **event handlers**: `onClick`, `onSubmit` 같은 함수. 서버는 이 함수를 HTML에 담아 보낼 수 없어서, 브라우저에서 JavaScript가 실행된 뒤에야 붙는다.
-- **static HTML**: 서버가 만들어 보낸, 아직 아무 반응도 하지 않는 HTML.
-- **interactive**: 클릭·입력 같은 사용자 동작에 반응하는 상태.
-
-왜 새로 그리지 않고 붙이기만 하는가. 화면은 이미 HTML로 떠 있다. 여기서 React가 처음부터 다시 그리면 사용자 눈에는 화면이 한 번 깜빡이고, 그때까지 브라우저가 한 작업이 낭비된다. 붙이기만 하면 보이는 화면은 그대로 두고 반응만 살아난다.
-
-```
-서버 HTML                  hydration 후
-─────────────────          ─────────────────────────────
-<button>담기</button>       <button>담기</button>
-  보임 O                      보임 O (같은 DOM 요소 그대로)
-  눌림 X                      눌림 O (onClick 연결됨)
-```
-
-이게 없으면 어떻게 되는가. 사용자는 화면을 보고 버튼을 누르는데 아무 일도 일어나지 않는다. 화면이 뜬 시점과 hydration이 끝난 시점 사이의 이 짧은 구간이 실제로 존재하고, 번들이 크면 이 구간이 길어진다. 앞에서 본 "CC를 남용하면 hydration 비용이 늘어난다"는 말이 가리키는 게 이 시간이다.
-
----
-## 종합
-
-hydration은 "화면 만들기"가 아니라 "이미 있는 화면에 손잡이 달기"다. 서버가 만든 HTML을 그대로 두고 이벤트 핸들러만 연결하기 때문에, 첫 화면을 빠르게 보여주면서도 결국 눌리는 애플리케이션이 된다는 두 목표를 동시에 달성할 수 있다. 첫 로드의 세 단계 중 마지막 단계가 이것이며, 서버가 Client Component까지 미리 실행해 HTML을 만들어 두는 이유도 결국 여기에 붙일 대상을 마련하기 위해서다.
-
----
-
 # 첫 로드 이후의 화면 이동은 무엇이 달라지는가?
 
 ## 도입
@@ -253,3 +310,50 @@ hydration은 "화면 만들기"가 아니라 "이미 있는 화면에 손잡이 
 ## 종합
 
 첫 로드 이후의 이동은 서버 HTML이 빠지고 그 자리를 RSC Payload가 대신한다. 브라우저는 CC 번들로 화면을 직접 그린 뒤 RSC Payload와 대조해 DOM을 맞춘다. 속도를 만드는 장치는 미리 받아 두기다 — 링크를 누르기 전에 그 목적지의 RSC Payload를 앞서 받아 캐시해 두므로, 눌렀을 때 서버 왕복을 기다릴 일이 없다. 서버가 화면 하나를 통째로 다시 만들어 내려보내는 방식이었다면 이동할 때마다 왕복을 기다려야 했을 것이다.
+
+---
+
+# RSC가 재렌더링될 때 client state가 유지되는 이유는?
+
+## 도입
+
+SC가 서버에서 다시 렌더링되면 클라이언트의 상태(입력값, 스크롤 위치, 체크박스 선택 등)가 초기화될 것 같지만, 실제로는 그렇지 않다. RSC의 스마트한 DOM 업데이트 방식 덕분이다.
+
+---
+## 본문
+
+> RSCs individually fetch data and render entirely on the server, and the resulting HTML is streamed into the client-side React component tree, interleaving with other Server and Client Components as necessary.
+
+"RSC는 개별적으로 데이터를 패칭하고 서버에서 완전히 렌더링하며, 결과 HTML은 필요에 따라 다른 Server와 Client Component와 교차하며 클라이언트 사이드 React 컴포넌트 트리로 스트리밍된다."
+
+> This process eliminates the need for client-side re-rendering, thereby improving performance.
+
+"이 과정은 클라이언트 사이드 리렌더링의 필요성을 제거하여 성능을 개선한다."
+
+> When an RSC needs to be re-rendered, due to state change, it refreshes on the server and seamlessly merges into the existing DOM without a hard refresh.
+
+"RSC가 상태 변화로 인해 재렌더링되어야 할 때, 서버에서 새로 고침하고 하드 리프레시 없이 기존 DOM에 seamlessly 병합된다."
+
+> As a result, the client state is preserved even as parts of the view are updated from the server.
+
+"결과적으로 뷰의 일부가 서버에서 업데이트되어도 클라이언트 상태가 보존된다."
+
+- **hard refresh**: 페이지 전체를 다시 로드하는 것. RSC 재렌더링은 이것이 아니다.
+- **seamlessly merges**: RSC Payload를 받아 기존 DOM과 대조. 변경된 SC 부분만 DOM에 패치하고, CC의 DOM 노드는 건드리지 않는다.
+- **client state is preserved**: CC의 `useState`가 가진 값, focus된 input, 스크롤 위치가 SC 재렌더링의 영향을 받지 않는다.
+
+```
+SC 재렌더링 시 DOM 업데이트
+
+기존 DOM           RSC Payload (업데이트)
+──────────         ─────────────────────────
+<Header>           <Header> (변경 없음)
+<UserData> ←───── <UserData> (새 데이터)  → DOM 패치
+<SearchBar>        (CC, RSC Payload에 없음) → 건드리지 않음
+  value="abc"                              → value 유지
+```
+
+---
+## 종합
+
+RSC 재렌더링이 client state를 보존하는 비결은 대조다. SC 부분만 새 RSC Payload로 교체하고, CC 노드는 기존 상태를 유지한 채 그 자리에 남긴다. 이 덕분에 Server Action이 SC를 서버에서 다시 실행하더라도 사용자가 입력 중인 폼, 선택한 옵션, 스크롤 위치 등이 초기화되지 않는다.

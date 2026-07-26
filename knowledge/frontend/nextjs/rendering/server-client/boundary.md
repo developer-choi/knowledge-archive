@@ -7,6 +7,8 @@ priority: 1
 
 # Questions
 - Server Component를 쓰면 무엇이 좋은가?
+  - 초기 페이지 로딩 속도가 어떻게 더 빨라지는가?
+  - 네트워크 비용은 어떻게 절감되는가?
 - Client Component는 언제 사용하는가?
 - `"use client"` 지시어는 무엇이고 어디에 붙이는가?
   - `"use client"`를 붙인 파일에서 그 선언은 어디까지 번지는가?
@@ -15,6 +17,7 @@ priority: 1
 - Server Component에서 Client Component로 데이터를 어떻게 넘기는가?
   - 넘기는 값에는 어떤 제약이 있는가?
 - Client Component 안에 서버가 그린 UI를 넣으려면 어떻게 하는가?
+  - Client Component에서 Server Component를 import할 수 없는 이유는?
   - props로 넘긴 Server Component는 언제 그려지는가?
 
 ---
@@ -45,6 +48,48 @@ CC 위주로 쓰게 되면 위 장점을 모두 누릴 수 없게 된다.
 
 ### Reference
 - https://nextjs.org/docs/app/getting-started/server-and-client-components
+
+---
+
+## 초기 페이지 로딩 속도가 어떻게 더 빨라지는가?
+
+### Official Answer
+On the server, we can generate HTML to allow users to view the page immediately, without waiting for the client to download, parse and execute the JavaScript needed to render the page.
+
+Data for the entire page must be fetched from the server before any components can be shown.
+The only way around this is to fetch data client-side in a `useEffect()` hook, which has a longer roundtrip than server-side fetches and happens only after the component is rendered and hydrated.
+
+### User Answer
+Client에서 데이터 패칭하는 JS 코드를 다운받아서 API를 호출하는 것보다, 그것을 Server Component로 옮기면 더 빠른 시점에 API가 호출될 수 있다.
+
+### Reference
+- https://vercel.com/blog/understanding-react-server-components#what-did-server-side-rendering-and-react-suspense-solve
+
+---
+
+## 네트워크 비용은 어떻게 절감되는가?
+
+### Official Answer
+1. Perform multiple data fetches with single round-trip instead of multiple individual requests on the client.
+2. Depending on your region, data fetching can also happen closer to your data source, reducing latency and improving performance.
+
+### User Answer
+기존: Client에서 따로 따로 호출
+
+- Client → API Server (요청 1)
+
+- Client → API Server (요청 2)
+
+- Client → API Server (요청 3)
+
+SC 도입 후: 한번만 호출
+
+- Client → Front Server → API Server (한 번의 round-trip)
+
+그리고 서버에서 다른 서버로 요청할 때에는 물리적인 거리도 더 가깝다 (프론트 서버에서 API 서버가 더 가깝다).
+
+### Reference
+- https://nextjs.org/docs/14/app/building-your-application/rendering/server-components
 
 ---
 
@@ -180,6 +225,30 @@ export default function Page() {
 
 ### Reference
 - https://nextjs.org/docs/app/getting-started/server-and-client-components
+
+---
+
+## Client Component에서 Server Component를 import할 수 없는 이유는?
+
+### Official Answer
+Since Client Components are rendered after Server Components, you cannot import a Server Component into a Client Component module (since it would require a new request back to the server).
+Instead, you can pass a Server Component as props to a Client Component.
+
+`<ClientComponent>` doesn't know that children will eventually be filled in by the result of a Server Component.
+The only responsibility `<ClientComponent>` has is to decide where children will eventually be placed.
+
+With this approach, `<ClientComponent>` and `<ServerComponent>` are decoupled and can be rendered independently.
+In this case, the child `<ServerComponent>` can be rendered on the server, well before `<ClientComponent>` is rendered on the client.
+
+This allows the passed prop to be rendered independently, in this case, on the server, well before the Client Component is rendered on the client.
+
+The very same strategy of "lifting content up" has been used to avoid state changes in a parent component re-rendering an imported nested child component.
+
+### User Answer
+즉, CC의 props로 전달될 SC는 독립적으로 미리 렌더링시켜놓고, 그것을 CC에 전달한다.
+
+### Reference
+- https://nextjs.org/docs/14/app/building-your-application/rendering/composition-patterns
 
 ---
 

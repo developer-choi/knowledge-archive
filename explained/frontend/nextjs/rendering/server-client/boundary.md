@@ -44,6 +44,94 @@ SC의 장점은 "서버가 할 수 있는 일을 서버에서 처리"한다는 �
 
 ---
 
+# 초기 페이지 로딩 속도가 어떻게 더 빨라지는가?
+
+## 도입
+
+SC를 쓰면 초기 페이지 로딩이 빨라진다고 하는데, 구체적으로 어떤 메커니즘으로 빨라지는가? 단순히 번들이 작아지는 것 이상의 이유가 있다.
+
+---
+## 본문
+
+> On the server, we can generate HTML to allow users to view the page immediately, without waiting for the client to download, parse and execute the JavaScript needed to render the page.
+
+"서버에서 HTML을 생성하면 사용자가 페이지를 렌더링하는 데 필요한 JavaScript를 클라이언트가 다운로드, 파싱, 실행하길 기다리지 않고 즉시 페이지를 볼 수 있다."
+
+- **without waiting for the client**: CC만 있는 SPA에서 사용자가 뭔가를 보려면 JS 번들이 도착하고 실행될 때까지 기다려야 한다. SC는 서버에서 HTML을 미리 만들어 보내므로 JS 실행 전에 화면이 표시된다.
+
+> Data for the entire page must be fetched from the server before any components can be shown. The only way around this is to fetch data client-side in a useEffect() hook, which has a longer roundtrip than server-side fetches and happens only after the component is rendered and hydrated.
+
+"페이지 전체의 데이터가 서버에서 패칭되어야 컴포넌트가 표시될 수 있다. 이를 우회하는 유일한 방법은 useEffect()에서 클라이언트 사이드 데이터 패칭인데, 이는 서버 사이드 패칭보다 왕복 시간이 길고 컴포넌트가 렌더링되고 hydrate된 후에야 발생한다."
+
+- **longer roundtrip**: CC의 데이터 패칭 경로: 번들 다운로드 → 파싱 → 렌더링 → hydration → useEffect 실행 → API 호출. SC는 서버에서 직접 API 호출 후 HTML 생성. 경로가 훨씬 짧다.
+
+```
+CC useEffect 데이터 패칭 경로
+브라우저 → 서버 (HTML 요청)
+  → 빈 HTML 도착 (데이터 없음)
+  → JS 번들 다운로드
+  → 컴포넌트 렌더링 + hydration
+  → useEffect 실행
+  → API 서버 요청
+  → 데이터 도착 → 화면 업데이트
+
+SC 데이터 패칭 경로
+브라우저 → 서버 (페이지 요청)
+  → 서버에서 직접 API 호출 (빠른 경로)
+  → 데이터 포함된 HTML 전송
+  → 화면 즉시 표시
+```
+
+---
+## 종합
+
+SC의 초기 로딩 속도 개선은 두 방향에서 온다. 첫째, 서버에서 HTML을 미리 생성해 JS 실행 대기 없이 즉시 표시한다. 둘째, 데이터 패칭이 클라이언트 hydration 이후가 아닌 서버 렌더링 시점에 발생해 불필요한 네트워크 왕복이 제거된다.
+
+---
+
+# 네트워크 비용은 어떻게 절감되는가?
+
+## 도입
+
+클라이언트에서 여러 API를 호출하면 각각 별도의 네트워크 요청이 발생한다. SC는 이 여러 요청을 하나의 서버 왕복으로 압축할 수 있다.
+
+---
+## 본문
+
+> 1. Perform multiple data fetches with single round-trip instead of multiple individual requests on the client.
+
+"1. 클라이언트에서 여러 개별 요청 대신 단일 왕복으로 여러 데이터 패칭을 수행한다."
+
+> 2. Depending on your region, data fetching can also happen closer to your data source, reducing latency and improving performance.
+
+"2. 지역에 따라 데이터 패칭이 데이터 소스에 더 가까운 곳에서 발생할 수 있어 지연 시간을 줄이고 성능을 개선한다."
+
+- **single round-trip**: 브라우저 → Next.js 서버로 한 번 요청하면, Next.js 서버가 백엔드 API들을 병렬로 호출하고 결과를 합쳐서 응답한다. 클라이언트 입장에서는 왕복 1회.
+- **closer to your data source**: 프론트 서버와 API 서버가 같은 데이터센터 또는 VPC 내부에 있으면 물리적 거리가 가깝다. 클라이언트(사용자 기기)가 API 서버를 직접 호출하는 것보다 훨씬 낮은 지연이다.
+
+```
+CC 방식 (클라이언트에서 여러 요청)
+사용자 기기 → API 1 (100ms)
+사용자 기기 → API 2 (150ms)
+사용자 기기 → API 3 (80ms)
+합계: 150ms (병렬이어도 가장 느린 것에 의존)
++ 클라이언트-서버 거리 지연 추가
+
+SC 방식 (서버에서 한 번에)
+사용자 기기 → Next.js 서버 (30ms)
+             Next.js 서버 → API 1 (10ms, 근거리)
+             Next.js 서버 → API 2 (12ms, 근거리)
+             Next.js 서버 → API 3 (8ms, 근거리)
+전체: ~52ms
+```
+
+---
+## 종합
+
+SC의 네트워크 비용 절감은 "클라이언트-서버 거리 감소"와 "왕복 횟수 감소" 두 가지에서 온다. 사용자 기기에서 API 서버까지의 왕복 N번이 서버-서버 빠른 경로 1번으로 압축된다. 특히 사용자가 물리적으로 API 서버와 멀리 있는 경우(해외 사용자 등) 이 차이가 크다.
+
+---
+
 # Client Component는 언제 사용하는가?
 
 ## 도입
@@ -396,6 +484,62 @@ Modal 파일이 모르는 것: 그 자리에 Cart가 온다는 사실
 ## 종합
 
 막다른 길처럼 보이던 제약은 방향을 바꾸면 풀린다. Client Component가 안쪽 내용을 직접 불러오려 하면 막히지만, `children`으로 빈자리만 열어 두고 부모인 Server Component가 둘을 붙여 주면 그만이다. Client Component의 책임은 "무엇을 그릴지"가 아니라 "어디에 놓을지"로 줄어들고, 서버에서 데이터를 읽는 일은 그대로 서버에 남는다. 열고 닫는 동작은 브라우저가, 안에 담기는 내용은 서버가 맡는 식으로 역할이 깔끔하게 갈린다.
+
+---
+
+# Client Component에서 Server Component를 import할 수 없는 이유는?
+
+## 도입
+
+Server Component를 Client Component 안에서 import하면 에러가 발생한다. 이 제약은 단순한 기술 제약이 아니라 SC와 CC가 렌더링되는 시점과 환경의 차이에서 비롯된다.
+
+---
+## 본문
+
+> Since Client Components are rendered after Server Components, you cannot import a Server Component into a Client Component module (since it would require a new request back to the server).
+
+"Client Component는 Server Component 이후에 렌더링되므로, Client Component 모듈에 Server Component를 import할 수 없다(서버로 새 요청이 필요하기 때문이다)."
+
+> Instead, you can pass a Server Component as props to a Client Component.
+
+"대신, Server Component를 Client Component에 props로 전달할 수 있다."
+
+- **rendered after**: CC는 hydration 시점에 클라이언트에서 실행된다. SC는 이미 서버에서 실행이 끝난 상태다. CC가 실행되는 시점에 서버 코드를 불러오려면 네트워크 요청이 필요한데, 이는 React 렌더링 모델에서 지원하지 않는다.
+
+> `<ClientComponent>` doesn't know that children will eventually be filled in by the result of a Server Component. The only responsibility `<ClientComponent>` has is to decide where children will eventually be placed.
+
+"`<ClientComponent>`는 children이 결국 Server Component의 결과로 채워진다는 것을 알지 못한다. `<ClientComponent>`의 유일한 책임은 children이 결국 어디에 배치될지를 결정하는 것이다."
+
+props로 전달하는 패턴:
+
+```tsx
+// 올바른 패턴 — SC를 props로 전달
+// ParentServer.tsx (SC)
+import ClientContainer from './ClientContainer';
+import ServerContent from './ServerContent';
+
+export default function Page() {
+  return (
+    <ClientContainer>
+      <ServerContent /> {/* SC가 미리 렌더링되어 children으로 전달 */}
+    </ClientContainer>
+  );
+}
+
+// ClientContainer.tsx (CC)
+'use client';
+export default function ClientContainer({ children }) {
+  const [open, setOpen] = useState(false);
+  return <div>{open && children}</div>;
+}
+```
+
+- **lifted up**: "content lifting" 패턴. CC가 SC를 직접 알지 못하고, SC의 렌더링 결과만 children으로 받는다. CC와 SC가 독립적으로 렌더링된다.
+
+---
+## 종합
+
+SC를 CC 안에 import할 수 없는 본질적 이유는 실행 환경의 분리다. SC는 서버에서만 실행되고, CC는 클라이언트에서 실행된다. 두 환경을 넘나드는 import는 불가능하다. children이나 props를 통해 SC의 렌더링 결과(이미 HTML/RSC Payload로 변환된 것)를 CC에 전달하는 것은 가능하다.
 
 ---
 
