@@ -5,6 +5,7 @@ priority: 2
 ---
 # Questions
 - 응집도(Cohesion)란 무엇인가?
+  - [단일 책임 원칙을 응집도·결합도의 말로 바꾸면 어떻게 되는가? → `single-responsibility.md`](single-responsibility.md#단일-책임-원칙을-응집도결합도의-말로-바꾸면-어떻게-되는가)
 - 높은 응집도가 왜 바람직한가?
 - 응집도의 종류에는 무엇이 있는가?
 

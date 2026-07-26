@@ -5,6 +5,8 @@ priority: 2
 ---
 # Questions
 - 결합도(Coupling)란 무엇인가?
+  - [단일 책임 원칙을 응집도·결합도의 말로 바꾸면 어떻게 되는가? → `single-responsibility.md`](single-responsibility.md#단일-책임-원칙을-응집도결합도의-말로-바꾸면-어떻게-되는가)
+  - [정보 은닉이란 무엇인가? → `information-hiding.md`](information-hiding.md#정보-은닉이란-무엇인가)
 - 결합도의 종류에는 무엇이 있는가?
 - 결합도를 어떻게 줄일 수 있는가?
 
