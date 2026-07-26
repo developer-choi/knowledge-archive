@@ -34,7 +34,7 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 - 경로 지정 가능 (`knowledge/cs` 등). 회차 변경분만 보려면 `--changed <baseRef>` (그 ref..HEAD diff).
 - hard violation 있으면 exit 1, warning(제안성)만이면 exit 0.
 
-린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 앞 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, knowledge↔explained 셋트(커버리지·고아 섹션·고아 파일·짝 부재·질문 순서), 구분자 중복, (warning) OA 길이.
+린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 앞 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, knowledge↔explained 셋트(커버리지·고아 섹션·고아 파일·짝 부재·질문 순서), 본편 없는 `.sub.md`, 구분자 중복, (warning) OA 길이.
 
 ### knowledge↔explained 셋트 규칙
 
@@ -81,5 +81,6 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 | E2 고아 섹션 | 사용자 확인 후 섹션 삭제 |
 | E3 고아 파일 | 사용자 확인 후 파일 삭제 |
 | E6 순서 불일치 | explained 섹션 순서를 knowledge 질문 순서에 맞춰 재배치 (knowledge가 기준) |
+| K9 본편 없는 `.sub.md` | 자동 수정 불가 — 본편이 어디로 갔는지 git log로 확인 후 보고. 본편이 **이동·개명**됐으면 곁가지를 따라 옮기고, 본편이 **삭제**됐으면 곁가지를 본편 이름으로 개명한다(`.sub` 제거, explained 미러도 함께). 어느 쪽인지는 사용자가 판단 ([file-placement.md](../../contexts/file-placement.md)「곁가지 분리」). |
 
 그 외 결정론 위반(빈 섹션·중복 헤딩·인라인 출처·구분자 중복·마커·펜스 등)은 승인 후 직접 수정한다.

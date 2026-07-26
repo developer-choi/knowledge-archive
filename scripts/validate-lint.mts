@@ -17,6 +17,7 @@
  *   K6 [UNVERIFIED] marker consistency   document-structure '미완성 질문 처리'
  *   K7 TOC↔body question order 1:1       document-structure '목차-본문 순서 동기화'
  *   K8 disallowed H1                     document-structure '허용 H1 헤딩'
+ *   K9 orphan .sub.md (no main file)     file-placement '곁가지 분리 — <name>.sub.md'
  *   E1 explained coverage                validate SKILL explained
  *   E2 explained orphan section          validate SKILL explained
  *   E3 explained orphan file             validate SKILL explained
@@ -233,6 +234,17 @@ function lintKnowledge(rel: string, src: string): Finding[] {
   const relNoRoot = rel.replace(/^knowledge\//, '');
   if (!fs.existsSync(path.join(EXPLAINED_DIR, relNoRoot))) {
     add(0, 'E5', `대응 explained/${relNoRoot} 없음 (셋트 미성립 — /digest로 해설 생성 필요)`);
+  }
+
+  // K9 orphan sub file: knowledge/<rel>/<name>.sub.md must sit next to its main <name>.md.
+  // main↔sub is a vertical pair held together by filename alone — E3/E5 only check the horizontal
+  // knowledge↔explained pair, so moving the main file and leaving the sub behind passes silently.
+  if (rel.endsWith('.sub.md')) {
+    const mainAbs = path.join(KA_ROOT, rel.replace(/\.sub\.md$/, '.md'));
+    if (!fs.existsSync(mainAbs)) {
+      const mainRel = rel.replace(/\.sub\.md$/, '.md');
+      add(0, 'K9', `본편 ${mainRel} 없음 (곁가지만 남음 — 본편 이동 시 .sub.md도 동반 이동)`);
+    }
   }
 
   // K1 Official Annotation residue
