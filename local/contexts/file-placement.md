@@ -9,7 +9,7 @@
 ### 선정 기준
 - 기존 트리를 직접 훑어(`ls`·`Glob`) 같은 주제를 다루는 폴더가 이미 있는지 먼저 확인한다. 별도의 폴더 구조 문서는 두지 않는다 — 실물 트리가 유일한 근거다
 - 계층 구조를 준수하여 정확한 위치 결정
-  - 예: React Hooks → `knowledge/frontend/react/core/`
+  - 예: React 렌더 절차 → `knowledge/frontend/react/rendering/`
   - 예: HTTP Protocol → `knowledge/cs/network/protocol/`
 
 ### 폴더 = 같은 주제 파일 모음
@@ -37,10 +37,10 @@
 
 ### 파일명 예시
 ```
-knowledge/frontend/react/core/
-  ├── react-hooks.md          ← useState, useEffect 등 내용
-  ├── react-rendering.md      ← 렌더링 프로세스
-  └── react-component-lifecycle.md
+knowledge/frontend/react/rendering/
+  ├── render-and-commit.md    ← 렌더링 프로세스
+  ├── state-as-a-snapshot.md  ← 렌더 안에서 state 값이 고정되는 성질
+  └── react-reconciliation.md
 
 knowledge/cs/network/protocols/
   ├── http-basics.md
