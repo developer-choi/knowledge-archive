@@ -46,7 +46,7 @@ MSW utilizes minimal intrusion framework when it comes to intercepting outgoing 
 We recommend using the Mock Service Worker (MSW) library to declaratively mock API communication in your tests instead of stubbing window.fetch, or relying on third-party adapters.
 
 ### Reference
-- https://github.com/testing-library/react-testing-library
+- https://testing-library.com/docs/react-testing-library/example-intro
 - https://github.com/mswjs/msw
 
 ---

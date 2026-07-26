@@ -59,7 +59,7 @@ Mocking severs the real-world connection between what you're testing and what yo
 
 ### Reference
 - https://kentcdodds.com/blog/the-merits-of-mocking
-- https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+- https://kentcdodds.com/blog/write-tests
 
 ---
 
