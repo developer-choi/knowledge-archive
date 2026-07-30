@@ -34,7 +34,7 @@ Next.js의 렌더링은 페이지 전체를 한 번에 처리하지 않는다. �
 전송(스트리밍) 분할     <Suspense> 경계
 ```
 
-즉 route segment 단위로 나뉜 작업이 서버에서 돌고, 그 결과 HTML은 `<Suspense>` 경계에 맞춰 잘려 나간다. 하나를 고르는 문제가 아니라 둘 다 동시에 성립한다. 전송 쪽 기준은 스트리밍 문서가 따로 다룬다 — [../streaming.md](../streaming.md)의 「서버는 HTML을 어떤 기준으로 조각내는가?」.
+즉 route segment 단위로 나뉜 작업이 서버에서 돌고, 그 결과 HTML은 `<Suspense>` 경계에 맞춰 잘려 나간다. 하나를 고르는 문제가 아니라 둘 다 동시에 성립한다. 전송 쪽 기준은 스트리밍 문서가 따로 다룬다 — [../streaming/overview.md](../streaming/overview.md)의 「서버는 HTML을 어떤 기준으로 조각내는가?」.
 
 ```
 chunk 분리 기준

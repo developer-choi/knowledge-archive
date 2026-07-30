@@ -74,7 +74,7 @@ export default function TodoListApp() {
 ```
 
 ### Reference
-- React 공식 문서 introduction (URL_UNKNOWN)
+- https://legacy.reactjs.org/docs/components-and-props.html
 
 ---
 

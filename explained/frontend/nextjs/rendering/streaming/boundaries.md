@@ -558,7 +558,7 @@ getUser()  ← cache로 감싼 함수
 실제 실행: 1회
 ```
 
-`React.cache` 자체의 동작 범위는 [../data-fetching/server-components.md](../data-fetching/server-components.md)의 「`React.cache`로 감싼 함수를 한 화면에서 여러 번 호출하면 그때마다 실행되는가?」에서 다룬다.
+`React.cache` 자체의 동작 범위는 [../../data-fetching/server-components.md](../../data-fetching/server-components.md)의 「`React.cache`로 감싼 함수를 한 화면에서 여러 번 호출하면 그때마다 실행되는가?」에서 다룬다.
 
 ---
 ## 종합
