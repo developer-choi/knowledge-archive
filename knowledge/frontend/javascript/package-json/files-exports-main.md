@@ -52,7 +52,7 @@ Some files are always ignored by default:
 - .*.swp
 - .DS_Store
 - ._*
-- (이하 생략)
+- …
 
 Most of these ignored files can be included specifically if included in the files globs.
 

@@ -187,7 +187,6 @@ export default function ClientComponent() {
 You can use Suspense to break down your app into smaller independent units which can be streamed independently of each other without blocking the rest of the app.
 This means users will see your content sooner and be able to start interacting with it much faster.
 
-To solve this(SSR 문제점), React created Suspense, which allows for server-side HTML streaming and selective hydration on the client.
 By wrapping a component with `<Suspense>`, you can tell the server to deprioritize that component's rendering and hydration, letting other components load in without getting blocked by the heavier ones.
 
 For any Client Components, hydration can happen concurrently with RSCs streaming in, since the compute load is shared between client and server.

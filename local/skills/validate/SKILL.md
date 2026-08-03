@@ -34,7 +34,7 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 - 경로 지정 가능 (`knowledge/cs` 등). 회차 변경분만 보려면 `--changed <baseRef>` (그 ref..HEAD diff).
 - hard violation 있으면 exit 1, warning(제안성)만이면 exit 0.
 
-린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 앞 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, knowledge↔explained 셋트(커버리지·고아 섹션·고아 파일·짝 부재·질문 순서), 본편 없는 `.sub.md`, 구분자 중복, (warning) OA 길이.
+린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 안 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, knowledge↔explained 셋트(커버리지·고아 섹션·고아 파일·짝 부재·질문 순서), 본편 없는 `.sub.md`, 구분자 중복, (warning) OA 길이.
 
 ### knowledge↔explained 셋트 규칙
 
@@ -54,7 +54,7 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 
 린터가 못 보는, 의미 이해가 필요한 항목만 LLM이 본다.
 
-- **OA 언어**: Official Answer 본문이 공식 문서 원문(대체로 영어)으로 유지되는가. 한글 의역·요약으로 대체된 경우 위반. (린터의 'OA 앞 한글'은 도입 문장만 잡고, 본문 전체가 의역인지는 판정 못 함.)
+- **OA 언어**: Official Answer 본문이 공식 문서 원문(대체로 영어)으로 유지되는가. (린터 K5가 OA 본문의 한글을 위치 불문 전부 잡으므로, 남는 판정은 "한글은 없는데 영어 자체가 원문이 아니라 AI가 지어낸 영어인가"뿐이다.)
 - **영어 원문 보존**: 과거 Official Annotation 또는 OA 본문이 있던 Q에서 영어 원문이 사라졌으면 위반 (마이그 중 삭제 사고). 이전 버전 대비가 필요하므로 git diff로 확인한다. 원문을 OA로 복원하거나 Reference로 추적한다.
 - **중복 설명 탐지** (전체 검증 시): 전용 문서가 존재하는 주제를 다른 문서에서 *설명*하면 위반.
   - 위반(설명): 개념·동작·원리를 서술하는 단락이나 Q&A ("TLS는 핸드셰이크로 키를 교환하고…")

@@ -13,7 +13,7 @@
  *   K2 empty section                    content-format §3 '빈 섹션 금지'
  *   K3 duplicate heading in a Q&A        content-format §3 '동일 헤딩 중복 금지'
  *   K4 inline source `— URL` in OA       content-format §3 '출처 표기는 Reference에만'
- *   K5 Korean line right after OA/H4     content-format §3 'OA 앞 한글 추가 금지'
+ *   K5 Korean anywhere in OA body        content-format §3 'OA 한글 금지'
  *   K6 [UNVERIFIED] marker consistency   document-structure '미완성 질문 처리'
  *   K7 TOC↔body question order 1:1       document-structure '목차-본문 순서 동기화'
  *   K8 disallowed H1                     document-structure '허용 H1 헤딩'
@@ -302,7 +302,7 @@ function lintKnowledge(rel: string, src: string): Finding[] {
       }
     });
 
-    // K4 inline `— URL`, K5 Korean-first-line — OA + its H4 subsections only
+    // K4 inline `— URL`, K5 Korean anywhere in OA body — OA + its H4 subsections only
     const oaScopeStart = oa?.line ?? -1;
     if (oaScopeStart >= 0) {
       // collect OA-scope sections: the OA H3 and following H4s until next H3
@@ -313,10 +313,19 @@ function lintKnowledge(rel: string, src: string): Finding[] {
         else break;
       }
       for (const s of scope) {
-        // K5 first meaningful body line is Korean
-        const first = meaningful(s.body)[0];
-        if (first && !first.inFence && HANGUL.test(first.text.trimStart()[0] ?? '')) {
-          add(first.n, 'K5', `OA 앞 한글 도입 문장 ("${first.text.trim().slice(0, 30)}…")`);
+        // K5 Korean anywhere in OA body. OA는 공식 원문만 담으므로 한글이 한 글자라도 있으면
+        // 원문이 아니다 — 위치를 가리지 않는다(도입 문장이든 문단 사이든 문장 안 주석이든).
+        // 예외를 두지 않는 것이 요점이다: 예외를 열면 "원문인가 내가 쓴 것인가"라는 판단이
+        // 되살아나 기계 판정이 깨진다. 보충 설명은 User/Additional Answer에 쓴다
+        // (content-format 「OA 한글 금지」).
+        // `#### H4` 소제목은 제외한다 — 원문이 아니라 구조 표시이고, content-format이
+        // OA 내부 위계에 한글 소제목을 예시로 든다.
+        for (const l of s.body) {
+          if (l.inFence) continue;
+          if (/^\s*#{1,6}\s/.test(l.text)) continue;
+          if (HANGUL.test(l.text)) {
+            add(l.n, 'K5', `OA 안 한글 ("${l.text.trim().slice(0, 30)}…") — 원문만 담는다`);
+          }
         }
         // K4 em/en-dash + URL inside body
         for (const l of s.body) {

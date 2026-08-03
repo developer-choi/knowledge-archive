@@ -83,7 +83,7 @@ npm 패키지를 배포할 때 레포지토리의 모든 파일이 설치되면 
 > - .*.swp
 > - .DS_Store
 > - ._*
-> - (이하 생략)
+> - …
 > Most of these ignored files can be included specifically if included in the files globs.
 
 "일부 파일은 기본적으로 항상 무시된다: *.orig, .*.swp, .DS_Store, ._* 등. 이 무시된 파일 대부분은 files 글로브에 포함시키면 특별히 포함될 수 있다."
