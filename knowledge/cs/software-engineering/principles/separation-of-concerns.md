@@ -23,8 +23,6 @@ priority: 2
 ### Official Answer
 Separation of concerns (SoC) is a design principle in computer science and software engineering, it holds that a complex problem should be divided into distinct concerns — aspects or issues — that can be analyzed, addressed or managed individually, even when they belong to the same system.
 
-용어를 만든 다익스트라 원전에서 관심사 분리는 코드를 나누는 기술이 아니라 **생각을 정리하는 기술**로 제시된다:
-
 It is what I sometimes have called "the separation of concerns", which, even if not perfectly possible, is yet the only available technique for effective ordering of one's thoughts, that I know of.
 
 We know that a program must be correct and we can study it from that viewpoint only; we also know that it should be efficient and we can study its efficiency on another day, so to speak.
