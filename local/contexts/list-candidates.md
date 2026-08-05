@@ -1,38 +1,14 @@
-# list-candidates 스크립트 명세
+# list-candidates 스크립트 — 코드에 없는 맥락
 
-`scripts/list-candidates.mts`의 입출력·skip 규칙·소비처·KA 폴더구조 변경 영향범위를 정의한다. KA CLAUDE.md의 「변경 시 동기화」 룰이 이 문서를 가리킨다.
+`scripts/list-candidates.mts`가 **왜 그렇게 동작하는지**와 **누가 그 출력을 먹는지**를 적는다. KA CLAUDE.md의 「변경 시 동기화」 룰이 이 문서를 가리킨다.
 
-## 실행
+명령·인자·출력 필드·skip 사유 목록은 여기 옮겨 적지 않는다 — 전부 스크립트에 있다(`Candidate` 인터페이스, `SkipReason` 유니온, `MIN_QUESTIONS`, argv 파싱). 옮겨 적으면 코드가 바뀔 때마다 두 곳을 고쳐야 하고, 안 고치면 이 문서가 조용히 거짓이 된다.
 
-- 본체: `scripts/list-candidates.mts`
-- 명령: `npm run list-candidates`
-- env: `KA_HEAD` (선택, git 시점 지정)
-- CLI: `--out <path>` (선택, 출력 파일 경로)
+## 스캔 범위 — `knowledge/`만
 
-## Input
+`knowledge/`라는 디렉토리명이 스크립트에 하드코딩돼 있다. 아래 「폴더구조 변경 시 시나리오」가 이 사실 위에 서 있다.
 
-`knowledge/` 하위 모든 `.md`. **`knowledge/`라는 디렉토리명이 하드코딩**되어 있다 (`KNOWLEDGE_DIR = path.join(KA_ROOT, 'knowledge')`).
-
-## Output
-
-각 `.md` 파일당 `Candidate` 객체 1개를 JSON 배열로 반환.
-
-| 필드 | 의미 |
-|------|------|
-| `slug`, `path`, `title`, `tags` | 파일 식별·메타 |
-| `questionCount`, `questions[]` | H2 질문 중 Official Answer 있고 마커(`[TODO]`/`[UNVERIFIED]`) 없는 것 |
-| `firstCommitDate`, `lastCommitDate` | git log 기반 |
-| `source` | frontmatter `source` (`official` / `google-doc` / `unverified`) |
-| `publishable` | frontmatter `publishable` (boolean) |
-| `skipped.reason` | 제외 사유 — `no-answers` / `too-few-questions` (4 미만) / `no-official-answer` / `unfinished-only` / `unpublishable` |
-
-## Skip 규칙
-
-- `publishable: false` → 즉시 skip (사용자 의도적 제외)
-- `# Answers` H1 없음 → skip
-- H2 질문 전부 `[TODO]`/`[UNVERIFIED]` 마커 → skip
-- 통과 질문이 4개 미만 → skip
-- 단, skip된 것도 baseMeta는 유지하여 reason 포함해 반환
+`explained/`는 스캔 대상이 아니다 — `knowledge/`에서 파생된 해설 캐시라 외부 노출 후보로 다시 세면 같은 글이 두 번 잡힌다.
 
 ## 소비처 (downstream)
 
