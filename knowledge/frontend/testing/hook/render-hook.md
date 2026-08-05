@@ -18,8 +18,11 @@ publishable: true
 ### Official Answer
 This is a convenience wrapper around `render` with a custom test component. The API emerged from a popular testing pattern and is mostly interesting for libraries publishing hooks.
 
+You'll notice it's very similar to our custom setup function. Under the hood, @testing-library/react is doing something very similar to our original setup function above.
+
 ### Reference
 - https://testing-library.com/docs/react-testing-library/api#renderhook
+- https://kentcdodds.com/blog/how-to-test-custom-react-hooks
 
 ---
 

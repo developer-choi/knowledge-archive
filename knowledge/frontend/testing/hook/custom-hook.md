@@ -7,7 +7,8 @@ publishable: true
 - 커스텀 훅 중 어떤 훅에 독립 테스트가 필요한가?
 - 재사용 커스텀 훅은 구체적으로 어떻게 테스트하는가?
 - 훅을 쓰는 실제 컴포넌트를 만들어 테스트하는 방식은 어떤 약점이 있고, 이를 어떻게 보완할 수 있는가?
-- renderHook은 어떤 문제 때문에 등장했으며, 내부적으로 하는 일은 무엇인가?
+- renderHook은 어떤 문제 때문에 등장했는가?
+  - [renderHook이란 무엇이며, 내부에서는 어떻게 동작하는가? → `render-hook.md`](render-hook.md#renderhook이란-무엇이며-내부에서는-어떻게-동작하는가)
 
 ---
 
@@ -47,14 +48,12 @@ Now, having those example components is probably a good idea anyway (they're gre
 
 ---
 
-## renderHook은 어떤 문제 때문에 등장했으며, 내부적으로 하는 일은 무엇인가?
+## renderHook은 어떤 문제 때문에 등장했는가?
 
 ### Official Answer
 Now, sometimes you have more complicated hooks where you need to wait for mocked HTTP requests to finish, or you want to "rerender" the component that's using the hook with different props etc. Each of these use cases complicates your setup function or your real world example which will make it even more domain-specific and difficult to follow.
 
 This is why renderHook from @testing-library/react exists.
-
-You'll notice it's very similar to our custom setup function. Under the hood, @testing-library/react is doing something very similar to our original setup function above.
 
 ### Reference
 - https://kentcdodds.com/blog/how-to-test-custom-react-hooks

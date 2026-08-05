@@ -33,6 +33,14 @@ renderHook(() => useLoggedInUser())
    render(<TestComponent />)         ← 결국 평범한 render
 ```
 
+> You'll notice it's very similar to our custom setup function. Under the hood, @testing-library/react is doing something very similar to our original setup function above.
+
+"직접 만든 setup 함수와 매우 비슷하다는 것을 알아챌 것이다. 내부적으로 @testing-library/react는 앞서 만든 원래 setup 함수와 매우 비슷한 일을 한다."
+
+- **our original setup function above**: 이 문장의 출처(Kent C. Dodds 글)에서 손으로 짜던 헬퍼를 가리킨다. UI 없는 임시 컴포넌트를 정의해 훅을 호출하고 반환값을 바깥 객체에 복사한 뒤 `render`로 마운트하는 함수다. 그 헬퍼를 왜 손으로 짜게 되고 어떤 한계에 부딪혀 `renderHook`으로 넘어가는지는 형제 문서 [`custom-hook.md`](custom-hook.md)가 다룬다.
+
+즉 위 다이어그램의 자동 생성 임시 컴포넌트가 곧 그 손수 짠 헬퍼의 자리를 대신한다. `renderHook`이 하는 일은 그 헬퍼를 라이브러리가 미리 완성해 둔 것에 가깝다.
+
 ---
 
 ## 종합

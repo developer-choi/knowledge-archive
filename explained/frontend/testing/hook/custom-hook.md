@@ -96,11 +96,11 @@ setup() 헬퍼
 
 ---
 
-# renderHook은 어떤 문제 때문에 등장했으며, 내부적으로 하는 일은 무엇인가?
+# renderHook은 어떤 문제 때문에 등장했는가?
 
 ## 도입
 
-이 질문의 핵심은 `renderHook`이라는 API를 맥락 없이 단독으로 외우는 게 아니라, **문제가 해결책을 낳고 그 해결책이 다시 다음 문제를 낳는 흐름**을 이해하는 데 있다. 지금까지의 내용을 되짚으면 이미 그 흐름의 앞부분이 지나갔다. 그 끝에서 `renderHook`이 자연스럽게 나타난다. (`renderHook`의 API 사용법 자체 — `result.current`, `initialProps`, `rerender` — 는 형제 문서 `knowledge/frontend/testing/hook/render-hook.md`가 다루니 여기서는 "왜 존재하는가"만 본다.)
+이 질문의 핵심은 `renderHook`이라는 API를 맥락 없이 단독으로 외우는 게 아니라, **문제가 해결책을 낳고 그 해결책이 다시 다음 문제를 낳는 흐름**을 이해하는 데 있다. 지금까지의 내용을 되짚으면 이미 그 흐름의 앞부분이 지나갔다. 그 끝에서 `renderHook`이 자연스럽게 나타난다. (`renderHook`이 무엇이고 내부에서 어떻게 동작하는지, 그리고 `result.current`·`initialProps`·`rerender` 같은 API 사용법은 형제 문서 [`render-hook.md`](render-hook.md)가 다루니 여기서는 "왜 존재하는가"만 본다.)
 
 ---
 
@@ -143,14 +143,10 @@ setup() 헬퍼
 
 - **this is why ... exists**: `renderHook`은 방금 그 문제 — 매번 손으로 짜는 `setup` 헬퍼가 복잡해지는 문제 — 를 해결하려고 만들어진, `setup` 헬퍼를 이미 완성해 놓은 도구다. 대기용 async 유틸, props를 바꿔 다시 실행하는 `rerender`, 정리(cleanup) 검증을 위한 `unmount` 같은 도구를 함께 제공한다. 이걸 매번 직접 만들면 실수하기 쉬운 반복 코드가 된다.
 
-> Under the hood, @testing-library/react is doing something very similar to our original setup function above.
-
-"내부적으로 @testing-library/react는 위에서 만든 원래 setup 함수와 매우 비슷한 일을 한다."
-
-- **under the hood**: 겉으로 드러난 API 뒤, 내부 구현. `renderHook`은 마법이 아니라, 우리가 손으로 짰던 그 `setup` 헬퍼와 본질적으로 같은 일 — 훅을 부르는 UI 없는 임시 컴포넌트를 만들어 `render`로 마운트하고 반환값을 꺼내주는 일 — 을 한다.
+그럼 `renderHook`은 그 자리를 어떻게 메우는가 — 내부에서 무엇을 하는지는 형제 문서 [`render-hook.md`](render-hook.md)가 다룬다.
 
 ---
 
 ## 종합
 
-`renderHook`은 이 흐름의 자연스러운 종착점이다. ① 훅을 직접 못 부르니 → ② 실제 예시 컴포넌트를 만들고, ② 예시가 복잡해 훅 아닌 예시 탓에 실패하거나 예시가 여러 개로 늘어나니 → ③ UI 없는 `setup` 헬퍼로 반환값을 직접 만지고(그래서 `act`가 필요하고), ③ 그 헬퍼조차 비동기 대기·props 리렌더·정리 검증을 떠안아 복잡해지니 → ④ 그것을 완성된 도구로 만든 `renderHook`이 나온다. 내부적으로는 우리가 손으로 짠 `setup`과 똑같이 UI 없는 임시 컴포넌트를 렌더할 뿐이며, 거기에 `rerender`·`unmount`·async 유틸을 얹어 매번 반복하던 코드를 없앤다. 원문의 결론은 균형 잡혀 있다 — 단순한 훅이라면 실제 예시 컴포넌트가 읽기 쉬움과 사용 사례 커버 사이의 가장 좋은 절충이고, `renderHook`은 더 복잡한 훅에서 제값을 한다.
+`renderHook`은 이 흐름의 자연스러운 종착점이다. ① 훅을 직접 못 부르니 → ② 실제 예시 컴포넌트를 만들고, ② 예시가 복잡해 훅 아닌 예시 탓에 실패하거나 예시가 여러 개로 늘어나니 → ③ UI 없는 `setup` 헬퍼로 반환값을 직접 만지고(그래서 `act`가 필요하고), ③ 그 헬퍼조차 비동기 대기·props 리렌더·정리 검증을 떠안아 복잡해지니 → ④ 그것을 완성된 도구로 만든 `renderHook`이 나온다. 원문의 결론은 균형 잡혀 있다 — 단순한 훅이라면 실제 예시 컴포넌트가 읽기 쉬움과 사용 사례 커버 사이의 가장 좋은 절충이고, `renderHook`은 더 복잡한 훅에서 제값을 한다. 그 도구가 내부에서 무엇을 하는지는 [`render-hook.md`](render-hook.md)를 본다.
