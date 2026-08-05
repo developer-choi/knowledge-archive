@@ -31,6 +31,39 @@ function normalizeTokens(text) {
   return n ? n.split(' ') : [];
 }
 
+// HTML 페이지 → 검사용 평문. 세 가지를 처리한다.
+// ① script·style 블록 제거 — 페이지 스크립트의 HEADS 배열에 원문 앞 60자가 들어 있어,
+//    카드 없이 HEADS만 있는 페이지가 짧은 문장을 커버된 것으로 통과시킬 수 있다.
+// ② 태그 제거 — `struct<strong>ure` 같은 삽입이 단어를 끊는 것을 막는다.
+// ③ 엔티티 복원 — `&`는 HTML에 `&amp;`로 써야 하는데, 정규화가 기호를 지우면 'amp'라는
+//    없는 단어가 문장 한가운데 끼어 조각(n-gram)이 끊긴다. 제대로 담은 문장이 누락으로
+//    잡히는 오탐의 원인이라 복원 후 검사한다.
+function htmlToText(html) {
+  return String(html)
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&(?:amp|#38|#x26);/gi, '&')
+    .replace(/&(?:lt|#60|#x3c);/gi, '<')
+    .replace(/&(?:gt|#62|#x3e);/gi, '>')
+    .replace(/&(?:quot|#34|#x22);/gi, '"')
+    .replace(/&(?:apos|#39|#x27);/gi, "'")
+    .replace(/&(?:nbsp|#160|#xa0);/gi, ' ')
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)));
+}
+
+// a의 조각(n-gram) 중 b에 들어 있는 비율. 참고용 재붙여넣기 판별에 쓴다 — 같은 세션에서
+// 이미 검사한 원문과 사실상 같은 글이면 새 해설 대상이 아니다.
+function overlapRatio(a, b, n = DEFAULT_N) {
+  const grams = ngrams(normalizeTokens(a), n);
+  if (!grams.length) return 0;
+  const set = buildNgramSet(normalizeTokens(b), n);
+  let hit = 0;
+  for (const g of grams) if (set.has(g)) hit += 1;
+  return hit / grams.length;
+}
+
 // 제외 규칙(사용자 합의): 코드블록·테이블. alt text/캡션은 결정론적 완전검출이 어려워
 // 세그먼트 커버리지 임계로 흡수한다.
 function stripExcluded(text) {
@@ -123,6 +156,8 @@ export {
   DEFAULT_SEG_THRESHOLD,
   normalize,
   normalizeTokens,
+  htmlToText,
+  overlapRatio,
   stripExcluded,
   splitSegments,
   isContentSegment,
