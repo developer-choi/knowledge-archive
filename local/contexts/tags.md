@@ -19,9 +19,11 @@ knowledge-archive에서 사용하는 태그 목록.
 - `browser`: 브라우저 동작 원리 (Rendering Path, Event Loop)
 - `react`: React Core, Lifecycle
 - `nextjs`: Next.js Framework
+- `rendering`: 렌더링 방식 (CSR/SSR/SSG/ISR, hydration)
 - `state-mgmt`: 상태 관리 (Redux, React Query, Zustand)
 - `styling`: CSS, SCSS, Tailwind, CSS-in-JS
 - `testing`: 테스트 전략, 테스트 도구
+- `vitest`: Vitest 테스트 러너
 - `a11y`: 접근성 (Accessibility)
 - `seo`: 검색 엔진 최적화
 - `storybook`: Storybook 컴포넌트 워크샵·시각 테스트

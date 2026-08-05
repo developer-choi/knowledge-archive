@@ -4,6 +4,12 @@
       "file": "enforce-digest-coverage.mjs",
       "event": "Stop",
       "msg": "Checking digest coverage..."
+    },
+    {
+      "file": "block-knowledge-priority.mjs",
+      "event": "PreToolUse",
+      "on": "edit",
+      "msg": "Checking knowledge priority policy..."
     }
   ]
 }

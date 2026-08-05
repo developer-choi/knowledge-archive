@@ -1,3 +1,10 @@
 # knowledge↔explained 셋트 검증 — 스테이징된 문서만 검사한다.
-# 위반(error)이 있으면 커밋을 거부한다. 규칙은 local/skills/validate/SKILL.md 참고.
+# 위반(error)이 있으면 커밋을 거부한다. 체크 목록은 scripts/validate-lint.mts의 CHECK_REGISTRY.
 npm run --silent validate-lint -- --staged
+status=$?
+
+# 세션 맥락 표현 후보 — explained/에서 지워진 줄에 금지 목록 밖 표현이 있으면 알려준다.
+# 목록 추가는 사용자가 판단하므로 출력만 하고 커밋을 막지 않는다.
+npm run --silent session-phrase-candidates
+
+exit $status

@@ -25,7 +25,7 @@ margin collapsing에서 실제 일어나는 일은 "두 마진(30px, 20px)이 **
 
 요약하면: 맞닿은 세로 마진은 **합이 아니라 max로 합쳐진다.** 이름이 collapse인 이유도 "둘이 하나로 접혀 사라진다"는 동작을 그대로 가리키기 때문이다. 단, 가로 마진은 collapse되지 않으며 세로 방향에서만 일어난다.
 
-세 가지 발생 경우와 실제 픽셀이 어떻게 줄어드는지는 데모로 직접 볼 수 있다: [margin collapsing 데모](../../../../assets/frontend/ui-ux/css/margin-collapsing-demo.html)
+세 가지 발생 경우와 실제 픽셀이 어떻게 줄어드는지는 데모로 직접 볼 수 있다: [margin collapsing 데모](../../../../assets/frontend/ui-ux/css/margin-collapsing/margin-collapsing-demo.html)
 
 ---
 # margin collapsing이 일어나는 세 가지 경우는 각각 어떤 상황인가?
