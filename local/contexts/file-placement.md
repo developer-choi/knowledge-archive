@@ -42,7 +42,7 @@ knowledge/frontend/react/rendering/
   ├── state-as-a-snapshot.md  ← 렌더 안에서 state 값이 고정되는 성질
   └── react-reconciliation.md
 
-knowledge/cs/network/protocols/
+knowledge/cs/network/protocol/
   ├── http-basics.md
   └── tcp-ip.md
 ```
