@@ -34,21 +34,11 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 - 경로 지정 가능 (`knowledge/cs` 등). 회차 변경분만 보려면 `--changed <baseRef>` (그 ref..HEAD diff).
 - hard violation 있으면 exit 1, warning(제안성)만이면 exit 0.
 
-린터가 보는 항목(근거 룰은 스크립트 주석 참조): 코드 펜스 불균형, Official Annotation 잔재, 빈 섹션, 동일 헤딩 중복, 인라인 출처 `— URL`, OA 안 한글, `[UNVERIFIED]` 마커 정합성, 목차-본문 순서, 허용 H1, knowledge↔explained 셋트(커버리지·고아 섹션·고아 파일·짝 부재·질문 순서), 본편 없는 `.sub.md`, 구분자 중복, (warning) OA 길이.
+체크 목록의 정본은 `scripts/validate-lint.mts`의 `CHECK_REGISTRY`다 — 여기에 옮겨 적지 않는다. 어떤 체크가 있는지·무엇을 근거로 하는지는 그 배열을 보고, 실제 위반은 린터가 ID와 메시지를 함께 출력한다.
 
 ### knowledge↔explained 셋트 규칙
 
-`knowledge/<rel>.md`와 `explained/<rel>.md`는 **같은 폴더 경로 · 같은 파일명 · 같은 질문**을 갖는 한 쌍이다. 린터가 다섯 방향에서 강제한다.
-
-| 체크 | 위반 |
-|------|------|
-| E1 | knowledge 질문이 explained에 H1으로 없음 |
-| E2 | explained H1이 knowledge Questions에 없음 |
-| E3 | explained 파일에 대응 knowledge 파일이 없음 |
-| E5 | knowledge 파일에 대응 explained 파일이 없음 |
-| E6 | 양쪽에 공통으로 있는 질문의 순서가 다름 |
-
-다섯 모두 error다 — 위반이 있으면 커밋이 거부된다. explained는 복습에 직접 읽는 산출물이므로 섹션 순서가 곧 학습 순서이며, 그래서 E6도 차단 대상이다.
+`knowledge/<rel>.md`와 `explained/<rel>.md`는 **같은 폴더 경로 · 같은 파일명 · 같은 질문**을 갖는 한 쌍이다. 린터가 E1·E2·E3·E5·E6 다섯 방향에서 강제하며 다섯 모두 error다 — 위반이 있으면 커밋이 거부된다. explained는 복습에 직접 읽는 산출물이므로 섹션 순서가 곧 학습 순서이며, 그래서 E6도 차단 대상이다.
 
 ## 판단 체크 — LLM
 
@@ -62,7 +52,30 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
   - 전용 문서 판별: `knowledge/` 폴더 구조와 파일명 기준. 서브에이전트로 병렬 검증 시 각 에이전트에게 전체 파일 경로 목록을 전달한다.
 - **Reference 보완**: Official Answer가 영어 원문이고 Reference가 비어 있거나 `URL_UNKNOWN`이면, WebFetch로 출처 URL을 탐색하여 채운다.
 
-`priority`는 검출 대상이 아니다 — AI가 추가하지 않으며, 키가 없어도 위반이 아니고, 채워져 있으면 보존한다 ([content-format.md](../../contexts/content-format.md)의 priority 참고).
+`priority`는 판단 체크 대상이 아니다 — 키가 없어도 위반이 아니고, 채워져 있으면 보존한다 ([content-format.md](../../contexts/content-format.md)의 priority 참고). 값 어휘는 린터 K16이, "AI가 새로 쓰거나 값을 바꾸는 것"은 PreToolUse 훅(`local/hooks/block-knowledge-priority.mjs`)이 저장 전에 막는다.
+
+### 코드로 강제 불가 — 판정 대장
+
+**아래는 검사 지시가 아니라 판정 기록이다.** `/validate`가 매번 훑을 목록이 아니라, "이 규칙은 왜 검사기가 없는가"를 적어둔 대장이다 — 위의 네 항목이 실제 검사 대상인 것과 성격이 다르다.
+
+규칙 본문이 구체화되면 판정이 뒤집힐 수 있으므로 사유를 함께 남긴다. 사유가 아직 성립하면 재조사가 필요 없고, 사유가 무너진 항목만 다시 본다. 재판정한 행은 그 행의 날짜를 갱신한다.
+
+| 규칙 묶음 | 어디에 있나 | 왜 코드로 못 잡나 | 판정일 |
+|---|---|---|---|
+| 해설 품질 전반 — known→unknown 발판 보정, 비유·예시 톤, 코드 예시 레벨 | explanation-guide §0·§2 | 학습자가 무엇을 아는지와 설명이 그 위에 얹혔는지를 판정해야 한다. 글자로 드러나지 않는다 | 2026-08-05 |
+| 신조어·불명확한 비유 금지 | explanation-guide §3 | 사전에 없는 즉석 표현을 가리는 일이라 대조할 목록 자체를 만들 수 없다 | 2026-08-05 |
+| 다이어그램 트리거 판정 (구조·흐름·공간·비교) | explanation-guide §4 | 그 문단이 "구성된다"류 내용인지 뜻으로 갈린다. fence 없는 코드블록 존재 여부는 셀 수 있지만 "그려야 했는데 안 그렸다"는 못 본다 | 2026-08-05 |
+| digest 저장·해설·버림 판정 기준 — 계보 vs 효용, 기계적 후속, 실무 빈도 | digest/SKILL.md 루프「2. 저장 판정」 | 문장 내용을 읽어야 갈린다. 같은 형식의 문장이 한쪽에선 저장, 다른 쪽에선 버림이다 | 2026-08-05 |
+| 질문 작성 원칙 — 수수께끼 금지, 정답 키워드 누설 금지, 리스트 암기 금지, 결론 대신 원리 | digest/SKILL.md「질문 제안」의 ② 작성 원칙 | 질문이 답을 미리 불러주는지 판정하려면 질문과 답의 관계를 이해해야 한다 | 2026-08-05 |
+| convert 판정 — 사용자 필기에 없는 Q 추가 금지, 검증 불가 항목 drop | convert/SKILL.md | 원본(PDF·MD)과 산출물을 뜻으로 대조해야 하고, 원본이 레포 밖에 있다 | 2026-08-05 |
+| review 면접 진행 — 힌트 금지, 답변 완전성 검증, 질문 과부하 금지 | review/SKILL.md | 대화 중 행동이라 레포 파일에 흔적이 남지 않는다 | 2026-08-05 |
+| search 출처 순위 — 상위 출처에서 찾으면 하위로 안 내려간다 | search/SKILL.md | 같은 이유. 어느 순위에서 멈췄는지가 파일에 안 남는다 | 2026-08-05 |
+| production-guide Before/After 실행 여부 | production-guide.md | 절차를 밟았는지 자체가 산출물에 안 남는다. 결과물 정합은 린터가 따로 본다 | 2026-08-05 |
+| 폴더 선택·파일명 키워드 적절성 | file-placement §1·§2 | "핵심 키워드가 들어갔나", "주제가 맞나"는 의미 판단이다. 소문자·하이픈 같은 형식만 린터(K10)가 본다 | 2026-08-05 |
+| 목차 들여쓰기와 본문 위계의 논리적 일치 | document-structure「계층 구조 표현」 | 순서 1:1은 린터(K7)가 보지만, 꼬리질문이 논리적으로 부모에 종속되는지는 뜻으로 갈린다 | 2026-08-05 |
+| 발판으로 인용한 explained H1이 실제 원문 그대로인지 | explanation-guide §0 | 인용이 채팅 응답에 나가고 파일에 안 남아 검사할 대상이 없다 | 2026-08-05 |
+
+규칙을 새로 만들 때 "코드로 내릴 수 있나"를 따지는 방법론은 전역 문서(`~/.claude/contexts/rules-as-code.md`)에 있다. 이 표는 그 방법론이 아니라 KA의 판정 결과다.
 
 ## 검증 및 수정
 
