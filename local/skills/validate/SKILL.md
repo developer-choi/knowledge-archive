@@ -25,20 +25,11 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 기계가 딱 떨어지게 판정하는 항목은 `scripts/validate-lint.mts`가 전담한다. LLM이 통독으로 같은 일을 하지 않는다.
 
-```bash
-npm run validate-lint -- <대상 경로|--changed <baseRef>>   # 위반 목록 출력 (텍스트)
-npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JSON
-```
-
-- 대상 미지정 → `knowledge/` + `explained/` 전체.
-- 경로 지정 가능 (`knowledge/cs` 등). 회차 변경분만 보려면 `--changed <baseRef>` (그 ref..HEAD diff).
-- hard violation 있으면 exit 1, warning(제안성)만이면 exit 0.
-
 체크 목록의 정본은 `scripts/validate-lint.mts`의 `CHECK_REGISTRY`다 — 여기에 옮겨 적지 않는다. 어떤 체크가 있는지·무엇을 근거로 하는지는 그 배열을 보고, 실제 위반은 린터가 ID와 메시지를 함께 출력한다.
 
 ### knowledge↔explained 셋트 규칙
 
-`knowledge/<rel>.md`와 `explained/<rel>.md`는 **같은 폴더 경로 · 같은 파일명 · 같은 질문**을 갖는 한 쌍이다. 린터가 E1·E2·E3·E5·E6 다섯 방향에서 강제하며 다섯 모두 error다 — 위반이 있으면 커밋이 거부된다. explained는 복습에 직접 읽는 산출물이므로 섹션 순서가 곧 학습 순서이며, 그래서 E6도 차단 대상이다.
+`knowledge/<rel>.md`와 `explained/<rel>.md`는 **같은 폴더 경로 · 같은 파일명 · 같은 질문 · 같은 질문 순서**를 갖는 한 쌍이다. 순서까지 쌍의 일부인 이유는 explained가 복습에 직접 읽는 산출물이라 섹션 순서가 곧 학습 순서이기 때문이다.
 
 ## 판단 체크 — LLM
 
@@ -52,7 +43,7 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
   - 전용 문서 판별: `knowledge/` 폴더 구조와 파일명 기준. 서브에이전트로 병렬 검증 시 각 에이전트에게 전체 파일 경로 목록을 전달한다.
 - **Reference 보완**: Official Answer가 영어 원문이고 Reference가 비어 있거나 `URL_UNKNOWN`이면, WebFetch로 출처 URL을 탐색하여 채운다.
 
-`priority`는 판단 체크 대상이 아니다 — 키가 없어도 위반이 아니고, 채워져 있으면 보존한다 ([content-format.md](../../contexts/content-format.md)의 priority 참고). 값 어휘는 린터 K16이, "AI가 새로 쓰거나 값을 바꾸는 것"은 PreToolUse 훅(`local/hooks/block-knowledge-priority.mjs`)이 저장 전에 막는다.
+`priority`는 판단 체크 대상이 아니다 — 키가 없어도 위반이 아니고, 채워져 있으면 보존한다 ([content-format.md](../../contexts/content-format.md)의 priority 참고).
 
 ### 코드로 강제 불가 — 판정 대장
 
@@ -79,7 +70,7 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 
 ## 검증 및 수정
 
-1. `npm run validate-lint`로 결정론 위반을 수집한다 (전체면 전체, 회차면 `--changed`).
+1. `npm run validate-lint`로 결정론 위반을 수집한다 (전체 또는 이번 회차 변경분).
 2. 판단 체크를 수행한다. 전체 검증이면 중복 설명 탐지를 위해 서브에이전트로 병렬 처리하되 전체 파일 경로 목록을 함께 전달한다.
 3. **Reference 보완**: 위 조건의 Q에 WebFetch로 URL을 탐색해 채운다.
 4. 결정론 + 판단 위반 목록을 합쳐 보고한다.
@@ -96,4 +87,4 @@ npm run validate-lint -- --changed <baseRef> --json        # 기계 소비용 JS
 | E6 순서 불일치 | explained 섹션 순서를 knowledge 질문 순서에 맞춰 재배치 (knowledge가 기준) |
 | K9 본편 없는 `.sub.md` | 자동 수정 불가 — 본편이 어디로 갔는지 git log로 확인 후 보고. 본편이 **이동·개명**됐으면 곁가지를 따라 옮기고, 본편이 **삭제**됐으면 곁가지를 본편 이름으로 개명한다(`.sub` 제거, explained 미러도 함께). 어느 쪽인지는 사용자가 판단 ([file-placement.md](../../contexts/file-placement.md)「곁가지 분리」). |
 
-그 외 결정론 위반(빈 섹션·중복 헤딩·인라인 출처·구분자 중복·마커·펜스 등)은 승인 후 직접 수정한다.
+그 외 결정론 위반은 승인 후 직접 수정한다.
