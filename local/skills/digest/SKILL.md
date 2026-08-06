@@ -5,7 +5,11 @@ argument-hint: ON [출처 URL] 또는 OFF
 
 # Digest
 
-공식문서를 학습하고, 그 주제에 대한 [`knowledge/`](../../contexts/directory-roles.md)의 현재 상태를 이번 출처 기준으로 갱신한다.
+## 목적
+
+공식문서를 읽어 배우고, 그 주제의 [`knowledge/`](../../contexts/directory-roles.md)를 이번 출처 기준으로 다시 쓴다.
+
+읽고 이해한 것은 대화가 닫히면 사라진다. 배우는 일과 남기는 일을 한 세션 안에 묶어야 그 주제의 지식이 실제로 갱신된다.
 
 ## 이번에 읽는 문서가 기준이다
 

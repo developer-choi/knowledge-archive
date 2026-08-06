@@ -5,10 +5,17 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 # HTML 일괄 시험 (exam)
 
-[`knowledge/`](../../contexts/directory-roles.md) 문서 Q&A를 HTML 시험지로 출력하고 일괄 채점한다.
-마커 처리·해설 기준·explained 캐시 규칙은 `/review`·`/digest`와 동일하게 적용한다.
+## 목적
+
+[`knowledge/`](../../contexts/directory-roles.md)에 쌓인 질문을 유도 없이 혼자 풀어보게 한다.
+
+/review 스킬로 하나씩 꼬리질문을 받아가며 진행하면 면접처럼 연습이 가능하지만, 시간이 오래걸린다는 단점이 있다.
+
+그래서 이 스킬은 한번에 여러 질문을 답안지로 제출하여, 빠르게 복습을 할 수 있다는 장점을 챙기기 위해 작성되었다.
 
 ## 공통 규칙
+
+마커 처리·해설 기준·explained 캐시 규칙은 `/review`·`/digest`와 동일하게 적용한다.
 
 ### 마커 처리
 
