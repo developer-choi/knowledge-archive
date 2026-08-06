@@ -24,7 +24,7 @@ Q&A 형식으로 정리된 학습 노트. 사용자가 면접관(AI)에게 질�
 - **판단 질문**: "이게 뭐야? / 왜?" 면접에서 단골로 물어보는 것.
 - **예시**: process/thread, OS, 네트워크, 알고리즘 이론, React core, cs/data-structure.
 - **양식**: `# Questions` / `# Answers` 헤딩, `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference` 등. 자세한 양식은 [document-structure.md](document-structure.md) 참고.
-- **활용 스킬 예**: `/exam`, `/validate`, `/digest`, `/convert`, `/review`.
+- **활용 스킬 예**: `/exam`, `/validate`, `/digest`, `/review`.
 
 ## explained/
 
@@ -33,7 +33,7 @@ Q&A 형식으로 정리된 학습 노트. 사용자가 면접관(AI)에게 질�
 - **자료 성격**: knowledge/의 각 글에 대해 풀어쓴 설명. 사용자가 직접 작성하지 않는다.
 - **양식**: 평문. `## 도입 / ## 본문 / ## 종합` 같은 구조. Q&A 아님.
 - **생성 주체**: `/digest` OFF(세션 확정 질문 전체, 세션 중 사용자 오해를 본문에 녹여 저장). 저장 위치·순서·소유권 규칙은 [explanation-guide.md](explanation-guide.md) §6 참고.
-- **라우팅 대상 여부**: doc-router·convert는 explained/로 콘텐츠를 보내지 않는다.
+- **라우팅 대상 여부**: doc-router는 explained/로 콘텐츠를 보내지 않는다.
 - **경로 결합**: `knowledge/<rel>.md`의 경로를 미러링한다. 원본이 이동·개명되면 대응 `explained/<rel>.md`도 같은 경로로 동반 이동한다 (아래 "원본 이동 시 미러 동반 이동" 참고).
 
 ## assets/

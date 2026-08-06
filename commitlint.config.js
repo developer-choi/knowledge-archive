@@ -7,7 +7,6 @@ module.exports = {
       [
         // local/skills/
         'add-note',
-        'convert',
         'digest',
         'review',
         'skill',

@@ -86,7 +86,3 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 ### list-candidates 출력 형식
 
 `scripts/list-candidates.mts`의 Candidate 인터페이스 변경 시 AC `full-refresh`가 받는 JSON 인터페이스도 함께 수정한다.
-
-### convert 스킬 절차
-
-`local/skills/convert/SKILL.md` 변경 시 AC `doc-router`가 참조하는 절차도 함께 점검한다.
