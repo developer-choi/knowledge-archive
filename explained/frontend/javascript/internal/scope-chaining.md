@@ -1,4 +1,4 @@
-# [UNVERIFIED] Q1. global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
+# [UNVERIFIED] global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
 
 ## 도입
 
@@ -51,7 +51,7 @@ console.log(y); // 20 — window 프로퍼티도 전역 변수처럼 접근 가�
 
 ---
 
-# [UNVERIFIED] Q2. 함수 A 내부에서 함수 B를 호출하면, B는 A의 지역 변수에 접근할 수 있는가?
+# [UNVERIFIED] 함수 A 내부에서 함수 B를 호출하면, B는 A의 지역 변수에 접근할 수 있는가?
 
 ## 도입
 

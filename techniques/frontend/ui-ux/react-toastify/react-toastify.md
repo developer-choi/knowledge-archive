@@ -100,8 +100,8 @@ notification()
 | `icon: false` | 아이콘 숨기기 |
 | `hideProgressBar: false` | 진행바 숨기기 (기본값 false, 대부분 true로 씀) |
 | `autoClose: number` | 자동 닫힘 시간 (ms) |
-| `draggable` | V10 기본값 `true` → `"touch"` 변경됨. PC에서도 드래그 삭제 원하면 `draggable={true}` 명시 |
-| `closeOnClick` | V10 기본값 `true` → `false` 변경됨 |
+| `draggable` | 버전 10부터 기본값 `true` → `"touch"` 변경됨. PC에서도 드래그 삭제 원하면 `draggable={true}` 명시 |
+| `closeOnClick` | 버전 10부터 기본값 `true` → `false` 변경됨 |
 
 ### Reference
 
@@ -134,7 +134,7 @@ notification()
 
 ### User Answer
 
-V10 기준 기능. 토스트가 쌓인 상태에서 마우스를 올리면 간격이 다시 벌어지는 UI.
+버전 10 기준 기능. 토스트가 쌓인 상태에서 마우스를 올리면 간격이 다시 벌어지는 UI.
 `bottom-center` 등 일부 position에서 동작 안 하는 이슈 있음.
 
 ### Reference

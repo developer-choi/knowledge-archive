@@ -70,7 +70,7 @@ JavaScript 한 줄이 동작하기까지는 성격이 다른 두 소프트웨어
 
 ---
 
-# [UNVERIFIED] Q1. Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
+# [UNVERIFIED] Javascript는 싱글스레드의 한계를 어떻게 극복했을까?
 
 ## 도입
 

@@ -48,7 +48,7 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refre
 
 ### knowledge → explained
 
-`knowledge/`와 `explained/`는 같은 폴더 경로·같은 파일명·같은 질문을 갖는 한 쌍이다. 이 셋트는 `validate-lint`의 E1·E2·E3·E5·E6가 강제하며, pre-commit 훅이 커밋 시점에 발동한다 ([validate SKILL](../skills/validate/SKILL.md)의 「knowledge↔explained 셋트 규칙」).
+`knowledge/`와 `explained/`는 같은 폴더 경로·같은 파일명·같은 질문을 갖는 한 쌍이다. 이 셋트는 `validate-lint`의 셋트 검사(커버리지 누락·고아 섹션·고아 파일·짝 부재·질문 순서)가 강제하며, pre-commit 훅이 커밋 시점에 발동한다 ([validate SKILL](../skills/validate/SKILL.md)의 「knowledge↔explained 셋트 규칙」).
 
 `knowledge/<rel>.md`의 **내용**이 바뀌면 대응 explained는 outdated가 되지만 이건 린터가 못 잡는다 — 질문 제목이 그대로면 통과한다. **자동 재생성은 없으며** `/digest`로 그 파일을 다시 다뤄야 갱신된다.
 

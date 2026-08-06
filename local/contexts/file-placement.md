@@ -87,13 +87,13 @@ AI가 임의로 분할하지 않는다. 분할, 꼬리질문 분리, 답변 축�
 원본 `<name>.md`에서 "덜 기억해도 되는" 또는 "`/exam`·`/review`로 시험 보고 싶지 않은" 질문만 떼어 같은 폴더의 `<name>.sub.md`로 옮긴다. 본편은 이름이 바뀌지 않으므로 링크·미러가 깨지지 않는다.
 
 - **위치**: 본편과 같은 폴더. 별도 폴더를 만들지 않는다.
-- **미러**: 짝꿍 `explained/<rel>/<name>.sub.md`도 같은 이름으로 함께 둔다. `.sub.md`도 knowledge↔explained 셋트 검사(E3·E5) 대상이다.
+- **미러**: 짝꿍 `explained/<rel>/<name>.sub.md`도 같은 이름으로 함께 둔다. `.sub.md`도 knowledge↔explained 셋트 검사(고아 파일·짝 부재) 대상이다.
 - **frontmatter**: 본편의 `tags`·`source`를 그대로 상속한다. `priority`는 상속하지 않는다 — 우선순위가 낮아서 덜어낸 파일이므로 사용자가 따로 부여하지 않는 한 키 자체를 두지 않는다.
 - **깊이**: 한 단계만. `<name>.sub.sub.md`는 만들지 않는다.
 - **스크립트 취급**: `list-candidates`·`validate-lint`는 일반 `.md`와 동일하게 스캔한다. 슬러그는 `<name>.sub`가 된다.
-- **이동 시**: 본편을 옮기거나 개명하면 곁가지 4개(knowledge·explained × 본편·곁가지)를 **한 번에** 옮긴다. 본편만 옮기고 곁가지를 두고 오면 `validate-lint`의 K9가 잡는다.
+- **이동 시**: 본편을 옮기거나 개명하면 곁가지 4개(knowledge·explained × 본편·곁가지)를 **한 번에** 옮긴다. 본편만 옮기고 곁가지를 두고 오면 `validate-lint`의 본편 없는 곁가지 검사가 잡는다.
 
-- **문서 통째로 덜 중요해지면**: 파일명을 건드리지 않고 frontmatter의 `priority`를 낮춘다. 본편을 `<name>.sub.md`로 개명하지 않는다 — 그러면 본편 없는 곁가지가 되어 K9에 걸린다. `.sub.md`는 **한 문서 안에서** 일부 질문을 덜어내는 도구고, 문서 전체의 중요도는 `priority`가 담당한다 ([content-format.md](content-format.md)「priority」).
+- **문서 통째로 덜 중요해지면**: 파일명을 건드리지 않고 frontmatter의 `priority`를 낮춘다. 본편을 `<name>.sub.md`로 개명하지 않는다 — 그러면 본편 없는 곁가지가 되어 같은 검사에 걸린다. `.sub.md`는 **한 문서 안에서** 일부 질문을 덜어내는 도구고, 문서 전체의 중요도는 `priority`가 담당한다 ([content-format.md](content-format.md)「priority」).
 - **본편이 가치를 잃으면**: 본편 질문 전체가 기억할 가치가 없어져 지우게 되면, 곁가지를 **본편 이름으로 개명**한다 (`<name>.sub.md` → `<name>.md`, explained 미러도 함께). 곁가지만 남겨두지 않는다 — `.sub` 꼬리표는 "본편이 따로 있다"는 표시라서, 본편이 없으면 이름이 사실과 어긋난다. 남은 게 하나뿐이면 그게 본편이다.
 
 선례: `knowledge/frontend/react/state/how-to-manage-state.sub.md`, `knowledge/cs/software-engineering/principles/declarative-vs-imperative.sub.md`.

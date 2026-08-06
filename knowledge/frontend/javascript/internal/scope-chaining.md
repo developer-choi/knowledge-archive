@@ -4,11 +4,11 @@ source: unverified
 priority: 1
 ---
 # Questions
-- [UNVERIFIED] Q1. global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
-- [UNVERIFIED] Q2. 함수 A 내부에서 함수 B를 호출하면, B는 A의 지역 변수에 접근할 수 있는가?
+- [UNVERIFIED] global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
+- [UNVERIFIED] 함수 A 내부에서 함수 B를 호출하면, B는 A의 지역 변수에 접근할 수 있는가?
 ---
 # Answers
-## [UNVERIFIED] Q1. global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
+## [UNVERIFIED] global environment에서도 변수를 찾지 못하면, scope chain은 어디까지 올라가는가?
 ### User Answer
 아래 코드의 실행 결과는 99다.
 
@@ -35,7 +35,7 @@ global에도 변수가 없으면 window 객체 내부에서 찾는다.
 
 ---
 
-## [UNVERIFIED] Q2. 함수 A 내부에서 함수 B를 호출하면, B는 A의 지역 변수에 접근할 수 있는가?
+## [UNVERIFIED] 함수 A 내부에서 함수 B를 호출하면, B는 A의 지역 변수에 접근할 수 있는가?
 ### User Answer
 아니다.
 scope chaining은 호출 관계가 아니라 nested upper function(렉시컬 상위 함수)의 자유변수만 접근이 가능하다.
