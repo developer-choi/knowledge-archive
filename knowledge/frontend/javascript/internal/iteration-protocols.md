@@ -20,6 +20,9 @@ Iteration protocols aren't new built-ins or syntax, but protocols. These protoco
 
 There are two protocols: The iterable protocol and the iterator protocol.
 
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+
 ## 객체가 iterable이 되려면 무엇을 구현해야 하는가?
 
 ### Official Answer
@@ -33,12 +36,18 @@ Note that when this zero-argument function is called, it is invoked as a method 
 
 This function can be an ordinary function, or it can be a generator function, so that when invoked, an iterator object is returned. Inside of this generator function, each entry can be provided by using yield.
 
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
+
 ## iterator란 무엇이며, 어떤 메서드를 구현해야 iterator가 되는가?
 
 ### Official Answer
 The iterator protocol defines a standard way to produce a sequence of values (either finite or infinite), and potentially a return value when all values have been generated.
 
 An object is an iterator when it implements a next() method with the following semantics.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
 
 ## iterator의 next()는 무엇을 반환해야 하며, 그 반환 객체 안의 필드들은 각각 무엇을 의미하는가?
 

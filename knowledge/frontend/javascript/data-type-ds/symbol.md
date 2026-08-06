@@ -19,10 +19,16 @@ Symbol is a built-in object whose constructor returns a symbol primitive — als
 
 Every Symbol() call is guaranteed to return a unique Symbol.
 
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+
 ## Symbol을 객체의 속성 키로 쓰면 어떤 이점이 있는가?
 
 ### Official Answer
 Symbols are often used to add unique property keys to an object that won't collide with keys any other code might add to the object, and which are hidden from any mechanisms other code will typically use to access the object.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
 
 ## well-known Symbol이란 무엇이고 왜 도입됐는가?
 

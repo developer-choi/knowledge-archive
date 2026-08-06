@@ -167,6 +167,10 @@ For example, components, hooks, and types are bad segment names because they are
 
 - **config**: configuration files and feature flags. / for feature flags, environment variables and other forms of configuration
 
+### Reference
+- https://feature-sliced.design/docs/reference/slices-segments
+- https://feature-sliced.design/docs/get-started/tutorial
+
 ---
 
 ## FSD 슬라이스에서 Public API의 역할과 리팩토링 지원 방식은?
