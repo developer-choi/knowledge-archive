@@ -16,10 +16,7 @@ module.exports = {
       'always',
       [
         // local/skills/
-        'add-note',
-        'digest',
-        'review',
-        'skill',
+        'skills',
         // local/contexts/
         'contexts',
         // knowledge/
