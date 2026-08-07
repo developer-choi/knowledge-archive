@@ -28,6 +28,7 @@ const EXPLAINED_DIR = path.join(KA_ROOT, 'explained');
 
 const HANGUL = /[가-힣㄰-㆏ᄀ-ᇿ]/;
 const ANSWER_HEADINGS = ['Official Answer', 'Additional Answer', 'User Answer', 'Reference'];
+const NOTE_HEADINGS = ['Review Note', 'Frequent Mistakes'];
 
 type Severity = 'error' | 'warn';
 
@@ -66,6 +67,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E6', severity: 'error', rule: 'validate SKILL — 질문 순서' },
   { id: 'K17', severity: 'warn', rule: "content-format §3 '출처 명확성'" },
   { id: 'K18', severity: 'error', rule: "content-format §4 '작성 규칙 — 순수 URL만'" },
+  { id: 'K19', severity: 'error', rule: "content-format §5 'Answer 내 위치 — Reference 바로 위'" },
   { id: 'K20', severity: 'error', rule: "document-structure '꼬리 질문이 다른 md에 있을 때'" },
   { id: 'K21', severity: 'error', rule: "content-format §0 '비속어 금지'" },
   { id: 'E8', severity: 'error', rule: "exam SKILL '[UNVERIFIED] 질문의 H1 형식'" },
@@ -595,6 +597,25 @@ function lintKnowledge(rel: string, src: string): Finding[] {
           add(l.n, 'K18', `Reference에 마크다운 링크 문법 "${item.slice(0, 40)}" (순수 URL로 기재)`);
         } else if (!/^https?:\/\//.test(item) && !item.includes('(URL_UNKNOWN)')) {
           add(l.n, 'K18', `Reference 항목에 URL 없음 "${item.slice(0, 40)}" (순수 URL 또는 \`설명 (URL_UNKNOWN)\`)`);
+        }
+      }
+    }
+
+    // K19 note placement: content-format §5 puts Review Note·Frequent Mistakes directly above
+    // `### Reference`. Strict reading — any other H3 wedged between them and Reference violates it,
+    // and so does a note sitting after Reference. A block without Reference is exempt: both
+    // sections are optional and there is no anchor to measure against.
+    const h3s = b.sections.filter((s) => s.level === 3);
+    const refIdx = h3s.findIndex((s) => s.name === 'Reference');
+    if (refIdx >= 0) {
+      const notes = h3s.filter((s) => NOTE_HEADINGS.includes(s.name));
+      // the notes must fill the `notes.length` slots immediately before Reference
+      const windowStart = refIdx - notes.length;
+      for (const n of notes) {
+        const i = h3s.indexOf(n);
+        if (i < windowStart || i >= refIdx) {
+          const between = h3s.slice(Math.min(i, refIdx) + 1, Math.max(i, refIdx)).map((s) => `### ${s.name}`);
+          add(n.line, 'K19', `"### ${n.name}"이 "### Reference" 바로 위가 아님 (사이: ${between.join(', ') || '없음 — Reference 아래에 위치'})`);
         }
       }
     }
