@@ -70,6 +70,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'K19', severity: 'error', rule: "content-format §5 'Answer 내 위치 — Reference 바로 위'" },
   { id: 'K20', severity: 'error', rule: "document-structure '꼬리 질문이 다른 md에 있을 때'" },
   { id: 'K21', severity: 'error', rule: "content-format §0 '비속어 금지'" },
+  { id: 'K22', severity: 'error', rule: "file-placement §4 '길이 상한'" },
   { id: 'E8', severity: 'error', rule: "exam SKILL '[UNVERIFIED] 질문의 H1 형식'" },
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
@@ -486,6 +487,14 @@ function lintKnowledge(rel: string, src: string): Finding[] {
   f.push(...lintFences(rel, lines));
   f.push(...lintFilePath(rel));
   f.push(...lintFrontmatter(rel, lines));
+
+  // K22 length cap — file-placement §4. knowledge/ only: explained/ is generated prose whose
+  // length tracks the explanation, not a placement decision. toLines already normalised CRLF,
+  // so the count matches what an editor shows.
+  if (lines.length > 400) {
+    add(0, 'K22', `문서 ${lines.length}줄 (>400) — 분할 필요`);
+  }
+
   f.push(...lintProfanity(rel, lines));
   const doc = parseKnowledge(lines);
 
