@@ -3,7 +3,7 @@ disable-model-invocation: true
 argument-hint: "[탐색할 개념 또는 키워드]"
 ---
 
-# Search
+# Primary Source
 
 ## 목적
 
