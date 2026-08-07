@@ -14,6 +14,7 @@ priority:
 - Motion에서 드래그 관성의 물리 파라미터를 커스텀하려면?
 - Motion에서 드래그 가능 범위를 픽셀로 제한하려면?
 - Motion 드래그 이벤트 콜백에서 받을 수 있는 정보는?
+- motion의 `onPan`은 `drag` prop과 어떻게 다른가?
 
 ---
 
@@ -193,3 +194,116 @@ framer-motion의 드래그 흐름은 `pointerMove → drag animation(시트가 �
 ### Reference
 
 - https://motion.dev/docs/react-drag
+
+---
+
+## motion의 `onPan`은 `drag` prop과 어떻게 다른가?
+
+### Official Answer
+Callback function that fires when the pan gesture is recognised on this element.
+
+```jsx
+function onPan(event, info) {
+  console.log(info.point.x, info.point.y)
+}
+
+<motion.div onPan={onPan} />
+```
+
+### User Answer
+`drag="y"`로 끌면 요소가 실제로 아래로 이동한다.
+
+`onPan`으로 끌면 요소는 제자리인데 scale이 줄어들고 borderRadius가 커진다.
+
+FullScreenOverlay가 `drag` 대신 `onPan`을 쓴 이유: **위치 이동이 목적이 아니라 scale/borderRadius 변환이 목적**이기 때문이다.
+
+```tsx
+
+// onPan: 이벤트만 받고, 시각 변화는 직접 구현
+
+const handlePan = (_: PointerEvent, info: PanInfo) => {
+
+  const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
+
+  pan.set(progress);               // 여기서 직접 값을 설정
+
+  dimOpacity.set(0.5 * (1 - progress));
+
+};
+
+// 조건부 snap-back
+
+const handlePanEnd = (_: PointerEvent, info: PanInfo) => {
+
+  if (info.velocity.y > 800 || info.offset.y > 80) {
+
+    onClose();                      // dismiss
+
+  } else {
+
+    animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 }); // snap-back
+
+  }
+
+};
+
+```
+
+연습 예제 — drag vs onPan 차이를 나란히 체감:
+
+```tsx
+
+{/* drag: 요소가 실제로 이동 */}
+
+<motion.div
+
+  drag="y"
+
+  dragConstraints={{ top: 0, bottom: 200 }}
+
+  whileDrag={{ background: '#cc3333' }}
+
+  style={{ width: 200, height: 200, background: '#3366ff', cursor: 'grab' }}
+
+/>
+
+{/* onPan: 요소는 제자리, scale/borderRadius/dim만 변함 */}
+
+const pan = useMotionValue(0);
+
+const scale = useTransform(pan, [0, 1], [1, 0.8], { clamp: true });
+
+const borderRadius = useTransform(pan, [0, 1], [0, 48], { clamp: true });
+
+const dimOpacity = useMotionValue(0.5);
+
+<motion.div style={{ position: 'absolute', inset: 0, background: '#000', opacity: dimOpacity }} />
+
+<motion.div
+
+  onPan={(_, info) => {
+
+    const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
+
+    pan.set(progress);
+
+    dimOpacity.set(0.5 * (1 - progress));
+
+  }}
+
+  onPanEnd={(_, info) => {
+
+    if (info.velocity.y > 800 || info.offset.y > 80) { /* dismiss */ }
+
+    else { animate(pan, 0, { type: 'spring', stiffness: 400, damping: 40 }); }
+
+  }}
+
+  style={{ width: '100%', height: 300, background: '#fff', scale, borderRadius, touchAction: 'none' }}
+
+/>
+
+```
+
+### Reference
+- https://motion.dev/docs/react-motion-component

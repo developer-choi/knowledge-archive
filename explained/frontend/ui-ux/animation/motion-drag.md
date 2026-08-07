@@ -265,3 +265,56 @@ const handleDragEnd = (event, info) => {
 ## 종합
 
 `onDragEnd`에서만 동작을 제어할 때 주의점이 있다. 드래그 흐름은 `pointerMove → drag animation → pointerUp → onDragEnd` 순서이므로, `onDragEnd`에서 "닫지 않기로" 결정해도 이미 시트가 아래로 내려간 상태다. 놓으면 snap-back 위치로 튀어 돌아오는 UX 왜곡이 생긴다. 드래그 자체를 막으려면 `pointerMove` 단계에서 `stopPropagation`을 사용해 Motion이 pan 제스처를 인식하지 못하게 해야 한다.
+
+---
+# motion의 `onPan`은 `drag` prop과 어떻게 다른가?
+
+## 도입
+
+`drag`는 요소를 실제로 이동시킨다. `onPan`은 이동은 하지 않고 이동 정보만 전달한다. 이 차이가 어떤 UX를 구현할 때 어떤 API를 선택할지를 결정한다.
+
+---
+## 본문
+
+> Callback function that fires when the pan gesture is recognised on this element.
+
+"이 요소에서 pan 제스처가 인식될 때 실행되는 콜백 함수."
+
+```jsx
+function onPan(event, info) {
+  console.log(info.point.x, info.point.y)
+}
+
+<motion.div onPan={onPan} />
+```
+
+> Pan and drag events are provided the origin `PointerEvent` as well as an object `info` that contains `x` and `y` point values for the following:
+
+"pan과 drag 이벤트는 원본 PointerEvent와 함께, 다음 항목들의 x·y 포인트 값을 포함하는 info 객체를 전달한다:"
+
+- `point`: 디바이스나 페이지 기준의 절대 좌표
+- `delta`: 마지막 이벤트 이후 이동한 거리 (매 프레임 미세한 이동량)
+- `offset`: 시작점(origin)에서 누적된 총 이동 거리
+- `velocity`: 현재 포인터의 속도
+
+두 API 비교:
+
+```
+drag="y"  → 요소가 실제로 Y축으로 이동
+onPan     → 요소는 제자리, 이동 정보(delta, offset, velocity)만 콜백으로 전달
+```
+
+`drag` 대신 `onPan`을 쓰는 경우: 위치 이동이 목적이 아니라 scale·opacity·borderRadius 같은 다른 값을 제어하는 커스텀 제스처에 적합하다.
+
+```tsx
+const handlePan = (_: PointerEvent, info: PanInfo) => {
+  const progress = Math.max(0, Math.min(info.offset.y / 200, 1));
+  pan.set(progress);
+  dimOpacity.set(0.5 * (1 - progress));
+};
+```
+
+---
+## 종합
+
+`drag`는 "요소를 끌어서 이동시키는" 표준 드래그 동작이고, `onPan`은 "손가락 움직임의 수치를 받아서 내가 원하는 대로 처리하는" 저수준 API다. 풀스크린 바텀시트에서 아래로 드래그할 때 scale과 borderRadius가 바뀌면서 닫히는 효과는 위치 이동이 아니라 값 매핑이므로 `onPan`이 적합하다.
