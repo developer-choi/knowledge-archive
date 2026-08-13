@@ -4,17 +4,21 @@ KA는 같은 도메인 트리에 대해 여러 **역할 디렉토리**를 둔다
 
 ## 본질
 
-글이 **머릿속에 적재할 이론**이냐, **필요할 때 꺼내 쓰는 도구**냐의 차이가 knowledge/와 techniques/를 가른다.
+글이 **머릿속에 적재할 이론**이냐, **필요할 때 찾아보는 사실·도구**냐의 차이가 knowledge/와 reference/를 가른다.
 
-| | 이론·원리 (knowledge/) | 도구·기법 (techniques/) |
+| | 이론·원리 (knowledge/) | 검색·참조 (reference/) |
 |---|---|---|
-| 성격 | 외워서 설명해야 하는 것 | 알고리즘 = 코드로 푸는 도구. 라이브러리 = API 사용법 |
+| 성격 | 외워서 설명해야 하는 것 | 알고리즘 = 코드로 푸는 도구. 라이브러리 = API 사용법. knowledge/에서 내려온 심화 사실 |
 | 활용 | 머릿속에 적재해 즉시 꺼냄 | 코드로 짜거나 검색해서 가져다 씀 |
 | 면접 | 단골 | 안 물어봄 (알고리즘은 코딩테스트로 검증, 라이브러리는 잘 안 물음) |
-| 휘발성 | 안 변함. 외워야 함 | 라이브러리는 버전·교체로 변함. 알고리즘은 안 변하지만 외울 의무 없음 |
+| 휘발성 | 안 변함. 외워야 함 | 라이브러리는 버전·교체로 변함. 알고리즘·심화 사실은 안 변하지만 외울 의무 없음 |
 | 비유 | RAM | 외장 메모리 |
 
 tips/는 통합 정리되지 않은 단편 누적, explained/는 knowledge/에 대한 풀어쓴 캐시.
+
+### 표기 — `reference/`(폴더)와 `### Reference`(섹션)
+
+이름이 겹치므로 글자로 구분한다. **폴더는 슬래시를 붙여 소문자 `reference/`**, **출처 섹션은 슬래시 없이 대문자 `### Reference`**로 적는다. "Reference는 순수 URL만" 같은 규칙 문장은 전부 섹션 얘기다.
 
 ## knowledge/
 
@@ -44,15 +48,18 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 - **경로 결합**: `knowledge/<rel>` 경로를 미러링한다 (`assets/<rel>/<asset-file>`). explained 문서에서 상대 경로로 링크한다. 원본이 이동·개명되면 대응 자산도 같은 경로로 동반 이동한다.
 - **외부 노출**: 제외. `list-candidates.mts` 스캔 대상 아님.
 
-## techniques/
+## reference/
 
-도구·기법 학습 정리. 코드로 푸는 도구, API 사용법, 라이브러리 사용 기법.
+검색·참조하는 사실 창고. 코드로 푸는 도구, API 사용법, 라이브러리 사용 기법에 더해, knowledge/에서 "면접에는 안 나오겠다"고 판정돼 내려온 심화 사실도 여기 담는다.
 
-- **자료 성격**: "외워서 설명"하지 않고 **검색·참조**하는 것.
-- **판단 질문**: "이걸 어떻게 짜? / 어떻게 써?"
+- **자료 성격**: "외워서 설명"하지 않고 **검색·참조**하는 것. 두 갈래다 — ⓐ 도구·기법, ⓑ knowledge/에서 강등된 심화 사실.
+- **판단 질문**: "이걸 어떻게 짜? / 어떻게 써?" 또는 "이건 사실이지만 외울 것까진 아니다."
 - **예시**: binary-search 알고리즘 구현, framer-motion useMotionValue 사용, label HTML element.
-- **knowledge/와의 구분**: 라이브러리 버전·교체로 휘발되면 techniques/, 시간이 지나도 안 변하면 knowledge/. 면접에서 단골로 물어보지 않는 것은 techniques/.
-- **양식**: knowledge/와 동일 (Q&A). [document-structure.md](document-structure.md) 참고.
+- **knowledge/와의 구분**: 라이브러리 버전·교체로 휘발되면 reference/, 시간이 지나도 안 변하면 knowledge/. 면접에서 단골로 물어보지 않는 것은 reference/.
+- **양식**: 질문-답변 구조는 knowledge/와 동일하되, `# Questions` 목차와 `# Answers` H1은 두지 않는다. **질문 제목이 H2로 최상위에 오고, 문서에 H1이 하나도 없는 것이 정상**이다. 그 아래 `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference`는 knowledge/와 같다 ([document-structure.md](document-structure.md) 참고).
+  - 목차를 두지 않는 이유: 목차의 값은 `/exam`·`/review`가 훑을 때 나오는데 둘 다 knowledge/만 출제한다. 여기서 목차는 유지 비용만 남는다.
+  - 파일 제목용 H1도 넣지 않는다 — 파일명과 중복이고, knowledge/에서 문서를 내려보낼 때마다 제목을 새로 지어야 해 강등 동선에 마찰이 생긴다.
+- **강제**: `scripts/validate-lint.mts`가 knowledge/와 함께 스캔한다. 출처 관련 검사(OA 한글 금지·Reference는 순수 URL만·출처 표기 위치)가 여기서도 작동한다. 목차 전제 검사와 explained 짝 검사는 대상이 없어 제외된다.
 - **활용**: 활용 방식은 자유. 검색용, AI 설명 요청용 등.
 
 ## tips/
@@ -62,10 +69,10 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 - **자료 성격**: 한 가지 깨달음·트릭·주의사항을 적은 단편. 통합 정리 의도 없음.
 - **판단 질문**: "알아두면 좋은데 외울 필요까진 없는 것."
 - **예시**: regex `/g` flag 재사용 시 함정, TypeScript `is` keyword 사용 예.
-- **techniques/와의 구분**: 한 주제를 묶어 정리하면 techniques/, 흩뿌려진 단편 누적이면 tips/.
+- **reference/와의 구분**: 한 주제를 묶어 정리하면 reference/, 흩뿌려진 단편 누적이면 tips/.
 - **양식**: 자유 (Q&A 양식 아님). 제목 + 본문/코드, 출처 선택.
 - **파일 단위**: 주제별 파일에 누적하다가 많아지면 분리.
-- **수명**: 영구 보관 가능 (techniques/·knowledge/로의 승격 의무 없음).
+- **수명**: 영구 보관 가능 (reference/·knowledge/로의 승격 의무 없음).
 
 ## archives/
 
@@ -82,7 +89,7 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 역할 디렉토리는 안에 도메인 트리를 둔다:
 
 - `knowledge/cs/algorithm/...`
-- `techniques/cs/algorithm/...`
+- `reference/cs/algorithm/...`
 - `tips/cs/algorithm/...`
 - `explained/cs/algorithm/...`
 
@@ -100,9 +107,9 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 ## 한 글이 어느 역할에 가는지 결정 흐름
 
 1. **explained/**: 사용자가 직접 결정하지 않는다 (`/digest` OFF가 생성).
-2. **knowledge/ vs techniques/ vs tips/**: 자료 성격으로 결정한다.
+2. **knowledge/ vs reference/ vs tips/**: 자료 성격으로 결정한다.
    - "외워서 설명" → knowledge/
-   - "한 주제 묶어 정리한 도구·기법" → techniques/
+   - "한 주제 묶어 정리한 도구·기법", "knowledge/에서 강등된 심화 사실" → reference/
    - "한 포인트 짤막한 단편 필기" → tips/
 3. 결정 후 [file-placement.md](file-placement.md)로 도메인·파일명 정한다.
 

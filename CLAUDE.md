@@ -5,7 +5,7 @@
 ```
 knowledge/   학습 Q&A 문서 (원본, 진실의 원천)
 explained/   knowledge와 1:1 대응하는 해설 캐시 (/digest가 생성, 복습 때 읽음)
-techniques/  도구·기법 학습 정리 (검색·참조용, Q&A 아님)
+reference/   검색·참조용 사실 창고 (도구·기법 + knowledge/에서 강등된 심화 사실. Q&A 구조이되 H1 없음)
 tips/        짤막한 단편 필기 (알아두면 좋은데 외울 필요는 없는 것)
 archives/    학습 중 파생된 심층 보충 노트 (특정 Q&A와 1:1 대응 안 하는 깊은 탐구)
 assets/      explained 설명에 임베드되는 정적 자산 (데모 HTML·이미지 등, knowledge 경로 미러링)
@@ -26,7 +26,7 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 
 ### 소주제 (KA 안에서 어디로)
 
-- **역할 디렉토리** (knowledge/ vs techniques/ vs explained/) — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)
+- **역할 디렉토리** (knowledge/ vs reference/ vs explained/) — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)
 - **도메인 폴더·파일명·검색** — [`local/contexts/file-placement.md`](local/contexts/file-placement.md)
 
 ## explained/ 마이그레이션 절차

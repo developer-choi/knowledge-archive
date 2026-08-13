@@ -7,7 +7,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 ## 목적
 
-[`knowledge/`](../../contexts/directory-roles.md)·`explained/` 하위 문서가 KA 규칙을 지키는지 검증하고, 위반을 수정한다.
+[`knowledge/`](../../contexts/directory-roles.md)·`reference/`·`explained/` 하위 문서가 KA 규칙을 지키는지 검증하고, 위반을 수정한다.
 
 KA의 다른 스킬은 문서 양식이 지켜진다는 전제 위에서 돈다 — 양식이 깨진 문서는 출제에서 조용히 빠지거나 잘못 채점되고, 그 손해는 복습할 때가 아니라 나중에 드러난다. 문서 수가 사람이 훑을 수 있는 규모를 넘은 뒤로는 검사하는 쪽이 따로 있어야 한다.
 
@@ -28,6 +28,10 @@ KA의 다른 스킬은 문서 양식이 지켜진다는 전제 위에서 돈다 
 기계가 딱 떨어지게 판정하는 항목은 `scripts/validate-lint.mts`가 전담한다. LLM이 통독으로 같은 일을 하지 않는다.
 
 체크 목록의 정본은 `scripts/validate-lint.mts`의 `CHECK_REGISTRY`다 — 여기에 옮겨 적지 않는다. 어떤 체크가 있는지·무엇을 근거로 하는지는 그 배열을 보고, 실제 위반은 린터가 ID와 메시지를 함께 출력한다.
+
+### 폴더별 적용 범위
+
+린터는 knowledge/·reference/·explained/를 스캔한다. knowledge/와 reference/는 Q&A 본문 모양이 같아 같은 체크를 공유하되, reference/에는 `# Questions` 목차도 `# Answers` H1도 없고 explained 짝도 없으므로 **목차를 읽는 체크와 knowledge↔explained 짝 체크는 reference/에서 돌지 않는다**. H1 허용 집합도 폴더마다 다르다 ([document-structure.md](../../contexts/document-structure.md)「허용 H1 헤딩」). 400줄 상한은 file-placement §4가 knowledge 문서로 한정하고 분할 판단을 사용자에게 맡기므로 reference/에 걸지 않는다.
 
 ### knowledge↔explained 셋트 규칙
 

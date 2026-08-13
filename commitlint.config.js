@@ -22,7 +22,7 @@ module.exports = {
         // knowledge/
         'knowledge',
         'explained',
-        'techniques',
+        'reference',
         'tips',
         'archives',
         // scripts/

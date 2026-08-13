@@ -1,5 +1,5 @@
 /**
- * Deterministic linter for KA knowledge/ and explained/ documents.
+ * Deterministic linter for KA knowledge/, reference/ and explained/ documents.
  *
  * Enforces the mechanically-decidable subset of the `validate` skill's checks
  * (grep / regex / structural). Judgment checks (OA language = English-original
@@ -12,7 +12,7 @@
  * restating it. Each check's source rule is cited in the registry.
  *
  * Usage:
- *   npx tsx scripts/validate-lint.mts                       # all knowledge/ + explained/
+ *   npx tsx scripts/validate-lint.mts                       # all knowledge/ + reference/ + explained/
  *   npx tsx scripts/validate-lint.mts knowledge/cs          # specific path(s)
  *   npx tsx scripts/validate-lint.mts --staged              # only files staged for commit
  *   npx tsx scripts/validate-lint.mts --changed <baseRef>   # only git-changed files in <ref>..HEAD
@@ -24,7 +24,14 @@ import { execSync } from 'node:child_process';
 
 const KA_ROOT = path.resolve(import.meta.dirname, '..');
 const KNOWLEDGE_DIR = path.join(KA_ROOT, 'knowledge');
+const REFERENCE_DIR = path.join(KA_ROOT, 'reference');
 const EXPLAINED_DIR = path.join(KA_ROOT, 'explained');
+
+// knowledge/ and reference/ share the Q&A body shape (`## 질문` + `### Official Answer` …) and so
+// share one lint function. They differ in the wrapper: knowledge/ carries a `# Questions` TOC and a
+// `# Answers` H1, reference/ carries neither (directory-roles 「reference/」 — 「양식」). Every check
+// that reads the TOC, or that reads the knowledge↔explained pair, is therefore knowledge-only.
+type QaKind = 'knowledge' | 'reference';
 
 const HANGUL = /[가-힣㄰-㆏ᄀ-ᇿ]/;
 const ANSWER_HEADINGS = ['Official Answer', 'Additional Answer', 'User Answer', 'Reference'];
@@ -50,7 +57,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'K5', severity: 'error', rule: "content-format §3 'OA 한글 금지'" },
   { id: 'K6', severity: 'error', rule: "document-structure '미완성 질문 처리'" },
   { id: 'K7', severity: 'error', rule: "document-structure '목차-본문 순서 동기화'" },
-  { id: 'K8', severity: 'error', rule: "document-structure '허용 H1 헤딩'" },
+  { id: 'K8', severity: 'error', rule: "document-structure '허용 H1 헤딩' (knowledge/ = Questions·Answers, reference/ = H1 없음)" },
   { id: 'K9', severity: 'error', rule: "file-placement '곁가지 분리 — <name>.sub.md'" },
   { id: 'K10', severity: 'error', rule: "file-placement §2 '명명 규칙'" },
   { id: 'K11', severity: 'error', rule: "CLAUDE.md 'knowledge 파일 구조 규칙'" },
@@ -366,20 +373,24 @@ interface KnowledgeDoc {
   blocks: Block[];
 }
 
-function parseKnowledge(lines: Line[]): KnowledgeDoc {
+function parseKnowledge(lines: Line[], kind: QaKind = 'knowledge'): KnowledgeDoc {
   const h1s: { text: string; line: number }[] = [];
   const questions: Question[] = [];
   const blocks: Block[] = [];
 
   let qStart = -1;
-  let aStart = -1;
+  // reference/ has no `# Answers` gate — its H2 blocks start at the top of the file. Line 0 is
+  // before every real line, so the `l.n <= aStart` skip below lets all of them through.
+  let aStart = kind === 'reference' ? 0 : -1;
   for (const l of lines) {
     if (l.inFence) continue;
     const h1 = l.text.match(/^#\s+(.+?)\s*$/);
     if (h1) {
       h1s.push({ text: h1[1].trim(), line: l.n });
-      if (h1[1].trim() === 'Questions') qStart = l.n;
-      if (h1[1].trim() === 'Answers') aStart = l.n;
+      if (kind === 'knowledge') {
+        if (h1[1].trim() === 'Questions') qStart = l.n;
+        if (h1[1].trim() === 'Answers') aStart = l.n;
+      }
     }
   }
 
@@ -478,7 +489,7 @@ function headingSlugs(src: string): Set<string> {
 
 // ---------- knowledge checks ----------
 
-function lintKnowledge(rel: string, src: string): Finding[] {
+function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Finding[] {
   const f: Finding[] = [];
   const add = (line: number, check: string, message: string, severity: Severity = 'error') =>
     f.push({ file: rel, line, check, severity, message });
@@ -488,21 +499,24 @@ function lintKnowledge(rel: string, src: string): Finding[] {
   f.push(...lintFilePath(rel));
   f.push(...lintFrontmatter(rel, lines));
 
-  // K22 length cap — file-placement §4. knowledge/ only: explained/ is generated prose whose
-  // length tracks the explanation, not a placement decision. toLines already normalised CRLF,
-  // so the count matches what an editor shows.
-  if (lines.length > 400) {
+  // K22 length cap — file-placement §4, which says "**knowledge 문서는** 400줄을 초과할 수 없다" and
+  // hands the split decision to the user ("AI가 임의로 분할하지 않는다"). knowledge/ only, for two
+  // separate reasons: explained/ is generated prose whose length tracks the explanation, and
+  // reference/ is a search-and-look-up store whose rule text does not carry the cap. toLines already
+  // normalised CRLF, so the count matches what an editor shows.
+  if (kind === 'knowledge' && lines.length > 400) {
     add(0, 'K22', `문서 ${lines.length}줄 (>400) — 분할 필요`);
   }
 
   f.push(...lintProfanity(rel, lines));
-  const doc = parseKnowledge(lines);
+  const doc = parseKnowledge(lines, kind);
 
   // K20 cross-link target: `- [질문 → \`파일.md\`](상대경로#앵커)` must point at a file that exists,
   // at a heading that exists. A cross-link is exempt from the TOC↔body 1:1 rule (K7) precisely
   // because its answer lives elsewhere — so if the elsewhere is wrong, nothing else notices.
   const docDirAbs = path.dirname(path.join(KA_ROOT, rel));
   for (const q of doc.questions.filter((x) => x.crossLink)) {
+    // (reference/ has no TOC, so doc.questions is empty there and this loop — like K7·K6·K20 — never fires)
     const m = q.raw.match(/\]\(([^)]+)\)/);
     if (!m) continue;
     const [target, anchor] = m[1].split('#');
@@ -523,8 +537,10 @@ function lintKnowledge(rel: string, src: string): Finding[] {
   // set — same folder path, same filename, same questions. E1~E3 only fire when the explained
   // file exists (the walk starts from explained/), so a knowledge doc with no pair at all slips
   // through silently; this check closes that direction.
+  // reference/ is exempt: it holds no explanation cache (directory-roles 「explained/」 mirrors
+  // knowledge/ alone), so every reference doc would report a missing pair that must never exist.
   const relNoRoot = rel.replace(/^knowledge\//, '');
-  if (!fs.existsSync(path.join(EXPLAINED_DIR, relNoRoot))) {
+  if (kind === 'knowledge' && !fs.existsSync(path.join(EXPLAINED_DIR, relNoRoot))) {
     add(0, 'E5', `대응 explained/${relNoRoot} 없음 (셋트 미성립 — /digest로 해설 생성 필요)`);
   }
 
@@ -546,9 +562,12 @@ function lintKnowledge(rel: string, src: string): Finding[] {
     }
   }
 
-  // K8 disallowed H1
+  // K8 disallowed H1 — the allowed set is per-root. knowledge/ keeps its two wrapper headings;
+  // reference/ has no wrapper at all, so any H1 there is a stray (질문 제목이 H2로 최상위에 온다).
   for (const h of doc.h1s) {
-    if (h.text !== 'Questions' && h.text !== 'Answers') {
+    if (kind === 'reference') {
+      add(h.line, 'K8', `reference/ 문서에 H1: "# ${h.text}" (H1 없음이 정상 — 질문 제목이 H2로 최상위)`);
+    } else if (h.text !== 'Questions' && h.text !== 'Answers') {
       add(h.line, 'K8', `허용되지 않은 H1: "# ${h.text}" (Questions/Answers만 허용)`);
     }
   }
@@ -894,7 +913,7 @@ function gitPaths(args: string): string[] {
   const out = execSync(`git ${args}`, { cwd: KA_ROOT, encoding: 'utf8' });
   return out
     .split(/\r?\n/)
-    .filter((p) => /^(knowledge|explained)\/.*\.md$/.test(p))
+    .filter((p) => /^(knowledge|reference|explained)\/.*\.md$/.test(p))
     .map((p) => path.join(KA_ROOT, p))
     .filter((p) => fs.existsSync(p));
 }
@@ -935,7 +954,7 @@ if (staged) {
       return [abs];
     });
   } else {
-    targets = [...walkMd(KNOWLEDGE_DIR), ...walkMd(EXPLAINED_DIR)];
+    targets = [...walkMd(KNOWLEDGE_DIR), ...walkMd(REFERENCE_DIR), ...walkMd(EXPLAINED_DIR)];
   }
 }
 
@@ -944,7 +963,8 @@ for (const abs of targets) {
   const rel = relPosix(abs);
   if (!fs.existsSync(abs)) continue;
   const src = fs.readFileSync(abs, 'utf8');
-  if (rel.startsWith('knowledge/')) findings.push(...lintKnowledge(rel, src));
+  if (rel.startsWith('knowledge/')) findings.push(...lintKnowledge(rel, src, 'knowledge'));
+  else if (rel.startsWith('reference/')) findings.push(...lintKnowledge(rel, src, 'reference'));
   else if (rel.startsWith('explained/')) findings.push(...lintExplained(rel, src));
   if (staged) findings.push(...lintSingleFileFolder(rel));
 }
