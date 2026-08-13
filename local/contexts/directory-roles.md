@@ -59,8 +59,7 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 - **양식**: 질문-답변 구조는 knowledge/와 동일하되, `# Questions` 목차와 `# Answers` H1은 두지 않는다. **질문 제목이 H2로 최상위에 오고, 문서에 H1이 하나도 없는 것이 정상**이다. 그 아래 `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference`는 knowledge/와 같다 ([document-structure.md](document-structure.md) 참고).
   - 목차를 두지 않는 이유: 목차의 값은 `/exam`·`/review`가 훑을 때 나오는데 둘 다 knowledge/만 출제한다. 여기서 목차는 유지 비용만 남는다.
   - 파일 제목용 H1도 넣지 않는다 — 파일명과 중복이고, knowledge/에서 문서를 내려보낼 때마다 제목을 새로 지어야 해 강등 동선에 마찰이 생긴다.
-- **강제**: `scripts/validate-lint.mts`가 knowledge/와 함께 스캔한다. 출처 관련 검사(OA 한글 금지·Reference는 순수 URL만·출처 표기 위치)가 여기서도 작동한다. 목차 전제 검사와 explained 짝 검사는 대상이 없어 제외된다.
-- **활용**: 활용 방식은 자유. 검색용, AI 설명 요청용 등.
+- **활용**: 활용 방식은 자유. 검색용, AI 설명 요청용 등. 양식 강제는 `/validate`가 knowledge/와 함께 맡는다.
 
 ## tips/
 
