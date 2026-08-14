@@ -60,7 +60,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'K8', severity: 'error', rule: "document-structure '허용 H1 헤딩' (knowledge/ = Questions·Answers, reference/ = H1 없음)" },
   { id: 'K9', severity: 'error', rule: "file-placement '곁가지 분리 — <name>.sub.md'" },
   { id: 'K10', severity: 'error', rule: "file-placement §2 '명명 규칙'" },
-  { id: 'K11', severity: 'error', rule: "CLAUDE.md 'knowledge 파일 구조 규칙'" },
+  { id: 'K11', severity: 'error', rule: '폴더명과 같은 파일명 금지 (부모 폴더가 더 넓은 범위를 기술해야 함)' },
   { id: 'K12', severity: 'error', rule: "file-placement '곁가지 분리 — 깊이 한 단계'" },
   { id: 'K13', severity: 'error', rule: "file-placement '곁가지 분리 — frontmatter 상속'" },
   { id: 'K14', severity: 'error', rule: "content-format §1 'source'" },
@@ -83,7 +83,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
   { id: 'W3', severity: 'warn', rule: "file-placement §1 '폴더 = 같은 주제 파일 모음'" },
-  { id: 'R1', severity: 'warn', rule: "CLAUDE.md '새 루트 폴더 추가 시 체크리스트'" },
+  { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 구조표·directory-roles.md·list-candidates.md 세 곳에 기재' },
 ];
 
 interface Finding {

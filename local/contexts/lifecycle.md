@@ -16,7 +16,7 @@ KA 레포는 학습 콘텐츠를 생성·소비하는 사이클이 명확히 분
 knowledge/  ──/review   ──►  면접 검증 (1:1 핑퐁)
 knowledge/  ──/exam     ──►  HTML 시험지 → 채점 결과
 knowledge/  ──/validate ──►  양식 위반 수정
-knowledge/  ──list-candidates──►  외부 채널용 JSON (AC full-refresh)
+knowledge/  ──list-candidates──►  외부 채널용 JSON (AC refresh-projects의 KQ 배포)
 ```
 
 ## 스킬·스크립트 입출력

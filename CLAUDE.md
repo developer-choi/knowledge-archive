@@ -47,37 +47,23 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 - 기존 `###` 섹션(예: `### Process state`) 안에 넣는 보충이면 `####`을 사용한다.
 - 보충 내용이 여러 소주제로 나뉘면 각각 `####`으로 구분한다.
 
-## 새 루트 폴더 추가 시 체크리스트
+## 새 루트 폴더 추가 시
 
-새 루트 디렉토리(예: `archives/`)를 추가할 때 수정해야 할 파일:
+새 루트 디렉토리(예: `archives/`)를 문서 세 곳(위 구조 표·`directory-roles.md`·`list-candidates.md`)에 적었는지는 `validate-lint`가 본다.
 
-- `CLAUDE.md` — 디렉터리 구조 표에 추가
-- `local/contexts/directory-roles.md` — 역할 정의 추가
-- `local/contexts/list-candidates.md` — 스캔 대상 여부 명시 (외부 노출 포함/제외)
-- `list-candidates.mts` — 외부 노출 대상이면 스캔 로직 추가
+기계가 못 보는 것은 둘이다.
 
-`archives/`·`assets/`는 외부 노출 제외 — `list-candidates.mts` 수정 불필요.
-
-`knowledge/` 경로를 미러링하는 루트(`explained/`, `assets/`)를 추가할 때는 위 항목에 더해 `directory-roles.md`의 "원본 이동 시 미러 동반 이동" 목록에도 추가한다.
-
-## knowledge 파일 구조 규칙
-
-- 폴더명과 동일한 파일명을 그 폴더 안에 두지 않는다.
-  - 나쁜 예: `process/process.md` (폴더와 파일 이름 동일)
-  - 좋은 예: `process-thread/process.md` (부모 폴더가 더 넓은 범위를 기술)
+- 그 루트를 외부에 노출한다면 `scripts/list-candidates.mts`의 스캔 로직에 넣는다.
+- `knowledge/` 경로를 미러링하는 루트라면 `directory-roles.md`의 "원본 이동 시 미러 동반 이동" 목록에도 넣는다.
 
 ## 약어
 - OA = Official Answer
 
 ## 변경 시 동기화
 
-### contexts (양식·규칙)
-
-`local/contexts/` 변경 시 `knowledge/` 전체를 `/validate`로 재검증하고, AC `full-refresh`·`doc-router`가 KA 양식을 참조하니 함께 점검한다.
-
 ### knowledge frontmatter
 
-`tags`/`source`/`publishable` 키 변경 시 `scripts/list-candidates.mts`(파싱)와 AC `full-refresh`(JSON 입력)를 함께 점검한다.
+`tags`/`source`/`publishable` 키 변경 시 `scripts/list-candidates.mts`(파싱)와 AC `refresh-projects`의 KQ 배포 단계(JSON 입력)를 함께 점검한다.
 
 ### knowledge 본문 구조
 
@@ -85,4 +71,4 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 
 ### list-candidates 출력 형식
 
-`scripts/list-candidates.mts`의 Candidate 인터페이스 변경 시 AC `full-refresh`가 받는 JSON 인터페이스도 함께 수정한다.
+`scripts/list-candidates.mts`의 Candidate 인터페이스 변경 시 AC `refresh-projects`의 KQ 배포 단계가 받는 JSON 인터페이스도 함께 수정한다.

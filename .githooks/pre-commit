@@ -1,6 +1,14 @@
 # knowledge↔explained 셋트 검증 — 스테이징된 문서만 검사한다.
 # 위반(error)이 있으면 커밋을 거부한다. 체크 목록은 scripts/validate-lint.mts의 CHECK_REGISTRY.
-npm run --silent validate-lint -- --staged
+#
+# 다만 양식·규칙 자체(local/contexts/)를 고친 커밋은 전체를 다시 본다. 규칙이 바뀌면 그 커밋에
+# 안 담긴 기존 문서가 위반으로 바뀌는데, 스테이징된 것만 보면 그 순간 아무도 안 잡는다.
+if git diff --cached --name-only | grep -q '^local/contexts/.*\.md$'; then
+  echo "local/contexts/ 변경 — knowledge 전체를 다시 검사합니다."
+  npm run --silent validate-lint
+else
+  npm run --silent validate-lint -- --staged
+fi
 status=$?
 
 # 세션 맥락 표현 후보 — explained/에서 지워진 줄에 금지 목록 밖 표현이 있으면 알려준다.
