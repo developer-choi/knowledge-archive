@@ -108,6 +108,8 @@ function extractOfficialAnswer(sectionNodes: RootContent[], content: string): st
 
 // --- Git metadata ---
 
+// 반환값은 `%aI` 전체(ISO 8601 타임스탬프)다. 날짜까지만 자르면 같은 날 더 늦은 시각의
+// 커밋이 "직전 회차 이후 변경"에서 빠져, 소비자가 커밋 시각을 따로 캐야 판정할 수 있다.
 function gitDateAt(relPath: string, mode: 'first' | 'last'): string {
   const ref = KA_HEAD ? [KA_HEAD] : [];
   // first: --follow로 rename까지 추적, 가장 오래된 라인이 첫 커밋
@@ -121,8 +123,7 @@ function gitDateAt(relPath: string, mode: 'first' | 'last'): string {
     const result = execSync(quoted, { cwd: KA_ROOT, encoding: 'utf-8' }).trim();
     const lines = result.split('\n').filter(Boolean);
     if (lines.length === 0) return '';
-    const pick = mode === 'first' ? lines[lines.length - 1] : lines[0];
-    return pick.slice(0, 10);
+    return mode === 'first' ? lines[lines.length - 1] : lines[0];
   } catch {
     return '';
   }
