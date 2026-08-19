@@ -28,6 +28,7 @@ knowledge-archive에서 사용하는 태그 목록.
 - `seo`: 검색 엔진 최적화
 - `storybook`: Storybook 컴포넌트 워크샵·시각 테스트
 - `design-system`: 디자인 시스템, 컴포넌트 카탈로그
+- `webview`: 앱 안에 띄운 웹 화면 (react-native-webview 등), 웹↔네이티브 통신
 
 ## 3. Language
 - `javascript`: ES6+, JS Engine
