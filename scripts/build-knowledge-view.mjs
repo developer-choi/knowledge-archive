@@ -199,16 +199,15 @@ function renderHtml(data) {
   .lbl:hover .nm { color: var(--accent); }
   .n { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 
-  .copy { font-size: 11px; color: var(--muted); cursor: pointer; }
-  .copy:hover { color: var(--accent); }
-
-  pre {
-    margin: 6px 0 6px 22px; padding: 12px 14px; background: var(--panel);
-    border: 1px solid var(--line); border-radius: 8px; max-height: 60vh; overflow: auto;
-    white-space: pre-wrap; word-break: break-word;
-    font-family: ui-monospace, Consolas, monospace; font-size: 12px; line-height: 1.6;
-  }
   .empty { color: var(--muted); padding: 60px 0; text-align: center; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(8px);
+    background: var(--fg); color: var(--bg); padding: 8px 16px; border-radius: 7px;
+    font-size: 12.5px; font-family: ui-monospace, Consolas, monospace;
+    opacity: 0; pointer-events: none; transition: opacity 0.15s, transform 0.15s; z-index: 10;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media (max-width: 860px) {
     .app { grid-template-columns: 1fr; }
@@ -235,6 +234,7 @@ function renderHtml(data) {
     <div class="tree" id="tree"></div>
   </main>
 </div>
+<div class="toast" id="toast"></div>
 <script>
 var TREE = ${embedJson(data)};
 var NONE = '${NONE_PRIORITY}';
@@ -291,11 +291,9 @@ function countFiles(node) {
 function renderNode(node) {
   if (node.type === 'file') {
     return '<div class="node file" data-path="' + esc(node.path) + '">' +
-      '<div class="lbl"><span class="caret">▶</span>' +
+      '<div class="lbl" title="클릭하면 경로 복사">' +
         '<span class="nm">' + esc(node.name) + '</span>' +
-        '<span class="copy" data-copy="' + esc(node.path) + '" title="클릭하면 경로 복사">경로</span>' +
-      '</div>' +
-      '<pre hidden>' + esc(node.body) + '</pre></div>';
+      '</div></div>';
   }
 
   var open = !collapsedPaths[node.path];
@@ -393,22 +391,13 @@ document.getElementById('expand').addEventListener('click', function () { setAll
 document.getElementById('collapse').addEventListener('click', function () { setAll(true); });
 
 document.getElementById('tree').addEventListener('click', function (e) {
-  var copy = e.target.closest('.copy');
-  if (copy) {
-    navigator.clipboard.writeText(copy.dataset.copy);
-    var old = copy.textContent;
-    copy.textContent = '복사됨';
-    setTimeout(function () { copy.textContent = old; }, 900);
-    return;
-  }
-
   var lbl = e.target.closest('.lbl');
   if (!lbl) return;
   var node = lbl.parentNode;
 
   if (node.classList.contains('dir')) {
     // 접힘 상태는 collapsedPaths에만 기록하고 DOM은 직접 토글한다 — 전체 재렌더를 하면
-    // 열려 있던 파일 본문이 같이 닫혀서 읽던 자리를 잃는다.
+    // 열려 있던 폴더가 같이 닫혀서 보던 자리를 잃는다.
     var kids = node.querySelector('.kids');
     kids.hidden = !kids.hidden;
     node.classList.toggle('open', !kids.hidden);
@@ -417,10 +406,18 @@ document.getElementById('tree').addEventListener('click', function (e) {
     return;
   }
 
-  var pre = node.querySelector('pre');
-  pre.hidden = !pre.hidden;
-  node.classList.toggle('open', !pre.hidden);
+  navigator.clipboard.writeText(node.dataset.path);
+  showToast('경로 복사됨');
 });
+
+var toastTimer = null;
+function showToast(msg) {
+  var toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1200);
+}
 
 document.getElementById('total').textContent = countFiles(TREE) + '건';
 readHash();
