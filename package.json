@@ -8,6 +8,7 @@
   },
   "private": true,
   "scripts": {
+    "show": "node scripts/build-knowledge-view.mjs",
     "list-candidates": "tsx scripts/list-candidates.mts",
     "merge-explained": "tsx scripts/merge-explained.mts",
     "verify-merge": "tsx scripts/verify-merge.mts",
