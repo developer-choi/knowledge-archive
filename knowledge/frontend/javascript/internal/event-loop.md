@@ -9,8 +9,8 @@ priority: 1
 - 이벤트 루프는 내부적으로 job을 어떻게 꺼내 실행하며, 하나의 job은 언제 완료로 간주되는가?
 - macrotask와 microtask는 각각 무엇이며, 어떻게 다른가?
 - 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
-- [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
 - task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
+- [UNVERIFIED] 이벤트 루프는 JavaScript 런타임의 어떤 구성요소들과 함께 동작하는가?
 ---
 # Answers
 
@@ -76,50 +76,6 @@ promise.then(() => {
 
 ---
 
-## [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
-
-```js
-console.log(1);
-setTimeout(() => console.log(2));
-Promise.resolve().then(() => console.log(3));
-Promise.resolve().then(() => setTimeout(() => console.log(4)));
-Promise.resolve().then(() => console.log(5));
-setTimeout(() => console.log(6));
-console.log(7);
-```
-
-### User Answer
-결과는 `1 7 3 5 2 6 4` 순서로 출력된다.
-
-(1회차: 동기 코드 실행)
-- 콘솔에 1 출력
-- macrotask queue에 2를 출력하는 작업 추가
-- microtask queue에 3을 출력하는 작업 추가
-- microtask queue에 (macrotask에 4를 출력하는 작업을 추가하는) 작업 추가
-- microtask queue에 5를 출력하는 작업 추가
-- macrotask queue에 6을 출력하는 작업 추가
-- 콘솔에 7 출력
-
-여기까지 콘솔에는 1, 7이 출력되어 있다.
-- macrotask queue: [2 출력, 6 출력]
-- microtask queue: [3 출력, macrotask에 4 출력 추가, 5 출력]
-
-(2회차: microtask queue가 모두 비워질 때까지 실행)
-- 3 출력
-- macrotask queue에 4를 출력하는 작업 추가
-- 5 출력
-
-여기까지 콘솔은 1, 7, 3, 5.
-- microtask queue: 비어 있음
-- macrotask queue: [2 출력, 6 출력, 4 출력]
-
-(3회차: macrotask 하나씩 꺼내 실행, 사이사이 microtask queue 확인)
-- 2 출력
-- 6 출력
-- 4 출력
-
-최종 출력: `1 7 3 5 2 6 4`
-
 ## task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
 
 ### Official Answer
@@ -151,3 +107,24 @@ task가 실행되는 동안에는 아무리 그 안에서 렌더링하는 코드
 
 기존에는 (1) 화면에 Progressing이 보이고 (2) for 문 도는 동안 잠시 뒤 (3) 화면에 Done이 보일 것이라 예상했지만, 실제로는 아무것도 안 보이다가 바로 Done이 보였다.
 즉 `main()`이라는 task가 실행되는 동안에는 그 안에서 작성한 렌더링 코드가 즉시 반영되지 않고, `main()`이 모두 끝나야 렌더링이 된다.
+
+---
+
+## [UNVERIFIED] 이벤트 루프는 JavaScript 런타임의 어떤 구성요소들과 함께 동작하는가?
+
+### User Answer
+외부 자료 발췌:
+- Javascript Runtime은 Heap, Call Stack, Web APIs(DOM, Ajax, setTimeout 등), Callback Queue, Event Loop로 구성된다.
+- 싱글 스레드는 하나의 힙 영역과 하나의 콜스택을 가진다. 하나의 콜스택을 가진다는 의미는 한 번에 한 가지 일밖에 하지 못한다는 의미다.
+- V8 엔진은 크게 두 부분으로 구성된다.
+  - 메모리 힙(Memory Heap): 메모리 할당이 이루어지는 곳
+  - 콜스택(Call Stack): 코드가 실행되면서 스택 프레임이 쌓이는 곳
+- `Uncaught RangeError: Maximum call stack size exceeded`는 콜스택이 가득 차서 발생하는 에러다.
+- 콜스택이 멈춰 코드가 종료될 때까지 유저 클릭에 아무 반응도 하지 않는 상태를 블로킹 상태라고 한다.
+- 싱글 스레드인 자바스크립트가 매번 5초가 지났는지 체크하지 않고도 5초 후에 콜백을 호출할 수 있는 이유는, 브라우저가 자바스크립트를 실행하는 것 이상의 일을 하기 때문이다.
+
+Event Loop는 Call Stack이 비어있지 않으면 Callback Queue의 작업을 Call Stack에 넣지 않는다. 그래서 서버에서 데이터가 도착했더라도 실행 중인 작업이 모두 끝나야 그 데이터를 처리할 수 있다.
+
+### Reference
+- https://beomy.github.io/tech/javascript/javascript-runtime/
+- https://engineering.huiseoul.com/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9E%91%EB%8F%99%ED%95%98%EB%8A%94%EA%B0%80-%EC%97%94%EC%A7%84-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%BD%9C%EC%8A%A4%ED%83%9D-%EA%B0%9C%EA%B4%80-ea47917c8442

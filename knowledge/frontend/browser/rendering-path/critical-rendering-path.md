@@ -8,8 +8,6 @@ priority: 1
 ## Overview
 - Critical Rendering Path(CRP)란 무엇이며, 어떤 단계로 구성되는가?
   - 수천 개의 리스트 항목 렌더링 시 성능 문제가 발생하는 이유는?
-  - 네이티브 앱과 달리 웹 브라우저가 progressive rendering을 할 수밖에 없는 이유는?
-  - CRP를 너무 이르게/너무 늦게 수행하면 각각 어떤 문제가 생기는가?
   - CRP 렌더링 과정은 한 번만 일어나는가?
 ## Parsing
 - HTML 파싱 중 `async`나 `defer` 없는 `<script>` 태그를 만나면 어떻게 되는가?
@@ -20,23 +18,16 @@ priority: 1
 ## CSSOM
 - CSSOM(CSS Object Model)이란 무엇이며, DOM과의 관계는?
   - [UNVERIFIED] CSS 파일 다운로드를 기다리는 동안 DOM은 어떤 상태인가?
-- 브라우저는 수신한 CSS로 CSSOM 트리를 어떻게 구축하는가?
-  - CSSOM 구축은 성능 병목인가? DevTools에서 어떻게 확인하는가?
-  - [UNVERIFIED] CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?
 ## Optimization
 - [UNVERIFIED] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?
   - [UNVERIFIED] CRP 최적화 전략 중 ROI가 가장 높은 한 가지는?
   - [UNVERIFIED] 코드 스플리팅은 렌더링 파이프라인의 어느 단계에 영향을 주나?
 ## Render
-- 파싱 완료 후 Render Tree는 어떻게 구성되는가?
-  - Render Tree에서 `display: none`과 `visibility: hidden`은 어떻게 다르게 처리되는가?
+- Render Tree에서 `display: none`과 `visibility: hidden`은 어떻게 다르게 처리되는가?
 ## Layout
 - Render Tree 구축 후 Layout 단계에서 브라우저는 무엇을 하는가?
   - Layout과 Reflow의 차이는 무엇이고, Reflow는 왜 발생하는가?
-  - Compositing은 왜 필요하며 무엇을 보장하는가?
-## Paint
-- 부드러운 애니메이션을 위해 브라우저는 한 프레임을 몇 밀리초 안에 완료해야 하며, Paint 성능을 개선하는 전략은?
-  - GPU 레이어를 더 많이 만들면 항상 성능이 좋아지는가?
+  - Compositing은 왜 필요한가?
 
 ---
 
@@ -78,37 +69,6 @@ A few extra nodes won't make a big difference, but keep in mind that adding many
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
-
----
-
-## 네이티브 앱과 달리 웹 브라우저가 progressive rendering을 할 수밖에 없는 이유는?
-
-### Official Answer
-The web is distributed by nature.
-Unlike native applications that are installed before use, browsers cannot depend on websites having all the resources necessary to render the page.
-
-Native apps typically have an install phase, and then a running phase.
-However, for web pages and web apps, the lines between these two phases are much less distinct, and browsers have been specifically designed with that in mind.
-
-Therefore, browsers are very good at rendering pages progressively.
-
-### Reference
-- https://web.dev/learn/performance/understanding-the-critical-path
-
----
-
-## CRP를 너무 이르게/너무 늦게 수행하면 각각 어떤 문제가 생기는가?
-
-### Official Answer
-If the browser renders as soon as possible when it just has some HTML—but before it has any CSS or necessary JavaScript—then the page will momentarily look broken and change considerably for the final render.
-
-On the other hand, if the browser waits for all resources to be available instead of doing any sequential rendering, then the user will be left waiting for a long time; often unnecessarily so if the page was usable at a much earlier point in time.
-
-The browser needs to know what the minimum number of resources it should wait for in order to avoid presenting an obviously broken experience.
-On the other hand, the browser also shouldn't wait longer than necessary before presenting the user with some content.
-
-### Reference
-- https://web.dev/learn/performance/understanding-the-critical-path
 
 ---
 
@@ -210,38 +170,6 @@ CSS 파일을 기다리는 동안에도 HTML 파싱과 DOM 구축은 계속 진�
 
 ---
 
-## 브라우저는 수신한 CSS로 CSSOM 트리를 어떻게 구축하는가?
-
-### Official Answer
-The browser converts the CSS rules into a map of styles it can understand and work with.
-The browser goes through each rule set in the CSS, creating a tree of nodes with parent, child, and sibling relationships based on the CSS selectors.
-As with HTML, the browser needs to convert the received CSS rules into something it can work with.
-Hence, it repeats the HTML-to-object process, but for the CSS.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
-
----
-
-## CSSOM 구축은 성능 병목인가? DevTools에서 어떻게 확인하는가?
-
-### Official Answer
-Building the CSSOM is very, very fast, and this build time information is not displayed in the developer tools.
-Rather, the "Recalculate Style" in developer tools shows the total time it takes to parse CSS, construct the CSSOM tree, and recursively calculate computed styles.
-In terms of web performance, there are many better ways to invest optimization effort, as the total time to create the CSSOM is generally less than the time it takes for one DNS lookup.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
-
----
-
-## [UNVERIFIED] CSSOM은 어떻게 구축되며, DOM 구축과 어떻게 다른가?
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path#css_object_model
-
----
-
 ## [UNVERIFIED] Critical Rendering Path 전체에서 성능을 개선하려면 어디를 건드려야 하나?
 
 ### Additional Answer
@@ -275,22 +203,6 @@ CSS 인라인화 + JS defer만으로도 초기 렌더링 속도가 크게 개선
 
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path
-
----
-
-## 파싱 완료 후 Render Tree는 어떻게 구성되는가?
-
-### Official Answer
-The CSSOM and DOM trees created in the parsing step are combined into a render tree which is then used to compute the layout of every visible element, which is then painted to the screen.
-The computed style tree, or render tree, construction starts with the root of the DOM tree, traversing each visible node.
-The render tree holds all the visible nodes with content and computed styles — matching up all the relevant styles to every visible node in the DOM tree, and determining, based on the CSS cascade, what the computed styles are for each node.
-
-Rendering steps include style, layout, paint, and in some cases compositing.
-The CSSOM and DOM trees created in the parsing step are combined into a render tree which is then used to compute the layout of every visible element, which is then painted to the screen.
-In some cases, content can be promoted to its own layer and composited, improving performance by painting portions of the screen on the GPU instead of the CPU, freeing up the main thread.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
 
 ---
 
@@ -332,37 +244,10 @@ Had we defined the dimensions of our image, no reflow would have been necessary,
 
 ---
 
-## Compositing은 왜 필요하며 무엇을 보장하는가?
+## Compositing은 왜 필요한가?
 
 ### Official Answer
 When sections of the document are drawn in different layers, overlapping each other, compositing is necessary to ensure they are drawn to the screen in the right order and the content is rendered correctly.
 
-As the page continues to load assets, reflows can happen.
-A reflow sparks a repaint and a re-composite.
-Had we defined the dimensions of our image, no reflow would have been necessary, and only the layer that needed to be repainted would be repainted, and composited if necessary.
-
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work#compositing
-
----
-
-## 부드러운 애니메이션을 위해 브라우저는 한 프레임을 몇 밀리초 안에 완료해야 하며, Paint 성능을 개선하는 전략은?
-
-### Official Answer
-To ensure smooth scrolling and animation, everything occupying the main thread, including calculating styles, along with reflow and paint, must take the browser less than 16.67ms to accomplish.
-Painting can break the elements in the layout tree into layers.
-Promoting content into layers on the GPU (instead of the main thread on the CPU) improves paint and repaint performance.
-There are specific properties and elements that instantiate a layer, including `<video>` and `<canvas>`, and any element which has the CSS properties of opacity, a 3D transform, will-change, and a few others.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work
-
----
-
-## GPU 레이어를 더 많이 만들면 항상 성능이 좋아지는가?
-
-### Official Answer
-Layers do improve performance but are expensive when it comes to memory management, so should not be overused as part of web performance optimization strategies.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work

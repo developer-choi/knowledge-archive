@@ -1,7 +1,6 @@
 ---
 tags: [browser, performance, network]
 source: official
-priority: 1
 ---
 
 # Questions
