@@ -21,7 +21,6 @@ KA의 다른 스킬은 문서 양식이 지켜진다는 전제 위에서 돈다 
 | 콘텐츠 포맷 | [content-format.md](../../contexts/content-format.md) |
 | 파일 배치 | [file-placement.md](../../contexts/file-placement.md) |
 | 태그 목록 | [tags.md](../../contexts/tags.md) |
-| 템플릿 | [template.md](../../contexts/template.md) |
 
 ## 결정론 체크 — 린터 스크립트
 

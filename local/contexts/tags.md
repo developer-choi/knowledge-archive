@@ -1,7 +1,6 @@
 # Official Tags Registry
 
 knowledge-archive에서 사용하는 태그 목록.
-새 태그를 만들기 전에 이 목록에서 기존 태그를 확인한다. (예: `error-handling` 대신 `troubleshooting` 사용)
 
 ---
 

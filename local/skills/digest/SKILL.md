@@ -80,7 +80,7 @@ Q&A를 새로 만들기 전에, 기존 knowledge/ 문서에서 미완성 질문�
 - 사용자 내용과 관련된 마커 질문이 있는지 검색한다
 - **매칭됨**: 새 내용으로 답변을 어떻게 채울지 사용자에게 확인 후 처리한다.
   - 공식 출처 원문이 들어왔다 → Official Answer를 채우고 마커 제거 (Questions 목록·본문 헤딩 양쪽). 기존 Additional Answer가 있으면 삭제한다.
-  - AI 추정 답변만 가능하다 → AI Answer를 채우고 마커를 `[UNVERIFIED]`로 변경 (이미 `[UNVERIFIED]`이면 답변 보강만)
+  - AI 추정 답변만 가능하다 → Additional Answer를 채우고 마커를 `[UNVERIFIED]`로 변경 (이미 `[UNVERIFIED]`이면 답변 보강만)
 
 **2단계: 답변 본문 내 `TODO` 문자열 검색**
 - 1단계 이후, 답변 본문에 `TODO` 문자열이 포함된 항목을 추가로 검색한다

@@ -2,23 +2,6 @@
 
 KA 레포는 학습 콘텐츠를 생성·소비하는 사이클이 명확히 분리되어 있다. 어느 스킬에서 어떤 파일이 생성되고, 어디서 소비되는지를 한눈에 본다.
 
-## 데이터 흐름
-
-**Write 사이클 (knowledge·explained 생성)**
-
-```
-공식문서 URL      ──/digest───►  knowledge/  + OFF 시 explained/<rel>
-```
-
-**Read 사이클 (knowledge 소비)**
-
-```
-knowledge/  ──/review   ──►  면접 검증 (1:1 핑퐁)
-knowledge/  ──/exam     ──►  HTML 시험지 → 채점 결과
-린터 스캔 범위 ──/validate ──►  양식 위반 수정
-knowledge/  ──list-candidates──►  외부 채널용 JSON (AC refresh-projects의 KQ 배포)
-```
-
 ## 스킬·스크립트 입출력
 
 | 도구 | Read | Write | 트리거 |
@@ -26,21 +9,9 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC refresh-pr
 | `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (OFF 1단계에서 저장), `explained/<rel>.md` (OFF 2단계에서 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
 | `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
 | `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | Read 전용 (기본) | "복습하자", "면접 연습" 명시 |
-| `/validate` | 린터가 정한 스캔 범위 (`validate-lint.mts`) | `knowledge/<rel>.md` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
+| `/validate` | 린터가 정한 스캔 범위 (`validate-lint.mts`) | `knowledge/`·`reference/` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
+| `/primary-source` | KA 내부 (`knowledge/` 우선, `reference/`·`tips/`·`archives/` 포함), 외부 공식문서 | Read 전용 | "/primary-source" 명시 |
 | `list-candidates` (npm) | `knowledge/` 하위 모든 `.md`, git log | stdout 또는 `--out` 경로에 Candidate[] JSON | CLI |
-
-## Write 대상별 정리
-
-- `knowledge/`: `/digest` (생성·추가) · `/validate`, `/review` (수정)
-- `explained/`: `/digest` OFF 2단계 (세션 확정 질문 생성, 기존 섹션 보존) · `/validate` (고아 삭제)
-- `assets/`: `/digest` (explained에 임베드할 데모·이미지)
-- `$env:TEMP/*.html`: `/exam` (시험지·결과)
-- 외부 JSON: `list-candidates`
-
-## Read 전용 스킬
-
-- `/review`: `knowledge/` + `explained/` Read만.
-- `/exam`: `knowledge/` Read만 (산출물은 임시 HTML).
 
 ## 동기화 규칙
 
@@ -53,10 +24,6 @@ knowledge/  ──list-candidates──►  외부 채널용 JSON (AC refresh-pr
 ### contexts → 양식 위반 검출
 
 `local/contexts/` (양식·규칙) 변경 시 `/validate` 전체 재실행으로 기존 `knowledge/`가 새 규칙을 위반하는지 점검한다.
-
-### 영향 범위 점검
-
-상세 매핑은 `CLAUDE.md`의 "변경 시 동기화" 섹션 참고.
 
 ## explained/ 트리 = 학습자 모델
 

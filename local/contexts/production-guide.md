@@ -20,12 +20,9 @@ knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시
 
 [file-placement.md](file-placement.md)를 읽고 대상 파일을 결정한다.
 
-- 기존 파일에 관련 내용이 있으면 → 해당 파일에 추가
-- 새로운 주제면 → [file-placement.md](file-placement.md)의 폴더 선택 규칙에 따라 새 파일 생성
-
 ### 구조 검증
 
-[document-structure.md](document-structure.md)와 [template.md](template.md)를 읽고 검증한다. 문제가 있으면 사용자에게 알리지 않고 직접 수정한다.
+[document-structure.md](document-structure.md)를 읽고 검증한다. 문제가 있으면 사용자에게 알리지 않고 직접 수정한다.
 
 ### 태그 검증
 

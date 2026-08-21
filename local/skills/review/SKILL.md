@@ -32,7 +32,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 일반 질문과 동일하게 출제한다. Official Answer가 없으므로 AI가 자체 지식으로 채점한다. 시작 시 "이 질문은 공식 출처 미확보 상태입니다 — 자체 지식 기반 채점으로 진행합니다" 한 줄을 안내한다.
 
 ### 마커 없이 Official Answer가 비어 있는 경우
-User Answer / AI Answer 유무와 관계없이 건너뛴다. 정합성 위반 상태이므로 `/validate`가 잡아야 한다.
+User Answer / Additional Answer 유무와 관계없이 건너뛴다. 정합성 위반 상태이므로 `/validate`가 잡아야 한다.
 
 ## 기본 원칙
 
