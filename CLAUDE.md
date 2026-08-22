@@ -3,16 +3,14 @@
 ## 디렉터리 구조
 
 ```
-knowledge/   학습 Q&A 문서 (원본, 진실의 원천)
-explained/   knowledge와 1:1 대응하는 해설 캐시 (/digest가 생성, 복습 때 읽음)
-reference/   검색·참조용 사실 창고 (도구·기법 + knowledge/에서 강등된 심화 사실. Q&A 구조이되 H1 없음)
-tips/        짤막한 단편 필기 (알아두면 좋은데 외울 필요는 없는 것)
-archives/    학습 중 파생된 심층 보충 노트 (특정 Q&A와 1:1 대응 안 하는 깊은 탐구)
-assets/      explained 설명에 임베드되는 정적 자산 (데모 HTML·이미지 등, knowledge 경로 미러링)
+knowledge/
+explained/
+reference/
+tips/
+archives/
+assets/
 scripts/     마이그레이션·검증·후보 추출 스크립트
 ```
-
-`explained/<rel>.md`는 `knowledge/<rel>.md`와 1:1 대응한다. 질문별 설명 섹션이 `\n\n---\n\n` 구분자로 이어붙여져 있고, 각 섹션은 H1(질문 제목)으로 시작한다.
 
 `explained/`·`assets/`는 `knowledge/`(진실의 원천) 경로를 미러링하는 파생물이다. **원본을 이동·개명하면 대응 explained·assets도 같은 경로로 동반 이동**한다 — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)의 "원본 이동 시 미러 동반 이동" 참고.
 
@@ -43,9 +41,6 @@ scripts/     마이그레이션·검증·후보 추출 스크립트
 ### 보충 헤딩 규칙
 
 explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → #### 2계층 세부설명`이다. 보충 내용도 이 계층을 따른다.
-
-- 기존 `###` 섹션(예: `### Process state`) 안에 넣는 보충이면 `####`을 사용한다.
-- 보충 내용이 여러 소주제로 나뉘면 각각 `####`으로 구분한다.
 
 ## 새 루트 폴더 추가 시
 
