@@ -1,6 +1,6 @@
 # Production Guide
 
-knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시 Before/After를 따른다. 스킬 전체가 끝나는 시점에는 추가로 "스킬 종료 시" 절차를 실행한다.
+knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시 Before/After를 따른다.
 
 ---
 
