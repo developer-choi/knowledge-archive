@@ -49,12 +49,14 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 ### HTML 생성 및 오픈
 
 1. 아래 시험 HTML 구조로 파일을 생성한다.
-2. `$env:TEMP\ka-exam-<slug>.html` 에 **BOM 없는 UTF-8**로 저장한다(BOM이 섞이면 한글이 깨진다). `<slug>`는 knowledge 파일 상대 경로를 `-`로 연결한 값 (예: `cs-system-process-thread-process`)
-3. 에이전트 환경별 브라우저 오픈 방식:
-   - **Claude (Interactive PTY 콘솔)**: PowerShell `Start-Process "<경로>"` 로 오픈한다.
-   - **Gemini / Antigravity (Non-interactive Headless 파이프라인)**: 백그라운드 파이프라인 샌드박스의 창 억제를 우회하기 위해 `schtasks`로 대화형 세션에서 오픈한다:
-     `schtasks /create /tn "KA_Exam" /tr "cmd /c start '' '<경로>'" /sc once /st 23:59 /f; schtasks /run /tn "KA_Exam"; Start-Sleep -Seconds 1; schtasks /delete /tn "KA_Exam" /f`
-4. 사용자에게 안내: "브라우저에서 시험지를 열었습니다. 답변 작성 후 **제출** 버튼을 누르고 **클립보드 복사**를 누른 뒤, 여기에 **done**이라고 말하세요."
+2. 다음으로 연다. 저장 경로·인코딩·오픈 방식은 이 스크립트가 정한다.
+
+   ```
+   node {{contexts}}/local-html-roundtrip.mjs open ka-exam <생성한 html 경로> --slug <slug>
+   ```
+
+   `<slug>`는 knowledge 파일 상대 경로를 `-`로 연결한 값 (예: `cs-system-process-thread-process`).
+3. 사용자에게 안내: "브라우저에서 시험지를 열었습니다. 답변 작성 후 **제출** 버튼을 누르고 **클립보드 복사**를 누른 뒤, 여기에 **done**이라고 말하세요."
 
 ### 시험 HTML 구조
 
@@ -104,7 +106,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
     const qIds = [{콤마로 구분된 문자열 배열: 'q1', 'q2', ...}];
     function collect() {
       const payload = {
-        __skill: "exam",
+        __skill: "ka-exam",
         ts: Date.now(),
         answers: qIds.map(id => document.getElementById(id).value.trim())
       };
@@ -128,10 +130,13 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 
 ## Phase 2: 답변 회수
 
-사용자가 "done"이라고 말하면 PowerShell `Get-Clipboard -Raw`로 클립보드를 읽어 `JSON.parse`한다. 파싱한 객체에서 각 문항의 답변을 추출한다.
+사용자가 "done"이라고 말하면 다음으로 회수한다. 마커·신선도 검증은 이 스크립트가 하고, 어긋나면 사용자에게 보여줄 안내 문구를 내며 0이 아닌 코드로 끝난다 — 그때는 채점하지 않는다.
 
-- 페이로드 형태: `{ __skill: "exam", ts: <ms>, answers: [<Q1 답변>, <Q2 답변>, ...] }`. `answers` 배열의 인덱스가 문항 순서(0-based)와 대응한다.
-- **신선도 검증**: `__skill === "exam"`이 아니거나, JSON 파싱이 실패하거나, `ts`가 현재 시각 대비 지나치게 오래됐으면(다른 세션·이전 회차의 잔여 클립보드) 채점하지 않고 "클립보드 복사를 다시 눌러줘"라고 안내한다.
+```
+node {{contexts}}/local-html-roundtrip.mjs collect ka-exam
+```
+
+페이로드 형태: `{ __skill: "ka-exam", ts: <ms>, answers: [<Q1 답변>, <Q2 답변>, ...] }`. `answers` 배열의 인덱스가 문항 순서(0-based)와 대응한다.
 
 ### 스킵 마커 처리
 
@@ -157,7 +162,7 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 
 ## Phase 4: 결과 HTML 생성
 
-채점 완료 후 결과 HTML을 생성하여 `$env:TEMP\ka-exam-<slug>-result.html` 에 **BOM 없는 UTF-8**로 저장하고 Phase 1의 환경별 방식(Claude는 `Start-Process`, Gemini는 `schtasks`)으로 브라우저에서 오픈한다.
+채점 완료 후 결과 HTML을 생성해 Phase 1과 같은 방식으로 연다 — `--slug <slug>-result`로 시험지와 파일이 겹치지 않게 한다.
 
 ### 결과 HTML 구조
 

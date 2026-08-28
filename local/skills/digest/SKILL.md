@@ -213,9 +213,13 @@ digest 모드 시작.
 
 ##### 페이지 만들기·열기
 
-- **경로**: `$env:TEMP\ka-digest-<slug>-<회차>.html`. `<slug>`는 출처 URL의 마지막 경로 조각을 소문자·하이픈으로 바꾼 값 (예: `headings-and-paragraphs`). `<회차>`는 이 세션의 붙여넣기 순번(1부터). **채팅에 적을 때는 `$env:TEMP`를 펼친 절대경로**(`C:\Users\...\Temp\ka-digest-<slug>-1.html`)로 적는다.
-- **인코딩**: BOM 없는 UTF-8 (BOM이 섞이면 한글이 깨진다).
-- **오픈**: PowerShell `Start-Process "<경로>"`로 기본 브라우저에서 연다.
+- **열기**: 아래로 연다. 저장 경로·인코딩·오픈 방식은 이 스크립트가 정하고, 열린 절대경로를 돌려준다 — 채팅에는 그 경로를 그대로 적는다.
+
+  ```
+  node {{contexts}}/local-html-roundtrip.mjs open ka-digest <만든 html 경로> --slug <slug>-<회차>
+  ```
+
+  `<slug>`는 출처 URL의 마지막 경로 조각을 소문자·하이픈으로 바꾼 값 (예: `headings-and-paragraphs`). `<회차>`는 이 세션의 붙여넣기 순번(1부터).
 - **원문 인용 칸에는 꾸밈 태그를 넣지 않는다.** 이 인용은 OFF 1단계에서 Official Answer의 원본으로 그대로 옮겨지므로, `<strong>`·`<code>` 같은 태그가 섞이면 그 찌꺼기가 knowledge 문서까지 따라간다. 굵게·코드 표시가 필요하면 의역·영단어 해설 칸에서 한다.
 - 페이지는 붙여넣기 1회당 새로 만든다. 이전 회차 페이지는 건드리지 않는다.
 
@@ -303,7 +307,7 @@ digest 모드 시작.
 
     function collect() {
       const payload = {
-        __skill: "digest",
+        __skill: "ka-digest",
         ts: Date.now(),
         slug: "{slug}",
         round: {회차},
@@ -360,10 +364,14 @@ C:\Users\...\Temp\ka-digest-{slug}-{회차}.html
 
 #### 1-2. 선택 회수
 
-사용자가 `done`이라고 말하면 PowerShell `Get-Clipboard -Raw`로 클립보드를 읽어 `JSON.parse`한다.
+사용자가 `done`이라고 말하면 아래로 회수한다. 마커·신선도 검증은 이 스크립트가 하고, 어긋나면 사용자에게 보여줄 안내 문구를 내며 0이 아닌 코드로 끝난다 — 그때는 그대로 쓰지 않는다.
 
-- 페이로드 형태: `{ __skill: "digest", ts, slug, round, items: [{ i, head, verdict }] }`. `verdict`는 `save`·`explain`·`drop` 중 하나이며, 라디오를 아무것도 안 고른 문장은 `null`이다.
-- **신선도 검증**: `__skill === "digest"`가 아니거나, JSON 파싱이 실패하거나, `ts`가 현재 시각 대비 지나치게 오래됐으면(이전 회차·다른 세션의 잔여 클립보드) 그대로 쓰지 않고 "클립보드 복사를 다시 눌러주세요"라고 안내한다. `round`가 이번 회차와 다르면 같은 처리를 한다.
+```
+node {{contexts}}/local-html-roundtrip.mjs collect ka-digest
+```
+
+- 페이로드 형태: `{ __skill: "ka-digest", ts, slug, round, items: [{ i, head, verdict }] }`. `verdict`는 `save`·`explain`·`drop` 중 하나이며, 라디오를 아무것도 안 고른 문장은 `null`이다.
+- **회차 확인**: `round`가 이번 회차와 다르면 이전 회차의 잔여이므로 쓰지 않고 "클립보드 복사를 다시 눌러주세요"라고 안내한다. 회차는 이 스킬만 아는 값이라 스크립트가 못 본다.
 - `verdict`가 `null`인 문장이 있으면 그 문장의 `head`를 짚어 어떻게 할지 묻는다. 임의로 채우지 않는다.
 - 회수한 선택은 **원문과 짝지어 세션 안에 쌓아둔다.** `head`로 대조해 순서가 어긋나지 않았는지 확인한다. 이 누적이 OFF 1단계 「후보 취합」의 입력이다.
 - 회수 결과는 채팅에 한 줄로만 보고한다 (예: `저장 4 · 해설 3 · 버림 9로 받았습니다. 다음 단락을 붙여넣어 주세요.`). 문장 목록을 다시 나열하지 않는다.
