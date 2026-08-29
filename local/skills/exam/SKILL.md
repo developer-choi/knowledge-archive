@@ -48,83 +48,16 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 
 ### HTML 생성 및 오픈
 
-1. 아래 시험 HTML 구조로 파일을 생성한다.
-2. 다음으로 연다. 저장 경로·인코딩·오픈 방식은 이 스크립트가 정한다.
+1. 출제 문항을 스펙 JSON으로 적는다 — `{ title, questions: [{ title, diagramHint }] }`. `title`은 knowledge 파일명, `diagramHint`는 위에서 표시한 플래그다.
+2. 렌더러에 넘겨 그대로 연다. 페이지 골격·회수 payload는 렌더러가, 저장 경로·인코딩·오픈 방식은 그다음 스크립트가 정한다. 파일명에 쓸 슬러그도 렌더러가 knowledge 경로에서 뽑는다.
 
-   ```
-   node {{contexts}}/local-html-roundtrip.mjs open ka-exam <생성한 html 경로> --slug <slug>
+   ```bash
+   npm run --silent build-page -- exam-sheet < <스펙 경로> \
+     | node {{contexts}}/local-html-roundtrip.mjs open ka-exam - \
+       --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)
    ```
 
-   `<slug>`는 knowledge 파일 상대 경로를 `-`로 연결한 값 (예: `cs-system-process-thread-process`).
 3. 사용자에게 안내: "브라우저에서 시험지를 열었습니다. 답변 작성 후 **제출** 버튼을 누르고 **클립보드 복사**를 누른 뒤, 여기에 **done**이라고 말하세요."
-
-### 시험 HTML 구조
-
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>시험: {파일명}</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; max-width: 780px; margin: 48px auto; padding: 0 24px; color: #111; }
-    h1 { font-size: 1.3rem; margin-bottom: 4px; }
-    .meta { color: #666; font-size: 0.9rem; margin-bottom: 40px; }
-    .q { margin: 28px 0; }
-    .q-label { font-weight: 600; margin-bottom: 6px; }
-    .diagram-hint { font-size: 0.85rem; color: #555; background: #fff8e1; padding: 6px 10px; margin-bottom: 8px; border-left: 3px solid #ffb300; border-radius: 3px; }
-    textarea { width: 100%; min-height: 216px; padding: 8px; font-size: 0.95rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; resize: vertical; }
-    button { margin-top: 28px; padding: 10px 28px; font-size: 1rem; background: #111; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-    button:hover { background: #333; }
-    #output { display: none; margin-top: 28px; }
-    #output p { font-weight: 600; margin-bottom: 8px; }
-    #result { background: #f4f4f4; min-height: 100px; }
-    #copy-btn { margin-top: 8px; background: #4a6cf7; }
-  </style>
-</head>
-<body>
-  <h1>시험: {파일명}</h1>
-  <p class="meta">총 {N}문항 — 모든 답변을 작성한 뒤 제출 버튼을 누르세요.</p>
-
-  {각 문항 — 번호 1부터 순서대로 반복:}
-  <div class="q">
-    <div class="q-label">Q{번호}. {질문 제목}</div>
-    {diagram_hint 플래그가 있는 문항만:}
-    <div class="diagram-hint">이 질문은 그림으로도 표현할 수 있어요. 종이/태블릿/Excalidraw 등 편한 도구로 옆에 그려보세요.</div>
-    <textarea id="q{번호}" placeholder="답변을 입력하세요..."></textarea>
-  </div>
-
-  <button onclick="collect()">제출</button>
-
-  <div id="output">
-    <p>클립보드 복사를 누른 뒤 Claude에 <strong>done</strong>이라고 말하세요:</p>
-    <textarea id="result" readonly></textarea>
-    <br><button id="copy-btn" onclick="copyAll()">클립보드 복사</button>
-  </div>
-
-  <script>
-    const qIds = [{콤마로 구분된 문자열 배열: 'q1', 'q2', ...}];
-    function collect() {
-      const payload = {
-        __skill: "ka-exam",
-        ts: Date.now(),
-        answers: qIds.map(id => document.getElementById(id).value.trim())
-      };
-      document.getElementById('result').value = JSON.stringify(payload);
-      document.getElementById('output').style.display = 'block';
-      document.getElementById('result').select();
-    }
-    function copyAll() {
-      const ta = document.getElementById('result');
-      ta.select();
-      document.execCommand('copy');
-      document.getElementById('copy-btn').textContent = '복사됨 ✓';
-      setTimeout(() => document.getElementById('copy-btn').textContent = '클립보드 복사', 1500);
-    }
-  </script>
-</body>
-</html>
-```
 
 ---
 
@@ -140,11 +73,9 @@ node {{contexts}}/local-html-roundtrip.mjs collect ka-exam
 
 ### 스킵 마커 처리
 
-답변 원소가 `(스킵)` 또는 `(생략)`(단독 혹은 앞뒤 공백 포함)이면 해당 문항을 **스킵**으로 분류한다.
+답변 원소가 `(스킵)` 또는 `(생략)`(단독 혹은 앞뒤 공백 포함)이면 해당 문항을 채점하지 않고 Phase 4 스펙에 `verdict: "skip"`으로 넘긴다. 판정 없이 "스킵"만 표시하는 것도, 점수 분모에서 빼는 것도 렌더러가 한다.
 
-- 채점하지 않는다. 결과 HTML에 판정 없이 "스킵" 표시만 한다.
-- 점수 분모에도 포함하지 않는다.
-- 다음 라운드 출제 목록에도 포함하지 않는다.
+다음 라운드 출제 목록에는 넣지 않는다.
 
 ---
 
@@ -162,70 +93,27 @@ node {{contexts}}/local-html-roundtrip.mjs collect ka-exam
 
 ## Phase 4: 결과 HTML 생성
 
-채점 완료 후 결과 HTML을 생성해 Phase 1과 같은 방식으로 연다 — `--slug <slug>-result`로 시험지와 파일이 겹치지 않게 한다.
+채점 결과를 스펙 JSON으로 적어 같은 렌더러에 넘긴다.
 
-### 결과 HTML 구조
-
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>결과: {파일명}</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; max-width: 780px; margin: 48px auto; padding: 0 24px; color: #111; }
-    h1 { font-size: 1.3rem; }
-    .score { font-size: 1.1rem; margin: 8px 0 40px; }
-    .q { margin: 32px 0; border-top: 1px solid #e0e0e0; padding-top: 20px; }
-    .verdict { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
-    .verdict.pass   { color: #2a7a2a; }
-    .verdict.partial { color: #c47c00; }
-    .verdict.fail   { color: #c0392b; }
-    .user-ans { background: #f9f9f9; border-left: 3px solid #ccc; padding: 8px 12px; margin: 8px 0; font-size: 0.9rem; white-space: pre-wrap; }
-    .reason { font-size: 0.9rem; color: #555; }
-    .unverified-note { font-size: 0.8rem; color: #888; margin-bottom: 4px; }
-    .diagram-compare { margin-top: 12px; }
-    .diagram-compare p { font-size: 0.9rem; color: #444; margin-bottom: 6px; font-weight: 600; }
-    .diagram-compare pre { background: #f4f4f4; padding: 12px; font-size: 0.85rem; overflow-x: auto; border-radius: 4px; }
-  </style>
-</head>
-<body>
-  <h1>결과: {파일명}</h1>
-  <div class="score">
-    점수: {통과수}/{전체수} &nbsp;|&nbsp; ✓ {통과수} &nbsp; △ {부분수} &nbsp; ✗ {오답수}
-  </div>
-
-  {각 문항 반복:}
-  <div class="q">
-    <div class="verdict {pass|partial|fail}">Q{번호}. {질문 제목} &nbsp;{✓|△|✗}</div>
-    {[UNVERIFIED] 문항인 경우:}
-    <div class="unverified-note">공식 출처 미확보 — 자체 지식 기반 채점</div>
-    <div class="user-ans">{사용자 답변 또는 "미응답"}</div>
-    {✓가 아닌 경우:}
-    <div class="reason">{판정 이유 1-2줄}</div>
-    {diagram_hint 플래그가 있는 문항만:}
-    <div class="diagram-compare">
-      <p>본인이 그린 그림과 비교해보세요:</p>
-      <pre>{explained 섹션의 다이어그램 코드블록 내용}</pre>
-    </div>
-  </div>
-
-  {결과 HTML 하단 — 다음 라운드 안내:}
-  <div style="margin-top:48px; padding:20px; background:#f9f9f9; border-radius:6px;">
-    {오답 0개:}
-    <strong>모든 문항 통과. 시험 종료.</strong>
-
-    {오답 1개:}
-    <strong>1문항 남았습니다.</strong>
-    Claude에게 <code>다음 라운드</code>라고 입력하면 채팅으로 진행합니다.
-
-    {오답 ≥ 2개:}
-    <strong>오답 {오답수}문항이 남았습니다.</strong>
-    Claude에게 <code>다음 라운드</code>라고 입력하면 해당 문항만 다시 시험지로 출제합니다.
-  </div>
-</body>
-</html>
+```bash
+npm run --silent build-page -- exam-result < <스펙 경로> \
+  | node {{contexts}}/local-html-roundtrip.mjs open ka-exam - \
+    --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)-result
 ```
+
+`-result`를 붙이는 것은 시험지와 파일이 겹치지 않게 하기 위해서다.
+
+스펙은 `{ title, questions: [{ title, verdict, answer, reason, unverified, diagram }] }`.
+
+| 필드 | 담는 것 |
+|---|---|
+| `verdict` | Phase 3의 판정 — `pass`·`partial`·`fail`, 채점하지 않았으면 `skip` |
+| `answer` | 회수한 사용자 답변 원문. 비었으면 렌더러가 "미응답"으로 채운다 |
+| `reason` | 판정 이유 1~2줄. 통과·스킵 문항에는 적지 않는다 |
+| `unverified` | 그 문항이 `[UNVERIFIED]`면 `true` — 「마커 처리」가 요구하는 표기를 렌더러가 붙인다 |
+| `diagram` | 다이어그램 플래그가 선 문항만. `explained` 섹션의 코드블록 내용을 그대로 넣는다 |
+
+점수·오답 수·하단 다음 라운드 안내는 `verdict`를 세어 렌더러가 만든다.
 
 ---
 

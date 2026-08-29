@@ -213,126 +213,18 @@ digest 모드 시작.
 
 ##### 페이지 만들기·열기
 
-- **열기**: 아래로 연다. 저장 경로·인코딩·오픈 방식은 이 스크립트가 정하고, 열린 절대경로를 돌려준다 — 채팅에는 그 경로를 그대로 적는다.
+카드 내용을 스펙 JSON으로 적어 아래로 넘긴다. 페이지 골격·판정 뱃지·회수 payload는 렌더러가 짜고, 저장 경로·인코딩·오픈 방식은 그다음 스크립트가 정한다. 열린 절대경로가 돌아오면 채팅에 그대로 적는다.
 
-  ```
-  node {{contexts}}/local-html-roundtrip.mjs open ka-digest <만든 html 경로> --slug <slug>-<회차>
-  ```
-
-  `<slug>`는 출처 URL의 마지막 경로 조각을 소문자·하이픈으로 바꾼 값 (예: `headings-and-paragraphs`). `<회차>`는 이 세션의 붙여넣기 순번(1부터).
-- **원문 인용 칸에는 꾸밈 태그를 넣지 않는다.** 이 인용은 OFF 1단계에서 Official Answer의 원본으로 그대로 옮겨지므로, `<strong>`·`<code>` 같은 태그가 섞이면 그 찌꺼기가 knowledge 문서까지 따라간다. 굵게·코드 표시가 필요하면 의역·영단어 해설 칸에서 한다.
-- 페이지는 붙여넣기 1회당 새로 만든다. 이전 회차 페이지는 건드리지 않는다.
-
-##### 페이지 구조
-
-```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>digest: {slug} — {회차}회차</title>
-  <style>
-    body { font-family: -apple-system, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; color: #111; }
-    h1 { font-size: 1.2rem; margin-bottom: 4px; }
-    .meta { color: #666; font-size: 0.9rem; margin-bottom: 32px; }
-    .card { border-top: 1px solid #e3e3e3; padding: 18px 0 18px 44px; position: relative; border-left: 4px solid transparent; }
-    .card .badge { position: absolute; left: 10px; top: 20px; font-size: 1.1rem; }
-    .card.save { border-left-color: #2a7a2a; background: #f4fbf4; }
-    .card.explain { border-left-color: #c47c00; background: #fffaf0; }
-    .card.drop { border-left-color: #ddd; background: #fafafa; opacity: 0.72; }
-    .src { background: #f7f7f7; padding: 8px 12px 8px 0; font-size: 0.95rem; white-space: pre-wrap; border-radius: 3px; }
-    .ko { margin: 10px 0 6px; padding-right: 12px; font-size: 1rem; }
-    .words { font-size: 0.88rem; color: #555; margin: 0 0 10px; padding-left: 18px; }
-    .words li { margin: 2px 0; }
-    .pick label { margin-right: 16px; font-size: 0.92rem; cursor: pointer; }
-    .summary { margin-top: 36px; padding: 16px 18px; background: #f9f9f9; border-radius: 6px; font-size: 0.95rem; }
-    button { margin-top: 24px; padding: 10px 26px; font-size: 1rem; background: #111; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-    #output { display: none; margin-top: 24px; }
-    #result { width: 100%; min-height: 90px; background: #f4f4f4; box-sizing: border-box; }
-    #copy-btn { background: #4a6cf7; }
-  </style>
-</head>
-<body>
-  <h1>digest: {slug}</h1>
-  <p class="meta">{회차}회차 · {N}문장 — 문장마다 하나씩 고른 뒤 제출을 누르세요. 기본값은 AI 판정입니다.</p>
-
-  {각 문장마다 반복 — i는 0부터:}
-  <div class="card">
-    <div class="src">{원문 verbatim, 태그 없이}</div>
-    <div class="ko">{한글 의역}</div>
-    <ul class="words"><li><b>{단어}</b>: {이 문장에서의 의미}</li>…</ul>
-    <div class="pick">
-      <label><input type="radio" name="v{i}" value="save"> 저장</label>
-      <label><input type="radio" name="v{i}" value="explain"> 해설</label>
-      <label><input type="radio" name="v{i}" value="drop"> 버림</label>
-    </div>
-  </div>
-
-  <div class="summary">{단락 요약 3줄 이내}<br><br>AI 판정: 저장 {n}건 · 해설 {n}건 · 버림 {n}건</div>
-
-  <button onclick="collect()">제출</button>
-
-  <div id="output">
-    <p>클립보드 복사를 누른 뒤 Claude에 <strong>done</strong>이라고 말하세요:</p>
-    <textarea id="result" readonly></textarea>
-    <br><button id="copy-btn" onclick="copyAll()">클립보드 복사</button>
-  </div>
-
-  <script>
-    const HEADS = [{원문 앞 60자 문자열 배열}];
-    const EMOJI = { save: "✅", explain: "📝", drop: "❌" };
-    const LABEL = { save: "저장", explain: "해설", drop: "버림" };
-
-    // 판정을 눈으로 구분되게: 카드마다 이모지 뱃지·배경색을 입히고 라디오 글자에도 이모지를 붙인다.
-    document.querySelectorAll('.card').forEach((card) => {
-      const radios = card.querySelectorAll('input[type=radio]');
-      if (!radios.length) return;
-      radios.forEach((r) => {
-        const span = r.parentElement.childNodes[1];
-        if (span) span.textContent = ' ' + EMOJI[r.value] + ' ' + LABEL[r.value];
-      });
-      const badge = document.createElement('span');
-      badge.className = 'badge';
-      card.prepend(badge);
-      const paint = () => {
-        const picked = card.querySelector('input[type=radio]:checked');
-        const v = picked ? picked.value : null;
-        card.classList.remove('save', 'explain', 'drop');
-        if (v) card.classList.add(v);
-        badge.textContent = v ? EMOJI[v] : '';
-      };
-      radios.forEach((r) => r.addEventListener('change', paint));
-      paint();
-    });
-
-    function collect() {
-      const payload = {
-        __skill: "ka-digest",
-        ts: Date.now(),
-        slug: "{slug}",
-        round: {회차},
-        items: HEADS.map((head, i) => ({
-          i, head,
-          verdict: (document.querySelector('input[name="v' + i + '"]:checked') || {}).value || null
-        }))
-      };
-      document.getElementById('result').value = JSON.stringify(payload);
-      document.getElementById('output').style.display = 'block';
-      document.getElementById('result').select();
-    }
-    function copyAll() {
-      const ta = document.getElementById('result');
-      ta.select();
-      document.execCommand('copy');
-      document.getElementById('copy-btn').textContent = '복사됨 ✓';
-      setTimeout(() => document.getElementById('copy-btn').textContent = '클립보드 복사', 1500);
-    }
-  </script>
-</body>
-</html>
+```bash
+npm run --silent build-page -- digest-cards < <스펙 경로> \
+  | node {{contexts}}/local-html-roundtrip.mjs open ka-digest - --slug <slug>-<회차>
 ```
 
-라디오의 **기본 선택**(`checked`)은 AI 판정에 해당하는 것 하나에 박는다. 판정은 위 스크립트가 카드 왼쪽 이모지 뱃지(✅ 저장 / 📝 해설 / ❌ 버림)와 카드 배경색으로 그려주므로, `AI 판정: …` 같은 글자를 따로 넣지 않는다 — 뱃지가 이미 같은 말을 하고 있어 중복이다.
+스펙은 `{ slug, round, summary, cards: [{ src, ko, words: [{ word, meaning }], verdict }] }`이고, 필드가 위 네 칸과 1:1이다 (`verdict`는 라디오에 미리 찍어둘 AI 판정 — `save`·`explain`·`drop`).
+
+- `<slug>`는 출처 URL의 마지막 경로 조각을 소문자·하이픈으로 바꾼 값 (예: `headings-and-paragraphs`). `<회차>`는 이 세션의 붙여넣기 순번(1부터).
+- **`src`에는 원문만 담는다.** 이 인용은 OFF 1단계에서 Official Answer의 원본으로 그대로 옮겨지므로 렌더러가 통째로 이스케이프한다 — 태그를 적어도 글자로 보인다. 굵게·코드 표시가 필요하면 `ko`·`words`에서 한다(그쪽은 마크업이 그대로 나간다).
+- 페이지는 붙여넣기 1회당 새로 만든다. 이전 회차 페이지는 건드리지 않는다.
 
 ##### 채팅에 쓰는 것
 
@@ -360,7 +252,7 @@ C:\Users\...\Temp\ka-digest-{slug}-{회차}.html
 
 #### 1-1. 단락 요약
 
-카드가 끝나면 단락 전체의 핵심을 비유와 함께 3줄 이내로 정리하고, 그 아래에 이번 단락의 **AI 판정 건수**를 한 줄로 적는다. 둘 다 페이지 하단 요약 칸에 넣고 채팅에는 쓰지 않는다. 판정 목록을 다시 나열하지는 않는다 — 이미 카드마다 붙어 있다.
+카드가 끝나면 단락 전체의 핵심을 비유와 함께 3줄 이내로 정리해 스펙의 `summary`에 담는다. 채팅에는 쓰지 않는다. 판정 건수는 렌더러가 `verdict`를 세어 요약 칸에 붙이므로 따로 적지 않고, 판정 목록을 다시 나열하지도 않는다 — 이미 카드마다 붙어 있다.
 
 #### 1-2. 선택 회수
 
@@ -673,14 +565,12 @@ ON에서 겹침 목록에 오른 파일이 있으면, 파일마다 아래 셋 �
 
    **대상**: 이번 세션 diff에서 **추가·수정**된 Q&A 중 `source: official`이고 Reference URL이 있는 것. 신규 질문뿐 아니라 기존 OA를 수정·보충한 질문도 포함한다 (수정도 개작일 수 있다).
 
-   **축 ① — OA↔Reference 대조** ([content-format.md](../../contexts/content-format.md) §0 「원문 보존」·§3 「`Official Answer`는 예외 없이 수정 금지」, 위 「내용 분류」의 원문 합성 금지):
+   **OA↔Reference 대조** ([content-format.md](../../contexts/content-format.md) §0 「원문 보존」·§3 「`Official Answer`는 예외 없이 수정 금지」, 위 「내용 분류」의 원문 합성 금지):
    - 각 Q&A의 Reference URL(들)을 WebFetch로 가져와, OA의 각 영어 문장이 원문에 **verbatim substring**으로 존재하는지 대조한다.
    - 매칭은 **문장 단위**다 — 서로 다른 출처·위치의 원문 문장을 그대로 이어 붙이는 것은 허용 정책이므로, 블록·단락 단위로 대조하면 정상 이어붙임이 오검출된다.
    - 어느 Reference 원문에서도 못 찾은 문장은 **"원문 불일치" 경고**로 보고한다 (개작·합성·환각 후보).
 
-   **축 ② — explained §1 포맷** ([explanation-guide.md](../../contexts/explanation-guide.md) §1 — 본문은 원문 조각 `>` 블록쿼트 인용 → 한글 의역 → 영단어 해설):
-   - 그 Q&A의 `explained/<rel>.md` 대응 섹션 본문에 대응 OA의 영어 원문이 `>` 블록쿼트로 인용됐는지 확인한다. 원문 fetch 불필요 — knowledge OA와 explained 본문만 대조한다.
-   - official-source Q&A인데 explained 섹션에 영어 블록쿼트가 **0개**면(한글 요약·의역만 있으면) **"§1 미준수" 경고**로 보고한다.
+   explained 본문에 원문 인용이 아예 없는 경우는 여기서 보지 않는다 — `npm run validate-lint`가 레포 전체를 그 눈으로 훑는다. 에이전트에 맡기면 이번 세션에 만진 질문만 보게 되어 예전에 샌 것은 영영 안 걸린다.
 
    **verdict 규칙 (환각 방지)**:
    - "일치" verdict마다 매칭된 소스 원문 문장을 **인용**한다 — 인용 없는 "verified"는 무효.
