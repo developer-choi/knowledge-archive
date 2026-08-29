@@ -18,15 +18,17 @@ knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시
 
 ### 파일 배치
 
-[file-placement.md](file-placement.md)를 읽고 대상 파일을 결정한다.
+[file-placement.md](file-placement.md)를 읽고 대상 파일을 결정한다. 폴더가 주제에 맞는지·파일명에 핵심 키워드가 들어갔는지는 뜻으로 갈리므로 사람이 정한다.
 
-### 구조 검증
+### 양식 검증 — 린터가 한다
 
-[document-structure.md](document-structure.md)를 읽고 검증한다. 문제가 있으면 사용자에게 알리지 않고 직접 수정한다.
+저장한 파일을 넣어 돌리고, 나온 위반은 사용자에게 알리지 않고 직접 고친다.
 
-### 태그 검증
+```bash
+npm run validate-lint -- <저장한 파일 경로>
+```
 
-[tags.md](tags.md)에서 적절한 태그가 선택되었는지 확인한다.
+헤딩 위계·목차 순서·마커 정합·태그 등록 여부·frontmatter 필수 키·파일명·길이 상한을 이 한 번이 전부 본다. [document-structure.md](document-structure.md)·[tags.md](tags.md)를 열어 눈으로 대조하지 않는다 — 그 문서들은 규칙의 단일 출처이지 검사 절차가 아니고, 무엇을 보는지는 `scripts/validate-lint.mts`의 체크 등록부가 정본이다.
 
 ### Official Answer 원문 대조
 
@@ -40,4 +42,4 @@ knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시
 
 ### 분할 경고
 
-이번 스킬에서 변경한 파일에 대해 [file-placement.md의 문서 분할 기준](file-placement.md#4-문서-분할)을 확인하고, 기준 초과 시 사용자에게 경고한다.
+길이 상한 초과는 위 「양식 검증」이 이미 잡는다. 여기서는 그 위반이 나왔을 때 **사용자에게 경고만** 하고 끝낸다 — 어떻게 나눌지는 [file-placement.md의 문서 분할 기준](file-placement.md#4-문서-분할)대로 사용자가 정하고, AI가 임의로 분할하지 않는다.
