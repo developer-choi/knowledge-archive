@@ -82,6 +82,8 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
+  { id: 'K23', severity: 'error', rule: "directory-roles '원본 이동 시 미러 동반 이동' — 본문 링크 경로도 함께 옮긴다" },
+  { id: 'K24', severity: 'error', rule: "content-format §1 'publishable'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
   { id: 'W3', severity: 'warn', rule: "file-placement §1 '폴더 = 같은 주제 파일 모음'" },
   { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 구조표·directory-roles.md·list-candidates.md 세 곳에 기재' },
@@ -261,6 +263,15 @@ function lintFrontmatter(rel: string, lines: Line[]): Finding[] {
     for (const t of list) {
       if (!registry.has(t)) add(tags.line, 'K15', `미등록 태그 "${t}" (local/contexts/tags.md에 먼저 등록)`);
     }
+  }
+
+  // K24 publishable vocabulary. `list-candidates.mts` reads it with a `typeof === 'boolean'` test,
+  // so anything that does not parse as a boolean (`no`, `False`, a quoted "true") is silently
+  // ignored and the document stays an external-exposure candidate — the opposite of what was meant.
+  // Silent is the problem: absence is a valid state, so nothing downstream can tell a typo from it.
+  const publishable = fm.get('publishable');
+  if (publishable && publishable.value !== 'true' && publishable.value !== 'false') {
+    add(publishable.line, 'K24', `publishable "${publishable.value}" — true/false만 허용 (그 외는 소비처가 조용히 무시한다)`);
   }
 
   // K16 priority vocabulary. Absence is valid — the key only exists when the user assigned one.
@@ -488,6 +499,36 @@ function headingSlugs(src: string): Set<string> {
   return out;
 }
 
+// K23 body links. directory-roles 「원본 이동 시 미러 동반 이동」 tells the mover to carry
+// `explained/` · `assets/` along AND to fix the link paths inside the explained text. Nothing
+// checked that last part: K20 only reads the cross-links in a knowledge `# Questions` TOC, and
+// E3·E5·E10 only ask whether the paired FILE moved. A demo asset four levels up
+// (`../../../../assets/…/demo.html`) could go missing and the page would just 404.
+// Applies to every scanned root — a link is a link regardless of which one it sits in.
+function lintBodyLinks(rel: string, lines: Line[]): Finding[] {
+  const f: Finding[] = [];
+  const dirAbs = path.dirname(path.join(KA_ROOT, rel));
+  for (const l of lines) {
+    if (l.inFence) continue;
+    for (const m of l.text.matchAll(/\]\(([^)\s]+)\)/g)) {
+      const [target, anchor] = m[1].split('#');
+      // `#anchor` alone points inside this file; external schemes are not ours to resolve.
+      if (!target || /^[a-z][a-z0-9+.-]*:/i.test(target)) continue;
+      const targetAbs = path.resolve(dirAbs, target);
+      if (!fs.existsSync(targetAbs)) {
+        f.push({ file: rel, line: l.n, check: 'K23', severity: 'error', message: `링크 대상 없음: ${m[1]}` });
+        continue;
+      }
+      // Anchors only mean something in markdown; an asset link's `#` is the file's own business.
+      if (!anchor || !target.endsWith('.md')) continue;
+      if (!headingSlugs(fs.readFileSync(targetAbs, 'utf8')).has(anchor)) {
+        f.push({ file: rel, line: l.n, check: 'K23', severity: 'error', message: `링크 앵커 없음: ${m[1]} (대상 파일에 그 제목의 헤딩이 없음)` });
+      }
+    }
+  }
+  return f;
+}
+
 // ---------- knowledge checks ----------
 
 function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Finding[] {
@@ -510,6 +551,7 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
   }
 
   f.push(...lintProfanity(rel, lines));
+  f.push(...lintBodyLinks(rel, lines));
   const doc = parseKnowledge(lines, kind);
 
   // K20 cross-link target: `- [질문 → \`파일.md\`](상대경로#앵커)` must point at a file that exists,
@@ -650,7 +692,11 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
     }
 
     b.sections.forEach((s, si) => {
-      if (s.level !== 3 || !ANSWER_HEADINGS.includes(s.name)) return;
+      // content-format §3 「빈 섹션 금지」 names the four answer headings and then says "등".
+      // Review Note·Frequent Mistakes are what that "등" covers — they are optional sections, so an
+      // empty one is exactly the heading-without-content the rule forbids. K19 already reads the
+      // same pair for placement; only this check was still stopping at the four.
+      if (s.level !== 3 || ![...ANSWER_HEADINGS, ...NOTE_HEADINGS].includes(s.name)) return;
       // K2 empty section (H4 subsection content counts — OA hierarchy is valid)
       if (!sectionHasContent(b, si)) {
         add(s.line, 'K2', `빈 섹션 "### ${s.name}" (본문 없으면 헤딩 삭제)`);
@@ -733,7 +779,10 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
     }
   }
 
-  return f;
+  // A broken TOC cross-link is a broken body link too, so both checks fire on that one line.
+  // K20 wins there — it names the thing as a 꼬리질문 cross-link, which is what the fixer needs.
+  const k20Lines = new Set(f.filter((x) => x.check === 'K20').map((x) => x.line));
+  return f.filter((x) => !(x.check === 'K23' && k20Lines.has(x.line)));
 }
 
 // ---------- explained checks ----------
@@ -769,6 +818,7 @@ function lintExplained(rel: string, src: string): Finding[] {
   f.push(...lintFences(rel, lines));
   f.push(...lintFilePath(rel));
   f.push(...lintProfanity(rel, lines));
+  f.push(...lintBodyLinks(rel, lines));
   f.push(...lintSessionWording(rel, lines));
 
   // E4 separator duplication: consecutive `---` with only blanks between (outside fence)
