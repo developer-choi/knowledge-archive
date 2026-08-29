@@ -81,6 +81,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E8', severity: 'error', rule: "exam SKILL '[UNVERIFIED] 질문의 H1 형식'" },
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
+  { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
   { id: 'W3', severity: 'warn', rule: "file-placement §1 '폴더 = 같은 주제 파일 모음'" },
   { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 구조표·directory-roles.md·list-candidates.md 세 곳에 기재' },
@@ -745,6 +746,20 @@ function knowledgeQuestions(knowledgeAbs: string): Question[] {
   return doc.questions.filter((q) => !q.crossLink);
 }
 
+// Titles (marker-stripped) whose Official Answer actually holds text, in a file written against a
+// primary source. E11 needs exactly this set: a question with no OA has no original to quote, and a
+// file that was not written from an official document has no English original to begin with.
+function quotableQuestions(knowledgeAbs: string): Set<string> {
+  const lines = toLines(fs.readFileSync(knowledgeAbs, 'utf8'));
+  if (parseFrontmatter(lines)?.get('source')?.value !== 'official') return new Set();
+  const out = new Set<string>();
+  for (const b of parseKnowledge(lines).blocks) {
+    const oaIndex = b.sections.findIndex((s) => s.level === 3 && s.name === 'Official Answer');
+    if (oaIndex >= 0 && sectionHasContent(b, oaIndex)) out.add(b.title);
+  }
+  return out;
+}
+
 function lintExplained(rel: string, src: string): Finding[] {
   const f: Finding[] = [];
   const add = (line: number, check: string, message: string, severity: Severity = 'error') =>
@@ -774,11 +789,19 @@ function lintExplained(rel: string, src: string): Finding[] {
     }
   }
 
-  // explained H1 titles
-  const h1s = lines.filter((l) => !l.inFence && /^#\s+(?!#)(.+)/.test(l.text)).map((l) => {
-    const raw = l.text.replace(/^#\s+/, '').trim();
-    return { title: stripMarker(raw), marker: hasMarker(raw), line: l.n };
-  });
+  // explained H1 titles, each carrying the lines up to the next H1 (E11 reads that body).
+  const h1s = lines
+    .filter((l) => !l.inFence && /^#\s+(?!#)(.+)/.test(l.text))
+    .map((l) => {
+      const raw = l.text.replace(/^#\s+/, '').trim();
+      return { title: stripMarker(raw), marker: hasMarker(raw), line: l.n, body: [] as Line[] };
+    });
+  let openSection: (typeof h1s)[number] | undefined;
+  for (const l of lines) {
+    const startsHere = h1s.find((h) => h.line === l.n);
+    if (startsHere) openSection = startsHere;
+    else openSection?.body.push(l);
+  }
 
   // resolve matching knowledge file
   const relNoExt = rel.replace(/^explained\//, '').replace(/\.md$/, '');
@@ -825,6 +848,19 @@ function lintExplained(rel: string, src: string): Finding[] {
     const kMarker = kMarkerByTitle.get(h.title);
     if (kMarker === undefined || kMarker === h.marker) continue;
     add(h.line, 'E8', `[UNVERIFIED] 마커 불일치: knowledge=${kMarker ? '있음' : '없음'}, explained H1=${h.marker ? '있음' : '없음'}`);
+  }
+
+  // E11 원문 인용 부재. explanation-guide §1은 본문을 「원문 조각 `>` 블록쿼트 인용 → 한글 의역 →
+  // 영단어 해설」로 정하는데, 인용을 통째로 빼고 한글 요약만 적어도 지금까지 아무도 못 잡았다.
+  // digest OFF 2단계가 세션마다 검증 에이전트에게 시키던 대조인데, 그 위임은 그 세션에 만진 질문만
+  // 보므로 예전에 샌 것은 영영 안 걸린다. 여기서 전부 본다.
+  // 판정은 「영문이 든 `>` 줄이 하나라도 있는가」뿐이다 — 인용이 원문 그대로인지는 OA↔Reference
+  // 대조(축 ①)의 몫이라 여기서 보지 않는다.
+  const quotable = quotableQuestions(knowledgeAbs);
+  for (const h of h1s) {
+    if (!quotable.has(h.title)) continue;
+    if (h.body.some((l) => /^\s*>/.test(l.text) && /[A-Za-z]{3}/.test(l.text))) continue;
+    add(h.line, 'E11', `"${h.title}" — Official Answer 원문을 \`>\` 블록쿼트로 인용한 곳이 없음 (한글 의역만 있음)`, 'warn');
   }
 
   return f;
