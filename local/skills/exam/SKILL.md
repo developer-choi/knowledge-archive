@@ -51,11 +51,20 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 1. 출제 문항을 스펙 JSON으로 적는다 — `{ title, questions: [{ title, diagramHint }] }`. `title`은 knowledge 파일명, `diagramHint`는 위에서 표시한 플래그다.
 2. 렌더러에 넘겨 그대로 연다. 페이지 골격·회수 payload는 렌더러가, 저장 경로·인코딩·오픈 방식은 그다음 스크립트가 정한다. 파일명에 쓸 슬러그도 렌더러가 knowledge 경로에서 뽑는다.
 
+   **스펙 JSON은 레포 안에 만들지 않고 `os.tmpdir()` 아래에 쓴다.** 아래를 한 번에 실행한다 — 스펙을 Write 도구로 따로 만들지 말고 heredoc으로 그 자리에서 넘긴다.
+
    ```bash
-   npm run --silent build-page -- exam-sheet < <스펙 경로> \
+   SPEC="$(node -p 'require("os").tmpdir()')/ka-exam-sheet.json"
+   cat > "$SPEC" <<'SPEC_JSON'
+   { ...스펙... }
+   SPEC_JSON
+   npm run --silent build-page -- exam-sheet < "$SPEC" \
      | node {{contexts}}/local-html-roundtrip.mjs open ka-exam - \
        --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)
    ```
+
+   - 쓸 자리를 따로 찾지 않는다. 위 `node -p`가 그 자리를 주므로 `mkdir`·`ls`·`find`·`echo %TEMP%`를 돌릴 일이 없다.
+   - 중간 파일이 레포 안(특히 `.claude/` 하위)에 떨어지면 새 파일로 자동 staged되고, 지우려면 승인 프롬프트가 뜬다. 임시 폴더에 쓰면 둘 다 안 걸리므로 뒤처리도 하지 않는다 — 최종 HTML도 같은 곳에 떨어진다.
 
 3. 사용자에게 안내: "브라우저에서 시험지를 열었습니다. 답변 작성 후 **제출** 버튼을 누르고 **클립보드 복사**를 누른 뒤, 여기에 **done**이라고 말하세요."
 
@@ -93,10 +102,14 @@ node {{contexts}}/local-html-roundtrip.mjs collect ka-exam
 
 ## Phase 4: 결과 HTML 생성
 
-채점 결과를 스펙 JSON으로 적어 같은 렌더러에 넘긴다.
+채점 결과를 스펙 JSON으로 적어 같은 렌더러에 넘긴다. 결과 스펙도 Phase 1과 같이 `os.tmpdir()` 아래에 쓰고, 레포 안에는 만들지 않는다.
 
 ```bash
-npm run --silent build-page -- exam-result < <스펙 경로> \
+SPEC="$(node -p 'require("os").tmpdir()')/ka-exam-result.json"
+cat > "$SPEC" <<'SPEC_JSON'
+{ ...스펙... }
+SPEC_JSON
+npm run --silent build-page -- exam-result < "$SPEC" \
   | node {{contexts}}/local-html-roundtrip.mjs open ka-exam - \
     --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)-result
 ```

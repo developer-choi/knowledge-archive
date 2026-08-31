@@ -215,10 +215,19 @@ digest 모드 시작.
 
 카드 내용을 스펙 JSON으로 적어 아래로 넘긴다. 페이지 골격·판정 뱃지·회수 payload는 렌더러가 짜고, 저장 경로·인코딩·오픈 방식은 그다음 스크립트가 정한다. 열린 절대경로가 돌아오면 채팅에 그대로 적는다.
 
+**스펙 JSON은 레포 안에 만들지 않고 `os.tmpdir()` 아래에 쓴다.** 아래를 한 번에 실행한다 — 스펙을 Write 도구로 따로 만들지 말고 heredoc으로 그 자리에서 넘긴다.
+
 ```bash
-npm run --silent build-page -- digest-cards < <스펙 경로> \
+SPEC="$(node -p 'require("os").tmpdir()')/ka-digest-<slug>-<회차>.json"
+cat > "$SPEC" <<'SPEC_JSON'
+{ ...스펙... }
+SPEC_JSON
+npm run --silent build-page -- digest-cards < "$SPEC" \
   | node {{contexts}}/local-html-roundtrip.mjs open ka-digest - --slug <slug>-<회차>
 ```
+
+- 쓸 자리를 따로 찾지 않는다. 위 `node -p`가 그 자리를 주므로 `mkdir`·`ls`·`find`·`echo %TEMP%`를 돌릴 일이 없다.
+- 중간 파일이 레포 안(특히 `.claude/` 하위)에 떨어지면 새 파일로 자동 staged되고, 지우려면 승인 프롬프트가 뜬다. 임시 폴더에 쓰면 둘 다 안 걸리므로 뒤처리도 하지 않는다 — 최종 HTML도 같은 곳에 떨어진다.
 
 스펙은 `{ slug, round, summary, cards: [{ src, ko, words: [{ word, meaning }], verdict }] }`이고, 필드가 위 네 칸과 1:1이다 (`verdict`는 라디오에 미리 찍어둘 AI 판정 — `save`·`explain`·`drop`).
 
