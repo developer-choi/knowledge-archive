@@ -427,7 +427,7 @@ ON에서 겹침 목록에 오른 파일이 있으면, 파일마다 아래 셋 �
 - **다른 출처의 Official 원문**이 기존 Official Answer와 같은 개념을 다른 표현·각도로 설명하면, 기존 OA에 단락으로 이어 붙이는 보충을 적극 제안한다. 새 출처 URL은 Reference 섹션에 추가한다 (OA 본문에 인라인 URL을 박지 않는다 — [content-format.md](../../contexts/content-format.md)의 "출처 표기는 Reference에만" 참고).
 - 기존 답변에 구체적 예시·안티패턴 등 비공식 보충이 필요하면 explained/ 보충을 제안한다. OFF 2단계에서 생성하는 explained/ 섹션에 반영한다.
 - 새 질문으로 만들 만큼 독립적이지 않지만, 기존 답변을 풍부하게 만드는 내용이 대상이다.
-- **기존 OA에 보충하면 대응 explained도 함께 갱신한다.** explained 생성은 OFF 2단계에서 신규 질문만 배치 처리하므로, 기존 질문의 OA에 단락을 append하고 explained를 두면 그 질문의 explained 섹션이 옛 내용에 머문다(knowledge↔explained drift). 해당 explained 섹션이 이미 있으면 OFF 2단계의 갱신 대상에 반드시 포함시킨다. (도구화 후보 — `backlog/projects/knowledge-archive/active/explained/oa-explained-drift-hook.md`)
+- **기존 OA에 보충하면 대응 explained도 함께 갱신한다.** explained 생성은 OFF 2단계에서 신규 질문만 배치 처리하므로, 기존 질문의 OA에 단락을 append하고 explained를 두면 그 질문의 explained 섹션이 옛 내용에 머문다(knowledge↔explained drift). 해당 explained 섹션이 이미 있으면 OFF 2단계의 갱신 대상에 반드시 포함시킨다.
   - ❌ (사례) `mocking.md` "언제 mocking" OA에 Vitest 판별 기준을 append한 뒤 explained 미갱신 → 사용자: "니가 실수한건 explained 하고 해".
   - ✅ 교정: OA append와 같은 세션에 `explained/frontend/testing/mocking/overview.md`의 해당 섹션도 동기화.
 

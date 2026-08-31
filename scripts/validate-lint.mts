@@ -82,6 +82,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
+  { id: 'E12', severity: 'warn', rule: "digest SKILL '기존 답변 보충 검토 — 기존 OA에 보충하면 대응 explained도 함께 갱신한다'" },
   { id: 'K23', severity: 'error', rule: "directory-roles '원본 이동 시 미러 동반 이동' — 본문 링크 경로도 함께 옮긴다" },
   { id: 'K24', severity: 'error', rule: "content-format §1 'publishable'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
@@ -809,6 +810,32 @@ function quotableQuestions(knowledgeAbs: string): Set<string> {
   return out;
 }
 
+// explained H1 섹션들. 각 H1은 다음 H1 직전까지의 줄을 body로 갖는다. explained는 `## 도입`·
+// `## 본문`·`## 종합`을 전부 지울 수 있으므로(사용자가 불필요한 절을 덜어낸다) 섹션 경계는 H1으로만
+// 잡는다 — 소제목을 전제하면 그 절이 빠진 파일에서 검사가 깨진다.
+interface H1Section {
+  title: string;
+  marker: boolean;
+  line: number;
+  body: Line[];
+}
+
+function h1Sections(lines: Line[]): H1Section[] {
+  const out: H1Section[] = lines
+    .filter((l) => !l.inFence && /^#\s+(?!#)(.+)/.test(l.text))
+    .map((l) => {
+      const raw = l.text.replace(/^#\s+/, '').trim();
+      return { title: stripMarker(raw), marker: hasMarker(raw), line: l.n, body: [] as Line[] };
+    });
+  let openSection: H1Section | undefined;
+  for (const l of lines) {
+    const startsHere = out.find((h) => h.line === l.n);
+    if (startsHere) openSection = startsHere;
+    else openSection?.body.push(l);
+  }
+  return out;
+}
+
 function lintExplained(rel: string, src: string): Finding[] {
   const f: Finding[] = [];
   const add = (line: number, check: string, message: string, severity: Severity = 'error') =>
@@ -840,18 +867,7 @@ function lintExplained(rel: string, src: string): Finding[] {
   }
 
   // explained H1 titles, each carrying the lines up to the next H1 (E11 reads that body).
-  const h1s = lines
-    .filter((l) => !l.inFence && /^#\s+(?!#)(.+)/.test(l.text))
-    .map((l) => {
-      const raw = l.text.replace(/^#\s+/, '').trim();
-      return { title: stripMarker(raw), marker: hasMarker(raw), line: l.n, body: [] as Line[] };
-    });
-  let openSection: (typeof h1s)[number] | undefined;
-  for (const l of lines) {
-    const startsHere = h1s.find((h) => h.line === l.n);
-    if (startsHere) openSection = startsHere;
-    else openSection?.body.push(l);
-  }
+  const h1s = h1Sections(lines);
 
   // resolve matching knowledge file
   const relNoExt = rel.replace(/^explained\//, '').replace(/\.md$/, '');
@@ -913,6 +929,93 @@ function lintExplained(rel: string, src: string): Finding[] {
     add(h.line, 'E11', `"${h.title}" — Official Answer 원문을 \`>\` 블록쿼트로 인용한 곳이 없음 (한글 의역만 있음)`, 'warn');
   }
 
+  return f;
+}
+
+// ---------- E12: OA 본문 수정 ↔ explained 동기화 (staged 전용) ----------
+
+// 질문 제목 → Official Answer 본문. `### Reference`·frontmatter·`# Questions` 목록은 담지 않는다 —
+// 링크만 고친 커밋이 OA 수정으로 오인되면 안 된다. OA 아래 `#### Category` 하위 절은 OA 본문의
+// 일부이므로 함께 담는다. 빈 줄·구분자를 걷고 줄을 트림해, 공백만 바뀐 편집이 내용 변경으로 안 보이게 한다.
+// `### Official Answer`가 없는 질문은 맵에 안 담겨 이 검사의 대상 밖이다.
+function oaBodyByTitle(src: string): Map<string, string> {
+  const out = new Map<string, string>();
+  for (const b of parseKnowledge(toLines(src)).blocks) {
+    const i = b.sections.findIndex((s) => s.level === 3 && s.name === 'Official Answer');
+    if (i < 0) continue;
+    const body = [...b.sections[i].body, ...h4Children(b, i).flatMap((c) => c.body)];
+    out.set(b.title, meaningful(body).map((l) => l.text.trim()).join('\n'));
+  }
+  return out;
+}
+
+// 질문 제목 → explained H1 섹션 본문. 위와 같은 정규화를 쓴다.
+function explainedBodyByTitle(src: string): Map<string, string> {
+  return new Map(
+    h1Sections(toLines(src)).map((h) => [h.title, meaningful(h.body).map((l) => l.text.trim()).join('\n')]),
+  );
+}
+
+// git object 원문. 없으면(신규 파일·미스테이징 등) null. `gitPaths`와 달리 경로 목록이 아니라
+// 파일 내용이 필요해 별도 헬퍼를 둔다.
+function gitShow(spec: string): string | null {
+  try {
+    return execSync(`git show "${spec}"`, {
+      cwd: KA_ROOT,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      maxBuffer: 32 * 1024 * 1024,
+    });
+  } catch {
+    return null;
+  }
+}
+
+// E12. knowledge의 OA 본문을 고쳐놓고 대응 explained 섹션을 그대로 두면 explained가 옛 내용에
+// 머문다(2026-07-11 실제 발생: mocking OA에 판별 기준을 append하고 explained를 안 고쳤다). digest
+// SKILL 「기존 답변 보충 검토」가 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
+//
+// 두 문서의 **내용을 대조하지 않는다.** explained는 불필요한 원문 인용을 덜어내기도 하고
+// (explanation-guide §6이 허용하는) 보충 인용을 더하기도 해서 양쪽 차이가 다 정상이다 — 내용을
+// 맞춰보면 전부 오탐이 된다. 보는 것은 「같은 커밋에서 그 섹션을 손댔는가」 하나뿐이다. 그래서 이
+// 검사는 정확성을 증명하지 않고 「여기도 같이 보라」고 알리는 데서 멈춘다(warn, 커밋을 막지 않는다).
+//
+// HEAD와 staged 두 버전을 각각 파싱해 비교한다 — diff hunk의 줄 번호를 섹션에 역매핑할 필요가 없다.
+// 작업 트리가 아니라 staged를 보는 이유는 커밋 게이트이기 때문이다. 스테이징 안 한 explained 편집이
+// 검사를 만족시키면 그 커밋은 여전히 어긋난 채로 들어간다.
+function lintOaExplainedSync(rel: string): Finding[] {
+  const f: Finding[] = [];
+  const relNoExt = rel.replace(/^knowledge\//, '').replace(/\.md$/, '');
+  const explainedRel = `explained/${relNoExt}.md`;
+
+  const kHead = gitShow(`HEAD:${rel}`);
+  const kStaged = gitShow(`:${rel}`);
+  if (kHead === null || kStaged === null) return f; // 신규 knowledge 파일 — 짝 부재는 E5의 몫
+
+  const headOa = oaBodyByTitle(kHead);
+  const changed = [...oaBodyByTitle(kStaged)]
+    .filter(([title, body]) => headOa.has(title) && headOa.get(title) !== body)
+    .map(([title]) => title);
+  if (!changed.length) return f;
+
+  const eStaged = gitShow(`:${explainedRel}`);
+  if (eStaged === null) return f; // explained 파일 미생성 — E5(짝 부재)가 잡는다
+  const eHeadBody = explainedBodyByTitle(gitShow(`HEAD:${explainedRel}`) ?? '');
+  const eStagedBody = explainedBodyByTitle(eStaged);
+
+  for (const title of changed) {
+    // 그 질문의 explained 섹션이 아직 없으면 digest OFF 2단계 배치 대기분이다. 여기서 알릴 일이
+    // 아니고, 해설이 영영 안 생기는 것은 E1(커버리지)이 전수 검사에서 잡는다.
+    if (!eStagedBody.has(title)) continue;
+    if (eHeadBody.get(title) !== eStagedBody.get(title)) continue; // 같은 커밋에서 손댔다
+    f.push({
+      file: rel,
+      line: 0,
+      check: 'E12',
+      severity: 'warn',
+      message: `"${title}" — Official Answer 본문이 바뀌었으나 ${explainedRel}의 같은 섹션은 이 커밋에서 안 바뀜 (동기화 확인)`,
+    });
+  }
   return f;
 }
 
@@ -1053,6 +1156,8 @@ for (const abs of targets) {
   else if (rel.startsWith('reference/')) findings.push(...lintKnowledge(rel, src, 'reference'));
   else if (rel.startsWith('explained/')) findings.push(...lintExplained(rel, src));
   if (staged) findings.push(...lintSingleFileFolder(rel));
+  // E12는 HEAD와 staged 두 버전을 비교하므로 커밋 게이트에서만 의미가 있다(W3와 같은 이유).
+  if (staged && rel.startsWith('knowledge/')) findings.push(...lintOaExplainedSync(rel));
 }
 
 // Repo-level checks have no file target, so they run on every whole-repo pass (full scan, --staged,
