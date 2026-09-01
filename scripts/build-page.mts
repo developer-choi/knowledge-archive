@@ -339,7 +339,7 @@ function buildExamResult(spec: ExamResultSpec): string {
   const passed = count('pass');
   const partial = count('partial');
   const failed = count('fail');
-  // 스킵은 채점하지 않으므로 분모에서 뺀다 (exam SKILL 「마커 처리」).
+  // 스킵은 채점하지 않으므로 분모에서 뺀다 (exam SKILL 「답변 자리에 답이 아닌 것이 들어온 경우」).
   const total = spec.questions.length - count('skip');
 
   const questions = spec.questions
