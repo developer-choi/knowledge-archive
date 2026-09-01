@@ -116,13 +116,14 @@ npm run --silent build-page -- exam-result < "$SPEC" \
 
 `-result`를 붙이는 것은 시험지와 파일이 겹치지 않게 하기 위해서다.
 
-스펙은 `{ title, questions: [{ title, verdict, answer, reason, unverified, diagram }] }`.
+스펙은 `{ title, questions: [{ title, verdict, answer, reason, official, unverified, diagram }] }`.
 
 | 필드 | 담는 것 |
 |---|---|
 | `verdict` | Phase 3의 판정 — `pass`·`partial`·`fail`, 채점하지 않았으면 `skip` |
 | `answer` | 회수한 사용자 답변 원문. 비었으면 렌더러가 "미응답"으로 채운다 |
 | `reason` | 판정 이유 1~2줄. 통과·스킵 문항에는 적지 않는다 |
+| `official` | 그 문항의 Official Answer 원문. 판정과 무관하게 **모든 문항에** 적는다 — 통과한 답도 원문과 나란히 놓고 봐야 무엇을 다르게 말했는지 보인다. 요약하지 말고 knowledge 파일의 `### Official Answer` 본문을 그대로 옮긴다 |
 | `unverified` | 그 문항이 `[UNVERIFIED]`면 `true` — 「마커 처리」가 요구하는 표기를 렌더러가 붙인다 |
 | `diagram` | 다이어그램 플래그가 선 문항만. `explained` 섹션의 코드블록 내용을 그대로 넣는다 |
 

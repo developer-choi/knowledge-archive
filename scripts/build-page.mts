@@ -22,11 +22,11 @@
  *   digest-cards  { slug, round, summary, cards: [{ src, ko, words: [{ word, meaning }], verdict }] }
  *                 verdict = save | explain | drop  (the radio pre-selected as the AI's call)
  *   exam-sheet    { title, questions: [{ title, diagramHint? }] }
- *   exam-result   { title, questions: [{ title, verdict, answer?, reason?, unverified?, diagram? }] }
+ *   exam-result   { title, questions: [{ title, verdict, answer?, reason?, official?, unverified?, diagram? }] }
  *                 verdict = pass | partial | fail | skip
  *
  * Escaping rule: text that must survive verbatim is escaped, prose the AI wrote is not.
- * `src`·`answer`·`diagram`·question titles are escaped — the digest quote becomes an Official
+ * `src`·`answer`·`diagram`·`official`·question titles are escaped — the digest quote becomes an Official
  * Answer downstream, so a stray tag would follow it into knowledge/. `ko`·`words`·`reason`·
  * `summary` pass through raw, because the skill is told to use `<strong>`/`<code>` there.
  */
@@ -61,6 +61,7 @@ interface ExamResultQuestion {
   verdict: ExamVerdict;
   answer?: string;
   reason?: string;
+  official?: string;
   unverified?: boolean;
   diagram?: string;
 }
@@ -318,6 +319,9 @@ const EXAM_RESULT_STYLE = `    body { font-family: -apple-system, sans-serif; ma
     .verdict.skip   { color: #888; }
     .user-ans { background: #f9f9f9; border-left: 3px solid #ccc; padding: 8px 12px; margin: 8px 0; font-size: 0.9rem; white-space: pre-wrap; }
     .reason { font-size: 0.9rem; color: #555; }
+    .official { margin-top: 12px; }
+    .official p { font-size: 0.85rem; color: #444; margin: 0 0 4px; font-weight: 600; }
+    .official pre { background: #f4f8f4; border-left: 3px solid #7aa87a; padding: 10px 12px; margin: 0; font-size: 0.88rem; white-space: pre-wrap; font-family: inherit; }
     .unverified-note { font-size: 0.8rem; color: #888; margin-bottom: 4px; }
     .diagram-compare { margin-top: 12px; }
     .diagram-compare p { font-size: 0.9rem; color: #444; margin-bottom: 6px; font-weight: 600; }
@@ -347,6 +351,13 @@ function buildExamResult(spec: ExamResultSpec): string {
       parts.push(`    <div class="user-ans">${escapeHtml(q.answer?.trim() || '미응답')}</div>`);
       // 통과한 문항에는 이유를 달지 않는다. 스킵은 애초에 판정이 없다.
       if (q.verdict !== 'pass' && q.verdict !== 'skip' && q.reason) parts.push(`    <div class="reason">${q.reason}</div>`);
+      // 원문은 판정과 무관하게 붙인다 — 통과한 답도 OA와 대조해봐야 무엇을 다르게 말했는지 보인다.
+      if (q.official) {
+        parts.push(`    <div class="official">
+      <p>Official Answer</p>
+      <pre>${escapeHtml(q.official.trim())}</pre>
+    </div>`);
+      }
       if (q.diagram) {
         parts.push(`    <div class="diagram-compare">
       <p>본인이 그린 그림과 비교해보세요:</p>
