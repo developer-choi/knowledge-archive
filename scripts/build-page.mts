@@ -1,11 +1,11 @@
 /**
  * Renders the local HTML pages that KA skills open in the browser.
  *
- * `local-html-roundtrip.mjs` already owns the trip itself — writing the file, opening it, reading
- * the clipboard back. It deliberately left "what the page contains" to the skills, and that
- * remainder turned out to be 230 lines of HTML copied out of SKILL.md by hand every round. The
- * copy carries the collection contract (`__skill`/`ts` payload, the `v{i}` radio names, the
- * `HEADS` array), so a slip while transcribing breaks the round-trip with nothing to catch it.
+ * `local-html-roundtrip.mjs` already owns writing the file and opening it. It deliberately left
+ * "what the page contains" to the skills, and that remainder turned out to be 230 lines of HTML
+ * copied out of SKILL.md by hand every round. The copy carries the payload contract
+ * (`__skill`/`ts`, the `v{i}` radio names, the `HEADS` array) that the skill reads back out of
+ * what the user pastes, so a slip while transcribing breaks the round-trip with nothing to catch it.
  * Everything below is a pure function of the spec, so it lives here instead.
  *
  * Usage (spec JSON on stdin, HTML on stdout):
@@ -134,7 +134,7 @@ const COLLECT_SCRIPT = (payloadExpression: string) => `    function collect() {
     }`;
 
 const OUTPUT_BLOCK = `  <div id="output">
-    <p>클립보드 복사를 누른 뒤 Claude에 <strong>done</strong>이라고 말하세요:</p>
+    <p>클립보드 복사를 누른 뒤 Claude와의 대화창에 <strong>그대로 붙여넣으세요</strong>:</p>
     <textarea id="result" readonly></textarea>
     <br><button id="copy-btn" onclick="copyAll()">클립보드 복사</button>
   </div>`;
