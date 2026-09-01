@@ -5,6 +5,7 @@ source: official
 
 # Questions
 - [UNVERIFIED] 아래 코드의 콘솔 출력 순서는 어떻게 되는가?
+- 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
 
 ---
 
@@ -53,3 +54,28 @@ console.log(7);
 - 4 출력
 
 최종 출력: `1 7 3 5 2 6 4`
+
+---
+
+## 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
+
+```js
+const promise = Promise.resolve();
+let i = 0;
+promise.then(() => {
+  i += 1;
+  console.log(i);
+});
+promise.then(() => {
+  i += 1;
+  console.log(i);
+});
+```
+
+### Official Answer
+> Each job is processed completely before any other job is processed. This offers some nice properties when reasoning about your program, including the fact that whenever a function runs, it cannot be preempted and will run entirely before any other code runs (and can modify data the function manipulates).
+>
+> In this example, we create an already-resolved promise, which means any callback attached to it will be immediately scheduled as jobs. The two callbacks seem to cause a race condition, but actually, the output is fully predictable: `1` and `2` will be logged in order. This is because each job runs to completion before the next one is executed, so the overall order is always `i += 1; console.log(i); i += 1; console.log(i);` and never `i += 1; i += 1; console.log(i); console.log(i);`.
+
+### Reference
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#run-to-completion

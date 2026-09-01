@@ -6,7 +6,6 @@ priority: 1
 
 # Questions
 - [UNVERIFIED] 디바운싱과 스로틀링은 무엇이며 왜 사용하는가?
-- [UNVERIFIED] 디바운싱과 스로틀링의 차이는?
 - [UNVERIFIED] 무한 스크롤 구현에 디바운싱과 스로틀링 중 어느 것이 적합한가?
 - [UNVERIFIED] 아이디 중복검사에 디바운싱과 스로틀링 중 어느 것이 적합한가?
 
@@ -17,17 +16,6 @@ priority: 1
 ## [UNVERIFIED] 디바운싱과 스로틀링은 무엇이며 왜 사용하는가?
 ### User Answer
 짧은 시간 안에 굉장히 여러 번 실행되는 로직이 있을 때 (예: 스크롤될 때마다 실행되는 로직), 그 횟수를 적당히 줄이기 위한 기술이다.
-
-### Reference
-- https://css-tricks.com/debouncing-throttling-explained-examples/
-- https://webclub.tistory.com/607
-
----
-
-## [UNVERIFIED] 디바운싱과 스로틀링의 차이는?
-### User Answer
-- Debounce: 가장 마지막에 시도한 로직만 실행시키고 이전 것은 무시한다.
-- Throttle: 로직을 특정한 주기마다 띄엄띄엄 실행한다.
 
 ### Reference
 - https://css-tricks.com/debouncing-throttling-explained-examples/

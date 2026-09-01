@@ -1,36 +1,3 @@
-# Navigation이란 무엇이며 언제 발생하는가?
-
-## 도입
-
-브라우저가 새 페이지를 불러오는 일련의 과정 전체를 "navigation"이라고 부른다. URL 입력, 링크 클릭, 폼 제출 등 다양한 행위가 모두 navigation을 트리거한다. Web Performance 관점에서 navigation에 걸리는 시간을 최소화하는 것이 핵심 목표다.
-
----
-
-## 본문
-
-> Navigation is the first step in loading a web page. It occurs whenever a user requests a page by entering a URL into the address bar, clicking a link, submitting a form, as well as other actions.
-
-"Navigation은 웹 페이지를 로드하는 첫 번째 단계다. 사용자가 주소창에 URL을 입력하거나, 링크를 클릭하거나, 폼을 제출하거나, 그 외의 동작을 수행할 때마다 발생한다."
-
-- **first step**: Navigation이 끝나야 HTML을 받고, HTML을 받아야 파싱·렌더링이 시작된다. 렌더링 파이프라인의 시작점이다.
-- **as well as other actions**: 뒤로 가기, 새로고침, JavaScript의 `history.pushState()` 등도 포함된다.
-
-> One of the goals of web performance is to minimize the amount of time navigation takes to complete. In ideal conditions, this usually doesn't take too long, but latency and bandwidth are foes that can cause delays.
-
-"웹 성능의 목표 중 하나는 navigation이 완료되는 데 걸리는 시간을 최소화하는 것이다. 이상적인 조건에서는 보통 오래 걸리지 않지만, latency와 bandwidth가 지연을 일으키는 적이 될 수 있다."
-
-- **latency**: 요청과 응답 사이의 지연 시간. 물리적 거리, 네트워크 홉 수에 영향받는다.
-- **bandwidth**: 단위 시간당 전송 가능한 데이터량. 파일 크기가 크거나 대역폭이 좁으면 전송이 느려진다.
-- **foes**: "적"이라는 표현. 개발자가 제어하기 어려운 외부 요인이라는 뉘앙스를 담는다.
-
----
-
-## 종합
-
-Navigation은 사용자가 새 페이지를 요청하는 순간부터 HTML 바이트가 도착하기 직전까지다. DevTools Network 탭에서 첫 번째 요청(HTML 문서)의 Timing 섹션이 바로 navigation의 각 단계를 보여준다. Latency가 높으면 DNS lookup, TCP handshake, TLS negotiation 각각에서 시간이 낭비되고, bandwidth가 낮으면 HTML 자체의 전송이 느려진다. 이 두 요인이 TTFB를 끌어올리는 주범이다.
-
----
-
 # 주소창에 URL을 입력하면 브라우저가 수행하는 전체 흐름은?
 
 ## 도입
@@ -119,28 +86,3 @@ HTTP 요청 전송
 
 DNS lookup은 HTTPS 접속 8번의 왕복 전에 별도로 발생하는 추가 지연이다. 처음 방문하는 사이트는 DNS lookup → TCP handshake → TLS negotiation → HTTP 요청의 전체 흐름을 거쳐야 하지만, 이후 방문에서는 DNS 캐시 덕분에 첫 단계를 건너뛴다. `<link rel="dns-prefetch">` 힌트로 리소스 도메인의 DNS를 미리 조회해두는 최적화가 이 원리를 활용한 것이다.
 
----
-
-# Redirect는 왜 성능에 부정적인가?
-
-## 도입
-
-서버가 요청된 URL 대신 다른 URL을 가리키는 응답을 보낼 때 redirect가 발생한다. 사용자 입장에서는 투명하게 처리되지만, 브라우저 입장에서는 추가 HTTP 요청이 발생한다.
-
----
-
-## 본문
-
-> When a resource is requested, the server may respond with a redirect, either with a permanent redirect (a 301 Moved Permanently response) or a temporary one (a 302 Found response). Redirects slow down page load speed because it requires the browser to make an additional HTTP request at the new location to retrieve the resource.
-
-"리소스가 요청될 때, 서버는 영구 리다이렉트(301 Moved Permanently)나 임시 리다이렉트(302 Found)로 응답할 수 있다. Redirect는 브라우저가 새 위치에서 리소스를 가져오기 위해 추가적인 HTTP 요청을 해야 하므로 페이지 로드 속도를 저하시킨다."
-
-- **301 Moved Permanently**: 리소스가 영구적으로 새 URL로 이동했다는 신호. 브라우저는 이 결과를 캐시하여 이후 요청에서 중간 단계를 건너뛸 수 있다.
-- **302 Found**: 리소스가 임시로 다른 URL에 있다는 신호. 캐시되지 않으므로 매번 redirect 응답을 받아야 한다.
-- **additional HTTP request**: 원래 URL → redirect URL로의 추가 왕복. TCP/TLS handshake도 다시 필요할 수 있다.
-
----
-
-## 종합
-
-`http://example.com` → `https://example.com` → `https://www.example.com` 같은 체인 redirect는 TTFB를 두 배 이상 늘릴 수 있다. DevTools Network 탭에서 "Status: 301/302"로 보이는 요청이 redirect다. 운영 환경에서 `http://` → `https://` redirect는 불가피하지만, 체인이 쌓이지 않도록 하나의 최종 URL로 바로 이동하도록 서버를 설정하는 것이 중요하다.

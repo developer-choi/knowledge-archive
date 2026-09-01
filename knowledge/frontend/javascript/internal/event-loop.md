@@ -8,7 +8,6 @@ priority: 1
 - 이벤트 루프란 무엇이고 왜 필요한가?
 - 이벤트 루프는 내부적으로 job을 어떻게 꺼내 실행하며, 하나의 job은 언제 완료로 간주되는가?
 - macrotask와 microtask는 각각 무엇이며, 어떻게 다른가?
-- 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
 - task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
 - [UNVERIFIED] 이벤트 루프는 JavaScript 런타임의 어떤 구성요소들과 함께 동작하는가?
 ---
@@ -50,31 +49,6 @@ priority: 1
 ### Reference
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#job_queue_and_event_loop
 - https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide
-
-## 이미 resolve된 Promise에 `.then` 콜백을 두 개 달면 출력이 예측 가능한가? 그 이유는?
-
-```js
-const promise = Promise.resolve();
-let i = 0;
-promise.then(() => {
-  i += 1;
-  console.log(i);
-});
-promise.then(() => {
-  i += 1;
-  console.log(i);
-});
-```
-
-### Official Answer
-> Each job is processed completely before any other job is processed. This offers some nice properties when reasoning about your program, including the fact that whenever a function runs, it cannot be preempted and will run entirely before any other code runs (and can modify data the function manipulates).
->
-> In this example, we create an already-resolved promise, which means any callback attached to it will be immediately scheduled as jobs. The two callbacks seem to cause a race condition, but actually, the output is fully predictable: `1` and `2` will be logged in order. This is because each job runs to completion before the next one is executed, so the overall order is always `i += 1; console.log(i); i += 1; console.log(i);` and never `i += 1; i += 1; console.log(i); console.log(i);`.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#run-to-completion
-
----
 
 ## task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
 
