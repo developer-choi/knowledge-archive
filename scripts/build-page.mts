@@ -368,13 +368,14 @@ function buildExamResult(spec: ExamResultSpec): string {
     })
     .join('\n\n');
 
-  // 하단 안내는 오답(✗) 수 하나로 갈린다 — 부분 통과는 다음 라운드 대상이 아니다.
+  // 하단 안내는 완전히 통과하지 못한 문항(✗ 오답 + △ 부분) 수로 갈린다 — 부분 통과도 재출제 대상이다.
+  const remaining = failed + partial;
   const nextRound =
-    failed === 0
+    remaining === 0
       ? '<strong>모든 문항 통과. 시험 종료.</strong>'
-      : failed === 1
+      : remaining === 1
         ? '<strong>1문항 남았습니다.</strong>\n    Claude에게 <code>다음 라운드</code>라고 입력하면 채팅으로 진행합니다.'
-        : `<strong>오답 ${failed}문항이 남았습니다.</strong>\n    Claude에게 <code>다음 라운드</code>라고 입력하면 해당 문항만 다시 시험지로 출제합니다.`;
+        : `<strong>${remaining}문항이 남았습니다.</strong>\n    Claude에게 <code>다음 라운드</code>라고 입력하면 해당 문항만 다시 시험지로 출제합니다.`;
 
   return `${PAGE_HEAD(`결과: ${spec.title}`, EXAM_RESULT_STYLE)}
 <body>
