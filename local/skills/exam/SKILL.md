@@ -77,7 +77,20 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 페이로드 형태: `{ __skill: "ka-exam", ts: <ms>, answers: [<Q1 답변>, <Q2 답변>, ...] }`. `answers` 배열의 인덱스가 문항 순서(0-based)와 대응한다.
 
 - `__skill`이 `ka-exam`이 아니면 다른 폼의 값이다. 채점하지 않고 "시험지의 [클립보드 복사]를 다시 눌러 붙여넣어 주세요"라고 안내한다.
-- 붙여넣은 답변 원문을 **다시 타이핑하지 않는다.** Phase 4 스펙의 `answer`에는 payload의 문자열을 그대로 옮긴다 — 옮겨 적는 사이에 답변이 바뀌면 채점과 결과 HTML이 어긋난다.
+
+### payload를 파일로 남긴다
+
+채점을 시작하기 전에, 붙여넣은 JSON을 **한 글자도 바꾸지 않고** 임시 파일에 쓴다. Phase 4가 이 파일을 그대로 렌더러에 넘겨 답변 원문을 채운다.
+
+```bash
+PAYLOAD="$(node -p 'require("os").tmpdir()')/ka-exam-answers.json"
+cat > "$PAYLOAD" <<'PAYLOAD_JSON'
+{ ...붙여넣은 JSON 전문... }
+PAYLOAD_JSON
+```
+
+- **붙여넣은 것을 통째로 한 번 옮긴다.** 답변을 문항별로 나눠 적거나, 요약·정리·줄바꿈 정돈을 하지 않는다. 여기서 손대면 화면에 뜨는 답변이 사용자가 쓴 것과 달라지는데, 대조할 원본이 없어 아무도 못 잡는다.
+- Phase 1 스펙과 같은 이유로 임시 폴더에 쓴다 — 레포 안에 떨어지면 staged되고 지울 때 승인 프롬프트가 뜬다.
 
 ### 답변 자리에 답이 아닌 것이 들어온 경우
 
@@ -111,23 +124,24 @@ knowledge 파일을 읽고 공통 규칙을 적용하여 출제할 질문 목록
 채점 결과를 스펙 JSON으로 적어 같은 렌더러에 넘긴다. 결과 스펙도 Phase 1과 같이 `os.tmpdir()` 아래에 쓰고, 레포 안에는 만들지 않는다.
 
 ```bash
-SPEC="$(node -p 'require("os").tmpdir()')/ka-exam-result.json"
+TMP="$(node -p 'require("os").tmpdir()')"
+SPEC="$TMP/ka-exam-result.json"
+PAYLOAD="$TMP/ka-exam-answers.json"   # Phase 2가 남긴 회수 payload
 cat > "$SPEC" <<'SPEC_JSON'
 { ...스펙... }
 SPEC_JSON
-npm run --silent build-page -- exam-result < "$SPEC" \
+npm run --silent build-page -- exam-result --answers "$PAYLOAD" < "$SPEC" \
   | node {{contexts}}/local-html-roundtrip.mjs open ka-exam - \
     --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)-result
 ```
 
 `-result`를 붙이는 것은 시험지와 파일이 겹치지 않게 하기 위해서다.
 
-스펙은 `{ title, questions: [{ title, verdict, answer, reason, official, unverified, diagram }] }`.
+스펙은 `{ title, questions: [{ title, verdict, reason, official, unverified, diagram }] }`. **답변 원문을 적는 자리는 없다.** 스펙에 적는 것은 판단이 필요한 값뿐이고, 답변은 렌더러가 payload의 `answers[i]`를 i번째 문항에 붙인다. 문항 수와 답변 수가 어긋나면 렌더러가 그리지 않고 죽으므로, 스킵 문항도 빼먹지 말고 `questions`에 남긴다.
 
 | 필드 | 담는 것 |
 |---|---|
 | `verdict` | Phase 3의 판정 — `pass`·`partial`·`fail`, 채점하지 않았으면 `skip` |
-| `answer` | 붙여넣기로 받은 사용자 답변 원문. 비었으면 렌더러가 "미응답"으로 채운다 |
 | `reason` | 판정 이유 1~2줄. 채점하지 않은 문항과 통과 문항에는 적지 않는다 |
 | `official` | 그 문항의 Official Answer 원문. 판정과 무관하게 **모든 문항에** 적는다 — 통과한 답도 원문과 나란히 놓고 봐야 무엇을 다르게 말했는지 보인다. 요약하지 말고 knowledge 파일의 `### Official Answer` 본문을 그대로 옮긴다 |
 | `unverified` | 그 문항이 `[UNVERIFIED]`면 `true` — 「마커 처리」가 요구하는 표기를 렌더러가 붙인다 |

@@ -11,7 +11,7 @@
  * Usage (spec JSON on stdin, HTML on stdout):
  *   npx tsx scripts/build-page.mts digest-cards < spec.json
  *   npx tsx scripts/build-page.mts exam-sheet   < spec.json
- *   npx tsx scripts/build-page.mts exam-result  < spec.json
+ *   npx tsx scripts/build-page.mts exam-result --answers payload.json < spec.json
  *   npx tsx scripts/build-page.mts exam-slug knowledge/cs/system/process.md   # → cs-system-process
  *
  * Pipes straight into the opener:
@@ -22,8 +22,11 @@
  *   digest-cards  { slug, round, summary, cards: [{ src, ko, words: [{ word, meaning }], verdict }] }
  *                 verdict = save | explain | drop  (the radio pre-selected as the AI's call)
  *   exam-sheet    { title, questions: [{ title, diagramHint? }] }
- *   exam-result   { title, questions: [{ title, verdict, answer?, reason?, official?, unverified?, diagram? }] }
+ *   exam-result   { title, questions: [{ title, verdict, reason?, official?, unverified?, diagram? }] }
  *                 verdict = pass | partial | fail | skip
+ *                 답변 원문은 스펙에 없다. `--answers`로 받은 회수 payload의 `answers[i]`가 i번째
+ *                 문항의 답변이다 — AI가 문항마다 옮겨 적던 값이라, 판정이 좋은 문항에서 조용히
+ *                 빠지는 사고가 났다. 개수가 어긋나면 그리지 않고 죽는다.
  *
  * Escaping rule: text that must survive verbatim is escaped, prose the AI wrote is not.
  * `src`·`answer`·`diagram`·`official`·question titles are escaped — the digest quote becomes an Official
@@ -59,7 +62,6 @@ interface ExamSheetSpec {
 interface ExamResultQuestion {
   title: string;
   verdict: ExamVerdict;
-  answer?: string;
   reason?: string;
   official?: string;
   unverified?: boolean;
@@ -105,6 +107,28 @@ function readSpec<T>(): T {
   } catch (error) {
     return fail(`스펙이 JSON이 아니다: ${(error as Error).message}`);
   }
+}
+
+// 시험지가 돌려준 회수 payload에서 답변 배열만 꺼낸다. 스펙과 달리 이 파일은 사용자가 붙여넣은
+// 값을 그대로 담은 것이라, 모양이 어긋나면 고쳐 쓰지 않고 죽는다.
+function readAnswers(file: string): string[] {
+  let raw: string;
+  try {
+    raw = fs.readFileSync(file, 'utf8').replace(/^﻿/, '');
+  } catch (error) {
+    return fail(`--answers 파일을 읽지 못했다 (${file}): ${(error as Error).message}`);
+  }
+  let payload: { answers?: unknown };
+  try {
+    payload = JSON.parse(raw) as { answers?: unknown };
+  } catch (error) {
+    return fail(`--answers 파일이 JSON이 아니다 (${file}): ${(error as Error).message}`);
+  }
+  const { answers } = payload;
+  if (!Array.isArray(answers) || answers.some((a) => typeof a !== 'string')) {
+    fail(`--answers 파일에 문자열 배열 answers가 없다 (${file}).`);
+  }
+  return answers as string[];
 }
 
 const PAGE_HEAD = (title: string, style: string) => `<!DOCTYPE html>
@@ -329,10 +353,15 @@ const EXAM_RESULT_STYLE = `    body { font-family: -apple-system, sans-serif; ma
 
 const EXAM_MARK: Record<ExamVerdict, string> = { pass: '✓', partial: '△', fail: '✗', skip: '스킵' };
 
-function buildExamResult(spec: ExamResultSpec): string {
+function buildExamResult(spec: ExamResultSpec, answers: string[]): string {
   if (!Array.isArray(spec.questions) || spec.questions.length === 0) fail('questions가 비어 있다.');
   for (const [i, q] of spec.questions.entries()) {
     if (!(q.verdict in EXAM_MARK)) fail(`문항 ${i + 1}의 verdict "${q.verdict}" — pass/partial/fail/skip 중 하나여야 한다.`);
+  }
+  // 스킵 문항도 payload에는 `(스킵)` 원소로 들어 있으므로 개수는 언제나 같아야 한다. 어긋나면
+  // 답변이 한 칸 밀려 엉뚱한 문항에 붙을 수 있으니, 틀린 짝을 그리느니 안 그린다.
+  if (answers.length !== spec.questions.length) {
+    fail(`문항 ${spec.questions.length}개인데 답변은 ${answers.length}개다 — 짝이 맞는 payload를 --answers로 넘긴다.`);
   }
 
   const count = (v: ExamVerdict) => spec.questions.filter((q) => q.verdict === v).length;
@@ -348,7 +377,9 @@ function buildExamResult(spec: ExamResultSpec): string {
         `    <div class="verdict ${q.verdict}">Q${i + 1}. ${escapeHtml(q.title)} &nbsp;${EXAM_MARK[q.verdict]}</div>`,
       ];
       if (q.unverified) parts.push(`    <div class="unverified-note">공식 출처 미확보 — 자체 지식 기반 채점</div>`);
-      parts.push(`    <div class="user-ans">${escapeHtml(q.answer?.trim() || '미응답')}</div>`);
+      // 여기서의 "미응답"은 사용자가 정말 비워 낸 문항만 뜻한다. 스펙에서 빠뜨려 비는 경로는
+      // 위 개수 검사가 막으므로, 이 자리에 그 둘이 섞이지 않는다.
+      parts.push(`    <div class="user-ans">${escapeHtml(answers[i].trim() || '미응답')}</div>`);
       // 통과한 문항에는 이유를 달지 않는다. 스킵은 애초에 판정이 없다.
       if (q.verdict !== 'pass' && q.verdict !== 'skip' && q.reason) parts.push(`    <div class="reason">${q.reason}</div>`);
       // 원문은 판정과 무관하게 붙인다 — 통과한 답도 OA와 대조해봐야 무엇을 다르게 말했는지 보인다.
@@ -411,9 +442,14 @@ switch (subcommand) {
   case 'exam-sheet':
     process.stdout.write(buildExamSheet(readSpec<ExamSheetSpec>()));
     break;
-  case 'exam-result':
-    process.stdout.write(buildExamResult(readSpec<ExamResultSpec>()));
+  case 'exam-result': {
+    const flag = rest.indexOf('--answers');
+    if (flag === -1 || !rest[flag + 1]) fail('usage: build-page.mts exam-result --answers <회수 payload 경로> < spec.json');
+    // 스펙(stdin)보다 payload를 먼저 읽는다 — 경로가 틀렸으면 스펙을 기다리며 멈추기 전에 죽는다.
+    const answers = readAnswers(rest[flag + 1]);
+    process.stdout.write(buildExamResult(readSpec<ExamResultSpec>(), answers));
     break;
+  }
   case 'exam-slug':
     if (!rest[0]) fail('usage: build-page.mts exam-slug <knowledge 파일 경로>');
     console.log(examSlug(rest[0]));
