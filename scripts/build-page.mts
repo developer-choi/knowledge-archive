@@ -26,7 +26,8 @@
  *                 verdict = pass | partial | fail | skip
  *                 답변 원문은 스펙에 없다. `--answers`로 받은 회수 payload의 `answers[i]`가 i번째
  *                 문항의 답변이다 — AI가 문항마다 옮겨 적던 값이라, 판정이 좋은 문항에서 조용히
- *                 빠지는 사고가 났다. 개수가 어긋나면 그리지 않고 죽는다.
+ *                 빠지는 사고가 났다. 개수가 어긋나거나 payload의 `sum`(시험지가 찍은 답변 지문)이
+ *                 안 맞으면 그리지 않고 죽는다.
  *
  * Escaping rule: text that must survive verbatim is escaped, prose the AI wrote is not.
  * `src`·`answer`·`diagram`·`official`·question titles are escaped — the digest quote becomes an Official
@@ -91,6 +92,25 @@ function toScriptJson(value: unknown): string {
   return JSON.stringify(value).replace(/</g, '\\u003c');
 }
 
+// 답변 배열의 지문. 시험지가 제출 시점에 찍어 payload에 넣고, 결과 렌더러가 다시 찍어 대조한다.
+// 사이에 있는 것은 AI가 붙여넣은 JSON을 파일로 옮기는 전사뿐이라, 답변 글자가 하나라도 달라지면
+// 값이 어긋난다 — 「한 글자도 바꾸지 않는다」는 부탁을 기계가 잡는 자리로 내린 것이다.
+//
+// 이 함수는 브라우저에도 `answersHash.toString()`으로 그대로 실려 간다. 양쪽이 같은 원본이라야
+// 같은 값이 나오므로, 여기서만 고치고 HTML 쪽에 따로 옮겨 적지 않는다. 그래서 본문은 어느 쪽에도
+// 없는 것(Node API·최신 문법)에 기대지 않는다.
+function answersHash(answers: string[]): string {
+  const text = JSON.stringify(answers);
+  let h1 = 0x811c9dc5;
+  let h2 = 0x01000193;
+  for (let i = 0; i < text.length; i++) {
+    const c = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ c, 0x01000193) >>> 0;
+    h2 = Math.imul(h2 + c, 0x85ebca6b) >>> 0;
+  }
+  return h1.toString(16).padStart(8, '0') + h2.toString(16).padStart(8, '0');
+}
+
 function readStdin(): string {
   try {
     return fs.readFileSync(0, 'utf8');
@@ -118,15 +138,25 @@ function readAnswers(file: string): string[] {
   } catch (error) {
     return fail(`--answers 파일을 읽지 못했다 (${file}): ${(error as Error).message}`);
   }
-  let payload: { answers?: unknown };
+  let payload: { answers?: unknown; sum?: unknown };
   try {
-    payload = JSON.parse(raw) as { answers?: unknown };
+    payload = JSON.parse(raw) as { answers?: unknown; sum?: unknown };
   } catch (error) {
     return fail(`--answers 파일이 JSON이 아니다 (${file}): ${(error as Error).message}`);
   }
-  const { answers } = payload;
+  const { answers, sum } = payload;
   if (!Array.isArray(answers) || answers.some((a) => typeof a !== 'string')) {
     fail(`--answers 파일에 문자열 배열 answers가 없다 (${file}).`);
+  }
+  if (typeof sum !== 'string') {
+    fail(`--answers 파일에 sum이 없다 (${file}) — 시험지가 찍어준 payload를 통째로 옮겼는지 본다.`);
+  }
+  const actual = answersHash(answers as string[]);
+  if (actual !== sum) {
+    fail(
+      `답변 지문이 안 맞는다 (${file}): 시험지 ${sum} vs 지금 ${actual}.\n` +
+        '옮겨 적는 사이에 답변이 바뀌었다. 사용자가 붙여넣은 JSON을 손대지 말고 그대로 다시 쓴다.',
+    );
   }
   return answers as string[];
 }
@@ -319,11 +349,11 @@ ${OUTPUT_BLOCK}
 
   <script>
     const qIds = ${toScriptJson(qIds)};
-${COLLECT_SCRIPT(`{
-        __skill: "ka-exam",
-        ts: Date.now(),
-        answers: qIds.map(id => document.getElementById(id).value.trim())
-      }`)}
+    ${answersHash.toString()}
+${COLLECT_SCRIPT(`(function () {
+        const answers = qIds.map(id => document.getElementById(id).value.trim());
+        return { __skill: "ka-exam", ts: Date.now(), sum: answersHash(answers), answers: answers };
+      })()`)}
   </script>
 </body>
 </html>
