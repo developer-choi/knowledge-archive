@@ -24,7 +24,8 @@ priority: 2
   - REST 응답 헤더에는 어떤 종류의 정보가 담기는가?
 
 ## 관련 주제
-- [HTTP 메서드 · 멱등성 · safe → `protocol/http-methods.md`](protocol/http-methods.md)
+- [HTTP 메서드 · safe → `protocol/http-methods.md`](protocol/http-methods.md)
+- [HTTP 멱등성 · Idempotency-Key → `protocol/http-idempotency.md`](protocol/http-idempotency.md)
 - [HTTP 상태 코드 → `protocol/http-status-codes.md`](protocol/http-status-codes.md)
 
 ---

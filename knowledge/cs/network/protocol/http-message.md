@@ -9,7 +9,8 @@ priority: 2
   - HTTP/1.1의 텍스트 기반 메시지와 HTTP/2+의 바이너리 프로토콜은 어떻게 다른가?
 - HTTP 헤더 필드란 무엇이며, 어떤 형식으로 작성되는가?
 - HTTP 요청 메시지의 시작 줄은 어떻게 구성되며, 필수 헤더는 무엇인가?
-- [HTTP 메서드(GET/POST/PUT/PATCH/DELETE)는 어떤 동작을 의미하며, safe·idempotent 분류는? → `http-methods.md`](http-methods.md)
+- [HTTP 메서드(GET/POST/PUT/PATCH/DELETE)는 어떤 동작을 의미하며, safe 분류는? → `http-methods.md`](http-methods.md)
+- [HTTP 메서드의 idempotent(멱등) 분류와 Idempotency-Key는? → `http-idempotency.md`](http-idempotency.md)
 - [HTTP 상태 코드(1XX~5XX)의 클래스와 자주 보는 코드는? → `http-status-codes.md`](http-status-codes.md)
 - 다음 HTTP 요청 예시에서 각 헤더의 역할을 설명하라
   - 다음 HTTP 응답 예시에서 각 헤더의 역할을 설명하라

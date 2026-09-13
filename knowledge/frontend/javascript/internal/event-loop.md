@@ -5,27 +5,18 @@ priority: 1
 ---
 
 # Questions
-- 이벤트 루프란 무엇이고 왜 필요한가?
-- 이벤트 루프는 내부적으로 job을 어떻게 꺼내 실행하며, 하나의 job은 언제 완료로 간주되는가?
+- 이벤트 루프란 무엇이고 왜 필요하며, 내부적으로 job을 어떻게 꺼내 실행하고 하나의 job은 언제 완료로 간주되는가?
 - macrotask와 microtask는 각각 무엇이며, 어떻게 다른가?
 - task가 실행되는 도중에도 브라우저 렌더링이 일어날 수 있는가?
 - [UNVERIFIED] 이벤트 루프는 JavaScript 런타임의 어떤 구성요소들과 함께 동작하는가?
 ---
 # Answers
 
-## 이벤트 루프란 무엇이고 왜 필요한가?
+## 이벤트 루프란 무엇이고 왜 필요하며, 내부적으로 job을 어떻게 꺼내 실행하고 하나의 job은 언제 완료로 간주되는가?
 
 ### Official Answer
 > An agent is a thread, which means the interpreter can only process one statement at a time. But if the code needs to perform asynchronous action, then we cannot progress unless that action is completed. However, it would be detrimental to user experience if that halts the whole program—the nature of JavaScript as a web scripting language requires it to be never blocking. Therefore, the code that handles the completion of that asynchronous action is defined as a callback. This callback defines a job, which gets placed into a job queue—or, in HTML terminology, an event loop—once the action is completed.
-
-### Reference
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model#job_queue_and_event_loop
-
----
-
-## 이벤트 루프는 내부적으로 job을 어떻게 꺼내 실행하며, 하나의 job은 언제 완료로 간주되는가?
-
-### Official Answer
+>
 > Every time, the agent pulls a job from the queue and executes it. When the job is executed, it may create more jobs, which are added to the end of the queue. Jobs can also be added via the completion of asynchronous platform mechanisms, such as timers, I/O, and events. A job is considered completed when the stack is empty; then, the next job is pulled from the queue.
 
 ### Reference

@@ -6,9 +6,9 @@ source: official
 # Questions
 - Navigation이란 무엇이며 언제 발생하는가?
 - HTTPS 사이트 접속 시 브라우저가 HTML 데이터를 받기 전까지 거치는 네트워크 단계와 왕복 횟수는?
-  - [DNS lookup에서 호스트명은 어떻게 IP 주소로 변환되는가? → `address.md`](../../../cs/network/address.md#도메인명은-어떻게-네트워크-주소로-변환되는가)
+  - [DNS lookup에서 호스트명은 어떻게 IP 주소로 변환되는가? → `address.sub.md`](../../../cs/network/address.sub.md#도메인명은-어떻게-네트워크-주소로-변환되는가)
   - [TLS negotiation에서 장기 키와 세션 키는 어떤 역할을 하는가? → `https.md`](../../../cs/network/protocol/https.md#tls가-데이터를-암호화하는-과정에서-장기-키와-세션-키의-역할은)
-  - [TCP 연결 후 HTTP 통신의 전체 흐름(4단계)은? → `http.md`](../../../cs/network/protocol/http.md#클라이언트가-서버와-http-통신을-수행하는-전체-흐름4단계은)
+  - [TCP 연결 후 HTTP 통신의 전체 흐름(4단계)은? → `http.sub.md`](../../../cs/network/protocol/http.sub.md#클라이언트가-서버와-http-통신을-수행하는-전체-흐름4단계은)
 - 페이지가 paint된 직후에도 브라우저가 'all set' 상태가 아닐 수 있는 이유는?
 - Redirect는 왜 성능에 부정적인가?
 - [UNVERIFIED] 브라우저 캐싱은 네비게이션 과정의 어떤 단계를 건너뛰게 하나?

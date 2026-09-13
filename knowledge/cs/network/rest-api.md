@@ -33,7 +33,8 @@ priority: 2
 
 ## 관련 주제
 - [REST 요청·인증·응답 구성요소 → `rest-api-message.md`](rest-api-message.md)
-- [HTTP 메서드 · 멱등성 · safe → `protocol/http-methods.md`](protocol/http-methods.md)
+- [HTTP 메서드 · safe → `protocol/http-methods.md`](protocol/http-methods.md)
+- [HTTP 멱등성 · Idempotency-Key → `protocol/http-idempotency.md`](protocol/http-idempotency.md)
 - [HTTP 상태 코드 → `protocol/http-status-codes.md`](protocol/http-status-codes.md)
 - [REST URL 설계 · API 버저닝 → `rest-url-design.md`](rest-url-design.md)
 
