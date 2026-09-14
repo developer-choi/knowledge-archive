@@ -22,15 +22,18 @@
  *   digest-cards  { slug, round, summary, cards: [{ src, ko, words: [{ word, meaning }], verdict }] }
  *                 verdict = save | explain | drop  (the radio pre-selected as the AI's call)
  *   exam-sheet    { title, questions: [{ title, diagramHint? }] }
- *   exam-result   { title, questions: [{ title, verdict, reason?, official?, unverified?, diagram? }] }
+ *   exam-result   { title, questions: [{ title, verdict, reason?, explanation?, official?, unverified?, diagram? }] }
  *                 verdict = pass | partial | fail | skip
+ *                 explanation = explained 섹션의 `## 본문` → 「해설」로 그린다.
+ *                 official = 그 본문이 없는 문항만 knowledge의 Official Answer → 「Official Answer」로 그린다.
+ *                 둘은 한 문항에 하나만 온다. 헤딩이 내용 출처를 따라가야 해서 렌더러가 어느 쪽인지 알아야 한다.
  *                 답변 원문은 스펙에 없다. `--answers`로 받은 회수 payload의 `answers[i]`가 i번째
  *                 문항의 답변이다 — AI가 문항마다 옮겨 적던 값이라, 판정이 좋은 문항에서 조용히
  *                 빠지는 사고가 났다. 개수가 어긋나거나 payload의 `sum`(시험지가 찍은 답변 지문)이
  *                 안 맞으면 그리지 않고 죽는다.
  *
  * Escaping rule: text that must survive verbatim is escaped, prose the AI wrote is not.
- * `src`·`answer`·`diagram`·`official`·question titles are escaped — the digest quote becomes an Official
+ * `src`·`answer`·`diagram`·`explanation`·`official`·question titles are escaped — the digest quote becomes an Official
  * Answer downstream, so a stray tag would follow it into knowledge/. `ko`·`words`·`reason`·
  * `summary` pass through raw, because the skill is told to use `<strong>`/`<code>` there.
  */
@@ -64,6 +67,7 @@ interface ExamResultQuestion {
   title: string;
   verdict: ExamVerdict;
   reason?: string;
+  explanation?: string;
   official?: string;
   unverified?: boolean;
   diagram?: string;
@@ -383,10 +387,36 @@ const EXAM_RESULT_STYLE = `    body { font-family: -apple-system, sans-serif; ma
 
 const EXAM_MARK: Record<ExamVerdict, string> = { pass: '✓', partial: '△', fail: '✗', skip: '스킵' };
 
+// 해설로 옮긴 본문에 이미 들어 있는 다이어그램(fence 언어 없는 코드블록)을 `diagram`에서 뺀다.
+// `diagram`은 explained 섹션 전체의 다이어그램을 담으므로, 본문 쪽 그림이 결과지에 두 번 그려진다.
+function withoutDiagramsIn(diagram: string | undefined, explanation: string): string | undefined {
+  if (!diagram) return diagram;
+  const blocks: string[] = [];
+  let open: { lang: string; lines: string[] } | null = null;
+  for (const line of explanation.split(/\r?\n/)) {
+    const fence = /^```(.*)$/.exec(line.trimEnd());
+    if (!open) {
+      if (fence) open = { lang: fence[1].trim(), lines: [] };
+    } else if (fence && fence[1] === '') {
+      if (open.lang === '') blocks.push(open.lines.join('\n').trim());
+      open = null;
+    } else {
+      open.lines.push(line);
+    }
+  }
+  return blocks.reduce((rest, block) => (block ? rest.split(block).join('') : rest), diagram.replace(/\r\n/g, '\n'));
+}
+
 function buildExamResult(spec: ExamResultSpec, answers: string[]): string {
   if (!Array.isArray(spec.questions) || spec.questions.length === 0) fail('questions가 비어 있다.');
   for (const [i, q] of spec.questions.entries()) {
     if (!(q.verdict in EXAM_MARK)) fail(`문항 ${i + 1}의 verdict "${q.verdict}" — pass/partial/fail/skip 중 하나여야 한다.`);
+    if (q.explanation?.trim() && q.official?.trim()) {
+      fail(`문항 ${i + 1}에 explanation과 official이 둘 다 있다 — explained 본문이 있으면 explanation만, 없을 때만 official을 적는다.`);
+    }
+    if (q.explanation && /^## (도입|종합)\s*$/m.test(q.explanation)) {
+      fail(`문항 ${i + 1}의 explanation에 도입·종합이 섞였다 — explained 섹션의 \`## 본문\`만 옮긴다.`);
+    }
   }
   // 스킵 문항도 payload에는 `(스킵)` 원소로 들어 있으므로 개수는 언제나 같아야 한다. 어긋나면
   // 답변이 한 칸 밀려 엉뚱한 문항에 붙을 수 있으니, 틀린 짝을 그리느니 안 그린다.
@@ -412,17 +442,24 @@ function buildExamResult(spec: ExamResultSpec, answers: string[]): string {
       parts.push(`    <div class="user-ans">${escapeHtml(answers[i].trim() || '미응답')}</div>`);
       // 통과한 문항에는 이유를 달지 않는다. 스킵은 애초에 판정이 없다.
       if (q.verdict !== 'pass' && q.verdict !== 'skip' && q.reason) parts.push(`    <div class="reason">${q.reason}</div>`);
-      // 원문은 판정과 무관하게 붙인다 — 통과한 답도 OA와 대조해봐야 무엇을 다르게 말했는지 보인다.
-      if (q.official) {
+      // 해설은 판정과 무관하게 붙인다 — 통과한 답도 나란히 놓고 봐야 무엇을 다르게 말했는지 보인다.
+      const explanation = q.explanation?.trim().replace(/\n+-{3,}$/, '');
+      if (explanation) {
+        parts.push(`    <div class="official">
+      <p>해설</p>
+      <pre>${escapeHtml(explanation)}</pre>
+    </div>`);
+      } else if (q.official) {
         parts.push(`    <div class="official">
       <p>Official Answer</p>
       <pre>${escapeHtml(q.official.trim())}</pre>
     </div>`);
       }
-      if (q.diagram) {
+      const diagram = explanation ? withoutDiagramsIn(q.diagram, explanation) : q.diagram;
+      if (diagram?.trim()) {
         parts.push(`    <div class="diagram-compare">
       <p>본인이 그린 그림과 비교해보세요:</p>
-      <pre>${escapeHtml(q.diagram)}</pre>
+      <pre>${escapeHtml(diagram.trim())}</pre>
     </div>`);
       }
       return `  <div class="q">\n${parts.join('\n')}\n  </div>`;

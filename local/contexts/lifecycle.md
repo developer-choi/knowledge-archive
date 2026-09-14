@@ -7,7 +7,7 @@ KA 레포는 학습 콘텐츠를 생성·소비하는 사이클이 명확히 분
 | 도구 | Read | Write | 트리거 |
 |------|------|------|------|
 | `/digest` | 공식 문서 URL (WebFetch), 사용자 텍스트, 기존 `knowledge/` 파일 | `knowledge/<rel>.md` (OFF 1단계에서 저장), `explained/<rel>.md` (OFF 2단계에서 확정 질문 + 세션 오해), `assets/<rel>/` (데모·이미지) | 공식 URL + "같이 읽자" / 원문 + "필기해줘" |
-| `/exam` | `knowledge/<rel>.md` | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
+| `/exam` | `knowledge/<rel>.md`, `explained/<rel>.md` (결과지 해설·다이어그램) | `$env:TEMP/ka-exam-*.html` (시험지·결과) | "시험", "/exam" 명시 |
 | `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | Read 전용 (기본) | "복습하자", "면접 연습" 명시 |
 | `/validate` | 린터가 정한 스캔 범위 (`validate-lint.mts`) | `knowledge/`·`reference/` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
 | `/primary-source` | KA 내부 (`knowledge/` 우선, `reference/`·`tips/`·`archives/` 포함), 외부 공식문서 | Read 전용 | "/primary-source" 명시 |
