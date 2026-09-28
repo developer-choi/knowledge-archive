@@ -82,7 +82,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
-  { id: 'E12', severity: 'warn', rule: "digest SKILL '기존 답변 보충 검토 — 기존 OA에 보충하면 대응 explained도 함께 갱신한다'" },
+  { id: 'E12', severity: 'warn', rule: "digest off.md '기존 답변 보충 검토 — 기존 OA에 보충하면 대응 explained도 함께 갱신한다'" },
   { id: 'K23', severity: 'error', rule: "directory-roles '원본 이동 시 미러 동반 이동' — 본문 링크 경로도 함께 옮긴다" },
   { id: 'K24', severity: 'error', rule: "content-format §1 'publishable'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
@@ -973,7 +973,7 @@ function gitShow(spec: string): string | null {
 
 // E12. knowledge의 OA 본문을 고쳐놓고 대응 explained 섹션을 그대로 두면 explained가 옛 내용에
 // 머문다(2026-07-11 실제 발생: mocking OA에 판별 기준을 append하고 explained를 안 고쳤다). digest
-// SKILL 「기존 답변 보충 검토」가 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
+// off.md 「기존 답변 보충 검토」가 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
 //
 // 두 문서의 **내용을 대조하지 않는다.** explained는 불필요한 원문 인용을 덜어내기도 하고
 // (explanation-guide §6이 허용하는) 보충 인용을 더하기도 해서 양쪽 차이가 다 정상이다 — 내용을
