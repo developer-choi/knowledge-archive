@@ -6,7 +6,7 @@ knowledge/ 문서를 생성하거나 수정하는 **모든 스킬**은 반드시
 
 ## Before
 
-스킬 고유 작업을 시작하기 전에 읽는다.
+knowledge/ 문서를 쓰기 전에 읽는다.
 
 - [content-format.md](content-format.md) — 기본 원칙 및 내용 작성 규칙
 

@@ -1,6 +1,6 @@
 # Digest — OFF
 
-`OFF` 입력부터 OFF 2단계 끝까지 따른다.
+`OFF` 입력부터 OFF 2단계 끝까지 따른다. 시작할 때 [production-guide.md](../../contexts/production-guide.md)의 **Before**를 실행한다.
 
 ## OFF 공통 규칙
 
