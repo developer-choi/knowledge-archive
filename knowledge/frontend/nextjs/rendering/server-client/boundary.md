@@ -2,7 +2,7 @@
 tags: [react, nextjs, principle]
 source: official
 publishable: false
-priority: 1
+priority: 2
 ---
 
 # Questions

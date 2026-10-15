@@ -2,7 +2,7 @@
 tags: [nextjs, react, performance, principle]
 source: official
 publishable: true
-priority: 1
+priority: 2
 ---
 
 # Questions
