@@ -169,7 +169,7 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
    - 적용 규칙: [explanation-guide.md](../../contexts/explanation-guide.md), 섹션 골격은 [document-structure.md](../../contexts/document-structure.md)의 「explained/ 파일 구조」
 
    **에이전트 지시:** 지정한 섹션만 교체하고, 덧붙이기로 넘긴 내용은 기존 섹션 본문에 녹여 붙이며, 나머지 섹션은 보존한다.
-4. **explained 표현 다듬기**: 3에서 쓴 섹션에 `/write-refine`를 돌린다.
+4. **explained 표현 다듬기**: 3에서 쓴 파일을 `/write-doc note`에 건네 그 섹션만 다듬는다.
    - `>` 블록쿼트로 인용된 영어 원문은 손대지 않는다 ([explanation-guide.md](../../contexts/explanation-guide.md) §1의 원문 인용).
 5. **OA 원문 충실도 검증 — 별도 에이전트 위임**: OA를 저장한 메인이 자기 결과를 스스로 채점하지 않도록 독립 에이전트에 맡긴다. 위반은 경고로 보고하고 수정 여부는 사용자가 정한다.
 
