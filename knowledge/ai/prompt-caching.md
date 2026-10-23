@@ -10,9 +10,11 @@ publishable: true
   - Claude Code는 prefix 매칭의 이득을 키우려고 요청 안의 내용을 어떤 원칙으로 배치하는가?
   - 프롬프트 캐싱으로 이득을 보려면 반복되는 요청들이 어떤 공통점을 가져야 하는가?
 - 프롬프트 캐시는 기본적으로 얼마 동안 유지되며, 그 수명은 어떻게 연장되는가?
+  - 캐시 수명보다 오래 쉬었다가 보낸 첫 메시지는 왜 사용량이 크게 나오는가?
 - 세션 도중 모델이나 effort 수준을 바꾸면 프롬프트 캐시는 어떻게 되는가?
 - Claude Code에서 캐시를 무효화하는 행동을 하면 다음 요청은 어떻게 되는가?
 - /compact의 요약 요청은 캐시가 살아 있을 때와 만료됐을 때 비용이 어떻게 다른가?
+  - 새로 시작하는 게 목적이면 /compact와 /clear 중 무엇이 싸며, 왜 그런가?
 
 ---
 
@@ -77,6 +79,14 @@ By default, the cache has a 5-minute lifetime. The cache is refreshed for no add
 ### Reference
 - https://platform.claude.com/docs/en/build-with-claude/prompt-caching
 
+## 캐시 수명보다 오래 쉬었다가 보낸 첫 메시지는 왜 사용량이 크게 나오는가?
+
+### Official Answer
+- **Cache misses**: your first message after a break longer than the cache lifetime misses the cache and reprocesses your full context.
+
+### Reference
+- https://code.claude.com/docs/en/costs
+
 ## 세션 도중 모델이나 effort 수준을 바꾸면 프롬프트 캐시는 어떻게 되는가?
 
 ### Official Answer
@@ -115,3 +125,11 @@ After a break longer than the cache lifetime, there is no cache left to read, so
 
 ### Reference
 - https://code.claude.com/docs/en/prompt-caching
+
+## 새로 시작하는 게 목적이면 /compact와 /clear 중 무엇이 싸며, 왜 그런가?
+
+### Official Answer
+- **Compaction**: `/compact` reads the conversation it summarizes, so compacting a large context is itself a large request. When you want a fresh start instead of continuity, `/clear` costs nothing
+
+### Reference
+- https://code.claude.com/docs/en/costs
