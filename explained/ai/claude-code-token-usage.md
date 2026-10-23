@@ -626,3 +626,137 @@ CLAUDE.md에 넣은 것은 세션 시작 때 무조건 실려, 상관없는 작�
 CLAUDE.md와 스킬은 지시를 담는 곳이라는 점은 같고, 실리는 시점이 다르다. CLAUDE.md는 세션 시작 때 무조건 실려 모든 요청에 함께 가고, 스킬은 호출할 때만 실린다. 그래서 특정 작업용 지시를 스킬로 옮기면 그 작업을 하지 않는 세션의 모든 요청에서 그만큼이 빠지고, 기본 컨텍스트가 작아진다.
 
 CLAUDE.md에 거의 모든 작업에 필요한 것만 남기고 나머지를 스킬로 보내면, 원문이 목표로 든 200줄 아래로 자연히 짧아진다. 비용을 키우는 것이 요청마다 실리는 컨텍스트 크기라는 점에서, 기본 컨텍스트를 줄이는 것은 세션 내내 모든 요청을 가볍게 하는 일이다.
+
+---
+
+# Claude Code의 `/usage`는 플랜 사용량에 대해 무엇을 보여주는가?
+
+## 도입
+
+`/usage`는 사용량을 확인하는 명령이다. 구독 플랜에서는 사용량이 얼마인지에 더해, 그 사용량이 어디에서 나왔는지와 무엇을 바꾸면 좋은지까지 나눠 보여준다. 앞 질문들에서 다룬 긴 컨텍스트·서브에이전트·예약 작업 같은 경로 중 내 세션에서 무엇이 실제로 컸는지를 여기서 확인한다.
+
+- **plan limits**: 구독 플랜에 걸린 사용 한도다. 사용량은 이 한도에서 깎이는 양으로 센다
+- **row**: `/usage` 화면의 한 줄이다. 추천 하나, 예약 작업 하나가 각각 한 행이다
+
+---
+
+## 본문
+
+### 무엇이 한도를 깎았는지 나눠 보여준다
+
+> On a Pro, Max, Team, or Enterprise plan, /usage also shows a breakdown of what counts against your plan limits, with recommendations:
+
+구독 플랜에서는 `/usage`가 플랜 한도에서 무엇이 사용량을 깎았는지 나눈 내역을 보여주고, 추천도 함께 낸다.
+
+- **breakdown**: 전체를 항목별로 쪼갠 내역이다. 합계 하나만 보여주면 줄일 곳을 알 수 없으니 원인별로 나눈다
+- **counts against**: 한도에서 차감되는 쪽으로 계산된다는 뜻이다
+
+내역의 한 종류는 사용량을 누구 몫으로 돌릴지 나눈 것이다.
+
+> Attribution: recent usage attributed to skills, subagents, plugins, and individual MCP servers, each shown as a percentage of the total.
+
+Attribution: 최근 사용량을 스킬·서브에이전트·플러그인·개별 MCP 서버별로 나눠, 각각 전체의 몇 %인지 보여준다.
+
+- **attributed to**: 이 사용량이 어느 주체 때문에 생겼는지 몫을 매긴다는 뜻이다. 서브에이전트를 많이 띄운 세션이라면 그 몫이 여기서 드러난다
+- **individual MCP servers**: MCP 서버를 묶어서가 아니라 서버 하나하나 따로 잡는다. 어느 서버가 무거운지 가려낼 수 있다
+
+### 바꿀 점을 한 행에 하나씩 추천한다
+
+> Recommendations: suggested changes, one per row.
+
+Recommendations: 바꾸면 좋을 점을 한 행에 하나씩 보여준다.
+
+> Each row starts with a share of your recent usage, at least 10%, as in 25% Trim ~/code/api/CLAUDE.md · 49k tokens per request.
+
+각 행은 최근 사용량 중 그 행이 차지하는 몫으로 시작하고, 그 몫은 최소 10%다. 예를 들어 `25% Trim ~/code/api/CLAUDE.md · 49k tokens per request`처럼 나온다.
+
+- **at least 10%**: 몫이 10% 미만인 행동은 추천 행으로 나오지 않는다. 사소한 것까지 늘어놓지 않고 큰 원인만 짚는다
+- **Trim ~/code/api/CLAUDE.md · 49k tokens per request**: 그 CLAUDE.md가 요청마다 49k 토큰을 싣고 있으니 줄이라는 추천이다. CLAUDE.md가 매 요청에 실리는 이유는 [CLAUDE.md에 특정 워크플로용 상세 지시를 넣어두면 왜 토큰이 낭비되는가?](../../knowledge/ai/claude-code-token-usage.md#claudemd에-특정-워크플로용-상세-지시를-넣어두면-왜-토큰이-낭비되는가)에서 다룬다
+
+### 행 앞의 %는 아낄 양이 아니다
+
+흔히 혼동하는 지점이다. `25%`라는 숫자를 보고 그 추천을 따르면 사용량이 25% 준다고 읽기 쉽다.
+
+> How to read the share: it tells you how much of your usage the row applies to, not how much the change saves.
+
+몫 읽는 법: 그 %는 이 행이 사용량의 얼마에 걸쳐 있는지를 말할 뿐, 바꾸면 얼마를 아끼는지가 아니다.
+
+- **applies to**: 그 원인이 관여한 사용량의 범위다. 위 예시라면 최근 사용량의 25%가 그 CLAUDE.md를 실은 요청이었다는 뜻이다
+- **not how much the change saves**: CLAUDE.md를 절반으로 줄여도 그 25% 전부가 사라지지는 않는다. 그 요청들에는 CLAUDE.md 말고 대화 이력도 실려 있다
+
+> One request can count toward several rows, so the shares can add up to more than 100%.
+
+한 요청이 여러 행에 동시에 잡힐 수 있어서, 몫을 다 더하면 100%를 넘을 수 있다.
+
+- **count toward several rows**: 긴 대화에서 큰 CLAUDE.md를 실은 요청 하나는 "긴 컨텍스트" 행에도, "CLAUDE.md 줄이기" 행에도 들어간다
+- **more than 100%**: 행들이 사용량을 나눠 가진 파이 조각이 아니라, 서로 겹칠 수 있는 범위라서 생기는 일이다
+
+```
+최근 요청 100개
+├── 긴 대화 이력을 실은 요청 60개 ─────→ "긴 컨텍스트" 행 60%
+└── 큰 CLAUDE.md를 실은 요청 25개 ────→ "CLAUDE.md 줄이기" 행 25%
+     (이 25개 중 상당수는 위 60개와 같은 요청)
+
+행의 %를 더한 값은 요청 수의 합이 아니다 → 100%를 넘을 수 있음
+```
+
+---
+
+## 종합
+
+`/usage`의 내역은 사용량 합계를 원인별로 나눠 두 가지를 보여준다.
+
+- 누구 몫인가: Attribution이 스킬·서브에이전트·플러그인·MCP 서버별 비율을 보여준다
+- 무엇을 바꿀까: Recommendations가 최근 사용량의 10% 이상에 걸친 원인마다 바꿀 점을 한 행씩 낸다
+
+추천 행의 %는 그 원인이 걸쳐 있는 범위이지 절감액이 아니고, 한 요청이 여러 행에 겹쳐 잡히므로 합이 100%를 넘을 수 있다. 그래서 %가 큰 행부터 손대되, 그만큼 줄어들 거라고 기대하지 않고 바꾼 뒤 다시 `/usage`로 확인한다.
+
+---
+
+# `/loop`나 세션 범위 예약 작업이 사용량을 얼마나 썼는지는 `/usage`에서 어떻게 확인하는가?
+
+## 도입
+
+`/loop`는 프롬프트를 일정 간격으로 되풀이해 실행하는 명령이다. 이렇게 세션 안에 걸어 둔 예약 작업은 세션이 놀고 있어도 주기마다 발동하고, 발동할 때마다 다른 턴처럼 대화 전체를 싣는다. 걸어 두고 잊으면 사용자가 아무것도 하지 않는 동안 사용량이 쌓인다.
+
+- **session-scoped**: 그 세션 안에서만 사는 작업이다. 세션을 닫으면 함께 사라진다
+
+---
+
+## 본문
+
+### 무거운 예약 작업을 한 행씩 보여준다
+
+> - **Loops**: a row for each of the heaviest /loop or other session-scoped scheduled tasks that ran recently, ordered by total tokens, with a count of the rest.
+
+Loops: 최근 돈 `/loop`나 세션 범위 예약 작업 중 가장 무거운 것들을 하나씩 행으로 보여주고, 총 토큰 순으로 정렬하며, 나머지는 개수만 센다.
+
+- **heaviest**: 토큰을 가장 많이 쓴 작업이다. 무게는 토큰량으로 잰다
+- **ordered by total tokens**: 맨 위 행이 가장 많이 쓴 작업이다. 위에서부터 보면 된다
+- **with a count of the rest**: 상위 몇 개만 행으로 펼치고 나머지는 "외 N개"처럼 개수로 묶는다
+
+### 행마다 나오는 것
+
+> - **What each row reports**: how often the task fires, how many times it ran, its total and per-run tokens, and when it last ran
+
+각 행이 보여주는 것: 작업이 얼마나 자주 발동하는지, 몇 번 돌았는지, 총 토큰과 1회당 토큰, 마지막으로 돈 시각.
+
+- **how often the task fires**: 발동 주기다. 짧을수록 같은 시간에 더 많이 돈다
+- **its total and per-run tokens**: 총량과 1회당 양을 함께 보여준다. 총량이 큰 이유가 자주 돌아서인지 한 번이 무거워서인지를 이 둘로 가른다
+- **when it last ran**: 마지막 실행 시각이다. 최근에도 돌았으면 아직 살아 있는 작업이다
+
+```
+총 토큰이 큰 행을 만났을 때
+
+1회당 토큰은 작고 실행 횟수가 많다 → 주기를 늘리거나, 필요 없어졌으면 멈춘다
+1회당 토큰이 크다                  → 세션 대화가 길어서다. 새 세션에서 루프를 걸면 1회당 양이 준다
+마지막 실행이 최근이다              → 지금도 돌고 있다. 잊고 둔 루프인지 확인한다
+```
+
+---
+
+## 종합
+
+예약 작업은 사용자가 입력하지 않는 동안에도 턴을 시작하므로, 사용량이 어디서 새는지 찾을 때 따로 봐야 하는 경로다.
+
+`/usage`의 Loops 행이 무거운 순으로 작업을 보여주고, 행마다 주기·횟수·총량·1회당 양·마지막 실행 시각을 알려 준다. 총량만 보지 않고 1회당 양과 횟수를 나눠 보면, 주기를 늘릴지 세션을 비울지 작업을 멈출지가 갈린다.

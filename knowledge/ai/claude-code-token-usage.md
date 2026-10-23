@@ -12,6 +12,8 @@ publishable: true
 - Claude Code에서 토큰 비용을 줄이려면 어떻게 해야 하는가?
 - CLAUDE.md에 특정 워크플로용 상세 지시를 넣어두면 왜 토큰이 낭비되는가?
   - 그 지시를 스킬로 옮기면 왜 기본 컨텍스트가 줄어드는가?
+- Claude Code의 `/usage`는 플랜 사용량에 대해 무엇을 보여주는가?
+  - `/loop`나 세션 범위 예약 작업이 사용량을 얼마나 썼는지는 `/usage`에서 어떻게 확인하는가?
 
 ---
 
@@ -103,6 +105,25 @@ Your CLAUDE.md file is loaded into context at session start. If it contains deta
 
 ### Official Answer
 Skills load on-demand only when invoked, so moving specialized instructions into skills keeps your base context smaller. Aim to keep CLAUDE.md under 200 lines by including only essentials.
+
+### Reference
+- https://code.claude.com/docs/en/costs
+
+## Claude Code의 `/usage`는 플랜 사용량에 대해 무엇을 보여주는가?
+
+### Official Answer
+On a Pro, Max, Team, or Enterprise plan, /usage also shows a breakdown of what counts against your plan limits, with recommendations:
+
+- **Recommendations**: suggested changes, one per row.
+
+### Reference
+- https://code.claude.com/docs/en/costs
+
+## `/loop`나 세션 범위 예약 작업이 사용량을 얼마나 썼는지는 `/usage`에서 어떻게 확인하는가?
+
+### Official Answer
+- **Loops**: a row for each of the heaviest /loop or other session-scoped scheduled tasks that ran recently, ordered by total tokens, with a count of the rest.
+  - **What each row reports**: how often the task fires, how many times it ran, its total and per-run tokens, and when it last ran
 
 ### Reference
 - https://code.claude.com/docs/en/costs
