@@ -35,7 +35,7 @@ Q&A 형식으로 정리된 학습 노트. 사용자가 면접관(AI)에게 질�
 
 - **자료 성격**: knowledge/의 각 글에 대해 풀어쓴 설명. 사용자가 직접 작성하지 않는다.
 - **양식**: 평문. `## 도입 / ## 본문 / ## 종합` 같은 구조. Q&A 아님.
-- **생성 주체**: `/digest` OFF(세션 확정 질문 전체, 세션 중 사용자 오해를 본문에 녹여 저장). 저장 위치·순서·소유권 규칙은 [explanation-guide.md](explanation-guide.md) §6 참고.
+- **생성 주체**: `/digest` OFF(세션 확정 질문 전체, 세션 중 사용자 오해를 본문에 녹여 저장). 섹션 교체·덧붙이기 규칙은 [digest off.md](../skills/digest/off.md) 「OFF 2단계」의 「explained 생성」 참고.
 - **경로 결합**: `knowledge/<rel>.md`의 경로를 미러링한다. 원본이 이동·개명되면 대응 `explained/<rel>.md`도 같은 경로로 동반 이동한다 (아래 "원본 이동 시 미러 동반 이동" 참고).
 
 ## assets/
@@ -50,11 +50,13 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 
 검색·참조하는 사실 창고. 코드로 푸는 도구, API 사용법, 라이브러리 사용 기법에 더해, knowledge/에서 "면접에는 안 나오겠다"고 판정돼 내려온 심화 사실도 여기 담는다.
 
-- **자료 성격**: "외워서 설명"하지 않고 **검색·참조**하는 것. 두 갈래다 — ⓐ 도구·기법, ⓑ knowledge/에서 강등된 심화 사실.
+- **자료 성격**: "외워서 설명"하지 않고 **검색·참조**하는 것. 두 종류다 — ⓐ 도구·기법, ⓑ knowledge/에서 강등된 심화 사실.
 - **판단 질문**: "이걸 어떻게 짜? / 어떻게 써?" 또는 "이건 사실이지만 외울 것까진 아니다."
 - **예시**: binary-search 알고리즘 구현, framer-motion useMotionValue 사용, label HTML element.
 - **knowledge/와의 구분**: 라이브러리 버전·교체로 휘발되면 reference/, 시간이 지나도 안 변하면 knowledge/. 면접에서 단골로 물어보지 않는 것은 reference/.
-- **양식**: 질문-답변 구조는 knowledge/와 동일하되, `# Questions` 목차와 `# Answers` H1은 두지 않는다. **질문 제목이 H2로 최상위에 오고, 문서에 H1이 하나도 없는 것이 정상**이다. 그 아래 `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference`는 knowledge/와 같다 ([document-structure.md](document-structure.md) 참고).
+- **양식**: 질문-답변 구조는 knowledge/와 동일하되, `# Questions` 목차와 `# Answers` H1은 두지 않는다.
+  **질문 제목이 H2로 최상위에 오고, 문서에 H1이 하나도 없는 것이 정상**이다.
+  그 아래 `### Official Answer` / `### Additional Answer` / `### User Answer` / `### Reference`는 knowledge/와 같다 ([document-structure.md](document-structure.md) 참고).
   - 목차를 두지 않는 이유: 목차의 값은 `/exam`·`/review`가 훑을 때 나오는데 둘 다 knowledge/만 출제한다. 여기서 목차는 유지 비용만 남는다.
   - 파일 제목용 H1도 넣지 않는다 — 파일명과 중복이고, knowledge/에서 문서를 내려보낼 때마다 제목을 새로 지어야 해 강등 동선에 마찰이 생긴다.
 - **활용**: 활용 방식은 자유. 검색용, AI 설명 요청용 등. 양식 강제는 `/validate`가 knowledge/와 함께 맡는다.

@@ -82,7 +82,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
-  { id: 'E12', severity: 'warn', rule: "digest off.md '기존 답변 보충 검토 — 기존 OA에 보충하면 대응 explained도 함께 갱신한다'" },
+  { id: 'E12', severity: 'warn', rule: "digest off.md 2단계 'explained 생성 — OA를 채우거나 보충한 질문은 explained 섹션을 통째로 교체한다'" },
   { id: 'K23', severity: 'error', rule: "directory-roles '원본 이동 시 미러 동반 이동' — 본문 링크 경로도 함께 옮긴다" },
   { id: 'K24', severity: 'error', rule: "content-format §1 'publishable'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
@@ -918,8 +918,7 @@ function lintExplained(rel: string, src: string): Finding[] {
 
   // E11 원문 인용 부재. explanation-guide §1은 본문을 「원문 조각 `>` 블록쿼트 인용 → 한글 의역 →
   // 영단어 해설」로 정하는데, 인용을 통째로 빼고 한글 요약만 적어도 지금까지 아무도 못 잡았다.
-  // digest OFF 2단계가 세션마다 검증 에이전트에게 시키던 대조인데, 그 위임은 그 세션에 만진 질문만
-  // 보므로 예전에 샌 것은 영영 안 걸린다. 여기서 전부 본다.
+  // digest의 OA 원문 대조는 그 세션에 만진 질문만 보므로, 예전에 샌 것은 영영 안 걸린다. 여기서 전부 본다.
   // 판정은 「영문이 든 `>` 줄이 하나라도 있는가」뿐이다 — 인용이 원문 그대로인지는 OA↔Reference
   // 대조(축 ①)의 몫이라 여기서 보지 않는다.
   const quotable = quotableQuestions(knowledgeAbs);
@@ -973,10 +972,10 @@ function gitShow(spec: string): string | null {
 
 // E12. knowledge의 OA 본문을 고쳐놓고 대응 explained 섹션을 그대로 두면 explained가 옛 내용에
 // 머문다(2026-07-11 실제 발생: mocking OA에 판별 기준을 append하고 explained를 안 고쳤다). digest
-// off.md 「기존 답변 보충 검토」가 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
+// off.md 2단계 「explained 생성」이 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
 //
 // 두 문서의 **내용을 대조하지 않는다.** explained는 불필요한 원문 인용을 덜어내기도 하고
-// (explanation-guide §6이 허용하는) 보충 인용을 더하기도 해서 양쪽 차이가 다 정상이다 — 내용을
+// (digest off.md 「explained 생성」이 덧붙이는) 보충 인용을 더하기도 해서 양쪽 차이가 다 정상이다 — 내용을
 // 맞춰보면 전부 오탐이 된다. 보는 것은 「같은 커밋에서 그 섹션을 손댔는가」 하나뿐이다. 그래서 이
 // 검사는 정확성을 증명하지 않고 「여기도 같이 보라」고 알리는 데서 멈춘다(warn, 커밋을 막지 않는다).
 //
@@ -1004,7 +1003,7 @@ function lintOaExplainedSync(rel: string): Finding[] {
   const eStagedBody = explainedBodyByTitle(eStaged);
 
   for (const title of changed) {
-    // 그 질문의 explained 섹션이 아직 없으면 digest OFF 2단계 배치 대기분이다. 여기서 알릴 일이
+    // 그 질문의 explained 섹션이 아직 없으면 digest의 explained 생성 대기분이다. 여기서 알릴 일이
     // 아니고, 해설이 영영 안 생기는 것은 E1(커버리지)이 전수 검사에서 잡는다.
     if (!eStagedBody.has(title)) continue;
     if (eHeadBody.get(title) !== eStagedBody.get(title)) continue; // 같은 커밋에서 손댔다
