@@ -41,7 +41,7 @@ A larger context window allows the model to handle more complex and lengthy prom
   - **Output phase:** Generates a text response that becomes part of the input for the next turn
 
 ### Additional Answer
-턴마다 이전 이력 전체를 다시 보내야 하는 이유는 [messages-api.md](messages-api.md)의 「왜 매 턴 전체 대화를 다시 보내는가?」를 참고한다.
+턴마다 이전 이력 전체를 다시 보내야 하는 이유는 [왜 매 턴 전체 대화를 다시 보내는가?](messages-api.md#왜-매-턴-전체-대화를-다시-보내는가)를 참고한다.
 
 ### Reference
 - https://platform.claude.com/docs/en/build-with-claude/context-windows
