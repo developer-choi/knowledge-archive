@@ -84,10 +84,9 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
   { id: 'E12', severity: 'warn', rule: "digest off.md 2단계 'explained 생성 — OA를 채우거나 보충한 질문은 explained 섹션을 통째로 교체한다'" },
   { id: 'K23', severity: 'error', rule: "directory-roles '원본 이동 시 미러 동반 이동' — 본문 링크 경로도 함께 옮긴다" },
-  { id: 'K24', severity: 'error', rule: "content-format §1 'publishable'" },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
   { id: 'W3', severity: 'warn', rule: "file-placement §1 '폴더 = 같은 주제 파일 모음'" },
-  { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 구조표·directory-roles.md·list-candidates.md 세 곳에 기재' },
+  { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 디렉터리 구조·directory-roles.md 두 곳에 기재' },
 ];
 
 interface Finding {
@@ -264,15 +263,6 @@ function lintFrontmatter(rel: string, lines: Line[]): Finding[] {
     for (const t of list) {
       if (!registry.has(t)) add(tags.line, 'K15', `미등록 태그 "${t}" (local/contexts/tags.md에 먼저 등록)`);
     }
-  }
-
-  // K24 publishable vocabulary. `list-candidates.mts` reads it with a `typeof === 'boolean'` test,
-  // so anything that does not parse as a boolean (`no`, `False`, a quoted "true") is silently
-  // ignored and the document stays an external-exposure candidate — the opposite of what was meant.
-  // Silent is the problem: absence is a valid state, so nothing downstream can tell a typo from it.
-  const publishable = fm.get('publishable');
-  if (publishable && publishable.value !== 'true' && publishable.value !== 'false') {
-    add(publishable.line, 'K24', `publishable "${publishable.value}" — true/false만 허용 (그 외는 소비처가 조용히 무시한다)`);
   }
 
   // K16 priority vocabulary. Absence is valid — the key only exists when the user assigned one.
@@ -1027,15 +1017,14 @@ const NON_CONTENT_ROOTS = new Set(['scripts', 'local', 'meta', 'node_modules']);
 const ROOT_DOC_FILES = [
   'CLAUDE.md',
   'local/contexts/directory-roles.md',
-  'local/contexts/list-candidates.md',
 ];
 
 function lintRepo(): Finding[] {
   const f: Finding[] = [];
 
-  // R1: every content root is documented in all three files the CLAUDE.md checklist names.
+  // R1: every content root is documented in both files the CLAUDE.md checklist names.
   // Adding a root and forgetting one of them is the failure mode — the root then exists with no
-  // stated role and no statement about whether list-candidates scans it.
+  // stated role.
   const roots = fs
     .readdirSync(KA_ROOT, { withFileTypes: true })
     .filter((e) => e.isDirectory() && !e.name.startsWith('.') && !NON_CONTENT_ROOTS.has(e.name))
@@ -1046,7 +1035,7 @@ function lintRepo(): Finding[] {
     const src = fs.readFileSync(abs, 'utf8');
     for (const root of roots) {
       if (!src.includes(`${root}/`)) {
-        f.push({ file: doc, line: 0, check: 'R1', severity: 'warn', message: `루트 디렉토리 \`${root}/\` 미기재 (새 루트 추가 시 CLAUDE.md 구조표·directory-roles.md·list-candidates.md 세 곳 갱신)` });
+        f.push({ file: doc, line: 0, check: 'R1', severity: 'warn', message: `루트 디렉토리 \`${root}/\` 미기재 (새 루트 추가 시 CLAUDE.md 디렉터리 구조·directory-roles.md 두 곳 갱신)` });
       }
     }
   }

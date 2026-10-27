@@ -11,8 +11,6 @@ KA 레포는 학습 콘텐츠를 생성·소비하는 사이클이 명확히 분
 | `/review` | `knowledge/<rel>.md`, `explained/<rel>.md` (다음 질문 전 해설 캐시) | Read 전용 (기본) | "복습하자", "면접 연습" 명시 |
 | `/validate` | 린터가 정한 스캔 범위 (`validate-lint.mts`) | `knowledge/`·`reference/` 위반 수정, `explained/<rel>.md` 고아 섹션·파일 삭제 | "검증해줘", "/validate" 명시 |
 | `/primary-source` | KA 내부 (`knowledge/` 우선, `reference/`·`tips/`·`archives/` 포함), 외부 공식문서 | Read 전용 | "/primary-source" 명시 |
-| `list-candidates` (npm) | `knowledge/` 하위 모든 `.md`, git log | stdout 또는 `--out` 경로에 Candidate[] JSON | CLI |
-
 ## 동기화 규칙
 
 ### knowledge → explained

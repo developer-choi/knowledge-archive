@@ -10,15 +10,6 @@
       "note": "knowledge/<상대경로>.md를 추가·이동·개명·편집하면 같은 상대경로의 explained/<상대경로>.md(설명)와 assets/<상대경로>(자산)도 동반 갱신/이동해야 한다. 정확한 짝은 '편집한 파일과 같은 상대경로'의 explained·assets 파일이다 — 직접 열어 확인한다. (/validate가 사후 탐지하지만 이건 편집시점 리마인더.)"
     },
     {
-      "name": "list-candidates 스캔 인터페이스",
-      "files": [
-        "scripts/list-candidates.mts",
-        "local/contexts/list-candidates.md",
-        "CLAUDE.md"
-      ],
-      "note": "frontmatter 키(tags/source/publishable)·헤딩 위계·[UNVERIFIED] 마커·스캔 대상 폴더를 바꾸면 셋이 같이 움직인다: 파싱 로직(mts) ↔ 스캔 규칙 명세(list-candidates.md) ↔ 정책(CLAUDE.md). Candidate 인터페이스 변경은 AC refresh-projects의 KQ 배포가 받는 JSON에도 영향."
-    },
-    {
       "name": "tags 규칙 ↔ 공식 태그 목록",
       "files": [
         "local/contexts/content-format.md",

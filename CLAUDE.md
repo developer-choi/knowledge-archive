@@ -9,7 +9,7 @@ reference/
 tips/
 archives/
 assets/
-scripts/     마이그레이션·검증·후보 추출 스크립트
+scripts/     마이그레이션·검증 스크립트
 ```
 
 `explained/`·`assets/`는 `knowledge/`(진실의 원천) 경로를 미러링하는 파생물이다. **원본을 이동·개명하면 대응 explained·assets도 같은 경로로 동반 이동**한다 — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)의 "원본 이동 시 미러 동반 이동" 참고.
@@ -44,26 +44,7 @@ explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → ##
 
 ## 새 루트 폴더 추가 시
 
-새 루트 디렉토리(예: `archives/`)를 문서 세 곳(위 구조 표·`directory-roles.md`·`list-candidates.md`)에 적었는지는 `validate-lint`가 본다.
-
-기계가 못 보는 것은 둘이다.
-
-- 그 루트를 외부에 노출한다면 `scripts/list-candidates.mts`의 스캔 로직에 넣는다.
-- `knowledge/` 경로를 미러링하는 루트라면 `directory-roles.md`의 "원본 이동 시 미러 동반 이동" 목록에도 넣는다.
+`knowledge/` 경로를 미러링하는 루트라면 `directory-roles.md`의 "원본 이동 시 미러 동반 이동" 목록에도 넣는다.
 
 ## 약어
 - OA = Official Answer
-
-## 변경 시 동기화
-
-### knowledge frontmatter
-
-`tags`/`source`/`publishable` 키 변경 시 `scripts/list-candidates.mts`(파싱)와 AC `refresh-projects`의 KQ 배포 단계(JSON 입력)를 함께 점검한다.
-
-### knowledge 본문 구조
-
-헤딩 위계나 `[TODO]`/`[UNVERIFIED]` 마커 변경 시 `scripts/list-candidates.mts`(파싱)와 `/validate`(검증)를 함께 점검한다.
-
-### list-candidates 출력 형식
-
-`scripts/list-candidates.mts`의 Candidate 인터페이스 변경 시 AC `refresh-projects`의 KQ 배포 단계가 받는 JSON 인터페이스도 함께 수정한다.
