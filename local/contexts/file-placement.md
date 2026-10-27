@@ -16,7 +16,7 @@
 
 한 폴더는 **같은 주제**의 파일들을 담는다. 같은 하위 주제(도구·라이브러리·세부 개념 등) 파일이 **2개 이상** 모이면 그 하위 주제로 자식 폴더를 만든다. 파일이 하나뿐이면 부모 폴더에 flat하게 둔다 — 단일 파일에 폴더를 씌우지 않는다.
 
-- 나중에 2번째 파일이 생기면 그때 폴더로 접고, 짝꿍 explained·assets 미러도 같은 경로로 함께 옮긴다 ([directory-roles.md](directory-roles.md)「원본 이동 시 미러 동반 이동」).
+- 나중에 2번째 파일이 생기면 그때 폴더로 접고, 짝꿍 explained·assets 미러도 같은 경로로 함께 옮긴다 ([원본 이동 시 미러 동반 이동](directory-roles.md#원본-이동-시-미러-동반-이동)).
 - 기존에 만들어진 단일 파일 폴더(예: `testing/vitest/`, `ui-ux/gestures/`)는 소급 정리 대상이 아니다 — 이 규칙은 앞으로의 배치에 적용한다.
 
 선례: `cs/software-engineering/ddd.md`(부모에 flat) + `cs/software-engineering/principles/**`(원칙 문서 2개 이상이라 폴더).
@@ -85,7 +85,7 @@ AI가 임의로 분할하지 않는다. 분할, 꼬리질문 분리, 답변 축�
 - **스크립트 취급**: `validate-lint`는 일반 `.md`와 동일하게 스캔한다.
 - **이동 시**: 본편을 옮기거나 개명하면 곁가지 4개(knowledge·explained × 본편·곁가지)를 **한 번에** 옮긴다. 본편만 옮기고 곁가지를 두고 오면 `validate-lint`의 본편 없는 곁가지 검사가 잡는다.
 
-- **문서 통째로 덜 중요해지면**: 파일명을 건드리지 않고 frontmatter의 `priority`를 낮춘다 — 값은 사용자가 정한다. AI가 추측해 바꾸면 훅이 승인을 묻는다. 본편을 `<name>.sub.md`로 개명하지 않는다 — 그러면 본편 없는 곁가지가 되어 같은 검사에 걸린다. `.sub.md`는 **한 문서 안에서** 일부 질문을 덜어내는 도구고, 문서 전체의 중요도는 `priority`가 담당한다 ([content-format.md](content-format.md)「priority」).
+- **문서 통째로 덜 중요해지면**: 파일명을 건드리지 않고 frontmatter의 `priority`를 낮춘다 — 값은 사용자가 정한다. AI가 추측해 바꾸면 훅이 승인을 묻는다. 본편을 `<name>.sub.md`로 개명하지 않는다 — 그러면 본편 없는 곁가지가 되어 같은 검사에 걸린다. `.sub.md`는 **한 문서 안에서** 일부 질문을 덜어내는 도구고, 문서 전체의 중요도는 `priority`가 담당한다 ([priority](content-format.md#priority)).
 - **본편이 가치를 잃으면**: 본편 질문 전체가 기억할 가치가 없어져 지우게 되면, 곁가지를 **본편 이름으로 개명**한다 (`<name>.sub.md` → `<name>.md`, explained 미러도 함께). 곁가지만 남겨두지 않는다 — `.sub` 꼬리표는 "본편이 따로 있다"는 표시라서, 본편이 없으면 이름이 사실과 어긋난다. 남은 게 하나뿐이면 그게 본편이다.
 
 선례: `knowledge/frontend/react/state/how-to-manage-state.sub.md`, `knowledge/cs/software-engineering/principles/declarative-vs-imperative.sub.md`.
