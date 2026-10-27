@@ -1,7 +1,6 @@
 ---
 tags: [testing, network]
 source: official
-publishable: true
 ---
 # Questions
 - resolver 실행 도중 어떤 지점(예: 인증 검사 헬퍼 함수 안)에서든 특정 응답으로 요청 처리를 즉시 끝내버리고 싶다. 어떻게 하는가?

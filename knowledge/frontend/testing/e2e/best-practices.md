@@ -1,7 +1,6 @@
 ---
 tags: [testing, concept]
 source: official
-publishable: true
 ---
 # Questions
 - E2E 테스트 작성 시 Third-party dependencies를 테스트하면 안되는 이유와 이를 격리(isolate)하기 위한 방법은 무엇인가?

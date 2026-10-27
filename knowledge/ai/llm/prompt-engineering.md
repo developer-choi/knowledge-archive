@@ -1,7 +1,6 @@
 ---
 tags: [ai, concept]
 source: official
-publishable: true
 ---
 
 # Questions

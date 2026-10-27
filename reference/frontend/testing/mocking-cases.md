@@ -1,7 +1,6 @@
 ---
 tags: [testing, vitest, best-practice]
 source: official
-publishable: true
 ---
 
 > **작업 초안** — 서브에이전트 10팀(도메인 분담) 병렬 조사 결과를 통합한 것. 73케이스.

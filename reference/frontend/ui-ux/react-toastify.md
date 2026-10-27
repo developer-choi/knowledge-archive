@@ -1,7 +1,6 @@
 ---
 tags: [react, styling, design-system]
 source: official
-publishable: false
 ---
 
 ## react-toastify에서 스타일을 커스터마이즈하려면 무엇을 reset해야 하는가?

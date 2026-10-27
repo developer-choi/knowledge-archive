@@ -1,7 +1,6 @@
 ---
 tags: [react, performance, principle]
 source: official
-publishable: false
 priority:
 ---
 # Questions

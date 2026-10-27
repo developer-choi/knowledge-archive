@@ -1,7 +1,6 @@
 ---
 tags: [nextjs, performance, principle]
 source: official
-publishable: true
 ---
 
 # Questions

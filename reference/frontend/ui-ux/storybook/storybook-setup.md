@@ -1,7 +1,6 @@
 ---
 tags: [storybook, styling]
 source: official
-publishable: false
 ---
 
 ## Storybook 전역 설정은 어디서 하는가?

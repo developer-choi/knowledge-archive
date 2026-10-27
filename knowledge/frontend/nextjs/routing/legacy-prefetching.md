@@ -1,7 +1,6 @@
 ---
 tags: [nextjs, performance]
 source: official
-publishable: false
 priority:
 ---
 

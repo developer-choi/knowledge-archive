@@ -1,7 +1,6 @@
 ---
 tags: [ai, concept]
 source: official
-publishable: true
 ---
 # Questions
 - LLM(거대 언어 모델)이란 무엇인가?

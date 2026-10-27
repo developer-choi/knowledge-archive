@@ -1,7 +1,6 @@
 ---
 tags: [algorithm, concept]
 source: official
-publishable: false
 ---
 
 ## [UNVERIFIED] 정렬 알고리즘을 알아야 하는 이유는?

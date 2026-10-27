@@ -1,7 +1,6 @@
 ---
 tags: [typescript, concept]
 source: unverified
-publishable: false
 priority:
 ---
 # Questions

@@ -1,7 +1,6 @@
 ---
 tags: [react, concept]
 source: official
-publishable: false
 priority: 2
 ---
 # Questions

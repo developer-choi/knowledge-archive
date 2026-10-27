@@ -1,6 +1,5 @@
 ---
 tags: [react, concept, performance]
-publishable: false
 source: google-doc
 ---
 # Questions

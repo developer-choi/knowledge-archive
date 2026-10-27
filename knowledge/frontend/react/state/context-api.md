@@ -2,7 +2,6 @@
 tags: [react, concept]
 source: official
 priority:
-publishable: true
 ---
 # Questions
 - 어떤 컴포넌트가 context를 읽을 때, 위쪽에 그 context를 제공하는 컴포넌트가 여럿이면 어느 값을 읽는가?

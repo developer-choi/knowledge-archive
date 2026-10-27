@@ -1,7 +1,6 @@
 ---
 tags: [testing, concept]
 source: official
-publishable: true
 ---
 # Questions
 - vi.fn / vi.spyOn / vi.mock은 각각 무엇인가?

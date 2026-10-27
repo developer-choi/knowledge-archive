@@ -1,7 +1,6 @@
 ---
 tags: [testing, react, concept]
 source: official
-publishable: true
 ---
 # Questions
 - renderHook이란 무엇이며, 내부에서는 어떻게 동작하는가?

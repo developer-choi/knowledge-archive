@@ -1,7 +1,6 @@
 ---
 tags: [auth, algorithm, concept]
 source: google-doc
-publishable: false
 ---
 
 ## 계층형 리소스 권한 문자열 포맷은 어떻게 설계하는가?

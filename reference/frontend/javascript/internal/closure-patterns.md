@@ -1,7 +1,6 @@
 ---
 tags: [javascript, principle]
 source: official
-publishable: true
 ---
 
 ## 여러 함수가 같은 변수를 함께 보고 고칠 수 있는 것은 어떤 원리 때문인가?

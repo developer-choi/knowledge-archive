@@ -1,7 +1,6 @@
 ---
 tags: [nextjs, react, principle]
 source: official
-publishable: true
 priority:
 ---
 

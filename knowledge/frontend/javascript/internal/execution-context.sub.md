@@ -1,7 +1,6 @@
 ---
 tags: [javascript, concept]
 source: official
-publishable: true
 ---
 
 # Questions

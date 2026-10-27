@@ -1,7 +1,6 @@
 ---
 tags: [ai, concept, performance]
 source: official
-publishable: true
 ---
 # Questions
 - 프롬프트 캐싱은 Claude Code에서 어떤 문제를 해결하는가?

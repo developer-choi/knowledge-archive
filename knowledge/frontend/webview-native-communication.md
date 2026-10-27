@@ -1,7 +1,6 @@
 ---
 tags: [webview, javascript, concept]
 source: official
-publishable: true
 priority: 2
 ---
 # Questions

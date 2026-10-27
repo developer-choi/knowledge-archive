@@ -1,7 +1,6 @@
 ---
 tags: [styling, concept]
 source: official
-publishable: true
 ---
 # Questions
 - margin collapsing이란 무엇인가? 합쳐진 마진의 크기는 어떻게 정해지는가?

@@ -1,7 +1,6 @@
 ---
 tags: [javascript, concept]
 source: official
-publishable: true
 ---
 # Questions
 - Symbol이란 무엇이고, 다른 원시값과 결정적으로 다른 점은?

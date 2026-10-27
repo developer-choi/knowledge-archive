@@ -1,7 +1,6 @@
 ---
 tags: [testing, network]
 source: official
-publishable: true
 ---
 # Questions
 - MSW에서, 셋업 때 준 기본 핸들러를 그대로 두면서 특정 테스트에서만 네트워크 동작을 다르게 덮어쓰려면 어떤 API를 쓰는가?

@@ -1,7 +1,6 @@
 ---
 tags: [software-engineering, architecture, principle]
 source: official
-publishable: true
 ---
 # Questions
 - 정보 은닉이란 무엇인가?

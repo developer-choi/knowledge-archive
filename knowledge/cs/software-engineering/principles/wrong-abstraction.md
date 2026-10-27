@@ -1,7 +1,6 @@
 ---
 tags: [software-engineering, architecture, principle]
 source: official
-publishable: true
 ---
 # Questions
 - 잘못된 추상화(the wrong abstraction)는 어떤 과정을 거쳐 만들어지는가?

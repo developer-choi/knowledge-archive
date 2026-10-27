@@ -1,7 +1,6 @@
 ---
 tags: [ai, concept]
 source: official
-publishable: true
 ---
 # Questions
 - LLM에서 토큰(token)이란 무엇인가?

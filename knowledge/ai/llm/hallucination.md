@@ -1,7 +1,6 @@
 ---
 tags: [ai, concept]
 source: official
-publishable: true
 ---
 # Questions
 - AI hallucination이란 무엇인가?

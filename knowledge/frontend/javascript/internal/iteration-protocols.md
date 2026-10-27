@@ -1,7 +1,6 @@
 ---
 tags: [javascript, concept]
 source: official
-publishable: true
 ---
 # Questions
 - iteration protocol이란 무엇인가? 새로운 문법인가?

@@ -1,7 +1,6 @@
 ---
 tags: [react, nextjs, rendering]
 source: official
-publishable: true
 priority:
 ---
 

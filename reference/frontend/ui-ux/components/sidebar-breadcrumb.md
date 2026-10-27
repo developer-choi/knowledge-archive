@@ -1,6 +1,5 @@
 ---
 tags: [react, concept, best-practice]
-publishable: false
 source: google-doc
 ---
 

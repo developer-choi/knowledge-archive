@@ -1,7 +1,6 @@
 ---
 tags: [data-structure, concept]
 source: official
-publishable: false
 priority:
 ---
 

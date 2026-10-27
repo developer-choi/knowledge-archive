@@ -2,7 +2,6 @@
 tags: [javascript, concept]
 source: official
 priority: 1
-publishable: true
 ---
 # Questions
 - 실행 컨텍스트란 무엇이고, 어떤 목적을 위해 존재하는가?

@@ -1,7 +1,6 @@
 ---
 tags: [ai, concept]
 source: official
-publishable: true
 ---
 # Questions
 - LLM의 컨텍스트 윈도우(context window)란 무엇인가?

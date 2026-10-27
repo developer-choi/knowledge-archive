@@ -2,7 +2,6 @@
 tags: [javascript, concept]
 source: official
 priority: 1
-publishable: true
 ---
 # Questions
 - 렉시컬 스코프란 무엇인가?

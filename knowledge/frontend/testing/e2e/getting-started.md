@@ -1,7 +1,6 @@
 ---
 tags: [testing, concept]
 source: official
-publishable: true
 ---
 # Questions
 - Playwright에서 Actions와 Assertions를 수행할 때 Flaky Test와 Race Condition을 방지할 수 있는 이유는 무엇인가?

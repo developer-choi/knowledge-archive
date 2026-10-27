@@ -2,7 +2,6 @@
 tags: [react, concept, principle]
 source: official
 priority: 2
-publishable: true
 ---
 
 # Questions

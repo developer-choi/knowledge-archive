@@ -2,7 +2,6 @@
 tags: [protocol, browser, network, javascript]
 source: official
 priority: 2
-publishable: true
 ---
 # Questions
 - WebSocket API는 브라우저와 서버 사이에 어떤 통신을 가능하게 하는가?

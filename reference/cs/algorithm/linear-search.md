@@ -1,7 +1,6 @@
 ---
 tags: [algorithm, concept]
 source: official
-publishable: false
 ---
 
 ## Linear Search란?

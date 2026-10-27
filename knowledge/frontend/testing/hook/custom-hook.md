@@ -1,7 +1,6 @@
 ---
 tags: [testing, react, concept]
 source: unverified
-publishable: true
 ---
 # Questions
 - 커스텀 훅 중 어떤 훅에 독립 테스트가 필요한가?

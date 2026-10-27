@@ -1,7 +1,6 @@
 ---
 tags: [testing, network]
 source: official
-publishable: true
 ---
 # Questions
 - MSW를 셋업해두기만 하고 어떤 요청에 대한 핸들러를 안 적었다면, 그 요청은 어떻게 처리되는가?

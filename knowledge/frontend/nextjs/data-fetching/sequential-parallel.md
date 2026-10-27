@@ -1,7 +1,6 @@
 ---
 tags: [nextjs, react, performance, principle]
 source: official
-publishable: true
 priority:
 ---
 

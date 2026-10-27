@@ -1,7 +1,6 @@
 ---
 tags: [javascript, concept]
 source: google-doc
-publishable: false
 ---
 
 ## dayjs로 timezone 기반 포매팅할 때 `.format()`과 `.tz(...).format()`은 어떻게 다른가?

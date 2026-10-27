@@ -2,7 +2,6 @@
 tags: [javascript, concept]
 source: official
 priority: 1
-publishable: true
 ---
 # Questions
 - 클로저란 무엇인가?

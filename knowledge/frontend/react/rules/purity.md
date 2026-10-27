@@ -1,7 +1,6 @@
 ---
 tags: [react, concept, principle]
 source: official
-publishable: true
 ---
 
 # Questions

@@ -2,7 +2,6 @@
 tags: [software-engineering, architecture, principle]
 source: official
 priority: 2
-publishable: true
 ---
 # Questions
 - 단일 책임 원칙(SRP)이란 무엇인가?

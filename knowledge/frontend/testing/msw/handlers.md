@@ -1,7 +1,6 @@
 ---
 tags: [testing, network]
 source: official
-publishable: true
 ---
 # Questions
 - `http.get('/resource', () => {})`에서 첫 번째 인자와 두 번째 인자는 각각 무슨 역할을 하며, MSW는 그 둘을 뭐라고 부르는가?

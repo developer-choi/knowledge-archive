@@ -1,7 +1,6 @@
 ---
 tags: [ai, best-practice]
 source: official
-publishable: true
 ---
 # Questions
 - 몇 시간째 열어둔 Claude Code 세션이 실제 활동량보다 사용량을 훨씬 많이 쓰는 이유는 무엇인가?

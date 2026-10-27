@@ -1,7 +1,6 @@
 ---
 tags: [testing, network]
 source: official
-publishable: true
 ---
 # Questions
 - MSW로 나가는 네트워크 요청을 가로채려면 어떻게 셋업하는가?

@@ -1,7 +1,6 @@
 ---
 tags: [styling, browser, concept]
 source: official
-publishable: false
 priority:
 ---
 # Questions

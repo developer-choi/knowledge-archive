@@ -1,7 +1,6 @@
 ---
 tags: [react, design-pattern, concept]
 source: official
-publishable: true
 priority:
 ---
 # Questions
