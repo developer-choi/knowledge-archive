@@ -12,17 +12,6 @@ Agent harnesses encode assumptions about what Claude can't do on its own, but th
 
 ---
 
-## Claude Messages API는 왜 매 턴마다 전체 대화를 다시 보내야 하는가?
-### Official Answer
-The Messages API is stateless.
-Claude cannot see the conversation history of prior turns.
-This means that the agent harness needs to package new context alongside all past actions, tool descriptions, and instructions for Claude at each turn.
-
-### Reference
-- https://claude.com/blog/harnessing-claudes-intelligence
-
----
-
 ## Claude API에서 prompt caching 비용을 최대화하려면 context를 어떤 순서로 배치해야 하는가?
 ### Official Answer
 Since cached tokens are 10% the cost of base input tokens, here are a few principles in the agent harness help maximize cache hits:
