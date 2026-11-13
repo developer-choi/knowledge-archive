@@ -59,10 +59,10 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'K7', severity: 'error', rule: "document-structure '목차(TOC)와 본문 순서 동기화'" },
   { id: 'K8', severity: 'error', rule: "document-structure '허용 H1 헤딩' (knowledge/ = Questions·Answers, reference/ = H1 없음)" },
   { id: 'K9', severity: 'error', rule: "file-placement '곁가지 분리 — <name>.sub.md'" },
-  { id: 'K10', severity: 'error', rule: "file-placement §2 '명명 규칙'" },
+  { id: 'K10', severity: 'error', rule: '파일명은 소문자·숫자·하이픈만 (꼬리 .sub 허용)' },
   { id: 'K11', severity: 'error', rule: '폴더명과 같은 파일명 금지 (부모 폴더가 더 넓은 범위를 기술해야 함)' },
-  { id: 'K12', severity: 'error', rule: "file-placement '곁가지 분리 — 깊이 한 단계'" },
-  { id: 'K13', severity: 'error', rule: "file-placement '곁가지 분리 — frontmatter 상속'" },
+  { id: 'K12', severity: 'error', rule: '곁가지는 한 단계만 (<name>.sub.sub.md 금지)' },
+  { id: 'K13', severity: 'error', rule: "file-placement '곁가지 분리 — <name>.sub.md'의 frontmatter 항목" },
   { id: 'K14', severity: 'error', rule: "content-format §1 'source'" },
   { id: 'K15', severity: 'error', rule: "content-format §1 'tags'" },
   { id: 'K16', severity: 'error', rule: "content-format §1 'priority'" },
@@ -77,7 +77,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'K19', severity: 'error', rule: "content-format §5 'Answer 내 위치 — Reference 바로 위'" },
   { id: 'K20', severity: 'error', rule: "document-structure '꼬리 질문이 다른 md에 있을 때'" },
   { id: 'K21', severity: 'error', rule: "content-format §0 '비속어 금지'" },
-  { id: 'K22', severity: 'error', rule: "file-placement §4 '길이 상한'" },
+  { id: 'K22', severity: 'error', rule: "file-placement '길이 상한'" },
   { id: 'E8', severity: 'error', rule: "exam SKILL '[UNVERIFIED] 질문의 H1 형식'" },
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
@@ -85,7 +85,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E12', severity: 'warn', rule: "digest off.md 2단계 'explained 생성 — OA를 채우거나 보충한 질문은 explained 섹션을 통째로 교체한다'" },
   { id: 'K23', severity: 'error', rule: '본문 상대 링크·앵커는 실재하는 대상을 가리킨다' },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
-  { id: 'W3', severity: 'warn', rule: "file-placement §1 '폴더 = 같은 주제 파일 모음'" },
+  { id: 'W3', severity: 'warn', rule: "file-placement '폴더 = 같은 주제 파일 모음'" },
   { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 디렉터리 구조·directory-roles.md 두 곳에 기재' },
 ];
 
@@ -146,7 +146,7 @@ function isCrossLink(itemText: string): boolean {
 
 // ---------- path / filename checks (no body parsing) ----------
 
-// K10: lowercase + hyphen only, optional `.sub` tail (file-placement §2 「명명 규칙」).
+// K10: lowercase + hyphen only, optional `.sub` tail. The doc leaves this to the check.
 const FILENAME_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*(?:\.sub)?\.md$/;
 
 // Applies to knowledge/ AND explained/ — explained mirrors knowledge paths, so a bad name on
@@ -173,9 +173,11 @@ function lintFilePath(rel: string): Finding[] {
   return f;
 }
 
-// W3 single-file folder — `--staged` only. The rule exempts folders that already exist
-// (file-placement §1: "기존에 만들어진 단일 파일 폴더는 소급 정리 대상이 아니다"), and a repo-wide
-// run has no way to tell old from new — the staged set does. knowledge/ only: explained/·assets/
+// W3 single-file folder — `--staged` only. file-placement 「폴더 = 같은 주제 파일 모음」 applies to the
+// doc being placed and leaves existing single-file folders alone, and a repo-wide run has no way to
+// tell old from new. The staged set narrows it
+// to touched files but still flags an edit inside a pre-existing single-file folder, so the message
+// itself tells the reader to ignore it for old folders. knowledge/ only: explained/·assets/
 // mirror knowledge paths, so reporting all three would triple one placement decision.
 function lintSingleFileFolder(rel: string): Finding[] {
   if (!rel.startsWith('knowledge/')) return [];
@@ -187,7 +189,7 @@ function lintSingleFileFolder(rel: string): Finding[] {
   if (entries.some((e) => e.isDirectory())) return [];
   const mds = entries.filter((e) => e.isFile() && e.name.endsWith('.md'));
   if (mds.length !== 1) return [];
-  return [{ file: rel, line: 0, check: 'W3', severity: 'warn', message: `단일 파일 폴더 "${dirRel}/" (파일 하나뿐이고 하위 폴더도 없음 — 부모에 flat하게 두기 검토)` }];
+  return [{ file: rel, line: 0, check: 'W3', severity: 'warn', message: `단일 파일 폴더 "${dirRel}/" (파일 하나뿐이고 하위 폴더도 없음 — 이번에 새로 만든 폴더면 부모에 flat하게 두기 검토, 기존 폴더면 소급 제외라 무시)` }];
 }
 
 // ---------- frontmatter ----------
@@ -532,13 +534,13 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
   f.push(...lintFilePath(rel));
   f.push(...lintFrontmatter(rel, lines));
 
-  // K22 length cap — file-placement §4, which says "**knowledge 문서는** 400줄을 초과할 수 없다" and
-  // hands the split decision to the user ("AI가 임의로 분할하지 않는다"). knowledge/ only, for two
+  // K22 length cap — file-placement 「길이 상한」, which says "**knowledge 문서는 400줄을 초과할 수 없다.**" and
+  // hands the split decision to the user ("구체적 액션은 사용자가 판단한다"). knowledge/ only, for two
   // separate reasons: explained/ is generated prose whose length tracks the explanation, and
   // reference/ is a search-and-look-up store whose rule text does not carry the cap. toLines already
   // normalised CRLF, so the count matches what an editor shows.
   if (kind === 'knowledge' && lines.length > 400) {
-    add(0, 'K22', `문서 ${lines.length}줄 (>400) — 분할 필요`);
+    add(0, 'K22', `문서 ${lines.length}줄 (>400) — 사용자에게 알린다 (분할 방식은 사용자가 정함)`);
   }
 
   f.push(...lintProfanity(rel, lines));
@@ -585,7 +587,7 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
     const mainAbs = path.join(KA_ROOT, rel.replace(/\.sub\.md$/, '.md'));
     if (!fs.existsSync(mainAbs)) {
       const mainRel = rel.replace(/\.sub\.md$/, '.md');
-      add(0, 'K9', `본편 ${mainRel} 없음 (곁가지만 남음 — 본편 이동 시 .sub.md도 동반 이동)`);
+      add(0, 'K9', `본편 ${mainRel} 없음 (곁가지만 남음 — 본편을 옮겼으면 .sub.md도 옮기고, 지웠으면 .sub.md를 본편 이름으로 개명)`);
     }
   }
 
