@@ -83,7 +83,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
   { id: 'E12', severity: 'warn', rule: "digest off.md 2단계 'explained 생성 — OA를 채우거나 보충한 질문은 explained 섹션을 통째로 교체한다'" },
-  { id: 'K23', severity: 'error', rule: "directory-roles '원본 이동 시 미러 동반 이동' — 본문 링크 경로도 함께 옮긴다" },
+  { id: 'K23', severity: 'error', rule: '본문 상대 링크·앵커는 실재하는 대상을 가리킨다' },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
   { id: 'W3', severity: 'warn', rule: "file-placement §1 '폴더 = 같은 주제 파일 모음'" },
   { id: 'R1', severity: 'warn', rule: '새 루트 디렉토리는 CLAUDE.md 디렉터리 구조·directory-roles.md 두 곳에 기재' },
@@ -490,10 +490,10 @@ function headingSlugs(src: string): Set<string> {
   return out;
 }
 
-// K23 body links. directory-roles 「원본 이동 시 미러 동반 이동」 tells the mover to carry
-// `explained/` · `assets/` along AND to fix the link paths inside the explained text. Nothing
-// checked that last part: K20 only reads the cross-links in a knowledge `# Questions` TOC, and
-// E3·E5·E10 only ask whether the paired FILE moved. A demo asset four levels up
+// K23 body links. No doc tells a mover to fix links; this check alone owns it (see
+// .githooks/pre-commit for when it runs on every file). Others cover only part of it: K20
+// only reads the cross-links in a knowledge `# Questions` TOC, and E3·E5·E10 only ask whether the
+// paired FILE moved. A demo asset four levels up
 // (`../../../../assets/…/demo.html`) could go missing and the page would just 404.
 // Applies to every scanned root — a link is a link regardless of which one it sits in.
 function lintBodyLinks(rel: string, lines: Line[]): Finding[] {

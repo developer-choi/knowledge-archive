@@ -1,10 +1,13 @@
-# knowledge↔explained 셋트 검증 — 스테이징된 문서만 검사한다.
+# knowledge↔explained 셋트 검증 — 기본은 스테이징된 문서만 검사한다.
 # 위반(error)이 있으면 커밋을 거부한다. 체크 목록은 scripts/validate-lint.mts의 CHECK_REGISTRY.
 #
 # 다만 양식·규칙 자체(local/contexts/)를 고친 커밋은 전체를 다시 본다. 규칙이 바뀌면 그 커밋에
 # 안 담긴 기존 문서가 위반으로 바뀌는데, 스테이징된 것만 보면 그 순간 아무도 안 잡는다.
-if git diff --cached --name-only | grep -q '^local/contexts/.*\.md$'; then
-  echo "local/contexts/ 변경 — knowledge 전체를 다시 검사합니다."
+# 문서를 옮기거나 지운 커밋도 같다 — 그 문서를 가리키던 다른 문서의 링크가 스테이징 밖에서 깨진다.
+# --no-renames: 이동을 옛 경로 D로 풀어 어디로 옮기든 잡는다. quotepath=off: 비ASCII 경로가 따옴표로 감싸이지 않게.
+if git -c core.quotepath=off diff --cached --name-only | grep -q '^local/contexts/.*\.md$' \
+   || git -c core.quotepath=off diff --cached --name-only --no-renames --diff-filter=D | grep -qE '^(knowledge|reference|explained|assets)/'; then
+  echo "규칙 변경 또는 문서 이동·삭제 — 전체를 다시 검사합니다."
   npm run --silent validate-lint
 else
   npm run --silent validate-lint -- --staged
