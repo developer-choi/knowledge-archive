@@ -1129,7 +1129,11 @@ if (staged) {
   if (positional.length) {
     targets = positional.flatMap((p) => {
       const abs = path.isAbsolute(p) ? p : path.join(KA_ROOT, p);
-      if (fs.existsSync(abs) && fs.statSync(abs).isDirectory()) return walkMd(abs);
+      if (!fs.existsSync(abs)) {
+        console.error(`없는 경로: ${p}`);
+        process.exit(2);
+      }
+      if (fs.statSync(abs).isDirectory()) return walkMd(abs);
       return [abs];
     });
   } else {
