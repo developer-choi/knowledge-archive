@@ -19,7 +19,7 @@ assets/
 
 ### 대주제 (이 콘텐츠가 KA에 속하는가)
 
-콘텐츠 추가 전 AC `deploy/contexts/placement.md`(글로벌 분업 정책)를 본다. KA로 갈지, MP(예제 코드)·AC(공통 원칙)로 갈지 먼저 판단한다.
+콘텐츠 추가 전 AC `plugins/ac/contexts/placement.md`(글로벌 분업 정책)를 본다. KA로 갈지, MP(예제 코드)·AC(공통 원칙)로 갈지 먼저 판단한다.
 
 ### 소주제 (KA 안에서 어디로)
 
