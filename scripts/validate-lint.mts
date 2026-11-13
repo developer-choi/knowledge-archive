@@ -78,7 +78,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'K20', severity: 'error', rule: "document-structure '꼬리 질문이 다른 md에 있을 때'" },
   { id: 'K21', severity: 'error', rule: "content-format §0 '비속어 금지'" },
   { id: 'K22', severity: 'error', rule: "file-placement '길이 상한'" },
-  { id: 'E8', severity: 'error', rule: "exam SKILL '[UNVERIFIED] 질문의 H1 형식'" },
+  { id: 'E8', severity: 'error', rule: "document-structure '미완성 질문 처리'" },
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
@@ -900,7 +900,7 @@ function lintExplained(rel: string, src: string): Finding[] {
   // E8 [UNVERIFIED] marker parity. E1·E2·E6 all compare marker-STRIPPED titles (so that adding or
   // removing a marker never looks like a different question), which leaves marker parity unwatched.
   // This check is that missing axis — added here, not by un-stripping the shared comparison, so
-  // E1/E2/E6 behaviour is untouched. Rule: exam SKILL 「[UNVERIFIED] 질문의 H1 형식」.
+  // E1/E2/E6 behaviour is untouched. Rule: document-structure 「미완성 질문 처리」.
   const kMarkerByTitle = new Map(kQuestions.map((q) => [q.title, q.marker]));
   for (const h of h1s) {
     const kMarker = kMarkerByTitle.get(h.title);
