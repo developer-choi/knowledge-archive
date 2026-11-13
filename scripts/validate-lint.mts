@@ -727,7 +727,7 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
           }
         }
       }
-      // W1 OA length — split into paragraphs on blank lines first (content-format "단락 사이는 빈 줄로 구분"),
+      // W1 OA length — split into paragraphs on blank lines first (content-format 「OA 단락 통합」),
       // since joining all lines with a space before splitting on `\n\s*\n` never finds a match.
       const paraGroups: Line[][] = [];
       let currentPara: Line[] = [];

@@ -1,7 +1,6 @@
 // knowledge frontmatter의 `priority`를 AI가 새로 쓰거나 바꾸려 할 때 사용자 승인을 받는 PreToolUse 훅.
 //
-// content-format.md §1「priority」: "AI는 priority를 추측해 채우지 않는다. … 빈 키(priority:)를 새로
-// 심지도 않는다. 사용자가 우선순위를 정할 때 직접 키를 추가한다."
+// 규칙: content-format.md「priority」
 //
 // 왜 린터가 아니라 훅인가 — 파일에 적힌 `priority: 1`만 봐서는 사용자가 정한 값인지 AI가 추측해
 // 채운 값인지 구분할 수 없다. "누가 썼는가"는 저장 전에 도구 호출을 가로채는 자리에서만 안다.
@@ -62,10 +61,10 @@ export function violation(before, after) {
   // 빈 값(`priority:`)은 "사용자가 아직 안 정함"이라 미배정과 같게 본다. 그 자리를 AI가 채우는
   // 것이 규칙이 막는 바로 그 행동이다.
   if (wasSet === null || wasSet === "") {
-    return `knowledge frontmatter에 \`priority: ${willBe}\`를 새로 쓰려 합니다. priority는 사용자가 학습 전략에 따라 직접 정하는 값입니다 (content-format.md §1「priority」). 직접 정해준 값이면 승인하고, AI가 추측한 값이면 거부하세요.`;
+    return `knowledge frontmatter에 \`priority: ${willBe}\`를 새로 쓰려 합니다. priority는 사용자가 학습 전략에 따라 직접 정하는 값입니다 (content-format.md「priority」). 직접 정해준 값이면 승인하고, AI가 추측한 값이면 거부하세요.`;
   }
   if (wasSet !== willBe) {
-    return `knowledge frontmatter의 priority를 "${wasSet}" → "${willBe}"로 바꾸려 합니다. 직접 바꾸기로 한 값이면 승인하고, 아니면 거부해 기존 값을 지키세요 (content-format.md §1「priority」).`;
+    return `knowledge frontmatter의 priority를 "${wasSet}" → "${willBe}"로 바꾸려 합니다. 직접 바꾸기로 한 값이면 승인하고, 아니면 거부해 기존 값을 지키세요 (content-format.md「priority」).`;
   }
   return null;
 }
