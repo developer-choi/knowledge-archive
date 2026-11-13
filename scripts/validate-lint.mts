@@ -82,7 +82,7 @@ const CHECK_REGISTRY: CheckSpec[] = [
   { id: 'E9', severity: 'warn', rule: "explanation-guide §3 '세션 맥락 표현 금지'" },
   { id: 'E10', severity: 'error', rule: "directory-roles 'assets/'" },
   { id: 'E11', severity: 'warn', rule: "explanation-guide §1 '본문 — 원문 조각 인용 → 한글 의역'" },
-  { id: 'E12', severity: 'warn', rule: "digest off.md 2단계 'explained 생성 — OA를 채우거나 보충한 질문은 explained 섹션을 통째로 교체한다'" },
+  { id: 'E12', severity: 'warn', rule: "digest off.md 「산출물 생성」의 explained 생성 — OA 수정이 해설에 반영됐는지 알림" },
   { id: 'K23', severity: 'error', rule: '본문 상대 링크·앵커는 실재하는 대상을 가리킨다' },
   { id: 'W1', severity: 'warn', rule: "content-format §3 'OA 길이 관리'" },
   { id: 'W3', severity: 'warn', rule: "file-placement '폴더 = 같은 주제 파일 모음'" },
@@ -587,7 +587,7 @@ function lintKnowledge(rel: string, src: string, kind: QaKind = 'knowledge'): Fi
     const mainAbs = path.join(KA_ROOT, rel.replace(/\.sub\.md$/, '.md'));
     if (!fs.existsSync(mainAbs)) {
       const mainRel = rel.replace(/\.sub\.md$/, '.md');
-      add(0, 'K9', `본편 ${mainRel} 없음 (곁가지만 남음 — 본편을 옮겼으면 .sub.md도 옮기고, 지웠으면 .sub.md를 본편 이름으로 개명)`);
+      add(0, 'K9', `본편 ${mainRel} 없음 (곁가지만 남음 — git log로 본편 행방을 보고 사용자 확인 후, 옮겼으면 .sub.md도 옮기고, 지웠으면 .sub.md를 본편 이름으로 개명. explained 미러도 함께)`);
     }
   }
 
@@ -866,7 +866,7 @@ function lintExplained(rel: string, src: string): Finding[] {
   const knowledgeAbs = path.join(KNOWLEDGE_DIR, relNoExt + '.md');
   if (!fs.existsSync(knowledgeAbs)) {
     // E3 orphan file
-    add(0, 'E3', `대응 knowledge/${relNoExt}.md 없음 (고아 파일)`);
+    add(0, 'E3', `대응 knowledge/${relNoExt}.md 없음 (고아 파일 — 사용자 확인 후 삭제)`);
     return f;
   }
 
@@ -877,11 +877,11 @@ function lintExplained(rel: string, src: string): Finding[] {
 
   // E2 orphan section: explained H1 not in knowledge questions
   for (const h of h1s) {
-    if (!kSet.has(h.title)) add(h.line, 'E2', `고아 섹션 "${h.title}" (knowledge Questions에 없음)`);
+    if (!kSet.has(h.title)) add(h.line, 'E2', `고아 섹션 "${h.title}" (knowledge Questions에 없음 — 사용자 확인 후 섹션 삭제)`);
   }
   // E1 coverage: each knowledge own-question present as explained H1
   for (const t of kTitles) {
-    if (!eSet.has(t)) add(0, 'E1', `커버리지 누락: "${t}" (explained에 H1 없음 — /digest로 해설 생성 필요)`);
+    if (!eSet.has(t)) add(0, 'E1', `커버리지 누락: "${t}" (explained에 H1 없음 — /digest로 해설 생성 필요. knowledge 질문을 지워서 맞추지 않는다)`);
   }
 
   // E6 order: shared questions must appear in the same sequence on both sides. explained is what
@@ -892,7 +892,7 @@ function lintExplained(rel: string, src: string): Finding[] {
   const eShared = h1s.filter((h) => kSet.has(h.title));
   for (let i = 0; i < kShared.length; i++) {
     if (eShared[i] && eShared[i].title !== kShared[i]) {
-      add(eShared[i].line, 'E6', `질문 순서 불일치: knowledge ${i + 1}번째는 "${kShared[i]}"`);
+      add(eShared[i].line, 'E6', `질문 순서 불일치: knowledge ${i + 1}번째는 "${kShared[i]}" (explained 섹션을 knowledge 순서로 재배치)`);
       break; // one shift misaligns everything after it — reporting the first is enough
     }
   }
@@ -917,7 +917,7 @@ function lintExplained(rel: string, src: string): Finding[] {
   for (const h of h1s) {
     if (!quotable.has(h.title)) continue;
     if (h.body.some((l) => /^\s*>/.test(l.text) && /[A-Za-z]{3}/.test(l.text))) continue;
-    add(h.line, 'E11', `"${h.title}" — Official Answer 원문을 \`>\` 블록쿼트로 인용한 곳이 없음 (한글 의역만 있음)`, 'warn');
+    add(h.line, 'E11', `"${h.title}" — Official Answer 원문을 \`>\` 블록쿼트로 인용한 곳이 없음 (한글 의역만 있음 — 해설 다시 쓰기라 /digest로 처리)`, 'warn');
   }
 
   return f;
@@ -1004,7 +1004,7 @@ function lintOaExplainedSync(rel: string): Finding[] {
       line: 0,
       check: 'E12',
       severity: 'warn',
-      message: `"${title}" — Official Answer 본문이 바뀌었으나 ${explainedRel}의 같은 섹션은 이 커밋에서 안 바뀜 (동기화 확인)`,
+      message: `"${title}" — Official Answer 본문이 바뀌었으나 ${explainedRel}의 같은 섹션은 이 커밋에서 안 바뀜 (동기화 확인 — OA와 해설은 달라도 정상일 수 있다. 해설을 읽고 반영할 게 있으면 /digest로 처리, 없으면 그대로 둔다)`,
     });
   }
   return f;
