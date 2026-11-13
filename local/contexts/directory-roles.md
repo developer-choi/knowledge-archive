@@ -18,7 +18,7 @@ Q&A 형식으로 정리된 학습 노트. 사용자가 면접관(AI)에게 질�
 
 `knowledge/<rel>.md`와 1:1 대응하는 해설 캐시. 복습 때 직접 읽는 산출물이다.
 
-- **양식**: 평문. `## 도입 / ## 본문 / ## 종합` 같은 구조. Q&A 아님.
+- **양식**: 평문(Q&A 아님). 헤딩 양식은 [document-structure.md](document-structure.md#explained-파일-구조)를 따른다.
 - **생성 주체**: 사용자가 직접 쓰지 않는다. `/digest` OFF가 [해설 생성 규칙](../skills/digest/off.md#off-2단계--산출물-생성)대로 만든다.
 - **경로 결합**: `knowledge/<rel>.md`의 경로를 미러링한다.
 
