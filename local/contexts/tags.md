@@ -1,10 +1,6 @@
-# Official Tags Registry
+# 공식 태그 목록
 
-knowledge-archive에서 사용하는 태그 목록.
-
----
-
-## 1. Common (공통/메타)
+## 1. 공통·메타
 - `concept`: 핵심 개념, 정의
 - `principle`: 원리, 동작 방식
 - `best-practice`: 모범 사례, 권장 패턴
@@ -14,7 +10,7 @@ knowledge-archive에서 사용하는 태그 목록.
 - `history`: 기술의 역사, 발전 과정
 - `comparison`: 기술 비교 (vs)
 
-## 2. Web & Frontend
+## 2. 웹·프론트엔드
 - `browser`: 브라우저 동작 원리 (Rendering Path, Event Loop)
 - `react`: React Core, Lifecycle
 - `nextjs`: Next.js Framework
@@ -29,11 +25,11 @@ knowledge-archive에서 사용하는 태그 목록.
 - `design-system`: 디자인 시스템, 컴포넌트 카탈로그
 - `webview`: 앱 안에 띄운 웹 화면 (react-native-webview 등), 웹↔네이티브 통신
 
-## 3. Language
+## 3. 언어
 - `javascript`: ES6+, JS Engine
 - `typescript`: Type System, Generics
 
-## 4. Computer Science & Backend
+## 4. 컴퓨터 과학·백엔드
 - `algorithm`: 알고리즘
 - `data-structure`: 자료구조
 - `network`: 네트워크, 프로토콜
@@ -50,7 +46,7 @@ knowledge-archive에서 사용하는 태그 목록.
 ## 5. AI
 - `ai`: AI/LLM 기술, 프롬프트 엔지니어링, 에이전트 스킬
 
-## 6. Infra & DevOps
+## 6. 인프라·DevOps
 - `aws`: AWS Cloud
 - `docker`: Container
 - `ci-cd`: GitHub Actions, Jenkins
