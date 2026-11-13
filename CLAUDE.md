@@ -9,10 +9,9 @@ reference/
 tips/
 archives/
 assets/
-scripts/     마이그레이션·검증 스크립트
 ```
 
-`explained/`·`assets/`는 `knowledge/`(진실의 원천) 경로를 미러링하는 파생물이다. **원본을 이동·개명하면 대응 explained·assets도 같은 경로로 동반 이동**한다 — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)의 "원본 이동 시 미러 동반 이동" 참고.
+`explained/`·`assets/`는 `knowledge/` 경로를 미러링하는 파생물이다.
 
 어느 스킬이 어떤 파일을 read/write하는지는 [`local/contexts/lifecycle.md`](local/contexts/lifecycle.md) 참고.
 
@@ -27,24 +26,9 @@ scripts/     마이그레이션·검증 스크립트
 - **역할 디렉토리** (knowledge/ vs reference/ vs explained/) — [`local/contexts/directory-roles.md`](local/contexts/directory-roles.md)
 - **도메인 폴더·파일명·검색** — [`local/contexts/file-placement.md`](local/contexts/file-placement.md)
 
-## explained/ 마이그레이션 절차
-
-구조 변경이 필요할 때 `merge-explained`로 플랜을 먼저 확인하고 통합한 뒤, `verify-merge`가 바이트 동일을 전부 OK로 낼 때까지 커밋하지 않는다.
-
 ## explained 문서 보충
 
-사용자가 세션 중 explained 문서에 있는 내용을 이해 못 해 질문하면:
-1. 답변한다.
-2. 사용자가 해당 주제를 이해했다는 신호(ㅇㅇ, 다음, 아하, 고마워 등)를 보내는 시점에 "explained에 방금 물어본 내용 보충할까요?" 라고 묻는다. 대화가 다른 주제로 넘어가기 전에 반드시 묻는다.
-3. 사용자가 승인하면 해당 설명을 explained 파일의 관련 섹션에 보충한다.
-
-### 보충 헤딩 규칙
-
-explained 문서의 헤딩 계층은 `## 본문 → ### 1계층 소주제 → #### 2계층 세부설명`이다. 보충 내용도 이 계층을 따른다.
-
-## 새 루트 폴더 추가 시
-
-`knowledge/` 경로를 미러링하는 루트라면 `directory-roles.md`의 "원본 이동 시 미러 동반 이동" 목록에도 넣는다.
+사용자가 세션 중 explained 문서에 있는 내용을 이해 못 해 질문하면, 답한 뒤 이해했다는 신호(ㅇㅇ·다음·아하·고마워 등)가 오면 다음 주제로 넘어가기 전에 그 자리에서 explained 보충 여부를 묻는다. 승인하면 관련 섹션에 [explained/ 파일 구조](local/contexts/document-structure.md#explained-파일-구조)대로 보충한다.
 
 ## 약어
 - OA = Official Answer

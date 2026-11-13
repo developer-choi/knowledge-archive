@@ -64,6 +64,8 @@ explained 설명에 임베드되는 정적 자산(데모 HTML, 이미지, 다이
 - `explained/<rel>.md`
 - `assets/<rel>/` (대응 자산이 있으면)
 
+`knowledge/`를 미러링하는 루트를 새로 만들면 이 목록에 넣는다.
+
 ## 한 글이 어느 역할에 가는지 결정 흐름
 
 knowledge/·reference/·tips/·archives/ 중 자료 성격으로 고른다. explained/·assets/는 사용자가 고르는 자리가 아니다.
