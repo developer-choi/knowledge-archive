@@ -15,7 +15,7 @@ module.exports = {
       2,
       'always',
       [
-        // local/skills/
+        // .claude/skills/
         'skills',
         // local/contexts/
         'contexts',

@@ -7,7 +7,7 @@ argument-hint: ON [출처 URL] 또는 OFF
 
 ## 목적
 
-공식문서를 읽어 배우고, 그 주제의 [`knowledge/`](../../contexts/directory-roles.md)를 이번 출처 기준으로 다시 쓴다. KA에 이미 있는 것은 예전에 정리해 둔 것이라, 부딪히면 이번 문서가 이긴다.
+공식문서를 읽어 배우고, 그 주제의 [`knowledge/`](../../../local/contexts/directory-roles.md)를 이번 출처 기준으로 다시 쓴다. KA에 이미 있는 것은 예전에 정리해 둔 것이라, 부딪히면 이번 문서가 이긴다.
 
 ## 공통 규칙
 

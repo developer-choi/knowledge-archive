@@ -23,7 +23,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 ## 미완성 질문 처리
 
-마커 정의는 [document-structure.md](../../contexts/document-structure.md#미완성-질문-처리)를 본다.
+마커 정의는 [document-structure.md](../../../local/contexts/document-structure.md#미완성-질문-처리)를 본다.
 
 ### `[UNVERIFIED]` 마커
 
@@ -35,7 +35,7 @@ User Answer / Additional Answer 유무와 관계없이 건너뛴다.
 
 ## 기본 원칙
 
-0. **해설 규칙 항상 적용**: 이 스킬 안의 해설·설명·비유·예시·재설명·사용자 질문 응답은 모두 [explanation-guide.md](../../contexts/explanation-guide.md)를 따른다.
+0. **해설 규칙 항상 적용**: 이 스킬 안의 해설·설명·비유·예시·재설명·사용자 질문 응답은 모두 [explanation-guide.md](../../../local/contexts/explanation-guide.md)를 따른다.
 1. **힌트 제공 금지**: 사용자가 불완전한 답변을 했을 때, 누락된 내용이 무엇인지 나열하지 않는다. "~가 빠졌습니다"는 정답 제공이다. 대신 누락된 부분을 스스로 떠올리도록 방향만 제시하는 꼬리 질문을 던진다.
 2. **질문 과부하 금지**: 한 번의 턴에 질문은 하나만.
 
@@ -45,10 +45,10 @@ User Answer / Additional Answer 유무와 관계없이 건너뛴다.
 
 각 질문마다:
 
-**다이어그램 안내**: explained의 해당 질문 섹션에 [다이어그램](../../contexts/explanation-guide.md#코드블록-fence-규칙)이 있으면, 옆에 그려 보며 답하라고 질문과 함께 한 줄 알린다.
+**다이어그램 안내**: explained의 해당 질문 섹션에 [다이어그램](../../../local/contexts/explanation-guide.md#코드블록-fence-규칙)이 있으면, 옆에 그려 보며 답하라고 질문과 함께 한 줄 알린다.
 
 **답변 완전성 검증**: 사용자 답변이 Official Answer·Additional Answer 원문을 100% 커버하기 전에는 넘어가지 않는다.
-[`### Review Note`](../../contexts/content-format.md#5-review-note--frequent-mistakes)가 중요하지 않다고 적은 부분은 커버 대상에서 뺀다. 대조하다 질문 제목이 Official Answer 내용을 다 포괄하지 못한다고 보면 더 맞는 제목을 사용자에게 역제안한다.
+[`### Review Note`](../../../local/contexts/content-format.md#5-review-note--frequent-mistakes)가 중요하지 않다고 적은 부분은 커버 대상에서 뺀다. 대조하다 질문 제목이 Official Answer 내용을 다 포괄하지 못한다고 보면 더 맞는 제목을 사용자에게 역제안한다.
 
 **부모-자식 질문 스킵**: 자식 질문(Questions 목록에서 부모 아래 들여쓰기로 배치된 질문)은, 부모 질문 답변이 자식 질문을 답변 완전성 검증 기준으로 100% 커버하면 출제를 스킵한다.
 

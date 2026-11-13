@@ -7,7 +7,7 @@ argument-hint: [대상 파일/디렉토리 경로 또는 "전체"]
 
 ## 목적
 
-[`knowledge/`](../../contexts/directory-roles.md)·`reference/`·`explained/` 하위 문서가 KA 규칙을 지키는지 검증하고, 위반을 수정한다.
+[`knowledge/`](../../../local/contexts/directory-roles.md)·`reference/`·`explained/` 하위 문서가 KA 규칙을 지키는지 검증하고, 위반을 수정한다.
 
 KA의 다른 스킬은 문서 양식이 지켜진다는 전제 위에서 돈다 — 양식이 깨진 문서는 출제에서 조용히 빠지거나 잘못 채점되고, 그 손해는 복습할 때가 아니라 나중에 드러난다. 문서 수가 사람이 훑을 수 있는 규모를 넘은 뒤로는 검사하는 쪽이 따로 있어야 한다.
 
@@ -17,10 +17,10 @@ KA의 다른 스킬은 문서 양식이 지켜진다는 전제 위에서 돈다 
 
 | 규칙 | 파일 |
 |------|------|
-| 문서 구조 | [document-structure.md](../../contexts/document-structure.md) |
-| 콘텐츠 포맷 | [content-format.md](../../contexts/content-format.md) |
-| 파일 배치 | [file-placement.md](../../contexts/file-placement.md) |
-| 태그 목록 | [tags.md](../../contexts/tags.md) |
+| 문서 구조 | [document-structure.md](../../../local/contexts/document-structure.md) |
+| 콘텐츠 포맷 | [content-format.md](../../../local/contexts/content-format.md) |
+| 파일 배치 | [file-placement.md](../../../local/contexts/file-placement.md) |
+| 태그 목록 | [tags.md](../../../local/contexts/tags.md) |
 
 ## 결정론 체크 — 린터 스크립트
 
@@ -64,7 +64,7 @@ KA의 다른 스킬은 문서 양식이 지켜진다는 전제 위에서 돈다 
 | 목차 들여쓰기와 본문 위계의 논리적 일치 | document-structure「계층 구조 표현」 | 순서 1:1은 목차-본문 순서 검사가 보지만, 꼬리질문이 논리적으로 부모에 종속되는지는 뜻으로 갈린다 | 2026-08-05 |
 | 발판으로 인용한 explained H1이 실제 원문 그대로인지 | explanation-guide 「known→unknown 원칙」 | 인용이 채팅 응답에 나가고 파일에 안 남아 검사할 대상이 없다 | 2026-08-05 |
 
-규칙을 새로 만들 때 "코드로 내릴 수 있나"를 따지는 방법은 `{{contexts}}/rules-as-code.md`에 있다.
+규칙을 새로 만들 때 "코드로 내릴 수 있나"를 정하는 방법은 `~/WebstormProjects/main/ai-contexts/plugins/ac/contexts/rules-as-code.md`에 있다.
 
 ## 검증 및 수정
 

@@ -7,7 +7,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 ## 목적
 
-[`knowledge/`](../../contexts/directory-roles.md)에 쌓인 질문을 답안지 한 장으로 한꺼번에, 유도 없이 혼자 풀어 /review의 꼬리질문 핑퐁보다 빠르게 복습한다.
+[`knowledge/`](../../../local/contexts/directory-roles.md)에 쌓인 질문을 답안지 한 장으로 한꺼번에, 유도 없이 혼자 풀어 /review의 꼬리질문 핑퐁보다 빠르게 복습한다.
 
 ## 출제 대상
 
@@ -23,7 +23,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 knowledge 파일을 읽고 「출제 대상」대로 출제할 질문 목록을 확정한다.
 
-각 문항의 `explained/<rel>.md` 섹션에 다이어그램(fence 없는 코드블록)이 있으면 그 문항의 `diagramHint`를 켠다. 판별 기준은 explanation-guide의 [코드블록 fence 규칙](../../contexts/explanation-guide.md#코드블록-fence-규칙)이다.
+각 문항의 `explained/<rel>.md` 섹션에 다이어그램(fence 없는 코드블록)이 있으면 그 문항의 `diagramHint`를 켠다. 판별 기준은 explanation-guide의 [코드블록 fence 규칙](../../../local/contexts/explanation-guide.md#코드블록-fence-규칙)이다.
 
 ### HTML 생성 및 오픈
 
@@ -32,7 +32,7 @@ knowledge 파일을 읽고 「출제 대상」대로 출제할 질문 목록을 
 
    ```bash
    npm run --silent build-page -- exam-sheet <<'SPEC_JSON' \
-     | node "{{contexts}}/local-html-roundtrip.mjs" open ka-exam - \
+     | node "$HOME/WebstormProjects/main/ai-contexts/plugins/ac/contexts/local-html-roundtrip.mjs" open ka-exam - \
        --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)
    { ...스펙... }
    SPEC_JSON
@@ -102,7 +102,7 @@ PAYLOAD_JSON
 
 ```bash
 npm run --silent build-page -- exam-result --answers "$(node -p 'require("os").tmpdir()')/ka-exam-answers.json" <<'SPEC_JSON' \
-  | node "{{contexts}}/local-html-roundtrip.mjs" open ka-exam - \
+  | node "$HOME/WebstormProjects/main/ai-contexts/plugins/ac/contexts/local-html-roundtrip.mjs" open ka-exam - \
     --slug $(npm run --silent build-page -- exam-slug <knowledge 파일 경로>)-result
 { ...스펙... }
 SPEC_JSON

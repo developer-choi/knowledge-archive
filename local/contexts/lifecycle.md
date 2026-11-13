@@ -16,7 +16,7 @@ KA 레포는 학습 콘텐츠를 생성·소비하는 사이클이 명확히 분
 
 ### knowledge → explained
 
-`knowledge/`와 `explained/`는 한 쌍이다 — [knowledge↔explained 셋트 규칙](../skills/validate/SKILL.md#knowledgeexplained-셋트-규칙).
+`knowledge/`와 `explained/`는 한 쌍이다 — [knowledge↔explained 셋트 규칙](../../.claude/skills/validate/SKILL.md#knowledgeexplained-셋트-규칙).
 
 `knowledge/<rel>.md`의 **내용**이 바뀌면 대응 explained는 outdated가 되지만 이건 린터가 못 잡는다 — 질문 제목이 그대로면 통과한다. 자동으로 다시 만들지도 않는다.
 

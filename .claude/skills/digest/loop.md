@@ -42,7 +42,7 @@ Official Answer는 원문 그대로여야 하므로 한 문장이라도 다르�
 3. **영단어 해설** — 그 안의 중요 영단어와 이 문장에서의 의미를 짚는다.
 4. **라디오 3택** — 저장 / 해설 / 버림 (기본값은 §2).
 
-2·3은 explanation-guide.md [포맷](../../contexts/explanation-guide.md#1-포맷--영어-원문-해설의-3단계-흐름)의 「본문」 의역·영단어 해설 양식과 「끊는 기준」, 「금지」를 따른다 — 카드를 쓰기 전에 그 파일을 연다.
+2·3은 explanation-guide.md [포맷](../../../local/contexts/explanation-guide.md#1-포맷--영어-원문-해설의-3단계-흐름)의 「본문」 의역·영단어 해설 양식과 「끊는 기준」, 「금지」를 따른다 — 카드를 쓰기 전에 그 파일을 연다.
 기억으로 쓰면 그 파일의 금지를 어긴다.
 「본문」의 `>` 블록쿼트 인용·`- **단어**:` 표기와 「조각 순서」는 카드에 적용하지 않는다(원문은 `src`에, 단어는 `words`에, 순서는 원문 순서대로).
 
@@ -69,7 +69,7 @@ cat > "$SPEC" <<'SPEC_JSON'
 { ...스펙... }
 SPEC_JSON
 npm run --silent build-page -- digest-cards < "$SPEC" \
-  | node "{{contexts}}/local-html-roundtrip.mjs" open ka-digest - --slug <slug>-<회차>
+  | node "$HOME/WebstormProjects/main/ai-contexts/plugins/ac/contexts/local-html-roundtrip.mjs" open ka-digest - --slug <slug>-<회차>
 ```
 
 스펙은 `{ slug, round, summary, cards: [{ src, ko, words: [{ word, meaning }], verdict }] }`이고, 필드가 위 네 칸과 1:1이다 (`verdict`는 라디오에 미리 찍어둘 AI 판정 — `save`·`explain`·`drop`).

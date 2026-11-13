@@ -1,6 +1,6 @@
 # Digest — OFF
 
-`OFF` 입력부터 OFF 2단계 끝까지 따른다. 시작할 때 [production-guide.md](../../contexts/production-guide.md)를 읽는다.
+`OFF` 입력부터 OFF 2단계 끝까지 따른다. 시작할 때 [production-guide.md](../../../local/contexts/production-guide.md)를 읽는다.
 
 ## OFF 1단계 — 질문 확정·저장
 
@@ -24,7 +24,7 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
 | 일부만 갈아끼우기 | 일부 질문만 낡음 | 낡은 Q&A만 지우고 나머지는 둔다 |
 | 그대로 두기 | 이번 문서가 그 부분을 다루지 않음 | 손대지 않는다 |
 
-- **파일 나눔을 이번 문서에 맞춘다.** 기존 파일명·폴더가 이번 문서의 짜임새와 안 맞으면 쪼개거나 합치거나 옮긴다. 옮기거나 이름을 바꿀 때는 [원본 이동 시 미러 동반 이동](../../contexts/directory-roles.md#원본-이동-시-미러-동반-이동)대로 짝 파일도 옮긴다.
+- **파일 나눔을 이번 문서에 맞춘다.** 기존 파일명·폴더가 이번 문서의 짜임새와 안 맞으면 쪼개거나 합치거나 옮긴다. 옮기거나 이름을 바꿀 때는 [원본 이동 시 미러 동반 이동](../../../local/contexts/directory-roles.md#원본-이동-시-미러-동반-이동)대로 짝 파일도 옮긴다.
 - **짝 파일도 같이 지운다**: knowledge 질문·파일을 지우면 `explained/`·`assets/`의 같은 자리도 지운다.
 - 범위 밖 파일을 건드릴 일이 생기면 사용자에게 알리고 범위에 넣을지 확인받는다.
 
@@ -34,7 +34,7 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
 
 - **개념 vs 그 구현(API)**이 겹치면 항상 **개념 쪽에 통합**하고 API 쪽은 참조한다.
 - 통합할 때 다른 파일에만 있던 측면(정본에 없던 각도·예시)도 함께 흡수한다.
-- **참조 형식**: 답변 본문에서는 대상 파일의 해당 질문을 `[상대경로](상대경로)의 「질문 제목」`으로 가리킨다. Questions 목차에서는 [꼬리 질문이 다른 md에 있을 때](../../contexts/document-structure.md#꼬리-질문이-다른-md에-있을-때)를 따른다.
+- **참조 형식**: 답변 본문에서는 대상 파일의 해당 질문을 `[상대경로](상대경로)의 「질문 제목」`으로 가리킨다. Questions 목차에서는 [꼬리 질문이 다른 md에 있을 때](../../../local/contexts/document-structure.md#꼬리-질문이-다른-md에-있을-때)를 따른다.
 - 참조할 건덕지조차 부족하면 **한쪽으로 완전히 통일**한다.
 
 ### 4. 재료를 기존 Q&A에 붙일지 판정
@@ -42,7 +42,7 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
 새 질문을 만들기 전에, 재료가 기존 Q&A를 채우거나 보강할 수 있는지 본다. 맞닿는 기존 질문은 두 곳에서 찾는다.
 
 - 「저장」 중 의역 뒤 괄호에 기존 `knowledge/<경로>.md`를 적어둔 재료가 가리키는 질문
-- knowledge/ 전체에서 이번 내용과 맞닿는 미완성 질문 — `[UNVERIFIED]` 질문, 그리고 Official Answer 없이 User/Additional Answer만 있는 질문. 마커 정의는 [document-structure.md](../../contexts/document-structure.md)의 "미완성 질문 처리" 참고
+- knowledge/ 전체에서 이번 내용과 맞닿는 미완성 질문 — `[UNVERIFIED]` 질문, 그리고 Official Answer 없이 User/Additional Answer만 있는 질문. 마커 정의는 [document-structure.md](../../../local/contexts/document-structure.md)의 "미완성 질문 처리" 참고
 
 | 맞닿은 질문 | 재료 | 처리 |
 |---|---|---|
@@ -59,7 +59,7 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
 취합한 재료로 질문을 제안한다. 사용자가 제공한 내용의 범위 내에서만 Q&A를 작성한다.
 
 - **여러 각도로 제안**: 한 개념도 ① 유형의 서로 다른 각도로 낼 수 있다. 유용한 각도는 복수로 내고, 취사는 사용자에게 맡긴다.
-  - 첫 제안(primary)과 오개념 타파 질문을 붙이는 조건은 [질문 유형 (우선순위)](../../contexts/content-format.md#질문-유형-우선순위)를 따른다.
+  - 첫 제안(primary)과 오개념 타파 질문을 붙이는 조건은 [질문 유형 (우선순위)](../../../local/contexts/content-format.md#질문-유형-우선순위)를 따른다.
 - **각도 2회 반려 시 묻기**: 제안한 질문 각도를 사용자가 2회 이상 반려하면, 새 각도를 추측으로 더 던지지 말고 "어떤 각도·답변을 원하는지" 사용자에게 묻는다.
 
 **① 질문 유형 (메뉴)** — 일반 질문·오개념 타파 말고 더 낼 수 있는 각도
@@ -108,7 +108,7 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
 2. **한글 해설**: 답의 핵심을 한글로 풀어 설명한다(영어 원문 번역 + 요지).
 3. **제안 이유**: 이 질문을 왜 제안했는지 한 줄 (recall 가치, 실무 활용, 오개념 교정 등 구체적으로)
 
-승인을 받을 때 이번에 만들거나 질문을 보충할 파일마다(`.sub.md` 제외) frontmatter `priority`도 묻는다. 값이 이미 있으면 유지할지 함께 묻는다. 값의 뜻은 [content-format.md](../../contexts/content-format.md)의 `priority`. 답한 값은 저장할 때 그대로 적는다.
+승인을 받을 때 이번에 만들거나 질문을 보충할 파일마다(`.sub.md` 제외) frontmatter `priority`도 묻는다. 값이 이미 있으면 유지할지 함께 묻는다. 값의 뜻은 [content-format.md](../../../local/contexts/content-format.md)의 `priority`. 답한 값은 저장할 때 그대로 적는다.
 
 사용자가 승인하면 6을 실행한다. 거부하면 버린다.
 
@@ -140,14 +140,14 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
    - 1단계 「4. 재료를 기존 Q&A에 붙일지 판정」에서 explained로 보낸 비공식 보충
    - 데모·이미지 자산 경로 (있으면) — `assets/<rel>/`에서 explained 본문으로 상대 경로 링크
    - 사용자가 준 공식문서 다이어그램 이미지 URL (있으면) — `npm run --silent digest -- image <URL>`이 tmp에 받은 파일을 Read로 열어 텍스트 다이어그램(코드블록)으로 옮기고, 섹션 하단에 `원본 다이어그램: [URL]`을 남긴다
-   - 적용 규칙: [explanation-guide.md](../../contexts/explanation-guide.md), 섹션 골격은 [explained/ 파일 구조](../../contexts/document-structure.md#explained-파일-구조)
+   - 적용 규칙: [explanation-guide.md](../../../local/contexts/explanation-guide.md), 섹션 골격은 [explained/ 파일 구조](../../../local/contexts/document-structure.md#explained-파일-구조)
 
    **쓰는 법:** 교체할 섹션만 교체하고, 덧붙이기로 한 내용은 기존 섹션 본문에 녹여 붙이며(`## 오해 교정` 같은 별도 섹션을 만들지 않는다), 나머지 섹션은 보존한다. 출처·작성 시점은 경로·H1·git 이력으로 알 수 있으니 frontmatter 등 메타데이터를 박지 않는다.
 3. **explained 표현 검사**: 2에서 쓴 파일에 아래 둘을 돌려, 걸린 줄 중 2에서 쓰거나 교체한 섹션 안의 줄만 고친다.
    - `node ~/.claude/skills/write-doc/scripts/score.mjs <파일>`
    - `node ~/.ai-contexts/check-wording.mjs --report <파일>`
    - score.mjs의 「습니다체 휴리스틱」 항목은 고치지 않는다. explained는 「~다」체로 쓴다.
-   - `>` 블록쿼트로 인용된 영어 원문은 손대지 않는다 ([본문](../../contexts/explanation-guide.md#본문)의 원문 인용).
+   - `>` 블록쿼트로 인용된 영어 원문은 손대지 않는다 ([본문](../../../local/contexts/explanation-guide.md#본문)의 원문 인용).
 4. **커밋**: knowledge와 explained를 함께 커밋한다. 지운 게 있으면 knowledge 삭제와 짝 파일(`explained/`·`assets/`) 삭제만 담은 커밋을 먼저 쌓고, 그 위에 새로 쓴 커밋을 올린다.
 5. **백로그 정리**: ON에서 알린 겹침 목록에 백로그 항목이 있었으면, 이번에 다 소화된 항목을 지울지 사용자에게 묻는다(백로그는 별도 레포).
 6. **학습가치 판단 회고**: 이번 세션에 AI가 「버림」·「해설」로 찍어둔 카드를 사용자가 저장으로 바꿨거나, 「저장」으로 찍어둔 카드를 버림으로 바꾼 적이 있으면 `/pre-exit`를 제안한다(메뉴의 digest 보강).
