@@ -178,6 +178,8 @@ function has(url: string, md: boolean): void {
         // 빈 줄로 남긴다 — 펜스에 바로 붙은 산문이 코드와 한 블록으로 합쳐지지 않게.
         return [''];
       }
+      // OA 안의 `####` 소제목은 구조 표시라(content-format) 원문 문장이 아니다 — 빈 줄로 남겨 앞뒤 문단을 가른다.
+      if (md && !inFence && /^#{1,6}\s/.test(line)) return [''];
       return [md && !inFence ? stripMarkdown(line) : line];
     })
     .join('\n')
