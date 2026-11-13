@@ -1,6 +1,6 @@
 # Digest — OFF
 
-`OFF` 입력부터 OFF 2단계 끝까지 따른다. 시작할 때 [production-guide.md](../../contexts/production-guide.md)의 **Before**를 실행한다.
+`OFF` 입력부터 OFF 2단계 끝까지 따른다. 시작할 때 [production-guide.md](../../contexts/production-guide.md)를 읽는다.
 
 ## OFF 1단계 — 질문 확정·저장
 
@@ -122,8 +122,6 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
 
 ### 6. 승인 시 저장
 
-- [production-guide.md](../../contexts/production-guide.md)의 **After**를 실행한다. 그중 「Official Answer 원문 대조」는 그 절 대신 아래대로 한다(스크립트로 대조하고, 고칠지는 사용자가 정한다).
-  - 「양식 검증」에서 나오는 「대응 explained 없음」 위반은 2단계 explained 생성이 채우므로 여기서 고치지 않는다.
 - 5에서 `priority`를 물은 파일마다(질문을 보충한 기존 파일 포함) 답한 값 그대로 적는다.
 
 **Official Answer는 순회 페이지에 verbatim으로 실어둔 원문을 그대로 옮긴다.** 인용해둔 것과 다른 문장이 필요하면 OA가 아니라 해설이므로 explained로 보낸다.
@@ -162,5 +160,4 @@ ON에서 겹침 목록에 오른 파일마다 아래 셋 중 하나로 정해 �
    - 커밋 전에 `/validate`를 돌려 짝 잃은 explained 섹션·파일이 남아 있지 않은지 확인하고 정리한다.
    - 커밋을 둘로 나눈다. knowledge 삭제와 짝 파일(`explained/`·`assets/`) 삭제만 담은 커밋을 먼저 쌓고, 그 위에 새로 쓴 커밋을 올린다.
 5. **백로그 정리**: ON에서 알린 겹침 목록에 백로그 항목이 있었으면, 이번에 다 소화된 항목을 지울지 사용자에게 묻는다(백로그는 별도 레포).
-6. [production-guide.md](../../contexts/production-guide.md)의 **스킬 종료 시** 실행
-7. **학습가치 판단 회고**: 이번 세션에 AI가 「버림」·「해설」로 찍어둔 카드를 사용자가 저장으로 바꿨거나, 「저장」으로 찍어둔 카드를 버림으로 바꾼 적이 있으면 `/pre-exit`를 제안한다(메뉴의 digest 보강).
+6. **학습가치 판단 회고**: 이번 세션에 AI가 「버림」·「해설」로 찍어둔 카드를 사용자가 저장으로 바꿨거나, 「저장」으로 찍어둔 카드를 버림으로 바꾼 적이 있으면 `/pre-exit`를 제안한다(메뉴의 digest 보강).
