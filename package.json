@@ -11,8 +11,6 @@
     "show": "node scripts/build-knowledge-view.mjs",
     "build-page": "tsx scripts/build-page.mts",
     "digest": "tsx scripts/digest.mts",
-    "merge-explained": "tsx scripts/merge-explained.mts",
-    "verify-merge": "tsx scripts/verify-merge.mts",
     "validate-lint": "tsx scripts/validate-lint.mts",
     "session-phrase-candidates": "tsx scripts/session-phrase-candidates.mts"
   },
