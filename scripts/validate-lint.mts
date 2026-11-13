@@ -962,10 +962,10 @@ function gitShow(spec: string): string | null {
 
 // E12. knowledge의 OA 본문을 고쳐놓고 대응 explained 섹션을 그대로 두면 explained가 옛 내용에
 // 머문다(2026-07-11 실제 발생: mocking OA에 판별 기준을 append하고 explained를 안 고쳤다). digest
-// off.md 「OFF 2단계 — 산출물 생성」의 explained 생성 단계가 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
+// off.md [OFF 2단계 — 산출물 생성](../local/skills/digest/off.md#off-2단계--산출물-생성)의 explained 생성 단계가 이걸 규칙으로 막고 있으나, 규칙만으로는 재발한다.
 //
 // 두 문서의 **내용을 대조하지 않는다.** explained는 불필요한 원문 인용을 덜어내기도 하고
-// (digest off.md 「OFF 2단계 — 산출물 생성」의 explained 생성 단계가 덧붙이는) 보충 인용을 더하기도 해서 양쪽 차이가 다 정상이다 — 내용을
+// (digest off.md [OFF 2단계 — 산출물 생성](../local/skills/digest/off.md#off-2단계--산출물-생성)의 explained 생성 단계가 덧붙이는) 보충 인용을 더하기도 해서 양쪽 차이가 다 정상이다 — 내용을
 // 맞춰보면 전부 오탐이 된다. 보는 것은 「같은 커밋에서 그 섹션을 손댔는가」 하나뿐이다. 그래서 이
 // 검사는 정확성을 증명하지 않고 「여기도 같이 보라」고 알리는 데서 멈춘다(warn, 커밋을 막지 않는다).
 //
