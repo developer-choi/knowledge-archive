@@ -23,7 +23,7 @@ argument-hint: [knowledge 파일 경로 또는 검색 키워드]
 
 knowledge 파일을 읽고 「출제 대상」대로 출제할 질문 목록을 확정한다.
 
-각 문항의 `explained/<rel>.md` 섹션에 다이어그램(fence 없는 코드블록)이 있으면 그 문항의 `diagramHint`를 켠다. 판별 기준은 [explanation-guide.md의 「코드블록 fence 규칙」](../../contexts/explanation-guide.md#코드블록-fence-규칙)이다.
+각 문항의 `explained/<rel>.md` 섹션에 다이어그램(fence 없는 코드블록)이 있으면 그 문항의 `diagramHint`를 켠다. 판별 기준은 explanation-guide의 [코드블록 fence 규칙](../../contexts/explanation-guide.md#코드블록-fence-규칙)이다.
 
 ### HTML 생성 및 오픈
 
