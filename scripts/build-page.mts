@@ -149,7 +149,7 @@ function readAnswers(file: string): string[] {
     return fail(`--answers 파일이 JSON이 아니다 (${file}): ${(error as Error).message}`);
   }
   const { answers, sum } = payload;
-  if (!Array.isArray(answers) || answers.some((a) => typeof a !== 'string')) {
+  if (!Array.isArray(answers) || answers.some((answer) => typeof answer !== 'string')) {
     fail(`--answers 파일에 문자열 배열 answers가 없다 (${file}).`);
   }
   if (typeof sum !== 'string') {
@@ -224,18 +224,20 @@ const HEAD_LENGTH = 60; // 회수 시 원문과 짝을 맞추는 앞머리. 스�
 
 function buildDigestCards(spec: DigestSpec): string {
   if (!Array.isArray(spec.cards) || spec.cards.length === 0) fail('cards가 비어 있다.');
+  // 빠지면 요약 칸에 글자 그대로 "undefined"가 찍힌 채 exit 0으로 넘어갔다.
+  if (typeof spec.summary !== 'string' || !spec.summary.trim()) fail('summary가 비어 있다. 단락 요약을 넣는다.');
 
   const cards = spec.cards
-    .map((card, i) => {
+    .map((card, index) => {
       if (!DIGEST_VERDICTS.includes(card.verdict)) {
-        fail(`카드 ${i + 1}의 verdict "${card.verdict}" — save/explain/drop 중 하나여야 한다.`);
+        fail(`카드 ${index + 1}의 verdict "${card.verdict}" — save/explain/drop 중 하나여야 한다.`);
       }
       const words = (card.words ?? [])
-        .map((w) => `<li><b>${w.word}</b>: ${w.meaning}</li>`)
+        .map(({ word, meaning }) => `<li><b>${word}</b>: ${meaning}</li>`)
         .join('');
       const radios = DIGEST_VERDICTS.map(
-        (v) =>
-          `      <label><input type="radio" name="v${i}" value="${v}"${v === card.verdict ? ' checked' : ''}> ${DIGEST_LABEL[v]}</label>`,
+        (verdict) =>
+          `      <label><input type="radio" name="v${index}" value="${verdict}"${verdict === card.verdict ? ' checked' : ''}> ${DIGEST_LABEL[verdict]}</label>`,
       ).join('\n');
       return `  <div class="card">
     <div class="src">${escapeHtml(card.src)}</div>
@@ -247,8 +249,8 @@ ${radios}
     })
     .join('\n\n');
 
-  const counts = DIGEST_VERDICTS.map((v) => `${DIGEST_LABEL[v]} ${spec.cards.filter((c) => c.verdict === v).length}건`).join(' · ');
-  const heads = spec.cards.map((c) => c.src.slice(0, HEAD_LENGTH));
+  const counts = DIGEST_VERDICTS.map((verdict) => `${DIGEST_LABEL[verdict]} ${spec.cards.filter((card) => card.verdict === verdict).length}건`).join(' · ');
+  const heads = spec.cards.map((card) => card.src.slice(0, HEAD_LENGTH));
 
   return `${PAGE_HEAD(`digest: ${spec.slug} — ${spec.round}회차`, DIGEST_STYLE)}
 <body>
@@ -265,6 +267,8 @@ ${OUTPUT_BLOCK}
 
   <script>
     const HEADS = ${toScriptJson(heads)};
+    // AI가 찍은 기본값. 사용자 판정과 나란히 회수해야 OFF가 둘이 엇갈린 문장을 compact 뒤에도 안다.
+    const AI_VERDICTS = ${toScriptJson(spec.cards.map((card) => card.verdict))};
     const EMOJI = { save: "✅", explain: "📝", drop: "❌" };
     const LABEL = { save: "저장", explain: "해설", drop: "버림" };
 
@@ -272,9 +276,9 @@ ${OUTPUT_BLOCK}
     document.querySelectorAll('.card').forEach((card) => {
       const radios = card.querySelectorAll('input[type=radio]');
       if (!radios.length) return;
-      radios.forEach((r) => {
-        const span = r.parentElement.childNodes[1];
-        if (span) span.textContent = ' ' + EMOJI[r.value] + ' ' + LABEL[r.value];
+      radios.forEach((radio) => {
+        const span = radio.parentElement.childNodes[1];
+        if (span) span.textContent = ' ' + EMOJI[radio.value] + ' ' + LABEL[radio.value];
       });
       const badge = document.createElement('span');
       badge.className = 'badge';
@@ -286,7 +290,7 @@ ${OUTPUT_BLOCK}
         if (v) card.classList.add(v);
         badge.textContent = v ? EMOJI[v] : '';
       };
-      radios.forEach((r) => r.addEventListener('change', paint));
+      radios.forEach((radio) => radio.addEventListener('change', paint));
       paint();
     });
 
@@ -295,9 +299,10 @@ ${COLLECT_SCRIPT(`{
         ts: Date.now(),
         slug: ${toScriptJson(spec.slug)},
         round: ${JSON.stringify(spec.round)},
-        items: HEADS.map((head, i) => ({
-          i, head,
-          verdict: (document.querySelector('input[name="v' + i + '"]:checked') || {}).value || null
+        items: HEADS.map((head, index) => ({
+          i: index, head,
+          ai: AI_VERDICTS[index],
+          verdict: (document.querySelector('input[name="v' + index + '"]:checked') || {}).value || null
         }))
       }`)}
   </script>
@@ -328,17 +333,17 @@ function buildExamSheet(spec: ExamSheetSpec): string {
   if (!Array.isArray(spec.questions) || spec.questions.length === 0) fail('questions가 비어 있다.');
 
   const questions = spec.questions
-    .map((q, i) => {
-      const n = i + 1;
-      const hint = q.diagramHint ? `    <div class="diagram-hint">${DIAGRAM_HINT}</div>\n` : '';
+    .map((question, index) => {
+      const n = index + 1;
+      const hint = question.diagramHint ? `    <div class="diagram-hint">${DIAGRAM_HINT}</div>\n` : '';
       return `  <div class="q">
-    <div class="q-label">Q${n}. ${escapeHtml(q.title)}</div>
+    <div class="q-label">Q${n}. ${escapeHtml(question.title)}</div>
 ${hint}    <textarea id="q${n}" placeholder="답변을 입력하세요..."></textarea>
   </div>`;
     })
     .join('\n\n');
 
-  const qIds = spec.questions.map((_, i) => `q${i + 1}`);
+  const qIds = spec.questions.map((_, index) => `q${index + 1}`);
 
   return `${PAGE_HEAD(`시험: ${spec.title}`, EXAM_SHEET_STYLE)}
 <body>
@@ -409,13 +414,13 @@ function withoutDiagramsIn(diagram: string | undefined, explanation: string): st
 
 function buildExamResult(spec: ExamResultSpec, answers: string[]): string {
   if (!Array.isArray(spec.questions) || spec.questions.length === 0) fail('questions가 비어 있다.');
-  for (const [i, q] of spec.questions.entries()) {
-    if (!(q.verdict in EXAM_MARK)) fail(`문항 ${i + 1}의 verdict "${q.verdict}" — pass/partial/fail/skip 중 하나여야 한다.`);
-    if (q.explanation?.trim() && q.official?.trim()) {
-      fail(`문항 ${i + 1}에 explanation과 official이 둘 다 있다 — explained 본문이 있으면 explanation만, 없을 때만 official을 적는다.`);
+  for (const [index, question] of spec.questions.entries()) {
+    if (!(question.verdict in EXAM_MARK)) fail(`문항 ${index + 1}의 verdict "${question.verdict}" — pass/partial/fail/skip 중 하나여야 한다.`);
+    if (question.explanation?.trim() && question.official?.trim()) {
+      fail(`문항 ${index + 1}에 explanation과 official이 둘 다 있다 — explained 본문이 있으면 explanation만, 없을 때만 official을 적는다.`);
     }
-    if (q.explanation && /^## (도입|종합)\s*$/m.test(q.explanation)) {
-      fail(`문항 ${i + 1}의 explanation에 도입·종합이 섞였다 — explained 섹션의 \`## 본문\`만 옮긴다.`);
+    if (question.explanation && /^## (도입|종합)\s*$/m.test(question.explanation)) {
+      fail(`문항 ${index + 1}의 explanation에 도입·종합이 섞였다 — explained 섹션의 \`## 본문\`만 옮긴다.`);
     }
   }
   // 스킵 문항도 payload에는 `(스킵)` 원소로 들어 있으므로 개수는 언제나 같아야 한다. 어긋나면
@@ -424,7 +429,7 @@ function buildExamResult(spec: ExamResultSpec, answers: string[]): string {
     fail(`문항 ${spec.questions.length}개인데 답변은 ${answers.length}개다 — 짝이 맞는 payload를 --answers로 넘긴다.`);
   }
 
-  const count = (v: ExamVerdict) => spec.questions.filter((q) => q.verdict === v).length;
+  const count = (verdict: ExamVerdict) => spec.questions.filter((question) => question.verdict === verdict).length;
   const passed = count('pass');
   const partial = count('partial');
   const failed = count('fail');
@@ -432,30 +437,30 @@ function buildExamResult(spec: ExamResultSpec, answers: string[]): string {
   const total = spec.questions.length - count('skip');
 
   const questions = spec.questions
-    .map((q, i) => {
+    .map((question, index) => {
       const parts = [
-        `    <div class="verdict ${q.verdict}">Q${i + 1}. ${escapeHtml(q.title)} &nbsp;${EXAM_MARK[q.verdict]}</div>`,
+        `    <div class="verdict ${question.verdict}">Q${index + 1}. ${escapeHtml(question.title)} &nbsp;${EXAM_MARK[question.verdict]}</div>`,
       ];
-      if (q.unverified) parts.push(`    <div class="unverified-note">공식 출처 미확보 — 자체 지식 기반 채점</div>`);
+      if (question.unverified) parts.push(`    <div class="unverified-note">공식 출처 미확보 — 자체 지식 기반 채점</div>`);
       // 여기서의 "미응답"은 사용자가 정말 비워 낸 문항만 뜻한다. 스펙에서 빠뜨려 비는 경로는
       // 위 개수 검사가 막으므로, 이 자리에 그 둘이 섞이지 않는다.
-      parts.push(`    <div class="user-ans">${escapeHtml(answers[i].trim() || '미응답')}</div>`);
+      parts.push(`    <div class="user-ans">${escapeHtml(answers[index].trim() || '미응답')}</div>`);
       // 통과한 문항에는 이유를 달지 않는다. 스킵은 애초에 판정이 없다.
-      if (q.verdict !== 'pass' && q.verdict !== 'skip' && q.reason) parts.push(`    <div class="reason">${q.reason}</div>`);
+      if (question.verdict !== 'pass' && question.verdict !== 'skip' && question.reason) parts.push(`    <div class="reason">${question.reason}</div>`);
       // 해설은 판정과 무관하게 붙인다 — 통과한 답도 나란히 놓고 봐야 무엇을 다르게 말했는지 보인다.
-      const explanation = q.explanation?.trim().replace(/\n+-{3,}$/, '');
+      const explanation = question.explanation?.trim().replace(/\n+-{3,}$/, '');
       if (explanation) {
         parts.push(`    <div class="official">
       <p>해설</p>
       <pre>${escapeHtml(explanation)}</pre>
     </div>`);
-      } else if (q.official) {
+      } else if (question.official) {
         parts.push(`    <div class="official">
       <p>Official Answer</p>
-      <pre>${escapeHtml(q.official.trim())}</pre>
+      <pre>${escapeHtml(question.official.trim())}</pre>
     </div>`);
       }
-      const diagram = explanation ? withoutDiagramsIn(q.diagram, explanation) : q.diagram;
+      const diagram = explanation ? withoutDiagramsIn(question.diagram, explanation) : question.diagram;
       if (diagram?.trim()) {
         parts.push(`    <div class="diagram-compare">
       <p>본인이 그린 그림과 비교해보세요:</p>

@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "src": { "type": "string" },
+          "ko": { "type": "string" },
+          "words": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "word": { "type": "string" },
+                "meaning": { "type": "string" }
+              },
+              "required": ["word", "meaning"]
+            }
+          }
+        },
+        "required": ["src", "ko", "words"]
+      }
+    }
+  },
+  "required": ["cards"]
+}
