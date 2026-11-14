@@ -6,8 +6,7 @@
 // 못 잡으므로, 연속 N단어 조각(n-gram)이 출력에 붙은 채로 존재하는지로 검사한다.
 //
 // 이 파일은 순수 함수만 담아 테스트 대상이 된다. stdin·transcript I/O는 래퍼
-// enforce-digest-coverage.mjs가 담당한다. 원본은 local/hooks/ — .claude/hooks/ 산출물
-// 직접수정 금지(sync:local-system이 배포).
+// enforce-digest-coverage.mjs가 담당한다.
 
 const DEFAULT_N = 6; // 조각 길이. 4는 우연 겹침 통과, 8은 미세 표현차에 예민 → 6.
 const DEFAULT_SEG_THRESHOLD = 0.6; // 세그먼트가 이 비율 미만으로 커버되면 "인용 안 됨".

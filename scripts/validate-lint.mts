@@ -42,7 +42,7 @@ type Severity = 'error' | 'warn';
 // Authoritative check list — the single place the check set is written down. Docs must not
 // mirror it (a hand-kept copy is double work and drifts; a copy-checker only polices the copy).
 // (The `priority` write-block is a PreToolUse hook, not a lint check — it never reaches this
-// script, so it is not in the registry. It lives in local/hooks/block-knowledge-priority.mjs.)
+// script, so it is not in the registry. It lives in .claude/hooks/block-knowledge-priority.mjs.)
 interface CheckSpec {
   id: string;
   severity: Severity;

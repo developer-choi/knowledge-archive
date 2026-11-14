@@ -1,0 +1,40 @@
+{
+  "env": {
+    "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "false"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/enforce-digest-coverage.mjs\"",
+            "statusMessage": "Checking digest coverage..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/block-knowledge-priority.mjs\"",
+            "statusMessage": "Checking knowledge priority policy..."
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/.claude/hooks/block-knowledge-priority.mjs\"",
+            "statusMessage": "Checking knowledge priority policy..."
+          }
+        ]
+      }
+    ]
+  }
+}

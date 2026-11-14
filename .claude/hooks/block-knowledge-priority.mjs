@@ -14,8 +14,8 @@
 // 판정은 "결과 파일에 priority가 새로 생기거나 값이 바뀌는가" 한 가지다. 이미 사용자가 넣어둔
 // 값을 그대로 들고 가는 재작성(Write로 파일 통째 갱신 등)은 통과한다 — 보존은 위반이 아니다.
 //
-// 이 파일은 local/hooks/의 원본이며 sync:local-system이 repo-local .claude/hooks/로 배포한다.
-// 산출물(.claude/hooks/)을 직접 수정하지 말 것. self-contained I/O (공용 hook-utils 없음).
+// 이 파일은 커밋한 원본이고, `.claude/settings.json`의 등록을 Claude Code가 그대로 읽는다.
+// self-contained I/O (공용 hook-utils 없음).
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

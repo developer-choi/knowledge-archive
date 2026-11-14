@@ -4,8 +4,8 @@
 // digest-coverage-core.mjs의 순수 검사로 확인하고, 빠진 문장이 있으면 Stop을 block해
 // AI가 그 턴에서 이어 해설하도록 강제한다. (프롬프트 자기검증이 두 번 새어 나가 hook으로 승격.)
 //
-// 이 파일은 local/hooks/의 원본이며 sync:local-system이 repo-local .claude/hooks/로 배포한다.
-// 산출물(.claude/hooks/)을 직접 수정하지 말 것. block-ac-sync.mjs처럼 self-contained I/O.
+// 이 파일은 커밋한 원본이고, `.claude/settings.json`의 등록을 Claude Code가 그대로 읽는다.
+// self-contained I/O (공용 hook-utils 없음).
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 
